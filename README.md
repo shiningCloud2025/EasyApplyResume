@@ -51,7 +51,7 @@ EasyApplyResume(易投简历)是作者准备的毕设项目。作者一直对做
 - 标题格式：[类型] 具体描述（如[Feature] 新增用户角色管理功能、[Bug] 登录接口空参数返回500错误）。<br>
 
 2.分支管理
-- 主分支（如prod）仅用于合并稳定代码，贡献需基于子分支开发。<br>
+- 主分支（如prod、dev）仅用于合并稳定代码，贡献需基于子分支开发。<br>
 - 子分支命名：类型/Issue编号-简短描述（如feature/123-user-role、fix/456-login-error）。<br>
 
 3.代码编写与提交
@@ -59,5 +59,5 @@ EasyApplyResume(易投简历)是作者准备的毕设项目。作者一直对做
 - Git 提交信息：格式为[类型] 描述（关联#Issue编号）（如[Fix] 修复登录空参数500错误（#456）），类型包括Feature/Fix/Docs/Test等。<br>
 
 4.提交 Pull Request（PR）
-- 目标分支：默认选择develop。
+- 目标分支：默认选择feature。
 - PR 内容：需关联 Issue、说明功能 / 修复逻辑、测试情况、兼容性影响等，方便审核者快速理解。
