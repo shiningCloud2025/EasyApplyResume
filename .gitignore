@@ -33,5 +33,5 @@ build/
 .vscode/
 # 忽略的文件
 pom.xml
-src/main/resources/application*.yml
+src/main/resources/application*.*ml
 src/main/java/com/zyh/easyapplyresume/doc/
