@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyh.easyapplyresume.mapper.admin.AdminMapper">
+    <delete id="deleteRoleByAdminId" parameterType="int">
+        delete from admin_admin_role
+        where adminId = #{adminId}
+    </delete>
+
+    <select id="findAdminInfoById" parameterType="int" resultType="com.zyh.easyapplyresume.model.vo.admin.AdminInfoVO">
+        select * from admin_admin
+        left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId
+        left join admin_role on admin_admin_role.roleId = admin_role.role_id
+        left join admin_role_permission on admin_role.role_id = admin_role.role_id
+        left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id
+        where admin_admin.admin_id = #{adminId}
+    </select>
+
+    <select id="findRoleByAdmin" parameterType="int" resultType="com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO">
+        select * from admin_admin_role
+        where adminId = #{adminId}
+    </select>
+
+    <insert id="assignRoleToAdmin" >
+        insert into admin_admin_role values(#{adminId},#{roleId})
+    </insert>
+
+</mapper>

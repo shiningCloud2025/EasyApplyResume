@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyh.easyapplyresume.mapper.admin.PermissionMapper">
+    <delete id="deleteRolePermissionByPermissionId" parameterType="int">
+        delete from admin_role_permission
+        where permission_id = #{permissionId}
+    </delete>
+    <select id="findAllPermission" resultType="com.zyh.easyapplyresume.model.vo.admin.PermissionInfoVO">
+        select * from admin_permission
+    </select>
+</mapper>
