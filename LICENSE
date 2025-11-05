@@ -19,3 +19,10 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+MIT 许可证
+版权所有（c）2025 shiningCloud2025
+特此免费授予任何获得本软件及相关文档文件（以下简称 “软件”）副本的人，在不受限制的情况下处理本软件的权利，包括但不限于使用、复制、修改、合并、发布、分发、再许可及 / 或出售本软件副本的权利，前提是需满足以下条件：
+上述版权声明和本许可声明应包含在本软件的所有副本或实质部分中。
+本软件按 “现状” 提供，不提供任何形式的担保，无论是明示的还是默示的，包括但不限于适销性担保、特定用途适用性担保及不侵权担保。在任何情况下，作者或版权持有人均不对任何索赔、损害赔偿或其他责任承担责任，无论该责任是因合同诉讼、侵权行为或其他原因引起，且与本软件、本软件的使用或其他相关行为有关。
+需要说明的是，MIT 许可证是开源领域常用的宽松许可证，核心是允许他人自由使用、修改软件，但需保留版权和许可声明，且作者不承担软件使用相关的法律责任。如果需要将这份译文用于项目文档，要不要我帮你整理成 “带格式说明的 MIT 许可证中文版本”，标注关键条款的含义（如 “适销性”“特定用途适用性” 的通俗解释），方便团队成员理解

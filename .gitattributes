@@ -1,2 +1,4 @@
+/mvnw text eol=lf
+*.cmd text eol=crlf
 *.exe filter=lfs diff=lfs merge=lfs -text
 *.bin filter=lfs diff=lfs merge=lfs -text
