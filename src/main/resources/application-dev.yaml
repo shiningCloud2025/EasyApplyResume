@@ -5,5 +5,6 @@ spring:
     username: root
     password: root
 ali:
+
   bailian:
     api-key: "sk-199ed9d5c8214c0eadcf179d4062fc00"
