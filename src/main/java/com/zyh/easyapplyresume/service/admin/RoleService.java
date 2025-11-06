@@ -7,7 +7,9 @@ import com.zyh.easyapplyresume.model.vo.admin.PermissionInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO;
 
 import java.util.List;
-
+/**
+ * @author shiningCloud2025
+ */
 public interface RoleService {
     /**
      * 新增角色

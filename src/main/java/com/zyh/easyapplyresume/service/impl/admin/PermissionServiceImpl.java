@@ -21,7 +21,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.baomidou.mybatisplus.core.toolkit.Wrappers.lambdaQuery;
-
+/**
+ * @author shiningCloud2025
+ */
 @Service
 @Transactional
 public class PermissionServiceImpl implements PermissionService {

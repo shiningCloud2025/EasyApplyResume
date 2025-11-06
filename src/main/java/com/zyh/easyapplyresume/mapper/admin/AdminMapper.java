@@ -7,7 +7,9 @@ import com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
+/**
+ * @author shiningCloud2025
+ */
 public interface AdminMapper extends BaseMapper<Admin> {
     // 根据admin的id删除对应的role
     void deleteRoleByAdminId(Integer adminId);
