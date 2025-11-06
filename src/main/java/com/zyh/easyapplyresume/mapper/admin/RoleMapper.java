@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * @author shiningCloud2025
+ */
 public interface RoleMapper extends BaseMapper<Role> {
     // 根据role的id删除对应的admin
     void deleteRoleAdminByRoleId(Integer roleId);

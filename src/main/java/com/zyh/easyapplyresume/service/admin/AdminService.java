@@ -9,7 +9,9 @@ import com.zyh.easyapplyresume.model.vo.admin.AdminPageVO;
 import com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO;
 
 import java.util.List;
-
+/**
+ * @author shiningCloud2025
+ */
 public interface AdminService {
     /**
      * 新增管理员

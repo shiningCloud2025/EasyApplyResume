@@ -12,9 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("admin_permission")
-/**
- * 权限实体类-管理端
- */
 public class Permission {
     /**
      * 权限id（主键，自增）

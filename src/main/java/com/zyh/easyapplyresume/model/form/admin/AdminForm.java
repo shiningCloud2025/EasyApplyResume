@@ -8,7 +8,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.Date;
-
+/**
+ * @author shiningCloud2025
+ */
 @Data
 @Schema(description = "管理员表单")
 public class AdminForm {
