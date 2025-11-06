@@ -6,6 +6,7 @@ import com.zyh.easyapplyresume.model.form.admin.RoleForm;
 
 /**
  * RoleForm检查工具类，用于验证角色表单数据并设置默认值
+ * @author shiningCloud2025
  */
 public class RoleFormValidator {
 

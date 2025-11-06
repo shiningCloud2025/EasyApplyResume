@@ -62,6 +62,11 @@ public enum CodeEnum {
     PERMISSION_UPDATE_NAME_EMPTY(643,"权限名称不能为空"),        // 修改场景专用
     PERMISSION_UPDATE_URL_EMPTY(644,"权限URL不能为空"),          // 修改场景专用
 
+    // ------------------- 新增：ResumeTemplate校验错误码（655开始）-------------------
+    RESUME_TEMPLATE_ID_EMPTY(655,"修改简历模板必须指定模板ID"),
+    RESUME_TEMPLATE_NAME_EMPTY(656,"简历模板名称不能为空"),
+    RESUME_TEMPLATE_NAME_TOO_LONG(657,"简历模板名称长度不能超过25个字符"),
+    RESUME_TEMPLATE_REACT_CODE_EMPTY(658,"简历模板代码不能为空"),
 
     // 大模型应用用户输入为空
     LLM_USERINPUT_EMPTY(901,"用户输入为空")

@@ -5,9 +5,12 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * @author shiningCloud2025
+ */
 @Data
 @Schema(description = "管理员查询")
-public class AdminPageQuery {
+public class  AdminPageQuery {
 
     @Schema(description = "管理员名称")
     private String adminUsername;
