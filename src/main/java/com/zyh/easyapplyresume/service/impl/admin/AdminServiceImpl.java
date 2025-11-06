@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.mapper.admin.AdminMapper;
@@ -19,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.baomidou.mybatisplus.core.toolkit.Wrappers.lambdaQuery;
 
 @Service
 @Transactional
@@ -59,20 +62,21 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Page<AdminPageVO> findAdminByPage(Integer pageNum, Integer pageSize, AdminPageQuery adminPageQuery) {
-        QueryWrapper<Admin> queryWrapper = new QueryWrapper<>();
-        if(adminPageQuery.getAdminEmail()!=null&&adminPageQuery.getAdminEmail().length()>0){
-            queryWrapper.like("admin_email", adminPageQuery.getAdminEmail());
+        // 核心改造：QueryWrapper → LambdaQueryWrapper，用 Lambda 引用字段
+        LambdaQueryWrapper<Admin> lambdaQueryWrapper = lambdaQuery(Admin.class);
+        if (adminPageQuery.getAdminEmail() != null && !adminPageQuery.getAdminEmail().isEmpty()) {
+            lambdaQueryWrapper.like(Admin::getAdminEmail, adminPageQuery.getAdminEmail());
         }
-        if(adminPageQuery.getAdminPhone()!=null&&adminPageQuery.getAdminPhone().length()>0){
-            queryWrapper.like("admin_phone", adminPageQuery.getAdminPhone());
+        if (adminPageQuery.getAdminPhone() != null && !adminPageQuery.getAdminPhone().isEmpty()) {
+            lambdaQueryWrapper.like(Admin::getAdminPhone, adminPageQuery.getAdminPhone());
         }
-        if(adminPageQuery.getAdminState()!=null){
-            queryWrapper.eq("admin_state", adminPageQuery.getAdminState());
+        if (adminPageQuery.getAdminState() != null) {
+            lambdaQueryWrapper.eq(Admin::getAdminState, adminPageQuery.getAdminState());
         }
-        if (adminPageQuery.getAdminUsername()!=null&&adminPageQuery.getAdminUsername().length()>0){
-            queryWrapper.like("admin_username", adminPageQuery.getAdminUsername());
+        if (adminPageQuery.getAdminUsername() != null && !adminPageQuery.getAdminUsername().isEmpty()) {
+            lambdaQueryWrapper.like(Admin::getAdminUsername, adminPageQuery.getAdminUsername());
         }
-        Page<Admin> adminPage = adminMapper.selectPage(new Page(pageNum, pageSize), queryWrapper);
+        Page<Admin> adminPage = adminMapper.selectPage(new Page(pageNum, pageSize), lambdaQueryWrapper);
         List<AdminPageVO> voList = adminPage.getRecords().stream()
                 .map(admin -> {
                     AdminPageVO vo = new AdminPageVO();

@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.baomidou.mybatisplus.core.toolkit.Wrappers.lambdaQuery;
+
 @Service
 @Transactional
 public class RoleServiceImpl implements RoleService {
@@ -57,15 +59,14 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Page<RoleInfoVO> findRoleByPage(Integer pageNum, Integer pageSize, RolePageQuery rolePageQuery) {
-        QueryWrapper queryWrapper = new QueryWrapper();
-        if(rolePageQuery.getRoleName()!=null&&rolePageQuery.getRoleName().length()>0){
-            queryWrapper.like("role_name", rolePageQuery.getRoleName());
+        LambdaQueryWrapper<Role> lambdaQueryWrapper = lambdaQuery(Role.class);
+        if (rolePageQuery.getRoleName() != null && !rolePageQuery.getRoleName().isEmpty()) {
+            lambdaQueryWrapper.like(Role::getRoleName, rolePageQuery.getRoleName());
         }
-        if(rolePageQuery.getRoleIntroduce()!=null&&rolePageQuery.getRoleIntroduce().length()>0){
-            queryWrapper.like("role_introduce", rolePageQuery.getRoleIntroduce());
+        if (rolePageQuery.getRoleIntroduce() != null && !rolePageQuery.getRoleIntroduce().isEmpty()) {
+            lambdaQueryWrapper.like(Role::getRoleIntroduce, rolePageQuery.getRoleIntroduce());
         }
-
-        Page<Role> rolePage = roleMapper.selectPage(new Page<>(pageNum, pageSize), queryWrapper);
+        Page<Role> rolePage = roleMapper.selectPage(new Page<>(pageNum, pageSize), lambdaQueryWrapper);
 
         // 3. 转换：Role实体列表 → RoleInfoVO列表（属性复制+自定义处理）
         List<RoleInfoVO> voList = rolePage.getRecords().stream()
@@ -87,7 +88,6 @@ public class RoleServiceImpl implements RoleService {
         roleVOPage.setSize(rolePage.getSize());       // 每页条数（如10条/页）
         roleVOPage.setTotal(rolePage.getTotal());     // 总数据量（关键：用于计算总页数）
         roleVOPage.setPages(rolePage.getPages());     // 总页数（如共5页）
-
         return roleVOPage;
     }
 
