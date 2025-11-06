@@ -7,6 +7,7 @@ import com.zyh.easyapplyresume.model.form.admin.PermissionForm;
 /**
  * PermissionForm检查工具类，用于验证权限表单数据并设置默认值
  * 支持新增场景（默认值+长度校验）和修改场景（非空校验+长度校验）
+ * @author shiningCloud2025
  */
 public class PermissionFormValidator {
 

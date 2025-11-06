@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 /**
  * AdminForm检查工具类，用于验证表单数据并设置默认值
+ * @author shiningCloud2025
  */
 public class AdminFormValidator {
 

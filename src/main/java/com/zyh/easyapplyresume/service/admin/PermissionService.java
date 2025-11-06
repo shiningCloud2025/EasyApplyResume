@@ -8,6 +8,9 @@ import com.zyh.easyapplyresume.model.vo.admin.PermissionPageVO;
 
 import java.util.List;
 
+/**
+ * @author shiningCloud2025
+ */
 public interface PermissionService {
     /**
      * 新增权限
