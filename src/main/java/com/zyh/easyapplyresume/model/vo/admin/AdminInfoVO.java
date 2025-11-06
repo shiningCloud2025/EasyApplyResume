@@ -4,7 +4,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.Date;
-
+/**
+ * @author shiningCloud2025
+ */
 @Data
 @Schema(description = "管理员信息")
 public class AdminInfoVO {

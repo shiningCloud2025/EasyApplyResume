@@ -12,10 +12,15 @@ import javax.validation.constraints.NotNull;
 public class ResumeTemplateForm {
     @Schema(description = "简历模版id")
     private Integer resumeTemplateId;
+
     @NotNull(message = "简历模版名称不能为空")
     @Schema(description = "简历模版名称")
     private String resumeTemplateName;
+
     @NotNull(message = "简历模版代码不能为空")
     @Schema(description = "简历模版代码")
     private String resumeTemplateReactCode;
+
+    @Schema(description = "简历模版是否启用")
+    private Integer resumeTemplateIsActive;
 }

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 返回状态码枚举类
+ * 返回状态码枚举类-管理端
  */
 @Getter
 @AllArgsConstructor
@@ -67,6 +67,16 @@ public enum CodeEnum {
     RESUME_TEMPLATE_NAME_EMPTY(656,"简历模板名称不能为空"),
     RESUME_TEMPLATE_NAME_TOO_LONG(657,"简历模板名称长度不能超过25个字符"),
     RESUME_TEMPLATE_REACT_CODE_EMPTY(658,"简历模板代码不能为空"),
+
+
+    // ------------------- 新增：JobAdviceArticleForm表单验证错误码（从670开始）-------------------
+    JOB_ADVICE_ID_EMPTY(670,"修改求职攻略文章必须指定文章ID"),
+    JOB_ADVICE_TITLE_EMPTY(671,"求职攻略文章标题不能为空"),
+    JOB_ADVICE_UPDATE_TITLE_EMPTY(672,"修改时求职攻略文章标题不能为空"),
+    JOB_ADVICE_TITLE_TOO_LONG(673,"求职攻略文章标题不能超过30个字符"),
+    JOB_ADVICE_CATEGORY_TOO_LONG(674,"求职攻略文章分类不能超过30个字符"),
+    JOB_ADVICE_TAGS_TOO_LONG(675,"求职攻略文章标签不能超过30个字符"),
+    JOB_ADVICE_AUTHOR_NAME_TOO_LONG(676,"求职攻略文章作者名称不能超过30个字符"),
 
     // 大模型应用用户输入为空
     LLM_USERINPUT_EMPTY(901,"用户输入为空")

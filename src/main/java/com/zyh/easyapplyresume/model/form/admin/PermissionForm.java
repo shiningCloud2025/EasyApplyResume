@@ -16,6 +16,7 @@ public class PermissionForm {
     @Schema(description = "权限id")
     private Integer permissionId;
     @NotNull(message = "权限名称不能为空")
+
     @Schema(description = "权限名称")
     private String permissionName;
 
