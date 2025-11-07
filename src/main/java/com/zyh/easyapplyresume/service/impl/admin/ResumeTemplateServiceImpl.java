@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.model.pojo.admin.ResumeTemplate;
 import com.zyh.easyapplyresume.model.query.admin.ResumeTemplateQuery;
 import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplatePageVO;
+import com.zyh.easyapplyresume.service.admin.IndustryMapService;
 import com.zyh.easyapplyresume.utils.Validator.ResumeTemplateFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,8 @@ import java.util.stream.Collectors;
 public class ResumeTemplateServiceImpl implements ResumeTemplateService {
     @Autowired
     private ResumeTemplateMapper resumeTemplateMapper;
-
+    @Autowired
+    private IndustryMapService industryMapService;
 
     @Override
     public void addResumeTemplate(ResumeTemplateForm resumeTemplateForm) {
@@ -61,7 +63,9 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
     @Override
     public ResumeTemplateInfoVO findResumeTemplateById(Integer resumeTemplateId) {
         ResumeTemplate resumeTemplate = resumeTemplateMapper.selectById(resumeTemplateId);
-        return BeanUtil.copyProperties(resumeTemplate, ResumeTemplateInfoVO.class);
+        ResumeTemplateInfoVO resumeTemplateInfoVO = BeanUtil.copyProperties(resumeTemplate, ResumeTemplateInfoVO.class);
+        resumeTemplateInfoVO.setIndustryMapIndustryName(industryMapService.findIndustryMapById(resumeTemplate.getResumeTemplateIndustry()).getIndustryMapIndustryName());
+        return resumeTemplateInfoVO;
     }
 
     @Override
@@ -89,6 +93,7 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
                     ResumeTemplateInfoVO infoVO = new ResumeTemplateInfoVO();
                     // 复制同名字段（要求字段名+数据类型一致，如 resumeTemplateId、resumeTemplateName 等）
                     BeanUtils.copyProperties(resumeTemplate, infoVO);
+                    infoVO.setIndustryMapIndustryName(industryMapService.findIndustryMapById(resumeTemplate.getResumeTemplateIndustry()).getIndustryMapIndustryName());
                     // 若 VO 与实体字段名/格式不一致，需手动补充映射（示例如下，根据实际 VO 结构调整）
                     // 示例1：实体日期字段（DateTime）转 VO 字符串格式 → infoVO.setCreateTimeStr(DateUtil.format(resumeTemplate.getResumeTemplateCreatedTime(), "yyyy-MM-dd HH:mm:ss"));
                     // 示例2：实体字段名不同 → infoVO.setTemplateName(resumeTemplate.getResumeTemplateName());

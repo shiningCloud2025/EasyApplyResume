@@ -19,7 +19,7 @@ public class ResumeTemplateInfoVO {
     @Schema(description = "简历模版代码")
     private String resumeTemplateReactCode;
     @Schema(description = "简历模版行业")
-    private Integer resumeTemplateIndustry;
+    private String industryMapIndustryName;
     @Schema(description = "是否启用")
     private Integer isEnable;
     @Schema(description = "简历创建时间")
