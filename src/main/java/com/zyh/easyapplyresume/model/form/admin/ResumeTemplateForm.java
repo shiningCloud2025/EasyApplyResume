@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.model.form.admin;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -20,6 +21,10 @@ public class ResumeTemplateForm {
     @NotNull(message = "简历模版代码不能为空")
     @Schema(description = "简历模版代码")
     private String resumeTemplateReactCode;
+
+    @NotNull(message = "简历模版行业不能为空")
+    @Schema(description = "简历模版行业")
+    private Integer resumeTemplateIndustry;
 
     @Schema(description = "简历模版是否启用")
     private Integer resumeTemplateIsActive;

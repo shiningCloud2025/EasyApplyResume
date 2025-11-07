@@ -77,7 +77,7 @@ public enum CodeEnum {
     JOB_ADVICE_CATEGORY_TOO_LONG(674,"求职攻略文章分类不能超过30个字符"),
     JOB_ADVICE_TAGS_TOO_LONG(675,"求职攻略文章标签不能超过30个字符"),
     JOB_ADVICE_AUTHOR_NAME_TOO_LONG(676,"求职攻略文章作者名称不能超过30个字符"),
-
+    RESUME_TEMPLATE_INDUSTRY_EMPTY(677, "简历模版行业不能为空"),
     // 大模型应用用户输入为空
     LLM_USERINPUT_EMPTY(901,"用户输入为空")
     ;

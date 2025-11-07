@@ -33,6 +33,11 @@ public class ResumeTemplate {
     @TableField("resumeTemplate_reactCode")
     private String resumeTemplateReactCode;
     /**
+     * 简历行业
+     */
+    @TableField("resumeTemplate_industry")
+    private Integer resumeTemplateIndustry;
+    /**
      * 是否启用
      */
     @TableField("resumeTemplate_isActive")
