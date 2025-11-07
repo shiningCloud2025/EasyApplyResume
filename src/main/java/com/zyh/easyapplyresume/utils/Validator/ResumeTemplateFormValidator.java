@@ -6,7 +6,7 @@ import com.zyh.easyapplyresume.model.form.admin.ResumeTemplateForm;
 
 /**
  * 简历模板表单校验工具类，仅校验参数合法性（默认值由业务层处理）
- * 核心规则：新增/修改时简历名称长度不超过25个字符
+ * 核心规则：新增/修改时简历名称长度不超过25个字符 + 行业非空
  * @author shiningCloud2025
  */
 public class ResumeTemplateFormValidator {
@@ -21,6 +21,8 @@ public class ResumeTemplateFormValidator {
         validateResumeTemplateName(resumeTemplateForm.getResumeTemplateName());
         // 模板代码：非空
         validateResumeTemplateReactCode(resumeTemplateForm.getResumeTemplateReactCode());
+        // 新增：简历行业非空校验（核心新增）
+        validateResumeTemplateIndustry(resumeTemplateForm.getResumeTemplateIndustry());
     }
 
     /**
@@ -37,6 +39,8 @@ public class ResumeTemplateFormValidator {
         validateResumeTemplateName(resumeTemplateForm.getResumeTemplateName());
         // 模板代码：非空
         validateResumeTemplateReactCode(resumeTemplateForm.getResumeTemplateReactCode());
+        // 新增：简历行业非空校验（核心新增）
+        validateResumeTemplateIndustry(resumeTemplateForm.getResumeTemplateIndustry());
     }
 
     /**
@@ -58,6 +62,16 @@ public class ResumeTemplateFormValidator {
     private static void validateResumeTemplateReactCode(String reactCode) {
         if (reactCode == null || reactCode.trim().isEmpty()) {
             throw new BusException(CodeEnum.RESUME_TEMPLATE_REACT_CODE_EMPTY);
+        }
+    }
+
+    /**
+     * 新增：复用校验：简历行业（仅校验非空，符合业务需求）
+     */
+    private static void validateResumeTemplateIndustry(Integer industry) {
+        if (industry == null) {
+            // 需在 CodeEnum 中新增「简历行业不能为空」的枚举值（核心配套操作）
+            throw new BusException(CodeEnum.RESUME_TEMPLATE_INDUSTRY_EMPTY);
         }
     }
 }

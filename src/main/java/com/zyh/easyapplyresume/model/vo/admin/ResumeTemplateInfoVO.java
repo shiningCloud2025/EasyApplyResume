@@ -3,6 +3,9 @@ package com.zyh.easyapplyresume.model.vo.admin;
 import cn.hutool.core.date.DateTime;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+
 /**
  * @author shiningCloud2025
  */
@@ -15,6 +18,8 @@ public class ResumeTemplateInfoVO {
     private String resumeTemplateName;
     @Schema(description = "简历模版代码")
     private String resumeTemplateReactCode;
+    @Schema(description = "简历模版行业")
+    private Integer resumeTemplateIndustry;
     @Schema(description = "是否启用")
     private Integer isEnable;
     @Schema(description = "简历创建时间")

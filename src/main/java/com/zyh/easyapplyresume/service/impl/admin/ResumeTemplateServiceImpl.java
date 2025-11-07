@@ -73,6 +73,9 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
         if (resumeTemplateQuery != null && resumeTemplateQuery.getResumeTemplateName() != null && !resumeTemplateQuery.getResumeTemplateName().isEmpty()) {
             lambdaQueryWrapper.like(ResumeTemplate::getResumeTemplateName, resumeTemplateQuery.getResumeTemplateName());
         }
+        if(resumeTemplateQuery!=null&&resumeTemplateQuery.getResumeTemplateIndustry()!=null){
+            lambdaQueryWrapper.eq(ResumeTemplate::getResumeTemplateIndustry,resumeTemplateQuery.getResumeTemplateIndustry());
+        }
 
         // 3. 调用 Mapper 分页查询（依赖 ResumeTemplateMapper 继承 BaseMapper/IService）
         Page<ResumeTemplate> resumeTemplatePage = resumeTemplateMapper.selectPage(
