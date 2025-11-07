@@ -7,7 +7,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+/**
+ * 权限实体类-管理端
+ * @author shiningCloud2025
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

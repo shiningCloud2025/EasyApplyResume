@@ -1,0 +1,18 @@
+package com.zyh.easyapplyresume.model.query.admin;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+/**
+ * @author shiningCloud2025
+ */
+@Data
+@Schema(description = "行业Map查询参数")
+public class IndustryMapQuery {
+    @Schema(description = "行业代码")
+    private Integer industryMapIndustryCode;
+
+    @Schema(description = "行业名称")
+    private String industryMapIndustryName;
+}

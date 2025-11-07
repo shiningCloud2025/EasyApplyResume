@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * 求职攻略实体类-通用
  * @author shiningCloud2025
  */
 @Data
