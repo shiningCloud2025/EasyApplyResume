@@ -5,7 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 自定义业务异常
+ * 自定义业务异常/**
+ * @author shiningCloud2025
  */
 @Data
 @AllArgsConstructor
@@ -19,5 +20,9 @@ public class BusException extends RuntimeException{
     public BusException(CodeEnum codeEnum){
         this.code = codeEnum.getCode();
         this.msg = codeEnum.getMessage();
+    }
+    public BusException(IndustryMapEnum industryMapEnum){
+        this.code = industryMapEnum.getCode();
+        this.msg = industryMapEnum.getMessage();
     }
 }

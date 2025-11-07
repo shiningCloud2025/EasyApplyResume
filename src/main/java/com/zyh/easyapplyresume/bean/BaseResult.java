@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
-
+/**
+ * @author shiningCloud2025
+ */
 @Data
 @AllArgsConstructor
 public class BaseResult<T> implements Serializable {

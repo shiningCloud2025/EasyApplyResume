@@ -8,14 +8,14 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+/**
+ * 简历模板实体类-通用
+ * @author shiningCloud2025
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("general_resumeTemplate")
-/**
- * 简历模板实体类-通用
- */
 public class ResumeTemplate {
     /**
      * 简历模版id

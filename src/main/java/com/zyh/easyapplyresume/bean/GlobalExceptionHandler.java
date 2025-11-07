@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * 统一异常处理器
+ * @author shiningCloud2025
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {

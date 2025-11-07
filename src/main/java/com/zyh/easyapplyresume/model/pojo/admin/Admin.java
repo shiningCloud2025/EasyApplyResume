@@ -9,14 +9,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-
+/**
+ * 管理员实体类-管理端
+ * @author shiningCloud2025
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("admin_admin")
-/**
- * 管理员实体类-管理端
- */
 public class Admin {
     /**
      * 管理员id（主键，自增）

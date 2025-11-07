@@ -7,14 +7,14 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+/**
+ * 角色实体类-管理端
+ * @author shiningCloud2025
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("admin_role")
-/**
- * 角色实体类-管理端
- */
 public class Role {
     /**
      * 角色id（主键，自增）
