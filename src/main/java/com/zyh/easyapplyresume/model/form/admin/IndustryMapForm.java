@@ -13,6 +13,9 @@ import javax.validation.constraints.NotNull;
 @Data
 @Schema(description = "行业Map表单")
 public class IndustryMapForm {
+    @Schema(description = "行业代码,主键")
+    private Integer industryMapIndustryCode;
+
     @NotNull(message = "行业名称不能为空")
     @Schema(description = "行业名称")
     private String industryMapIndustryName;

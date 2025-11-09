@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyh.easyapplyresume.mapper.admin.RecruitPositionMapper">
+    <resultMap id="RecruitPositionInfoVO" type="com.zyh.easyapplyresume.model.vo.admin.RecruitPositionInfoVO">
+        <id property="recruitPositionId" column="recruitPosition_id"/>
+        <result property="recruitPositionName" column="recruitPosition_name"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="updatedTime" column="updated_time"/>
+        <result property="recruitPositionIndustryCode" column="recruitPosition_industryCode"/>
+        <result property="recruitPositionIndustryName" column="industryMap_industryName"/>
+        <result property="minMonthSalary" column="min_monthSalary"/>
+        <result property="maxMonthSalary" column="max_monthSalary"/>
+        <result property="weekWorkDayNum" column="week_workDayNum"/>
+        <result property="goodWelfare" column="good_welfare"/>
+    </resultMap>
+
+    <select id="findRecruitPositionInfoById" parameterType="int" resultMap="RecruitPositionInfoVO">
+        select * from general_recruitPosition
+        left join  general_industryMap on general_recruitPosition.recruitPosition_industryCode = general_industryMap.industryMap_industryCode
+        where general_recruitPosition.recruitPosition_industryCode = #{recruitPositionId}
+    </select>
+    <!-- 连表分页查询：招聘岗位表 LEFT JOIN 通用行业映射表 -->
+    <select id="queryRecruitPositionPage" resultType="com.zyh.easyapplyresume.model.vo.admin.RecruitPositionPageVO">
+        SELECT
+        rp.recruitPosition_id AS recruitPositionId,
+        rp.recruitPosition_name AS recruitPositionName,
+        rp.recruitPosition_industryCode AS recruitPositionIndustryCode,
+        -- 连表字段：行业名称（从行业映射表查询）
+        gim.industryMap_industryName AS industryMapIndustryName,
+        rp.recruitPosition_minMonthSalary AS recruitPositionMinMonthSalary,
+        rp.recruitPosition_maxMonthSalary AS recruitPositionMaxMonthSalary,
+        rp.recruitPosition_weekWorkDayNum AS recruitPositionWeekWorkDayNum,
+        rp.recruitPosition_goodWelfare AS recruitPositionGoodWelfare,
+        rp.recruitPosition_createdTime AS recruitPositionCreatedTime,
+        rp.recruitPosition_updatedTime AS recruitPositionUpdatedTime
+        FROM
+        general_recruitPosition rp -- 招聘岗位表别名rp
+        -- 连表：通用行业映射表（别名gim），LEFT JOIN避免行业编码无效时丢失岗位数据
+        LEFT JOIN general_industryMap gim
+        ON rp.recruitPosition_industryCode = gim.industryMap_industryCode
+        <!-- 动态查询条件：只拼接有值的条件 -->
+        <where>
+            <!-- 1. 岗位名称：模糊查询（去空格后判断） -->
+            <if test="query.recruitPositionName != null and query.recruitPositionName.trim() != ''">
+                AND rp.recruitPosition_name LIKE CONCAT('%', #{query.recruitPositionName}, '%')
+            </if>
+            <!-- 2. 行业编码：精确查询 -->
+            <if test="query.recruitPositionIndustryCode != null">
+                AND rp.recruitPosition_industryCode = #{query.recruitPositionIndustryCode}
+            </if>
+            <!-- 3. 最低月薪：大于等于传入值（>= 无需转义，XML支持直接识别） -->
+            <if test="query.minMonthSalary != null">
+                AND rp.recruitPosition_minMonthSalary >= #{query.minMonthSalary}
+            </if>
+            <!-- 4. 最高月薪：小于等于传入值（<= 转义为 &lt;=，避免XML语法报错） -->
+            <if test="query.maxMonthSalary != null">
+                AND rp.recruitPosition_maxMonthSalary &lt;= #{query.maxMonthSalary}
+            </if>
+            <!-- 5. 每周工作天数：精确查询 -->
+            <if test="query.weekWorkDayNum != null">
+                AND rp.recruitPosition_weekWorkDayNum = #{query.weekWorkDayNum}
+            </if>
+        </where>
+        <!-- 排序：按更新时间倒序（最新更新的岗位排前面） -->
+        ORDER BY rp.recruitPosition_updatedTime DESC
+    </select>
+</mapper>

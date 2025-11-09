@@ -79,6 +79,22 @@ public enum CodeEnum {
     JOB_ADVICE_TAGS_TOO_LONG(675,"求职攻略文章标签不能超过30个字符"),
     JOB_ADVICE_AUTHOR_NAME_TOO_LONG(676,"求职攻略文章作者名称不能超过30个字符"),
     RESUME_TEMPLATE_INDUSTRY_EMPTY(677, "简历模版行业不能为空"),
+
+    // 招聘岗位校验相关错误码（685-692）
+    RECRUIT_UPDATE_ID_EMPTY(685, "修改招聘岗位必须指定岗位ID"),
+    RECRUIT_POSITION_NAME_EMPTY(686, "招聘岗位名称不能为空"),
+    RECRUIT_INDUSTRY_CODE_EMPTY(687, "招聘岗位所属行业代码不能为空"),
+    RECRUIT_MIN_SALARY_EMPTY(688, "招聘岗位最低月薪不能为空"),
+    RECRUIT_MAX_SALARY_EMPTY(689, "招聘岗位最高月薪不能为空"),
+    RECRUIT_WORK_DAY_EMPTY(690, "招聘岗位每周工作天数不能为空"),
+    RECRUIT_POSITION_NAME_TOO_LONG(691, "招聘岗位名称不能超过30个字符"),
+    RECRUIT_GOOD_WELFARE_TOO_LONG(692, "福利待遇不能超过200个字符"),
+    NOT_DELETE_RECRUIT_POSITION(693, "该岗位正在被使用，请勿删除"),
+
+
+
+
+
     // 大模型应用用户输入为空
     LLM_USERINPUT_EMPTY(901,"用户输入为空")
     ;

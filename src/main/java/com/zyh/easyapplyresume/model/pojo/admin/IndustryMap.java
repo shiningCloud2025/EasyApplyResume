@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 /**
- * 行业Map-通用
+ * 行业Map-通用(无删除)
  * @author shiningCloud2025
  */
 @Data
