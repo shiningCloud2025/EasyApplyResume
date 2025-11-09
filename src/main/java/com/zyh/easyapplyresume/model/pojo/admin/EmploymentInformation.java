@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,11 @@ public class EmploymentInformation {
      */
     @TableId(value = "employmentInformation_id", type = IdType.AUTO)
     private Integer employmentInformationId;
+    /**
+     * 招聘信息编号
+     */
+    @TableField("employmentInformation_code")
+    private Integer employmentInformationCode;
     /**
      * 公司名称
      */
