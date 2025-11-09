@@ -8,6 +8,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author shiningCloud2025
@@ -17,6 +18,9 @@ import java.util.Date;
 public class EmploymentInformationForm {
     @Schema(description = "招聘信息ID")
     private Integer employmentInformationId;
+
+    @Schema(description = "招聘信息编号")
+    private Integer employmentInformationCode;
 
     @NotNull(message = "公司名称不能为空")
     @Schema(description = "公司名称")
@@ -44,12 +48,14 @@ public class EmploymentInformationForm {
 
     @NotNull(message = "招聘地址(省级)不能为空")
     @Schema(description = "招聘地址(省级)")
-    private Integer employmentInformationRecruitLocationFirst;
+    private List<Integer> employmentInformationRecruitLocationFirst;
 
     @NotNull(message = "招聘地址(市级)不能为空")
     @Schema(description = "招聘地址(市级)")
-    private Integer employmentInformationRecruitLocationSecond;
+    private List<Integer> employmentInformationRecruitLocationSecond;
 
+    @Schema(description = "详细招聘地址")
+    private String employmentInformationRecruitLocationDetail;
 
 
     @NotNull(message = "截止时间不能为空")
