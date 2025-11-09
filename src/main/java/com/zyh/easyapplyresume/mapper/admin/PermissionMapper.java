@@ -12,6 +12,6 @@ public interface PermissionMapper extends BaseMapper<Permission> {
     // 根据权限id删除角色权限表
     void deleteRolePermissionByPermissionId(Integer permissionId);
     // 查询所有权限
-    public List<PermissionInfoVO> findAllPermission();
+     List<PermissionInfoVO> findAllPermission();
 
 }
