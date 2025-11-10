@@ -5,7 +5,7 @@ dataprocessing使用文档
     -script:处理数据的脚本
     -dataprocessing使用文档:使用说明
 2.依赖环境
-    -依赖:python3
+    -依赖:python3.13
     -IDE:PyCharm
 
 
