@@ -18,6 +18,10 @@ public class EmploymentInformationInfoVO {
     @Schema(description = "招聘信息ID")
     private Integer employmentInformationId;
 
+    @TableField("employmentInformation_code")
+    @Schema(description = "招聘信息编号")
+    private Integer employmentInformationCode;
+
     @Schema(description = "公司名称")
     private String employmentInformationCompanyName;
 

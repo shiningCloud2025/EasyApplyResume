@@ -5,6 +5,7 @@ import lombok.Getter;
 /**
  * 城市枚举（仅含id、name字段，对应数据库city表）
  * 枚举名采用大写英文命名，重复名称通过后缀区分（如不同省份的同名城市）
+ * @author shiningCloud2025
  */
 @Getter
 public enum CityEnum {
