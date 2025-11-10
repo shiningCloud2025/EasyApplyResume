@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.utils.Validator;
 
-import com.zyh.easyapplyresume.bean.BusException;
-import com.zyh.easyapplyresume.bean.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
 import com.zyh.easyapplyresume.model.form.admin.PermissionForm;
 
 /**

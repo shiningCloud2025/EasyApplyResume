@@ -1,4 +1,4 @@
-package com.zyh.easyapplyresume.bean;
+package com.zyh.easyapplyresume.bean.usallyexceptionandEnum;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

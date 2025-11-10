@@ -1,10 +1,9 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.zyh.easyapplyresume.bean.BusException;
-import com.zyh.easyapplyresume.bean.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
 import com.zyh.easyapplyresume.mapper.admin.EmploymentInformationMapper;
 import com.zyh.easyapplyresume.mapper.admin.ProvinceMapMapper;
 import com.zyh.easyapplyresume.model.form.admin.EmploymentInformationForm;

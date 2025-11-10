@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.demo.advisor;
 
-import com.zyh.easyapplyresume.bean.BusException;
-import com.zyh.easyapplyresume.bean.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.advisor.api.*;

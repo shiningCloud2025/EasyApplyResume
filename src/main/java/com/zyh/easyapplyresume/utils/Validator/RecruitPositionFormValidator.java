@@ -1,10 +1,8 @@
 package com.zyh.easyapplyresume.utils.Validator;
 
-import com.zyh.easyapplyresume.bean.BusException;
-import com.zyh.easyapplyresume.bean.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
 import com.zyh.easyapplyresume.model.form.admin.RecruitPositionForm;
-
-import java.math.BigDecimal;
 
 /**
  * RecruitPositionForm检查工具类，用于验证招聘岗位表单数据并设置默认值

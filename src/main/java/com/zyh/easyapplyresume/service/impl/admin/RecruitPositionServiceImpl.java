@@ -2,8 +2,8 @@ package com.zyh.easyapplyresume.service.impl.admin;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zyh.easyapplyresume.bean.BusException;
-import com.zyh.easyapplyresume.bean.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
 import com.zyh.easyapplyresume.mapper.admin.RecruitPositionMapper;
 import com.zyh.easyapplyresume.model.form.admin.RecruitPositionForm;
 import com.zyh.easyapplyresume.model.pojo.admin.RecruitPosition;
