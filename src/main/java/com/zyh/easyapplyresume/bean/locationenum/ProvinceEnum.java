@@ -5,6 +5,7 @@ import lombok.Getter;
 /**
  * 省份/地区枚举（含直辖市、自治区、港澳、台湾、全国）
  * 对应数据库 province 表数据
+ * @author shiningCloud2025
  */
 @Getter
 public enum ProvinceEnum {

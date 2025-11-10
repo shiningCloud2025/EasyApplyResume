@@ -3,6 +3,7 @@ package com.zyh.easyapplyresume.service.impl.admin;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.locationenum.CityEnum;
 import com.zyh.easyapplyresume.bean.locationenum.ProvinceEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
@@ -13,6 +14,7 @@ import com.zyh.easyapplyresume.model.form.admin.EmploymentInformationForm;
 import com.zyh.easyapplyresume.model.pojo.admin.EmploymentInformation;
 import com.zyh.easyapplyresume.model.query.admin.EmploymentInformationQuery;
 import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationInfoVO;
+import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationPageVO;
 import com.zyh.easyapplyresume.service.admin.EmploymentInformationService;
 import com.zyh.easyapplyresume.utils.Validator.EmploymentInformationFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,12 +83,13 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
 //        }
         // 1. 创建 LambdaUpdateWrapper（指定实体类）
         LambdaUpdateWrapper<EmploymentInformation> updateWrapper = new LambdaUpdateWrapper<>();
-
         // 2. 设置更新字段：deleted = 1
         updateWrapper.set(EmploymentInformation::getDeleted, 1);
 
         // 3. 设置查询条件：employmentInformationCode = employmentInformationId（和原代码条件一致）
         updateWrapper.eq(EmploymentInformation::getEmploymentInformationCode, employmentInformationId);
+        updateWrapper.eq(EmploymentInformation::getDeleted,0);
+
 
         // 4. 执行单条UPDATE语句，批量更新所有符合条件的记录
         int updateCount = employmentInformationMapper.update(null, updateWrapper);
@@ -116,12 +119,42 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
     }
 
     @Override
-    public List<EmploymentInformationInfoVO> getEmploymentInformationPage(int size, int page, EmploymentInformationQuery employmentInformationQuery) {
-        return List.of();
+    public Page<EmploymentInformationPageVO> getEmploymentInformationPage(int size, int page, EmploymentInformationQuery employmentInformationQuery) {
+        return null;
     }
 
     @Override
     public List<EmploymentInformationInfoVO> getAllEmploymentInformation() {
-        return List.of();
+        LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(EmploymentInformation::getDeleted, 0);
+        List<EmploymentInformation> employmentInformations = employmentInformationMapper.selectList(lambdaQueryWrapper);
+        Map<Integer,EmploymentInformationInfoVO> map = new HashMap<>();
+        for(EmploymentInformation employmentInformation : employmentInformations){
+            if(map.containsKey(employmentInformation.getEmploymentInformationCode())){
+                EmploymentInformationInfoVO employmentInformation1 = map.get(employmentInformation.getEmploymentInformationCode());
+                employmentInformation1.getEmploymentInformationRecruitLocationFirstName().add(Objects.requireNonNull(ProvinceEnum.getById(employmentInformation.getEmploymentInformationRecruitLocationFirst())).getName());
+                employmentInformation1.getEmploymentInformationRecruitLocationSecondName().add( Objects.requireNonNull(CityEnum.getById(employmentInformation.getEmploymentInformationRecruitLocationSecond())).getName());
+                employmentInformation1.getEmploymentInformationRecruitLocationDetail().add(Objects.requireNonNull(ProvinceEnum.getById(employmentInformation.getEmploymentInformationRecruitLocationFirst())).getName()+
+                        Objects.requireNonNull(CityEnum.getById(employmentInformation.getEmploymentInformationRecruitLocationSecond())).getName()
+                );
+                map.put(employmentInformation.getEmploymentInformationCode(),employmentInformation1);
+            }else{
+                // 第一次出现
+            EmploymentInformationInfoVO employmentInformationInfoVO = BeanUtil.copyProperties(employmentInformation, EmploymentInformationInfoVO.class);
+            List<String>  provinces = new LinkedList<>();
+            List<String>  cities = new LinkedList<>();
+            List<String>  details = new LinkedList<>();
+            provinces.add(Objects.requireNonNull(ProvinceEnum.getById(employmentInformation.getEmploymentInformationRecruitLocationFirst())).getName());
+            cities.add( Objects.requireNonNull(CityEnum.getById(employmentInformation.getEmploymentInformationRecruitLocationSecond())).getName());
+            details.add(Objects.requireNonNull(ProvinceEnum.getById(employmentInformation.getEmploymentInformationRecruitLocationFirst())).getName()+
+                            Objects.requireNonNull(CityEnum.getById(employmentInformation.getEmploymentInformationRecruitLocationSecond())).getName()
+                    );
+            employmentInformationInfoVO.setEmploymentInformationRecruitLocationFirstName(provinces);
+            employmentInformationInfoVO.setEmploymentInformationRecruitLocationSecondName(cities);
+            employmentInformationInfoVO.setEmploymentInformationRecruitLocationDetail(details);
+            map.put(employmentInformation.getEmploymentInformationCode(),employmentInformationInfoVO);
+            }
+        }
+        return new ArrayList<>(map.values());
     }
 }

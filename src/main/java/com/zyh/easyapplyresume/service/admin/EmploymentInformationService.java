@@ -1,8 +1,10 @@
 package com.zyh.easyapplyresume.service.admin;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.model.form.admin.EmploymentInformationForm;
 import com.zyh.easyapplyresume.model.query.admin.EmploymentInformationQuery;
 import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationInfoVO;
+import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationPageVO;
 
 import java.util.List;
 
@@ -38,7 +40,7 @@ public interface EmploymentInformationService {
      * @param employmentInformationQuery
      * @return
      */
-    public List<EmploymentInformationInfoVO> getEmploymentInformationPage(int size, int page, EmploymentInformationQuery employmentInformationQuery);
+    public Page<EmploymentInformationPageVO> getEmploymentInformationPage(int size, int page, EmploymentInformationQuery employmentInformationQuery);
     /**
      * 获取所有招聘信息信息
      * @return
