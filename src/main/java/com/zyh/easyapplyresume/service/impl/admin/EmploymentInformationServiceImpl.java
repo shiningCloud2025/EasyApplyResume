@@ -3,6 +3,7 @@ package com.zyh.easyapplyresume.service.impl.admin;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.zyh.easyapplyresume.bean.locationenum.CityEnum;
 import com.zyh.easyapplyresume.bean.locationenum.ProvinceEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
@@ -97,8 +98,21 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCode, employmentInformationId);
         lambdaQueryWrapper.eq(EmploymentInformation::getDeleted, 0);
         List<EmploymentInformation> employmentInformations = employmentInformationMapper.selectList(lambdaQueryWrapper);
-
-
+        List<String> provinces = new LinkedList<>();
+        List<String> cities = new LinkedList<>();
+        List<String> details = new LinkedList<>();
+        for(EmploymentInformation employmentInformation : employmentInformations){
+            provinces.add(Objects.requireNonNull(ProvinceEnum.getById(employmentInformation.getEmploymentInformationRecruitLocationFirst())).getName());
+            cities.add( Objects.requireNonNull(CityEnum.getById(employmentInformation.getEmploymentInformationRecruitLocationSecond())).getName());
+            details.add(Objects.requireNonNull(ProvinceEnum.getById(employmentInformation.getEmploymentInformationRecruitLocationFirst())).getName()+
+                            Objects.requireNonNull(CityEnum.getById(employmentInformation.getEmploymentInformationRecruitLocationSecond())).getName()
+                    );
+        }
+        EmploymentInformationInfoVO employmentInformationInfoVO = BeanUtil.copyProperties(employmentInformations.getFirst(), EmploymentInformationInfoVO.class);
+        employmentInformationInfoVO.setEmploymentInformationRecruitLocationFirstName(provinces);
+        employmentInformationInfoVO.setEmploymentInformationRecruitLocationSecondName(cities);
+        employmentInformationInfoVO.setEmploymentInformationRecruitLocationDetail(details);
+        return employmentInformationInfoVO;
     }
 
     @Override
