@@ -62,14 +62,49 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
             res.add(employmentInformation);
         }
         employmentInformationMapper.insert(res);
+    }
 
-
+    @Override
+    public void addEmploymentInformationForUpdate(EmploymentInformationForm employmentInformationForm,Date startTime) {
+        EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
+        EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
+        employmentInformation.setEmploymentInformationCode(employmentInformation.getEmploymentInformationId());
+        List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirst();
+        List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecond();
+        // 校验长度一致
+        if (provinceIds.size() != cityIds.size()) {
+            throw new BusException(CodeEnum.EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH);
+        }
+        // 获取两个集合的迭代器
+        Iterator<Integer> provinceIt = provinceIds.iterator();
+        Iterator<Integer> cityIt = cityIds.iterator();
+        List<EmploymentInformation> res = new LinkedList<>();
+        // 同步遍历：一次取一组
+        while (provinceIt.hasNext() && cityIt.hasNext()) {
+            Integer provinceId = provinceIt.next();
+            Integer cityId = cityIt.next();
+            employmentInformation.setEmploymentInformationRecruitLocationFirst(provinceId);
+            employmentInformation.setEmploymentInformationRecruitLocationSecond(cityId);
+            String provinceName = Objects.requireNonNull(ProvinceEnum.getById(provinceId)).getName();
+            String cityName = Objects.requireNonNull(ProvinceEnum.getById(cityId)).getName();
+            employmentInformation.setEmploymentInformationStartTime(startTime);
+            employmentInformation.setEmploymentInformationUpdatedTime(new Date());
+            employmentInformation.setEmploymentInformationRecruitLocationDetail(provinceName + cityName);
+            res.add(employmentInformation);
+        }
+        employmentInformationMapper.insert(res);
     }
 
     @Override
     public void updateEmploymentInformation(EmploymentInformationForm employmentInformationForm) {
         EmploymentInformationFormValidator.validateForUpdate(employmentInformationForm);
-
+        LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCode, employmentInformationForm.getEmploymentInformationId());
+        lambdaQueryWrapper.eq(EmploymentInformation::getDeleted, 0);
+        List<EmploymentInformation> employmentInformations = employmentInformationMapper.selectList(lambdaQueryWrapper);
+        Date employmentInformationStartTime = employmentInformations.get(0).getEmploymentInformationStartTime();
+        deleteEmploymentInformation(employmentInformationForm.getEmploymentInformationId());
+        addEmploymentInformationForUpdate(employmentInformationForm,employmentInformationStartTime);
     }
 
     @Override
