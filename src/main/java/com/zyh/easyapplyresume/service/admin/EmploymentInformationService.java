@@ -6,6 +6,7 @@ import com.zyh.easyapplyresume.model.query.admin.EmploymentInformationQuery;
 import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationPageVO;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,6 +18,12 @@ public interface EmploymentInformationService {
      * @param employmentInformationForm
      */
     public void addEmploymentInformation(EmploymentInformationForm employmentInformationForm);
+
+    /**
+     * 新增招聘信息，为了修改而重载的
+     * @param employmentInformationForm
+     */
+    public void addEmploymentInformationForUpdate(EmploymentInformationForm employmentInformationForm,Date startTime);
     /**
      * 修改招聘信息
      * @param employmentInformationForm
