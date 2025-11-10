@@ -1,7 +1,9 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.zyh.easyapplyresume.bean.locationenum.ProvinceEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
 import com.zyh.easyapplyresume.mapper.admin.EmploymentInformationMapper;
@@ -16,8 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author shiningCloud2025
@@ -33,6 +34,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
     public void addEmploymentInformation(EmploymentInformationForm employmentInformationForm) {
         EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
         EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
+        employmentInformation.setEmploymentInformationCode(employmentInformation.getEmploymentInformationId());
         List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirst();
         List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecond();
         // 校验长度一致
@@ -42,14 +44,21 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         // 获取两个集合的迭代器
         Iterator<Integer> provinceIt = provinceIds.iterator();
         Iterator<Integer> cityIt = cityIds.iterator();
+        List<EmploymentInformation> res = new LinkedList<>();
         // 同步遍历：一次取一组
         while (provinceIt.hasNext() && cityIt.hasNext()) {
             Integer provinceId = provinceIt.next();
             Integer cityId = cityIt.next();
             employmentInformation.setEmploymentInformationRecruitLocationFirst(provinceId);
             employmentInformation.setEmploymentInformationRecruitLocationSecond(cityId);
-
+            String provinceName = Objects.requireNonNull(ProvinceEnum.getById(provinceId)).getName();
+            String cityName = Objects.requireNonNull(ProvinceEnum.getById(cityId)).getName();
+            employmentInformation.setEmploymentInformationStartTime(new Date());
+            employmentInformation.setEmploymentInformationUpdatedTime(new Date());
+            employmentInformation.setEmploymentInformationRecruitLocationDetail(provinceName + cityName);
+            res.add(employmentInformation);
         }
+        employmentInformationMapper.insert(res);
 
 
     }
@@ -57,6 +66,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
     @Override
     public void updateEmploymentInformation(EmploymentInformationForm employmentInformationForm) {
         EmploymentInformationFormValidator.validateForUpdate(employmentInformationForm);
+
     }
 
     @Override
@@ -83,7 +93,12 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
 
     @Override
     public EmploymentInformationInfoVO getEmploymentInformationInfo(Integer employmentInformationId) {
-        return null;
+        LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCode, employmentInformationId);
+        lambdaQueryWrapper.eq(EmploymentInformation::getDeleted, 0);
+        List<EmploymentInformation> employmentInformations = employmentInformationMapper.selectList(lambdaQueryWrapper);
+
+
     }
 
     @Override

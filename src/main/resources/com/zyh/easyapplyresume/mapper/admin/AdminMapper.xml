@@ -14,7 +14,7 @@
         left join admin_role on admin_admin_role.roleId = admin_role.role_id
         left join admin_role_permission on admin_role.role_id = admin_role.role_id
         left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id
-        where admin_admin.admin_id = #{adminId}
+        where admin_admin.admin_id = #{adminId} and admin_admin.deleted = 0
     </select>
 
     <select id="findRoleByAdmin" parameterType="int" resultType="com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO">

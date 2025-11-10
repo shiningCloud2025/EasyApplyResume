@@ -59,7 +59,10 @@ public class JobAdviceArticleServiceImpl implements JobAdviceArticleService {
 
     @Override
     public JobAdviceArticleInfoVO getJobAdviceArticleInfo(Integer jobAdviceArticleId) {
-        JobAdviceArticle jobAdviceArticle = jobAdviceArticleMapper.selectById(jobAdviceArticleId);
+        LambdaQueryWrapper<JobAdviceArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(JobAdviceArticle::getJobAdviceArticleId, jobAdviceArticleId);
+        lambdaQueryWrapper.eq(JobAdviceArticle::getDeleted, 0);
+        JobAdviceArticle jobAdviceArticle = jobAdviceArticleMapper.selectOne(lambdaQueryWrapper);
         return BeanUtil.copyProperties(jobAdviceArticle, JobAdviceArticleInfoVO.class);
     }
 
@@ -67,7 +70,7 @@ public class JobAdviceArticleServiceImpl implements JobAdviceArticleService {
     public List<JobAdviceArticlePageVO> getJobAdviceArticlePage(int size, int page, JobAdviceArticleQuery jobAdviceArticleQuery) {
         // 1. 构建 LambdaQueryWrapper（指定 JobAdviceArticle 数据库实体类）
         LambdaQueryWrapper<JobAdviceArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-
+        lambdaQueryWrapper.eq(JobAdviceArticle::getDeleted, 0);
         // 2. 判空过滤：查询条件不为空时，添加对应模糊查询（适配所有查询字段）
         if (jobAdviceArticleQuery != null) {
             // 标题：不为空且非空串 → 模糊查询

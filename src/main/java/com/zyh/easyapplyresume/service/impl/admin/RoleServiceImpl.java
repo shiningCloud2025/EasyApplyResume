@@ -62,6 +62,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Page<RoleInfoVO> findRoleByPage(Integer pageNum, Integer pageSize, RolePageQuery rolePageQuery) {
         LambdaQueryWrapper<Role> lambdaQueryWrapper = lambdaQuery(Role.class);
+        lambdaQueryWrapper.eq(Role::getDeleted, 0);
         if (rolePageQuery.getRoleName() != null && !rolePageQuery.getRoleName().isEmpty()) {
             lambdaQueryWrapper.like(Role::getRoleName, rolePageQuery.getRoleName());
         }

@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author shiningCloud2025
@@ -36,13 +37,13 @@ public class EmploymentInformationInfoVO {
     private Integer employmentInformationRecruitObject;
 
     @Schema(description = "招聘地址(省级)")
-    private String employmentInformationRecruitLocationFirstName;
+    private List<String> employmentInformationRecruitLocationFirstName;
 
     @Schema(description = "招聘地址(市级)")
-    private String employmentInformationRecruitLocationSecondName;
+    private List<String> employmentInformationRecruitLocationSecondName;
 
     @Schema(description = "详细招聘地址")
-    private String employmentInformationRecruitLocationDetail;
+    private List<String> employmentInformationRecruitLocationDetail;
 
     @Schema(description = "创建时间")
     private Date employmentInformationStartTime;
