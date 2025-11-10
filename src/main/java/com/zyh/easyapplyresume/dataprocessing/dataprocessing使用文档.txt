@@ -1,0 +1,14 @@
+dataprocessing使用文档
+1.目录结构
+    -datacollection:数据集
+        -location:区域数据集(主要是为了把这个数据集变成枚举类方便实用)
+    -script:处理数据的脚本
+    -dataprocessing使用文档:使用说明
+2.依赖环境
+    -依赖:python3
+    -IDE:PyCharm
+
+
+
+
+

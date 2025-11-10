@@ -17,11 +17,13 @@ import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationPageVO;
 import com.zyh.easyapplyresume.service.admin.EmploymentInformationService;
 import com.zyh.easyapplyresume.utils.Validator.EmploymentInformationFormValidator;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author shiningCloud2025
@@ -152,10 +154,121 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         employmentInformationInfoVO.setEmploymentInformationRecruitLocationDetail(details);
         return employmentInformationInfoVO;
     }
-
+    /**
+     * 招聘信息分页查询实现
+     */
     @Override
     public Page<EmploymentInformationPageVO> getEmploymentInformationPage(int size, int page, EmploymentInformationQuery employmentInformationQuery) {
-        return null;
+        // 1. 构建 LambdaQueryWrapper（指定数据库实体类 EmploymentInformation）
+        LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(EmploymentInformation::getDeleted, 0);
+
+        // 2. 判空过滤：查询条件不为空时，按字段类型添加对应查询规则（String模糊查询，Integer/Date精确匹配）
+        if (employmentInformationQuery != null) {
+            // 公司名称（String类型 → 模糊查询）
+            if (employmentInformationQuery.getEmploymentInformationCompanyName() != null && !employmentInformationQuery.getEmploymentInformationCompanyName().trim().isEmpty()) {
+                lambdaQueryWrapper.like(EmploymentInformation::getEmploymentInformationCompanyName, employmentInformationQuery.getEmploymentInformationCompanyName().trim());
+            }
+
+            // 行业大类（Integer类型 → 精确匹配）
+            if (employmentInformationQuery.getEmploymentInformationIndustryCategories() != null) {
+                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationIndustryCategories, employmentInformationQuery.getEmploymentInformationIndustryCategories());
+            }
+
+            // 企业性质（Integer类型 → 精确匹配）
+            if (employmentInformationQuery.getEmploymentInformationCompanyType() != null) {
+                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCompanyType, employmentInformationQuery.getEmploymentInformationCompanyType());
+            }
+
+            // 招聘批次（Integer类型 → 精确匹配）
+            if (employmentInformationQuery.getEmploymentInformationBatch() != null) {
+                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationBatch, employmentInformationQuery.getEmploymentInformationBatch());
+            }
+
+            // 招聘岗位（Integer类型 → 精确匹配）
+            if (employmentInformationQuery.getEmploymentInformationRecruitPosition() != null) {
+                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationRecruitPosition, employmentInformationQuery.getEmploymentInformationRecruitPosition());
+            }
+
+            // 招聘对象（Integer类型 → 精确匹配）
+            if (employmentInformationQuery.getEmploymentInformationRecruitObject() != null) {
+                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationRecruitObject, employmentInformationQuery.getEmploymentInformationRecruitObject());
+            }
+
+            // 招聘地址(省级)（Integer类型 → 精确匹配）
+            if (employmentInformationQuery.getEmploymentInformationRecruitLocationFirst() != null) {
+                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationRecruitLocationFirst, employmentInformationQuery.getEmploymentInformationRecruitLocationFirst());
+            }
+
+            // 招聘地址(市级)（Integer类型 → 精确匹配）
+            if (employmentInformationQuery.getEmploymentInformationRecruitLocationSecond() != null) {
+                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationRecruitLocationSecond, employmentInformationQuery.getEmploymentInformationRecruitLocationSecond());
+            }
+
+            // 详细招聘地址（String类型 → 模糊查询）
+            if (employmentInformationQuery.getEmploymentInformationRecruitLocationDetail() != null && !employmentInformationQuery.getEmploymentInformationRecruitLocationDetail().trim().isEmpty()) {
+                lambdaQueryWrapper.like(EmploymentInformation::getEmploymentInformationRecruitLocationDetail, employmentInformationQuery.getEmploymentInformationRecruitLocationDetail().trim());
+            }
+
+            // 截止时间（Date类型 → 小于等于查询，适配"截止时间前的招聘信息"需求）
+            if (employmentInformationQuery.getEmploymentInformationStopTime() != null) {
+                lambdaQueryWrapper.le(EmploymentInformation::getEmploymentInformationStopTime, employmentInformationQuery.getEmploymentInformationStopTime());
+            }
+
+            // 网申状态（String类型 → 模糊查询）
+            if (employmentInformationQuery.getEmploymentInformationOnlineApplicationStatus() != null && !employmentInformationQuery.getEmploymentInformationOnlineApplicationStatus().trim().isEmpty()) {
+                lambdaQueryWrapper.like(EmploymentInformation::getEmploymentInformationOnlineApplicationStatus, employmentInformationQuery.getEmploymentInformationOnlineApplicationStatus().trim());
+            }
+
+            // 官方公告（String类型 → 模糊查询）
+            if (employmentInformationQuery.getEmploymentInformationOfficialAnnouncement() != null && !employmentInformationQuery.getEmploymentInformationOfficialAnnouncement().trim().isEmpty()) {
+                lambdaQueryWrapper.like(EmploymentInformation::getEmploymentInformationOfficialAnnouncement, employmentInformationQuery.getEmploymentInformationOfficialAnnouncement().trim());
+            }
+
+            // 投递方式（String类型 → 模糊查询）
+            if (employmentInformationQuery.getEmploymentInformationSubmissionWay() != null && !employmentInformationQuery.getEmploymentInformationSubmissionWay().trim().isEmpty()) {
+                lambdaQueryWrapper.like(EmploymentInformation::getEmploymentInformationSubmissionWay, employmentInformationQuery.getEmploymentInformationSubmissionWay().trim());
+            }
+
+            // 内推码（String类型 → 模糊查询）
+            if (employmentInformationQuery.getEmploymentInformationEmployeeReferralCode() != null && !employmentInformationQuery.getEmploymentInformationEmployeeReferralCode().trim().isEmpty()) {
+                lambdaQueryWrapper.like(EmploymentInformation::getEmploymentInformationEmployeeReferralCode, employmentInformationQuery.getEmploymentInformationEmployeeReferralCode().trim());
+            }
+        }
+
+        // 3. 调用 Mapper 分页查询（依赖 EmploymentInformationMapper 继承 MyBatis-Plus BaseMapper）
+        Page<EmploymentInformation> employmentInfoPage = employmentInformationMapper.selectPage(
+                new Page<>(page, size),  // 分页参数：当前页（page）、每页条数（size）
+                lambdaQueryWrapper        // 多条件组合查询（精确+模糊）
+        );
+
+        // 4. 实体转换：EmploymentInformation（数据库实体）→ EmploymentInformationPageVO（前端返回VO）
+        List<EmploymentInformationPageVO> voList = employmentInfoPage.getRecords().stream()
+                .map(info -> {
+                    EmploymentInformationInfoVO employmentInformationInfo = getEmploymentInformationInfo(info.getEmploymentInformationId());
+                    EmploymentInformationPageVO pageVO = new EmploymentInformationPageVO();
+                    // 复制同名字段（要求：VO与数据库实体字段名一致、数据类型一致）
+                    BeanUtils.copyProperties(employmentInformationInfo, pageVO);
+                    // 字段差异补充映射（根据实际VO结构调整，以下为常见场景示例）
+                    // 示例1：日期字段格式化（如截止时间转字符串，需导入日期工具类，如Hutool的DateUtil）
+                    // if (info.getEmploymentInformationStopTime() != null) {
+                    //     pageVO.setEmploymentInformationStopTimeStr(DateUtil.format(info.getEmploymentInformationStopTime(), "yyyy-MM-dd"));
+                    // }
+                    // 示例2：字典值转中文名称（如行业大类、企业性质，需结合字典服务）
+                    // pageVO.setEmploymentInformationIndustryCategoriesName(dictService.getNameByCode("industry_categories", info.getEmploymentInformationIndustryCategories()));
+                    return pageVO;
+                })
+                .collect(Collectors.toList());
+
+        // 5. 构建返回的 Page<VO> 对象（保留分页元数据：总条数、总页数等）
+        Page<EmploymentInformationPageVO> resultPage = new Page<>();
+        resultPage.setCurrent(employmentInfoPage.getCurrent()); // 当前页
+        resultPage.setSize(employmentInfoPage.getSize());       // 每页条数
+        resultPage.setTotal(employmentInfoPage.getTotal());     // 总数据条数
+        resultPage.setPages(employmentInfoPage.getPages());     // 总页数
+        resultPage.setRecords(voList != null ? voList : Collections.emptyList()); // 分页数据列表
+
+        return resultPage;
     }
 
     @Override
