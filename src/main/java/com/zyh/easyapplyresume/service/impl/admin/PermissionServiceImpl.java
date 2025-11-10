@@ -65,7 +65,7 @@ public class PermissionServiceImpl implements PermissionService {
     public Page<PermissionPageVO> findPermissionByPage(Integer pageNum, Integer pageSize, PermissionPageQuery permissionPageQuery) {
         // 1. 构建 LambdaQueryWrapper
         LambdaQueryWrapper<Permission> lambdaQueryWrapper = lambdaQuery(Permission.class);
-
+        lambdaQueryWrapper.eq(Permission::getDeleted, 0);
         // 2. 判空过滤：permissionName 不为空则模糊查询
         if (permissionPageQuery.getPermissionName() != null && !permissionPageQuery.getPermissionName().isEmpty()) {
             lambdaQueryWrapper.like(Permission::getPermissionName, permissionPageQuery.getPermissionName());

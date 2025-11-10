@@ -60,7 +60,6 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public AdminInfoVO findAdminById(Integer adminId) {
-        LambdaQueryWrapper<Admin> lambdaQueryWrapper = lambdaQuery(Admin.class);
         return adminMapper.findAdminInfoById(adminId);
     }
 
