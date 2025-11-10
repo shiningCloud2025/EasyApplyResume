@@ -36,3 +36,5 @@ pom.xml
 src/main/resources/application*.*ml
 src/main/java/com/zyh/easyapplyresume/doc/
 src/main/java/com/zyh/easyapplyresume/sql/
+src/main/java/com/zyh/easyapplyresume/docker/
+Dockerfile
