@@ -55,7 +55,10 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public PermissionInfoVO findPermissionById(Integer permissionId) {
-        Permission permission = permissionMapper.selectById(permissionId);
+        LambdaQueryWrapper<Permission> lambdaQueryWrapper = lambdaQuery(Permission.class);
+        lambdaQueryWrapper.eq(Permission::getPermissionId, permissionId);
+        lambdaQueryWrapper.eq(Permission::getDeleted, 0);
+        Permission permission = permissionMapper.selectOne(lambdaQueryWrapper);
         return BeanUtil.copyProperties(permission, PermissionInfoVO.class);
     }
     @Override

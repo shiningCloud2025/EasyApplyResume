@@ -62,7 +62,10 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
 
     @Override
     public ResumeTemplateInfoVO findResumeTemplateById(Integer resumeTemplateId) {
-        ResumeTemplate resumeTemplate = resumeTemplateMapper.selectById(resumeTemplateId);
+        LambdaQueryWrapper<ResumeTemplate> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(ResumeTemplate::getResumeTemplateId, resumeTemplateId);
+        lambdaQueryWrapper.eq(ResumeTemplate::getDeleted, 0);
+        ResumeTemplate resumeTemplate = resumeTemplateMapper.selectOne(lambdaQueryWrapper);
         ResumeTemplateInfoVO resumeTemplateInfoVO = BeanUtil.copyProperties(resumeTemplate, ResumeTemplateInfoVO.class);
         resumeTemplateInfoVO.setIndustryMapIndustryName(industryMapService.findIndustryMapById(resumeTemplate.getResumeTemplateIndustry()).getIndustryMapIndustryName());
         return resumeTemplateInfoVO;
@@ -72,6 +75,7 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
     public List<ResumeTemplateInfoVO> findResumeTemplateByPage(Integer pageNum, Integer pageSize, ResumeTemplateQuery resumeTemplateQuery) {
         // 1. 构建 LambdaQueryWrapper（指定 ResumeTemplate 实体类）
         LambdaQueryWrapper<ResumeTemplate> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(ResumeTemplate::getDeleted, 0);
 
         // 2. 判空过滤：模版名称不为空则模糊查询（和原方法判空逻辑一致）
         if (resumeTemplateQuery != null && resumeTemplateQuery.getResumeTemplateName() != null && !resumeTemplateQuery.getResumeTemplateName().isEmpty()) {

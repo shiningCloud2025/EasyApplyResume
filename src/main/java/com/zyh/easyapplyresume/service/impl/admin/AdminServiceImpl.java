@@ -60,6 +60,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public AdminInfoVO findAdminById(Integer adminId) {
+        LambdaQueryWrapper<Admin> lambdaQueryWrapper = lambdaQuery(Admin.class);
         return adminMapper.findAdminInfoById(adminId);
     }
 
@@ -67,6 +68,7 @@ public class AdminServiceImpl implements AdminService {
     public Page<AdminPageVO> findAdminByPage(Integer pageNum, Integer pageSize, AdminPageQuery adminPageQuery) {
         // 核心改造：QueryWrapper → LambdaQueryWrapper，用 Lambda 引用字段
         LambdaQueryWrapper<Admin> lambdaQueryWrapper = lambdaQuery(Admin.class);
+        lambdaQueryWrapper.eq(Admin::getDeleted, 0);
         if (adminPageQuery.getAdminEmail() != null && !adminPageQuery.getAdminEmail().isEmpty()) {
             lambdaQueryWrapper.like(Admin::getAdminEmail, adminPageQuery.getAdminEmail());
         }
