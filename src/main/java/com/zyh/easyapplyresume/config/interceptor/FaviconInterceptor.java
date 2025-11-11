@@ -22,10 +22,15 @@ public class FaviconInterceptor implements HandlerInterceptor {
     // 拦截 /api/doc.html 的请求，注入自定义图标
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        if (modelAndView != null &&  "/api/doc.html".equals(request.getRequestURI())) {
-            // 往页面注入图标路径（适配 context-path: /api）
-            modelAndView.addObject("favicon", "/api/favicon.jpg");
-            System.out.println("【Favicon拦截器】✅ 成功注入图标路径：/api/favicon.jpg");
+        // 检查是否是 API 文档请求
+        String requestURI = request.getRequestURI();
+        /**
+         * 这个requestURI是去掉IP地址的全部
+         */
+        if (requestURI.startsWith("/api/v3/api-docs/")) {
+            // 在响应头中添加 favicon 信息
+            response.setHeader("X-Favicon-Path", "/api/favicon.ico");
+            System.out.println("【Favicon拦截器】✅ 已在响应头中添加 favicon 路径");
         }
     }
 }
