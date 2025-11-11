@@ -11,21 +11,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-//    @Autowired
-//    private FaviconInterceptor faviconInterceptor;
 
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // 为不同路径映射 favicon.ico
-        registry.addResourceHandler("/favicon.ico", "/api/favicon.ico")
-                .addResourceLocations("classpath:/static/favicon.ico")
-                .setCachePeriod(3600);
 
-        // 保留你原来的映射
-        registry.addResourceHandler("/api/favicon.jpg")
-                .addResourceLocations("classpath:/static/favicon.jpg")
-                .setCachePeriod(3600);
     }
 
     @Override
