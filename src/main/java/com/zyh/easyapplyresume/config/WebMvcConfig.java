@@ -1,6 +1,5 @@
 package com.zyh.easyapplyresume.config;
 
-import com.zyh.easyapplyresume.config.interceptor.FaviconInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -12,8 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    @Autowired
-    private FaviconInterceptor faviconInterceptor;
+//    @Autowired
+//    private FaviconInterceptor faviconInterceptor;
 
 
     @Override
@@ -40,7 +39,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
          * Context Path：/api - 这是应用的根路径，由 server.servlet.context-path 配置
          * 相对路径：/v3/api-docs/default - 这是相对于应用根路径的部分
          */
-        registry.addInterceptor(faviconInterceptor)
-                .addPathPatterns("/v3/api-docs/**");
+//        registry.addInterceptor(faviconInterceptor)
+//                .addPathPatterns("/doc.html");
     }
 }
