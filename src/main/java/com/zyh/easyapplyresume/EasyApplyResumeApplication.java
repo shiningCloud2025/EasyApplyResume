@@ -8,6 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * @author shiningCloud2025
+ */
 @SpringBootApplication
 @MapperScan("com.zyh.easyapplyresume.mapper")
 public class EasyApplyResumeApplication {
