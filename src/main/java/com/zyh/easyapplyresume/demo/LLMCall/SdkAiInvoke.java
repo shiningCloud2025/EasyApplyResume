@@ -17,7 +17,7 @@
 //
 //import java.util.Arrays;
 //
-//// 建议dashscope SDK的版本>=2.12.0
+//// 建议dashscope SDK的版本>=2.12.txt.0
 //// 关键1：加@Component（或@Service/@Controller），让Spring扫描并创建实例
 //@Component
 ///**

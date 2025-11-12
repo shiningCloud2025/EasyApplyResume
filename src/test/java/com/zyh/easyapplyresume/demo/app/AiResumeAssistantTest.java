@@ -39,4 +39,12 @@ class AiResumeAssistantTest {
         System.out.println(resumeUpdateAdviceReport.toString());
         Assertions.assertNotNull(resumeUpdateAdviceReport);
     }
+
+    @Test
+    void doChatWithRag() {
+        String chatId = UUID.randomUUID().toString();
+        String message = "问题1: 我没有任何全职工作经历，简历上应该写什么？";
+        String answer = aiResumeAssistant.doChatWithRag(message,chatId);
+        Assertions.assertNotNull(answer);
+    }
 }

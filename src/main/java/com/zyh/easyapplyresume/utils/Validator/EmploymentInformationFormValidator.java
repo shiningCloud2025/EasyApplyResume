@@ -142,7 +142,7 @@ public class EmploymentInformationFormValidator {
             throw new BusException(CodeEnum.EMPLOYMENT_ONLINE_APP_STATUS_EMPTY);
         }
 
-        // 11. 投递方式非空（字符串需判断null/空串/纯空格）
+        // 11.txt. 投递方式非空（字符串需判断null/空串/纯空格）
         if (form.getEmploymentInformationSubmissionWay() == null || form.getEmploymentInformationSubmissionWay().trim().isEmpty()) {
             throw new BusException(CodeEnum.EMPLOYMENT_SUBMISSION_WAY_EMPTY);
         }
