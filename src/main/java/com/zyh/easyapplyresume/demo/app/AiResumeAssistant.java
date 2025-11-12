@@ -17,6 +17,7 @@ import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.aop.Advisor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -47,7 +48,7 @@ public class AiResumeAssistant {
             "重点解决：内容空洞、表达不专业、结构混乱、匹配度低等问题。";
 
     public static record ResumeUpdateAdviceReport(String title, List<String> suggestions){ }
-
+    // CharClient配置
     public AiResumeAssistant(ChatModel dashscopeChatModel, MySQLBasedChatMemory mySQLBasedChatMemory,SensitiveWordsAdvisor sensitiveWordsAdvisor){
 
         // 初始化基于内存的对话记忆
@@ -73,6 +74,7 @@ public class AiResumeAssistant {
                 .build();
     }
 
+    // 普通的大模型对话
     public String doChat(String message,String chatId){
         ChatResponse response = chatClient
                 .prompt()
@@ -86,7 +88,7 @@ public class AiResumeAssistant {
         return  content;
 
     }
-
+    // 生成报告的大模型
     public ResumeUpdateAdviceReport doChatWithReport(String message,String chatId){
         ResumeUpdateAdviceReport resumeUpdateAdviceReport=chatClient
                 .prompt()
@@ -104,7 +106,7 @@ public class AiResumeAssistant {
 
     @Resource
     private VectorStore aiResumeAssistantVectorStore;
-
+    // SpringAI+本地知识库
     public String doChatWithRag(String message,String chatId){
         ChatResponse chatResponse = chatClient
                 .prompt()
@@ -121,6 +123,29 @@ public class AiResumeAssistant {
         log.info("content:{}",content);
         return  content;
     }
+
+    @Resource
+    private Advisor aiResumeAssistantRagCloudAdvisor;
+
+    // SpringAI+云知识库
+    public String doChatWithRagCloudAdvisor(String message,String chatId){
+        ChatResponse chatResponse = chatClient
+                .prompt()
+                .user( message)
+                .advisors(spec->spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY,chatId)
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY,10))
+                // 开启日志检查器，便于观察效果(不加也可以)
+                .advisors(new MyLoggerAdvisor())
+                // 应用增强检索服务(云知识库服务)
+                .advisors(aiResumeAssistantRagCloudAdvisor)
+                .call()
+                .chatResponse();
+        String content = chatResponse.getResult().getOutput().getText();
+        log.info("content:{}",content);
+        return  content;
+    }
+
+
 
 
 }

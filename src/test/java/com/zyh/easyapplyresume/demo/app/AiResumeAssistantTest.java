@@ -47,4 +47,12 @@ class AiResumeAssistantTest {
         String answer = aiResumeAssistant.doChatWithRag(message,chatId);
         Assertions.assertNotNull(answer);
     }
+
+//    @Test
+//    void doChatWithRagCloudAdvisor() {
+//        String chatId = UUID.randomUUID().toString();
+//        String message = "工作经历很少，只有一段实习/短期工作，怎么写满一页？";
+//        String answer = aiResumeAssistant.doChatWithRag(message,chatId);
+//        Assertions.assertNotNull(answer);
+//    }
 }
