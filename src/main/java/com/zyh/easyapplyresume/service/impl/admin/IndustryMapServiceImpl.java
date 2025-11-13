@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zyh.easyapplyresume.mapper.admin.IndustryMapMapper;
+import com.zyh.easyapplyresume.mapper.mysql.admin.IndustryMapMapper;
 import com.zyh.easyapplyresume.model.form.admin.IndustryMapForm;
 import com.zyh.easyapplyresume.model.pojo.admin.IndustryMap;
 import com.zyh.easyapplyresume.model.query.admin.IndustryMapQuery;
@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 

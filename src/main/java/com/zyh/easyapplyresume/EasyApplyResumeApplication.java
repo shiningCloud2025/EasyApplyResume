@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.ai.autoconfigure.vectorstore.pgvector.PgVectorStoreAutoConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +12,7 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author shiningCloud2025
  */
-@SpringBootApplication
-@MapperScan("com.zyh.easyapplyresume.mapper")
+@SpringBootApplication(exclude = PgVectorStoreAutoConfiguration.class)
 public class EasyApplyResumeApplication {
 
     public static void main(String[] args) {

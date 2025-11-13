@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zyh.easyapplyresume.mapper.admin.ResumeTemplateMapper;
+import com.zyh.easyapplyresume.mapper.mysql.admin.ResumeTemplateMapper;
 import com.zyh.easyapplyresume.model.form.admin.ResumeTemplateForm;
 import com.zyh.easyapplyresume.model.pojo.admin.ResumeTemplate;
 import com.zyh.easyapplyresume.model.query.admin.ResumeTemplateQuery;
@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.zyh.easyapplyresume.service.admin.ResumeTemplateService;
-import java.util.Collections;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

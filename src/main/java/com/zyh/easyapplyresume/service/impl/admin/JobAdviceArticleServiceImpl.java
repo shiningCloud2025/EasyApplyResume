@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zyh.easyapplyresume.mapper.admin.JobAdviceArticleMapper;
+import com.zyh.easyapplyresume.mapper.mysql.admin.JobAdviceArticleMapper;
 import com.zyh.easyapplyresume.model.form.admin.JobAdviceArticleForm;
 import com.zyh.easyapplyresume.model.pojo.admin.JobAdviceArticle;
 import com.zyh.easyapplyresume.model.query.admin.JobAdviceArticleQuery;

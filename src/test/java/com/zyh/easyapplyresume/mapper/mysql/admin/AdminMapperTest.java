@@ -1,5 +1,6 @@
-package com.zyh.easyapplyresume.mapper.admin;
+package com.zyh.easyapplyresume.mapper.mysql.admin;
 
+import com.zyh.easyapplyresume.mapper.mysql.admin.AdminMapper;
 import com.zyh.easyapplyresume.model.pojo.admin.Admin;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
