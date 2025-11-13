@@ -14,7 +14,8 @@ EasyApplyResume(易投简历)是作者准备的毕设项目。作者一直对做
 架构设计:单体多实例<br>
 前端核心技术:react(用户端)和vue3(管理端和检测与广告端)<br>
 网关核心技术:Nginx(仅目前,后续可能会考虑自已制作一个网关或者使用Higress、GateWay等成熟的解决方案)<br>
-后端核心技术:SpringBoot3全家桶+SpringAI+MySQL、Redis、ES等主流技术和中间件<br>
+后端核心技术:JDK21+SpringBoot3全家桶+SpringAI+MySQL、Redis、ES等主流技术和中间件<br>
+数据库核心技术:MySQL5.7、Redis7.2、PGVector16<br>
 部署为:centos7+docker
 ## 核心功能
 用户端:<br>
