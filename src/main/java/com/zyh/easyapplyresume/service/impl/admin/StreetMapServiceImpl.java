@@ -1,6 +1,6 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
-import com.zyh.easyapplyresume.mapper.admin.StreetMapMapper;
+import com.zyh.easyapplyresume.mapper.mysql.admin.StreetMapMapper;
 import com.zyh.easyapplyresume.model.pojo.admin.StreetMap;
 import com.zyh.easyapplyresume.service.admin.StreetMapService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,6 @@
-package com.zyh.easyapplyresume.mapper.user;
+package com.zyh.easyapplyresume.mapper.mysql.user;
 
+import com.zyh.easyapplyresume.mapper.mysql.user.ChatMessageMapper;
 import com.zyh.easyapplyresume.model.pojo.user.ChatMessage;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;

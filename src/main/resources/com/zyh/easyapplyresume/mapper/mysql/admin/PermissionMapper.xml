@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zyh.easyapplyresume.mapper.admin.PermissionMapper">
+<mapper namespace="com.zyh.easyapplyresume.mapper.mysql.admin.PermissionMapper">
     <delete id="deleteRolePermissionByPermissionId" parameterType="int">
         delete from admin_role_permission
         where permission_id = #{permissionId}

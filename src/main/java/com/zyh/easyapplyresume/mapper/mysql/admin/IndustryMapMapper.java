@@ -1,4 +1,4 @@
-package com.zyh.easyapplyresume.mapper.admin;
+package com.zyh.easyapplyresume.mapper.mysql.admin;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zyh.easyapplyresume.model.pojo.admin.IndustryMap;

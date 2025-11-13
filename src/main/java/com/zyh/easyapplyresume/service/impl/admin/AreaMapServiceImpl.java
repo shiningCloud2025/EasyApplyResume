@@ -1,8 +1,8 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.zyh.easyapplyresume.mapper.admin.AreaMapMapper;
-import com.zyh.easyapplyresume.mapper.admin.StreetMapMapper;
+import com.zyh.easyapplyresume.mapper.mysql.admin.AreaMapMapper;
+import com.zyh.easyapplyresume.mapper.mysql.admin.StreetMapMapper;
 import com.zyh.easyapplyresume.model.pojo.admin.AreaMap;
 import com.zyh.easyapplyresume.model.pojo.admin.StreetMap;
 import com.zyh.easyapplyresume.service.admin.AreaMapService;

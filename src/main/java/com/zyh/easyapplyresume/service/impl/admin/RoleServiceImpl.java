@@ -1,9 +1,8 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.zyh.easyapplyresume.mapper.admin.RoleMapper;
+import com.zyh.easyapplyresume.mapper.mysql.admin.RoleMapper;
 import com.zyh.easyapplyresume.model.form.admin.RoleForm;
 import com.zyh.easyapplyresume.model.pojo.admin.Role;
 import com.zyh.easyapplyresume.model.query.admin.RolePageQuery;
