@@ -69,7 +69,7 @@ public class DataSourceConfig {
         factory.setConfiguration(configuration);
         // 扫描 MySQL 的 Mapper XML 文件（如果你的 Mapper 用 XML 写法，指定路径）
         factory.setMapperLocations(new PathMatchingResourcePatternResolver()
-                .getResources("classpath:mapper/admin/*.xml")); // 你的 MySQL Mapper XML 路径
+                .getResources("classpath*:com/zyh/easyapplyresume/mapper/mysql/**/*.xml")); // 你的 MySQL Mapper XML 路径
         return factory.getObject();
     }
 
@@ -112,7 +112,7 @@ public class DataSourceConfig {
         factory.setConfiguration(configuration);
         // 扫描 PG 的 Mapper XML 文件（如有）
         factory.setMapperLocations(new PathMatchingResourcePatternResolver()
-                .getResources("classpath:mapper/pgvector/*.xml"));
+                .getResources("classpath*:com/zyh/easyapplyresume/mapper/pgvector/**/*.xml"));
         return factory.getObject();
     }
 
