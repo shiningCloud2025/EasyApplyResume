@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.demo.rag;
 
+import cn.hutool.extra.tokenizer.TokenizerUtil;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.transformer.splitter.TokenTextSplitter;
 import org.springframework.stereotype.Component;
