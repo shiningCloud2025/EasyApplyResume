@@ -19,13 +19,17 @@ public class AiResumeAssistantVectorStoreConfig {
 
     @Resource
     private AiResumeAssistantDocumentLoader aiResumeAssistantDocumentLoader;
+    @Resource
+    private MyTokenTextSplitter myTokenTextSplitter;
 
     @Bean
     VectorStore aiResumeAssistantVectorStore(EmbeddingModel dashscopeEmbeddingModel) {
         SimpleVectorStore simpleVectorStore = SimpleVectorStore.builder(dashscopeEmbeddingModel).build();
         // 加载文档
         List<Document> documents = aiResumeAssistantDocumentLoader.loadMarkdowns();
-        simpleVectorStore.add(documents);
+        // 自主切分
+        List<Document> splitDocuments = myTokenTextSplitter.splitCustomized(documents);
+        simpleVectorStore.add(splitDocuments);
         return simpleVectorStore;
     }
 

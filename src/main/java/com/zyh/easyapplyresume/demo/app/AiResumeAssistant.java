@@ -6,6 +6,7 @@ import com.zyh.easyapplyresume.demo.advisor.SensitiveWordsAdvisor;
 import com.zyh.easyapplyresume.demo.chatmemory.FileBasedChatMemory;
 import com.zyh.easyapplyresume.demo.chatmemory.InMemoryDbHybridChatMemory;
 import com.zyh.easyapplyresume.demo.chatmemory.MySQLBasedChatMemory;
+import com.zyh.easyapplyresume.demo.rag.MyTokenTextSplitter;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -19,6 +20,7 @@ import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -144,6 +146,11 @@ public class AiResumeAssistant {
         log.info("content:{}",content);
         return  content;
     }
+
+    // 使用了文档切分器的RAG
+    @Resource
+    private MyTokenTextSplitter myTokenTextSplitter;
+
 
 
 
