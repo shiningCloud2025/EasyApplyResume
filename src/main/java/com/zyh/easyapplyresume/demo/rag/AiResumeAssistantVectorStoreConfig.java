@@ -30,10 +30,10 @@ public class AiResumeAssistantVectorStoreConfig {
         // 加载文档
         List<Document> documents = aiResumeAssistantDocumentLoader.loadMarkdowns();
         // 自主切分
-//        List<Document> splitDocuments = myTokenTextSplitter.splitCustomized(documents);
+        List<Document> splitDocuments = myTokenTextSplitter.splitDocuments(documents);
         // 自动补充关键词元信息
-        List<Document> splitDocuments = myKeywordEnricher.enrichDocuments( documents);
-        simpleVectorStore.add(splitDocuments);
+        List<Document> splitDocuments1 = myKeywordEnricher.enrichDocuments( documents);
+        simpleVectorStore.add(splitDocuments1);
         return simpleVectorStore;
     }
 

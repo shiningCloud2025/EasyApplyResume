@@ -7,6 +7,7 @@ import com.zyh.easyapplyresume.demo.chatmemory.FileBasedChatMemory;
 import com.zyh.easyapplyresume.demo.chatmemory.InMemoryDbHybridChatMemory;
 import com.zyh.easyapplyresume.demo.chatmemory.MySQLBasedChatMemory;
 import com.zyh.easyapplyresume.demo.rag.MyTokenTextSplitter;
+import com.zyh.easyapplyresume.demo.rag.QueryRewriter;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -147,10 +148,20 @@ public class AiResumeAssistant {
         return  content;
     }
 
-    // 使用了文档切分器的RAG
+    // 使用了查询重写的RAG
     @Resource
-    private MyTokenTextSplitter myTokenTextSplitter;
-
+    private QueryRewriter queryRewriter;
+    public String doChatWithRagAndQueryRewrite(String message,String chatId){
+        // 查询重写
+        String rewriteenMessage = queryRewriter.doQueryRewrite(message);
+        ChatResponse chatResponse = chatClient
+                .prompt()
+                .user( rewriteenMessage)
+                .call()
+                .chatResponse();
+        String content = chatResponse.getResult().getOutput().getText();
+        return  content;
+    }
 
 
 

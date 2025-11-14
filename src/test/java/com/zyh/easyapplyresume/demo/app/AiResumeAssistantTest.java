@@ -55,4 +55,12 @@ class AiResumeAssistantTest {
         String answer = aiResumeAssistant.doChatWithRag(message,chatId);
         Assertions.assertNotNull(answer);
     }
+
+    @Test
+    void doChatWithRagAndQueryRewrite() {
+        String chatId = UUID.randomUUID().toString();
+        String message = "工作经历很少，a/短期工作，怎么写满一页阿巴巴？";
+        String answer = aiResumeAssistant.doChatWithRagAndQueryRewrite(message,chatId);
+        Assertions.assertNotNull(answer);
+    }
 }
