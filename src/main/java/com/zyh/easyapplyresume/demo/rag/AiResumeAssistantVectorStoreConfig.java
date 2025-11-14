@@ -21,6 +21,8 @@ public class AiResumeAssistantVectorStoreConfig {
     private AiResumeAssistantDocumentLoader aiResumeAssistantDocumentLoader;
     @Resource
     private MyTokenTextSplitter myTokenTextSplitter;
+    @Resource
+    private MyKeywordEnricher myKeywordEnricher;
 
     @Bean
     VectorStore aiResumeAssistantVectorStore(EmbeddingModel dashscopeEmbeddingModel) {
@@ -28,7 +30,9 @@ public class AiResumeAssistantVectorStoreConfig {
         // 加载文档
         List<Document> documents = aiResumeAssistantDocumentLoader.loadMarkdowns();
         // 自主切分
-        List<Document> splitDocuments = myTokenTextSplitter.splitCustomized(documents);
+//        List<Document> splitDocuments = myTokenTextSplitter.splitCustomized(documents);
+        // 自动补充关键词元信息
+        List<Document> splitDocuments = myKeywordEnricher.enrichDocuments( documents);
         simpleVectorStore.add(splitDocuments);
         return simpleVectorStore;
     }
