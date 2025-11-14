@@ -21,6 +21,7 @@ public class AiResumeAssistantDocumentLoader {
 
     private final ResourcePatternResolver resourcePatternResolver;
 
+
     AiResumeAssistantDocumentLoader(ResourcePatternResolver resourcePatternResolver) {
         this.resourcePatternResolver = resourcePatternResolver;
     }
@@ -31,6 +32,8 @@ public class AiResumeAssistantDocumentLoader {
             Resource[] resources = resourcePatternResolver.getResources("classpath:document/*.md");
             for(Resource resource : resources){
                 String fileName = resource.getFilename();
+                // 提取文档倒数第 3 和第 2 个字作为标签
+                String status = fileName.substring(fileName.length() - 6, fileName.length() - 4);
                 MarkdownDocumentReaderConfig config = MarkdownDocumentReaderConfig.builder()
                         // 水平分隔线作为文档分割点
                         .withHorizontalRuleCreateDocument(true)
@@ -40,6 +43,7 @@ public class AiResumeAssistantDocumentLoader {
                         .withIncludeBlockquote(false)
                         // 元信息
                         .withAdditionalMetadata("fileName", fileName)
+                        .withAdditionalMetadata("status", status)
                         .build();
                 MarkdownDocumentReader reader = new MarkdownDocumentReader(resource, config);
                 allDocuments.addAll(reader.read());
