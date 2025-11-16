@@ -6,6 +6,7 @@ import com.zyh.easyapplyresume.demo.advisor.SensitiveWordsAdvisor;
 import com.zyh.easyapplyresume.demo.chatmemory.FileBasedChatMemory;
 import com.zyh.easyapplyresume.demo.chatmemory.InMemoryDbHybridChatMemory;
 import com.zyh.easyapplyresume.demo.chatmemory.MySQLBasedChatMemory;
+import com.zyh.easyapplyresume.demo.rag.AiResumeAssistantRagCustomAdvisorFactory;
 import com.zyh.easyapplyresume.demo.rag.MyTokenTextSplitter;
 import com.zyh.easyapplyresume.demo.rag.QueryRewriter;
 import jakarta.annotation.Resource;
@@ -73,6 +74,8 @@ public class AiResumeAssistant {
                         new ReReadingAdvisor(),
                         // 自定义敏感词过滤Advisor，可按需开启
                         sensitiveWordsAdvisor
+                        // 根据用户输入进行过滤
+//                        AiResumeAssistantRagCustomAdvisorFactory.creatAiResumeAssistantRagCustomAdvisor(aiResumeAssistantVectorStore,"应届生")
                 )
                 .build();
     }
