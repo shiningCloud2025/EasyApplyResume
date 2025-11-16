@@ -29,25 +29,21 @@ public class User {
     /**
      * 用户名称
      */
-    @NotNull(message = "用户名称不能为空")
     @TableField("user_username")
     private String userUsername;
     /**
      * 用户邮箱
      */
-    @NotNull(message = "用户邮箱不能为空")
     @TableField("user_email")
     private String userEmail;
     /**
      * 用户手机
      */
-    @NotNull(message = "用户手机不能为空")
     @TableField("user_phone")
     private String userPhone;
     /**
      * 用户密码
      */
-    @NotNull(message = "用户密码不能为空")
     @TableField("user_password")
     private String userPassword;
     /**
