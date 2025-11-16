@@ -59,11 +59,6 @@ public class UserSaveResume {
      */
     @TableField("userSaveResume_userId")
     private Integer userSaveResumeUserId;
-    /**
-     * 逻辑删除
-     */
-    @TableField("deleted")
-    private Integer deleted;
 
 
 
