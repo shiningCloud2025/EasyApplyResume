@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface AdminMapper extends BaseMapper<Admin> {
     // 根据admin的id删除对应的role
-    void deleteRoleByAdminId(Integer adminId);
+    Integer deleteRoleByAdminId(Integer adminId);
 
     // 根据admin的id查询admin以及对应的role和permission
     AdminInfoVO findAdminInfoById(Integer adminId);
@@ -21,6 +21,6 @@ public interface AdminMapper extends BaseMapper<Admin> {
     List<RoleInfoVO> findRoleByAdmin(Integer adminId);
 
     // 给管理员分配角色
-    void assignRoleToAdmin(@Param("adminId") Integer adminId,@Param("roleId") Integer roleId);
+    Integer assignRoleToAdmin(@Param("adminId") Integer adminId,@Param("roleId") Integer roleId);
 
 }

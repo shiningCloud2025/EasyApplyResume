@@ -121,8 +121,9 @@ public class AiResumeAssistant {
                         .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY,10))
                 // 开启日志检查器，便于观察效果
                 .advisors(new MyLoggerAdvisor())
-                // 应用知识库问答
+                // 应用知识库问答(原始版)
                 .advisors(new QuestionAnswerAdvisor(aiResumeAssistantVectorStore))
+//                .advisors( AiResumeAssistantRagCustomAdvisorFactory.creatAiResumeAssistantRagCustomAdvisor(aiResumeAssistantVectorStore,"应届生"))
                 .call()
                 .chatResponse();
         String content = chatResponse.getResult().getOutput().getText();

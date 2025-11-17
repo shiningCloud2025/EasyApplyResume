@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * 文档收集和切割-元数据自动标注组件
+ * 优化组件-文档收集和切割-元数据自动标注组件
  * @author shiningCloud2025
  */
 @Component

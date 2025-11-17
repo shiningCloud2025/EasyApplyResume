@@ -33,28 +33,35 @@ public class AdminServiceImpl implements AdminService {
     private AdminMapper adminMapper;
 
     @Override
-    public void addAdmin(AdminForm adminForm) {
+    public Integer addAdmin(AdminForm adminForm) {
+        if(adminForm==null) {
+            return 0;
+        }
         AdminFormValidator.validateForAdd(adminForm);
         Admin admin = new Admin();
         admin.setAdminLoginTime(new Date());
         BeanUtils.copyProperties(adminForm, admin);
-        adminMapper.insert(admin);
+        return adminMapper.insert(admin);
+
     }
 
     @Override
-    public void updateAdmin(AdminForm adminForm) {
+    public Integer updateAdmin(AdminForm adminForm) {
+        if(adminForm==null) {
+            return 0;
+        }
         AdminFormValidator.validateForUpdate(adminForm);
         Admin admin = new Admin();
         BeanUtils.copyProperties(adminForm, admin);
-        adminMapper.updateById(admin);
+        return adminMapper.updateById(admin);
     }
 
     @Override
-    public void deleteAdmin(Integer adminId) {
+    public Integer deleteAdmin(Integer adminId) {
         Admin admin = adminMapper.selectById(adminId);
         admin.setDeleted(1);
         adminMapper.updateById(admin);
-        adminMapper.deleteRoleByAdminId(adminId);
+        return adminMapper.deleteRoleByAdminId(adminId);
     }
 
     @Override
@@ -107,14 +114,16 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void assignRoleToAdmin(Integer adminId, Integer[] roleIds) {
+    public Integer assignRoleToAdmin(Integer adminId, Integer[] roleIds) {
+        int count = 0;
         if (roleIds==null){
-            return;
+            return 0;
         } else{
+            adminMapper.deleteRoleByAdminId(adminId);
             for(int role:roleIds){
-                adminMapper.deleteRoleByAdminId(adminId);
-                adminMapper.assignRoleToAdmin(adminId,role);
+               count+= adminMapper.assignRoleToAdmin(adminId,role);
             }
         }
+        return count;
     }
 }

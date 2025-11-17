@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.demo.advisor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.advisor.api.*;
+import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.Map;
  * 自定义Re2 Advisor
  * 可以提高大型语言模型的推理能力
  */
+@Component
 @Slf4j
 public class ReReadingAdvisor implements CallAroundAdvisor, StreamAroundAdvisor {
 
@@ -45,6 +47,6 @@ public class ReReadingAdvisor implements CallAroundAdvisor, StreamAroundAdvisor 
 
     @Override
     public int getOrder() {
-        return -1;
+        return -80000;
     }
 }

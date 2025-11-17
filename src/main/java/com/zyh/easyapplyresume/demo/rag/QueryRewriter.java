@@ -9,7 +9,7 @@ import org.springframework.ai.rag.preretrieval.query.transformation.RewriteQuery
 import org.springframework.stereotype.Component;
 
 /**
- * 文档过滤与检索-重写转换器
+ * 优化组件-文档过滤与检索-重写转换器
  * @author shiningCloud2025
  */
 @Component

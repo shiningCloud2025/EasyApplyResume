@@ -16,17 +16,17 @@ public interface AdminService {
     /**
      * 新增管理员
      */
-    public void addAdmin(AdminForm adminForm);
+    public Integer addAdmin(AdminForm adminForm);
 
     /**
      * 修改管理员
      */
-    public void updateAdmin(AdminForm adminForm);
+    public Integer updateAdmin(AdminForm adminForm);
 
     /**
      * 删除管理员
      */
-    public void deleteAdmin(Integer adminId);
+    public Integer deleteAdmin(Integer adminId);
 
     /**
      * 查询管理员
@@ -47,6 +47,6 @@ public interface AdminService {
     /**
      * 为管理员分配角色
      */
-    public void assignRoleToAdmin(Integer adminId, Integer[] roleIds);
+    public Integer assignRoleToAdmin(Integer adminId, Integer[] roleIds);
 
 }

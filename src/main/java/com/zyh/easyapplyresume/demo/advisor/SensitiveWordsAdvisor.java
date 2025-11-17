@@ -104,6 +104,6 @@ public class SensitiveWordsAdvisor implements CallAroundAdvisor, StreamAroundAdv
 
     @Override
     public int getOrder() {
-        return -2147482649;
+        return -100000;
     }
 }
