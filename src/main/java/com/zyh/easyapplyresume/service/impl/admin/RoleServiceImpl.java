@@ -2,6 +2,8 @@ package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.RoleMapper;
 import com.zyh.easyapplyresume.model.form.admin.RoleForm;
 import com.zyh.easyapplyresume.model.pojo.admin.Role;
@@ -13,6 +15,7 @@ import com.zyh.easyapplyresume.service.admin.RoleService;
 import com.zyh.easyapplyresume.utils.Validator.RoleFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,29 +32,64 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleMapper roleMapper;
     @Override
-    public void addRole(RoleForm roleForm) {
+    public Integer addRole(RoleForm roleForm) {
+        if (roleForm == null){
+            return 0;
+        }
         RoleFormValidator.validateForAdd(roleForm);
         Role role = new Role();
         BeanUtils.copyProperties(roleForm, role);
-        roleMapper.insert(role);
+        try{
+            return roleMapper.insert(role);
+        }catch (DataAccessException e){
+            throw resolveDbException(e);
+        }
     }
 
     @Override
-    public void updateRole(RoleForm roleForm) {
+    public Integer updateRole(RoleForm roleForm) {
+        if (roleForm == null){
+            return 0;
+        }
+        if (roleForm.getRoleId()==1){
+            throw new BusException(CodeEnum.NO_UPDATE_SUPER_ADMNIN_ROLE);
+        }
         RoleFormValidator.validateForUpdate(roleForm);
         Role role = new Role();
         BeanUtils.copyProperties(roleForm, role);
-        roleMapper.updateById(role);
+        try{
+           return roleMapper.updateById(role);
+        }catch (DataAccessException e)
+        {
+            throw resolveDbException(e);
+        }
+    }
+
+    // ------------------- 模仿AdminService风格的异常处理方法 -------------------
+    private BusException resolveDbException(Exception e) {
+        String errorMsg = e.getMessage();
+
+        // 1. 处理唯一约束冲突（DuplicateKeyException 或 SQLIntegrityConstraintViolationException）
+        if (errorMsg != null && (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException)) {
+            if (errorMsg.contains("role_name") || errorMsg.contains("idx_role_name")) {
+                // 匹配角色名字段或角色名唯一索引
+                return new BusException(CodeEnum.ROLE_NAME_DUPLICATE);
+            }
+        }
+        // 兜底：未匹配到角色唯一冲突，返回异常转换失败枚举
+        return new BusException(CodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
     }
 
     @Override
-    public void deleteRole(Integer roleId) {
+    public Integer deleteRole(Integer roleId) {
+        if (roleId==1){
+            throw new BusException(CodeEnum.NO_DELETE_SUPER_ADMNIN_ROLE);
+        }
         Role role = roleMapper.selectById(roleId);
         role.setDeleted(1);
         roleMapper.updateById(role);
         roleMapper.deleteRoleAdminByRoleId(roleId);
-        roleMapper.deleteRolePermissionByRoleId(roleId);
-
+        return roleMapper.deleteRolePermissionByRoleId(roleId);
     }
 
     @Override
@@ -105,14 +143,16 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void assignPermissionToRole(Integer roleId, Integer[] permissionIds) {
+    public Integer assignPermissionToRole(Integer roleId, Integer[] permissionIds) {
+        int count = 0;
         if(permissionIds!=null){
-            return ;
+            return count;
         } else{
+            roleMapper.deleteRolePermissionByRoleId(roleId);
             for (int permission : permissionIds) {
-                roleMapper.deleteRolePermissionByRoleId(roleId);
-                roleMapper.assignPermissionToRole(roleId, permission);
+                count+=roleMapper.assignPermissionToRole(roleId, permission);
             }
         }
+        return count;
     }
 }
