@@ -56,6 +56,9 @@ public class AdminServiceImpl implements AdminService {
         if(adminForm==null) {
             return 0;
         }
+        if (adminForm.getAdminId()==1){
+            throw new BusException(CodeEnum.NO_UPDATE_SUPER_ADMIN);
+        }
         AdminFormValidator.validateForUpdate(adminForm);
         Admin admin = new Admin();
         BeanUtils.copyProperties(adminForm, admin);
@@ -86,6 +89,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Integer deleteAdmin(Integer adminId) {
+        if (adminId==1){ throw new BusException(CodeEnum.NO_DELETE_SUPER_ADMIN);}
         Admin admin = adminMapper.selectById(adminId);
         admin.setDeleted(1);
         adminMapper.updateById(admin);
