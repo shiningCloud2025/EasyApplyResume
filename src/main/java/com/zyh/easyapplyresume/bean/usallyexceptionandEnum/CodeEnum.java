@@ -19,28 +19,31 @@ public enum CodeEnum {
     // 账户或密码错误
     USERNAMEORPASSWORD_ERROR(602,"账户或者密码错误"),
 
-    // ------------------- 新增：AdminForm表单验证错误码（从603开始）-------------------
-    // 管理员名称过长
-    ADMIN_USERNAME_TOO_LONG(603,"管理员名称不能超过15个字符"),
-    // 邮箱过长
-    ADMIN_EMAIL_TOO_LONG(604,"邮箱不能超过25个字符"),
-    // 邮箱格式错误
-    ADMIN_EMAIL_FORMAT_ERROR(605,"邮箱格式不正确"),
-    // 手机号格式错误
-    ADMIN_PHONE_FORMAT_ERROR(606,"手机号必须是11位有效数字"),
-    // 管理员介绍过长
-    ADMIN_INTRO_TOO_LONG(607,"管理员介绍不能超过200个字符"),
+    // ==================== 通用格式错误（新增/修改均适用）====================
+    ADMIN_PHONE_FORMAT_ERROR(603, "手机号必须是11位有效数字（示例：13800138000）"),
+    ADMIN_EMAIL_FORMAT_ERROR(604, "邮箱格式不正确（示例：admin@company.com）"),
 
+    // ==================== 通用长度超限（新增/修改均适用）====================
+    ADMIN_USERNAME_TOO_LONG(605, "账号名长度不能超过15个字符"),
+    ADMIN_EMAIL_TOO_LONG(606, "邮箱长度不能超过25个字符"),
+    ADMIN_INTRO_TOO_LONG(607, "管理员介绍长度不能超过200个字符"),
+    ADMIN_PASSWORD_LENGTH_ERROR(608, "密码长度必须为6-20位（建议字母+数字组合）"),
 
-    // ------------------- 新增：修改场景-属性非空错误码 -------------------
-    ADMIN_UPDATE_USERNAME_EMPTY(608,"管理员名称不能为空"),
-    ADMIN_UPDATE_EMAIL_EMPTY(609,"管理员邮箱不能为空"),
-    ADMIN_UPDATE_PHONE_EMPTY(610,"管理员手机不能为空"),
-    ADMIN_UPDATE_PASSWORD_EMPTY(611,"管理员密码不能为空"),
-    ADMIN_UPDATE_IMAGE_EMPTY(612,"管理员头像不能为空"),
-    ADMIN_UPDATE_INTRO_EMPTY(613,"管理员介绍不能为空"),
-    ADMIN_UPDATE_STATE_EMPTY(614,"管理员状态不能为空"),
-    ADMIN_UPDATE_LOGINTIME_EMPTY(615,"管理员最近登录时间不能为空"),
+    // ==================== 新增场景：必填项为空 ====================
+    ADMIN_ADD_USERNAME_EMPTY(609, "新增管理员：账号名不能为空"),
+    ADMIN_ADD_PHONE_EMPTY(610, "新增管理员：手机号不能为空"),
+
+    // ==================== 修改场景：全字段非空（强制必填）====================
+    ADMIN_UPDATE_USERNAME_EMPTY(611, "修改管理员：账号名不能为空"),
+    ADMIN_UPDATE_PHONE_EMPTY(612, "修改管理员：手机号不能为空"),
+    ADMIN_UPDATE_EMAIL_EMPTY(613, "修改管理员：邮箱不能为空"),
+    ADMIN_UPDATE_PASSWORD_EMPTY(614, "修改管理员：密码不能为空"),
+    ADMIN_UPDATE_IMAGE_EMPTY(615, "修改管理员：头像路径不能为空"),
+    ADMIN_UPDATE_INTRO_EMPTY(616, "修改管理员：介绍不能为空"),
+    ADMIN_UPDATE_STATE_EMPTY(617, "修改管理员：状态不能为空"),
+
+    // ==================== 通用非法值（新增/修改均适用）====================
+    ADMIN_STATE_ILLEGAL(618, "管理员状态非法（仅支持：0=禁用，1=正常）"),
 
 
     // ------------------- 新增：RoleForm表单验证错误码（从630开始）-------------------
