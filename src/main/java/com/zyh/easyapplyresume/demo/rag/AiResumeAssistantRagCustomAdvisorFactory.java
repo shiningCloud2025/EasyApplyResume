@@ -31,6 +31,8 @@ public class AiResumeAssistantRagCustomAdvisorFactory {
                 .build();
         return RetrievalAugmentationAdvisor.builder()
                 .documentRetriever(documentRetriever)
+                // 做加强，如果查不到知识库的处理办法
+                .queryAugmenter(AiResumeAssistantContextualQueryAugmenterFactory.createInstance())
                 .build();
     }
 }

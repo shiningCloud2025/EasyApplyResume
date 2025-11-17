@@ -3,12 +3,14 @@ package com.zyh.easyapplyresume.demo.advisor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.advisor.api.*;
 import org.springframework.ai.chat.model.MessageAggregator;
+import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
 /**
  * 自定义日志Advisor
  * 打印info级别日志、只输出单次用户提示词和AI回复的文本
  */
+@Component
 @Slf4j
 public class MyLoggerAdvisor implements CallAroundAdvisor, StreamAroundAdvisor {
     @Override
@@ -43,6 +45,6 @@ public class MyLoggerAdvisor implements CallAroundAdvisor, StreamAroundAdvisor {
 
     @Override
     public int getOrder() {
-        return -2;
+        return -90000;
     }
 }
