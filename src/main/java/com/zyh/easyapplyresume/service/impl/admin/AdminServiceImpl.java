@@ -2,6 +2,8 @@ package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminMapper;
 import com.zyh.easyapplyresume.model.form.admin.AdminForm;
 import com.zyh.easyapplyresume.model.pojo.admin.Admin;
@@ -41,7 +43,11 @@ public class AdminServiceImpl implements AdminService {
         Admin admin = new Admin();
         admin.setAdminLoginTime(new Date());
         BeanUtils.copyProperties(adminForm, admin);
-        return adminMapper.insert(admin);
+        try{
+            return adminMapper.insert(admin);
+        }catch (Exception e){
+            throw resolveDbException(e);
+        }
 
     }
 
@@ -53,7 +59,29 @@ public class AdminServiceImpl implements AdminService {
         AdminFormValidator.validateForUpdate(adminForm);
         Admin admin = new Admin();
         BeanUtils.copyProperties(adminForm, admin);
-        return adminMapper.updateById(admin);
+        try{
+            return adminMapper.updateById(admin);
+        }catch (Exception e){
+            throw resolveDbException(e);
+        }
+    }
+    private BusException resolveDbException(Exception e) {
+        String errorMsg = e.getMessage();
+
+        // 1. 处理唯一约束冲突（DuplicateKeyException 或 SQLIntegrityConstraintViolationException）
+        if (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException) {
+            if (errorMsg.contains("admin_username") || errorMsg.contains("idx_admin_username")) {
+                // 匹配账号名字段或账号名唯一索引
+                return new BusException(CodeEnum.ADMIN_USERNAME_DUPLICATE);
+            } else if (errorMsg.contains("admin_phone") || errorMsg.contains("idx_admin_phone")) {
+                // 匹配手机号字段或手机号唯一索引
+                return new BusException(CodeEnum.ADMIN_PHONE_DUPLICATE);
+            } else if (errorMsg.contains("admin_email") || errorMsg.contains("idx_admin_email")) {
+                // 匹配邮箱字段或邮箱唯一索引
+                return new BusException(CodeEnum.ADMIN_EMAIL_DUPLICATE);
+            }
+        }
+        return new BusException(CodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
     }
 
     @Override
