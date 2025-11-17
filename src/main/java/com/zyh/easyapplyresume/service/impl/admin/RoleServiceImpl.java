@@ -8,6 +8,7 @@ import com.zyh.easyapplyresume.model.pojo.admin.Role;
 import com.zyh.easyapplyresume.model.query.admin.RolePageQuery;
 import com.zyh.easyapplyresume.model.vo.admin.PermissionInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO;
+import com.zyh.easyapplyresume.model.vo.admin.RolePageVO;
 import com.zyh.easyapplyresume.service.admin.RoleService;
 import com.zyh.easyapplyresume.utils.Validator.RoleFormValidator;
 import org.springframework.beans.BeanUtils;
@@ -59,7 +60,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Page<RoleInfoVO> findRoleByPage(Integer pageNum, Integer pageSize, RolePageQuery rolePageQuery) {
+    public Page<RolePageVO> findRoleByPage(Integer pageNum, Integer pageSize, RolePageQuery rolePageQuery) {
         LambdaQueryWrapper<Role> lambdaQueryWrapper = lambdaQuery(Role.class);
         lambdaQueryWrapper.eq(Role::getDeleted, 0);
         if (rolePageQuery.getRoleName() != null && !rolePageQuery.getRoleName().isEmpty()) {
@@ -71,20 +72,20 @@ public class RoleServiceImpl implements RoleService {
         Page<Role> rolePage = roleMapper.selectPage(new Page<>(pageNum, pageSize), lambdaQueryWrapper);
 
         // 3. 转换：Role实体列表 → RoleInfoVO列表（属性复制+自定义处理）
-        List<RoleInfoVO> voList = rolePage.getRecords().stream()
+        List<RolePageVO> voList = rolePage.getRecords().stream()
                 .map(role -> {
-                    RoleInfoVO infoVO = new RoleInfoVO();
+                    RolePageVO pageVO = new RolePageVO();
                     // 基础属性复制（要求Role和RoleInfoVO字段名、类型一致，如roleId、roleName等）
-                    BeanUtils.copyProperties(role, infoVO);
+                    BeanUtils.copyProperties(role, pageVO);
                     // （关键）若字段名不一致，需手动补充映射（示例如下，根据实际VO结构调整）
                     // 示例1：若Role有"createTime"，VO有"roleCreateTime" → infoVO.setRoleCreateTime(role.getCreateTime());
                     // 示例2：若需格式化日期 → infoVO.setFormatCreateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(role.getCreateTime()));
-                    return infoVO;
+                    return pageVO;
                 })
                 .collect(Collectors.toList());
 
         // 4. 构建VO分页对象（复制原始分页的分页参数）
-        Page<RoleInfoVO> roleVOPage = new Page<>();
+        Page<RolePageVO> roleVOPage = new Page<>();
         roleVOPage.setRecords(voList);         // 核心：设置转换后的VO列表
         roleVOPage.setCurrent(rolePage.getCurrent()); // 当前页码（如第1页）
         roleVOPage.setSize(rolePage.getSize());       // 每页条数（如10条/页）

@@ -5,6 +5,7 @@ import com.zyh.easyapplyresume.model.form.admin.RoleForm;
 import com.zyh.easyapplyresume.model.query.admin.RolePageQuery;
 import com.zyh.easyapplyresume.model.vo.admin.PermissionInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO;
+import com.zyh.easyapplyresume.model.vo.admin.RolePageVO;
 
 import java.util.List;
 /**
@@ -30,7 +31,7 @@ public interface RoleService {
     /**
      * 分页查询角色信息
      */
-    public Page<RoleInfoVO> findRoleByPage(Integer pageNum, Integer pageSize, RolePageQuery rolePageQuery);
+    public Page<RolePageVO> findRoleByPage(Integer pageNum, Integer pageSize, RolePageQuery rolePageQuery);
     /**
      * 查询所有角色
      */

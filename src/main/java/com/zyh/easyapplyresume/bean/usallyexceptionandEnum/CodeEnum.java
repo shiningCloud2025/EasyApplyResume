@@ -19,21 +19,19 @@ public enum CodeEnum {
     // 账户或密码错误
     USERNAMEORPASSWORD_ERROR(602,"账户或者密码错误"),
 
+    // ==================== 管理员相关(603-629)  ====================
     // ==================== 通用格式错误（新增/修改均适用）====================
     ADMIN_PHONE_FORMAT_ERROR(603, "手机号必须是11位有效数字（示例：13800138000）"),
     ADMIN_EMAIL_FORMAT_ERROR(604, "邮箱格式不正确（示例：admin@company.com）"),
-
     // ==================== 通用长度超限（新增/修改均适用）====================
     ADMIN_USERNAME_TOO_LONG(605, "账号名长度不能超过15个字符"),
     ADMIN_EMAIL_TOO_LONG(606, "邮箱长度不能超过25个字符"),
     ADMIN_INTRO_TOO_LONG(607, "管理员介绍长度不能超过200个字符"),
     ADMIN_PASSWORD_LENGTH_ERROR(608, "密码长度必须为6-20位（建议字母+数字组合）"),
-
     // ==================== 新增场景：必填项为空（账号名+手机号+邮箱）====================
     ADMIN_ADD_USERNAME_EMPTY(609, "新增管理员：账号名不能为空"),
     ADMIN_ADD_PHONE_EMPTY(610, "新增管理员：手机号不能为空"),
     ADMIN_ADD_EMAIL_EMPTY(611, "新增管理员：邮箱不能为空"), // 新增邮箱必填错误码
-
     // ==================== 修改场景：全字段非空（强制必填）====================
     ADMIN_UPDATE_USERNAME_EMPTY(612, "修改管理员：账号名不能为空"),
     ADMIN_UPDATE_PHONE_EMPTY(613, "修改管理员：手机号不能为空"),
@@ -42,25 +40,27 @@ public enum CodeEnum {
     ADMIN_UPDATE_IMAGE_EMPTY(616, "修改管理员：头像路径不能为空"),
     ADMIN_UPDATE_INTRO_EMPTY(617, "修改管理员：介绍不能为空"),
     ADMIN_UPDATE_STATE_EMPTY(618, "修改管理员：状态不能为空"),
-
     // ==================== 通用非法值（新增/修改均适用）====================
     ADMIN_STATE_ILLEGAL(619, "管理员状态非法（仅支持：0=禁用，1=正常）"),
     ADMIN_USERNAME_DUPLICATE(620, "账号名已存在"),
     ADMIN_PHONE_DUPLICATE(621, "手机号已存在"),
     ADMIN_EMAIL_DUPLICATE(622, "邮箱已存在"),
     DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION(623, "数据库异常没有转换成业务异常异常"),
+    NO_DELETE_SUPER_ADMIN(624, "超级管理员不能被删除"),
+    NO_UPDATE_SUPER_ADMIN(625, "超级管理员不能被修改"),
 
-    // ------------------- 新增：RoleForm表单验证错误码（从630开始）-------------------
-    // 角色名称过长
-    ROLE_NAME_TOO_LONG(630,"角色名称不能超过12个字符"),
-    // 角色介绍过长
-    ROLE_INTRODUCE_TOO_LONG(631,"角色介绍不能超过30个字符"),
-    // 修改场景-角色ID为空
-    ROLE_UPDATE_ID_EMPTY(632,"角色ID不能为空"),
-    // 修改场景-角色名称为空
-    ROLE_UPDATE_NAME_EMPTY(633,"角色名称不能为空"),
-    // 修改场景-角色介绍为空
-    ROLE_UPDATE_INTRODUCE_EMPTY(634,"角色介绍不能为空"),
+    // ==================== 角色相关（630-639）====================
+    // 新增场景必填项为空
+    ROLE_ADD_NAME_EMPTY(630, "新增角色：角色名称不能为空"),
+
+    // 修改场景必填项为空
+    ROLE_UPDATE_ID_EMPTY(631, "修改角色：角色ID不能为空"),
+    ROLE_UPDATE_NAME_EMPTY(632, "修改角色：角色名称不能为空"),
+    ROLE_UPDATE_INTRODUCE_EMPTY(633, "修改角色：角色简介不能为空"),
+
+    // 长度超限
+    ROLE_NAME_TOO_LONG(634, "角色名称长度不能超过12个字符"),
+    ROLE_INTRODUCE_TOO_LONG(635, "角色简介长度不能超过30个字符"),
 
 
     // ------------------- 新增：PermissionForm表单验证错误码（从640开始）-------------------
