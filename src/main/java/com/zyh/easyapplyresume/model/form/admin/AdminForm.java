@@ -19,6 +19,7 @@ public class AdminForm {
     @Schema(description = "管理员id")
     private Integer adminId;
 
+    @NotNull(message = "管理员名称不能为空")
     @Schema(description = "管理员名称")
     private String adminUsername;
 
