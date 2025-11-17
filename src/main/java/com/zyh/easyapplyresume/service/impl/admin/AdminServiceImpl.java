@@ -15,6 +15,7 @@ import com.zyh.easyapplyresume.service.admin.AdminService;
 import com.zyh.easyapplyresume.utils.Validator.AdminFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,7 +46,7 @@ public class AdminServiceImpl implements AdminService {
         BeanUtils.copyProperties(adminForm, admin);
         try{
             return adminMapper.insert(admin);
-        }catch (Exception e){
+        }catch (DataAccessException e){
             throw resolveDbException(e);
         }
 
@@ -64,13 +65,12 @@ public class AdminServiceImpl implements AdminService {
         BeanUtils.copyProperties(adminForm, admin);
         try{
             return adminMapper.updateById(admin);
-        }catch (Exception e){
+        }catch (DataAccessException e){
             throw resolveDbException(e);
         }
     }
     private BusException resolveDbException(Exception e) {
         String errorMsg = e.getMessage();
-
         // 1. 处理唯一约束冲突（DuplicateKeyException 或 SQLIntegrityConstraintViolationException）
         if (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException) {
             if (errorMsg.contains("admin_username") || errorMsg.contains("idx_admin_username")) {
@@ -89,7 +89,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Integer deleteAdmin(Integer adminId) {
-        if (adminId==1){ throw new BusException(CodeEnum.NO_DELETE_SUPER_ADMIN);}
+        if (adminId==1){
+            throw new BusException(CodeEnum.NO_DELETE_SUPER_ADMIN);
+        }
         Admin admin = adminMapper.selectById(adminId);
         admin.setDeleted(1);
         adminMapper.updateById(admin);
@@ -149,7 +151,7 @@ public class AdminServiceImpl implements AdminService {
     public Integer assignRoleToAdmin(Integer adminId, Integer[] roleIds) {
         int count = 0;
         if (roleIds==null){
-            return 0;
+            return count;
         } else{
             adminMapper.deleteRoleByAdminId(adminId);
             for(int role:roleIds){

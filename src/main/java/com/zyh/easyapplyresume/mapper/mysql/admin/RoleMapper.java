@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface RoleMapper extends BaseMapper<Role> {
     // 根据role的id删除对应的admin
-    void deleteRoleAdminByRoleId(Integer roleId);
+    Integer deleteRoleAdminByRoleId(Integer roleId);
     // 根据role的id删除对应的permission
-    void deleteRolePermissionByRoleId(Integer roleId);
+    Integer deleteRolePermissionByRoleId(Integer roleId);
     // 查询角色和权限
     RoleInfoVO findRoleInfoById(Integer roleId);
     // 查询所有角色
@@ -23,5 +23,5 @@ public interface RoleMapper extends BaseMapper<Role> {
     // 查询角色拥有的权限
     List<PermissionInfoVO> findPermissionByRole(Integer roleId);
     // 给角色分配权限
-    void assignPermissionToRole(@Param("roleId") Integer roleId,@Param("permissionId") Integer permissionId);
+    Integer assignPermissionToRole(@Param("roleId") Integer roleId,@Param("permissionId") Integer permissionId);
 }

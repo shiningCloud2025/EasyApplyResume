@@ -61,6 +61,9 @@ public enum CodeEnum {
     // 长度超限
     ROLE_NAME_TOO_LONG(634, "角色名称长度不能超过12个字符"),
     ROLE_INTRODUCE_TOO_LONG(635, "角色简介长度不能超过30个字符"),
+    ROLE_NAME_DUPLICATE(636, "角色名称已存在"),
+    NO_UPDATE_SUPER_ADMNIN_ROLE(634, "超级管理员角色不能被修改"),
+    NO_DELETE_SUPER_ADMNIN_ROLE(635, "超级管理员角色不能被删除"),
 
 
     // ------------------- 新增：PermissionForm表单验证错误码（从640开始）-------------------

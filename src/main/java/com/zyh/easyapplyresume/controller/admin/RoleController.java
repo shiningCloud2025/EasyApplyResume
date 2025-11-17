@@ -29,19 +29,19 @@ public class RoleController {
     @Operation(summary = "新增角色")
     @PostMapping("/add")
     public BaseResult<Integer> addRole(@RequestBody RoleForm roleForm){
-
+        return BaseResult.ok(roleService.addRole(roleForm));
     }
 
     @Operation(summary = "修改角色")
     @PostMapping("/update")
     public BaseResult<Integer> updateRole(@RequestBody RoleForm roleForm){
-
+        return BaseResult.ok(roleService.updateRole(roleForm));
     }
 
     @Operation(summary = "删除角色")
     @DeleteMapping("/delete")
     public BaseResult<Integer> deleteRole(@RequestParam(required = true,value = "roleId") Integer roleId){
-
+        return BaseResult.ok(roleService.deleteRole(roleId));
     }
 
     @Operation(summary = "查询角色")
@@ -68,7 +68,7 @@ public class RoleController {
     @PostMapping("/assignPermissionToRole")
     public BaseResult<Integer> assignPermissionToRole(@RequestParam(required = true,value = "roleId") Integer roleId,
                                                      @RequestParam(required = true,value = "permissionIds") Integer[] permissionIds){
-
+        return BaseResult.ok(roleService.assignPermissionToRole(roleId,permissionIds));
     }
 
 }

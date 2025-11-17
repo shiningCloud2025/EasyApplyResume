@@ -15,15 +15,15 @@ public interface RoleService {
     /**
      * 新增角色
      */
-    public void addRole(RoleForm roleForm);
+    public Integer addRole(RoleForm roleForm);
     /**
      * 修改角色
      */
-    public void updateRole(RoleForm roleForm);
+    public Integer updateRole(RoleForm roleForm);
     /**
      * 删除角色
      */
-    public void deleteRole(Integer roleId);
+    public Integer deleteRole(Integer roleId);
     /**
      * 查询角色信息
      */
@@ -43,7 +43,7 @@ public interface RoleService {
     /**
      * 为角色分配权限
      */
-    public void assignPermissionToRole(Integer roleId, Integer[] permissionIds);
+    public Integer assignPermissionToRole(Integer roleId, Integer[] permissionIds);
 
 
 
