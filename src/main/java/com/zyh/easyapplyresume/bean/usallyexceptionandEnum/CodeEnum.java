@@ -29,22 +29,22 @@ public enum CodeEnum {
     ADMIN_INTRO_TOO_LONG(607, "管理员介绍长度不能超过200个字符"),
     ADMIN_PASSWORD_LENGTH_ERROR(608, "密码长度必须为6-20位（建议字母+数字组合）"),
 
-    // ==================== 新增场景：必填项为空 ====================
+    // ==================== 新增场景：必填项为空（账号名+手机号+邮箱）====================
     ADMIN_ADD_USERNAME_EMPTY(609, "新增管理员：账号名不能为空"),
     ADMIN_ADD_PHONE_EMPTY(610, "新增管理员：手机号不能为空"),
+    ADMIN_ADD_EMAIL_EMPTY(611, "新增管理员：邮箱不能为空"), // 新增邮箱必填错误码
 
     // ==================== 修改场景：全字段非空（强制必填）====================
-    ADMIN_UPDATE_USERNAME_EMPTY(611, "修改管理员：账号名不能为空"),
-    ADMIN_UPDATE_PHONE_EMPTY(612, "修改管理员：手机号不能为空"),
-    ADMIN_UPDATE_EMAIL_EMPTY(613, "修改管理员：邮箱不能为空"),
-    ADMIN_UPDATE_PASSWORD_EMPTY(614, "修改管理员：密码不能为空"),
-    ADMIN_UPDATE_IMAGE_EMPTY(615, "修改管理员：头像路径不能为空"),
-    ADMIN_UPDATE_INTRO_EMPTY(616, "修改管理员：介绍不能为空"),
-    ADMIN_UPDATE_STATE_EMPTY(617, "修改管理员：状态不能为空"),
+    ADMIN_UPDATE_USERNAME_EMPTY(612, "修改管理员：账号名不能为空"),
+    ADMIN_UPDATE_PHONE_EMPTY(613, "修改管理员：手机号不能为空"),
+    ADMIN_UPDATE_EMAIL_EMPTY(614, "修改管理员：邮箱不能为空"),
+    ADMIN_UPDATE_PASSWORD_EMPTY(615, "修改管理员：密码不能为空"),
+    ADMIN_UPDATE_IMAGE_EMPTY(616, "修改管理员：头像路径不能为空"),
+    ADMIN_UPDATE_INTRO_EMPTY(617, "修改管理员：介绍不能为空"),
+    ADMIN_UPDATE_STATE_EMPTY(618, "修改管理员：状态不能为空"),
 
     // ==================== 通用非法值（新增/修改均适用）====================
-    ADMIN_STATE_ILLEGAL(618, "管理员状态非法（仅支持：0=禁用，1=正常）"),
-
+    ADMIN_STATE_ILLEGAL(619, "管理员状态非法（仅支持：0=禁用，1=正常）"),
 
     // ------------------- 新增：RoleForm表单验证错误码（从630开始）-------------------
     // 角色名称过长

@@ -23,6 +23,7 @@ public class AdminForm {
     @Schema(description = "管理员名称")
     private String adminUsername;
 
+    @NotNull(message = "管理员邮箱不能为空")
     @Schema(description = "管理员邮箱")
     private String adminEmail;
 
