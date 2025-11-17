@@ -45,6 +45,10 @@ public enum CodeEnum {
 
     // ==================== 通用非法值（新增/修改均适用）====================
     ADMIN_STATE_ILLEGAL(619, "管理员状态非法（仅支持：0=禁用，1=正常）"),
+    ADMIN_USERNAME_DUPLICATE(620, "账号名已存在"),
+    ADMIN_PHONE_DUPLICATE(621, "手机号已存在"),
+    ADMIN_EMAIL_DUPLICATE(622, "邮箱已存在"),
+    DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION(623, "数据库异常没有转换成业务异常异常"),
 
     // ------------------- 新增：RoleForm表单验证错误码（从630开始）-------------------
     // 角色名称过长
