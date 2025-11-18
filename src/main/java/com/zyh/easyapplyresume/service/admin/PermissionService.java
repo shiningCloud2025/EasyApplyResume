@@ -15,15 +15,15 @@ public interface PermissionService {
     /**
      * 新增权限
      */
-    public void addPermission(PermissionForm permissionForm);
+    public Integer addPermission(PermissionForm permissionForm);
     /**
      * 修改权限
      */
-    public void updatePermission(PermissionForm permissionForm);
+    public Integer updatePermission(PermissionForm permissionForm);
     /**
      * 删除权限
      */
-    public void deletePermission(Integer permissionId);
+    public Integer deletePermission(Integer permissionId);
     /**
      * 根据权限ID查询权限信息
      */

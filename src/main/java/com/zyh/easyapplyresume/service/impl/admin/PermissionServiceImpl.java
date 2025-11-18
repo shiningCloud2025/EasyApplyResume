@@ -29,27 +29,34 @@ public class PermissionServiceImpl implements PermissionService {
     @Autowired
     private PermissionMapper permissionMapper;
     @Override
-    public void addPermission(PermissionForm permissionForm) {
+    public Integer addPermission(PermissionForm permissionForm) {
+        if (permissionForm == null){
+            return 0;
+        }
         PermissionFormValidator.validateForAdd(permissionForm);
         Permission permission = new Permission();
         BeanUtils.copyProperties(permissionForm, permission);
-        permissionMapper.insert(permission);
+        return permissionMapper.insert(permission);
     }
 
     @Override
-    public void updatePermission(PermissionForm permissionForm) {
+    public Integer updatePermission(PermissionForm permissionForm) {
+        if (permissionForm == null){
+            return 0;
+        }
         PermissionFormValidator.validateForUpdate(permissionForm);
         Permission permission = new Permission();
         BeanUtils.copyProperties(permissionForm, permission);
-        permissionMapper.updateById(permission);
+        return permissionMapper.updateById(permission);
     }
 
     @Override
-    public void deletePermission(Integer permissionId) {
+    public Integer deletePermission(Integer permissionId) {
+        // TODO 后续要加一个只有超级管理员才能删除
         Permission permission = new Permission();
         permission.setDeleted(1);
         permissionMapper.updateById(permission);
-        permissionMapper.deleteRolePermissionByPermissionId(permissionId);
+        return permissionMapper.deleteRolePermissionByPermissionId(permissionId);
     }
 
     @Override
@@ -73,6 +80,11 @@ public class PermissionServiceImpl implements PermissionService {
         // 判空过滤：permissionUrl 不为空则模糊查询
         if (permissionPageQuery.getPermissionUrl() != null && !permissionPageQuery.getPermissionUrl().isEmpty()) {
             lambdaQueryWrapper.like(Permission::getPermissionUrl, permissionPageQuery.getPermissionUrl());
+        }
+
+        // 判空过滤: permissionIntroduce 不为空则模糊查询
+        if (permissionPageQuery.getPermissionIntroduce() != null && !permissionPageQuery.getPermissionIntroduce().isEmpty()) {
+            lambdaQueryWrapper.like(Permission::getPermissionIntroduce, permissionPageQuery.getPermissionIntroduce());
         }
 
         // 3. 调用 Mapper 分页查询（需确保 PermissionMapper 有 selectPage 方法）
