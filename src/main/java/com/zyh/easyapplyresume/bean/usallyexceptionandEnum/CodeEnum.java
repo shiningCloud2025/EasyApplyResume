@@ -66,12 +66,22 @@ public enum CodeEnum {
     NO_DELETE_SUPER_ADMNIN_ROLE(635, "超级管理员角色不能被删除"),
 
 
-    // ------------------- 新增：PermissionForm表单验证错误码（从640开始）-------------------
-    PERMISSION_NAME_TOO_LONG(640,"权限名称不能超过20个字符"),    // 新增/修改共用
-    PERMISSION_URL_TOO_LONG(641,"权限URL不能超过50个字符"),      // 新增/修改共用
-    PERMISSION_UPDATE_ID_EMPTY(642,"权限ID不能为空"),            // 修改场景专用
-    PERMISSION_UPDATE_NAME_EMPTY(643,"权限名称不能为空"),        // 修改场景专用
-    PERMISSION_UPDATE_URL_EMPTY(644,"权限URL不能为空"),          // 修改场景专用
+    // ==================== 权限相关（640-648）====================
+    // 修改场景必填项为空（640-645）
+    PERMISSION_UPDATE_ID_EMPTY(640, "修改权限：权限ID不能为空"),
+    PERMISSION_UPDATE_NAME_EMPTY(643, "修改权限：权限名称不能为空"),
+    PERMISSION_UPDATE_URL_EMPTY(644, "修改权限：权限URL不能为空"),
+    PERMISSION_UPDATE_INTRO_EMPTY(645, "修改权限：权限简介不能为空"),
+
+    // 新增场景必填项为空（641-642）
+    PERMISSION_ADD_NAME_EMPTY(641, "新增权限：权限名称不能为空"),
+    PERMISSION_ADD_URL_EMPTY(642, "新增权限：权限URL不能为空"),
+
+    // 长度超限（646-648）
+    PERMISSION_NAME_TOO_LONG(646, "权限名称长度不能超过20个字符"),
+    PERMISSION_URL_TOO_LONG(647, "权限URL长度不能超过50个字符"),
+    PERMISSION_INTRO_TOO_LONG(648, "权限简介长度不能超过30个字符"),
+
 
     // ------------------- 新增：ResumeTemplate校验错误码（655开始）-------------------
     RESUME_TEMPLATE_ID_EMPTY(655,"修改简历模板必须指定模板ID"),
