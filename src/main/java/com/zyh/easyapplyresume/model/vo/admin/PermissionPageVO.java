@@ -16,4 +16,7 @@ public class PermissionPageVO {
 
     @Schema(description = "权限URL")
     private String permissionUrl;
+
+    @Schema(description = "权限简介")
+    private String permissionIntroduce;
 }
