@@ -65,7 +65,6 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
-    // ------------------- 模仿AdminService风格的异常处理方法 -------------------
     private BusException resolveDbException(Exception e) {
         String errorMsg = e.getMessage();
 
