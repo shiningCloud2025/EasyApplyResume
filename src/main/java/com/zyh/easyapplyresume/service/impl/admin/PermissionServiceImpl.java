@@ -3,6 +3,8 @@ package com.zyh.easyapplyresume.service.impl.admin;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.PermissionMapper;
 import com.zyh.easyapplyresume.model.form.admin.PermissionForm;
 import com.zyh.easyapplyresume.model.pojo.admin.Permission;
@@ -36,7 +38,11 @@ public class PermissionServiceImpl implements PermissionService {
         PermissionFormValidator.validateForAdd(permissionForm);
         Permission permission = new Permission();
         BeanUtils.copyProperties(permissionForm, permission);
-        return permissionMapper.insert(permission);
+        try{
+            return permissionMapper.insert(permission);
+        }catch (Exception e){
+            throw resolveDbException(e);
+        }
     }
 
     @Override
@@ -47,7 +53,30 @@ public class PermissionServiceImpl implements PermissionService {
         PermissionFormValidator.validateForUpdate(permissionForm);
         Permission permission = new Permission();
         BeanUtils.copyProperties(permissionForm, permission);
-        return permissionMapper.updateById(permission);
+        try{
+            return permissionMapper.updateById(permission);
+        }catch (Exception e){
+            throw resolveDbException(e);
+        }
+    }
+
+    private BusException resolveDbException(Exception e) {
+        String errorMsg = e.getMessage();
+
+        // 1. 处理唯一约束冲突（匹配MySQL唯一冲突关键字或DuplicateKeyException）
+        if (errorMsg != null && (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException)) {
+            // 匹配权限名字段或其唯一索引（如idx_permission_name）
+            if (errorMsg.contains("permission_name") || errorMsg.contains("idx_permission_name")) {
+                return new BusException(CodeEnum.PERMISSION_NAME_DUPLICATE);
+            }
+            // 匹配权限URL字段或其唯一索引（如idx_permission_url）
+            else if (errorMsg.contains("permission_url") || errorMsg.contains("idx_permission_url")) {
+                return new BusException(CodeEnum.PERMISSION_URL_DUPLICATE);
+            }
+        }
+
+        // 兜底：未匹配到权限唯一冲突，返回异常转换失败枚举
+        return new BusException(CodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
     }
 
     @Override
