@@ -81,6 +81,8 @@ public enum CodeEnum {
     PERMISSION_NAME_TOO_LONG(646, "权限名称长度不能超过20个字符"),
     PERMISSION_URL_TOO_LONG(647, "权限URL长度不能超过50个字符"),
     PERMISSION_INTRO_TOO_LONG(648, "权限简介长度不能超过30个字符"),
+    PERMISSION_NAME_DUPLICATE(649, "权限名称已存在"), // 新增：名称唯一冲突
+    PERMISSION_URL_DUPLICATE(650, "权限URL已存在"),   // 新增：URL唯一冲突
 
 
     // ------------------- 新增：ResumeTemplate校验错误码（655开始）-------------------
