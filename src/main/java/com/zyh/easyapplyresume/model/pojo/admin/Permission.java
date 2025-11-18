@@ -33,6 +33,11 @@ public class Permission {
      */
     @TableField("permission_url")
     private String permissionUrl;
+    /**
+     * 权限介绍
+     */
+    @TableField("permission_introduce")
+    private String permissionIntroduce;
 
     /**
      * 逻辑删除标识
