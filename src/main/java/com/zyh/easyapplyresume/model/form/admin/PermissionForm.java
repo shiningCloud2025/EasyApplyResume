@@ -15,11 +15,12 @@ import javax.validation.constraints.NotNull;
 public class PermissionForm {
     @Schema(description = "权限id")
     private Integer permissionId;
-    @NotNull(message = "权限名称不能为空")
 
+    @NotNull(message = "权限名称不能为空")
     @Schema(description = "权限名称")
     private String permissionName;
 
+    @NotNull(message = "权限URL不能为空")
     @Schema(description = "权限URL")
     private String permissionUrl;
 
