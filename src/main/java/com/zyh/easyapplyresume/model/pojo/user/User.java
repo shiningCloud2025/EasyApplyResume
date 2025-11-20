@@ -27,6 +27,11 @@ public class User {
     @TableId(value = "user_id", type = IdType.AUTO)
     private Integer userId;
     /**
+     * 用户账号
+     */
+    @TableField("user_account")
+    private String userAccount;
+    /**
      * 用户名称
      */
     @TableField("user_username")

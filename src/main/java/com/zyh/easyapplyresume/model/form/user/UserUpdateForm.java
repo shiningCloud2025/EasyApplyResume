@@ -3,13 +3,9 @@ package com.zyh.easyapplyresume.model.form.user;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -17,24 +13,23 @@ import java.util.Date;
  * @author shiningCloud2025
  */
 @Data
-@Schema(description = "用户表单")
-public class UserForm {
-    @Schema(description = "用户id")
+@Schema(description = "用户修改表单")
+public class UserUpdateForm {
+    @Schema(description = "用户id（主键，自增）")
     private Integer userId;
 
-    @NotNull(message = "用户名称不能为空")
+    @Schema(description = "用户账号")
+    private String userAccount;
+
     @Schema(description = "用户名称")
     private String userUsername;
 
-    @NotNull(message = "用户邮箱不能为空")
     @Schema(description = "用户邮箱")
     private String userEmail;
 
-    @NotNull(message = "用户手机不能为空")
     @Schema(description = "用户手机")
     private String userPhone;
 
-    @NotNull(message = "用户密码不能为空")
     @Schema(description = "用户密码")
     private String userPassword;
 
@@ -58,6 +53,15 @@ public class UserForm {
 
     @Schema(description = "用户希望的福利待遇")
     private String userDreamGoodWelfare;
+
+    @Schema(description = "用户地址(省级)")
+    private String userRecruitLocationFirst;
+
+    @Schema(description = "用户地址(市级)")
+    private String userRecruitLocationSecond;
+
+    @Schema(description = "用户大学编码")
+    private int userUniversityCode;
 
 
 }
