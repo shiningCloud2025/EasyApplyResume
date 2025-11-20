@@ -91,6 +91,26 @@ public class User {
      */
     @TableField("user_dreamGoodWelfare")
     private String userDreamGoodWelfare;
+    /**
+     * 用户地址(省级)
+     */
+    @TableField("user_recruitLocationFirst")
+    private String userRecruitLocationFirst;
+    /**
+     * 用户地址(市级)
+     */
+    @TableField("user_recruitLocationSecond")
+    private String userRecruitLocationSecond;
+    /**
+     * 用户详细地址
+     */
+    @TableField("user_recruitLocationDetail")
+    private String userRecruitLocationDetail;
+    /**
+     * 用户大学编码
+     */
+    @TableField("user_universityCode")
+    private int userUniversityCode;
 
 
 }

@@ -6,6 +6,7 @@ import com.zyh.easyapplyresume.service.admin.ProvinceMapService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,13 +24,13 @@ public class ProvinceMapController {
     private ProvinceMapService provinceMapService;
 
     @Operation(summary = "获取所有省份信息")
-    @RequestMapping("/getAllProvince")
+    @GetMapping("/getAllProvince")
     public List<ProvinceMap> getAllProvince(){
         return provinceMapService.getAllProvince();
     }
 
     @Operation(summary = "根据省份id获取所有市")
-    @RequestMapping("/getCityByProvinceId")
+    @GetMapping("/getCityByProvinceId")
     public List<CityMap> getCityByProvinceId(Integer provinceMapId){
         return provinceMapService.getCityByProvinceId(provinceMapId);
     }

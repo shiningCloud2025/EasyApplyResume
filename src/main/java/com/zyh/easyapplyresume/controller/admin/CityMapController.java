@@ -6,6 +6,7 @@ import com.zyh.easyapplyresume.service.admin.CityMapService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,13 +24,13 @@ public class CityMapController {
     private CityMapService cityMapService;
 
     @Operation(summary = "获取所有城市信息")
-    @RequestMapping("/getAllCity")
+    @GetMapping("/getAllCity")
     public List<CityMap> getAllCity(){
         return cityMapService.getAllCity();
     }
 
     @Operation(summary = "根据城市id获取所有区县")
-    @RequestMapping("/getAllAreaByCityId")
+    @GetMapping("/getAllAreaByCityId")
     public List<AreaMap> getAllAreaByCityId(Integer cityId){
         return cityMapService.getAllAreaByCityId(cityId);
     }
