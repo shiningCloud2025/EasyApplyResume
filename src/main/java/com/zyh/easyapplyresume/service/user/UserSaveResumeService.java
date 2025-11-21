@@ -15,12 +15,12 @@ public interface UserSaveResumeService {
     public List<UserSaveResumeInfoVO> getUserSaveResumeInfoByUserId(Integer userId);
 
     /**
-     * 根据用户id和简历id查询用户保存的简历
+     * 根据用户id和简历排序查询用户保存的简历
      */
     public UserSaveResumeInfoVO getUserSaveResumeInfoByUserIdAndResumeId(Integer userId, Integer userSaveResumeSortedNum);
 
     /**
-     * 根据用户id和简历id删除用户保存的简历
+     * 根据用户id和简历排序删除用户保存的简历
      */
     public void deleteUserSaveResumeInfoByUserIdAndResumeId(Integer userId, Integer userSaveResumeSortedNum);
 
