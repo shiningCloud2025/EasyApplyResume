@@ -15,11 +15,11 @@ public interface IndustryMapService {
     /**
      * 新增行业Map
      */
-    public void addIndustryMap(IndustryMapForm industryMapForm);
+    public Integer addIndustryMap(IndustryMapForm industryMapForm);
     /**
      * 修改行业Map
      */
-    public void updateIndustryMap(IndustryMapForm industryMapForm);
+    public Integer updateIndustryMap(IndustryMapForm industryMapForm);
     /**
      * 查询行业Map
      */

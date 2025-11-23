@@ -70,7 +70,7 @@ public class RoleServiceImpl implements RoleService {
 
         // 1. 处理唯一约束冲突（DuplicateKeyException 或 SQLIntegrityConstraintViolationException）
         if (errorMsg != null && (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException)) {
-            if (errorMsg.contains("role_name") || errorMsg.contains("idx_role_name")) {
+            if (errorMsg.contains("role_name") || errorMsg.contains("admin_role_pk")) {
                 // 匹配角色名字段或角色名唯一索引
                 return new BusException(CodeEnum.ROLE_NAME_DUPLICATE);
             }

@@ -73,13 +73,13 @@ public class AdminServiceImpl implements AdminService {
         String errorMsg = e.getMessage();
         // 1. 处理唯一约束冲突（DuplicateKeyException 或 SQLIntegrityConstraintViolationException）
         if (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException) {
-            if (errorMsg.contains("admin_username") || errorMsg.contains("idx_admin_username")) {
+            if (errorMsg.contains("admin_username") || errorMsg.contains("admin_admin_pk")) {
                 // 匹配账号名字段或账号名唯一索引
                 return new BusException(CodeEnum.ADMIN_USERNAME_DUPLICATE);
-            } else if (errorMsg.contains("admin_phone") || errorMsg.contains("idx_admin_phone")) {
+            } else if (errorMsg.contains("admin_phone") || errorMsg.contains("admin_admin_pk_2")) {
                 // 匹配手机号字段或手机号唯一索引
                 return new BusException(CodeEnum.ADMIN_PHONE_DUPLICATE);
-            } else if (errorMsg.contains("admin_email") || errorMsg.contains("idx_admin_email")) {
+            } else if (errorMsg.contains("admin_email") || errorMsg.contains("admin_admin_pk_3")) {
                 // 匹配邮箱字段或邮箱唯一索引
                 return new BusException(CodeEnum.ADMIN_EMAIL_DUPLICATE);
             }
