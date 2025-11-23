@@ -62,7 +62,6 @@ public class IndustryMapServiceImpl implements IndustryMapService {
         }
     }
 
-
     /**
      * 解析数据库异常
      * 将数据库底层异常转换为自定义的业务异常
