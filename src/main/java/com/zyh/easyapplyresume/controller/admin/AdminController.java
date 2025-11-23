@@ -51,7 +51,7 @@ public class AdminController {
     }
 
     @Operation(summary = "分页查询管理员")
-    @GetMapping("/findByPage")
+    @PostMapping("/findByPage")
     public BaseResult<Page<AdminPageVO>> findAdminByPage(@RequestParam(required = false,value = "pageNum",defaultValue = "1") Integer pageNum,
                                                          @RequestParam(required = false,value = "pageSize",defaultValue = "10") Integer pageSize,
                                                          @RequestBody AdminPageQuery adminPageQuery){

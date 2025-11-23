@@ -51,7 +51,7 @@ public class PermissionController {
     }
 
     @Operation(summary = "分页查询权限")
-    @GetMapping("/findByPage")
+    @PostMapping("/findByPage")
     public BaseResult<Page<PermissionPageVO>> findPermissionByPage(@RequestParam(required = false,value = "pageNum",defaultValue = "1") Integer pageNum,
                                                                    @RequestParam(required = false,value = "pageSize",defaultValue = "10") Integer pageSize,
                                                                    @RequestBody PermissionPageQuery permissionPageQuery){
