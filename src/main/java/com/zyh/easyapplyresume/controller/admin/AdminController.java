@@ -68,7 +68,6 @@ public class AdminController {
     @PostMapping("/assignRoleToAdmin")
     public BaseResult<Integer> assignRoleToAdmin(@RequestParam(required = true,value = "adminId") Integer adminId,
                                   @RequestParam(required = true,value = "roleIds") Integer[] roleIds){
-
         return BaseResult.ok(adminService.assignRoleToAdmin(adminId,roleIds));
     }
 
