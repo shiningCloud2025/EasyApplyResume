@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class AreaMapController {
 
     @Operation(summary = "根据区县id获取所有街道")
     @GetMapping("/getStreetByAreaId")
-    public List<StreetMap> getStreetByAreaId(Integer areaMapId){
+    public List<StreetMap> getStreetByAreaId(@RequestParam (required = true,value = "areaMapId") Integer areaMapId){
         return areaMapService.getStreetByAreaId(areaMapId);
     }
 
