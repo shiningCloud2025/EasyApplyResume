@@ -12,7 +12,8 @@ import lombok.Getter;
 public enum IndustryMapEnum {
     // 新增行业映射相关错误码（从20000开始）
     INDUSTRY_NAME_EMPTY(20000, "行业名称不能为空"),
-    INDUSTRY_NAME_TOO_LONG(20001, "行业名称长度不能超过35个字符") ;
+    INDUSTRY_NAME_TOO_LONG(20001, "行业名称长度不能超过35个字符") , // IndustryMap
+    INDUSTRY_NAME_DUPLICATE(20002, "行业名称已存在");
 
     private final Integer code;
     private final String message;

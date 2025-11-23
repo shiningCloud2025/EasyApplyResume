@@ -66,11 +66,11 @@ public class PermissionServiceImpl implements PermissionService {
         // 1. 处理唯一约束冲突（匹配MySQL唯一冲突关键字或DuplicateKeyException）
         if (errorMsg != null && (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException)) {
             // 匹配权限名字段或其唯一索引（如idx_permission_name）
-            if (errorMsg.contains("permission_name") || errorMsg.contains("idx_permission_name")) {
+            if (errorMsg.contains("permission_name") || errorMsg.contains("admin_permission_pk")) {
                 return new BusException(CodeEnum.PERMISSION_NAME_DUPLICATE);
             }
             // 匹配权限URL字段或其唯一索引（如idx_permission_url）
-            else if (errorMsg.contains("permission_url") || errorMsg.contains("idx_permission_url")) {
+            else if (errorMsg.contains("permission_url") || errorMsg.contains("admin_permission_pk_2")) {
                 return new BusException(CodeEnum.PERMISSION_URL_DUPLICATE);
             }
         }

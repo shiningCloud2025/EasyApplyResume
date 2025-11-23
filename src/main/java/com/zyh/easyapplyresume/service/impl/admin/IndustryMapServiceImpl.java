@@ -4,6 +4,9 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.IndustryMapEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.IndustryMapMapper;
 import com.zyh.easyapplyresume.model.form.admin.IndustryMapForm;
 import com.zyh.easyapplyresume.model.pojo.admin.IndustryMap;
@@ -12,8 +15,10 @@ import com.zyh.easyapplyresume.model.vo.admin.IndustryMapInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.IndustryMapPageVO;
 import com.zyh.easyapplyresume.service.admin.IndustryMapService;
 import com.zyh.easyapplyresume.utils.Validator.IndustryMapFormValidator;
+import org.commonmark.node.Code;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,22 +36,51 @@ public class IndustryMapServiceImpl implements IndustryMapService {
     @Autowired
     private IndustryMapMapper industryMapMapper;
     @Override
-    public void addIndustryMap(IndustryMapForm industryMapForm) {
+    public Integer addIndustryMap(IndustryMapForm industryMapForm) {
         IndustryMapFormValidator.validateForAdd(industryMapForm);
         IndustryMap industryMapEntity = new IndustryMap();
         BeanUtils.copyProperties(industryMapForm, industryMapEntity);
         industryMapEntity.setCreatedTime(new DateTime());
         industryMapEntity.setUpdatedTime(new DateTime());
-        industryMapMapper.insert(industryMapEntity);
+        try {
+            return industryMapMapper.insert(industryMapEntity);
+        }catch (DataAccessException e){
+            throw resolveDbException(e);
+        }
     }
 
     @Override
-    public void updateIndustryMap(IndustryMapForm industryMapForm) {
+    public Integer updateIndustryMap(IndustryMapForm industryMapForm) {
         IndustryMapFormValidator.validateForUpdate(industryMapForm);
         IndustryMap industryMapEntity = new IndustryMap();
         BeanUtils.copyProperties(industryMapForm, industryMapEntity);
         industryMapEntity.setUpdatedTime(new DateTime());
-        industryMapMapper.updateById(industryMapEntity);
+        try {
+           return industryMapMapper.updateById(industryMapEntity);
+        }catch (DataAccessException e){
+            throw resolveDbException(e);
+        }
+    }
+
+
+    /**
+     * 解析数据库异常
+     * 将数据库底层异常转换为自定义的业务异常
+     * @param e 原始异常
+     * @return 自定义的业务异常
+     */
+    private BusException resolveDbException(Exception e) {
+        String errorMsg = e.getMessage();
+        // 1. 处理唯一约束冲突（DuplicateKeyException 或包含 "Duplicate entry" 的异常）
+        if (errorMsg != null && errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException) {
+            // 为了增加匹配的准确性，可以同时判断字段名和索引名
+            if (errorMsg.contains("industryMap_industryName") || errorMsg.contains("idx_industry_name")) {
+                return new BusException(IndustryMapEnum.INDUSTRY_NAME_DUPLICATE);
+            }
+        }
+
+        // 如果以上都不匹配，则抛出一个“转换失败”的通用异常
+        return new BusException(CodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
     }
 
     @Override
