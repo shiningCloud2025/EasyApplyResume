@@ -15,12 +15,12 @@ public interface JobAdviceArticleService {
      * 新增求职攻略文章
      * @param jobAdviceArticleForm
      */
-    public void addJobAdviceArticle(JobAdviceArticleForm jobAdviceArticleForm);
+    public Integer addJobAdviceArticle(JobAdviceArticleForm jobAdviceArticleForm);
     /**
      * 修改求职攻略文章
      * @param jobAdviceArticleForm
      */
-    public void updateJobAdviceArticle(JobAdviceArticleForm jobAdviceArticleForm);
+    public Integer updateJobAdviceArticle(JobAdviceArticleForm jobAdviceArticleForm);
     /**
      * 删除求职攻略文章
      * @param jobAdviceArticleId

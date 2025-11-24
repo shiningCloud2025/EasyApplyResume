@@ -31,23 +31,23 @@ public class JobAdviceArticleServiceImpl implements JobAdviceArticleService {
     private JobAdviceArticleMapper jobAdviceArticleMapper;
 
     @Override
-    public void addJobAdviceArticle(JobAdviceArticleForm jobAdviceArticleForm) {
+    public Integer addJobAdviceArticle(JobAdviceArticleForm jobAdviceArticleForm) {
         JobAdviceArticleFormValidator.validateForAdd(jobAdviceArticleForm);
         JobAdviceArticle jobAdviceArticle = new JobAdviceArticle();
         BeanUtil.copyProperties(jobAdviceArticleForm, jobAdviceArticle);
         jobAdviceArticle.setJobAdviceArticlePublishedStatus(1);
         jobAdviceArticle.setJobAdviceArticlePublishedTime(new DateTime());
         jobAdviceArticle.setJobAdviceArticleUpdatedTime(new DateTime());
-        jobAdviceArticleMapper.insert(jobAdviceArticle);
+        return  jobAdviceArticleMapper.insert(jobAdviceArticle);
     }
 
     @Override
-    public void updateJobAdviceArticle(JobAdviceArticleForm jobAdviceArticleForm) {
+    public Integer updateJobAdviceArticle(JobAdviceArticleForm jobAdviceArticleForm) {
         JobAdviceArticleFormValidator.validateForUpdate(jobAdviceArticleForm);
         JobAdviceArticle jobAdviceArticle = new JobAdviceArticle();
         BeanUtil.copyProperties(jobAdviceArticleForm, jobAdviceArticle);
         jobAdviceArticle.setJobAdviceArticleUpdatedTime(new DateTime());
-        jobAdviceArticleMapper.updateById(jobAdviceArticle);
+        return jobAdviceArticleMapper.updateById(jobAdviceArticle);
     }
 
     @Override
