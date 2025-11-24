@@ -25,7 +25,7 @@ public interface JobAdviceArticleService {
      * 删除求职攻略文章
      * @param jobAdviceArticleId
      */
-    public void deleteJobAdviceArticle(Integer jobAdviceArticleId);
+    public Integer deleteJobAdviceArticle(Integer jobAdviceArticleId);
     /**
      * 查询求职攻略文章信息
      * @param jobAdviceArticleId
