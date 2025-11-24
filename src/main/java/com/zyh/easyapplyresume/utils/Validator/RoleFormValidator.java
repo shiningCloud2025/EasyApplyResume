@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.utils.Validator;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.model.form.admin.RoleForm;
 
 /**
@@ -29,11 +29,11 @@ public class RoleFormValidator {
     public static void validateForAdd(RoleForm roleForm) {
         // 1. 强制必填：角色名称（非空+长度≤12位）→ ROLE_ADD_NAME_EMPTY / ROLE_NAME_TOO_LONG
         if (roleForm.getRoleName() == null || roleForm.getRoleName().trim().isEmpty()) {
-            throw new BusException(CodeEnum.ROLE_ADD_NAME_EMPTY);
+            throw new BusException(AdminCodeEnum.ROLE_ADD_NAME_EMPTY);
         }
         String roleName = roleForm.getRoleName().trim();
         if (roleName.length() > ROLE_NAME_MAX_LENGTH) {
-            throw new BusException(CodeEnum.ROLE_NAME_TOO_LONG);
+            throw new BusException(AdminCodeEnum.ROLE_NAME_TOO_LONG);
         }
         roleForm.setRoleName(roleName); // 去空格后存值
 
@@ -44,7 +44,7 @@ public class RoleFormValidator {
         } else {
             roleIntro = roleIntro.trim();
             if (roleIntro.length() > ROLE_INTRO_MAX_LENGTH) {
-                throw new BusException(CodeEnum.ROLE_INTRODUCE_TOO_LONG);
+                throw new BusException(AdminCodeEnum.ROLE_INTRODUCE_TOO_LONG);
             }
             roleForm.setRoleIntroduce(roleIntro); // 去空格后存值
         }
@@ -57,26 +57,26 @@ public class RoleFormValidator {
     public static void validateForUpdate(RoleForm roleForm) {
         // 1. 强制必填：角色ID（非空）→ ROLE_UPDATE_ID_EMPTY
         if (roleForm.getRoleId() == null) {
-            throw new BusException(CodeEnum.ROLE_UPDATE_ID_EMPTY);
+            throw new BusException(AdminCodeEnum.ROLE_UPDATE_ID_EMPTY);
         }
 
         // 2. 强制必填：角色名称（非空+长度≤12位）→ ROLE_UPDATE_NAME_EMPTY / ROLE_NAME_TOO_LONG
         if (roleForm.getRoleName() == null || roleForm.getRoleName().trim().isEmpty()) {
-            throw new BusException(CodeEnum.ROLE_UPDATE_NAME_EMPTY);
+            throw new BusException(AdminCodeEnum.ROLE_UPDATE_NAME_EMPTY);
         }
         String roleName = roleForm.getRoleName().trim();
         if (roleName.length() > ROLE_NAME_MAX_LENGTH) {
-            throw new BusException(CodeEnum.ROLE_NAME_TOO_LONG);
+            throw new BusException(AdminCodeEnum.ROLE_NAME_TOO_LONG);
         }
         roleForm.setRoleName(roleName); // 去空格后存值
 
         // 3. 强制必填：角色简介（非空+长度≤30位）→ ROLE_UPDATE_INTRODUCE_EMPTY / ROLE_INTRODUCE_TOO_LONG
         if (roleForm.getRoleIntroduce() == null || roleForm.getRoleIntroduce().trim().isEmpty()) {
-            throw new BusException(CodeEnum.ROLE_UPDATE_INTRODUCE_EMPTY);
+            throw new BusException(AdminCodeEnum.ROLE_UPDATE_INTRODUCE_EMPTY);
         }
         String roleIntro = roleForm.getRoleIntroduce().trim();
         if (roleIntro.length() > ROLE_INTRO_MAX_LENGTH) {
-            throw new BusException(CodeEnum.ROLE_INTRODUCE_TOO_LONG);
+            throw new BusException(AdminCodeEnum.ROLE_INTRODUCE_TOO_LONG);
         }
         roleForm.setRoleIntroduce(roleIntro); // 去空格后存值
     }

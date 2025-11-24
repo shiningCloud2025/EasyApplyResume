@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public BaseResult defaultExceptionHandler(Exception e){
         e.printStackTrace();
-        BaseResult baseResult = new BaseResult(CodeEnum.SYSTEM_ERROR.getCode(),CodeEnum.SYSTEM_ERROR.getMessage(),null );
+        BaseResult baseResult = new BaseResult(AdminCodeEnum.SYSTEM_ERROR.getCode(), AdminCodeEnum.SYSTEM_ERROR.getMessage(),null );
         return baseResult;
     }
 }

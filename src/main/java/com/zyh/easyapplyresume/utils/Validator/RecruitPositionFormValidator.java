@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.utils.Validator;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.model.form.admin.RecruitPositionForm;
 
 /**
@@ -46,7 +46,7 @@ public class RecruitPositionFormValidator {
     public static void validateForUpdate(RecruitPositionForm recruitPositionForm) {
         // 1. 主键非空校验（修改必须指定ID，优先校验）
         if (recruitPositionForm.getRecruitPositionId() == null) {
-            throw new BusException(CodeEnum.RECRUIT_UPDATE_ID_EMPTY);
+            throw new BusException(AdminCodeEnum.RECRUIT_UPDATE_ID_EMPTY);
         }
 
         // 2. 非空校验（所有必填字段，完全替代@NotNull注解）
@@ -70,27 +70,27 @@ public class RecruitPositionFormValidator {
     private static void validateRequiredFields(RecruitPositionForm form, boolean isUpdate) {
         // 1. 招聘岗位名称非空（字符串需判断null/空串/纯空格）
         if (form.getRecruitPositionName() == null || form.getRecruitPositionName().trim().isEmpty()) {
-            throw new BusException(CodeEnum.RECRUIT_POSITION_NAME_EMPTY);
+            throw new BusException(AdminCodeEnum.RECRUIT_POSITION_NAME_EMPTY);
         }
 
         // 2. 行业代码非空（数值类型直接判断null）
         if (form.getRecruitPositionIndustryCode() == null) {
-            throw new BusException(CodeEnum.RECRUIT_INDUSTRY_CODE_EMPTY);
+            throw new BusException(AdminCodeEnum.RECRUIT_INDUSTRY_CODE_EMPTY);
         }
 
         // 3. 最低月薪非空
         if (form.getMinMonthSalary() == null) {
-            throw new BusException(CodeEnum.RECRUIT_MIN_SALARY_EMPTY);
+            throw new BusException(AdminCodeEnum.RECRUIT_MIN_SALARY_EMPTY);
         }
 
         // 4. 最高月薪非空
         if (form.getMaxMonthSalary() == null) {
-            throw new BusException(CodeEnum.RECRUIT_MAX_SALARY_EMPTY);
+            throw new BusException(AdminCodeEnum.RECRUIT_MAX_SALARY_EMPTY);
         }
 
         // 5. 每周工作天数非空
         if (form.getWeekWorkDayNum() == null) {
-            throw new BusException(CodeEnum.RECRUIT_WORK_DAY_EMPTY);
+            throw new BusException(AdminCodeEnum.RECRUIT_WORK_DAY_EMPTY);
         }
     }
 
@@ -110,13 +110,13 @@ public class RecruitPositionFormValidator {
         // 岗位名称长度校验（trim后≤30字符）
         String name = form.getRecruitPositionName().trim();
         if (name.length() > POSITION_NAME_MAX_LENGTH) {
-            throw new BusException(CodeEnum.RECRUIT_POSITION_NAME_TOO_LONG);
+            throw new BusException(AdminCodeEnum.RECRUIT_POSITION_NAME_TOO_LONG);
         }
 
         // 福利待遇长度校验（trim后≤200字符）
         String welfare = form.getGoodWelfare().trim();
         if (welfare.length() > GOOD_WELFARE_MAX_LENGTH) {
-            throw new BusException(CodeEnum.RECRUIT_GOOD_WELFARE_TOO_LONG);
+            throw new BusException(AdminCodeEnum.RECRUIT_GOOD_WELFARE_TOO_LONG);
         }
     }
 

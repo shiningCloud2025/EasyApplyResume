@@ -3,7 +3,7 @@ package com.zyh.easyapplyresume.service.impl.admin;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.RoleMapper;
 import com.zyh.easyapplyresume.model.form.admin.RoleForm;
 import com.zyh.easyapplyresume.model.pojo.admin.Role;
@@ -52,7 +52,7 @@ public class RoleServiceImpl implements RoleService {
             return 0;
         }
         if (roleForm.getRoleId()==1){
-            throw new BusException(CodeEnum.NO_UPDATE_SUPER_ADMNIN_ROLE);
+            throw new BusException(AdminCodeEnum.NO_UPDATE_SUPER_ADMNIN_ROLE);
         }
         RoleFormValidator.validateForUpdate(roleForm);
         Role role = new Role();
@@ -72,17 +72,17 @@ public class RoleServiceImpl implements RoleService {
         if (errorMsg != null && (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException)) {
             if (errorMsg.contains("role_name") || errorMsg.contains("admin_role_pk")) {
                 // 匹配角色名字段或角色名唯一索引
-                return new BusException(CodeEnum.ROLE_NAME_DUPLICATE);
+                return new BusException(AdminCodeEnum.ROLE_NAME_DUPLICATE);
             }
         }
         // 兜底：未匹配到角色唯一冲突，返回异常转换失败枚举
-        return new BusException(CodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
+        return new BusException(AdminCodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
     }
 
     @Override
     public Integer deleteRole(Integer roleId) {
         if (roleId==1){
-            throw new BusException(CodeEnum.NO_DELETE_SUPER_ADMNIN_ROLE);
+            throw new BusException(AdminCodeEnum.NO_DELETE_SUPER_ADMNIN_ROLE);
         }
         Role role = roleMapper.selectById(roleId);
         role.setDeleted(1);

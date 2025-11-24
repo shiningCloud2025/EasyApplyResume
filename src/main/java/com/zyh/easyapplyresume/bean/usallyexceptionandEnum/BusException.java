@@ -17,7 +17,7 @@ public class BusException extends RuntimeException{
     //错误消息
     private String msg;
 
-    public BusException(CodeEnum codeEnum){
+    public BusException(AdminCodeEnum codeEnum){
         this.code = codeEnum.getCode();
         this.msg = codeEnum.getMessage();
     }

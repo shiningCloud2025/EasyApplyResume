@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum CodeEnum {
+public enum AdminCodeEnum {
     // 正常
     SUCCESS(200,"OK"),
     // 系统异常

@@ -5,7 +5,7 @@ import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.IndustryMapEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.IndustryMapMapper;
 import com.zyh.easyapplyresume.model.form.admin.IndustryMapForm;
@@ -15,7 +15,6 @@ import com.zyh.easyapplyresume.model.vo.admin.IndustryMapInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.IndustryMapPageVO;
 import com.zyh.easyapplyresume.service.admin.IndustryMapService;
 import com.zyh.easyapplyresume.utils.Validator.IndustryMapFormValidator;
-import org.commonmark.node.Code;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -79,7 +78,7 @@ public class IndustryMapServiceImpl implements IndustryMapService {
         }
 
         // 如果以上都不匹配，则抛出一个“转换失败”的通用异常
-        return new BusException(CodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
+        return new BusException(AdminCodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
     }
 
     @Override

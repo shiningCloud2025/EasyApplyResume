@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.locationenum.CityEnum;
 import com.zyh.easyapplyresume.bean.locationenum.ProvinceEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.EmploymentInformationMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.ProvinceMapMapper;
 import com.zyh.easyapplyresume.model.form.admin.EmploymentInformationForm;
@@ -44,7 +44,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecond();
         // 校验长度一致
         if (provinceIds.size() != cityIds.size()) {
-            throw new BusException(CodeEnum.EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH);
         }
         // 获取两个集合的迭代器
         Iterator<Integer> provinceIt = provinceIds.iterator();
@@ -75,7 +75,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecond();
         // 校验长度一致
         if (provinceIds.size() != cityIds.size()) {
-            throw new BusException(CodeEnum.EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH);
         }
         // 获取两个集合的迭代器
         Iterator<Integer> provinceIt = provinceIds.iterator();

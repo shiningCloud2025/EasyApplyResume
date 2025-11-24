@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.utils.email.EmailVerifyCodeUtil;
 import jakarta.annotation.Resource;
 import jakarta.mail.internet.MimeMessage;
@@ -59,7 +59,7 @@ public class EmailVerifyServiceImpl {
         // 1. 校验邮箱格式
         if (toEmail == null || !toEmail.contains("@") || toEmail.split("@").length != 2) {
             log.warn("邮箱格式无效: {}", toEmail);
-            throw new BusException(CodeEnum.EMAIL_NO_EFFECT);
+            throw new BusException(AdminCodeEnum.EMAIL_NO_EFFECT);
         }
 
         // 2. 校验发送频率
@@ -68,7 +68,7 @@ public class EmailVerifyServiceImpl {
         if (Boolean.TRUE.equals(hasSendRecord)) {
             log.warn("邮箱 [{}] 请求验证码过于频繁", toEmail);
             // 直接抛出异常，携带频率限制的枚举
-            throw new BusException(CodeEnum.EMAIL_SEND_FREQUENCY);
+            throw new BusException(AdminCodeEnum.EMAIL_SEND_FREQUENCY);
         }
 
         try {
@@ -125,7 +125,7 @@ public class EmailVerifyServiceImpl {
 
         } catch (Exception e) {
             log.error("向邮箱 [{}] 发送验证码失败: ", toEmail, e);
-            throw new BusException(CodeEnum.EMAIL_VERIFY_SEND_FAIL);
+            throw new BusException(AdminCodeEnum.EMAIL_VERIFY_SEND_FAIL);
         }
     }
 
@@ -142,7 +142,7 @@ public class EmailVerifyServiceImpl {
         // 1. 校验输入参数
         if (email == null || inputCode == null || inputCode.trim().isEmpty()) {
             log.warn("邮箱 [{}] 验证码校验，输入参数无效", email);
-            throw new BusException(CodeEnum.EMAIL_VERIFY_CODE_INVALID);
+            throw new BusException(AdminCodeEnum.EMAIL_VERIFY_CODE_INVALID);
         }
 
         // 2. 从Redis获取存储的验证码
@@ -155,7 +155,7 @@ public class EmailVerifyServiceImpl {
             log.info("邮箱 [{}] 验证码校验成功", email);
         } else {
             log.warn("邮箱 [{}] 验证码校验失败，输入码: {}, 存储码: {}", email, inputCode, storedCode);
-            throw new BusException(CodeEnum.EMAIL_VERIFY_CODE_INVALID);
+            throw new BusException(AdminCodeEnum.EMAIL_VERIFY_CODE_INVALID);
         }
     }
 }

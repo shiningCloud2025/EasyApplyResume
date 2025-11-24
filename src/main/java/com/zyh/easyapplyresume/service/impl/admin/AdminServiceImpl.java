@@ -3,7 +3,7 @@ package com.zyh.easyapplyresume.service.impl.admin;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminMapper;
 import com.zyh.easyapplyresume.model.form.admin.AdminForm;
 import com.zyh.easyapplyresume.model.pojo.admin.Admin;
@@ -58,7 +58,7 @@ public class AdminServiceImpl implements AdminService {
             return 0;
         }
         if (adminForm.getAdminId()==1){
-            throw new BusException(CodeEnum.NO_UPDATE_SUPER_ADMIN);
+            throw new BusException(AdminCodeEnum.NO_UPDATE_SUPER_ADMIN);
         }
         AdminFormValidator.validateForUpdate(adminForm);
         Admin admin = new Admin();
@@ -75,22 +75,22 @@ public class AdminServiceImpl implements AdminService {
         if (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException) {
             if (errorMsg.contains("admin_username") || errorMsg.contains("admin_admin_pk")) {
                 // 匹配账号名字段或账号名唯一索引
-                return new BusException(CodeEnum.ADMIN_USERNAME_DUPLICATE);
+                return new BusException(AdminCodeEnum.ADMIN_USERNAME_DUPLICATE);
             } else if (errorMsg.contains("admin_phone") || errorMsg.contains("admin_admin_pk_2")) {
                 // 匹配手机号字段或手机号唯一索引
-                return new BusException(CodeEnum.ADMIN_PHONE_DUPLICATE);
+                return new BusException(AdminCodeEnum.ADMIN_PHONE_DUPLICATE);
             } else if (errorMsg.contains("admin_email") || errorMsg.contains("admin_admin_pk_3")) {
                 // 匹配邮箱字段或邮箱唯一索引
-                return new BusException(CodeEnum.ADMIN_EMAIL_DUPLICATE);
+                return new BusException(AdminCodeEnum.ADMIN_EMAIL_DUPLICATE);
             }
         }
-        return new BusException(CodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
+        return new BusException(AdminCodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
     }
 
     @Override
     public Integer deleteAdmin(Integer adminId) {
         if (adminId==1){
-            throw new BusException(CodeEnum.NO_DELETE_SUPER_ADMIN);
+            throw new BusException(AdminCodeEnum.NO_DELETE_SUPER_ADMIN);
         }
         Admin admin = adminMapper.selectById(adminId);
         admin.setDeleted(1);
