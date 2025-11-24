@@ -51,10 +51,10 @@ public class JobAdviceArticleServiceImpl implements JobAdviceArticleService {
     }
 
     @Override
-    public void deleteJobAdviceArticle(Integer jobAdviceArticleId) {
+    public Integer deleteJobAdviceArticle(Integer jobAdviceArticleId) {
         JobAdviceArticle jobAdviceArticle = new JobAdviceArticle();
         jobAdviceArticle.setDeleted(1);
-        jobAdviceArticleMapper.updateById(jobAdviceArticle);
+        return jobAdviceArticleMapper.updateById(jobAdviceArticle);
     }
 
     @Override
