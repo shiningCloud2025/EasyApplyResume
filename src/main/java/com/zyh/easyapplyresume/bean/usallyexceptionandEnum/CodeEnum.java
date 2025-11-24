@@ -137,12 +137,20 @@ public enum CodeEnum {
     EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH(725, "招聘地址(省级)和(市级)长度不一致"),
 
 
+    // -------------------- 新增：邮箱验证相关状态 (从750开始)-------------------
+    EMAIL_NO_EFFECT(750, "请输入有效的邮箱地址"),
+    EMAIL_SEND_FREQUENCY(751, "验证码已发送，请3分钟后再试"), // 带参数的提示
+    EMAIL_VERIFY_SEND_FAIL(752, "验证码发送失败，请检查邮箱地址或稍后重试"),
+    EMAIL_VERIFY_CODE_INVALID(753, "验证码无效或已过期"),
+    EMAIL_VERIFY_CODE_SUCCESS(754, "验证码验证成功"),
 
 
-    // --- 短信服务错误 770-800 ---
+    // ==================== 短信相关枚举（从 770 开始）====================
     SMS_PHONE_FORMAT_ERROR(770, "手机号格式不正确，请输入11位有效手机号"),
-    SMS_SEND_FAILED(771, "短信发送失败"),
-    SMS_CONFIG_ERROR(772, "短信配置异常，请联系管理员"),
+    SMS_SEND_FREQUENCY(771, "短信发送过于频繁，请3分钟后再试"),
+    SMS_SEND_FAIL(772, "短信发送失败，请稍后重试"),
+    SMS_VERIFY_CODE_INVALID(773, "短信验证码无效或已过期"),
+    SMS_CONFIG_ERROR(774, "短信服务配置缺失，请联系管理员"),
 
     // 大模型应用用户输入为空
     LLM_USERINPUT_EMPTY(901,"用户输入为空")

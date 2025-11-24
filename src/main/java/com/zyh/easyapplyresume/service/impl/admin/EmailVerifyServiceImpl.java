@@ -31,19 +31,19 @@ public class EmailVerifyServiceImpl {
     @Value("${spring.mail.username}")
     private String fromEmail;
 
-    @Value("${custom.verify.code.expire-seconds}")
+    @Value("${custom.email.verify.code.expire-seconds}")
     private long codeExpireSeconds;
 
-    @Value("${custom.verify.code.redis-prefix}")
+    @Value("${custom.email.verify.code.redis-prefix}")
     private String codeRedisPrefix;
 
-    @Value("${custom.verify.email.send-interval-seconds}")
+    @Value("${custom.email.verify.email.send-interval-seconds}")
     private long sendIntervalSeconds;
 
-    @Value("${custom.verify.email.redis-prefix}")
+    @Value("${custom.email.verify.email.redis-prefix}")
     private String sendRecordRedisPrefix;
 
-    @Value("${custom.verify.email.subject}")
+    @Value("${custom.email.verify.email.subject}")
     private String emailSubject;
 
     /**
