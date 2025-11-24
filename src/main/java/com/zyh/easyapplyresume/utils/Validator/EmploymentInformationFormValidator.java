@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.utils.Validator;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.model.form.admin.EmploymentInformationForm;
 
 import java.util.List;
@@ -59,7 +59,7 @@ public class EmploymentInformationFormValidator {
     public static void validateForUpdate(EmploymentInformationForm employmentInformationForm) {
         // 1. 主键非空校验（修改必须指定ID，优先校验）
         if (employmentInformationForm.getEmploymentInformationId() == null) {
-            throw new BusException(CodeEnum.EMPLOYMENT_UPDATE_ID_EMPTY);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_UPDATE_ID_EMPTY);
         }
 
         // 2. 非空校验（所有必填字段，完全替代@NotNull注解）
@@ -82,69 +82,69 @@ public class EmploymentInformationFormValidator {
     private static void validateRequiredFields(EmploymentInformationForm form) {
         // 1. 公司名称非空（字符串需判断null/空串/纯空格）
         if (form.getEmploymentInformationCompanyName() == null || form.getEmploymentInformationCompanyName().trim().isEmpty()) {
-            throw new BusException(CodeEnum.EMPLOYMENT_COMPANY_NAME_EMPTY);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_COMPANY_NAME_EMPTY);
         }
 
         // 2. 行业大类非空（数值类型直接判断null）
         if (form.getEmploymentInformationIndustryCategories() == null) {
-            throw new BusException(CodeEnum.EMPLOYMENT_INDUSTRY_CATEGORIES_EMPTY);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_INDUSTRY_CATEGORIES_EMPTY);
         }
 
         // 3. 企业性质非空
         if (form.getEmploymentInformationCompanyType() == null) {
-            throw new BusException(CodeEnum.EMPLOYMENT_COMPANY_TYPE_EMPTY);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_COMPANY_TYPE_EMPTY);
         }
 
         // 4. 招聘批次非空
         if (form.getEmploymentInformationBatch() == null) {
-            throw new BusException(CodeEnum.EMPLOYMENT_BATCH_EMPTY);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_BATCH_EMPTY);
         }
 
         // 5. 招聘岗位非空
         if (form.getEmploymentInformationRecruitPosition() == null) {
-            throw new BusException(CodeEnum.EMPLOYMENT_RECRUIT_POSITION_EMPTY);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_RECRUIT_POSITION_EMPTY);
         }
 
         // 6. 招聘对象非空
         if (form.getEmploymentInformationRecruitObject() == null) {
-            throw new BusException(CodeEnum.EMPLOYMENT_RECRUIT_OBJECT_EMPTY);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_RECRUIT_OBJECT_EMPTY);
         }
 
         // 7. 招聘地址(省级)非空：List不能为null且不能是空集合，集合元素不能为null
         List<Integer> locationFirst = form.getEmploymentInformationRecruitLocationFirst();
         if (locationFirst == null || locationFirst.isEmpty()) {
-            throw new BusException(CodeEnum.EMPLOYMENT_RECRUIT_LOCATION_FIRST_EMPTY);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_RECRUIT_LOCATION_FIRST_EMPTY);
         }
         for (int i = 0; i < locationFirst.size(); i++) {
             if (locationFirst.get(i) == null) {
-                throw new BusException(CodeEnum.EMPLOYMENT_RECRUIT_LOCATION_FIRST_ELEMENT_NULL.getCode(), "第" + (i + 1) + "个省级地址ID不能为空");
+                throw new BusException(AdminCodeEnum.EMPLOYMENT_RECRUIT_LOCATION_FIRST_ELEMENT_NULL.getCode(), "第" + (i + 1) + "个省级地址ID不能为空");
             }
         }
 
         // 8. 招聘地址(市级)非空：List不能为null且不能是空集合，集合元素不能为null
         List<Integer> locationSecond = form.getEmploymentInformationRecruitLocationSecond();
         if (locationSecond == null || locationSecond.isEmpty()) {
-            throw new BusException(CodeEnum.EMPLOYMENT_RECRUIT_LOCATION_SECOND_EMPTY);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_RECRUIT_LOCATION_SECOND_EMPTY);
         }
         for (int i = 0; i < locationSecond.size(); i++) {
             if (locationSecond.get(i) == null) {
-                throw new BusException(CodeEnum.EMPLOYMENT_RECRUIT_LOCATION_SECOND_ELEMENT_NULL.getCode(), "第" + (i + 1) + "个市级地址ID不能为空");
+                throw new BusException(AdminCodeEnum.EMPLOYMENT_RECRUIT_LOCATION_SECOND_ELEMENT_NULL.getCode(), "第" + (i + 1) + "个市级地址ID不能为空");
             }
         }
 
         // 9. 截止时间非空
         if (form.getEmploymentInformationStopTime() == null) {
-            throw new BusException(CodeEnum.EMPLOYMENT_STOP_TIME_EMPTY);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_STOP_TIME_EMPTY);
         }
 
         // 10. 网申状态非空（字符串需判断null/空串/纯空格）
         if (form.getEmploymentInformationOnlineApplicationStatus() == null || form.getEmploymentInformationOnlineApplicationStatus().trim().isEmpty()) {
-            throw new BusException(CodeEnum.EMPLOYMENT_ONLINE_APP_STATUS_EMPTY);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_ONLINE_APP_STATUS_EMPTY);
         }
 
         // 11.txt. 投递方式非空（字符串需判断null/空串/纯空格）
         if (form.getEmploymentInformationSubmissionWay() == null || form.getEmploymentInformationSubmissionWay().trim().isEmpty()) {
-            throw new BusException(CodeEnum.EMPLOYMENT_SUBMISSION_WAY_EMPTY);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_SUBMISSION_WAY_EMPTY);
         }
     }
 
@@ -170,38 +170,38 @@ public class EmploymentInformationFormValidator {
         // 1. 公司名称长度校验（trim后≤30字符）
         String companyName = form.getEmploymentInformationCompanyName().trim();
         if (companyName.length() > COMPANY_NAME_MAX_LENGTH) {
-            throw new BusException(CodeEnum.EMPLOYMENT_COMPANY_NAME_TOO_LONG);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_COMPANY_NAME_TOO_LONG);
         }
 
         // 2. 网申状态长度校验（trim后≤30字符）
         String appStatus = form.getEmploymentInformationOnlineApplicationStatus().trim();
         if (appStatus.length() > ONLINE_APP_STATUS_MAX_LENGTH) {
-            throw new BusException(CodeEnum.EMPLOYMENT_ONLINE_APP_STATUS_TOO_LONG);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_ONLINE_APP_STATUS_TOO_LONG);
         }
 
         // 3. 官方公告长度校验（trim后≤1024字符）
         String announcement = form.getEmploymentInformationOfficialAnnouncement().trim();
         if (announcement.length() > OFFICIAL_ANNOUNCEMENT_MAX_LENGTH) {
-            throw new BusException(CodeEnum.EMPLOYMENT_OFFICIAL_ANNOUNCEMENT_TOO_LONG);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_OFFICIAL_ANNOUNCEMENT_TOO_LONG);
         }
 
         // 4. 投递方式长度校验（trim后≤1024字符）
         String submissionWay = form.getEmploymentInformationSubmissionWay().trim();
         if (submissionWay.length() > SUBMISSION_WAY_MAX_LENGTH) {
-            throw new BusException(CodeEnum.EMPLOYMENT_SUBMISSION_WAY_TOO_LONG);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_SUBMISSION_WAY_TOO_LONG);
         }
 
         // 5. 内推码长度校验（trim后≤255字符）
         String referralCode = form.getEmploymentInformationEmployeeReferralCode().trim();
         if (referralCode.length() > EMPLOYEE_REFERRAL_CODE_MAX_LENGTH) {
-            throw new BusException(CodeEnum.EMPLOYMENT_REFERRAL_CODE_TOO_LONG);
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_REFERRAL_CODE_TOO_LONG);
         }
 
         // 6. 详细招聘地址长度校验（可选字段，有值时trim后≤255字符）
         String locationDetail = form.getEmploymentInformationRecruitLocationDetail();
         if (locationDetail != null && !locationDetail.trim().isEmpty()) {
             if (locationDetail.trim().length() > RECRUIT_LOCATION_DETAIL_MAX_LENGTH) {
-                throw new BusException(CodeEnum.EMPLOYMENT_RECRUIT_LOCATION_DETAIL_TOO_LONG);
+                throw new BusException(AdminCodeEnum.EMPLOYMENT_RECRUIT_LOCATION_DETAIL_TOO_LONG);
             }
         }
     }

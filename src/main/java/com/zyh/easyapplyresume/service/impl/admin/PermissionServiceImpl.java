@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.PermissionMapper;
 import com.zyh.easyapplyresume.model.form.admin.PermissionForm;
 import com.zyh.easyapplyresume.model.pojo.admin.Permission;
@@ -67,16 +67,16 @@ public class PermissionServiceImpl implements PermissionService {
         if (errorMsg != null && (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException)) {
             // 匹配权限名字段或其唯一索引（如idx_permission_name）
             if (errorMsg.contains("permission_name") || errorMsg.contains("admin_permission_pk")) {
-                return new BusException(CodeEnum.PERMISSION_NAME_DUPLICATE);
+                return new BusException(AdminCodeEnum.PERMISSION_NAME_DUPLICATE);
             }
             // 匹配权限URL字段或其唯一索引（如idx_permission_url）
             else if (errorMsg.contains("permission_url") || errorMsg.contains("admin_permission_pk_2")) {
-                return new BusException(CodeEnum.PERMISSION_URL_DUPLICATE);
+                return new BusException(AdminCodeEnum.PERMISSION_URL_DUPLICATE);
             }
         }
 
         // 兜底：未匹配到权限唯一冲突，返回异常转换失败枚举
-        return new BusException(CodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
+        return new BusException(AdminCodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
     }
 
     @Override

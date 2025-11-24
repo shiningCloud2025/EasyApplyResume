@@ -3,7 +3,7 @@ package com.zyh.easyapplyresume.service.impl.admin;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.RecruitPositionMapper;
 import com.zyh.easyapplyresume.model.form.admin.RecruitPositionForm;
 import com.zyh.easyapplyresume.model.pojo.admin.RecruitPosition;
@@ -52,7 +52,7 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
         try {
             recruitPositionMapper.deleteById(recruitPositionId);
         } catch (Exception e) {
-            throw new BusException(CodeEnum.NOT_DELETE_RECRUIT_POSITION);
+            throw new BusException(AdminCodeEnum.NOT_DELETE_RECRUIT_POSITION);
         }
     }
 

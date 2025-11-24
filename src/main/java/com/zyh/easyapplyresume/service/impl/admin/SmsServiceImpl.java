@@ -6,7 +6,7 @@ import com.aliyun.sdk.service.dypnsapi20170525.AsyncClient;
 import com.aliyun.sdk.service.dypnsapi20170525.models.SendSmsVerifyCodeRequest;
 import com.aliyun.sdk.service.dypnsapi20170525.models.SendSmsVerifyCodeResponse;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import darabonba.core.client.ClientOverrideConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -83,7 +83,7 @@ public class SmsServiceImpl {
         try {
             if (accessKeyId == null || accessKeySecret == null || signName == null || templateCode == null) {
                 log.error("阿里云短信核心配置缺失！");
-                throw new BusException(CodeEnum.SMS_CONFIG_ERROR);
+                throw new BusException(AdminCodeEnum.SMS_CONFIG_ERROR);
             }
 
             StaticCredentialProvider credentialProvider = StaticCredentialProvider.create(
@@ -103,7 +103,7 @@ public class SmsServiceImpl {
             throw e;
         } catch (Exception e) {
             log.error("初始化阿里云短信客户端异常: ", e);
-            throw new BusException(CodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -118,7 +118,7 @@ public class SmsServiceImpl {
         String sendRecordKey = sendRecordRedisPrefix + phoneNumber;
         if (Boolean.TRUE.equals(stringRedisTemplate.hasKey(sendRecordKey))) {
             log.warn("手机号 [{}] 发送短信过于频繁", phoneNumber);
-            throw new BusException(CodeEnum.SMS_SEND_FREQUENCY);
+            throw new BusException(AdminCodeEnum.SMS_SEND_FREQUENCY);
         }
 
         try {
@@ -143,7 +143,7 @@ public class SmsServiceImpl {
             if (response.getBody() == null || !"OK".equals(response.getBody().getCode())) {
                 String errorMsg = response.getBody() != null ? response.getBody().getMessage() : "未知错误";
                 log.error("手机号 [{}] 短信发送失败: {}", phoneNumber, errorMsg);
-                throw new BusException(CodeEnum.SMS_SEND_FAIL);
+                throw new BusException(AdminCodeEnum.SMS_SEND_FAIL);
             }
 
             // 6. 存储验证码到 Redis
@@ -158,7 +158,7 @@ public class SmsServiceImpl {
             throw e;
         } catch (Exception e) {
             log.error("手机号 [{}] 短信发送异常: ", phoneNumber, e);
-            throw new BusException(CodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
         }
     }
 
@@ -169,7 +169,7 @@ public class SmsServiceImpl {
         // 1. 校验参数
         if (phoneNumber == null || inputCode == null || inputCode.trim().isEmpty()) {
             log.warn("手机号 [{}] 验证码校验参数无效", phoneNumber);
-            throw new BusException(CodeEnum.SMS_VERIFY_CODE_INVALID);
+            throw new BusException(AdminCodeEnum.SMS_VERIFY_CODE_INVALID);
         }
 
         // 2. 从 Redis 获取存储的验证码
@@ -182,7 +182,7 @@ public class SmsServiceImpl {
             log.info("手机号 [{}] 验证码校验成功", phoneNumber);
         } else {
             log.warn("手机号 [{}] 验证码校验失败，输入: {}, 存储: {}", phoneNumber, inputCode, storedCode);
-            throw new BusException(CodeEnum.SMS_VERIFY_CODE_INVALID);
+            throw new BusException(AdminCodeEnum.SMS_VERIFY_CODE_INVALID);
         }
     }
 
@@ -192,7 +192,7 @@ public class SmsServiceImpl {
     private void validatePhoneNumber(String phoneNumber) {
         if (phoneNumber == null || phoneNumber.trim().length() != 11 || !phoneNumber.matches("\\d+")) {
             log.warn("手机号 [{}] 格式不正确", phoneNumber);
-            throw new BusException(CodeEnum.SMS_PHONE_FORMAT_ERROR);
+            throw new BusException(AdminCodeEnum.SMS_PHONE_FORMAT_ERROR);
         }
     }
 

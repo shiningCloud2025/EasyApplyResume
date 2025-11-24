@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.utils.Validator;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.model.form.admin.JobAdviceArticleForm;
 
 /**
@@ -45,25 +45,25 @@ public class JobAdviceArticleFormValidator {
         // -------------------------- 第二步：字段校验（填充后校验）--------------------------
         // 1. 标题校验：非空（呼应@NotNull注解）+ 长度≤30
         if (form.getJobAdviceArticleTitle() == null || form.getJobAdviceArticleTitle().trim().isEmpty()) {
-            throw new BusException(CodeEnum.JOB_ADVICE_TITLE_EMPTY);
+            throw new BusException(AdminCodeEnum.JOB_ADVICE_TITLE_EMPTY);
         }
         if (form.getJobAdviceArticleTitle().trim().length() > MAX_LENGTH) {
-            throw new BusException(CodeEnum.JOB_ADVICE_TITLE_TOO_LONG);
+            throw new BusException(AdminCodeEnum.JOB_ADVICE_TITLE_TOO_LONG);
         }
 
         // 2. 文章分类：填充后长度≤30（默认值已满足，防手动修改默认值超标）
         if (form.getJobAdviceArticleCategory().length() > MAX_LENGTH) {
-            throw new BusException(CodeEnum.JOB_ADVICE_CATEGORY_TOO_LONG);
+            throw new BusException(AdminCodeEnum.JOB_ADVICE_CATEGORY_TOO_LONG);
         }
 
         // 3. 文章标签：填充后长度≤30
         if (form.getJobAdviceArticleTags().length() > MAX_LENGTH) {
-            throw new BusException(CodeEnum.JOB_ADVICE_TAGS_TOO_LONG);
+            throw new BusException(AdminCodeEnum.JOB_ADVICE_TAGS_TOO_LONG);
         }
 
         // 4. 作者名称：填充后长度≤30
         if (form.getJobAdviceArticleAuthorName().length() > MAX_LENGTH) {
-            throw new BusException(CodeEnum.JOB_ADVICE_AUTHOR_NAME_TOO_LONG);
+            throw new BusException(AdminCodeEnum.JOB_ADVICE_AUTHOR_NAME_TOO_LONG);
         }
 
         // 正文：用户未提长度限制，暂不校验（如需可添加，例如≤10000字）
@@ -78,11 +78,11 @@ public class JobAdviceArticleFormValidator {
         // -------------------------- 第一步：核心字段非空校验（修改必填）--------------------------
         // 1. 文章ID：修改必须传主键
         if (form.getJobAdviceArticleId() == null) {
-            throw new BusException(CodeEnum.JOB_ADVICE_ID_EMPTY);
+            throw new BusException(AdminCodeEnum.JOB_ADVICE_ID_EMPTY);
         }
         // 2. 文章标题：修改必须传标题
         if (form.getJobAdviceArticleTitle() == null || form.getJobAdviceArticleTitle().trim().isEmpty()) {
-            throw new BusException(CodeEnum.JOB_ADVICE_UPDATE_TITLE_EMPTY);
+            throw new BusException(AdminCodeEnum.JOB_ADVICE_UPDATE_TITLE_EMPTY);
         }
 
         // -------------------------- 第二步：填充默认值（空字段替换）--------------------------
@@ -106,19 +106,19 @@ public class JobAdviceArticleFormValidator {
         // -------------------------- 第三步：字段长度校验--------------------------
         // 1. 文章标题：长度≤30
         if (form.getJobAdviceArticleTitle().trim().length() > MAX_LENGTH) {
-            throw new BusException(CodeEnum.JOB_ADVICE_TITLE_TOO_LONG);
+            throw new BusException(AdminCodeEnum.JOB_ADVICE_TITLE_TOO_LONG);
         }
         // 2. 文章分类：长度≤30
         if (form.getJobAdviceArticleCategory().length() > MAX_LENGTH) {
-            throw new BusException(CodeEnum.JOB_ADVICE_CATEGORY_TOO_LONG);
+            throw new BusException(AdminCodeEnum.JOB_ADVICE_CATEGORY_TOO_LONG);
         }
         // 3. 文章标签：长度≤30
         if (form.getJobAdviceArticleTags().length() > MAX_LENGTH) {
-            throw new BusException(CodeEnum.JOB_ADVICE_TAGS_TOO_LONG);
+            throw new BusException(AdminCodeEnum.JOB_ADVICE_TAGS_TOO_LONG);
         }
         // 4. 作者名称：长度≤30
         if (form.getJobAdviceArticleAuthorName().length() > MAX_LENGTH) {
-            throw new BusException(CodeEnum.JOB_ADVICE_AUTHOR_NAME_TOO_LONG);
+            throw new BusException(AdminCodeEnum.JOB_ADVICE_AUTHOR_NAME_TOO_LONG);
         }
     }
 }

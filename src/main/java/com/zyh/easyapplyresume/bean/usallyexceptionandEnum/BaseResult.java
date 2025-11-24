@@ -19,11 +19,11 @@ public class BaseResult<T> implements Serializable {
 
     // 构建成功结果
     public static <T> BaseResult<T> ok(){
-        return new BaseResult<>(CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMessage(),null);
+        return new BaseResult<>(AdminCodeEnum.SUCCESS.getCode(), AdminCodeEnum.SUCCESS.getMessage(),null);
     }
     // 构建带有数据的成功结果
     public static <T> BaseResult<T>ok(T data){
-        return new BaseResult<>(CodeEnum.SUCCESS.getCode(), CodeEnum.SUCCESS.getMessage(), data);
+        return new BaseResult<>(AdminCodeEnum.SUCCESS.getCode(), AdminCodeEnum.SUCCESS.getMessage(), data);
     }
 
 }

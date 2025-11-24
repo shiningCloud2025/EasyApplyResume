@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.demo.advisor;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.advisor.api.*;
@@ -64,7 +64,7 @@ public class SensitiveWordsAdvisor implements CallAroundAdvisor, StreamAroundAdv
         String userInput = advisedRequest.userText().toString();
         // 1. 空输入校验
         if(userInput.isEmpty()&&userInput.length()==0){
-            throw new BusException(CodeEnum.LLM_USERINPUT_EMPTY.getCode(),CodeEnum.LLM_USERINPUT_EMPTY.getMessage());
+            throw new BusException(AdminCodeEnum.LLM_USERINPUT_EMPTY.getCode(), AdminCodeEnum.LLM_USERINPUT_EMPTY.getMessage());
         }
         // 2. 敏感词过滤
         String filteredInput = filterSensitiveWords(userInput);

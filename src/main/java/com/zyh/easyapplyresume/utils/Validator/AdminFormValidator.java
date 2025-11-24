@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.utils.Validator;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.model.form.admin.AdminForm;
 
 import java.util.regex.Pattern;
@@ -37,34 +37,34 @@ public class AdminFormValidator {
     public static void validateForAdd(AdminForm adminForm) {
         // 1. 强制必填：账号名（非空+长度1-15位）→ ADMIN_ADD_USERNAME_EMPTY(609)
         if (adminForm.getAdminUsername() == null || adminForm.getAdminUsername().trim().isEmpty()) {
-            throw new BusException(CodeEnum.ADMIN_ADD_USERNAME_EMPTY);
+            throw new BusException(AdminCodeEnum.ADMIN_ADD_USERNAME_EMPTY);
         }
         String username = adminForm.getAdminUsername().trim();
         if (username.length() > USERNAME_MAX_LENGTH) {
-            throw new BusException(CodeEnum.ADMIN_USERNAME_TOO_LONG); // 605
+            throw new BusException(AdminCodeEnum.ADMIN_USERNAME_TOO_LONG); // 605
         }
         adminForm.setAdminUsername(username); // 去空格后存值
 
         // 2. 强制必填：手机号（非空+格式正确）→ ADMIN_ADD_PHONE_EMPTY(610) / ADMIN_PHONE_FORMAT_ERROR(603)
         if (adminForm.getAdminPhone() == null || adminForm.getAdminPhone().trim().isEmpty()) {
-            throw new BusException(CodeEnum.ADMIN_ADD_PHONE_EMPTY);
+            throw new BusException(AdminCodeEnum.ADMIN_ADD_PHONE_EMPTY);
         }
         String phone = adminForm.getAdminPhone().trim();
         if (!Pattern.matches(PHONE_REGEX, phone)) {
-            throw new BusException(CodeEnum.ADMIN_PHONE_FORMAT_ERROR);
+            throw new BusException(AdminCodeEnum.ADMIN_PHONE_FORMAT_ERROR);
         }
         adminForm.setAdminPhone(phone); // 去空格后存值
 
         // 3. 强制必填：邮箱（非空+格式正确+长度≤25位）→ ADMIN_ADD_EMAIL_EMPTY(611) / ADMIN_EMAIL_TOO_LONG(606) / ADMIN_EMAIL_FORMAT_ERROR(604)
         if (adminForm.getAdminEmail() == null || adminForm.getAdminEmail().trim().isEmpty()) {
-            throw new BusException(CodeEnum.ADMIN_ADD_EMAIL_EMPTY); // 新增邮箱必填校验
+            throw new BusException(AdminCodeEnum.ADMIN_ADD_EMAIL_EMPTY); // 新增邮箱必填校验
         }
         String email = adminForm.getAdminEmail().trim();
         if (email.length() > EMAIL_MAX_LENGTH) {
-            throw new BusException(CodeEnum.ADMIN_EMAIL_TOO_LONG);
+            throw new BusException(AdminCodeEnum.ADMIN_EMAIL_TOO_LONG);
         }
         if (!Pattern.matches(EMAIL_REGEX, email)) {
-            throw new BusException(CodeEnum.ADMIN_EMAIL_FORMAT_ERROR);
+            throw new BusException(AdminCodeEnum.ADMIN_EMAIL_FORMAT_ERROR);
         }
         adminForm.setAdminEmail(email); // 去空格后存值
 
@@ -87,7 +87,7 @@ public class AdminFormValidator {
         } else {
             intro = intro.trim();
             if (intro.length() > INTRO_MAX_LENGTH) {
-                throw new BusException(CodeEnum.ADMIN_INTRO_TOO_LONG);
+                throw new BusException(AdminCodeEnum.ADMIN_INTRO_TOO_LONG);
             }
             adminForm.setAdminIntroduce(intro); // 去空格后存值
         }
@@ -105,40 +105,40 @@ public class AdminFormValidator {
     public static void validateForUpdate(AdminForm adminForm) {
         // 1. 账号名：必须非空 + 长度≤15位 → ADMIN_UPDATE_USERNAME_EMPTY(612) / ADMIN_USERNAME_TOO_LONG(605)
         if (adminForm.getAdminUsername() == null || adminForm.getAdminUsername().trim().isEmpty()) {
-            throw new BusException(CodeEnum.ADMIN_UPDATE_USERNAME_EMPTY);
+            throw new BusException(AdminCodeEnum.ADMIN_UPDATE_USERNAME_EMPTY);
         }
         String username = adminForm.getAdminUsername().trim();
         if (username.length() > USERNAME_MAX_LENGTH) {
-            throw new BusException(CodeEnum.ADMIN_USERNAME_TOO_LONG);
+            throw new BusException(AdminCodeEnum.ADMIN_USERNAME_TOO_LONG);
         }
         adminForm.setAdminUsername(username);
 
         // 2. 手机号：必须非空 + 11位有效数字 → ADMIN_UPDATE_PHONE_EMPTY(613) / ADMIN_PHONE_FORMAT_ERROR(603)
         if (adminForm.getAdminPhone() == null || adminForm.getAdminPhone().trim().isEmpty()) {
-            throw new BusException(CodeEnum.ADMIN_UPDATE_PHONE_EMPTY);
+            throw new BusException(AdminCodeEnum.ADMIN_UPDATE_PHONE_EMPTY);
         }
         String phone = adminForm.getAdminPhone().trim();
         if (!Pattern.matches(PHONE_REGEX, phone)) {
-            throw new BusException(CodeEnum.ADMIN_PHONE_FORMAT_ERROR);
+            throw new BusException(AdminCodeEnum.ADMIN_PHONE_FORMAT_ERROR);
         }
         adminForm.setAdminPhone(phone);
 
         // 3. 邮箱：必须非空 + 格式正确 + 长度≤25位 → ADMIN_UPDATE_EMAIL_EMPTY(614) / ADMIN_EMAIL_TOO_LONG(606) / ADMIN_EMAIL_FORMAT_ERROR(604)
         if (adminForm.getAdminEmail() == null || adminForm.getAdminEmail().trim().isEmpty()) {
-            throw new BusException(CodeEnum.ADMIN_UPDATE_EMAIL_EMPTY);
+            throw new BusException(AdminCodeEnum.ADMIN_UPDATE_EMAIL_EMPTY);
         }
         String email = adminForm.getAdminEmail().trim();
         if (email.length() > EMAIL_MAX_LENGTH) {
-            throw new BusException(CodeEnum.ADMIN_EMAIL_TOO_LONG);
+            throw new BusException(AdminCodeEnum.ADMIN_EMAIL_TOO_LONG);
         }
         if (!Pattern.matches(EMAIL_REGEX, email)) {
-            throw new BusException(CodeEnum.ADMIN_EMAIL_FORMAT_ERROR);
+            throw new BusException(AdminCodeEnum.ADMIN_EMAIL_FORMAT_ERROR);
         }
         adminForm.setAdminEmail(email);
 
         // 4. 密码：必须非空 + 长度6-20位 → ADMIN_UPDATE_PASSWORD_EMPTY(615) / ADMIN_PASSWORD_LENGTH_ERROR(608)
         if (adminForm.getAdminPassword() == null || adminForm.getAdminPassword().trim().isEmpty()) {
-            throw new BusException(CodeEnum.ADMIN_UPDATE_PASSWORD_EMPTY);
+            throw new BusException(AdminCodeEnum.ADMIN_UPDATE_PASSWORD_EMPTY);
         }
         String password = adminForm.getAdminPassword().trim();
         validatePassword(password);
@@ -146,22 +146,22 @@ public class AdminFormValidator {
 
         // 5. 头像：必须非空（不能是空串）→ ADMIN_UPDATE_IMAGE_EMPTY(616)
         if (adminForm.getAdminImage() == null || adminForm.getAdminImage().trim().isEmpty()) {
-            throw new BusException(CodeEnum.ADMIN_UPDATE_IMAGE_EMPTY);
+            throw new BusException(AdminCodeEnum.ADMIN_UPDATE_IMAGE_EMPTY);
         }
 
         // 6. 介绍：必须非空 + 长度≤200位 → ADMIN_UPDATE_INTRO_EMPTY(617) / ADMIN_INTRO_TOO_LONG(607)
         if (adminForm.getAdminIntroduce() == null || adminForm.getAdminIntroduce().trim().isEmpty()) {
-            throw new BusException(CodeEnum.ADMIN_UPDATE_INTRO_EMPTY);
+            throw new BusException(AdminCodeEnum.ADMIN_UPDATE_INTRO_EMPTY);
         }
         String intro = adminForm.getAdminIntroduce().trim();
         if (intro.length() > INTRO_MAX_LENGTH) {
-            throw new BusException(CodeEnum.ADMIN_INTRO_TOO_LONG);
+            throw new BusException(AdminCodeEnum.ADMIN_INTRO_TOO_LONG);
         }
         adminForm.setAdminIntroduce(intro);
 
         // 7. 状态：必须非空 + 只能是0/1 → ADMIN_UPDATE_STATE_EMPTY(618) / ADMIN_STATE_ILLEGAL(619)
         if (adminForm.getAdminState() == null) {
-            throw new BusException(CodeEnum.ADMIN_UPDATE_STATE_EMPTY);
+            throw new BusException(AdminCodeEnum.ADMIN_UPDATE_STATE_EMPTY);
         }
         validateAdminState(adminForm.getAdminState());
     }
@@ -171,7 +171,7 @@ public class AdminFormValidator {
      */
     private static void validatePassword(String password) {
         if (password.length() < PASSWORD_MIN_LENGTH || password.length() > PASSWORD_MAX_LENGTH) {
-            throw new BusException(CodeEnum.ADMIN_PASSWORD_LENGTH_ERROR);
+            throw new BusException(AdminCodeEnum.ADMIN_PASSWORD_LENGTH_ERROR);
         }
     }
 
@@ -180,7 +180,7 @@ public class AdminFormValidator {
      */
     private static void validateAdminState(Integer state) {
         if (state != 0 && state != 1) {
-            throw new BusException(CodeEnum.ADMIN_STATE_ILLEGAL);
+            throw new BusException(AdminCodeEnum.ADMIN_STATE_ILLEGAL);
         }
     }
 }

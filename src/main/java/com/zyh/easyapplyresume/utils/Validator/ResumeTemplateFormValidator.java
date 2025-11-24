@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.utils.Validator;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.CodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.model.form.admin.ResumeTemplateForm;
 
 /**
@@ -33,7 +33,7 @@ public class ResumeTemplateFormValidator {
     public static void validateForUpdate(ResumeTemplateForm resumeTemplateForm) {
         // 主键：非空
         if (resumeTemplateForm.getResumeTemplateId() == null) {
-            throw new BusException(CodeEnum.RESUME_TEMPLATE_ID_EMPTY);
+            throw new BusException(AdminCodeEnum.RESUME_TEMPLATE_ID_EMPTY);
         }
         // 简历名称：非空 + trim后长度≤25
         validateResumeTemplateName(resumeTemplateForm.getResumeTemplateName());
@@ -48,11 +48,11 @@ public class ResumeTemplateFormValidator {
      */
     private static void validateResumeTemplateName(String resumeTemplateName) {
         if (resumeTemplateName == null || resumeTemplateName.trim().isEmpty()) {
-            throw new BusException(CodeEnum.RESUME_TEMPLATE_NAME_EMPTY);
+            throw new BusException(AdminCodeEnum.RESUME_TEMPLATE_NAME_EMPTY);
         }
         String trimedName = resumeTemplateName.trim();
         if (trimedName.length() > 25) {
-            throw new BusException(CodeEnum.RESUME_TEMPLATE_NAME_TOO_LONG);
+            throw new BusException(AdminCodeEnum.RESUME_TEMPLATE_NAME_TOO_LONG);
         }
     }
 
@@ -61,7 +61,7 @@ public class ResumeTemplateFormValidator {
      */
     private static void validateResumeTemplateReactCode(String reactCode) {
         if (reactCode == null || reactCode.trim().isEmpty()) {
-            throw new BusException(CodeEnum.RESUME_TEMPLATE_REACT_CODE_EMPTY);
+            throw new BusException(AdminCodeEnum.RESUME_TEMPLATE_REACT_CODE_EMPTY);
         }
     }
 
@@ -71,7 +71,7 @@ public class ResumeTemplateFormValidator {
     private static void validateResumeTemplateIndustry(Integer industry) {
         if (industry == null) {
             // 需在 CodeEnum 中新增「简历行业不能为空」的枚举值（核心配套操作）
-            throw new BusException(CodeEnum.RESUME_TEMPLATE_INDUSTRY_EMPTY);
+            throw new BusException(AdminCodeEnum.RESUME_TEMPLATE_INDUSTRY_EMPTY);
         }
     }
 }
