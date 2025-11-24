@@ -12,7 +12,7 @@ import java.security.SecureRandom;
 public class EmailVerifyCodeUtil {
 
     // 从配置文件读取验证码长度
-    @Value("${custom.verify.code.length}")
+    @Value("${custom.email.verify.code.length}")
     private int codeLength;
 
     /**
