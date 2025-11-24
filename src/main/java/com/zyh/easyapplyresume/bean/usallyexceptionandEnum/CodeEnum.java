@@ -139,6 +139,10 @@ public enum CodeEnum {
 
 
 
+    // --- 短信服务错误 770-800 ---
+    SMS_PHONE_FORMAT_ERROR(770, "手机号格式不正确，请输入11位有效手机号"),
+    SMS_SEND_FAILED(771, "短信发送失败"),
+    SMS_CONFIG_ERROR(772, "短信配置异常，请联系管理员"),
 
     // 大模型应用用户输入为空
     LLM_USERINPUT_EMPTY(901,"用户输入为空")
