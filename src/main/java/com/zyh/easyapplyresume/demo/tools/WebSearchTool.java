@@ -34,7 +34,6 @@ public class WebSearchTool {
         paramMap.put("api_key", apiKey);
         paramMap.put("engine", "baidu");
         try {
-            System.out.println(apiKey);
             String response = HttpUtil.get(SEARCH_API_URL, paramMap);
             // 取出返回结果的前 5 条
             JSONObject jsonObject = JSONUtil.parseObj(response);
@@ -48,7 +47,8 @@ public class WebSearchTool {
             }).collect(Collectors.joining(","));
             return result;
         } catch (Exception e) {
-            throw new BusException(AdminCodeEnum.WEBSEARCH_TOOL_CALLING_FAIL);
+            e.printStackTrace();
+            return "Error occurred while searching for information.";
         }
     }
 }
