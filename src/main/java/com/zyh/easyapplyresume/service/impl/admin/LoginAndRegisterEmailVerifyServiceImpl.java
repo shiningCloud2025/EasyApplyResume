@@ -2,7 +2,7 @@ package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
-import com.zyh.easyapplyresume.service.admin.EmailVerifyService;
+import com.zyh.easyapplyresume.service.admin.LoginAndRegisterEmailVerifyService;
 import com.zyh.easyapplyresume.utils.email.EmailVerifyCodeUtil;
 import jakarta.annotation.Resource;
 import jakarta.mail.internet.MimeMessage;
@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
-public class EmailVerifyServiceImpl implements EmailVerifyService {
+public class LoginAndRegisterEmailVerifyServiceImpl implements LoginAndRegisterEmailVerifyService {
 
     @Resource
     private JavaMailSender javaMailSender;

@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.controller.admin;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.service.impl.admin.EmailVerifyServiceImpl;
+import com.zyh.easyapplyresume.service.admin.LoginAndRegisterEmailVerifyService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 邮箱验证码控制器-管理端
+ * 登录注册邮箱验证码控制器-管理端
  * Controller层只负责调用服务和返回成功，不处理任何异常
  */
 @RestController
-@RequestMapping("/admin/email")
-@Tag(name = "邮箱验证码接口-管理端")
-public class EmailVerifyController {
+@RequestMapping("/admin/loginandregister/email")
+@Tag(name = "登录注册邮箱验证码接口-管理端")
+public class LoginAndRegisterEmailVerifyController {
 
     @Autowired
-    private EmailVerifyServiceImpl emailVerifyService;
+    private LoginAndRegisterEmailVerifyService emailVerifyService;
 
     /**
      * 发送邮箱验证码接口
