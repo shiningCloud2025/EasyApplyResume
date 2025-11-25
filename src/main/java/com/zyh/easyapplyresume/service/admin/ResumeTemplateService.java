@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.service.admin;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.model.form.admin.ResumeTemplateForm;
 import com.zyh.easyapplyresume.model.pojo.admin.ResumeTemplate;
 import com.zyh.easyapplyresume.model.query.admin.ResumeTemplateQuery;
@@ -15,15 +16,15 @@ public interface ResumeTemplateService {
     /**
      * 新增简历模版
      */
-    public void addResumeTemplate(ResumeTemplateForm resumeTemplateForm);
+    public Integer addResumeTemplate(ResumeTemplateForm resumeTemplateForm);
     /**
      * 修改简历模版
      */
-    public void updateResumeTemplate(ResumeTemplateForm resumeTemplateForm);
+    public Integer updateResumeTemplate(ResumeTemplateForm resumeTemplateForm);
     /**
      * 删除简历模版
      */
-    public void deleteResumeTemplate(Integer resumeTemplateId);
+    public Integer deleteResumeTemplate(Integer resumeTemplateId);
     /**
      * 根据id查询简历模版
      */
@@ -31,7 +32,7 @@ public interface ResumeTemplateService {
     /**
      * 分页查询简历模版
      */
-    public List<ResumeTemplateInfoVO> findResumeTemplateByPage(Integer pageNum, Integer pageSize, ResumeTemplateQuery resumeTemplateQuery);
+    public Page<ResumeTemplatePageVO> findResumeTemplateByPage(Integer pageNum, Integer pageSize, ResumeTemplateQuery resumeTemplateQuery);
     /**
      * 查询所有简历模版
      */
