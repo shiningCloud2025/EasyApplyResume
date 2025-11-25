@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
+import com.zyh.easyapplyresume.service.admin.EmailVerifyService;
 import com.zyh.easyapplyresume.utils.email.EmailVerifyCodeUtil;
 import jakarta.annotation.Resource;
 import jakarta.mail.internet.MimeMessage;
@@ -17,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
-public class EmailVerifyServiceImpl {
+public class EmailVerifyServiceImpl implements EmailVerifyService {
 
     @Resource
     private JavaMailSender javaMailSender;
@@ -55,6 +56,7 @@ public class EmailVerifyServiceImpl {
      * 4. 如果以上步骤都通过，存储验证码和发送记录。
      * @param toEmail 收件人邮箱
      */
+    @Override
     public void sendVerifyCode(String toEmail) {
         // 1. 校验邮箱格式
         if (toEmail == null || !toEmail.contains("@") || toEmail.split("@").length != 2) {
@@ -138,6 +140,7 @@ public class EmailVerifyServiceImpl {
      * @param email 收件人邮箱
      * @param inputCode 用户输入的验证码
      */
+    @Override
     public void verifyCode(String email, String inputCode) {
         // 1. 校验输入参数
         if (email == null || inputCode == null || inputCode.trim().isEmpty()) {
