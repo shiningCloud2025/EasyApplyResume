@@ -146,18 +146,9 @@ public enum AdminCodeEnum {
     SMS_SEND_FREQUENCY(771, "短信发送过于频繁，请3分钟后再试"),
     SMS_SEND_FAIL(772, "短信发送失败，请稍后重试"),
     SMS_VERIFY_CODE_INVALID(773, "短信验证码无效或已过期"),
-    SMS_CONFIG_ERROR(774, "短信服务配置缺失，请联系管理员"),
+    SMS_CONFIG_ERROR(774, "短信服务配置缺失，请联系管理员")
 
-    // 大模型应用用户输入为空
-    LLM_USERINPUT_EMPTY(901,"用户输入为空"),
-    READFILE_TOOL_CALLING_FAIL(902,"调用文件工具类读取失败"),
-    WRITEFILE_TOOL_CALLING_FAIL(903,"调用文件工具类写入失败"),
-    WEBSEARCH_TOOL_CALLING_FAIL(904,"调用联网搜索工具类失败"),
-    WEBSCRAPTING_TOOL_CALLING_FAIL(905,"调用网页抓取工具类失败"),
-    RESOURCEDOWNLOAD_TOOL_CALLING_FAIL(906,"调用资源下载工具类失败"),
-    PDFGENERATION_TOOL_CALLING_FAIL(907,"调用PDF生成工具类失败"),
     ;
-
 
     private final Integer code;
     private final String message;

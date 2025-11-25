@@ -28,7 +28,7 @@ public class ResourceDownloadTool {
             HttpUtil.downloadFile(url, new File(filePath));
             return "Resource downloaded successfully to: " + filePath;
         }catch (Exception e){
-            throw new BusException(AdminCodeEnum.RESOURCEDOWNLOAD_TOOL_CALLING_FAIL);
+            return "Failed to download resource: " + e.getMessage();
         }
     }
     // 生成不重复的文件名（添加时间戳）

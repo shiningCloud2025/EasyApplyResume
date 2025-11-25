@@ -49,7 +49,7 @@ public class PDFGenerationTool {
             }
             return "PDF generated successfully to: " + filePath;
         } catch (IOException e) {
-            throw new BusException(AdminCodeEnum.PDFGENERATION_TOOL_CALLING_FAIL);
+            return "Failed to generate PDF: " + e.getMessage();
         }
 
     }

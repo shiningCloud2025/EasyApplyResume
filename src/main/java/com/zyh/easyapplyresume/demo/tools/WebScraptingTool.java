@@ -18,7 +18,7 @@ public class WebScraptingTool {
             Document doc = Jsoup.connect(url).get();
             return doc.html();
         }catch (Exception e){
-            throw new BusException(AdminCodeEnum.WEBSCRAPTING_TOOL_CALLING_FAIL);
+            return "Error scraping web page: " + e.getMessage();
         }
     }
 }

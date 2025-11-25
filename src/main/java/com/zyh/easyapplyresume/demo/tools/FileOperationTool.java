@@ -21,7 +21,7 @@ public class FileOperationTool {
         try{
             return FileUtil.readUtf8String(filePath);
         }catch (Exception e){
-            throw new BusException(AdminCodeEnum.READFILE_TOOL_CALLING_FAIL);
+            return "Failed to read file: " + e.getMessage();
         }
     }
     @Tool(description = "Write content to a file")
@@ -35,7 +35,7 @@ public class FileOperationTool {
             FileUtil.writeUtf8String(content,filePath);
             return "File written successfully to: " + filePath;
         }catch (Exception e){
-            throw new BusException(AdminCodeEnum.WRITEFILE_TOOL_CALLING_FAIL);
+            return "Failed to write file: " + e.getMessage();
         }
 
     }
