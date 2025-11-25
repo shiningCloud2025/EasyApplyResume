@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Controller层只负责调用服务和返回成功，不处理任何异常
  */
 @RestController
-@RequestMapping("/admin/loginandregister/email")
+@RequestMapping("/admin/email/loginandregister")
 @Tag(name = "登录注册邮箱验证码接口-管理端")
 public class LoginAndRegisterEmailVerifyController {
 
