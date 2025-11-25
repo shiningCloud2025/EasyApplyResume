@@ -86,6 +86,8 @@ public enum AdminCodeEnum {
     RESUME_TEMPLATE_NAME_EMPTY(656,"简历模板名称不能为空"),
     RESUME_TEMPLATE_NAME_TOO_LONG(657,"简历模板名称长度不能超过25个字符"),
     RESUME_TEMPLATE_REACT_CODE_EMPTY(658,"简历模板代码不能为空"),
+    // 简历名称唯一约束错误
+    RESUME_TEMPLATE_NAME_DUPLICATE(659, "简历模板名称已存在"),
 
 
     // ------------------- 新增：JobAdviceArticleForm表单验证错误码（从670开始）-------------------
