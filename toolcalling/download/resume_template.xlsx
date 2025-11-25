@@ -1,0 +1,857 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta charset="utf-8" /> 
+<title>蓝色简约简历个人简历模版Excel模板下载_熊猫办公</title> 
+<meta name="keywords" content="蓝色简约简历个人简历excel模版" /> 
+<meta name="description" content="本模板为蓝色简约简历个人简历excel模版，格式为excel，其他风格，可用于人事管理演讲展示，文字图片可以直接替换，使用简单方便。" />
+    <meta name="applicable-device" content="pc">
+<link rel="manifest" href="https://www.tukuppt.com/manifest.json" />
+
+    <link rel="stylesheet" href="//static.tukuppt.com/common/css/common20250721.css" />
+<link rel="stylesheet" href="//static.tukuppt.com/common/css/commonsmall20250721.css" />
+<script type="application/ld+json">
+    {
+        "@context": "https://ziyuan.baidu.com/contexts/cambrian.jsonld",
+        "@id": "https://www.tukuppt.com/muban/kbwymwvv.html",
+        "title": "蓝色简约简历个人简历模版Excel模板下载_熊猫办公",
+        "images": ["https://img.tukuppt.com/preview/13911424/00/70/44/60801ba804c011619008424.jpg-0.jpg"],
+        "description": "本模板为蓝色简约简历个人简历excel模版，格式为excel，其他风格，可用于人事管理演讲展示，文字图片可以直接替换，使用简单方便。",
+        "pubDate":"2021-04-25T12:00:02",
+        "upDate":"2025-11-24T20:51:18"    }
+</script>
+   <link rel="stylesheet" href="//static.tukuppt.com/detail/css/show20250721.css" />
+
+<script type="text/javascript">
+      var now=new Date();
+      var startTime=now.getTime();
+      var isLogin =  false;      var isvip  = 0;
+      var code = "4";
+            var exetime = "0.022";
+            var istuisong = 1;
+      var kid = 3;
+      var loadtime = 0;
+      var uid = 0;
+      var click_num = 0;
+      var ispay = 0;    </script>
+</head> 
+<body> 
+          <!--统一蒙版-->
+      <div id="mengcheng"   oncontextmenu="event.returnValue=false"  onselectstart="event.returnValue=false" ></div>
+             <link rel="stylesheet" href="//static.tukuppt.com/ai/css/wordai.css" />
+      <div class='xfaialert' >
+          <div class='ai-title'>
+            <span class='zn_logo'><a href="https://doc.tukuppt.com" target="_blank"><img src="//static.tukuppt.com/ai/img/wen-logo1.png"></a></span>
+            <span  class='bq_up'></span>
+            <span  class='bq_down'></span>
+          </div>
+        <div class="ai-notice">Hi，我是AI文档助手，可以帮您快速写作</div>
+         <div class="ai-tisci">
+           <ul>
+                  
+                  <li><a href="javascript:;">请帮我写一份周工作计划表<em></em></a></li>
+                  <li><a href="javascript:;">请帮我写一份考勤表格<em></em></a></li>
+                  <li><a href="javascript:;">请帮我写一份工资表格<em></em></a></li>
+                            </ul>
+         </div>
+
+         <div class='ai-content' >
+            <textarea   class="ai-advice" name="content"  placeholder="万字文章，一键搞定！"></textarea>
+            <a href="javascript:;" class='sub'>写作<em></em></a>
+         </div>
+    </div>
+      <div id='login'>
+<div class='close logincolse'></div>
+
+<div class="pastone">
+    <div class='l-logo' >
+    <img src="//static.tukuppt.com/wsw/img/logo-new.png" alt="用户登陆logo">
+	</div>
+	<a href="javascript:;" onclick="openLogin('qq')" class='l-qq'><i></i>QQ<span class="loginname ">登录</span></a>
+	<a href="javascript:;" onclick="openLogin('wechat')" class='l-wx'><i></i>微信<span class="loginname ">登录</span></a>
+    <a href="/about/gvrf" target="_blank" class='l-deal diyige'><input type="checkbox" name="yonghuxieyi" checked="checked">我已阅读并接受《用户协议》</a>
+	<div class='diff-login'>
+	    <a href="javascript:;" class='phone-longin' type="1">手机<span style="color:#8a8a8a" class="loginname">登录</span></a>
+	    <a href="javascript:;" class='l-deal isreg' type="1">没有账号  <span>立即注册</span></a>
+	</div>	
+</div>
+
+<div class="pasttwo" style="display:none;">
+	<div  class='l-logo l-top' style="margin-top:25px;" >
+        <img width="300px;" src="//static.tukuppt.com/wsw/img/logo-new.png" alt="用户登陆logo">
+    </div>
+
+    <div class='login-input i-pone'>
+    	<input type="text" class="Phone-code-inp" placeholder="请输入手机号"> 
+    	<span class='l-yes' style="display:none;">✔</span>
+    </div> 
+
+     <div class='htiao'>
+        <div class='login-input phone-yzm' style="float:left;">
+            <input type="text" class="phonecode" name="phonecode" placeholder="验证码"> 
+            <span style="display:none;" class='l-yes'>✔</span>
+        </div>
+        <img style="float:left;" class="imgcode" src="/index/down/code?time=1764040362"> 
+        <span style="float:left;" class='get-agin'></span>
+    </div>
+
+
+    <div class='htiao'>
+       <div class='login-input phone-info'><input type="text" class="Veri-code-inp" placeholder="短信验证码">
+       	<span class='l-yes' style="display:none">✔</span>
+       </div>
+        <a class='get-yzm'>获取短信验证码</a>
+    </div>
+
+    <div class='htia' style="display:none;">
+      <span class='l-no'>X</span>系统繁忙请5分钟后重试
+    </div>
+
+    <a href="javascript:;" class='alert-phone-longin loginname'>登录</a>
+    <div class='diff-login'>
+        <a href="javascript:;" class="phone-longin  wx-login" type="2">&lt; QQ微信<span class="loginname">登录</span></a>
+        <a href="/about/gvrf" target="_blank" class='l-deal'><input type="checkbox" name="yonghuxieyi1" checked="checked">我已阅读并接受《用户协议》</a>
+    </div>
+</div>
+
+<div class='l-left'>
+    <div class='title'>欢迎来到熊猫办公</div>
+    <ul>
+        <li><i class='i1'></i>海量创意模板，满足您的需求</li>
+        <li><i class='i2'></i>实用易修改，提升您的效率</li>
+        <li><i class='i3'></i>高质量精品热点内容每日更新</li>
+        <li><i class='i4'></i>专业客服接待，及时解决问题</li>
+    </ul>
+</div>
+</div>
+    <div class="dialog" style="display: none">
+    <div class="ai-close"></div>
+
+    <div class="dialog-header">
+        <div class="countdown">今日活动仅剩：<span id="limit_time1"></span></div>
+    </div>
+
+    <div class="dialog-content">
+        <p>您已享受新用户限时优惠，确定放弃？</p>
+        <div class="price"><em>¥ </em>0.8</div>
+        <div class="btn-group">
+            <button class=" btn btnfq">放弃优惠</button>
+            <button class="btn btnjx">继续购买</button>
+        </div>
+    </div>
+
+</div>
+
+<div class="popup" style="display: none">
+    <div class="ai-close"></div>
+    <img src="//static.tukuppt.com/newchongzhi/img/2.png" alt="熊猫图标">
+    <h2>恭喜您成功开通会员</h2>
+    <p>会员有效期至：<span id="endtime"></span></p>
+    <a href="javascript:;" class="btn">立即使用</a>
+    <div class="link-group">
+        <a href="/index/usercenter/info" target="_blank">会员详情</a>
+        <a href="/index/about/question" target="_blank">常见问题</a>
+    </div>
+</div>
+    <div class='headercatage'>
+    <div class="header">
+        <div class="navs wlimit">
+                         <a class="logo" alt="熊猫办公" href="/">
+                                  <h1>
+                     <img class='logoimg' src="//static.tukuppt.com/newindex/img/logo.png" alt="熊猫办公">
+                 </h1>
+                                         <img  class='fimg' src="//static.tukuppt.com/common/image/collect.png" alt='熊猫办公'>
+                               </a>
+                        <div class="allfenl">
+                                    <a href="/" target="_blank" class="kuai">首页</a>
+                    <div class="kuai">分类
+                        <em></em>
+                        <ul>
+                                                        <li><a href="/ppt/" target="_blank">PPT模板</a></li>
+                                                        <li><a href="/word/" target="_blank">Word模板</a></li>
+                                                        <li><a href="/excel/" target="_blank">Excel表格</a></li>
+                                                        <li><a href="/yuansu/" target="_blank">免抠元素</a></li>
+                                                        <li><a href="/backdrop/" target="_blank">背景图库</a></li>
+                                                        <li><a href="/chahua/" target="_blank">插画</a></li>
+                                                        <li><a href="/guanggao/" target="_blank">广告设计</a></li>
+                                                        <li><a href="/peitu/" target="_blank">摄影图</a></li>
+                                                        <li><a href="/ziti/" target="_blank">字体库</a></li>
+                                                        <li><a href="/indexvideo/" target="_blank">视频模板</a></li>
+                                                        <li><a href="/yinxiao/" target="_blank">音效</a></li>
+                                                        <li><a href="/peiyue/" target="_blank">配乐</a></li>
+                                                        <li><a href="/tubiao/" target="_blank">PPT图表</a></li>
+                                                        <li><a href="/somuban1/" target="_blank">搜模板</a></li>
+                                                    </ul>
+                    </div>
+                                <div id="searchdiv" >
+                    <div class="search c-search" id="cd-search-float">
+                        <div class="search-box">
+                                                        <input id="keyword-float" isfont="0" type="text" key-type="3"  autocomplete="off" name="search" class='i-search'   placeholder="搜索精品模板">
+                                                    </div>
+                        <a class='s-niu search-btn' href="javascript:;" key-type="3"><em></em></a>
+                        <div id="dropdown-box-float" class="hot-search" style="display:none;"></div>
+                    </div>
+                </div>
+                            </div>
+                    
+
+            <div class="login">
+
+           
+           
+                <!-- 未登录 -->
+                                     <span name="注册" class="regist">注册</span>
+    <span name="登录" class="regist-lg">登录</span>
+
+                
+            </div>
+
+            
+         </div>
+    </div>
+</div>
+    
+
+    <!--中部的东西-->
+    
+
+<div class='header float-header'>
+  <div class='navs wlimit'>
+      <a class="logo" alt="熊猫办公" href="/">
+          <h1>
+              <img class='logoimg' src="//static.tukuppt.com/newindex/img/logo.png" alt="熊猫办公">
+          </h1>
+          <img class='fimg' src="//static.tukuppt.com/common/image/collect.png" alt='熊猫办公'>
+      </a>
+          <span class='copyright'></span>
+    
+    <span class="titlefloat " >蓝色简约简历个人简历excel模版</span>
+
+        <span kid="3" ispng="0" pid="kbwymwvv" class="d-down"><i></i>
+             立即下载
+          </span>
+      </div>
+</div>
+
+
+  <div class='vip-yd wlimit'>
+      <a rel="nofollow"  href="/index/aigc" target="_blank" class='yd-jr'>
+                <img  class="lazy-nodelay" data-original="//static.tukuppt.com/detail/image/aiwenben.png"> 
+              </a>
+      <div class='yd-close'></div>
+  </div>
+
+<div class='d-daoh' is_me="1" kid="3" scene_id="93" style_id="179">
+    <div class='wlimit'>
+        <a href="/">首页</a>
+                > <a target="_blank" href="/excel/">Excel表格</a>
+                       > <a target="_blank" href="/excel/e170/">人事管理</a>
+                          > <a target="_blank" href="/excel/f128/">其他</a>
+                      > <span>蓝色简约简历个人简历excel模版</span>
+    </div>
+</div>
+
+
+
+<div class='middle wlimit'>
+        <div oncontextmenu="self.event.returnValue=false" class='m-l' swf = "0"  height="2318">
+
+          <div class='banquan'>
+
+                        <i></i>
+            
+            <h1 class='title'>蓝色简约简历个人简历excel模版</h1>
+
+            <em class='bj-collect' pid="kbwymwvv" isfrom="5" issc="0"><em ></em>收藏</em>
+
+          </div>
+
+                                              <img src="//img.tukuppt.com/preview/13911424/00/70/44/60801ba804c011619008424.jpg-0.jpg!/fw/780/quality/90/unsharp/true/compress/true" alt="蓝色简约简历个人简历excel模版" title='蓝色简约简历个人简历excel模版'>
+                                                                   <img class="lazy" src="//static.tukuppt.com/common/image/background.png" data-original="//img.tukuppt.com/preview/13911424/00/70/44/60801ba804c011619008424.jpg-1.jpg!/fw/780/quality/90/unsharp/true/compress/true" alt="蓝色简约简历个人简历excel模版no.2" title='蓝色简约简历个人简历excel模版no.2'>
+                                                                <img class="lazy" src="//static.tukuppt.com/common/image/background.png" data-original="//img.tukuppt.com/preview/13911424/00/70/44/60801ba804c011619008424.jpg-2.jpg!/fw/780/quality/90/unsharp/true/compress/true" alt="蓝色简约简历个人简历excel模版no.3" title='蓝色简约简历个人简历excel模版no.3'>
+                              
+
+
+            <p class="picjianjie">
+                              本作品内容为蓝色简约简历个人简历excel模版，
+              
+                格式为 xlsx，
+                                大小1 MB，
+                                    请使用软件Excel(2016)打开，
+                                            作品中主体文字及图片可替换修改，文字修改可直接点击文本框进行编辑，图片更改可选中图片后单击鼠标右键选择更换图片，也可根据自身需求增加和删除作品中的内容，
+                                        源文件无水印，
+                                欢迎使用熊猫办公。
+
+                
+                如认为平台内容涉嫌侵权，可通过邮件：tousu@tukuppt.com提出书面通知，我们将及时处理。
+             
+
+            </p>
+
+
+                        <div class="m-about">
+                                <span>相关搜索</span>
+                <ul>
+                                        <li><a target="_blank" href="/excelmuban/jianyuegerenjianlimoban.html">简约个人简历模版</a></li>
+                                        <li><a target="_blank" href="/excelmuban/gerenjianlimobanjianyue.html">个人简历模版简约</a></li>
+                                        <li><a target="_blank" href="/excelmuban/gerenjianlimoban0449.html">个人简历模版</a></li>
+                                        <li><a target="_blank" href="/excelmuban/qiuzhigerenjianlimoban3925.html">求职个人简历模版</a></li>
+                                        <li><a target="_blank" href="/excelmuban/gerenjianlimobanjiandan.html">个人简历模版简单</a></li>
+                                        <li><a target="_blank" href="/excelmuban/gerenjianlijianyue.html">个人简历简约</a></li>
+                                        <li><a target="_blank" href="/excelmuban/jianyuegerenjianli.html">简约个人简历</a></li>
+                                        <li><a target="_blank" href="/excelmuban/gerenjianlibiaogejianyue.html">个人简历表格简约</a></li>
+                                        <li><a target="_blank" href="/excelmuban/jianyuegerenjianliword.html">简约个人简历Word</a></li>
+                                        <li><a target="_blank" href="/excelmuban/jianyuejianli.html">简约简历</a></li>
+                                    </ul>
+            </div>
+           
+                    </div>
+
+
+        <div class='m-r'>
+            <!--下载相关模块-->
+            <div class='work-down'>
+                                      <span  kid="3" style="display:block;" pid="kbwymwvv" isdaoji="1"  class='d-down downing'><i></i>
+                      立即下载
+                                          </span>
+                  
+
+                  <div class='d-msg ' >
+                          <span class='d-view' title="点赞"><i pid="kbwymwvv" class='down-num dianzan '></i><span class='dzs'>665</span><span class='jiayi'>+1</span></span>
+
+                          <span class='d-view' title="浏览"><i class='view-num'></i>10260</span>
+                          <span class='d-view' title="收藏"><i class='coll-num'></i>62</span>
+                  </div>
+              </div>
+
+              
+
+
+                <div class='work-info' >
+                    <ul>
+                                                 <li>
+                            <span class='m-l2'>软件</span>
+                            <span class='m-r2'>Excel</span>
+                                                        <a target="_blank" rel="nofollow" target='_blank' href="https://img.tukuppt.com/banner/jiaocheng3.pdf" class='course showjiaocheng'>查看教程</a>
+                                                    </li>
+                        
+                         <li>
+                             <span class='m-l2'>格式</span>
+                            <span class='m-r2'>xlsx</span>
+                        </li>
+                                                 <li>
+                             <span class='m-l2'>大小</span>
+                            <span class='m-r2'>  1 MB</span>
+                        </li>
+                                              <li>
+                            <span class='m-l2'>作者 </span>
+                            <span class='m-r2'>
+                                懒洋洋                            </span>
+                        </li>
+                                             </ul>
+                                        <a class="adpdf" href="/index/pdf" target="_blank" rel="nofollow"><img src="//static.tukuppt.com/detail/image/rpdf.png"></a>
+                                      </div>
+                  <div class="work-info" >
+                    
+                      <ul>
+                                                <li class="chose">
+                            <span class='m-l2'>版权说明</span>
+                            <span class='m-r2'>相关字体/摄影图/音频仅供参考
+                              <em>i 
+                                <div class='say' style="top:-202px;">
+                                  <div class='s-tt'>版权声明</div>
+                                  <p>此作品是由熊猫办公签约设计师设计上传，熊猫办公拥有版权；未经熊猫办公书面授权，请勿作他用。人物肖像，字体及音频如需商用需第三方额外授权； </p>
+                                  <p>熊猫办公尊重知识产权，如知识产权权利人认为平台内容涉嫌侵权，可通过邮件：tousu@tukuppt.com提出书面通知，我们将及时处理。</p>
+                                  <p>熊猫办公对作品中含有的国旗、国徽等政治图案不享有权利，仅作为作品整体效果的示例展示，禁止商用。另外您必须遵循相关法律法规规定的使用范围和使用方式，禁止以任何形式歪曲、篡改。</p>
+                                  </p>
+                                </div>
+                                </em>
+                            </span>
+                        </li>
+                        
+                    </ul>
+                                        <a rel="nofollow"  href="/about/level" target="_blank" class='dzweb dz-excel'>
+                            <i></i>
+                             懒得动手，帮我代做Excel
+                            <em></em>
+                    </a>
+                   
+
+          </div>
+          
+    </div>
+</div>
+
+
+<div class='you-like'>
+    <div class='wlimit'>
+               <h2 class='y-title'><a href="/excelmuban/jianyuegerenjianlimoban.html">简约个人简历模版Excel表格推荐</a></h2>
+                   <div class='b-box'>
+                   
+
+ <dl data-id="pgbekxaw" class='cbox s-box ' >
+
+    <dd>
+        <a target="_blank" href="/muban/pgbekxaw.html">
+        <img  alt="蓝色简约个人简历excel模版" title="蓝色简约个人简历excel模版"  class='s-pic lazy'  data-original="//img.tukuppt.com/preview/13911424/00/70/44/60801a3b031771619008059.jpg-0.jpg!/fw/288" src="//static.tukuppt.com/common/image/background.png">
+        </a>
+    </dd>
+
+   
+    <dt class='p-title'>
+        <a target="_blank" href="/muban/pgbekxaw.html">蓝色简约个人简历excel模版</a>
+    </dt>
+
+    <dd class='explain'>
+        <span  class='coll'>
+            <span title="点赞数" class="dianzan-num"><i></i><span class="dzs">133</span></span>
+            <span title="收藏" class='coll-num'><i></i>15</span>
+        </span>
+                    <a rel="nofollow" target="_blank" href="/muban/pgbekxaw.html"><div class='mark' ></div></a>
+
+                                <span  class='b-down box-down' pid="pgbekxaw">立即下载</span>
+                                     <span   class='b-collect '  user="0" pid="pgbekxaw" isfrom="0" issc="0">收藏                    </span>
+                            <div class="banquan"></div>
+            
+    </dd>
+
+    </dl> 
+                   
+
+ <dl data-id="wwmpgkyg" class='cbox s-box ' >
+
+    <dd>
+        <a target="_blank" href="/muban/wwmpgkyg.html">
+        <img  alt="红色简约个人简历excel模版" title="红色简约个人简历excel模版"  class='s-pic lazy'  data-original="//img.tukuppt.com/preview/13911424/00/70/44/60801acc5e4891619008204.jpg-0.jpg!/fw/288" src="//static.tukuppt.com/common/image/background.png">
+        </a>
+    </dd>
+
+   
+    <dt class='p-title'>
+        <a target="_blank" href="/muban/wwmpgkyg.html">红色简约个人简历excel模版</a>
+    </dt>
+
+    <dd class='explain'>
+        <span  class='coll'>
+            <span title="点赞数" class="dianzan-num"><i></i><span class="dzs">60</span></span>
+            <span title="收藏" class='coll-num'><i></i>7</span>
+        </span>
+                    <a rel="nofollow" target="_blank" href="/muban/wwmpgkyg.html"><div class='mark' ></div></a>
+
+                                <span  class='b-down box-down' pid="wwmpgkyg">立即下载</span>
+                                     <span   class='b-collect '  user="0" pid="wwmpgkyg" isfrom="0" issc="0">收藏                    </span>
+                            <div class="banquan"></div>
+            
+    </dd>
+
+    </dl> 
+                   
+
+ <dl data-id="oakebrxn" class='cbox s-box ' >
+
+    <dd>
+        <a target="_blank" href="/muban/oakebrxn.html">
+        <img  alt="灰色简约个人简历excel模版" title="灰色简约个人简历excel模版"  class='s-pic lazy'  data-original="//img.tukuppt.com/preview/13911424/00/70/44/60801a8b4b53b1619008139.jpg-0.jpg!/fw/288" src="//static.tukuppt.com/common/image/background.png">
+        </a>
+    </dd>
+
+   
+    <dt class='p-title'>
+        <a target="_blank" href="/muban/oakebrxn.html">灰色简约个人简历excel模版</a>
+    </dt>
+
+    <dd class='explain'>
+        <span  class='coll'>
+            <span title="点赞数" class="dianzan-num"><i></i><span class="dzs">67</span></span>
+            <span title="收藏" class='coll-num'><i></i>7</span>
+        </span>
+                    <a rel="nofollow" target="_blank" href="/muban/oakebrxn.html"><div class='mark' ></div></a>
+
+                                <span  class='b-down box-down' pid="oakebrxn">立即下载</span>
+                                     <span   class='b-collect '  user="0" pid="oakebrxn" isfrom="0" issc="0">收藏                    </span>
+                            <div class="banquan"></div>
+            
+    </dd>
+
+    </dl> 
+                   
+
+ <dl data-id="rrxgazvz" class='cbox s-box ' >
+
+    <dd>
+        <a target="_blank" href="/muban/rrxgazvz.html">
+        <img  alt="粉色简约个人简历excel模版" title="粉色简约个人简历excel模版"  class='s-pic lazy'  data-original="//img.tukuppt.com/preview/13911424/00/70/44/60801c5158b8f1619008593.jpg-0.jpg!/fw/288" src="//static.tukuppt.com/common/image/background.png">
+        </a>
+    </dd>
+
+   
+    <dt class='p-title'>
+        <a target="_blank" href="/muban/rrxgazvz.html">粉色简约个人简历excel模版</a>
+    </dt>
+
+    <dd class='explain'>
+        <span  class='coll'>
+            <span title="点赞数" class="dianzan-num"><i></i><span class="dzs">24</span></span>
+            <span title="收藏" class='coll-num'><i></i>6</span>
+        </span>
+                    <a rel="nofollow" target="_blank" href="/muban/rrxgazvz.html"><div class='mark' ></div></a>
+
+                                <span  class='b-down box-down' pid="rrxgazvz">立即下载</span>
+                                     <span   class='b-collect '  user="0" pid="rrxgazvz" isfrom="0" issc="0">收藏                    </span>
+                            <div class="banquan"></div>
+            
+    </dd>
+
+    </dl> 
+                   
+
+ <dl data-id="nbgydrke" class='cbox s-box ' >
+
+    <dd>
+        <a target="_blank" href="/muban/nbgydrke.html">
+        <img  alt="黄色简约个人简历excel模版" title="黄色简约个人简历excel模版"  class='s-pic lazy'  data-original="//img.tukuppt.com/preview/13911424/00/70/44/60801a62d125f1619008098.jpg-0.jpg!/fw/288" src="//static.tukuppt.com/common/image/background.png">
+        </a>
+    </dd>
+
+   
+    <dt class='p-title'>
+        <a target="_blank" href="/muban/nbgydrke.html">黄色简约个人简历excel模版</a>
+    </dt>
+
+    <dd class='explain'>
+        <span  class='coll'>
+            <span title="点赞数" class="dianzan-num"><i></i><span class="dzs">10</span></span>
+            <span title="收藏" class='coll-num'><i></i>5</span>
+        </span>
+                    <a rel="nofollow" target="_blank" href="/muban/nbgydrke.html"><div class='mark' ></div></a>
+
+                                <span  class='b-down box-down' pid="nbgydrke">立即下载</span>
+                                     <span   class='b-collect '  user="0" pid="nbgydrke" isfrom="0" issc="0">收藏                    </span>
+                            <div class="banquan"></div>
+            
+    </dd>
+
+    </dl> 
+                   
+
+ <dl data-id="bagpyxew" class='cbox s-box ' >
+
+    <dd>
+        <a target="_blank" href="/muban/bagpyxew.html">
+        <img  alt="深灰色简约个人简历excel模版" title="深灰色简约个人简历excel模版"  class='s-pic lazy'  data-original="//img.tukuppt.com/preview/13911424/00/70/44/60801ab85f9491619008184.jpg-0.jpg!/fw/288" src="//static.tukuppt.com/common/image/background.png">
+        </a>
+    </dd>
+
+   
+    <dt class='p-title'>
+        <a target="_blank" href="/muban/bagpyxew.html">深灰色简约个人简历excel模版</a>
+    </dt>
+
+    <dd class='explain'>
+        <span  class='coll'>
+            <span title="点赞数" class="dianzan-num"><i></i><span class="dzs">16</span></span>
+            <span title="收藏" class='coll-num'><i></i>3</span>
+        </span>
+                    <a rel="nofollow" target="_blank" href="/muban/bagpyxew.html"><div class='mark' ></div></a>
+
+                                <span  class='b-down box-down' pid="bagpyxew">立即下载</span>
+                                     <span   class='b-collect '  user="0" pid="bagpyxew" isfrom="0" issc="0">收藏                    </span>
+                            <div class="banquan"></div>
+            
+    </dd>
+
+    </dl> 
+                   
+
+ <dl data-id="wwmpgkdg" class='cbox s-box ' >
+
+    <dd>
+        <a target="_blank" href="/muban/wwmpgkdg.html">
+        <img  alt="绿色简约个人简历excel模版" title="绿色简约个人简历excel模版"  class='s-pic lazy'  data-original="//img.tukuppt.com/preview/13911424/00/70/44/60801a4d615a61619008077.jpg-0.jpg!/fw/288" src="//static.tukuppt.com/common/image/background.png">
+        </a>
+    </dd>
+
+   
+    <dt class='p-title'>
+        <a target="_blank" href="/muban/wwmpgkdg.html">绿色简约个人简历excel模版</a>
+    </dt>
+
+    <dd class='explain'>
+        <span  class='coll'>
+            <span title="点赞数" class="dianzan-num"><i></i><span class="dzs">10</span></span>
+            <span title="收藏" class='coll-num'><i></i>1</span>
+        </span>
+                    <a rel="nofollow" target="_blank" href="/muban/wwmpgkdg.html"><div class='mark' ></div></a>
+
+                                <span  class='b-down box-down' pid="wwmpgkdg">立即下载</span>
+                                     <span   class='b-collect '  user="0" pid="wwmpgkdg" isfrom="0" issc="0">收藏                    </span>
+                            <div class="banquan"></div>
+            
+    </dd>
+
+    </dl> 
+                   
+
+ <dl data-id="jpywjmoa" class='cbox s-box ' >
+
+    <dd>
+        <a target="_blank" href="/muban/jpywjmoa.html">
+        <img  alt="紫色简约个人简历excel模版" title="紫色简约个人简历excel模版"  class='s-pic lazy'  data-original="//img.tukuppt.com/preview/13911424/00/70/44/60801a6eed6261619008110.jpg-0.jpg!/fw/288" src="//static.tukuppt.com/common/image/background.png">
+        </a>
+    </dd>
+
+   
+    <dt class='p-title'>
+        <a target="_blank" href="/muban/jpywjmoa.html">紫色简约个人简历excel模版</a>
+    </dt>
+
+    <dd class='explain'>
+        <span  class='coll'>
+            <span title="点赞数" class="dianzan-num"><i></i><span class="dzs">8</span></span>
+            <span title="收藏" class='coll-num'><i></i>0</span>
+        </span>
+                    <a rel="nofollow" target="_blank" href="/muban/jpywjmoa.html"><div class='mark' ></div></a>
+
+                                <span  class='b-down box-down' pid="jpywjmoa">立即下载</span>
+                                     <span   class='b-collect '  user="0" pid="jpywjmoa" isfrom="0" issc="0">收藏                    </span>
+                            <div class="banquan"></div>
+            
+    </dd>
+
+    </dl> 
+                   
+
+ <dl data-id="yaxjvzkk" class='cbox s-box ' >
+
+    <dd>
+        <a target="_blank" href="/muban/yaxjvzkk.html">
+        <img  alt="橙色简约个人简历excel模版" title="橙色简约个人简历excel模版"  class='s-pic lazy'  data-original="//img.tukuppt.com/preview/13911424/00/70/44/60801a5783b2e1619008087.jpg-0.jpg!/fw/288" src="//static.tukuppt.com/common/image/background.png">
+        </a>
+    </dd>
+
+   
+    <dt class='p-title'>
+        <a target="_blank" href="/muban/yaxjvzkk.html">橙色简约个人简历excel模版</a>
+    </dt>
+
+    <dd class='explain'>
+        <span  class='coll'>
+            <span title="点赞数" class="dianzan-num"><i></i><span class="dzs">4</span></span>
+            <span title="收藏" class='coll-num'><i></i>2</span>
+        </span>
+                    <a rel="nofollow" target="_blank" href="/muban/yaxjvzkk.html"><div class='mark' ></div></a>
+
+                                <span  class='b-down box-down' pid="yaxjvzkk">立即下载</span>
+                                     <span   class='b-collect '  user="0" pid="yaxjvzkk" isfrom="0" issc="0">收藏                    </span>
+                            <div class="banquan"></div>
+            
+    </dd>
+
+    </dl> 
+                   
+
+ <dl data-id="jpywjkbz" class='cbox s-box ' >
+
+    <dd>
+        <a target="_blank" href="/muban/jpywjkbz.html">
+        <img  alt="蓝色简单简历个人简历excel模版" title="蓝色简单简历个人简历excel模版"  class='s-pic lazy'  data-original="//img.tukuppt.com/preview/13911424/00/70/44/60801c2cb6f9d1619008556.jpg-0.jpg!/fw/288" src="//static.tukuppt.com/common/image/background.png">
+        </a>
+    </dd>
+
+   
+    <dt class='p-title'>
+        <a target="_blank" href="/muban/jpywjkbz.html">蓝色简单简历个人简历excel模版</a>
+    </dt>
+
+    <dd class='explain'>
+        <span  class='coll'>
+            <span title="点赞数" class="dianzan-num"><i></i><span class="dzs">63</span></span>
+            <span title="收藏" class='coll-num'><i></i>10</span>
+        </span>
+                    <a rel="nofollow" target="_blank" href="/muban/jpywjkbz.html"><div class='mark' ></div></a>
+
+                                <span  class='b-down box-down' pid="jpywjkbz">立即下载</span>
+                                     <span   class='b-collect '  user="0" pid="jpywjkbz" isfrom="0" issc="0">收藏                    </span>
+                            <div class="banquan"></div>
+            
+    </dd>
+
+    </dl> 
+                   
+
+ <dl data-id="nbgydree" class='cbox s-box ' >
+
+    <dd>
+        <a target="_blank" href="/muban/nbgydree.html">
+        <img  alt="紫色简单个人简历excel模版" title="紫色简单个人简历excel模版"  class='s-pic lazy'  data-original="//img.tukuppt.com/preview/13911424/00/70/44/60801aed9bc121619008237.jpg-0.jpg!/fw/288" src="//static.tukuppt.com/common/image/background.png">
+        </a>
+    </dd>
+
+   
+    <dt class='p-title'>
+        <a target="_blank" href="/muban/nbgydree.html">紫色简单个人简历excel模版</a>
+    </dt>
+
+    <dd class='explain'>
+        <span  class='coll'>
+            <span title="点赞数" class="dianzan-num"><i></i><span class="dzs">47</span></span>
+            <span title="收藏" class='coll-num'><i></i>11</span>
+        </span>
+                    <a rel="nofollow" target="_blank" href="/muban/nbgydree.html"><div class='mark' ></div></a>
+
+                                <span  class='b-down box-down' pid="nbgydree">立即下载</span>
+                                     <span   class='b-collect '  user="0" pid="nbgydree" isfrom="0" issc="0">收藏                    </span>
+                            <div class="banquan"></div>
+            
+    </dd>
+
+    </dl> 
+                   
+
+ <dl data-id="mvanraao" class='cbox s-box ' >
+
+    <dd>
+        <a target="_blank" href="/muban/mvanraao.html">
+        <img  alt="蓝色简单个人简历excel模版" title="蓝色简单个人简历excel模版"  class='s-pic lazy'  data-original="//img.tukuppt.com/preview/13911424/00/70/44/608a5bbfbc0751619680191.jpg-0.jpg!/fw/288" src="//static.tukuppt.com/common/image/background.png">
+        </a>
+    </dd>
+
+   
+    <dt class='p-title'>
+        <a target="_blank" href="/muban/mvanraao.html">蓝色简单个人简历excel模版</a>
+    </dt>
+
+    <dd class='explain'>
+        <span  class='coll'>
+            <span title="点赞数" class="dianzan-num"><i></i><span class="dzs">50</span></span>
+            <span title="收藏" class='coll-num'><i></i>7</span>
+        </span>
+                    <a rel="nofollow" target="_blank" href="/muban/mvanraao.html"><div class='mark' ></div></a>
+
+                                <span  class='b-down box-down' pid="mvanraao">立即下载</span>
+                                     <span   class='b-collect '  user="0" pid="mvanraao" isfrom="0" issc="0">收藏                    </span>
+                            <div class="banquan"></div>
+            
+    </dd>
+
+    </dl> 
+                            </div>
+       
+   
+</div>
+</div>
+
+
+
+
+    <!--尾部按键-->
+    <div class='footer'>
+     <div class='footer1'>
+        <div class='user-say'>
+            <span class='box'><i class='i-1'></i>价格优惠</span>
+            <span class='box'><i class='i-2'></i>致臻精品</span>
+            <span class='box'><i class='i-3'></i>高质售后</span>
+            <span class='box'><i class='i-4'></i>100%满意</span>
+            <span class='box1'><i class='i-5'></i>提升效率</span>
+        </div>
+    </div>
+    <div class='footer2'>
+        <div class='wlimit'>
+            <div class='footer-logo'></div>
+            <div class='company-say'>
+                <div class="statements">
+                    <a rel="nofollow" href="/" target="_blank">熊猫办公</a>
+                    <a rel="nofollow" href="/about/aboutus" target="_blank">关于我们</a><span>|</span>
+                    <a rel="nofollow" href="/about/gvrf" target="_blank">用户协议</a><span>|</span>
+                    <a rel="nofollow" href="/pro/copyright" target="_blank">版权声明</a><span>|</span>
+                    <a rel="nofollow" href="/index/about/question" target="_blank">帮助中心</a><span>|</span>
+                                      <a rel="nofollow" href="/about/settlecontrac" target="_blank">入驻签约</a>
+
+                     <a rel="nofollow" class='wty  weixin' target="_blank"><em></em></a>
+                    <a rel="nofollow" class='wty gzh' target="_blank"><em></em></a>
+                </div>
+                <div class="copyrights">
+                                        <a href="https://beian.miit.gov.cn" target="_blank" rel="nofollow"><i class="lazy gov-icon gov-icon-icp" data-original="//static.tukuppt.com/common/image/govemblem.png"></i><span>沪ICP备17039466号-1</span></a>
+                                        <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31010402005121" target="_blank" rel="nofollow"><i class="lazy gov-icon gov-icon-wa" data-original="//static.tukuppt.com/common/image/govemblem.png"></i><span>沪公网安备 31010402005121号</span></a>
+                    
+
+                    <span class="tukuppt-right">Copyright © 2017-2025 熊猫办公</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 侧边栏 -->
+<div class="ycbl">
+    <div class="fkzf">
+        
+        <div class="zjbfyc">
+            <div class="fl userfl">
+                <a class="kefua" href="javascript:;">
+                    <i><img src="//static.tukuppt.com/newindex/img/fl.png" alt=""></i><span>福利</span>
+                </a>
+
+                <div class="lian">
+                    <a href="/index/heart/recommend" target="_blank" class="recommend"></a>
+                    <a href="/index/heart" target="_blank" class="winvip"></a>
+                    <a href="/index/invitebonus" target="_blank" class="sq"></a>
+                </div>
+            </div>
+
+            <div class="fl userkf">
+                <a class='kefua' href="http://q.url.cn/cdUM4o?_type=wpa&qidian=true" target="_blank">
+                    <i><img src="//static.tukuppt.com/newindex/img/nkf.png" alt=""></i><span>客服</span>
+                </a>
+                <div class="userqqtipw">
+                    <div class="userqqtip">
+                        <div class="inner"></div>
+
+                        <div class="qqtime">在线时间：9:00-22:00</div>
+                        <a href="http://q.url.cn/cdUM4o?_type=wpa&qidian=true" target="_blank" class="clickqq">点击咨询</a>
+                        <a href="/index/about/question" target="_blank" style="font-size: 12px;color: #7a7a7a;display: block;margin-top: 8px;letter-spacing: 1px;">常见问题 <i style="display: inline-block;margin-left: 3px;vertical-align: -2px;font-weight: 700; font-style: unset;font-size: 17px;font-family: SimSun;">&gt;</i></a>
+
+                    </div>
+                </div>
+            </div>
+
+            <a target="_blank" href="/about/settlecontrac" class="fl zq"><i><img src="//static.tukuppt.com/newindex/img/zq.png" alt=""></i><span>赚钱</span></a>
+            <a href="javascript:;" class="fl fk advice"><i><img src="//static.tukuppt.com/newindex/img/fk.png" alt=""></i><span>反馈</span></a>
+        </div>
+
+        <div class="zjbfyc cbfh">
+            <a class="fl fh return-top"><i><img src="//static.tukuppt.com/newindex/img/fh.png" alt=""></i><span>返回</span></a>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+    <script src="//static.tukuppt.com/!!index/js/jquery-1.7.1.min.js,lib/store.legacy.min.js,common/js/lazyload.min.js,common/js/common20251121.js"></script>
+
+
+           <script src="//static.tukuppt.com/ai/js/aiword1001.js"></script>
+       <style type="text/css">
+    .pczm{position:fixed;bottom:10px;z-index:91;width:166px;left:1px;height:100px;cursor: pointer;}
+    .pczm .pc-close{width:25px;height:25px;position: absolute;right:0px;}
+    .pczm .clickpcaz{display:block;width:166px;height:100px;}
+  </style>
+
+  <div class='pczm'>
+      <div class='pc-close'></div>
+      <div>
+      <a href="javascript:;" class='clickpcaz'>
+          <img class="lazy-nodelay" data-original="https://static.tukuppt.com/common/image/pc.png">
+      </a>
+      </div>
+  </div>
+  <script type="text/javascript" src="//static.tukuppt.com/common/js/pwa20230520.js"></script>
+
+
+
+  <script src="//static.tukuppt.com/detail/js/show20251120.js"></script>
+  
+
+</body> 
+</html> 
