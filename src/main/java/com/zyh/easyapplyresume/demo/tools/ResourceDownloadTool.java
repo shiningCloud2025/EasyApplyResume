@@ -2,7 +2,6 @@ package com.zyh.easyapplyresume.demo.tools;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.http.HttpUtil;
-import com.alibaba.nacos.api.naming.pojo.healthcheck.impl.Http;
 import com.zyh.easyapplyresume.bean.constant.ToolCallingFileConstant;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;

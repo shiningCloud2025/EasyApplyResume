@@ -155,6 +155,7 @@ public enum AdminCodeEnum {
     WEBSEARCH_TOOL_CALLING_FAIL(904,"调用联网搜索工具类失败"),
     WEBSCRAPTING_TOOL_CALLING_FAIL(905,"调用网页抓取工具类失败"),
     RESOURCEDOWNLOAD_TOOL_CALLING_FAIL(906,"调用资源下载工具类失败"),
+    PDFGENERATION_TOOL_CALLING_FAIL(907,"调用PDF生成工具类失败"),
     ;
 
 
