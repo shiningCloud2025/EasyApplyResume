@@ -111,6 +111,7 @@ public class SmsServiceImpl implements SmsService {
     /**
      * 发送短信验证码（使用新配置）
      */
+    @Override
     public void sendVerifyCode(String phoneNumber) {
         // 1. 校验手机号格式
         validatePhoneNumber(phoneNumber);
@@ -166,6 +167,7 @@ public class SmsServiceImpl implements SmsService {
     /**
      * 校验短信验证码
      */
+    @Override
     public void verifyCode(String phoneNumber, String inputCode) {
         // 1. 校验参数
         if (phoneNumber == null || inputCode == null || inputCode.trim().isEmpty()) {
