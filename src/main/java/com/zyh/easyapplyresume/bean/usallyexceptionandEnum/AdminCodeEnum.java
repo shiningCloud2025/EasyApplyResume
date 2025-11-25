@@ -139,7 +139,11 @@ public enum AdminCodeEnum {
     EMAIL_VERIFY_SEND_FAIL(752, "验证码发送失败，请检查邮箱地址或稍后重试"),
     EMAIL_VERIFY_CODE_INVALID(753, "验证码无效或已过期"),
     EMAIL_VERIFY_CODE_SUCCESS(754, "验证码验证成功"),
-
+    SENDER_EMAIL_NOT_NULL(755, "您还没有绑定邮箱,请去绑定邮箱"),
+    RECIVEDER_EMAIL_NOT_NULL(756, "请输入接收人邮箱"),
+    SEND_TITLE_NOT_NULL(757, "请输入发送标题"),
+    SEND_CONTENT_NOT_NULL(758, "请输入发送内容"),
+    SEND_COMMUNICATION_EMAIL_FAIL(759, "发送沟通邮件失败"),
 
     // ==================== 短信相关枚举（从 770 开始）====================
     SMS_PHONE_FORMAT_ERROR(770, "手机号格式不正确，请输入11位有效手机号"),
