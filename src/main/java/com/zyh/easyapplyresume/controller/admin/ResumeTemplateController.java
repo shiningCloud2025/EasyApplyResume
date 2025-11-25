@@ -32,25 +32,25 @@ public class ResumeTemplateController {
     @Operation(summary = "新增简历模版")
     @RequestMapping("/addResumeTemplate")
     public BaseResult<Integer> addResumeTemplate(@RequestBody ResumeTemplateForm resumeTemplateForm){
-
+        return BaseResult.ok(resumeTemplateService.addResumeTemplate(resumeTemplateForm));
     }
 
     @Operation(summary = "修改简历模版")
     @RequestMapping("/updateResumeTemplate")
     public BaseResult<Integer> updateResumeTemplate(@RequestBody ResumeTemplateForm resumeTemplateForm){
-
+        return BaseResult.ok(resumeTemplateService.updateResumeTemplate(resumeTemplateForm));
     }
 
     @Operation(summary = "删除简历模版")
     @RequestMapping("/deleteResumeTemplate")
     public BaseResult<Integer> deleteResumeTemplate(@RequestParam(required = true,value = "resumeTemplateId") Integer resumeTemplateId){
-
+        return BaseResult.ok(resumeTemplateService.deleteResumeTemplate(resumeTemplateId));
     }
 
     @Operation(summary = "根据id查询简历模版")
     @RequestMapping("/findResumeTemplateById")
     public BaseResult<ResumeTemplateInfoVO> findResumeTemplateById(@RequestParam(required = true,value = "resumeTemplateId") Integer resumeTemplateId){
-
+        return BaseResult.ok(resumeTemplateService.findResumeTemplateById(resumeTemplateId));
     }
 
     @Operation(summary = "分页查询简历模版")
@@ -58,13 +58,13 @@ public class ResumeTemplateController {
     public BaseResult<Page<ResumeTemplatePageVO>> findResumeTemplateByPage(@RequestParam(required = true,value = "pageNum",defaultValue = "1") Integer pageNum,
                                                                            @RequestParam(required = true,value = "pageSize",defaultValue = "10") Integer pageSize,
                                                                            @RequestBody ResumeTemplateQuery resumeTemplateQuery){
-
+        return BaseResult.ok(resumeTemplateService.findResumeTemplateByPage(pageNum,pageSize,resumeTemplateQuery));
     }
 
     @Operation(summary = "查询所有简历模版")
     @RequestMapping("/findAllResumeTemplate")
     public BaseResult<List<ResumeTemplatePageVO>> findAllResumeTemplate(){
-
+        return BaseResult.ok(resumeTemplateService.findAllResumeTemplate());
     }
 
 
