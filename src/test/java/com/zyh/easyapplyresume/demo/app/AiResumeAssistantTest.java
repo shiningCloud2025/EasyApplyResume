@@ -67,22 +67,22 @@ class AiResumeAssistantTest {
     @Test
     void doChatWithTool() {
         // 测试联网搜索问题的答案
-        testMessage("我是一个大一新生，能不能给我推荐几个好看的简历模版");
+//        testMessage("我是一个大一新生，能不能给我推荐几个好看的简历模版,1个就可以");
 
         // 测试网页抓取:简历编写案例分析
-        testMessage("我是一个大一新生，最近在写简历，能不能看看超级简历网站，看看其他人的简历是怎样的?");
+//        testMessage("我是一个大一新生，最近在写简历，能不能看看超级简历网站，看看其他人的简历是怎样的,1个就可以?");
 
         // 测试咨询下载:图片下载
-        testMessage("直接下载一张适合做电脑壁纸的小猫图片为文件");
+//        testMessage("直接下载一张适合做电脑壁纸的小猫图片为文件,1个就可以");
 
         // 测试终端操作:执行代码
-        testMessage("执行Python3脚本来做数据分析报告");
+//        testMessage("执行Python3脚本来做数据分析报告,1个就可以");
 
         // 测试文件操作:保存简历
-        testMessage("保存一个简历模版");
+//        testMessage("保存一个简历模版,1个就可以");
 
         // 测试pdf生成
-        testMessage("能不能帮我生成一个'简历编写'PDF,包括简历编写常见模版、注意事项");
+        testMessage("能不能帮我生成一个'简历编写'PDF,我希望这个PDF的内容是简历编写的注意事项");
     }
 
     private void testMessage(String message) {
