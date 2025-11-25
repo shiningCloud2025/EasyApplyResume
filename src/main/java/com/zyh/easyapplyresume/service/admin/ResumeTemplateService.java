@@ -36,4 +36,5 @@ public interface ResumeTemplateService {
      * 查询所有简历模版
      */
     public List<ResumeTemplatePageVO> findAllResumeTemplate();
+
 }
