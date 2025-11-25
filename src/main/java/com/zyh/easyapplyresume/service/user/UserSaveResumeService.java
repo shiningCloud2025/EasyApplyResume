@@ -30,7 +30,7 @@ public interface UserSaveResumeService {
     public UserSaveResume saveUserSaveResumeInfo(UserSaveResume userSaveResume);
 
     /**
-     * 保存用户的简历(第一次添加)
+     * 保存用户的简历(第一次添加，通过简历模版)
      */
     public UserSaveResume saveUserSaveResumeInfoFirst(UserSaveResume userSaveResume);
 
