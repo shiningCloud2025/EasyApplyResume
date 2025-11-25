@@ -149,7 +149,12 @@ public enum AdminCodeEnum {
     SMS_CONFIG_ERROR(774, "短信服务配置缺失，请联系管理员"),
 
     // 大模型应用用户输入为空
-    LLM_USERINPUT_EMPTY(901,"用户输入为空")
+    LLM_USERINPUT_EMPTY(901,"用户输入为空"),
+    READFILE_TOOL_CALLING_FAIL(902,"调用文件工具类读取失败"),
+    WRITEFILE_TOOL_CALLING_FAIL(903,"调用文件工具类写入失败"),
+    WEBSEARCH_TOOL_CALLING_FAIL(904,"调用联网搜索工具类失败"),
+    WEBSCRAPTING_TOOL_CALLING_FAIL(905,"调用网页抓取工具类失败"),
+    RESOURCEDOWNLOAD_TOOL_CALLING_FAIL(906,"调用资源下载工具类失败"),
     ;
 
 
