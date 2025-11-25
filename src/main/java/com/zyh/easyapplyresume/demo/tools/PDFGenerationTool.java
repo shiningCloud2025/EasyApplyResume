@@ -21,7 +21,8 @@ import java.io.IOException;
  */
 public class PDFGenerationTool {
 
-    @Tool(description = "Generate a PDF file with given content")
+    // returnDirect是代表直接返回给大模型，不再经过程序处理了
+    @Tool(description = "Generate a PDF file with given content",returnDirect = true)
     public String generatePDF(
             @ToolParam(description = "Name of the file to save the generated PDF") String fileName,
             @ToolParam(description = "Content to be included in the PDF") String content) {
