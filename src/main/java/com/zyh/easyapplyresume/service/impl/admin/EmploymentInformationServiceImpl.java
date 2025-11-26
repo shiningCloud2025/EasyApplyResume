@@ -17,6 +17,7 @@ import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationPageVO;
 import com.zyh.easyapplyresume.service.admin.EmploymentInformationService;
 import com.zyh.easyapplyresume.utils.Validator.EmploymentInformationFormValidator;
+import org.apache.ibatis.executor.BatchResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
     @Autowired
     private ProvinceMapMapper provinceMapMapper;
     @Override
-    public void addEmploymentInformation(EmploymentInformationForm employmentInformationForm) {
+    public Integer addEmploymentInformation(EmploymentInformationForm employmentInformationForm) {
         EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
         EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
         employmentInformation.setEmploymentInformationCode(employmentInformation.getEmploymentInformationId());
@@ -63,11 +64,17 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
             employmentInformation.setEmploymentInformationRecruitLocationDetail(provinceName + cityName);
             res.add(employmentInformation);
         }
-        employmentInformationMapper.insert(res);
+        try{
+            List<BatchResult> countList = employmentInformationMapper.insert(res);
+            return countList.size();
+        }catch (Exception e){
+            throw resolveDbException(e);
+        }
+
     }
 
-    @Override
-    public void addEmploymentInformationForUpdate(EmploymentInformationForm employmentInformationForm,Date startTime) {
+    // 为了修改重载的
+    private Integer addEmploymentInformationForUpdate(EmploymentInformationForm employmentInformationForm,Date startTime) {
         EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
         EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
         employmentInformation.setEmploymentInformationCode(employmentInformation.getEmploymentInformationId());
@@ -94,11 +101,40 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
             employmentInformation.setEmploymentInformationRecruitLocationDetail(provinceName + cityName);
             res.add(employmentInformation);
         }
-        employmentInformationMapper.insert(res);
+        try{
+            List<BatchResult> countList = employmentInformationMapper.insert(res);
+            return countList.size();
+        }catch (Exception e){
+            throw resolveDbException(e);
+        }
+    }
+
+    private BusException resolveDbException(Exception e) {
+        String errorMsg = e.getMessage();
+
+        // 1. 处理唯一约束冲突
+        if (errorMsg != null && (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException)) {
+            // --- 关键修改点：请根据你的数据库唯一索引名称进行修改 ---
+            // 假设你的唯一索引是分别针对 company_name 和 submission_way 字段创建的
+            // 或者是一个复合唯一索引，索引名为 idx_company_submission
+
+            // 匹配公司名称字段或其唯一索引
+            if (errorMsg.contains("employmentInformation_companyName") || errorMsg.contains("idx_employment_company_name")) {
+                return new BusException(AdminCodeEnum.EMPLOYMENT_COMPANY_NAME_DUPLICATE);
+            }
+            // 匹配投递方式字段或其唯一索引
+            else if (errorMsg.contains("employmentInformation_submissionWay") || errorMsg.contains("idx_employment_submission_way")) {
+                return new BusException(AdminCodeEnum.EMPLOYMENT_SUBMISSION_WAY_DUPLICATE);
+            }
+
+        }
+
+        // 兜底：未匹配到特定的唯一冲突，返回通用数据库异常
+        return new BusException(AdminCodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
     }
 
     @Override
-    public void updateEmploymentInformation(EmploymentInformationForm employmentInformationForm) {
+    public Integer updateEmploymentInformation(EmploymentInformationForm employmentInformationForm) {
         EmploymentInformationFormValidator.validateForUpdate(employmentInformationForm);
         LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCode, employmentInformationForm.getEmploymentInformationId());
@@ -106,11 +142,11 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         List<EmploymentInformation> employmentInformations = employmentInformationMapper.selectList(lambdaQueryWrapper);
         Date employmentInformationStartTime = employmentInformations.get(0).getEmploymentInformationStartTime();
         deleteEmploymentInformation(employmentInformationForm.getEmploymentInformationId());
-        addEmploymentInformationForUpdate(employmentInformationForm,employmentInformationStartTime);
+        return addEmploymentInformationForUpdate(employmentInformationForm,employmentInformationStartTime);
     }
 
     @Override
-    public void deleteEmploymentInformation(Integer employmentInformationId) {
+    public Integer deleteEmploymentInformation(Integer employmentInformationId) {
 //        LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
 //        lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCode, employmentInformationId);
 //        List<EmploymentInformation> employmentInformations = employmentInformationMapper.selectList(lambdaQueryWrapper);
@@ -130,6 +166,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
 
         // 4. 执行单条UPDATE语句，批量更新所有符合条件的记录
         int updateCount = employmentInformationMapper.update(null, updateWrapper);
+        return updateCount;
     }
 
     @Override

@@ -132,6 +132,15 @@ public class EmploymentInformationFormValidator {
             }
         }
 
+        // ===================================================================
+        // ==                  新增的校验逻辑：省份与城市列表长度必须相等                 ==
+        // ===================================================================
+        if (locationFirst.size() != locationSecond.size()) {
+            // 请确保你的 AdminCodeEnum 中已经定义了这个枚举值
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH);
+        }
+        // ===================================================================
+
         // 9. 截止时间非空
         if (form.getEmploymentInformationStopTime() == null) {
             throw new BusException(AdminCodeEnum.EMPLOYMENT_STOP_TIME_EMPTY);
@@ -142,7 +151,7 @@ public class EmploymentInformationFormValidator {
             throw new BusException(AdminCodeEnum.EMPLOYMENT_ONLINE_APP_STATUS_EMPTY);
         }
 
-        // 11.txt. 投递方式非空（字符串需判断null/空串/纯空格）
+        // 11. 投递方式非空（字符串需判断null/空串/纯空格）
         if (form.getEmploymentInformationSubmissionWay() == null || form.getEmploymentInformationSubmissionWay().trim().isEmpty()) {
             throw new BusException(AdminCodeEnum.EMPLOYMENT_SUBMISSION_WAY_EMPTY);
         }

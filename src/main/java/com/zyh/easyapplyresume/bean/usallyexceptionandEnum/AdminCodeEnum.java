@@ -133,6 +133,8 @@ public enum AdminCodeEnum {
     EMPLOYMENT_REFERRAL_CODE_TOO_LONG(723, "内推码长度不能超过255个字符"),
     EMPLOYMENT_RECRUIT_LOCATION_DETAIL_TOO_LONG(724, "详细招聘地址长度不能超过255个字符"),
     EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH(725, "招聘地址(省级)和(市级)长度不一致"),
+    EMPLOYMENT_COMPANY_NAME_DUPLICATE(726, "该公司名称已存在"),
+    EMPLOYMENT_SUBMISSION_WAY_DUPLICATE(727, "该投递方式已存在"),
 
 
     // -------------------- 新增：邮箱验证相关状态 (从750开始)-------------------
