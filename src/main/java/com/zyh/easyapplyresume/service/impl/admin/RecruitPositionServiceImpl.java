@@ -63,7 +63,8 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
     }
 
     @Override
-    public Page<RecruitPositionPageVO> queryRecruitPositionPage(Page<RecruitPositionPageVO> page, RecruitPositionQuery recruitPositionQuery) {
+    public Page<RecruitPositionPageVO> queryRecruitPositionPage(Integer pageNum, Integer pageSize, RecruitPositionQuery recruitPositionQuery) {
+        Page<RecruitPositionPageVO> page = new Page<>(pageNum, pageSize);
         Page<RecruitPositionPageVO> recruitPositionPageVO = recruitPositionMapper.queryRecruitPositionPage(page, recruitPositionQuery);
         return recruitPositionPageVO;
     }
