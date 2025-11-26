@@ -31,7 +31,7 @@ public interface RecruitPositionService {
     /**
      * 获取招聘岗位分页信息
      */
-    public Page<RecruitPositionPageVO> queryRecruitPositionPage(Page<RecruitPositionPageVO> page, RecruitPositionQuery recruitPositionQuery);
+    public Page<RecruitPositionPageVO> queryRecruitPositionPage(Integer pageNum, Integer pageSize, RecruitPositionQuery recruitPositionQuery);
     /**
      * 查询所有岗位
      */
