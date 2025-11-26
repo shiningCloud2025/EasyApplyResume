@@ -17,23 +17,18 @@ public interface EmploymentInformationService {
      * 新增招聘信息
      * @param employmentInformationForm
      */
-    public void addEmploymentInformation(EmploymentInformationForm employmentInformationForm);
+    public Integer addEmploymentInformation(EmploymentInformationForm employmentInformationForm);
 
-    /**
-     * 新增招聘信息，为了修改而重载的
-     * @param employmentInformationForm
-     */
-    public void addEmploymentInformationForUpdate(EmploymentInformationForm employmentInformationForm,Date startTime);
     /**
      * 修改招聘信息
      * @param employmentInformationForm
      */
-    public void updateEmploymentInformation(EmploymentInformationForm employmentInformationForm);
+    public Integer updateEmploymentInformation(EmploymentInformationForm employmentInformationForm);
     /**
      * 删除招聘信息
      * @param employmentInformationId
      */
-    public void deleteEmploymentInformation(Integer employmentInformationId);
+    public Integer deleteEmploymentInformation(Integer employmentInformationId);
     /**
      * 获取招聘信息信息
      * @param employmentInformationId
