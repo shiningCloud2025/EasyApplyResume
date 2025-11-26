@@ -29,28 +29,28 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
     @Autowired
     private RecruitPositionMapper recruitPositionMapper;
     @Override
-    public void addRecruitPosition(RecruitPositionForm recruitPositionForm) {
+    public Integer addRecruitPosition(RecruitPositionForm recruitPositionForm) {
         RecruitPositionFormValidator.validateForAdd(recruitPositionForm);
         RecruitPosition recruitPosition = new RecruitPosition();
         BeanUtils.copyProperties(recruitPositionForm, recruitPosition);
         recruitPosition.setCreatedTime(new Date());
         recruitPosition.setUpdatedTime(new Date());
-        recruitPositionMapper.insert(recruitPosition);
+        return recruitPositionMapper.insert(recruitPosition);
     }
 
     @Override
-    public void updateRecruitPosition(RecruitPositionForm recruitPositionForm) {
+    public Integer updateRecruitPosition(RecruitPositionForm recruitPositionForm) {
         RecruitPositionFormValidator.validateForUpdate(recruitPositionForm);
         RecruitPosition recruitPosition = new RecruitPosition();
         BeanUtils.copyProperties(recruitPositionForm, recruitPosition);
         recruitPosition.setUpdatedTime(new Date());
-        recruitPositionMapper.updateById(recruitPosition);
+        return recruitPositionMapper.updateById(recruitPosition);
     }
 
     @Override
-    public void deleteRecruitPosition(Integer recruitPositionId) {
+    public Integer deleteRecruitPosition(Integer recruitPositionId) {
         try {
-            recruitPositionMapper.deleteById(recruitPositionId);
+           return recruitPositionMapper.deleteById(recruitPositionId);
         } catch (Exception e) {
             throw new BusException(AdminCodeEnum.NOT_DELETE_RECRUIT_POSITION);
         }

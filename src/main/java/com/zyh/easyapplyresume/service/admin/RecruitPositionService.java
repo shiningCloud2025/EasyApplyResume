@@ -15,15 +15,15 @@ public interface RecruitPositionService {
     /**
      * 新增招聘岗位
      */
-    public void addRecruitPosition(RecruitPositionForm recruitPositionForm);
+    public Integer addRecruitPosition(RecruitPositionForm recruitPositionForm);
     /**
      * 修改招聘岗位
      */
-    public void updateRecruitPosition(RecruitPositionForm recruitPositionForm);
+    public Integer updateRecruitPosition(RecruitPositionForm recruitPositionForm);
     /**
      * 删除招聘岗位
      */
-    public void deleteRecruitPosition(Integer recruitPositionId);
+    public Integer deleteRecruitPosition(Integer recruitPositionId);
     /**
      * 查询招聘岗位
      */
