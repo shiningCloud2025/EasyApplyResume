@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 邮箱验证码控制器-管理端
  * Controller层只负责调用服务和返回成功，不处理任何异常
+ * @author shiningCloud2025
  */
 @RestController
 @RequestMapping("/admin/email")
