@@ -82,12 +82,25 @@ class AiResumeAssistantTest {
 //        testMessage("保存一个简历模版,1个就可以");
 
         // 测试pdf生成
-        testMessage("能不能帮我生成一个'简历编写'PDF,我希望这个PDF的内容是简历编写的注意事项");
+//        testMessage("能不能帮我生成一个'简历编写'PDF,我希望这个PDF的内容是简历编写的注意事项");
+
+        // 测试邮件发送
+        testMessage("能不能给1812463057@qq.com发一个邮件，主题是字节跳动，内容是欢迎你加入");
+
     }
 
     private void testMessage(String message) {
         String chatId = UUID.randomUUID().toString();
         String answer = aiResumeAssistant.doChatWithTool(message, chatId);
+        Assertions.assertNotNull(answer);
+    }
+
+    @Test
+    void doChatWithMcp() {
+        String chatId = UUID.randomUUID().toString();
+        // 测试地图 MCP
+        String message = "我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点";
+        String answer = aiResumeAssistant.doChatWithMcp(message, chatId);
         Assertions.assertNotNull(answer);
     }
 }
