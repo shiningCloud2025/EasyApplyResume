@@ -10,10 +10,7 @@ import com.zyh.easyapplyresume.service.admin.EmploymentInformationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,31 +28,31 @@ public class EmploymentInformationController {
     private EmploymentInformationService employmentInformationService;
 
     @Operation(summary = "新增招聘信息")
-    @RequestMapping("/addEmploymentInformation")
+    @PostMapping("/addEmploymentInformation")
     public BaseResult<?> addEmploymentInformation(@RequestBody EmploymentInformationForm employmentInformationForm){
         return BaseResult.ok(employmentInformationService.addEmploymentInformation(employmentInformationForm));
     }
 
     @Operation(summary = "修改招聘信息")
-    @RequestMapping("/updateEmploymentInformation")
+    @PostMapping("/updateEmploymentInformation")
     public BaseResult<?> updateEmploymentInformation(@RequestBody EmploymentInformationForm employmentInformationForm){
         return BaseResult.ok(employmentInformationService.updateEmploymentInformation(employmentInformationForm));
     }
 
     @Operation(summary = "删除招聘信息")
-    @RequestMapping("/deleteEmploymentInformation")
+    @DeleteMapping("/deleteEmploymentInformation")
     public BaseResult<?> deleteEmploymentInformation(@RequestBody EmploymentInformationForm employmentInformationForm){
         return BaseResult.ok(employmentInformationService.deleteEmploymentInformation(employmentInformationForm.getEmploymentInformationId()));
     }
 
     @Operation(summary = "根据id查询招聘信息信息")
-    @RequestMapping("/getEmploymentInformationInfo")
+    @GetMapping("/getEmploymentInformationInfo")
     public BaseResult<EmploymentInformationInfoVO> getEmploymentInformationInfo(@RequestParam(required = true,value = "employmentInformationId")Integer employmentInformationId){
         return BaseResult.ok(employmentInformationService.getEmploymentInformationInfo(employmentInformationId));
     }
 
     @Operation(summary = "分页查询招聘信息信息")
-    @RequestMapping("/getEmploymentInformationPage")
+    @PostMapping("/getEmploymentInformationPage")
     public BaseResult<Page<EmploymentInformationPageVO>> getEmploymentInformationPage(@RequestParam(required = true,value = "pageNum")Integer pageNum,
                                                                                       @RequestParam(required = true,value = "pageSize")Integer pageSize,
                                                                                       @RequestBody EmploymentInformationQuery employmentInformationQuery){
@@ -63,7 +60,7 @@ public class EmploymentInformationController {
     }
 
     @Operation(summary = "获取所有招聘信息信息")
-    @RequestMapping("/getAllEmploymentInformation")
+    @GetMapping("/getAllEmploymentInformation")
     public BaseResult<List<EmploymentInformationInfoVO>> getAllEmploymentInformation(){
         return BaseResult.ok(employmentInformationService.getAllEmploymentInformation());
     }
