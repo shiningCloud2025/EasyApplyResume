@@ -24,7 +24,7 @@
             <!-- 保留 7 天的日志 -->
             <maxHistory>14</maxHistory>
             <!-- 总大小限制 -->
-            <totalSizeCap>1.5GB</totalSizeCap>
+            <totalSizeCap>2GB</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${LOG_PATTERN}</pattern>

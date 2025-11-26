@@ -15,6 +15,8 @@ import org.springframework.context.annotation.Configuration;
 public class ToolRegistrationConfig {
     @Autowired
     private WebSearchTool webSearchTool;
+    @Autowired
+    private TextEmailTool textEmailTool;
     @Bean
     public ToolCallback[] allTools(){
         FileOperationTool fileOperationTool = new FileOperationTool();
@@ -28,7 +30,8 @@ public class ToolRegistrationConfig {
                 webScraptingTool,
                 resourceDownloadTool,
                 terminalOperationTool,
-                pdfGenerationTool
+                pdfGenerationTool,
+                textEmailTool
         );
     }
 }
