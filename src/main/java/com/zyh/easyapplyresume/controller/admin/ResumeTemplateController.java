@@ -10,10 +10,7 @@ import com.zyh.easyapplyresume.service.admin.ResumeTemplateService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,31 +27,31 @@ public class ResumeTemplateController {
     private ResumeTemplateService resumeTemplateService;
 
     @Operation(summary = "新增简历模版")
-    @RequestMapping("/addResumeTemplate")
+    @PostMapping("/addResumeTemplate")
     public BaseResult<Integer> addResumeTemplate(@RequestBody ResumeTemplateForm resumeTemplateForm){
         return BaseResult.ok(resumeTemplateService.addResumeTemplate(resumeTemplateForm));
     }
 
     @Operation(summary = "修改简历模版")
-    @RequestMapping("/updateResumeTemplate")
+    @PostMapping("/updateResumeTemplate")
     public BaseResult<Integer> updateResumeTemplate(@RequestBody ResumeTemplateForm resumeTemplateForm){
         return BaseResult.ok(resumeTemplateService.updateResumeTemplate(resumeTemplateForm));
     }
 
     @Operation(summary = "删除简历模版")
-    @RequestMapping("/deleteResumeTemplate")
+    @DeleteMapping("/deleteResumeTemplate")
     public BaseResult<Integer> deleteResumeTemplate(@RequestParam(required = true,value = "resumeTemplateId") Integer resumeTemplateId){
         return BaseResult.ok(resumeTemplateService.deleteResumeTemplate(resumeTemplateId));
     }
 
     @Operation(summary = "根据id查询简历模版")
-    @RequestMapping("/findResumeTemplateById")
+    @GetMapping("/findResumeTemplateById")
     public BaseResult<ResumeTemplateInfoVO> findResumeTemplateById(@RequestParam(required = true,value = "resumeTemplateId") Integer resumeTemplateId){
         return BaseResult.ok(resumeTemplateService.findResumeTemplateById(resumeTemplateId));
     }
 
     @Operation(summary = "分页查询简历模版")
-    @RequestMapping("/findResumeTemplateByPage")
+    @PostMapping("/findResumeTemplateByPage")
     public BaseResult<Page<ResumeTemplatePageVO>> findResumeTemplateByPage(@RequestParam(required = true,value = "pageNum",defaultValue = "1") Integer pageNum,
                                                                            @RequestParam(required = true,value = "pageSize",defaultValue = "10") Integer pageSize,
                                                                            @RequestBody ResumeTemplateQuery resumeTemplateQuery){
@@ -62,7 +59,7 @@ public class ResumeTemplateController {
     }
 
     @Operation(summary = "查询所有简历模版")
-    @RequestMapping("/findAllResumeTemplate")
+    @GetMapping("/findAllResumeTemplate")
     public BaseResult<List<ResumeTemplatePageVO>> findAllResumeTemplate(){
         return BaseResult.ok(resumeTemplateService.findAllResumeTemplate());
     }
