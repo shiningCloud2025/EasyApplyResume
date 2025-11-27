@@ -1235,3 +1235,516 @@ Original Stack Trace:
 2025-11-27 10:05:50.637 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端已关闭
 2025-11-27 10:05:50.645 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
 2025-11-27 10:05:50.661 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-11-27 13:22:00.727 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-11-27 13:22:00.731 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-11-27 13:22:00.732 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-11-27 13:22:00.743 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-11-27 13:22:00.754 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-27 13:22:00.865 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Starting AiResumeAssistantTest using Java 21.0.9 with PID 5808 (started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-27 13:22:00.865 [main] DEBUG c.z.e.demo.app.AiResumeAssistantTest - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-27 13:22:00.866 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - The following 1 profile is active: "dev"
+2025-11-27 13:22:02.154 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-11-27 13:22:02.157 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-11-27 13:22:02.213 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 40 ms. Found 0 Redis repository interfaces.
+2025-11-27 13:22:02.327 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.327 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.328 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.328 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.328 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.329 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.330 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.330 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.331 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.331 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.332 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.332 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.333 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.334 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:22:02.338 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-11-27 13:22:02.756 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-11-27 13:22:02.768 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-27 13:22:02.892 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-11-27 13:22:02.893 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-11-27 13:22:02.894 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-27 13:22:04.328 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-11-27 13:22:04.708 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端初始化完成
+2025-11-27 13:22:04.725 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 敏感词初始化完成，共加载 137 个敏感词
+2025-11-27 13:22:05.771 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-27 13:22:05.779 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-27 13:22:05.785 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-27 13:22:10.316 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 0bb6a6da-329d-4195-a985-4e7bdf5d4f55
+2025-11-27 13:22:10.508 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 3bd3bdc0-36e7-4578-900b-f89dcbaa1b07
+2025-11-27 13:22:10.694 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 487f3a57-6f06-4eee-a207-0f18897dbe81
+2025-11-27 13:22:11.311 [HttpClient-4-Worker-0] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-11-27 13:22:11.416 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-11-27 13:22:11.489 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-11-27 13:22:11.490 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-11-27 13:22:11.491 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-11-27 13:22:11.493 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-27 13:22:11.864 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6f2fa725
+2025-11-27 13:22:11.866 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-27 13:22:13.231 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Started AiResumeAssistantTest in 12.857 seconds (process running for 14.405)
+2025-11-27 13:22:17.919 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-11-27 13:22:18.360 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7b44ce66
+2025-11-27 13:22:18.360 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-11-27 13:22:18.362 [main] DEBUG c.z.e.m.m.u.C.selectList - ==>  Preparing: SELECT chatMessage_id,chatMessage_conversationId,chatMessage_content,chatMessage_createdTime,chatMessage_messageType FROM user_chatMessage WHERE (chatMessage_conversationId = ?) ORDER BY chatMessage_createdTime ASC
+2025-11-27 13:22:18.381 [main] DEBUG c.z.e.m.m.u.C.selectList - ==> Parameters: a9dcf1c7-fcc6-43bd-96c8-61e5675fbdaf(String)
+2025-11-27 13:22:18.435 [main] DEBUG c.z.e.m.m.u.C.selectList - <==      Total: 0
+2025-11-27 13:22:18.446 [main] DEBUG c.z.e.m.m.u.ChatMessageMapper.insert - ==>  Preparing: INSERT INTO user_chatMessage ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-27 13:22:18.447 [main] DEBUG c.z.e.m.m.u.ChatMessageMapper.insert - ==> Parameters: a9dcf1c7-fcc6-43bd-96c8-61e5675fbdaf(String), AQBqYXZhLnV0aWwuQXJyYXlMaXP0AQEBAWphdmEudXRpbC5IYXNoTWHwAm1lc3NhZ2VUeXDlAQJvcmcuc3ByaW5nZnJhbWV3b3JrLmFpLmNoYXQubWVzc2FnZXMuTWVzc2FnZVR5cOUBoeaIkeeahOWPpuS4gOWNiuWxheS9j+WcqOS4iua1t+mdmeWuieWMuu+8jOivt+W4ruaIkeaJvuWIsCA1IOWFrOmHjOWGheWQiOmAgueahOe6puS8muWcsOeCuQ==(String), 2025-11-27 13:22:18.441(Timestamp), USER(String)
+2025-11-27 13:22:18.521 [main] DEBUG c.z.e.m.m.u.ChatMessageMapper.insert - <==    Updates: 1
+2025-11-27 13:22:18.524 [main] DEBUG c.z.e.m.m.u.C.insert - ==>  Preparing: INSERT INTO user_chatMessageContentText ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-27 13:22:18.525 [main] DEBUG c.z.e.m.m.u.C.insert - ==> Parameters: a9dcf1c7-fcc6-43bd-96c8-61e5675fbdaf(String), 我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点(String), 2025-11-27 13:22:18.524(Timestamp), USER(String)
+2025-11-27 13:22:18.595 [main] DEBUG c.z.e.m.m.u.C.insert - <==    Updates: 1
+2025-11-27 13:22:30.690 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点
+2025-11-27 13:22:32.559 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点
+2025-11-27 13:23:47.473 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-11-27 13:23:47.476 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-11-27 13:23:47.478 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-11-27 13:23:47.488 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-11-27 13:23:47.496 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-27 13:23:47.619 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Starting AiResumeAssistantTest using Java 21.0.9 with PID 30280 (started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-27 13:23:47.619 [main] DEBUG c.z.e.demo.app.AiResumeAssistantTest - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-27 13:23:47.620 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - The following 1 profile is active: "dev"
+2025-11-27 13:23:49.053 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-11-27 13:23:49.059 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-11-27 13:23:49.145 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 58 ms. Found 0 Redis repository interfaces.
+2025-11-27 13:23:49.248 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.251 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.251 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.252 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.253 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.254 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.254 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.256 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.256 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.258 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.258 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.260 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.261 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.261 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:23:49.264 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-11-27 13:23:49.586 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-11-27 13:23:49.594 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-27 13:23:49.750 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-11-27 13:23:49.750 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-11-27 13:23:49.751 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-11-27 13:23:49.751 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-11-27 13:23:49.762 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-11-27 13:23:49.762 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-11-27 13:23:49.765 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-27 13:23:51.354 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-11-27 13:23:51.778 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端初始化完成
+2025-11-27 13:23:51.794 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 敏感词初始化完成，共加载 137 个敏感词
+2025-11-27 13:23:52.790 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-27 13:23:52.796 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-27 13:23:52.799 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-27 13:23:55.589 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-11-27 13:23:55.589 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-11-27 13:23:55.590 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-11-27 13:23:55.590 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-11-27 13:23:55.612 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-27 13:23:55.615 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-27 13:23:55.615 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 关闭阿里云短信客户端...
+2025-11-27 13:23:55.617 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端已关闭
+2025-11-27 13:23:55.619 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-11-27 13:23:55.622 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-11-27 13:23:56.842 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 2f3b65f2-0ff2-4293-8955-4f13cd710a28
+2025-11-27 13:23:57.057 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 9ed2c1b8-fd86-46f7-878c-d3fd952087f2
+2025-11-27 13:23:57.316 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 1ebd190f-a392-4d75-b7fa-11cd7216c9df
+2025-11-27 13:23:57.820 [HttpClient-4-Worker-0] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-11-27 13:23:58.006 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-11-27 13:23:58.202 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-11-27 13:23:58.207 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-11-27 13:23:58.207 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-11-27 13:23:58.215 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-27 13:23:58.653 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@398ad7fc
+2025-11-27 13:23:58.656 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-27 13:24:00.727 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Started AiResumeAssistantTest in 13.584 seconds (process running for 15.198)
+2025-11-27 13:24:00.768 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-27 13:24:00.773 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-27 13:24:00.774 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 关闭阿里云短信客户端...
+2025-11-27 13:24:00.780 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端已关闭
+2025-11-27 13:24:01.306 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-11-27 13:24:01.310 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-11-27 13:24:01.311 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-11-27 13:24:01.315 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-11-27 13:24:01.335 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-27 13:24:01.440 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Starting AiResumeAssistantTest using Java 21.0.9 with PID 28680 (started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-27 13:24:01.442 [main] DEBUG c.z.e.demo.app.AiResumeAssistantTest - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-27 13:24:01.443 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - The following 1 profile is active: "dev"
+2025-11-27 13:24:02.921 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-11-27 13:24:02.925 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-11-27 13:24:02.977 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+2025-11-27 13:24:03.105 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.107 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.108 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.108 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.109 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.109 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.109 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.110 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.110 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.110 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.110 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.111 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.111 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.112 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:24:03.114 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-11-27 13:24:03.481 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-11-27 13:24:03.491 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-27 13:24:03.594 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-11-27 13:24:03.595 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-11-27 13:24:03.597 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-27 13:24:05.048 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-11-27 13:24:05.420 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端初始化完成
+2025-11-27 13:24:05.436 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 敏感词初始化完成，共加载 137 个敏感词
+2025-11-27 13:24:06.341 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-27 13:24:06.346 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-27 13:24:06.351 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-27 13:24:10.712 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = c923e2fe-1097-412b-ab22-d61cc652a88e
+2025-11-27 13:24:10.894 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = cc658c7e-1927-4b69-8417-5d69f90f2d57
+2025-11-27 13:24:11.086 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = a4a535c9-2560-4fa5-a375-449ec6d56659
+2025-11-27 13:24:11.609 [HttpClient-4-Worker-0] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-11-27 13:24:11.694 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-11-27 13:24:11.756 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-11-27 13:24:11.758 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-11-27 13:24:11.758 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-11-27 13:24:11.761 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-27 13:24:12.137 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@70a6643e
+2025-11-27 13:24:12.140 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-27 13:24:13.637 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Started AiResumeAssistantTest in 12.767 seconds (process running for 15.725)
+2025-11-27 13:24:21.907 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-11-27 13:24:22.347 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2fa71edb
+2025-11-27 13:24:22.348 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-11-27 13:24:22.353 [main] DEBUG c.z.e.m.m.u.C.selectList - ==>  Preparing: SELECT chatMessage_id,chatMessage_conversationId,chatMessage_content,chatMessage_createdTime,chatMessage_messageType FROM user_chatMessage WHERE (chatMessage_conversationId = ?) ORDER BY chatMessage_createdTime ASC
+2025-11-27 13:24:22.375 [main] DEBUG c.z.e.m.m.u.C.selectList - ==> Parameters: 24ef310d-f0c4-4c88-92e9-64fa8169993a(String)
+2025-11-27 13:24:22.429 [main] DEBUG c.z.e.m.m.u.C.selectList - <==      Total: 0
+2025-11-27 13:24:22.438 [main] DEBUG c.z.e.m.m.u.ChatMessageMapper.insert - ==>  Preparing: INSERT INTO user_chatMessage ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-27 13:24:22.440 [main] DEBUG c.z.e.m.m.u.ChatMessageMapper.insert - ==> Parameters: 24ef310d-f0c4-4c88-92e9-64fa8169993a(String), AQBqYXZhLnV0aWwuQXJyYXlMaXP0AQEBAWphdmEudXRpbC5IYXNoTWHwAm1lc3NhZ2VUeXDlAQJvcmcuc3ByaW5nZnJhbWV3b3JrLmFpLmNoYXQubWVzc2FnZXMuTWVzc2FnZVR5cOUBoeaIkeeahOWPpuS4gOWNiuWxheS9j+WcqOS4iua1t+mdmeWuieWMuu+8jOivt+W4ruaIkeaJvuWIsCA1IOWFrOmHjOWGheWQiOmAgueahOe6puS8muWcsOeCuQ==(String), 2025-11-27 13:24:22.435(Timestamp), USER(String)
+2025-11-27 13:24:22.517 [main] DEBUG c.z.e.m.m.u.ChatMessageMapper.insert - <==    Updates: 1
+2025-11-27 13:24:22.522 [main] DEBUG c.z.e.m.m.u.C.insert - ==>  Preparing: INSERT INTO user_chatMessageContentText ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-27 13:24:22.524 [main] DEBUG c.z.e.m.m.u.C.insert - ==> Parameters: 24ef310d-f0c4-4c88-92e9-64fa8169993a(String), 我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点(String), 2025-11-27 13:24:22.521(Timestamp), USER(String)
+2025-11-27 13:24:22.595 [main] DEBUG c.z.e.m.m.u.C.insert - <==    Updates: 1
+2025-11-27 13:24:23.759 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点
+2025-11-27 13:24:24.931 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点
+2025-11-27 13:26:26.672 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-11-27 13:26:26.672 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-11-27 13:26:26.673 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-11-27 13:26:26.673 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-11-27 13:26:26.693 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-27 13:26:26.696 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-27 13:26:26.697 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 关闭阿里云短信客户端...
+2025-11-27 13:26:26.699 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端已关闭
+2025-11-27 13:26:26.700 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-11-27 13:26:26.704 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-11-27 13:34:13.491 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-11-27 13:34:13.494 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-11-27 13:34:13.495 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-11-27 13:34:13.503 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-11-27 13:34:13.510 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-27 13:34:13.605 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Starting AiResumeAssistantTest using Java 21.0.9 with PID 26944 (started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-27 13:34:13.607 [main] DEBUG c.z.e.demo.app.AiResumeAssistantTest - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-27 13:34:13.608 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - The following 1 profile is active: "dev"
+2025-11-27 13:34:14.799 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-11-27 13:34:14.803 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-11-27 13:34:14.861 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 42 ms. Found 0 Redis repository interfaces.
+2025-11-27 13:34:14.979 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.980 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.981 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.982 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.983 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.983 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.985 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.986 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.986 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.986 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.987 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.989 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.990 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.991 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-27 13:34:14.994 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-11-27 13:34:15.436 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-11-27 13:34:15.444 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-27 13:34:15.585 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-11-27 13:34:15.586 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-11-27 13:34:15.591 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-27 13:34:17.207 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-11-27 13:34:17.541 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端初始化完成
+2025-11-27 13:34:17.550 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 敏感词初始化完成，共加载 137 个敏感词
+2025-11-27 13:34:18.663 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-27 13:34:18.672 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-27 13:34:18.679 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-27 13:34:22.522 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = aabd1f7b-77ca-422e-8f97-5f785cd2cdd0
+2025-11-27 13:34:22.695 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 56f11d84-76b1-4dfe-a2f3-bb7c809ea3f2
+2025-11-27 13:34:22.876 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 97cec80c-c5a4-45ad-b6da-a8cd4e860779
+2025-11-27 13:34:23.441 [HttpClient-4-Worker-0] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-11-27 13:34:23.550 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-11-27 13:34:23.664 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-11-27 13:34:23.670 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-11-27 13:34:23.670 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-11-27 13:34:23.679 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-27 13:34:24.101 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@70aed7da
+2025-11-27 13:34:24.103 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-27 13:34:25.612 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Started AiResumeAssistantTest in 12.508 seconds (process running for 13.931)
+2025-11-27 13:34:30.923 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-11-27 13:34:31.435 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5c05e3d
+2025-11-27 13:34:31.436 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-11-27 13:34:31.440 [main] DEBUG c.z.e.m.m.u.C.selectList - ==>  Preparing: SELECT chatMessage_id,chatMessage_conversationId,chatMessage_content,chatMessage_createdTime,chatMessage_messageType FROM user_chatMessage WHERE (chatMessage_conversationId = ?) ORDER BY chatMessage_createdTime ASC
+2025-11-27 13:34:31.463 [main] DEBUG c.z.e.m.m.u.C.selectList - ==> Parameters: 30194775-91f1-4315-a616-fca3604f77b7(String)
+2025-11-27 13:34:31.525 [main] DEBUG c.z.e.m.m.u.C.selectList - <==      Total: 0
+2025-11-27 13:34:31.537 [main] DEBUG c.z.e.m.m.u.ChatMessageMapper.insert - ==>  Preparing: INSERT INTO user_chatMessage ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-27 13:34:31.538 [main] DEBUG c.z.e.m.m.u.ChatMessageMapper.insert - ==> Parameters: 30194775-91f1-4315-a616-fca3604f77b7(String), AQBqYXZhLnV0aWwuQXJyYXlMaXP0AQEBAWphdmEudXRpbC5IYXNoTWHwAm1lc3NhZ2VUeXDlAQJvcmcuc3ByaW5nZnJhbWV3b3JrLmFpLmNoYXQubWVzc2FnZXMuTWVzc2FnZVR5cOUBoeaIkeeahOWPpuS4gOWNiuWxheS9j+WcqOS4iua1t+mdmeWuieWMuu+8jOivt+W4ruaIkeaJvuWIsCA1IOWFrOmHjOWGheWQiOmAgueahOe6puS8muWcsOeCuQ==(String), 2025-11-27 13:34:31.532(Timestamp), USER(String)
+2025-11-27 13:34:31.614 [main] DEBUG c.z.e.m.m.u.ChatMessageMapper.insert - <==    Updates: 1
+2025-11-27 13:34:31.618 [main] DEBUG c.z.e.m.m.u.C.insert - ==>  Preparing: INSERT INTO user_chatMessageContentText ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-27 13:34:31.619 [main] DEBUG c.z.e.m.m.u.C.insert - ==> Parameters: 30194775-91f1-4315-a616-fca3604f77b7(String), 我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点(String), 2025-11-27 13:34:31.618(Timestamp), USER(String)
+2025-11-27 13:34:31.693 [main] DEBUG c.z.e.m.m.u.C.insert - <==    Updates: 1
+2025-11-27 13:34:32.288 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点
+2025-11-27 13:34:33.630 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点
+2025-11-27 13:34:59.378 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:根据您提供的信息，您的另一半居住在上海静安区，以下是静安区及周边5公里范围内适合约会的推荐地点（结合浪漫氛围、交通便利性与情侣活动体验）：
+
+---
+
+### 🌸 1. **静安嘉里中心 & 静安公园**
+- **特色**：都市中的绿洲，环境优雅，周围高端餐饮云集。
+- **推荐活动**：
+  - 白天在静安公园散步、拍照；
+  - 晚上前往嘉里中心共进晚餐（如Osteria Bottega、Jean-Georges等精致餐厅）；
+  - 节日期间常有灯光展或市集，氛围感十足。
+
+---
+
+### 🏞️ 2. **苏州河畔步道（四行仓库段）**
+- **距离**：距静安核心区约2公里
+- **特色**：文艺复古风，沿河夜景迷人。
+- **推荐活动**：
+  - 傍晚散步，参观四行仓库抗战纪念馆；
+  - 沿途咖啡馆小憩（如Polestar Café、Metal Hands）；
+  - 拍摄城市与历史交融的照片。
+
+---
+
+### 🎭 3. **上海自然博物馆（静安）+ 南京西路商圈**
+- **位置**：北京西路，静安核心
+- **特色**：寓教于乐，互动性强
+- **推荐动线**：
+  - 白天参观自然博物馆（需预约），充满趣味；
+  - 出馆后步行至久光百货或芮欧商场用餐购物；
+  - 晚上可看一场话剧（如美琪大戏院）。
+
+---
+
+### 🍷 4. **富民路 / 延安中路小资街区**
+- **特色**：隐藏着众多网红酒吧和私房菜
+- **推荐地点**：
+  - Bar Bambu：隐蔽式鸡尾酒吧，氛围私密；
+  - Luneurs：法式甜品店，适合下午茶；
+  - 富民路一带的小酒馆非常适合夜晚微醺聊天。
+
+---
+
+### 🌆 5. **徐汇西岸（龙美术馆 + 滨江）**
+- **距离**：约4.5公里（打车15分钟）
+- **特色**：现代艺术与黄浦江景结合
+- **推荐行程**：
+  - 参观龙美术馆或油罐艺术中心；
+  - 在滨江骑行或牵手漫步；
+  - 夜晚欣赏对岸陆家嘴灯光，极具仪式感。
+
+---
+
+✅ **温馨提示**：
+- 若偏好安静私密，建议选择工作日傍晚出行；
+- 可结合地铁出行（如2号线、13号线覆盖大部分区域），方便快捷；
+- 提前预订餐厅或展馆门票，提升约会体验。
+
+需要我为您规划一条完整的一日约会路线吗？可以按时间线安排吃、玩、拍、行哦~
+2025-11-27 13:34:59.378 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:根据您提供的信息，您的另一半居住在上海静安区，以下是静安区及周边5公里范围内适合约会的推荐地点（结合浪漫氛围、交通便利性与情侣活动体验）：
+
+---
+
+### 🌸 1. **静安嘉里中心 & 静安公园**
+- **特色**：都市中的绿洲，环境优雅，周围高端餐饮云集。
+- **推荐活动**：
+  - 白天在静安公园散步、拍照；
+  - 晚上前往嘉里中心共进晚餐（如Osteria Bottega、Jean-Georges等精致餐厅）；
+  - 节日期间常有灯光展或市集，氛围感十足。
+
+---
+
+### 🏞️ 2. **苏州河畔步道（四行仓库段）**
+- **距离**：距静安核心区约2公里
+- **特色**：文艺复古风，沿河夜景迷人。
+- **推荐活动**：
+  - 傍晚散步，参观四行仓库抗战纪念馆；
+  - 沿途咖啡馆小憩（如Polestar Café、Metal Hands）；
+  - 拍摄城市与历史交融的照片。
+
+---
+
+### 🎭 3. **上海自然博物馆（静安）+ 南京西路商圈**
+- **位置**：北京西路，静安核心
+- **特色**：寓教于乐，互动性强
+- **推荐动线**：
+  - 白天参观自然博物馆（需预约），充满趣味；
+  - 出馆后步行至久光百货或芮欧商场用餐购物；
+  - 晚上可看一场话剧（如美琪大戏院）。
+
+---
+
+### 🍷 4. **富民路 / 延安中路小资街区**
+- **特色**：隐藏着众多网红酒吧和私房菜
+- **推荐地点**：
+  - Bar Bambu：隐蔽式鸡尾酒吧，氛围私密；
+  - Luneurs：法式甜品店，适合下午茶；
+  - 富民路一带的小酒馆非常适合夜晚微醺聊天。
+
+---
+
+### 🌆 5. **徐汇西岸（龙美术馆 + 滨江）**
+- **距离**：约4.5公里（打车15分钟）
+- **特色**：现代艺术与黄浦江景结合
+- **推荐行程**：
+  - 参观龙美术馆或油罐艺术中心；
+  - 在滨江骑行或牵手漫步；
+  - 夜晚欣赏对岸陆家嘴灯光，极具仪式感。
+
+---
+
+✅ **温馨提示**：
+- 若偏好安静私密，建议选择工作日傍晚出行；
+- 可结合地铁出行（如2号线、13号线覆盖大部分区域），方便快捷；
+- 提前预订餐厅或展馆门票，提升约会体验。
+
+需要我为您规划一条完整的一日约会路线吗？可以按时间线安排吃、玩、拍、行哦~
+2025-11-27 13:34:59.415 [main] DEBUG c.z.e.m.m.u.ChatMessageMapper.insert - ==>  Preparing: INSERT INTO user_chatMessage ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-27 13:34:59.416 [main] DEBUG c.z.e.m.m.u.ChatMessageMapper.insert - ==> Parameters: 30194775-91f1-4315-a616-fca3604f77b7(String), AQBqYXZhLnV0aWwuSW1tdXRhYmxlQ29sbGVjdGlvbnMkTGlzdM4BAgEBamF2YS51dGlsLkhhc2hNYfAGZmluaXNoUmVhc2/uA1NUT9Bp5AOlOGJiYzA5YWItMzhhYS00MjM0LWIwZDItODc1YWJmYzE4NWMzcm9s5QNBU1NJU1RBTtRtZXNzYWdlVHlw5QECb3JnLnNwcmluZ2ZyYW1ld29yay5haS5jaGF0Lm1lc3NhZ2VzLk1lc3NhZ2VUeXDlAnJlYXNvbmluZ0NvbnRlbvQDgfMP5qC55o2u5oKo5o+Q5L6b55qE5L+h5oGv77yM5oKo55qE5Y+m5LiA5Y2K5bGF5L2P5Zyo5LiK5rW36Z2Z5a6J5Yy677yM5Lul5LiL5piv6Z2Z5a6J5Yy65Y+K5ZGo6L65NeWFrOmHjOiMg+WbtOWGhemAguWQiOe6puS8mueahOaOqOiNkOWcsOeCue+8iOe7k+WQiOa1qua8q+awm+WbtOOAgeS6pOmAmuS+v+WIqeaAp+S4juaDheS+o+a0u+WKqOS9k+mqjO+8ie+8mgoKLS0tCgojIyMg7aC87by4IDEuICoq6Z2Z5a6J5ZiJ6YeM5Lit5b+DICYg6Z2Z5a6J5YWs5ZutKioKLSAqKueJueiJsioq77ya6YO95biC5Lit55qE57u/5rSy77yM546v5aKD5LyY6ZuF77yM5ZGo5Zu06auY56uv6aSQ6aWu5LqR6ZuG44CCCi0gKirmjqjojZDmtLvliqgqKu+8mgogIC0g55m95aSp5Zyo6Z2Z5a6J5YWs5Zut5pWj5q2l44CB5ouN54Wn77ybCiAgLSDmmZrkuIrliY3lvoDlmInph4zkuK3lv4PlhbHov5vmmZrppJDvvIjlpoJPc3RlcmlhIEJvdHRlZ2HjgIFKZWFuLUdlb3JnZXPnrYnnsr7oh7TppJDljoXvvInvvJsKICAtIOiKguaXpeacn+mXtOW4uOacieeBr+WFieWxleaIluW4gumbhu+8jOawm+WbtOaEn+WNgei2s+OAggoKLS0tCgojIyMg7aC87b+e77iPIDIuICoq6IuP5bee5rKz55WU5q2l6YGT77yI5Zub6KGM5LuT5bqT5q6177yJKioKLSAqKui3neemuyoq77ya6Led6Z2Z5a6J5qC45b+D5Yy657qmMuWFrOmHjAotICoq54m56ImyKirvvJrmlofoibrlpI3lj6Tpo47vvIzmsr/msrPlpJzmma/ov7fkurrjgIIKLSAqKuaOqOiNkOa0u+WKqCoq77yaCiAgLSDlgo3mmZrmlaPmraXvvIzlj4Lop4Llm5vooYzku5PlupPmipfmiJjnuqrlv7XppobvvJsKICAtIOayv+mAlOWSluWVoemmhuWwj+aGqe+8iOWmglBvbGVzdGFyIENhZsOp44CBTWV0YWwgSGFuZHPvvInvvJsKICAtIOaLjeaRhOWfjuW4guS4juWOhuWPsuS6pOiejeeahOeFp+eJh+OAggoKLS0tCgojIyMg7aC87b6tIDMuICoq5LiK5rW36Ieq54S25Y2a54mp6aaG77yI6Z2Z5a6J77yJKyDljZfkuqzopb/ot6/llYblnIgqKgotICoq5L2N572uKirvvJrljJfkuqzopb/ot6/vvIzpnZnlronmoLjlv4MKLSAqKueJueiJsioq77ya5a+T5pWZ5LqO5LmQ77yM5LqS5Yqo5oCn5by6Ci0gKirmjqjojZDliqjnur8qKu+8mgogIC0g55m95aSp5Y+C6KeC6Ieq54S25Y2a54mp6aaG77yI6ZyA6aKE57qm77yJ77yM5YWF5ruh6Laj5ZGz77ybCiAgLSDlh7rppoblkI7mraXooYzoh7PkuYXlhYnnmb7otKfmiJboiq7mrKfllYblnLrnlKjppJDotK3nianvvJsKICAtIOaZmuS4iuWPr+eci+S4gOWcuuivneWJp++8iOWmgue+jueQquWkp+aIj+mZou+8ieOAggoKLS0tCgojIyMg7aC87b23IDQuICoq5a+M5rCR6LevIC8g5bu25a6J5Lit6Lev5bCP6LWE6KGX5Yy6KioKLSAqKueJueiJsioq77ya6ZqQ6JeP552A5LyX5aSa572R57qi6YWS5ZCn5ZKM56eB5oi/6I+cCi0gKirmjqjojZDlnLDngrkqKu+8mgogIC0gQmFyIEJhbWJ177ya6ZqQ6JS95byP6bih5bC+6YWS5ZCn77yM5rCb5Zu056eB5a+G77ybCiAgLSBMdW5ldXJz77ya5rOV5byP55Sc5ZOB5bqX77yM6YCC5ZCI5LiL5Y2I6Iy277ybCiAgLSDlr4zmsJHot6/kuIDluKbnmoTlsI/phZLppobpnZ7luLjpgILlkIjlpJzmmZrlvq7phrrogYrlpKnjgIIKCi0tLQoKIyMjIO2gvO28hiA1LiAqKuW+kOaxh+ilv+WyuO+8iOm+mee+juacr+mmhiArIOa7qOaxn++8iSoqCi0gKirot53nprsqKu+8mue6pjQuNeWFrOmHjO+8iOaJk+i9pjE15YiG6ZKf77yJCi0gKirnibnoibIqKu+8mueOsOS7o+iJuuacr+S4jum7hOa1puaxn+aZr+e7k+WQiAotICoq5o6o6I2Q6KGM56iLKirvvJoKICAtIOWPguingum+mee+juacr+mmhuaIluayuee9kOiJuuacr+S4reW/g++8mwogIC0g5Zyo5ruo5rGf6aqR6KGM5oiW54m15omL5ryr5q2l77ybCiAgLSDlpJzmmZrmrKPotY/lr7nlsrjpmYblrrblmLTnga/lhYnvvIzmnoHlhbfku6rlvI/mhJ/jgIIKCi0tLQoK4pyFICoq5rip6aao5o+Q56S6KirvvJoKLSDoi6XlgY/lpb3lronpnZnnp4Hlr4bvvIzlu7rorq7pgInmi6nlt6XkvZzml6Xlgo3mmZrlh7rooYzvvJsKLSDlj6/nu5PlkIjlnLDpk4Hlh7rooYzvvIjlpoIy5Y+357q/44CBMTPlj7fnur/opobnm5blpKfpg6jliIbljLrln5/vvInvvIzmlrnkvr/lv6vmjbfvvJsKLSDmj5DliY3pooTorqLppJDljoXmiJblsZXppobpl6jnpajvvIzmj5DljYfnuqbkvJrkvZPpqozjgIIKCumcgOimgeaIkeS4uuaCqOinhOWIkuS4gOadoeWujOaVtOeahOS4gOaXpee6puS8mui3r+e6v+WQl++8n+WPr+S7peaMieaXtumXtOe6v+WuieaOkuWQg+OAgeeOqeOAgeaLjeOAgeihjOWTpn4BAAE=(String), 2025-11-27 13:34:59.379(Timestamp), ASSISTANT(String)
+2025-11-27 13:34:59.487 [main] DEBUG c.z.e.m.m.u.ChatMessageMapper.insert - <==    Updates: 1
+2025-11-27 13:34:59.488 [main] DEBUG c.z.e.m.m.u.C.insert - ==>  Preparing: INSERT INTO user_chatMessageContentText ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-27 13:34:59.488 [main] DEBUG c.z.e.m.m.u.C.insert - ==> Parameters: 30194775-91f1-4315-a616-fca3604f77b7(String), 根据您提供的信息，您的另一半居住在上海静安区，以下是静安区及周边5公里范围内适合约会的推荐地点（结合浪漫氛围、交通便利性与情侣活动体验）：
+
+---
+
+### 🌸 1. **静安嘉里中心 & 静安公园**
+- **特色**：都市中的绿洲，环境优雅，周围高端餐饮云集。
+- **推荐活动**：
+  - 白天在静安公园散步、拍照；
+  - 晚上前往嘉里中心共进晚餐（如Osteria Bottega、Jean-Georges等精致餐厅）；
+  - 节日期间常有灯光展或市集，氛围感十足。
+
+---
+
+### 🏞️ 2. **苏州河畔步道（四行仓库段）**
+- **距离**：距静安核心区约2公里
+- **特色**：文艺复古风，沿河夜景迷人。
+- **推荐活动**：
+  - 傍晚散步，参观四行仓库抗战纪念馆；
+  - 沿途咖啡馆小憩（如Polestar Café、Metal Hands）；
+  - 拍摄城市与历史交融的照片。
+
+---
+
+### 🎭 3. **上海自然博物馆（静安）+ 南京西路商圈**
+- **位置**：北京西路，静安核心
+- **特色**：寓教于乐，互动性强
+- **推荐动线**：
+  - 白天参观自然博物馆（需预约），充满趣味；
+  - 出馆后步行至久光百货或芮欧商场用餐购物；
+  - 晚上可看一场话剧（如美琪大戏院）。
+
+---
+
+### 🍷 4. **富民路 / 延安中路小资街区**
+- **特色**：隐藏着众多网红酒吧和私房菜
+- **推荐地点**：
+  - Bar Bambu：隐蔽式鸡尾酒吧，氛围私密；
+  - Luneurs：法式甜品店，适合下午茶；
+  - 富民路一带的小酒馆非常适合夜晚微醺聊天。
+
+---
+
+### 🌆 5. **徐汇西岸（龙美术馆 + 滨江）**
+- **距离**：约4.5公里（打车15分钟）
+- **特色**：现代艺术与黄浦江景结合
+- **推荐行程**：
+  - 参观龙美术馆或油罐艺术中心；
+  - 在滨江骑行或牵手漫步；
+  - 夜晚欣赏对岸陆家嘴灯光，极具仪式感。
+
+---
+
+✅ **温馨提示**：
+- 若偏好安静私密，建议选择工作日傍晚出行；
+- 可结合地铁出行（如2号线、13号线覆盖大部分区域），方便快捷；
+- 提前预订餐厅或展馆门票，提升约会体验。
+
+需要我为您规划一条完整的一日约会路线吗？可以按时间线安排吃、玩、拍、行哦~(String), 2025-11-27 13:34:59.488(Timestamp), ASSISTANT(String)
+2025-11-27 13:34:59.561 [main] DEBUG c.z.e.m.m.u.C.insert - <==    Updates: 1
+2025-11-27 13:34:59.562 [main] INFO  c.z.e.demo.app.AiResumeAssistant - content:根据您提供的信息，您的另一半居住在上海静安区，以下是静安区及周边5公里范围内适合约会的推荐地点（结合浪漫氛围、交通便利性与情侣活动体验）：
+
+---
+
+### 🌸 1. **静安嘉里中心 & 静安公园**
+- **特色**：都市中的绿洲，环境优雅，周围高端餐饮云集。
+- **推荐活动**：
+  - 白天在静安公园散步、拍照；
+  - 晚上前往嘉里中心共进晚餐（如Osteria Bottega、Jean-Georges等精致餐厅）；
+  - 节日期间常有灯光展或市集，氛围感十足。
+
+---
+
+### 🏞️ 2. **苏州河畔步道（四行仓库段）**
+- **距离**：距静安核心区约2公里
+- **特色**：文艺复古风，沿河夜景迷人。
+- **推荐活动**：
+  - 傍晚散步，参观四行仓库抗战纪念馆；
+  - 沿途咖啡馆小憩（如Polestar Café、Metal Hands）；
+  - 拍摄城市与历史交融的照片。
+
+---
+
+### 🎭 3. **上海自然博物馆（静安）+ 南京西路商圈**
+- **位置**：北京西路，静安核心
+- **特色**：寓教于乐，互动性强
+- **推荐动线**：
+  - 白天参观自然博物馆（需预约），充满趣味；
+  - 出馆后步行至久光百货或芮欧商场用餐购物；
+  - 晚上可看一场话剧（如美琪大戏院）。
+
+---
+
+### 🍷 4. **富民路 / 延安中路小资街区**
+- **特色**：隐藏着众多网红酒吧和私房菜
+- **推荐地点**：
+  - Bar Bambu：隐蔽式鸡尾酒吧，氛围私密；
+  - Luneurs：法式甜品店，适合下午茶；
+  - 富民路一带的小酒馆非常适合夜晚微醺聊天。
+
+---
+
+### 🌆 5. **徐汇西岸（龙美术馆 + 滨江）**
+- **距离**：约4.5公里（打车15分钟）
+- **特色**：现代艺术与黄浦江景结合
+- **推荐行程**：
+  - 参观龙美术馆或油罐艺术中心；
+  - 在滨江骑行或牵手漫步；
+  - 夜晚欣赏对岸陆家嘴灯光，极具仪式感。
+
+---
+
+✅ **温馨提示**：
+- 若偏好安静私密，建议选择工作日傍晚出行；
+- 可结合地铁出行（如2号线、13号线覆盖大部分区域），方便快捷；
+- 提前预订餐厅或展馆门票，提升约会体验。
+
+需要我为您规划一条完整的一日约会路线吗？可以按时间线安排吃、玩、拍、行哦~
+2025-11-27 13:35:07.311 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-11-27 13:35:07.311 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-11-27 13:35:07.312 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-11-27 13:35:07.312 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-11-27 13:35:07.340 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-27 13:35:07.341 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-27 13:35:07.342 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 关闭阿里云短信客户端...
+2025-11-27 13:35:07.344 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端已关闭
+2025-11-27 13:35:07.347 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-11-27 13:35:07.351 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
