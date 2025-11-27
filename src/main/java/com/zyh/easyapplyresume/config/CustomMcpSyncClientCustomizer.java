@@ -20,7 +20,8 @@ public class CustomMcpSyncClientCustomizer implements McpSyncClientCustomizer {
     @Override
     public void customize(String name, McpClient.SyncSpec spec) {
         // 自定义请求超时配置
-        spec.requestTimeout(Duration.ofSeconds(120));
+//        spec.requestTimeout(Duration.ofSeconds(120));
+        spec.requestTimeout(Duration.ofMinutes(5));        // 5分钟
 
         // 设置客户端可以访问的根目录URI
 //        spec.roots(roots);
