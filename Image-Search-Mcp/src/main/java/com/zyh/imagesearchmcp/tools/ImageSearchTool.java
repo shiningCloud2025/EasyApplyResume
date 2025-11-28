@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
  * 图片搜索工具类
  * @author shiningCloud2025
  */
+@Slf4j
 @Service
 public class ImageSearchTool {
 
@@ -29,6 +31,8 @@ public class ImageSearchTool {
     @Tool(description = "search image from web")
     public String searchImage(@ToolParam(description = "Search query keyword") String query){
         try{
+            String mcpClient = System.getenv("introduce");
+            log.info("MCP Client: {}", mcpClient != null ? mcpClient : "NULL");
             return String.join(",",searchMediumImages( query));
         }catch (Exception e){
             return "Error search image: " + e.getMessage();

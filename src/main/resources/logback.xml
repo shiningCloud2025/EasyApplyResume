@@ -34,7 +34,8 @@
     <!-- 多环境配置：开发环境 -->
     <springProfile name="dev">
         <root level="INFO">
-            <appender-ref ref="CONSOLE" />
+            <!--STDIO模式是不能用这个的喔-->
+<!--            <appender-ref ref="CONSOLE" />-->
             <appender-ref ref="FILE" />
         </root>
         <!-- 开发环境下，项目包日志级别为 DEBUG -->
