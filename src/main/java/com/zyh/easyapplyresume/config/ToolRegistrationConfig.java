@@ -24,6 +24,7 @@ public class ToolRegistrationConfig {
         ResourceDownloadTool  resourceDownloadTool = new ResourceDownloadTool();
         TerminalOperationTool terminalOperationTool = new TerminalOperationTool();
         PDFGenerationTool pdfGenerationTool = new PDFGenerationTool();
+        TerminateTool terminateTool = new TerminateTool();
         return ToolCallbacks.from(
                 fileOperationTool,
                 webSearchTool,
@@ -31,7 +32,8 @@ public class ToolRegistrationConfig {
                 resourceDownloadTool,
                 terminalOperationTool,
                 pdfGenerationTool,
-                textEmailTool
+                textEmailTool,
+                terminateTool
         );
     }
 }
