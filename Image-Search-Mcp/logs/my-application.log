@@ -1,0 +1,44 @@
+2025-11-27 17:29:50.964 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 3596 (D:\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-27 17:29:50.966 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-11-27 17:29:51.874 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-11-27 17:29:51.968 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.343 seconds (process running for 1.923)
+2025-11-27 17:48:06.319 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 19960 (D:\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-27 17:48:06.320 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-11-27 17:48:07.292 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-11-27 17:48:07.423 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.455 seconds (process running for 2.098)
+2025-11-27 17:50:27.417 [main] INFO  c.z.i.ImageSearchMcpApplicationTests - Starting ImageSearchMcpApplicationTests using Java 21.0.9 with PID 13028 (started by zhaoyunhan1 in D:\EasyApplyResume\Image-Search-Mcp)
+2025-11-27 17:50:27.418 [main] INFO  c.z.i.ImageSearchMcpApplicationTests - The following 1 profile is active: "stdio"
+2025-11-27 17:50:28.331 [main] INFO  c.z.i.ImageSearchMcpApplicationTests - Started ImageSearchMcpApplicationTests in 1.155 seconds (process running for 2.166)
+2025-11-27 17:50:29.317 [main] INFO  c.z.i.tools.ImageSearchTool - MCP Client: null
+2025-11-27 17:52:28.595 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 28800 (D:\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-27 17:52:28.597 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-11-27 17:52:29.691 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-11-27 17:52:29.788 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.638 seconds (process running for 2.296)
+2025-11-27 17:56:09.375 [main] INFO  c.z.i.ImageSearchMcpApplicationTests - Starting ImageSearchMcpApplicationTests using Java 21.0.9 with PID 11608 (started by zhaoyunhan1 in D:\EasyApplyResume\Image-Search-Mcp)
+2025-11-27 17:56:09.376 [main] INFO  c.z.i.ImageSearchMcpApplicationTests - The following 1 profile is active: "stdio"
+2025-11-27 17:56:10.375 [main] INFO  c.z.i.ImageSearchMcpApplicationTests - Started ImageSearchMcpApplicationTests in 1.381 seconds (process running for 2.579)
+2025-11-27 17:56:11.267 [main] INFO  c.z.i.tools.ImageSearchTool - MCP Client: Standalone Mode
+2025-11-27 17:56:39.296 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 23892 (D:\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-27 17:56:39.297 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-11-27 17:56:40.490 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-11-27 17:56:40.596 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.76 seconds (process running for 2.581)
+2025-11-27 19:54:49.551 [main] INFO  c.z.i.ImageSearchMcpApplicationTests - Starting ImageSearchMcpApplicationTests using Java 21.0.9 with PID 12920 (started by zhaoyunhan1 in D:\EasyApplyResume\Image-Search-Mcp)
+2025-11-27 19:54:49.552 [main] INFO  c.z.i.ImageSearchMcpApplicationTests - The following 1 profile is active: "stdio"
+2025-11-27 19:54:50.451 [main] INFO  c.z.i.ImageSearchMcpApplicationTests - Started ImageSearchMcpApplicationTests in 1.192 seconds (process running for 2.578)
+2025-11-27 19:54:51.366 [main] INFO  c.z.i.tools.ImageSearchTool - MCP Client: NULL
+2025-11-27 20:04:52.757 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 31844 (D:\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-27 20:04:52.759 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-11-27 20:04:53.795 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-11-27 20:04:53.897 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.489 seconds (process running for 2.123)
+2025-11-27 20:12:20.061 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 16424 (D:\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-27 20:12:20.064 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-11-27 20:12:21.437 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-11-27 20:12:21.555 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.937 seconds (process running for 2.685)
+2025-11-27 20:16:01.454 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 28532 (D:\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-27 20:16:01.456 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-11-27 20:16:03.107 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-11-27 20:16:03.318 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 2.479 seconds (process running for 3.387)
+2025-11-27 20:17:50.388 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 12512 (D:\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-27 20:17:50.390 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-11-27 20:17:51.483 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-11-27 20:17:51.609 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.633 seconds (process running for 2.277)
