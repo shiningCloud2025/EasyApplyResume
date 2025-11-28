@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.demo.agent;
 
 import cn.hutool.core.collection.CollUtil;
 import com.alibaba.cloud.ai.dashscope.chat.DashScopeChatOptions;
+import com.zyh.easyapplyresume.demo.model.AgentState;
 import dev.langchain4j.agent.tool.P;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -116,6 +117,12 @@ public class ToolCallAgent extends ReActAgent{
         String results = toolResponseMessage.getResponses().stream()
                 .map(response -> "工具 " + response.name() + " 完成了它的任务！结果: " + response.responseData())
                 .collect(Collectors.joining("\n"));
+        // 判断是否调用了终止工具
+        boolean terminateToolCalled = toolResponseMessage.getResponses().stream()
+                .anyMatch(response -> "doTerminate".equals(response.name()));
+        if (terminateToolCalled) {
+            setState(AgentState.FINISHED);
+        }
         log.info(results);
         return results;
     }
