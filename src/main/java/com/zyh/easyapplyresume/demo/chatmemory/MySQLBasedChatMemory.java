@@ -12,6 +12,7 @@ import org.objenesis.strategy.StdInstantiatorStrategy;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.messages.AssistantMessage;
 import org.springframework.ai.chat.messages.Message;
+import org.springframework.ai.chat.messages.ToolResponseMessage;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,6 +44,7 @@ public class MySQLBasedChatMemory implements ChatMemory {
         // 注册具体消息子类（关键：只注册可实例化的子类，不注册抽象Message接口）
         kryo.register(UserMessage.class);
         kryo.register(AssistantMessage.class);
+        kryo.register(ToolResponseMessage.class);
     }
 
     // 构造器注入（保持原有依赖注入逻辑）
@@ -70,6 +72,8 @@ public class MySQLBasedChatMemory implements ChatMemory {
                         return kryo.readObject(input, UserMessage.class);
                     case "ASSISTANT":
                         return kryo.readObject(input, AssistantMessage.class);
+                    case "TOOL":
+                        return kryo.readObject(input, ToolResponseMessage.class);
                     default:
                         throw new RuntimeException("不支持的消息类型：" + messageType);
                 }
@@ -115,11 +119,13 @@ public class MySQLBasedChatMemory implements ChatMemory {
             mainEntity.setChatMessageConversationId(conversationId);
             mainEntity.setChatMessageContent(serializeMessage(message));
             mainEntity.setChatMessageCreatedTime(new Date());
-            // 标记消息类型（USER/ASSISTANT，为反序列化提供依据）
+            // 标记消息类型（USER/ASSISTANT/TOOL，为反序列化提供依据）
             if (message instanceof UserMessage) {
                 mainEntity.setChatMessageMessageType("USER");
             } else if (message instanceof AssistantMessage) {
                 mainEntity.setChatMessageMessageType("ASSISTANT");
+            } else if (message instanceof ToolResponseMessage) {
+                mainEntity.setChatMessageMessageType("TOOL");
             } else {
                 mainEntity.setChatMessageMessageType("UNKNOWN");
             }
