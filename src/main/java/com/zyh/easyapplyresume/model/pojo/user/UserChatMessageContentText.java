@@ -16,8 +16,9 @@ import java.util.Date;
 @TableName("user_chatMessageContentText")
 /**
  * 会话消息实体类-用户端
+ * @author shiningCloud2025
  */
-public class ChatMessageContentText {
+public class UserChatMessageContentText {
     /**
      * 对话消息主键ID
      */

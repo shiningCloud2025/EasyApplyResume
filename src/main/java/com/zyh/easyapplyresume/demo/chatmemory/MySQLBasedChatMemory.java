@@ -4,10 +4,10 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.zyh.easyapplyresume.mapper.mysql.user.ChatMessageContentTextMapper;
-import com.zyh.easyapplyresume.mapper.mysql.user.ChatMessageMapper;
-import com.zyh.easyapplyresume.model.pojo.user.ChatMessage;
-import com.zyh.easyapplyresume.model.pojo.user.ChatMessageContentText;
+import com.zyh.easyapplyresume.mapper.mysql.user.UserChatMessageContentTextMapper;
+import com.zyh.easyapplyresume.mapper.mysql.user.UserChatMessageMapper;
+import com.zyh.easyapplyresume.model.pojo.user.UserChatMessage;
+import com.zyh.easyapplyresume.model.pojo.user.UserChatMessageContentText;
 import org.objenesis.strategy.StdInstantiatorStrategy;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.messages.AssistantMessage;
@@ -31,8 +31,8 @@ import java.util.stream.Collectors;
 @Component
 public class MySQLBasedChatMemory implements ChatMemory {
 
-    private final ChatMessageMapper chatMessageMapper;
-    private final ChatMessageContentTextMapper chatMessageContentTextMapper;
+    private final UserChatMessageMapper chatMessageMapper;
+    private final UserChatMessageContentTextMapper chatMessageContentTextMapper;
     // 全局唯一Kryo实例（确保配置复用）
     private static final Kryo kryo = new Kryo();
 
@@ -49,7 +49,7 @@ public class MySQLBasedChatMemory implements ChatMemory {
 
     // 构造器注入（保持原有依赖注入逻辑）
     @Autowired
-    public MySQLBasedChatMemory(ChatMessageMapper chatMessageMapper, ChatMessageContentTextMapper chatMessageContentTextMapper) {
+    public MySQLBasedChatMemory(UserChatMessageMapper chatMessageMapper, UserChatMessageContentTextMapper chatMessageContentTextMapper) {
         this.chatMessageMapper = chatMessageMapper;
         this.chatMessageContentTextMapper = chatMessageContentTextMapper;
     }
@@ -103,10 +103,10 @@ public class MySQLBasedChatMemory implements ChatMemory {
     /**
      * 获取指定对话的所有消息（按创建时间升序）
      */
-    private List<ChatMessage> getConversationMessages(String conversationId) {
-        LambdaQueryWrapper<ChatMessage> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(ChatMessage::getChatMessageConversationId, conversationId)
-                .orderByAsc(ChatMessage::getChatMessageCreatedTime); // 按时间升序保证消息顺序
+    private List<UserChatMessage> getConversationMessages(String conversationId) {
+        LambdaQueryWrapper<UserChatMessage> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(UserChatMessage::getChatMessageConversationId, conversationId)
+                .orderByAsc(UserChatMessage::getChatMessageCreatedTime); // 按时间升序保证消息顺序
         return chatMessageMapper.selectList(wrapper);
     }
 
@@ -115,7 +115,7 @@ public class MySQLBasedChatMemory implements ChatMemory {
     public void add(String conversationId, List<Message> messages) {
         for (Message message : messages) {
             // 1. 插入主表（存储Base64序列化内容 + 消息类型）
-            ChatMessage mainEntity = new ChatMessage();
+            UserChatMessage mainEntity = new UserChatMessage();
             mainEntity.setChatMessageConversationId(conversationId);
             mainEntity.setChatMessageContent(serializeMessage(message));
             mainEntity.setChatMessageCreatedTime(new Date());
@@ -132,7 +132,7 @@ public class MySQLBasedChatMemory implements ChatMemory {
             chatMessageMapper.insert(mainEntity);
 
             // 2. 插入文本表（存储纯文本，方便查看）
-            ChatMessageContentText textEntity = new ChatMessageContentText();
+            UserChatMessageContentText textEntity = new UserChatMessageContentText();
             textEntity.setChatMessageConversationId(conversationId);
             textEntity.setChatMessageContent(message.getText());
             textEntity.setChatMessageCreatedTime(new Date());
@@ -145,11 +145,11 @@ public class MySQLBasedChatMemory implements ChatMemory {
     @Override
     public List<Message> get(String conversationId, int lastN) {
         // 1. 查询该对话的所有消息（按时间升序）
-        List<ChatMessage> entities = getConversationMessages(conversationId);
+        List<UserChatMessage> entities = getConversationMessages(conversationId);
 
         // 2. 截取最后N条消息（避免超出范围）
         int start = Math.max(0, entities.size() - lastN);
-        List<ChatMessage> lastNEntities = entities.subList(start, entities.size());
+        List<UserChatMessage> lastNEntities = entities.subList(start, entities.size());
 
         // 3. 反序列化为具体Message子类（关键：传入数据库存储的消息类型）
         return lastNEntities.stream()
@@ -164,13 +164,13 @@ public class MySQLBasedChatMemory implements ChatMemory {
     @Override
     public void clear(String conversationId) {
         // 1. 删除主表（user_chatMessage）数据
-        LambdaQueryWrapper<ChatMessage> mainWrapper = new LambdaQueryWrapper<>();
-        mainWrapper.eq(ChatMessage::getChatMessageConversationId, conversationId);
+        LambdaQueryWrapper<UserChatMessage> mainWrapper = new LambdaQueryWrapper<>();
+        mainWrapper.eq(UserChatMessage::getChatMessageConversationId, conversationId);
         chatMessageMapper.delete(mainWrapper);
 
         // 2. 删除文本表（chat_message_content_text）数据（修复原代码条件错误）
-        LambdaQueryWrapper<ChatMessageContentText> textWrapper = new LambdaQueryWrapper<>();
-        textWrapper.eq(ChatMessageContentText::getChatMessageConversationId, conversationId); // 用文本表自己的字段
+        LambdaQueryWrapper<UserChatMessageContentText> textWrapper = new LambdaQueryWrapper<>();
+        textWrapper.eq(UserChatMessageContentText::getChatMessageConversationId, conversationId); // 用文本表自己的字段
         chatMessageContentTextMapper.delete(textWrapper);
     }
 }
