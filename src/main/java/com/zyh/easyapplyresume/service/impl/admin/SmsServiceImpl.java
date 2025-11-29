@@ -39,10 +39,7 @@ public class SmsServiceImpl implements SmsService {
 
     @Value("${custom.duanxin.verify.duanxin.redis-prefix}")
     private String sendRecordRedisPrefix;
-
-    // 注入短信主题（虽然短信可能不用，但配置了就注入）
-    @Value("${custom.duanxin.verify.duanxin.subject}")
-    private String smsSubject;
+    
 
     // ==================== 短信配置 (从新配置读取) ====================
     @Value("${ali.sms.access-key-id}")
