@@ -33,6 +33,10 @@ import java.util.List;
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_RETRIEVE_SIZE_KEY;
 
+/**
+ * AI简历助手(C端)
+ * @author shiningCloud2025
+ */
 @Component
 @Slf4j
 public class AiResumeAssistant {
@@ -222,7 +226,7 @@ public class AiResumeAssistant {
                 .advisors(
                         new SensitiveWordsAdvisor(),
                         new MyLoggerAdvisor(),
-                        new ReReadingAdvisor(),
+//                        new ReReadingAdvisor(),
                         aiResumeAssistantRagCloudAdvisor
                 )
                 .tools(allTools)

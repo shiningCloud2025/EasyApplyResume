@@ -25,7 +25,7 @@ public class AiResumeAssistantRagCloudAdvisorConfig {
     @Bean
     public Advisor aiResumeAssistantRagCloudAdvisor() {
         DashScopeApi dashScopeApi = new DashScopeApi(dashScopeApiKey);
-        final String KNOWLEDGE_INDEX = "易投简历";
+        final String KNOWLEDGE_INDEX = "AI简历助手云库-易投简历";
         DocumentRetriever documentRetriever = new DashScopeDocumentRetriever(dashScopeApi,
                 DashScopeDocumentRetrieverOptions.builder()
                         .withIndexName(KNOWLEDGE_INDEX)
