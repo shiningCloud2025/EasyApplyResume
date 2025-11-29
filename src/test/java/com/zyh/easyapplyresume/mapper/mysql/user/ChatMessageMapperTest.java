@@ -1,7 +1,6 @@
 package com.zyh.easyapplyresume.mapper.mysql.user;
 
-import com.zyh.easyapplyresume.mapper.mysql.user.ChatMessageMapper;
-import com.zyh.easyapplyresume.model.pojo.user.ChatMessage;
+import com.zyh.easyapplyresume.model.pojo.user.UserChatMessage;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,10 +12,10 @@ import java.util.List;
 class ChatMessageMapperTest {
 
     @Resource
-    private ChatMessageMapper chatMessageMapper;
+    private UserChatMessageMapper chatMessageMapper;
     @Test
     void selectLastNByConversationId() {
-        List<ChatMessage> messageList = chatMessageMapper.selectLastNByConversationId("1", 5);
+        List<UserChatMessage> messageList = chatMessageMapper.selectLastNByConversationId("1", 5);
         System.out.println(messageList);
     }
 }
