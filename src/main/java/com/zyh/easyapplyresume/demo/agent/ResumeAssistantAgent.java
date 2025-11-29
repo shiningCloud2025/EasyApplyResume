@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ResumeAssistantAgent extends ToolCallAgent {
 
-    public ResumeAssistantAgent(ToolCallback[] availableTools, ChatModel dashscopeChatModel, MySQLBasedChatMemory mySQLBasedChatMemory) {
+    public ResumeAssistantAgent(ToolCallback[] availableTools, ChatModel dashscopeChatModel) {
         super(availableTools);
         this.setName("ResumeAssistantAgent");
         String SYSTEM_PROMPT = """  
@@ -33,7 +33,6 @@ public class ResumeAssistantAgent extends ToolCallAgent {
                 """;
         this.setNextStepPrompt(NEXT_STEP_PROMPT);
         this.setMaxSteps(10);
-        ChatMemory chatMemory = new InMemoryDbHybridChatMemory(mySQLBasedChatMemory);
         // 初始化客户端
         ChatClient chatClient = ChatClient.builder(dashscopeChatModel)
                 .defaultAdvisors(new MyLoggerAdvisor()

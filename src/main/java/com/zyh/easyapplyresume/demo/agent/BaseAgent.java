@@ -91,7 +91,7 @@ public abstract class BaseAgent {
      * @param userPrompt
      * @return
      */
-    public SseEmitter runStream(String userPrompt){
+    public SseEmitter runStream(String userPrompt,String chatId){
         // 创建SseEmitter,设置较长的超时时间
         SseEmitter emitter = new SseEmitter(300000L); // 5分钟超时
 
