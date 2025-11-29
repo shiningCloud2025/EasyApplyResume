@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: image-search-mcp
+  profiles:
+    active: stdio
+server:
+  port: 8121
+pexels:
+  api-key: GTJEXA1zWrhYCg8lYHsXxbwerJQqJ9BdnqMlFx1IzyHzumFIK5FQ9lSW
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- ✅ 1. 禁用 Logback 状态日志（关键！） -->
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+    <!-- 定义日志格式 -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+
+    <!-- 定义日志文件路径 (支持通过 -Dlog.path 参数指定) -->
+    <property name="LOG_FILE_PATH" value="${log.path:-logs}/my-application.log" />
+
+    <!-- 控制台输出 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 文件输出 (带滚动策略) -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE_PATH}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 滚动后的文件名格式 -->
+            <fileNamePattern>${log.path:-logs}/my-application.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 单个文件最大 size -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 保留 7 天的日志 -->
+            <maxHistory>14</maxHistory>
+            <!-- 总大小限制 -->
+            <totalSizeCap>2GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 异步 Appender (解决 STDIO 模式阻塞问题) -->
+    <appender name="ASYNC_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="FILE" />
+        <queueSize>512</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <neverBlock>true</neverBlock>
+    </appender>
+
+    <!-- 多环境配置：开发环境 -->
+    <springProfile name="sse">
+        <root level="INFO">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="FILE" />
+        </root>
+        <!-- 开发环境下，项目包日志级别为 DEBUG -->
+        <logger name="com.zyh.imagesearchmcp" level="DEBUG" />
+    </springProfile>
+
+    <!-- STDIO 模式 (使用异步日志避免阻塞) -->
+    <springProfile name="stdio">
+        <root level="OFF" />
+        <!-- 项目日志使用异步 Appender -->
+        <logger name="com.zyh.imagesearchmcp" level="INFO" additivity="false">
+            <appender-ref ref="ASYNC_FILE" />
+        </logger>
+
+        <logger name="io.modelcontextprotocol" level="INFO" additivity="false">
+            <appender-ref ref="ASYNC_FILE" />
+        </logger>
+
+        <logger name="org.springframework" level="WARN" additivity="false">
+            <appender-ref ref="ASYNC_FILE" />
+        </logger>
+
+    </springProfile>
+
+</configuration>
