@@ -13,12 +13,12 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("user_chatMessage")
+@TableName("admin_chatMessage")
 /**
- * 会话消息实体类-用户端
+ * 会话消息实体类-管理端
  * @author shiningCloud2025
  */
-public class UserChatMessage {
+public class AdminChatMessage {
     /**
      * 对话消息主键ID
      */
