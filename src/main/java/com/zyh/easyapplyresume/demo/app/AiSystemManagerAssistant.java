@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class SystemManagerAssistant {
+public class AiSystemManagerAssistant {
 
 //    private final ChatClient chatClient;
 

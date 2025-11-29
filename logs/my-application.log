@@ -8219,3 +8219,895 @@ Original Stack Trace:
 2025-11-29 22:30:09.206 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
 2025-11-29 22:30:09.207 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
 2025-11-29 22:30:09.207 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-11-29 22:50:55.697 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-11-29 22:50:55.702 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-11-29 22:50:55.702 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-11-29 22:50:55.710 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-11-29 22:50:55.726 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-29 22:50:55.831 [main] INFO  c.z.e.d.a.ResumeAssistantAgentTest - Starting ResumeAssistantAgentTest using Java 21.0.9 with PID 26472 (started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-29 22:50:55.831 [main] DEBUG c.z.e.d.a.ResumeAssistantAgentTest - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-29 22:50:55.832 [main] INFO  c.z.e.d.a.ResumeAssistantAgentTest - The following 1 profile is active: "dev"
+2025-11-29 22:50:57.156 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-11-29 22:50:57.159 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-11-29 22:50:57.209 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 35 ms. Found 0 Redis repository interfaces.
+2025-11-29 22:50:57.307 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.308 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.308 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.308 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.309 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.309 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.309 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.310 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.310 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.311 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.311 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.312 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.312 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.312 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.312 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.313 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 22:50:57.316 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-11-29 22:50:57.698 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-11-29 22:50:57.710 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-29 22:50:57.819 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-11-29 22:50:57.819 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-11-29 22:50:57.821 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-29 22:50:59.245 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-11-29 22:50:59.611 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端初始化完成
+2025-11-29 22:51:00.202 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 敏感词初始化完成，共加载 137 个敏感词
+2025-11-29 22:51:00.579 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-29 22:51:00.583 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-29 22:51:00.587 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-29 22:51:06.353 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = fc2da5d6-d2e4-492b-85e8-112ae73aa954
+2025-11-29 22:51:06.559 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 2eb72da8-819e-49e3-993d-360afd3588f4
+2025-11-29 22:51:06.754 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = cf67bc86-9203-45d4-93cb-c41675b2cf0d
+2025-11-29 22:51:07.416 [pool-6-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Error: Unable to access jarfile Image-Search-Mcp/target/Image-Search-Mcp-0.0.1-SNAPSHOT.jar
+2025-11-29 22:56:07.323 [main] WARN  o.s.w.c.s.GenericWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'aiResumeAssistantController': Injection of resource dependencies failed
+2025-11-29 22:56:07.324 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 关闭阿里云短信客户端...
+2025-11-29 22:56:07.331 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端已关闭
+2025-11-29 22:56:07.392 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-11-29 22:56:07.418 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'aiResumeAssistantController': Injection of resource dependencies failed
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:371)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1439)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
+	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1463)
+	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:553)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260)
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:163)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:378)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310)
+	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735)
+	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734)
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:290)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:279)
+	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:278)
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:106)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:105)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:128)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:128)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:63)
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:57)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'aiResumeAssistant': Injection of resource dependencies failed
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:371)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1439)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.resolveBeanByName(AbstractAutowireCapableBeanFactory.java:461)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:605)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:576)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:738)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:270)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:368)
+	... 94 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'toolCallbacks' defined in class path resource [org/springframework/ai/autoconfigure/mcp/client/McpClientAutoConfiguration.class]: Failed to instantiate [org.springframework.ai.tool.ToolCallbackProvider]: Factory method 'toolCallbacks' threw exception with message: Error creating bean with name 'mcpSyncClients' defined in class path resource [org/springframework/ai/autoconfigure/mcp/client/McpClientAutoConfiguration.class]: Failed to instantiate [java.util.List]: Factory method 'mcpSyncClients' threw exception with message: java.util.concurrent.TimeoutException: Did not observe any item or terminal signal within 300000ms in 'Mono.create ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:228)' (and no fallback has been configured)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:598)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:576)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:738)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:270)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:368)
+	... 108 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.ai.tool.ToolCallbackProvider]: Factory method 'toolCallbacks' threw exception with message: Error creating bean with name 'mcpSyncClients' defined in class path resource [org/springframework/ai/autoconfigure/mcp/client/McpClientAutoConfiguration.class]: Failed to instantiate [java.util.List]: Factory method 'mcpSyncClients' threw exception with message: java.util.concurrent.TimeoutException: Did not observe any item or terminal signal within 300000ms in 'Mono.create ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:228)' (and no fallback has been configured)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:644)
+	... 126 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mcpSyncClients' defined in class path resource [org/springframework/ai/autoconfigure/mcp/client/McpClientAutoConfiguration.class]: Failed to instantiate [java.util.List]: Factory method 'mcpSyncClients' threw exception with message: java.util.concurrent.TimeoutException: Did not observe any item or terminal signal within 300000ms in 'Mono.create ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:228)' (and no fallback has been configured)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.lambda$resolveMultipleBeans$9(DefaultListableBeanFactory.java:1475)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.Iterator.forEachRemaining(Iterator.java:133)
+	at java.base/java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1939)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+	at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+	at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+	at org.springframework.ai.autoconfigure.mcp.client.McpClientAutoConfiguration.toolCallbacks(McpClientAutoConfiguration.java:182)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146)
+	... 127 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [java.util.List]: Factory method 'mcpSyncClients' threw exception with message: java.util.concurrent.TimeoutException: Did not observe any item or terminal signal within 300000ms in 'Mono.create ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:228)' (and no fallback has been configured)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:644)
+	... 152 common frames omitted
+Caused by: reactor.core.Exceptions$ReactiveException: java.util.concurrent.TimeoutException: Did not observe any item or terminal signal within 300000ms in 'Mono.create ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:228)' (and no fallback has been configured)
+	at reactor.core.Exceptions.propagate(Exceptions.java:410)
+	at reactor.core.publisher.BlockingSingleSubscriber.blockingGet(BlockingSingleSubscriber.java:102)
+	at reactor.core.publisher.Mono.block(Mono.java:1779)
+	at io.modelcontextprotocol.client.McpSyncClient.initialize(McpSyncClient.java:157)
+	at org.springframework.ai.autoconfigure.mcp.client.McpClientAutoConfiguration.mcpSyncClients(McpClientAutoConfiguration.java:159)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146)
+	... 153 common frames omitted
+	Suppressed: java.lang.Exception: #block terminated with an error
+		at reactor.core.publisher.BlockingSingleSubscriber.blockingGet(BlockingSingleSubscriber.java:104)
+		... 159 common frames omitted
+Caused by: java.util.concurrent.TimeoutException: Did not observe any item or terminal signal within 300000ms in 'Mono.create ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:228)' (and no fallback has been configured)
+	at reactor.core.publisher.FluxTimeout$TimeoutMainSubscriber.handleTimeout(FluxTimeout.java:296)
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Assembly trace from producer [reactor.core.publisher.MonoTimeout] :
+	reactor.core.publisher.Mono.timeout(Mono.java:5008)
+	io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:239)
+Error has been observed at the following site(s):
+	*__Mono.timeout ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:239)
+	|_  Mono.handle ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:239)
+	|_ Mono.flatMap ⇢ at io.modelcontextprotocol.client.McpAsyncClient.initialize(McpAsyncClient.java:263)
+Original Stack Trace:
+		at reactor.core.publisher.FluxTimeout$TimeoutMainSubscriber.handleTimeout(FluxTimeout.java:296)
+		at reactor.core.publisher.FluxTimeout$TimeoutMainSubscriber.doTimeout(FluxTimeout.java:281)
+		at reactor.core.publisher.FluxTimeout$TimeoutTimeoutSubscriber.onNext(FluxTimeout.java:420)
+		at reactor.core.publisher.FluxOnErrorReturn$ReturnSubscriber.onNext(FluxOnErrorReturn.java:162)
+		at reactor.core.publisher.MonoDelay$MonoDelayRunnable.propagateDelay(MonoDelay.java:270)
+		at reactor.core.publisher.MonoDelay$MonoDelayRunnable.run(MonoDelay.java:285)
+		at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:68)
+		at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:28)
+		at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+		at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+		at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-11-29 22:56:07.431 [main] WARN  o.s.test.context.TestContextManager - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener] to prepare test instance [com.zyh.easyapplyresume.demo.agent.ResumeAssistantAgentTest@3246a4ef]
+java.lang.IllegalStateException: Failed to load ApplicationContext for [WebMergedContextConfiguration@f6cd44b testClass = com.zyh.easyapplyresume.demo.agent.ResumeAssistantAgentTest, locations = [], classes = [com.zyh.easyapplyresume.EasyApplyResumeApplication], contextInitializerClasses = [], activeProfiles = [], propertySourceDescriptors = [], propertySourceProperties = ["org.springframework.boot.test.context.SpringBootTestContextBootstrapper=true"], contextCustomizers = [org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@4189d70b, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@320de594, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@0, org.springframework.boot.test.web.client.TestRestTemplateContextCustomizer@7fc6de5b, org.springframework.boot.test.web.reactive.server.WebTestClientContextCustomizer@3382f8ae, org.springframework.boot.test.web.reactor.netty.DisableReactorResourceFactoryGlobalResourcesContextCustomizerFactory$DisableReactorResourceFactoryGlobalResourcesContextCustomizerCustomizer@73163d48, org.springframework.boot.test.autoconfigure.OnFailureConditionReportContextCustomizerFactory$OnFailureConditionReportContextCustomizer@62163b39, org.springframework.boot.test.autoconfigure.actuate.observability.ObservabilityContextCustomizerFactory$DisableObservabilityContextCustomizer@1f, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@0, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizer@19ae6bb, org.springframework.boot.test.context.SpringBootTestAnnotation@4086e41f], resourceBasePath = "src/main/webapp", contextLoader = org.springframework.boot.test.context.SpringBootContextLoader, parent = null]
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:180)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:130)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:191)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:130)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:260)
+	at org.springframework.test.context.junit.jupiter.SpringExtension.postProcessTestInstance(SpringExtension.java:163)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$10(ClassBasedTestDescriptor.java:378)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.executeAndMaskThrowable(ClassBasedTestDescriptor.java:383)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$invokeTestInstancePostProcessors$11(ClassBasedTestDescriptor.java:378)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:179)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1708)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:310)
+	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:735)
+	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734)
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:762)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeTestInstancePostProcessors(ClassBasedTestDescriptor.java:377)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$instantiateAndPostProcessTestInstance$6(ClassBasedTestDescriptor.java:290)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.instantiateAndPostProcessTestInstance(ClassBasedTestDescriptor.java:289)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$4(ClassBasedTestDescriptor.java:279)
+	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.lambda$testInstancesProvider$5(ClassBasedTestDescriptor.java:278)
+	at org.junit.jupiter.engine.execution.TestInstancesProvider.getTestInstances(TestInstancesProvider.java:31)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$prepare$0(TestMethodTestDescriptor.java:106)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:105)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.prepare(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$prepare$2(NodeTestTask.java:128)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.prepare(NodeTestTask.java:128)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:160)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:146)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:143)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:100)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:63)
+	at com.intellij.junit5.JUnit5IdeaTestRunner.startRunnerWithArgs(JUnit5IdeaTestRunner.java:57)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'aiResumeAssistantController': Injection of resource dependencies failed
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:371)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1439)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:975)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:971)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.test.context.SpringBootContextLoader.lambda$loadContext$3(SpringBootContextLoader.java:137)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:58)
+	at org.springframework.util.function.ThrowingSupplier.get(ThrowingSupplier.java:46)
+	at org.springframework.boot.SpringApplication.withHook(SpringApplication.java:1463)
+	at org.springframework.boot.test.context.SpringBootContextLoader$ContextLoaderHook.run(SpringBootContextLoader.java:553)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:137)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:108)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:225)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:152)
+	... 72 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'aiResumeAssistant': Injection of resource dependencies failed
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:371)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1439)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.resolveBeanByName(AbstractAutowireCapableBeanFactory.java:461)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:605)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:576)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:738)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:270)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:368)
+	... 94 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'toolCallbacks' defined in class path resource [org/springframework/ai/autoconfigure/mcp/client/McpClientAutoConfiguration.class]: Failed to instantiate [org.springframework.ai.tool.ToolCallbackProvider]: Factory method 'toolCallbacks' threw exception with message: Error creating bean with name 'mcpSyncClients' defined in class path resource [org/springframework/ai/autoconfigure/mcp/client/McpClientAutoConfiguration.class]: Failed to instantiate [java.util.List]: Factory method 'mcpSyncClients' threw exception with message: java.util.concurrent.TimeoutException: Did not observe any item or terminal signal within 300000ms in 'Mono.create ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:228)' (and no fallback has been configured)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1443)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1353)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.autowireResource(CommonAnnotationBeanPostProcessor.java:598)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.getResource(CommonAnnotationBeanPostProcessor.java:576)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor$ResourceElement.getResourceToInject(CommonAnnotationBeanPostProcessor.java:738)
+	at org.springframework.beans.factory.annotation.InjectionMetadata$InjectedElement.inject(InjectionMetadata.java:270)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:145)
+	at org.springframework.context.annotation.CommonAnnotationBeanPostProcessor.postProcessProperties(CommonAnnotationBeanPostProcessor.java:368)
+	... 108 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.ai.tool.ToolCallbackProvider]: Factory method 'toolCallbacks' threw exception with message: Error creating bean with name 'mcpSyncClients' defined in class path resource [org/springframework/ai/autoconfigure/mcp/client/McpClientAutoConfiguration.class]: Failed to instantiate [java.util.List]: Factory method 'mcpSyncClients' threw exception with message: java.util.concurrent.TimeoutException: Did not observe any item or terminal signal within 300000ms in 'Mono.create ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:228)' (and no fallback has been configured)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:644)
+	... 126 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'mcpSyncClients' defined in class path resource [org/springframework/ai/autoconfigure/mcp/client/McpClientAutoConfiguration.class]: Failed to instantiate [java.util.List]: Factory method 'mcpSyncClients' threw exception with message: java.util.concurrent.TimeoutException: Did not observe any item or terminal signal within 300000ms in 'Mono.create ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:228)' (and no fallback has been configured)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:648)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1355)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1185)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:562)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.lambda$resolveMultipleBeans$9(DefaultListableBeanFactory.java:1475)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:197)
+	at java.base/java.util.Iterator.forEachRemaining(Iterator.java:133)
+	at java.base/java.util.Spliterators$IteratorSpliterator.forEachRemaining(Spliterators.java:1939)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:509)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:575)
+	at java.base/java.util.stream.AbstractPipeline.evaluateToArrayNode(AbstractPipeline.java:260)
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:616)
+	at java.base/java.util.stream.ReferencePipeline.toArray(ReferencePipeline.java:622)
+	at java.base/java.util.stream.ReferencePipeline.toList(ReferencePipeline.java:627)
+	at org.springframework.ai.autoconfigure.mcp.client.McpClientAutoConfiguration.toolCallbacks(McpClientAutoConfiguration.java:182)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146)
+	... 127 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [java.util.List]: Factory method 'mcpSyncClients' threw exception with message: java.util.concurrent.TimeoutException: Did not observe any item or terminal signal within 300000ms in 'Mono.create ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:228)' (and no fallback has been configured)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:178)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:644)
+	... 152 common frames omitted
+Caused by: reactor.core.Exceptions$ReactiveException: java.util.concurrent.TimeoutException: Did not observe any item or terminal signal within 300000ms in 'Mono.create ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:228)' (and no fallback has been configured)
+	at reactor.core.Exceptions.propagate(Exceptions.java:410)
+	at reactor.core.publisher.BlockingSingleSubscriber.blockingGet(BlockingSingleSubscriber.java:102)
+	at reactor.core.publisher.Mono.block(Mono.java:1779)
+	at io.modelcontextprotocol.client.McpSyncClient.initialize(McpSyncClient.java:157)
+	at org.springframework.ai.autoconfigure.mcp.client.McpClientAutoConfiguration.mcpSyncClients(McpClientAutoConfiguration.java:159)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146)
+	... 153 common frames omitted
+	Suppressed: java.lang.Exception: #block terminated with an error
+		at reactor.core.publisher.BlockingSingleSubscriber.blockingGet(BlockingSingleSubscriber.java:104)
+		... 159 common frames omitted
+Caused by: java.util.concurrent.TimeoutException: Did not observe any item or terminal signal within 300000ms in 'Mono.create ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:228)' (and no fallback has been configured)
+	at reactor.core.publisher.FluxTimeout$TimeoutMainSubscriber.handleTimeout(FluxTimeout.java:296)
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Assembly trace from producer [reactor.core.publisher.MonoTimeout] :
+	reactor.core.publisher.Mono.timeout(Mono.java:5008)
+	io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:239)
+Error has been observed at the following site(s):
+	*__Mono.timeout ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:239)
+	|_  Mono.handle ⇢ at io.modelcontextprotocol.spec.DefaultMcpSession.sendRequest(DefaultMcpSession.java:239)
+	|_ Mono.flatMap ⇢ at io.modelcontextprotocol.client.McpAsyncClient.initialize(McpAsyncClient.java:263)
+Original Stack Trace:
+		at reactor.core.publisher.FluxTimeout$TimeoutMainSubscriber.handleTimeout(FluxTimeout.java:296)
+		at reactor.core.publisher.FluxTimeout$TimeoutMainSubscriber.doTimeout(FluxTimeout.java:281)
+		at reactor.core.publisher.FluxTimeout$TimeoutTimeoutSubscriber.onNext(FluxTimeout.java:420)
+		at reactor.core.publisher.FluxOnErrorReturn$ReturnSubscriber.onNext(FluxOnErrorReturn.java:162)
+		at reactor.core.publisher.MonoDelay$MonoDelayRunnable.propagateDelay(MonoDelay.java:270)
+		at reactor.core.publisher.MonoDelay$MonoDelayRunnable.run(MonoDelay.java:285)
+		at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:68)
+		at reactor.core.scheduler.SchedulerTask.call(SchedulerTask.java:28)
+		at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+		at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+		at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+		at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+		at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+		at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-11-29 22:56:07.473 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-11-29 22:56:07.473 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-11-29 22:56:07.474 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-11-29 22:56:07.474 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-11-29 23:07:54.013 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-11-29 23:07:54.017 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-11-29 23:07:54.018 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-11-29 23:07:54.030 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-11-29 23:07:54.044 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-29 23:07:54.158 [main] INFO  c.z.e.d.a.ResumeAssistantAgentTest - Starting ResumeAssistantAgentTest using Java 21.0.9 with PID 15808 (started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-29 23:07:54.158 [main] DEBUG c.z.e.d.a.ResumeAssistantAgentTest - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-29 23:07:54.159 [main] INFO  c.z.e.d.a.ResumeAssistantAgentTest - The following 1 profile is active: "dev"
+2025-11-29 23:07:55.456 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-11-29 23:07:55.458 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-11-29 23:07:55.502 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 0 Redis repository interfaces.
+2025-11-29 23:07:55.601 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.602 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.602 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.603 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.603 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.603 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.604 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.604 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.604 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.605 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.605 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.605 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.605 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.606 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.606 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.607 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:07:55.608 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-11-29 23:07:55.967 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-11-29 23:07:55.975 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-29 23:07:56.090 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-11-29 23:07:56.090 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-11-29 23:07:56.093 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-29 23:07:57.496 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-11-29 23:07:57.888 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端初始化完成
+2025-11-29 23:07:58.788 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 敏感词初始化完成，共加载 137 个敏感词
+2025-11-29 23:07:59.190 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-29 23:07:59.195 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-29 23:07:59.198 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-29 23:08:04.063 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 4bb458f5-3c0b-41b1-bece-e849aabde6ad
+2025-11-29 23:08:04.262 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 4473bee2-feb6-48ee-945e-500c608b580d
+2025-11-29 23:08:04.452 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 3bec72c0-5151-4bfc-83d5-d0f558e624f8
+2025-11-29 23:08:06.710 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 4472 (D:\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-29 23:08:06.711 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-11-29 23:08:07.751 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-11-29 23:08:07.806 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-11-29 23:08:07.858 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.525 seconds (process running for 2.18)
+2025-11-29 23:08:20.870 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-11-29 23:08:20.876 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-11-29 23:08:20.987 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-11-29 23:08:21.073 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-11-29 23:08:21.077 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-11-29 23:08:21.077 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-11-29 23:08:21.082 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-29 23:08:21.534 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6ac2b252
+2025-11-29 23:08:21.536 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-29 23:08:23.071 [main] INFO  c.z.e.d.a.ResumeAssistantAgentTest - Started ResumeAssistantAgentTest in 29.483 seconds (process running for 31.191)
+2025-11-29 23:08:26.091 [main] INFO  c.z.e.d.a.ResumeAssistantAgentTest - ========== 开始测试 ResumeAssistantAgent ==========
+2025-11-29 23:08:32.442 [main] INFO  c.z.e.demo.agent.BaseAgent - Executing step 1/10
+2025-11-29 23:08:33.714 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:Based on user needs, proactively select the most appropriate tool or combination of tools.
+For complex tasks, you can break down the problem and use different tools step by step to solve it.
+After using each tool, clearly explain the execution results and suggest the next steps.
+If you want to stop the interaction at any point, use the `terminate` tool/function call.
+
+2025-11-29 23:08:44.406 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:
+2025-11-29 23:08:48.340 [main] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent的思考: 
+2025-11-29 23:08:48.341 [main] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择了 1 个工具来使用
+2025-11-29 23:08:48.344 [main] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择的工具信息：
+工具名称：writeFile，参数：{"fileName": "resume_draft.txt", "content": "姓名：\n性别：\n出生年月：\n联系电话：\n电子邮箱：\n教育背景：\n- 学校名称，导弹工程专业，本科，20XX年 - 20XX年\n主修课程：\n- 导弹制导与控制\n- 飞行力学\n- 推进系统原理\n- 自动控制原理\n- 工程力学\n- 信号与系统\n项目经历：\n- 项目名称：XXX制导系统仿真\n  描述：使用MATLAB/Simulink搭建导弹飞行控制系统模型，完成轨迹仿真与稳定性分析。\n  角色：核心成员\n  成果：优化了控制参数，提升系统响应速度15%。\n\n- 项目名称：小型固体火箭发动机设计\n  描述：参与推进系统结构设计与燃烧室压力仿真。\n  角色：设计助理\n  成果：成功完成点火测试，推力达到预期目标。\n\n实习经历（如有）：\n- 公司名称，研发部实习生，20XX年X月 - 20XX年X月\n  工作内容：参与某型导弹子系统的测试与数据分析。\n  收获：熟悉军用装备研发流程，掌握测试仪器操作。\n\n技能：\n- 熟练使用MATLAB、Simulink、AutoCAD、SolidWorks\n- 掌握C/C++编程，了解嵌入式开发基础\n- 英语CET-6，具备良好的英文技术文档阅读能力\n- 熟悉导弹系统总体设计流程\n荣誉奖项：\n- 国家励志奖学金，20XX年\n- 全国大学生航空航天模型竞赛二等奖，20XX年\n\n自我评价：\n热爱航天国防事业，具备扎实的导弹工程专业知识和较强的实践能力。学习能力强，团队协作意识好，愿意在科研一线持续深耕。\n"}
+2025-11-29 23:08:48.346 [main] DEBUG o.s.a.m.t.DefaultToolCallingManager - Executing tool call: writeFile
+2025-11-29 23:08:48.348 [main] DEBUG o.s.a.tool.method.MethodToolCallback - Starting execution of tool: writeFile
+2025-11-29 23:08:48.394 [main] DEBUG o.s.a.tool.method.MethodToolCallback - Successful execution of tool: writeFile
+2025-11-29 23:08:48.394 [main] DEBUG o.s.a.t.e.DefaultToolCallResultConverter - Converting tool result to JSON.
+2025-11-29 23:08:48.397 [main] INFO  c.z.e.demo.agent.ToolCallAgent - 工具 writeFile 完成了它的任务！结果: "File written successfully to: D:\\EasyApplyResume/toolcalling/file/resume_draft.txt"
+2025-11-29 23:08:48.397 [main] INFO  c.z.e.demo.agent.BaseAgent - Executing step 2/10
+2025-11-29 23:08:48.398 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:Based on user needs, proactively select the most appropriate tool or combination of tools.
+For complex tasks, you can break down the problem and use different tools step by step to solve it.
+After using each tool, clearly explain the execution results and suggest the next steps.
+If you want to stop the interaction at any point, use the `terminate` tool/function call.
+
+2025-11-29 23:08:48.428 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-11-29 23:08:48.428 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-11-29 23:08:48.429 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-11-29 23:08:48.429 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-11-29 23:08:48.463 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-29 23:08:48.468 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-29 23:08:48.469 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 关闭阿里云短信客户端...
+2025-11-29 23:08:48.473 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端已关闭
+2025-11-29 23:08:56.266 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-11-29 23:08:56.270 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-11-29 23:08:56.270 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-11-29 23:08:56.279 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-11-29 23:08:56.289 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-29 23:08:56.373 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Starting AiResumeAssistantTest using Java 21.0.9 with PID 26436 (started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-29 23:08:56.373 [main] DEBUG c.z.e.demo.app.AiResumeAssistantTest - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-29 23:08:56.374 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - The following 1 profile is active: "dev"
+2025-11-29 23:08:57.669 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-11-29 23:08:57.673 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-11-29 23:08:57.722 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+2025-11-29 23:08:57.823 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.824 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.824 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.824 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.824 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.825 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.825 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.825 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.826 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.826 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.826 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.826 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.826 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.828 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.828 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.828 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-29 23:08:57.830 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-11-29 23:08:58.252 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-11-29 23:08:58.260 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-29 23:08:58.365 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-11-29 23:08:58.367 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-11-29 23:08:58.369 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-29 23:08:59.864 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-11-29 23:09:00.252 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端初始化完成
+2025-11-29 23:09:00.880 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 敏感词初始化完成，共加载 137 个敏感词
+2025-11-29 23:09:01.255 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-29 23:09:01.260 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-29 23:09:01.265 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-29 23:09:05.872 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = ade262f0-febc-432a-98cc-ba8770993df6
+2025-11-29 23:09:06.088 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = be17dece-06d5-4ef2-8748-fc2daaa4bc71
+2025-11-29 23:09:06.277 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 5ef389fc-82f2-4dd3-89d4-b2b4d9813e81
+2025-11-29 23:09:07.913 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 28440 (D:\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-29 23:09:07.915 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-11-29 23:09:08.916 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-11-29 23:09:08.962 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-11-29 23:09:09.019 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.519 seconds (process running for 2.255)
+2025-11-29 23:09:17.162 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-11-29 23:09:17.169 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-11-29 23:09:17.264 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-11-29 23:09:17.336 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-11-29 23:09:17.338 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-11-29 23:09:17.338 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-11-29 23:09:17.342 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-29 23:09:17.761 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6ac2b252
+2025-11-29 23:09:17.764 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-29 23:09:19.254 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Started AiResumeAssistantTest in 23.382 seconds (process running for 25.267)
+2025-11-29 23:09:28.308 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-11-29 23:09:28.781 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@37123fd5
+2025-11-29 23:09:28.782 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-11-29 23:09:28.785 [main] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT chatMessage_id,chatMessage_conversationId,chatMessage_content,chatMessage_createdTime,chatMessage_messageType FROM user_chatMessage WHERE (chatMessage_conversationId = ?) ORDER BY chatMessage_createdTime ASC
+2025-11-29 23:09:28.811 [main] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 9741d7f3-bd21-48f4-8f54-6a943fa4c2d3(String)
+2025-11-29 23:09:28.874 [main] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-11-29 23:09:28.882 [main] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_chatMessage ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-29 23:09:28.885 [main] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: 9741d7f3-bd21-48f4-8f54-6a943fa4c2d3(String), AQBqYXZhLnV0aWwuQXJyYXlMaXP0AQEBAWphdmEudXRpbC5IYXNoTWHwAm1lc3NhZ2VUeXDlAQJvcmcuc3ByaW5nZnJhbWV3b3JrLmFpLmNoYXQubWVzc2FnZXMuTWVzc2FnZVR5cOUBoeaIkeeahOWPpuS4gOWNiuWxheS9j+WcqOS4iua1t+mdmeWuieWMuu+8jOivt+W4ruaIkeaJvuWIsCA1IOWFrOmHjOWGheWQiOmAgueahOe6puS8muWcsOeCuQ==(String), 2025-11-29 23:09:28.879(Timestamp), USER(String)
+2025-11-29 23:09:28.959 [main] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-11-29 23:09:28.965 [main] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_chatMessageContentText ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-29 23:09:28.967 [main] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: 9741d7f3-bd21-48f4-8f54-6a943fa4c2d3(String), 我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点(String), 2025-11-29 23:09:28.965(Timestamp), USER(String)
+2025-11-29 23:09:29.036 [main] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-11-29 23:09:33.919 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点
+2025-11-29 23:09:34.968 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:我的另一半居住在上海静安区，请帮我找到 5 公里内合适的约会地点
+2025-11-29 23:10:34.883 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:根据您提供的信息，您的另一半居住在上海静安区。我已基于该区域中心（坐标：121.447348,31.227718）搜索了5公里范围内的适合约会的地点，并综合筛选出以下**5个高匹配度、氛围佳、适合情侣共度时光的推荐地点**：
+
+---
+
+### 🌟 **推荐一：静安公园 + 百美汇电影院（静安嘉里中心店）**  
+📍 地址：南京西路1649号（静安公园），南京西路1515号（百美汇影院）  
+🎯 推荐理由：  
+- **静安公园**是市中心一片宁静绿洲，四季景色宜人，适合散步、拍照、依偎长椅谈心。  
+- 步行约5分钟可达**百美汇电影院**，位于静安嘉里中心内，环境高端，影片选择丰富，观影后还可共进晚餐。  
+🍽️ 附近餐厅：晶品广场、芮欧百货、嘉里中心多家网红餐厅（如 Yaya's、港巧点粤菜）。  
+📸 氛围指数：⭐⭐⭐⭐⭐
+
+---
+
+### ☕ **推荐二：愚园路文艺小巷 + nowwa / IZUMO COFFEE BAR**  
+📍 地址：愚园路沿线（近静安寺）  
+🎯 推荐理由：  
+- 愚园路充满老上海风情与潮流小店，适合牵手漫步，探索隐藏咖啡馆与艺术空间。  
+- **nowwa挪瓦咖啡**、**IZUMO COFFEE BAR**等独立咖啡馆风格独特，适合慢聊、打卡拍照。  
+🎨 延伸体验：可顺路参观“觉园”或“荣府宴”旁的老洋房建筑群。  
+📸 氛围指数：⭐⭐⭐⭐☆
+
+---
+
+### 🎨 **推荐三：M50创意园 + 芊荷艺术空间 / 六岛艺术中心**  
+📍 地址：莫干山路50号（距静安寺约3公里）  
+🎯 推荐理由：  
+- 上海知名艺术聚集地，涂鸦墙、画廊林立，充满文艺气息。  
+- 可一起欣赏当代艺术展，参与互动装置，激发深度交流。  
+🖼️ 推荐展馆：芊荷艺术空间、六岛艺术中心、舍替艺术。  
+🍷 结束后可前往 nearby 的苏河湾或外滩源共进晚餐。  
+📸 氛围指数：⭐⭐⭐⭐☆
+
+---
+
+### 🍽️ **推荐四：宫宴 / 黑明餐厅 + 静安50中餐厅**  
+📍 地址：北京西路1485号 / 愚园路68号CP静安 / 愚园东路58号  
+🎯 推荐理由：  
+- 若想享受高品质中式浪漫晚餐，**宫宴**环境古雅，菜品精致；**黑明餐厅**现代融合风，氛围私密。  
+- **静安50中餐厅**则主打本帮菜与粤式点心，适合喜欢传统口味的情侣。  
+🕯️ 建议预约靠窗位或包间，提升仪式感。  
+📸 氛围指数：⭐⭐⭐⭐⭐
+
+---
+
+### 🖼️ **推荐五：上海展览中心 + 延华园夜景**  
+📍 地址：延安中路1000号  
+🎯 推荐理由：  
+- 经常举办大型艺术展、设计展或品牌快闪（如 recent 的“梵高沉浸展”），适合共同体验视觉盛宴。  
+- 展览结束后可在旁边的**延华园**散步，夜晚灯光柔和，极具浪漫情调。  
+🚇 交通便利，地铁直达，适合周末下午+傍晚行程。  
+📸 氛围指数：⭐⭐⭐⭐☆
+
+---
+
+### ✅ 小贴士：
+- 所有地点均在 **5公里范围内**，地铁/步行/打车均可轻松抵达。  
+- 建议提前通过大众点评或官方渠道了解营业时间及是否需预约。  
+- 可结合天气选择：晴天优先户外（公园、M50），雨天推荐室内（电影院、艺术展、餐厅）。
+
+需要我为您规划一条“半日约会动线”（例如：咖啡 → 散步 → 晚餐 → 电影），欢迎继续告诉我偏好风格（文艺/美食/安静/热闹）！
+2025-11-29 23:10:34.884 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:根据您提供的信息，您的另一半居住在上海静安区。我已基于该区域中心（坐标：121.447348,31.227718）搜索了5公里范围内的适合约会的地点，并综合筛选出以下**5个高匹配度、氛围佳、适合情侣共度时光的推荐地点**：
+
+---
+
+### 🌟 **推荐一：静安公园 + 百美汇电影院（静安嘉里中心店）**  
+📍 地址：南京西路1649号（静安公园），南京西路1515号（百美汇影院）  
+🎯 推荐理由：  
+- **静安公园**是市中心一片宁静绿洲，四季景色宜人，适合散步、拍照、依偎长椅谈心。  
+- 步行约5分钟可达**百美汇电影院**，位于静安嘉里中心内，环境高端，影片选择丰富，观影后还可共进晚餐。  
+🍽️ 附近餐厅：晶品广场、芮欧百货、嘉里中心多家网红餐厅（如 Yaya's、港巧点粤菜）。  
+📸 氛围指数：⭐⭐⭐⭐⭐
+
+---
+
+### ☕ **推荐二：愚园路文艺小巷 + nowwa / IZUMO COFFEE BAR**  
+📍 地址：愚园路沿线（近静安寺）  
+🎯 推荐理由：  
+- 愚园路充满老上海风情与潮流小店，适合牵手漫步，探索隐藏咖啡馆与艺术空间。  
+- **nowwa挪瓦咖啡**、**IZUMO COFFEE BAR**等独立咖啡馆风格独特，适合慢聊、打卡拍照。  
+🎨 延伸体验：可顺路参观“觉园”或“荣府宴”旁的老洋房建筑群。  
+📸 氛围指数：⭐⭐⭐⭐☆
+
+---
+
+### 🎨 **推荐三：M50创意园 + 芊荷艺术空间 / 六岛艺术中心**  
+📍 地址：莫干山路50号（距静安寺约3公里）  
+🎯 推荐理由：  
+- 上海知名艺术聚集地，涂鸦墙、画廊林立，充满文艺气息。  
+- 可一起欣赏当代艺术展，参与互动装置，激发深度交流。  
+🖼️ 推荐展馆：芊荷艺术空间、六岛艺术中心、舍替艺术。  
+🍷 结束后可前往 nearby 的苏河湾或外滩源共进晚餐。  
+📸 氛围指数：⭐⭐⭐⭐☆
+
+---
+
+### 🍽️ **推荐四：宫宴 / 黑明餐厅 + 静安50中餐厅**  
+📍 地址：北京西路1485号 / 愚园路68号CP静安 / 愚园东路58号  
+🎯 推荐理由：  
+- 若想享受高品质中式浪漫晚餐，**宫宴**环境古雅，菜品精致；**黑明餐厅**现代融合风，氛围私密。  
+- **静安50中餐厅**则主打本帮菜与粤式点心，适合喜欢传统口味的情侣。  
+🕯️ 建议预约靠窗位或包间，提升仪式感。  
+📸 氛围指数：⭐⭐⭐⭐⭐
+
+---
+
+### 🖼️ **推荐五：上海展览中心 + 延华园夜景**  
+📍 地址：延安中路1000号  
+🎯 推荐理由：  
+- 经常举办大型艺术展、设计展或品牌快闪（如 recent 的“梵高沉浸展”），适合共同体验视觉盛宴。  
+- 展览结束后可在旁边的**延华园**散步，夜晚灯光柔和，极具浪漫情调。  
+🚇 交通便利，地铁直达，适合周末下午+傍晚行程。  
+📸 氛围指数：⭐⭐⭐⭐☆
+
+---
+
+### ✅ 小贴士：
+- 所有地点均在 **5公里范围内**，地铁/步行/打车均可轻松抵达。  
+- 建议提前通过大众点评或官方渠道了解营业时间及是否需预约。  
+- 可结合天气选择：晴天优先户外（公园、M50），雨天推荐室内（电影院、艺术展、餐厅）。
+
+需要我为您规划一条“半日约会动线”（例如：咖啡 → 散步 → 晚餐 → 电影），欢迎继续告诉我偏好风格（文艺/美食/安静/热闹）！
+2025-11-29 23:10:34.921 [main] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_chatMessage ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-29 23:10:34.922 [main] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: 9741d7f3-bd21-48f4-8f54-6a943fa4c2d3(String), AQBqYXZhLnV0aWwuSW1tdXRhYmxlQ29sbGVjdGlvbnMkTGlzdM4BAgEBamF2YS51dGlsLkhhc2hNYfAGZmluaXNoUmVhc2/uA1NUT9Bp5AOlYmNmNzJiMWUtYjY2Ny00MTc1LWE5MDQtYmM3Y2QwYWM1MGYzcm9s5QNBU1NJU1RBTtRtZXNzYWdlVHlw5QECb3JnLnNwcmluZ2ZyYW1ld29yay5haS5jaGF0Lm1lc3NhZ2VzLk1lc3NhZ2VUeXDlAnJlYXNvbmluZ0NvbnRlbvQDgf0W5qC55o2u5oKo5o+Q5L6b55qE5L+h5oGv77yM5oKo55qE5Y+m5LiA5Y2K5bGF5L2P5Zyo5LiK5rW36Z2Z5a6J5Yy644CC5oiR5bey5Z+65LqO6K+l5Yy65Z+f5Lit5b+D77yI5Z2Q5qCH77yaMTIxLjQ0NzM0OCwzMS4yMjc3MTjvvInmkJzntKLkuoY15YWs6YeM6IyD5Zu05YaF55qE6YCC5ZCI57qm5Lya55qE5Zyw54K577yM5bm257u85ZCI562b6YCJ5Ye65Lul5LiLKio15Liq6auY5Yy56YWN5bqm44CB5rCb5Zu05L2z44CB6YCC5ZCI5oOF5L6j5YWx5bqm5pe25YWJ55qE5o6o6I2Q5Zyw54K5KirvvJoKCi0tLQoKIyMjIO2gvO28nyAqKuaOqOiNkOS4gO+8mumdmeWuieWFrOWbrSArIOeZvue+juaxh+eUteW9semZou+8iOmdmeWuieWYiemHjOS4reW/g+W6l++8iSoqICAK7aC97bONIOWcsOWdgO+8muWNl+S6rOilv+i3rzE2NDnlj7fvvIjpnZnlronlhazlm63vvInvvIzljZfkuqzopb/ot68xNTE15Y+377yI55m+576O5rGH5b2x6Zmi77yJICAK7aC87b6vIOaOqOiNkOeQhueUse+8miAgCi0gKirpnZnlronlhazlm60qKuaYr+W4guS4reW/g+S4gOeJh+Wugemdmee7v+a0su+8jOWbm+Wto+aZr+iJsuWunOS6uu+8jOmAguWQiOaVo+atpeOAgeaLjeeFp+OAgeS+neWBjumVv+akheiwiOW/g+OAgiAgCi0g5q2l6KGM57qmNeWIhumSn+WPr+i+vioq55m+576O5rGH55S15b2x6ZmiKirvvIzkvY3kuo7pnZnlronlmInph4zkuK3lv4PlhoXvvIznjq/looPpq5jnq6/vvIzlvbHniYfpgInmi6nkuLDlr4zvvIzop4LlvbHlkI7ov5jlj6/lhbHov5vmmZrppJDjgIIgIArtoLztvb3vuI8g6ZmE6L+R6aSQ5Y6F77ya5pm25ZOB5bm/5Zy644CB6Iqu5qyn55m+6LSn44CB5ZiJ6YeM5Lit5b+D5aSa5a62572R57qi6aSQ5Y6F77yI5aaCIFlheWEnc+OAgea4r+W3p+eCueeypOiPnO+8ieOAgiAgCu2gve2zuCDmsJvlm7TmjIfmlbDvvJrirZDirZDirZDirZDirZAKCi0tLQoKIyMjIOKYlSAqKuaOqOiNkOS6jO+8muaEmuWbrei3r+aWh+iJuuWwj+W3tyArIG5vd3dhIC8gSVpVTU8gQ09GRkVFIEJBUioqICAK7aC97bONIOWcsOWdgO+8muaEmuWbrei3r+ayv+e6v++8iOi/kemdmeWuieWvuu+8iSAgCu2gvO2+ryDmjqjojZDnkIbnlLHvvJogIAotIOaEmuWbrei3r+WFhea7oeiAgeS4iua1t+mjjuaDheS4jua9rua1geWwj+W6l++8jOmAguWQiOeJteaJi+a8q+atpe+8jOaOoue0oumakOiXj+WSluWVoemmhuS4juiJuuacr+epuumXtOOAgiAgCi0gKipub3d3YeaMqueTpuWSluWVoSoq44CBKipJWlVNTyBDT0ZGRUUgQkFSKirnrYnni6znq4vlkpbllaHppobpo47moLzni6znibnvvIzpgILlkIjmhaLogYrjgIHmiZPljaHmi43nhafjgIIgIArtoLztvqgg5bu25Ly45L2T6aqM77ya5Y+v6aG66Lev5Y+C6KeC4oCc6KeJ5Zut4oCd5oiW4oCc6I2j5bqc5a604oCd5peB55qE6ICB5rSL5oi/5bu6562R576k44CCICAK7aC97bO4IOawm+WbtOaMh+aVsO+8muKtkOKtkOKtkOKtkOKYhgoKLS0tCgojIyMg7aC87b6oICoq5o6o6I2Q5LiJ77yaTTUw5Yib5oSP5ZutICsg6IqK6I236Im65pyv56m66Ze0IC8g5YWt5bKb6Im65pyv5Lit5b+DKiogIArtoL3ts40g5Zyw5Z2A77ya6I6r5bmy5bGx6LevNTDlj7fvvIjot53pnZnlronlr7rnuqYz5YWs6YeM77yJICAK7aC87b6vIOaOqOiNkOeQhueUse+8miAgCi0g5LiK5rW355+l5ZCN6Im65pyv6IGa6ZuG5Zyw77yM5raC6bim5aKZ44CB55S75buK5p6X56uL77yM5YWF5ruh5paH6Im65rCU5oGv44CCICAKLSDlj6/kuIDotbfmrKPotY/lvZPku6PoibrmnK/lsZXvvIzlj4LkuI7kupLliqjoo4Xnva7vvIzmv4Dlj5Hmt7HluqbkuqTmtYHjgIIgIArtoL3ttrzvuI8g5o6o6I2Q5bGV6aaG77ya6IqK6I236Im65pyv56m66Ze044CB5YWt5bKb6Im65pyv5Lit5b+D44CB6IiN5pu/6Im65pyv44CCICAK7aC87b23IOe7k+adn+WQjuWPr+WJjeW+gCBuZWFyYnkg55qE6IuP5rKz5rm+5oiW5aSW5rup5rqQ5YWx6L+b5pma6aSQ44CCICAK7aC97bO4IOawm+WbtOaMh+aVsO+8muKtkOKtkOKtkOKtkOKYhgoKLS0tCgojIyMg7aC87b2977iPICoq5o6o6I2Q5Zub77ya5a6r5a60IC8g6buR5piO6aSQ5Y6FICsg6Z2Z5a6JNTDkuK3ppJDljoUqKiAgCu2gve2zjSDlnLDlnYDvvJrljJfkuqzopb/ot68xNDg15Y+3IC8g5oSa5Zut6LevNjjlj7dDUOmdmeWuiSAvIOaEmuWbreS4nOi3rzU45Y+3ICAK7aC87b6vIOaOqOiNkOeQhueUse+8miAgCi0g6Iul5oOz5Lqr5Y+X6auY5ZOB6LSo5Lit5byP5rWq5ryr5pma6aSQ77yMKirlrqvlrrQqKueOr+Wig+WPpOmbhe+8jOiPnOWTgeeyvuiHtO+8myoq6buR5piO6aSQ5Y6FKirnjrDku6Pono3lkIjpo47vvIzmsJvlm7Tnp4Hlr4bjgIIgIAotICoq6Z2Z5a6JNTDkuK3ppJDljoUqKuWImeS4u+aJk+acrOW4ruiPnOS4jueypOW8j+eCueW/g++8jOmAguWQiOWWnOasouS8oOe7n+WPo+WRs+eahOaDheS+o+OAgiAgCu2gve21r++4jyDlu7rorq7pooTnuqbpnaDnqpfkvY3miJbljIXpl7TvvIzmj5DljYfku6rlvI/mhJ/jgIIgIArtoL3ts7gg5rCb5Zu05oyH5pWw77ya4q2Q4q2Q4q2Q4q2Q4q2QCgotLS0KCiMjIyDtoL3ttrzvuI8gKirmjqjojZDkupTvvJrkuIrmtbflsZXop4jkuK3lv4MgKyDlu7bljY7lm63lpJzmma8qKiAgCu2gve2zjSDlnLDlnYDvvJrlu7blronkuK3ot68xMDAw5Y+3ICAK7aC87b6vIOaOqOiNkOeQhueUse+8miAgCi0g57uP5bi45Li+5Yqe5aSn5Z6L6Im65pyv5bGV44CB6K6+6K6h5bGV5oiW5ZOB54mM5b+r6Zeq77yI5aaCIHJlY2VudCDnmoTigJzmorXpq5jmsonmtbjlsZXigJ3vvInvvIzpgILlkIjlhbHlkIzkvZPpqozop4bop4nnm5vlrrTjgIIgIAotIOWxleiniOe7k+adn+WQjuWPr+WcqOaXgei+ueeahCoq5bu25Y2O5ZutKirmlaPmraXvvIzlpJzmmZrnga/lhYnmn5TlkozvvIzmnoHlhbfmtarmvKvmg4XosIPjgIIgIArtoL3tuocg5Lqk6YCa5L6/5Yip77yM5Zyw6ZOB55u06L6+77yM6YCC5ZCI5ZGo5pyr5LiL5Y2IK+WCjeaZmuihjOeoi+OAgiAgCu2gve2zuCDmsJvlm7TmjIfmlbDvvJrirZDirZDirZDirZDimIYKCi0tLQoKIyMjIOKchSDlsI/otLTlo6vvvJoKLSDmiYDmnInlnLDngrnlnYflnKggKio15YWs6YeM6IyD5Zu05YaFKirvvIzlnLDpk4Ev5q2l6KGML+aJk+i9puWdh+WPr+i9u+advuaKtei+vuOAgiAgCi0g5bu66K6u5o+Q5YmN6YCa6L+H5aSn5LyX54K56K+E5oiW5a6Y5pa55rig6YGT5LqG6Kej6JCl5Lia5pe26Ze05Y+K5piv5ZCm6ZyA6aKE57qm44CCICAKLSDlj6/nu5PlkIjlpKnmsJTpgInmi6nvvJrmmbTlpKnkvJjlhYjmiLflpJbvvIjlhazlm63jgIFNNTDvvInvvIzpm6jlpKnmjqjojZDlrqTlhoXvvIjnlLXlvbHpmaLjgIHoibrmnK/lsZXjgIHppJDljoXvvInjgIIKCumcgOimgeaIkeS4uuaCqOinhOWIkuS4gOadoeKAnOWNiuaXpee6puS8muWKqOe6v+KAne+8iOS+i+Wmgu+8muWSluWVoSDihpIg5pWj5q2lIOKGkiDmmZrppJAg4oaSIOeUteW9se+8ie+8jOasoui/jue7p+e7reWRiuivieaIkeWBj+WlvemjjuagvO+8iOaWh+iJui/nvo7po58v5a6J6Z2ZL+eDremXue+8ie+8gQEAAQ==(String), 2025-11-29 23:10:34.885(Timestamp), ASSISTANT(String)
+2025-11-29 23:10:34.994 [main] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-11-29 23:10:34.996 [main] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_chatMessageContentText ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-29 23:10:34.996 [main] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: 9741d7f3-bd21-48f4-8f54-6a943fa4c2d3(String), 根据您提供的信息，您的另一半居住在上海静安区。我已基于该区域中心（坐标：121.447348,31.227718）搜索了5公里范围内的适合约会的地点，并综合筛选出以下**5个高匹配度、氛围佳、适合情侣共度时光的推荐地点**：
+
+---
+
+### 🌟 **推荐一：静安公园 + 百美汇电影院（静安嘉里中心店）**  
+📍 地址：南京西路1649号（静安公园），南京西路1515号（百美汇影院）  
+🎯 推荐理由：  
+- **静安公园**是市中心一片宁静绿洲，四季景色宜人，适合散步、拍照、依偎长椅谈心。  
+- 步行约5分钟可达**百美汇电影院**，位于静安嘉里中心内，环境高端，影片选择丰富，观影后还可共进晚餐。  
+🍽️ 附近餐厅：晶品广场、芮欧百货、嘉里中心多家网红餐厅（如 Yaya's、港巧点粤菜）。  
+📸 氛围指数：⭐⭐⭐⭐⭐
+
+---
+
+### ☕ **推荐二：愚园路文艺小巷 + nowwa / IZUMO COFFEE BAR**  
+📍 地址：愚园路沿线（近静安寺）  
+🎯 推荐理由：  
+- 愚园路充满老上海风情与潮流小店，适合牵手漫步，探索隐藏咖啡馆与艺术空间。  
+- **nowwa挪瓦咖啡**、**IZUMO COFFEE BAR**等独立咖啡馆风格独特，适合慢聊、打卡拍照。  
+🎨 延伸体验：可顺路参观“觉园”或“荣府宴”旁的老洋房建筑群。  
+📸 氛围指数：⭐⭐⭐⭐☆
+
+---
+
+### 🎨 **推荐三：M50创意园 + 芊荷艺术空间 / 六岛艺术中心**  
+📍 地址：莫干山路50号（距静安寺约3公里）  
+🎯 推荐理由：  
+- 上海知名艺术聚集地，涂鸦墙、画廊林立，充满文艺气息。  
+- 可一起欣赏当代艺术展，参与互动装置，激发深度交流。  
+🖼️ 推荐展馆：芊荷艺术空间、六岛艺术中心、舍替艺术。  
+🍷 结束后可前往 nearby 的苏河湾或外滩源共进晚餐。  
+📸 氛围指数：⭐⭐⭐⭐☆
+
+---
+
+### 🍽️ **推荐四：宫宴 / 黑明餐厅 + 静安50中餐厅**  
+📍 地址：北京西路1485号 / 愚园路68号CP静安 / 愚园东路58号  
+🎯 推荐理由：  
+- 若想享受高品质中式浪漫晚餐，**宫宴**环境古雅，菜品精致；**黑明餐厅**现代融合风，氛围私密。  
+- **静安50中餐厅**则主打本帮菜与粤式点心，适合喜欢传统口味的情侣。  
+🕯️ 建议预约靠窗位或包间，提升仪式感。  
+📸 氛围指数：⭐⭐⭐⭐⭐
+
+---
+
+### 🖼️ **推荐五：上海展览中心 + 延华园夜景**  
+📍 地址：延安中路1000号  
+🎯 推荐理由：  
+- 经常举办大型艺术展、设计展或品牌快闪（如 recent 的“梵高沉浸展”），适合共同体验视觉盛宴。  
+- 展览结束后可在旁边的**延华园**散步，夜晚灯光柔和，极具浪漫情调。  
+🚇 交通便利，地铁直达，适合周末下午+傍晚行程。  
+📸 氛围指数：⭐⭐⭐⭐☆
+
+---
+
+### ✅ 小贴士：
+- 所有地点均在 **5公里范围内**，地铁/步行/打车均可轻松抵达。  
+- 建议提前通过大众点评或官方渠道了解营业时间及是否需预约。  
+- 可结合天气选择：晴天优先户外（公园、M50），雨天推荐室内（电影院、艺术展、餐厅）。
+
+需要我为您规划一条“半日约会动线”（例如：咖啡 → 散步 → 晚餐 → 电影），欢迎继续告诉我偏好风格（文艺/美食/安静/热闹）！(String), 2025-11-29 23:10:34.995(Timestamp), ASSISTANT(String)
+2025-11-29 23:10:35.068 [main] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-11-29 23:10:35.069 [main] INFO  c.z.e.demo.app.AiResumeAssistant - content:根据您提供的信息，您的另一半居住在上海静安区。我已基于该区域中心（坐标：121.447348,31.227718）搜索了5公里范围内的适合约会的地点，并综合筛选出以下**5个高匹配度、氛围佳、适合情侣共度时光的推荐地点**：
+
+---
+
+### 🌟 **推荐一：静安公园 + 百美汇电影院（静安嘉里中心店）**  
+📍 地址：南京西路1649号（静安公园），南京西路1515号（百美汇影院）  
+🎯 推荐理由：  
+- **静安公园**是市中心一片宁静绿洲，四季景色宜人，适合散步、拍照、依偎长椅谈心。  
+- 步行约5分钟可达**百美汇电影院**，位于静安嘉里中心内，环境高端，影片选择丰富，观影后还可共进晚餐。  
+🍽️ 附近餐厅：晶品广场、芮欧百货、嘉里中心多家网红餐厅（如 Yaya's、港巧点粤菜）。  
+📸 氛围指数：⭐⭐⭐⭐⭐
+
+---
+
+### ☕ **推荐二：愚园路文艺小巷 + nowwa / IZUMO COFFEE BAR**  
+📍 地址：愚园路沿线（近静安寺）  
+🎯 推荐理由：  
+- 愚园路充满老上海风情与潮流小店，适合牵手漫步，探索隐藏咖啡馆与艺术空间。  
+- **nowwa挪瓦咖啡**、**IZUMO COFFEE BAR**等独立咖啡馆风格独特，适合慢聊、打卡拍照。  
+🎨 延伸体验：可顺路参观“觉园”或“荣府宴”旁的老洋房建筑群。  
+📸 氛围指数：⭐⭐⭐⭐☆
+
+---
+
+### 🎨 **推荐三：M50创意园 + 芊荷艺术空间 / 六岛艺术中心**  
+📍 地址：莫干山路50号（距静安寺约3公里）  
+🎯 推荐理由：  
+- 上海知名艺术聚集地，涂鸦墙、画廊林立，充满文艺气息。  
+- 可一起欣赏当代艺术展，参与互动装置，激发深度交流。  
+🖼️ 推荐展馆：芊荷艺术空间、六岛艺术中心、舍替艺术。  
+🍷 结束后可前往 nearby 的苏河湾或外滩源共进晚餐。  
+📸 氛围指数：⭐⭐⭐⭐☆
+
+---
+
+### 🍽️ **推荐四：宫宴 / 黑明餐厅 + 静安50中餐厅**  
+📍 地址：北京西路1485号 / 愚园路68号CP静安 / 愚园东路58号  
+🎯 推荐理由：  
+- 若想享受高品质中式浪漫晚餐，**宫宴**环境古雅，菜品精致；**黑明餐厅**现代融合风，氛围私密。  
+- **静安50中餐厅**则主打本帮菜与粤式点心，适合喜欢传统口味的情侣。  
+🕯️ 建议预约靠窗位或包间，提升仪式感。  
+📸 氛围指数：⭐⭐⭐⭐⭐
+
+---
+
+### 🖼️ **推荐五：上海展览中心 + 延华园夜景**  
+📍 地址：延安中路1000号  
+🎯 推荐理由：  
+- 经常举办大型艺术展、设计展或品牌快闪（如 recent 的“梵高沉浸展”），适合共同体验视觉盛宴。  
+- 展览结束后可在旁边的**延华园**散步，夜晚灯光柔和，极具浪漫情调。  
+🚇 交通便利，地铁直达，适合周末下午+傍晚行程。  
+📸 氛围指数：⭐⭐⭐⭐☆
+
+---
+
+### ✅ 小贴士：
+- 所有地点均在 **5公里范围内**，地铁/步行/打车均可轻松抵达。  
+- 建议提前通过大众点评或官方渠道了解营业时间及是否需预约。  
+- 可结合天气选择：晴天优先户外（公园、M50），雨天推荐室内（电影院、艺术展、餐厅）。
+
+需要我为您规划一条“半日约会动线”（例如：咖啡 → 散步 → 晚餐 → 电影），欢迎继续告诉我偏好风格（文艺/美食/安静/热闹）！
+2025-11-29 23:10:39.246 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-11-29 23:10:39.246 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-11-29 23:10:39.248 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-11-29 23:10:39.249 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-11-29 23:10:39.298 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-29 23:10:39.301 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-29 23:10:39.302 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 关闭阿里云短信客户端...
+2025-11-29 23:10:39.306 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端已关闭
+2025-11-29 23:10:39.310 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-11-29 23:10:39.321 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
