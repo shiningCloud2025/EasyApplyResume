@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.controller.user;
 
+import com.zyh.easyapplyresume.demo.agent.ResumeAssistantAgent;
 import com.zyh.easyapplyresume.demo.app.AiResumeAssistant;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -7,10 +8,8 @@ import jakarta.annotation.Resource;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
 
 import java.util.UUID;
@@ -40,5 +39,12 @@ public class AiResumeAssistantController {
         return aiResumeAssistant.AiResumeAssistantDoChatWithStream(message,chatId);
     }
 
+    @Operation(summary = "AI简历助手Agent对话")
+    @GetMapping(value = "/agent/chat")
+    public SseEmitter agentChat(@RequestBody String message, @RequestParam(required = false,value = "chatId") String chatId){
+        chatId = UUID.randomUUID().toString();
+        ResumeAssistantAgent resumeAssistantAgent = new ResumeAssistantAgent(allTools,dashscopeChatModel);
+        return resumeAssistantAgent.runStream(message,chatId);
+    }
 
 }
