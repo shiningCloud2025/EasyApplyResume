@@ -5,8 +5,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.annotation.Resource;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.tool.ToolCallback;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+
+import java.util.UUID;
 
 /**
  *  AI系统管理助手控制器-管理端
@@ -25,7 +28,12 @@ public class AISystemManagerAssistantController {
     private ChatModel dashscopeChatModel;
 
     @Operation(summary = "AI系统管理助手应用对话")
-    @Get
+    @PostMapping(value= "/application/chat",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> applicationChat(@RequestBody String message,
+                                        @RequestParam(required = false,value = "chatId") String chatId){
+        chatId = UUID.randomUUID().toString();
+        return aiSystemManagerAssistant.AiSystemManagerAssistantDoChatWithStream(message,chatId);
+    }
 
 
 
