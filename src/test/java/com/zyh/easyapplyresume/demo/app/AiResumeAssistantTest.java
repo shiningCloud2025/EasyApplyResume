@@ -51,7 +51,8 @@ class AiResumeAssistantTest {
     @Test
     void doChatWithRagCloudAdvisor() {
         String chatId = UUID.randomUUID().toString();
-        String message = "工作经历很少，只有一段实习/短期工作，怎么写满一页？";
+//        String message = "工作经历很少，只有一段实习/短期工作，怎么写满一页？";
+        String message = "我想请问MIT学院是一所什么样的学校?";
         String answer = aiResumeAssistant.doChatWithRag(message,chatId);
         Assertions.assertNotNull(answer);
     }

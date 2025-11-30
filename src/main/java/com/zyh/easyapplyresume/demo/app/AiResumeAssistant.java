@@ -79,7 +79,7 @@ public class AiResumeAssistant {
                         // 自定义日志Advisor，可按需开启
                         new MyLoggerAdvisor(),
                         // 自定义Re2Advisor,可按需开启
-                        new ReReadingAdvisor(),
+//                        new ReReadingAdvisor(),
                         // 自定义敏感词过滤Advisor，可按需开启
                         sensitiveWordsAdvisor
                         // 根据用户输入进行过滤
