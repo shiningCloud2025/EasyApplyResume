@@ -116,7 +116,7 @@ public class AiSystemManagerAssistant {
                 .user(message)
                 .system(SYSTEM_PROMPT)
                 .advisors(spec->spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY,chatId)
-                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY,20))
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY,30))
                 .advisors(aiSystemManagerAssistantRagCloudAdvisor)
                 .tools(allTools)
                 .tools(toolCallbackProvider)
