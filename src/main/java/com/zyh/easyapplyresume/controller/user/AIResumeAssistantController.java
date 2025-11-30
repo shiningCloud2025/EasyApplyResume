@@ -21,7 +21,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/user/aiResumeAssistant")
 @Tag(name="AI简历助手控制器-用户端")
-public class AiResumeAssistantController {
+public class AIResumeAssistantController {
     @Resource
     private AiResumeAssistant aiResumeAssistant;
 
@@ -32,15 +32,15 @@ public class AiResumeAssistantController {
     private ChatModel dashscopeChatModel;
 
     @Operation(summary = "AI简历助手应用对话")
-    @GetMapping(value = "/application/chat",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public Flux<String> applicationChat(@RequestParam(required = true,value = "message") String message,
+    @PostMapping(value = "/application/chat",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> applicationChat(@RequestBody String message,
                                         @RequestParam(required = false,value = "chatId") String chatId){
         chatId = UUID.randomUUID().toString();
         return aiResumeAssistant.AiResumeAssistantDoChatWithStream(message,chatId);
     }
 
     @Operation(summary = "AI简历助手Agent对话")
-    @GetMapping(value = "/agent/chat")
+    @PostMapping(value = "/agent/chat")
     public SseEmitter agentChat(@RequestBody String message, @RequestParam(required = false,value = "chatId") String chatId){
         chatId = UUID.randomUUID().toString();
         ResumeAssistantAgent resumeAssistantAgent = new ResumeAssistantAgent(allTools,dashscopeChatModel);
