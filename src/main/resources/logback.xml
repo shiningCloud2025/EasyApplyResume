@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 定义日志格式 -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n" />
+
+    <!-- 定义日志文件路径 -->
+    <property name="LOG_FILE_PATH" value="logs/my-application.log" />
+
+    <!-- 控制台输出 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 文件输出 (带滚动策略) -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE_PATH}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 滚动后的文件名格式 -->
+            <fileNamePattern>logs/my-application.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 单个文件最大 size -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 保留 7 天的日志 -->
+            <maxHistory>14</maxHistory>
+            <!-- 总大小限制 -->
+            <totalSizeCap>2GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 多环境配置：开发环境 -->
+    <springProfile name="dev">
+        <root level="INFO">
+            <!--STDIO模式是不能用这个的喔-->
+<!--            <appender-ref ref="CONSOLE" />-->
+            <appender-ref ref="FILE" />
+        </root>
+        <!-- 开发环境下，项目包日志级别为 DEBUG -->
+        <logger name="com.zyh.easyapplyresume" level="DEBUG" />
+    </springProfile>
+
+    <!-- 多环境配置：生产环境 -->
+    <springProfile name="prod">
+        <root level="WARN">
+            <appender-ref ref="FILE" />
+        </root>
+        <!-- 生产环境下，项目包日志级别为 INFO -->
+        <logger name="com.zyh.easyapplyresume" level="INFO" />
+    </springProfile>
+
+</configuration>
