@@ -7,6 +7,7 @@ import java.security.SecureRandom;
 
 /**
  * 验证码生成工具类
+ * @author shiningCloud2025
  */
 @Component
 public class EmailVerifyCodeUtil {

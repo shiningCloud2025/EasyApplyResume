@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.controller.admin;
 
 import com.zyh.easyapplyresume.service.admin.SendCommunicationEmailService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 发送沟通邮件控制器-管理端
  * Controller层只负责调用服务和返回成功，不处理任何异常
+ * @author shiningCloud2025
  */
 @RestController
 @RequestMapping("/admin/email/communication")
+@Tag(name="发送沟通邮件控制器-管理端")
 public class SendCommunicationEmailController {
     @Autowired
     private SendCommunicationEmailService sendCommunicationEmailService;

@@ -3,6 +3,7 @@ package com.zyh.easyapplyresume.controller.admin;
 import com.zyh.easyapplyresume.demo.agent.SystemAssistantAgent;
 import com.zyh.easyapplyresume.demo.app.AiSystemManagerAssistant;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.tool.ToolCallback;
@@ -19,6 +20,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/admin/aiSystemManagerAssistant")
+@Tag(name="AI系统管理助手控制器-管理端")
 public class AISystemManagerAssistantController {
     @Resource
     private AiSystemManagerAssistant aiSystemManagerAssistant;
