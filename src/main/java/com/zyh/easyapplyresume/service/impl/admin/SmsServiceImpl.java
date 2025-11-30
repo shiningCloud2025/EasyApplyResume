@@ -7,6 +7,7 @@ import com.aliyun.sdk.service.dypnsapi20170525.models.SendSmsVerifyCodeRequest;
 import com.aliyun.sdk.service.dypnsapi20170525.models.SendSmsVerifyCodeResponse;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
+import com.zyh.easyapplyresume.service.admin.SmsService;
 import darabonba.core.client.ClientOverrideConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
-public class SmsServiceImpl {
+public class SmsServiceImpl implements SmsService {
 
     // ==================== Redis 相关 (从新配置读取) ====================
     @Resource
@@ -38,10 +39,7 @@ public class SmsServiceImpl {
 
     @Value("${custom.duanxin.verify.duanxin.redis-prefix}")
     private String sendRecordRedisPrefix;
-
-    // 注入短信主题（虽然短信可能不用，但配置了就注入）
-    @Value("${custom.duanxin.verify.duanxin.subject}")
-    private String smsSubject;
+    
 
     // ==================== 短信配置 (从新配置读取) ====================
     @Value("${ali.sms.access-key-id}")
@@ -110,6 +108,7 @@ public class SmsServiceImpl {
     /**
      * 发送短信验证码（使用新配置）
      */
+    @Override
     public void sendVerifyCode(String phoneNumber) {
         // 1. 校验手机号格式
         validatePhoneNumber(phoneNumber);
@@ -165,6 +164,7 @@ public class SmsServiceImpl {
     /**
      * 校验短信验证码
      */
+    @Override
     public void verifyCode(String phoneNumber, String inputCode) {
         // 1. 校验参数
         if (phoneNumber == null || inputCode == null || inputCode.trim().isEmpty()) {

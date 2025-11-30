@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Data
 @Schema(description = "招聘信息表单")
-public class EmploymentInformationForm {
+public class  EmploymentInformationForm {
     @Schema(description = "招聘信息ID")
     private Integer employmentInformationId;
 

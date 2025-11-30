@@ -1,0 +1,214 @@
+2025-11-30 12:08:58.235 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-11-30 12:08:58.262 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-11-30 12:08:58.264 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-11-30 12:08:58.274 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-11-30 12:08:58.276 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-30 12:08:58.396 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Starting AiResumeAssistantTest using Java 21.0.9 with PID 13920 (started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-30 12:08:58.396 [main] DEBUG c.z.e.demo.app.AiResumeAssistantTest - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-30 12:08:58.398 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - The following 1 profile is active: "dev"
+2025-11-30 12:09:04.237 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-11-30 12:09:04.240 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-11-30 12:09:04.289 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+2025-11-30 12:09:04.405 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.405 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.406 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.407 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.408 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.408 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.409 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.409 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.409 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.410 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.410 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.410 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.411 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.411 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.412 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.412 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:09:04.415 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-11-30 12:09:04.964 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-11-30 12:09:04.984 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-30 12:09:05.117 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-11-30 12:09:05.117 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-11-30 12:09:05.121 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-30 12:09:07.380 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-11-30 12:09:08.628 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端初始化完成
+2025-11-30 12:09:09.796 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 敏感词初始化完成，共加载 137 个敏感词
+2025-11-30 12:09:10.249 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-30 12:09:10.257 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-30 12:09:10.261 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-30 12:09:14.924 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 365193e0-ca0a-492d-9937-e1e7714b9a75
+2025-11-30 12:09:15.208 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = a81953ba-5160-4ed3-ac95-dadda5e1643f
+2025-11-30 12:09:15.490 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = cfe1a329-cda6-43ef-85e9-180a0f34d3b2
+2025-11-30 12:09:17.547 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 11316 (D:\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-30 12:09:17.551 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-11-30 12:09:18.971 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-11-30 12:09:19.032 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-11-30 12:09:19.114 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 2.004 seconds (process running for 2.887)
+2025-11-30 12:09:36.870 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-11-30 12:09:36.876 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-11-30 12:09:37.021 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-11-30 12:09:37.136 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-11-30 12:09:37.139 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-11-30 12:09:37.139 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-11-30 12:09:37.141 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-30 12:09:37.864 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1771dc2a
+2025-11-30 12:09:37.866 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-30 12:09:40.196 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Started AiResumeAssistantTest in 42.462 seconds (process running for 47.223)
+2025-11-30 12:10:36.657 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=58s690ms929µs400ns).
+2025-11-30 12:10:36.780 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-11-30 12:10:37.690 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@77ab3bad
+2025-11-30 12:10:37.690 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-11-30 12:10:37.694 [main] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT chatMessage_id,chatMessage_conversationId,chatMessage_content,chatMessage_createdTime,chatMessage_messageType FROM user_chatMessage WHERE (chatMessage_conversationId = ?) ORDER BY chatMessage_createdTime ASC
+2025-11-30 12:10:37.761 [main] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: f807d7ec-01cf-4934-8e78-9381a8427bc3(String)
+2025-11-30 12:10:37.871 [main] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-11-30 12:10:37.905 [main] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_chatMessage ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-30 12:10:37.913 [main] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: f807d7ec-01cf-4934-8e78-9381a8427bc3(String), AQBqYXZhLnV0aWwuQXJyYXlMaXP0AQEBAWphdmEudXRpbC5IYXNoTWHwAm1lc3NhZ2VUeXDlAQJvcmcuc3ByaW5nZnJhbWV3b3JrLmFpLmNoYXQubWVzc2FnZXMuTWVzc2FnZVR5cOUBlOaIkeaDs+ivt+mXrk1JVOWtpumZouaYr+S4gOaJgOS7gOS5iOagt+eahOWtpuagoT8=(String), 2025-11-30 12:10:37.89(Timestamp), USER(String)
+2025-11-30 12:10:38.068 [main] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-11-30 12:10:38.074 [main] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_chatMessageContentText ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-30 12:10:38.075 [main] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: f807d7ec-01cf-4934-8e78-9381a8427bc3(String), 我想请问MIT学院是一所什么样的学校?(String), 2025-11-30 12:10:38.073(Timestamp), USER(String)
+2025-11-30 12:10:38.205 [main] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-11-30 12:10:42.519 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:我想请问MIT学院是一所什么样的学校?
+2025-11-30 12:10:43.587 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:我想请问MIT学院是一所什么样的学校?
+2025-11-30 12:10:49.771 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:很抱歉，根据您提供的上下文内容，其中并未包含关于“MIT学院”的相关信息，因此我无法依据现有材料回答“MIT学院是一所什么样的学校”这个问题。
+
+不过，需要说明的是：通常所说的“MIT”是指**麻省理工学院**（Massachusetts Institute of Technology），它是一所世界著名的顶尖研究型大学，位于美国马萨诸塞州剑桥市，以科学、工程、技术领域的卓越成就闻名全球。但它不在您提供的文本内容中，因此不属于可引用的上下文信息。
+
+如果您希望了解MIT并将其经历或背景融入简历（例如申请留学、展示教育背景等），我可以帮助您润色相关表述。请告诉我您的具体需求！
+2025-11-30 12:10:49.771 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:很抱歉，根据您提供的上下文内容，其中并未包含关于“MIT学院”的相关信息，因此我无法依据现有材料回答“MIT学院是一所什么样的学校”这个问题。
+
+不过，需要说明的是：通常所说的“MIT”是指**麻省理工学院**（Massachusetts Institute of Technology），它是一所世界著名的顶尖研究型大学，位于美国马萨诸塞州剑桥市，以科学、工程、技术领域的卓越成就闻名全球。但它不在您提供的文本内容中，因此不属于可引用的上下文信息。
+
+如果您希望了解MIT并将其经历或背景融入简历（例如申请留学、展示教育背景等），我可以帮助您润色相关表述。请告诉我您的具体需求！
+2025-11-30 12:10:49.837 [main] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_chatMessage ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-30 12:10:49.837 [main] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: f807d7ec-01cf-4934-8e78-9381a8427bc3(String), AQBqYXZhLnV0aWwuSW1tdXRhYmxlQ29sbGVjdGlvbnMkTGlzdM4BAgEBamF2YS51dGlsLkhhc2hNYfAGZmluaXNoUmVhc2/uA1NUT9Bp5AOlZDYyNzk5M2YtMTEwZi00MTA1LWI2MjItNWQxZjg0YmUwZDYzcm9s5QNBU1NJU1RBTtRtZXNzYWdlVHlw5QECb3JnLnNwcmluZ2ZyYW1ld29yay5haS5jaGF0Lm1lc3NhZ2VzLk1lc3NhZ2VUeXDlAnJlYXNvbmluZ0NvbnRlbvQDgeME5b6I5oqx5q2J77yM5qC55o2u5oKo5o+Q5L6b55qE5LiK5LiL5paH5YaF5a6577yM5YW25Lit5bm25pyq5YyF5ZCr5YWz5LqO4oCcTUlU5a2m6Zmi4oCd55qE55u45YWz5L+h5oGv77yM5Zug5q2k5oiR5peg5rOV5L6d5o2u546w5pyJ5p2Q5paZ5Zue562U4oCcTUlU5a2m6Zmi5piv5LiA5omA5LuA5LmI5qC355qE5a2m5qCh4oCd6L+Z5Liq6Zeu6aKY44CCCgrkuI3ov4fvvIzpnIDopoHor7TmmI7nmoTmmK/vvJrpgJrluLjmiYDor7TnmoTigJxNSVTigJ3mmK/mjIcqKum6u+ecgeeQhuW3peWtpumZoioq77yITWFzc2FjaHVzZXR0cyBJbnN0aXR1dGUgb2YgVGVjaG5vbG9nee+8ie+8jOWug+aYr+S4gOaJgOS4lueVjOiRl+WQjeeahOmhtuWwlueglOeptuWei+Wkp+Wtpu+8jOS9jeS6jue+juWbvemprOiQqOivuOWhnuW3nuWJkeahpeW4gu+8jOS7peenkeWtpuOAgeW3peeoi+OAgeaKgOacr+mihuWfn+eahOWNk+i2iuaIkOWwsemXu+WQjeWFqOeQg+OAguS9huWug+S4jeWcqOaCqOaPkOS+m+eahOaWh+acrOWGheWuueS4re+8jOWboOatpOS4jeWxnuS6juWPr+W8leeUqOeahOS4iuS4i+aWh+S/oeaBr+OAggoK5aaC5p6c5oKo5biM5pyb5LqG6KejTUlU5bm25bCG5YW257uP5Y6G5oiW6IOM5pmv6J6N5YWl566A5Y6G77yI5L6L5aaC55Sz6K+355WZ5a2m44CB5bGV56S65pWZ6IKy6IOM5pmv562J77yJ77yM5oiR5Y+v5Lul5biu5Yqp5oKo5ram6Imy55u45YWz6KGo6L+w44CC6K+35ZGK6K+J5oiR5oKo55qE5YW35L2T6ZyA5rGC77yBAQAB(String), 2025-11-30 12:10:49.772(Timestamp), ASSISTANT(String)
+2025-11-30 12:10:49.969 [main] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-11-30 12:10:49.970 [main] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_chatMessageContentText ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-30 12:10:49.972 [main] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: f807d7ec-01cf-4934-8e78-9381a8427bc3(String), 很抱歉，根据您提供的上下文内容，其中并未包含关于“MIT学院”的相关信息，因此我无法依据现有材料回答“MIT学院是一所什么样的学校”这个问题。
+
+不过，需要说明的是：通常所说的“MIT”是指**麻省理工学院**（Massachusetts Institute of Technology），它是一所世界著名的顶尖研究型大学，位于美国马萨诸塞州剑桥市，以科学、工程、技术领域的卓越成就闻名全球。但它不在您提供的文本内容中，因此不属于可引用的上下文信息。
+
+如果您希望了解MIT并将其经历或背景融入简历（例如申请留学、展示教育背景等），我可以帮助您润色相关表述。请告诉我您的具体需求！(String), 2025-11-30 12:10:49.969(Timestamp), ASSISTANT(String)
+2025-11-30 12:10:50.101 [main] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-11-30 12:10:50.102 [main] INFO  c.z.e.demo.app.AiResumeAssistant - content:很抱歉，根据您提供的上下文内容，其中并未包含关于“MIT学院”的相关信息，因此我无法依据现有材料回答“MIT学院是一所什么样的学校”这个问题。
+
+不过，需要说明的是：通常所说的“MIT”是指**麻省理工学院**（Massachusetts Institute of Technology），它是一所世界著名的顶尖研究型大学，位于美国马萨诸塞州剑桥市，以科学、工程、技术领域的卓越成就闻名全球。但它不在您提供的文本内容中，因此不属于可引用的上下文信息。
+
+如果您希望了解MIT并将其经历或背景融入简历（例如申请留学、展示教育背景等），我可以帮助您润色相关表述。请告诉我您的具体需求！
+2025-11-30 12:11:21.630 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-11-30 12:11:21.630 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-11-30 12:11:21.630 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-11-30 12:11:21.631 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-11-30 12:11:21.662 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-30 12:11:21.667 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-30 12:11:21.667 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 关闭阿里云短信客户端...
+2025-11-30 12:11:21.670 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端已关闭
+2025-11-30 12:11:21.672 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-11-30 12:11:21.679 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-11-30 12:12:18.628 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-11-30 12:12:18.631 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-11-30 12:12:18.631 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-11-30 12:12:18.639 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-11-30 12:12:18.648 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-11-30 12:12:18.735 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Starting AiResumeAssistantTest using Java 21.0.9 with PID 18024 (started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-30 12:12:18.736 [main] DEBUG c.z.e.demo.app.AiResumeAssistantTest - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-11-30 12:12:18.737 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - The following 1 profile is active: "dev"
+2025-11-30 12:12:20.157 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-11-30 12:12:20.159 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-11-30 12:12:20.211 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 35 ms. Found 0 Redis repository interfaces.
+2025-11-30 12:12:20.315 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.316 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.318 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.318 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.319 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.319 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.319 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.320 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.320 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.321 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.321 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.323 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.323 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.323 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.324 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.324 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-11-30 12:12:20.326 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-11-30 12:12:20.699 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-11-30 12:12:20.710 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-30 12:12:20.817 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-11-30 12:12:20.818 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-11-30 12:12:20.822 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-11-30 12:12:22.163 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-11-30 12:12:22.534 [main] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端初始化完成
+2025-11-30 12:12:23.242 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 敏感词初始化完成，共加载 137 个敏感词
+2025-11-30 12:12:23.584 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-30 12:12:23.591 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-30 12:12:23.597 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-11-30 12:12:28.169 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 9f5399cb-10b3-433e-a2ea-5fbd3a194291
+2025-11-30 12:12:28.428 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = d37f3080-1d27-4980-8fd3-dd3bf0971200
+2025-11-30 12:12:28.705 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 29d960a9-72cb-4f77-891d-b9015470aeca
+2025-11-30 12:12:30.903 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 18184 (D:\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-11-30 12:12:30.905 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-11-30 12:12:31.920 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-11-30 12:12:31.964 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-11-30 12:12:32.038 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.498 seconds (process running for 2.118)
+2025-11-30 12:12:44.564 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-11-30 12:12:44.571 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-11-30 12:12:44.704 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-11-30 12:12:44.859 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-11-30 12:12:44.861 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-11-30 12:12:44.861 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-11-30 12:12:44.865 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-11-30 12:12:45.479 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@47005a7f
+2025-11-30 12:12:45.484 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-11-30 12:12:47.146 [main] INFO  c.z.e.demo.app.AiResumeAssistantTest - Started AiResumeAssistantTest in 28.904 seconds (process running for 30.645)
+2025-11-30 12:13:01.410 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-11-30 12:13:02.242 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2d61a3f5
+2025-11-30 12:13:02.243 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-11-30 12:13:02.246 [main] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT chatMessage_id,chatMessage_conversationId,chatMessage_content,chatMessage_createdTime,chatMessage_messageType FROM user_chatMessage WHERE (chatMessage_conversationId = ?) ORDER BY chatMessage_createdTime ASC
+2025-11-30 12:13:02.282 [main] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 4d8bd3ae-5892-4476-b80b-3b052aa37ad8(String)
+2025-11-30 12:13:02.374 [main] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-11-30 12:13:02.383 [main] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_chatMessage ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-30 12:13:02.384 [main] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: 4d8bd3ae-5892-4476-b80b-3b052aa37ad8(String), AQBqYXZhLnV0aWwuQXJyYXlMaXP0AQEBAWphdmEudXRpbC5IYXNoTWHwAm1lc3NhZ2VUeXDlAQJvcmcuc3ByaW5nZnJhbWV3b3JrLmFpLmNoYXQubWVzc2FnZXMuTWVzc2FnZVR5cOUBlOaIkeaDs+ivt+mXrk1JVOWtpumZouaYr+S4gOaJgOS7gOS5iOagt+eahOWtpuagoT8=(String), 2025-11-30 12:13:02.38(Timestamp), USER(String)
+2025-11-30 12:13:02.532 [main] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-11-30 12:13:02.538 [main] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_chatMessageContentText ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-30 12:13:02.540 [main] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: 4d8bd3ae-5892-4476-b80b-3b052aa37ad8(String), 我想请问MIT学院是一所什么样的学校?(String), 2025-11-30 12:13:02.537(Timestamp), USER(String)
+2025-11-30 12:13:02.683 [main] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-11-30 12:13:03.546 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:我想请问MIT学院是一所什么样的学校?
+2025-11-30 12:13:05.168 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:我想请问MIT学院是一所什么样的学校?
+2025-11-30 12:13:11.950 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:很抱歉，根据您提供的上下文信息，其中并未包含关于“MIT学院”的相关内容，因此我无法依据现有材料回答您的问题。
+
+不过，我可以告诉您：MIT通常指的是**麻省理工学院**（Massachusetts Institute of Technology），它是一所世界著名的私立研究型大学，位于美国马萨诸塞州剑桥市，隶属于波士顿地区。MIT以顶尖的工程、计算机科学、物理、经济和人工智能等学科闻名全球，是科技创新和高端人才培养的重镇，常被认为是全球最具影响力的高等学府之一。
+
+但请注意，这一信息**不在您提供的上下文中**，是基于普遍认知的回答。若您希望我仅依据上下文作答，则答案为：**我无法从提供的资料中获取关于MIT学院的信息，因此不能回答该问题。**
+2025-11-30 12:13:11.950 [main] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:很抱歉，根据您提供的上下文信息，其中并未包含关于“MIT学院”的相关内容，因此我无法依据现有材料回答您的问题。
+
+不过，我可以告诉您：MIT通常指的是**麻省理工学院**（Massachusetts Institute of Technology），它是一所世界著名的私立研究型大学，位于美国马萨诸塞州剑桥市，隶属于波士顿地区。MIT以顶尖的工程、计算机科学、物理、经济和人工智能等学科闻名全球，是科技创新和高端人才培养的重镇，常被认为是全球最具影响力的高等学府之一。
+
+但请注意，这一信息**不在您提供的上下文中**，是基于普遍认知的回答。若您希望我仅依据上下文作答，则答案为：**我无法从提供的资料中获取关于MIT学院的信息，因此不能回答该问题。**
+2025-11-30 12:13:12.022 [main] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_chatMessage ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-30 12:13:12.025 [main] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: 4d8bd3ae-5892-4476-b80b-3b052aa37ad8(String), AQBqYXZhLnV0aWwuSW1tdXRhYmxlQ29sbGVjdGlvbnMkTGlzdM4BAgEBamF2YS51dGlsLkhhc2hNYfAGZmluaXNoUmVhc2/uA1NUT9Byb2zlA0FTU0lTVEFO1GnkA6UwZjZmMmVjNy02YTcxLTQxODgtODFlNi1kMDUzMTM5OGVmYjltZXNzYWdlVHlw5QECb3JnLnNwcmluZ2ZyYW1ld29yay5haS5jaGF0Lm1lc3NhZ2VzLk1lc3NhZ2VUeXDlAnJlYXNvbmluZ0NvbnRlbvQDgcgF5b6I5oqx5q2J77yM5qC55o2u5oKo5o+Q5L6b55qE5LiK5LiL5paH5L+h5oGv77yM5YW25Lit5bm25pyq5YyF5ZCr5YWz5LqO4oCcTUlU5a2m6Zmi4oCd55qE55u45YWz5YaF5a6577yM5Zug5q2k5oiR5peg5rOV5L6d5o2u546w5pyJ5p2Q5paZ5Zue562U5oKo55qE6Zeu6aKY44CCCgrkuI3ov4fvvIzmiJHlj6/ku6XlkYror4nmgqjvvJpNSVTpgJrluLjmjIfnmoTmmK8qKum6u+ecgeeQhuW3peWtpumZoioq77yITWFzc2FjaHVzZXR0cyBJbnN0aXR1dGUgb2YgVGVjaG5vbG9nee+8ie+8jOWug+aYr+S4gOaJgOS4lueVjOiRl+WQjeeahOengeeri+eglOeptuWei+Wkp+Wtpu+8jOS9jeS6jue+juWbvemprOiQqOivuOWhnuW3nuWJkeahpeW4gu+8jOmatuWxnuS6juazouWjq+mhv+WcsOWMuuOAgk1JVOS7pemhtuWwlueahOW3peeoi+OAgeiuoeeul+acuuenkeWtpuOAgeeJqeeQhuOAgee7j+a1juWSjOS6uuW3peaZuuiDveetieWtpuenkemXu+WQjeWFqOeQg++8jOaYr+enkeaKgOWIm+aWsOWSjOmrmOerr+S6uuaJjeWfueWFu+eahOmHjemVh++8jOW4uOiiq+iupOS4uuaYr+WFqOeQg+acgOWFt+W9seWTjeWKm+eahOmrmOetieWtpuW6nOS5i+S4gOOAggoK5L2G6K+35rOo5oSP77yM6L+Z5LiA5L+h5oGvKirkuI3lnKjmgqjmj5DkvpvnmoTkuIrkuIvmlofkuK0qKu+8jOaYr+WfuuS6juaZrumBjeiupOefpeeahOWbnuetlOOAguiLpeaCqOW4jOacm+aIkeS7heS+neaNruS4iuS4i+aWh+S9nOetlO+8jOWImeetlOahiOS4uu+8mioq5oiR5peg5rOV5LuO5o+Q5L6b55qE6LWE5paZ5Lit6I635Y+W5YWz5LqOTUlU5a2m6Zmi55qE5L+h5oGv77yM5Zug5q2k5LiN6IO95Zue562U6K+l6Zeu6aKY44CCKioBAAE=(String), 2025-11-30 12:13:11.951(Timestamp), ASSISTANT(String)
+2025-11-30 12:13:12.167 [main] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-11-30 12:13:12.167 [main] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_chatMessageContentText ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType ) VALUES ( ?, ?, ?, ? )
+2025-11-30 12:13:12.169 [main] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: 4d8bd3ae-5892-4476-b80b-3b052aa37ad8(String), 很抱歉，根据您提供的上下文信息，其中并未包含关于“MIT学院”的相关内容，因此我无法依据现有材料回答您的问题。
+
+不过，我可以告诉您：MIT通常指的是**麻省理工学院**（Massachusetts Institute of Technology），它是一所世界著名的私立研究型大学，位于美国马萨诸塞州剑桥市，隶属于波士顿地区。MIT以顶尖的工程、计算机科学、物理、经济和人工智能等学科闻名全球，是科技创新和高端人才培养的重镇，常被认为是全球最具影响力的高等学府之一。
+
+但请注意，这一信息**不在您提供的上下文中**，是基于普遍认知的回答。若您希望我仅依据上下文作答，则答案为：**我无法从提供的资料中获取关于MIT学院的信息，因此不能回答该问题。**(String), 2025-11-30 12:13:12.167(Timestamp), ASSISTANT(String)
+2025-11-30 12:13:12.310 [main] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-11-30 12:13:12.311 [main] INFO  c.z.e.demo.app.AiResumeAssistant - content:很抱歉，根据您提供的上下文信息，其中并未包含关于“MIT学院”的相关内容，因此我无法依据现有材料回答您的问题。
+
+不过，我可以告诉您：MIT通常指的是**麻省理工学院**（Massachusetts Institute of Technology），它是一所世界著名的私立研究型大学，位于美国马萨诸塞州剑桥市，隶属于波士顿地区。MIT以顶尖的工程、计算机科学、物理、经济和人工智能等学科闻名全球，是科技创新和高端人才培养的重镇，常被认为是全球最具影响力的高等学府之一。
+
+但请注意，这一信息**不在您提供的上下文中**，是基于普遍认知的回答。若您希望我仅依据上下文作答，则答案为：**我无法从提供的资料中获取关于MIT学院的信息，因此不能回答该问题。**
+2025-11-30 12:13:41.478 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=55s892ms120µs900ns).
+2025-11-30 12:13:41.508 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-11-30 12:13:41.508 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-11-30 12:13:41.509 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-11-30 12:13:41.509 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-11-30 12:13:41.544 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-11-30 12:13:41.546 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-11-30 12:13:41.548 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 关闭阿里云短信客户端...
+2025-11-30 12:13:41.549 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.admin.SmsServiceImpl - 阿里云短信客户端已关闭
+2025-11-30 12:13:41.551 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-11-30 12:13:41.558 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.

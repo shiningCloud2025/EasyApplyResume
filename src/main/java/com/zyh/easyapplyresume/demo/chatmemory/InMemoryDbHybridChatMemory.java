@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
+/**
+ * 内存数据库混合对话记忆
+ * @author shiningCloud2025
+ */
 @Component
 public class InMemoryDbHybridChatMemory implements ChatMemory {
     // 内存缓存：conversationId -> 消息列表（线程安全）

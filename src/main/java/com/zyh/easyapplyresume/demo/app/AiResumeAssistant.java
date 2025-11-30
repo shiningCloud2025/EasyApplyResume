@@ -20,16 +20,24 @@ import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.tool.ToolCallback;
+import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_RETRIEVE_SIZE_KEY;
 
+/**
+ * AI简历助手(C端)
+ * @author shiningCloud2025
+ */
 @Component
 @Slf4j
 public class AiResumeAssistant {
@@ -71,7 +79,7 @@ public class AiResumeAssistant {
                         // 自定义日志Advisor，可按需开启
                         new MyLoggerAdvisor(),
                         // 自定义Re2Advisor,可按需开启
-                        new ReReadingAdvisor(),
+//                        new ReReadingAdvisor(),
                         // 自定义敏感词过滤Advisor，可按需开启
                         sensitiveWordsAdvisor
                         // 根据用户输入进行过滤
@@ -167,6 +175,66 @@ public class AiResumeAssistant {
         return  content;
     }
 
+    @Resource
+    private ToolCallback[] allTools;
+
+    public String doChatWithTool(String message,String chatId){
+        ChatResponse chatResponse = chatClient
+                .prompt()
+                .user( message)
+                .advisors(spec->spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY,chatId)
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY,10))
+                .advisors(new MyLoggerAdvisor())
+                .tools(allTools)
+                .call()
+                .chatResponse();
+        String content = chatResponse.getResult().getOutput().getText();
+        log.info("content:{}",content);
+        return  content;
+    }
+
+    @Resource
+    private ToolCallbackProvider toolCallbackProvider;
+
+    public String doChatWithMcp(String message,String chatId){
+        ChatResponse chatResponse = chatClient
+                .prompt()
+                .user(message)
+                .advisors(spec->spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY,chatId)
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY,10))
+                .advisors(new MyLoggerAdvisor())
+                .tools(toolCallbackProvider)
+                .call()
+                .chatResponse();
+        String content = chatResponse.getResult().getOutput().getText();
+        log.info("content:{}",content);
+        return  content;
+    }
+
+    /**
+     * AI简历修改助手,面向C端用户
+     * 使用技术:大模型调用+检索器+工具调用+MCP+RAG
+     * @param message
+     * @param chatId
+     * @return
+     */
+    public Flux<String> AiResumeAssistantDoChatWithStream(String message,String chatId){
+         return chatClient.prompt()
+                .user(message)
+                .system(SYSTEM_PROMPT)
+                .advisors(spec->spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY,chatId)
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY,50))
+                .advisors(
+                        new SensitiveWordsAdvisor(),
+                        new MyLoggerAdvisor(),
+//                        new ReReadingAdvisor(),
+                        aiResumeAssistantRagCloudAdvisor
+                )
+                .tools(allTools)
+                .tools(toolCallbackProvider)
+                .stream()
+                .content();
+    }
 
 
 

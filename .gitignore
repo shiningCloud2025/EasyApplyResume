@@ -34,6 +34,7 @@ build/
 # 忽略的文件
 pom.xml
 src/main/resources/application*.*ml
+src/main/resources/*.json
 src/main/java/com/zyh/easyapplyresume/doc/
 src/main/java/com/zyh/easyapplyresume/sql/
 src/main/java/com/zyh/easyapplyresume/docker/
@@ -42,4 +43,7 @@ effective-settings.txt
 src/main/java/com/zyh/easyapplyresume/bagu/
 src/main/java/com/zyh/easyapplyresume/systemdesign/
 src/main/java/com/zyh/easyapplyresume/difficultproblem/
+Image-Search-Mcp/src/main/resources/
+Image-Search-Mcp/nul
+CLAUDE.md
 nul
