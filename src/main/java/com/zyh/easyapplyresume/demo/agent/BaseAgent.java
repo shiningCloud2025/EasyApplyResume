@@ -50,10 +50,10 @@ public abstract class BaseAgent {
      */
     public String run(String userPrompt){
         if(this.state!=AgentState.IDLE){
-            throw new RuntimeException("Cannot run agent from state: "+this.state);
+            throw new RuntimeException("无法从当前状态运行Agent: "+this.state);
         }
         if (StringUtil.isEmpty(userPrompt)){
-            throw new RuntimeException("Cannot run agent with empty user prompt");
+            throw new RuntimeException("不能使用空提示词运行Agent");
         }
         // 更改状态
         state = AgentState.RUNNING;
@@ -65,7 +65,7 @@ public abstract class BaseAgent {
             for(int i=0;i<maxSteps&&state!=AgentState.FINISHED;i++){
                 int stepNumber = i+1;
                 currentStep = stepNumber;
-                log.info("Executing step " + stepNumber + "/" + maxSteps);
+                log.info("正在执行步骤 " + stepNumber + "/" + maxSteps);
                 // 单步执行
                 String stepResult = step();
                 results.add(stepResult);
@@ -73,13 +73,13 @@ public abstract class BaseAgent {
             // 检查是否超出步骤限制
             if (currentStep >= maxSteps){
                 state = AgentState.FINISHED;
-                results.add("Terminated: Reached max steps (" + maxSteps + ")");
+                results.add("执行终止: 已达到最大步骤数 (" + maxSteps + ")");
             }
             return String.join("\n", results);
         }catch (Exception e){
             state = AgentState.ERROR;
-            log.error("Error executing agent: ", e);
-            return "执行错误"+e.getMessage();
+            log.error("代理执行错误: ", e);
+            return "执行错误: "+e.getMessage();
         }finally {
             // 清理资源
             this.cleanup();
@@ -118,11 +118,11 @@ public abstract class BaseAgent {
                     for (int i = 0; i < maxSteps && state != AgentState.FINISHED; i++) {
                         int stepNumber = i + 1;
                         currentStep = stepNumber;
-                        log.info("Executing step " + stepNumber + "/" + maxSteps);
+                        log.info("正在执行步骤 " + stepNumber + "/" + maxSteps);
 
                         // 单步执行
                         String stepResult = step();
-                        String result = "Step " + stepNumber + ": " + stepResult;
+                        String result = "步骤 " + stepNumber + ": " + stepResult;
 
                         // 发送每一步的结果
                         emitter.send(result);
