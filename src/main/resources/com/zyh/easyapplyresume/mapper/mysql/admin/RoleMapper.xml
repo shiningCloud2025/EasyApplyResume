@@ -14,6 +14,17 @@
         where roleId = #{roleId}
     </delete>
 
+    <resultMap id="RoleInfoResultMap" type="com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO">
+        <id property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+        <result property="roleIntroduce" column="role_introduce"/>
+        <collection property="permissionInfoVOS" ofType="com.zyh.easyapplyresume.model.vo.admin.PermissionInfoVO">
+            <id property="permissionId" column="permission_id"/>
+            <result property="permissionName" column="permission_name"/>
+            <result property="permissionIntroduce" column="permission_introduce"/>
+        </collection>
+    </resultMap>
+
     <select id="findRoleInfoById" parameterType="int" resultType="com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO">
         select * from admin_role
                           left join admin_role_permission on admin_role.role_id = admin_role.role_id
