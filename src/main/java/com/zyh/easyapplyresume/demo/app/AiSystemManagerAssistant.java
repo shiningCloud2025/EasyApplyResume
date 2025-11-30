@@ -1,11 +1,25 @@
 package com.zyh.easyapplyresume.demo.app;
 
+import com.zyh.easyapplyresume.demo.advisor.MyLoggerAdvisor;
+import com.zyh.easyapplyresume.demo.advisor.ReReadingAdvisor;
 import com.zyh.easyapplyresume.demo.advisor.SensitiveWordsAdvisor;
+import com.zyh.easyapplyresume.demo.chatmemory.AdminInMemoryDbHybridChatMemory;
+import com.zyh.easyapplyresume.demo.chatmemory.AdminMySQLBasedChatMemory;
 import com.zyh.easyapplyresume.demo.chatmemory.MySQLBasedChatMemory;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.client.advisor.api.Advisor;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.tool.ToolCallback;
+import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
+
+import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
+import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_RETRIEVE_SIZE_KEY;
 
 /**
  * 系统管理助手(B端)
@@ -15,7 +29,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class AiSystemManagerAssistant {
 
-//    private final ChatClient chatClient;
+    private final ChatClient chatClient;
 
     private static final String SYSTEM_PROMPT =
             "你是【易投简历管理系统助手】，一个专为该系统管理员设计的AI技术支持与运营专家。\n\n" +
@@ -66,7 +80,49 @@ public class AiSystemManagerAssistant {
                     "## 核心目标\n" +
                     "通过专业的引导式对话，确保每个系统问题都能得到准确诊断和有效解决，帮助管理员提升系统稳定性和用户体验。";
 
-//    public SystemManagerAssistant(ChatModel dashscopeChatModel, MySQLBasedChatMemory mySQLBasedChatMemory, SensitiveWordsAdvisor sensitiveWordsAdvisor){
-//
-//    }
+    public AiSystemManagerAssistant(ChatModel dashscopeChatModel, AdminMySQLBasedChatMemory adminMySQLBasedChatMemory, SensitiveWordsAdvisor sensitiveWordsAdvisor){
+        // 初始化基于混合持久化(内存+数据库)的对话记忆
+        ChatMemory chatMemory = new AdminInMemoryDbHybridChatMemory(adminMySQLBasedChatMemory);
+        chatClient = ChatClient.builder(dashscopeChatModel)
+                .defaultSystem(SYSTEM_PROMPT)
+                .defaultAdvisors(
+                        new MessageChatMemoryAdvisor(chatMemory),
+                        // 自定义日志Advisor，可按需开启
+                        new MyLoggerAdvisor(),
+                        // 自定义Re2Advisor,可按需开启
+                        new ReReadingAdvisor(),
+                        // 自定义敏感词过滤Advisor，可按需开启
+                        sensitiveWordsAdvisor
+                )
+                .build();
+    }
+
+    @Resource
+    private Advisor aiSystemManagerAssistantRagCloudAdvisor;
+    @Resource
+    private ToolCallback[] allTools;
+    @Resource
+    private ToolCallbackProvider toolCallbackProvider;
+
+    /**
+     * AI系统管理助手,面向B端用户
+     * 使用技术:大模型调用+检索器+工具调用+MCP+RAG
+     * @param message
+     * @param chatId
+     * @return
+     */
+    public Flux<String> AiSystemManagerAssistantDoChatWithStream(String message, String chatId){
+        return chatClient.prompt()
+                .user(message)
+                .system(SYSTEM_PROMPT)
+                .advisors(spec->spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY,chatId)
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY,20))
+                .advisors(aiSystemManagerAssistantRagCloudAdvisor)
+                .tools(allTools)
+                .tools(toolCallbackProvider)
+                .stream()
+                .content();
+    }
+
+
 }
