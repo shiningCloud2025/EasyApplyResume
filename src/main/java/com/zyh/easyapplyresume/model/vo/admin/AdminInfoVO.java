@@ -4,6 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
+
 /**
  * @author shiningCloud2025
  */
@@ -34,22 +36,8 @@ public class AdminInfoVO {
     @Schema(description = "管理员最近登录时间")
     private Date adminLoginTime;
 
-    @Schema(description = "角色id")
-    private Integer roleId;
+    @Schema(description = "管理员拥有的角色")
+    private List<RoleInfoVO> roleInfoVOS;
 
-    @Schema(description = "角色名称")
-    private String roleName;
-
-    @Schema(description = "角色介绍")
-    private String roleIntroduce;
-
-    @Schema(description = "权限id")
-    private Integer permissionId;
-
-    @Schema(description = "权限名称")
-    private String permissionName;
-
-    @Schema(description = "权限url")
-    private String permissionUrl;
 
 }

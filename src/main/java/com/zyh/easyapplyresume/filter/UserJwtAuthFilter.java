@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.filter;
 
+import cn.hutool.core.util.StrUtil;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserMapper;
 import com.zyh.easyapplyresume.model.pojo.user.User;
 import com.zyh.easyapplyresume.security.SecurityUser;
@@ -10,7 +11,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import opennlp.tools.util.StringUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,7 +48,7 @@ public class UserJwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String header = request.getHeader(headerName);
         // 如果请求头没有拿到token
-        if (StringUtil.isEmpty(header)||!header.startsWith(tokenPrefix)){
+        if (StrUtil.isBlank(header)||!header.startsWith(tokenPrefix)){
             filterChain.doFilter(request,response);
             return;
         }

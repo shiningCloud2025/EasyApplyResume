@@ -8,7 +8,30 @@
         where adminId = #{adminId}
     </delete>
 
-    <select id="findAdminInfoById" parameterType="int" resultType="com.zyh.easyapplyresume.model.vo.admin.AdminInfoVO">
+    <resultMap id="AdminInfoResultMap" type="com.zyh.easyapplyresume.model.vo.admin.AdminInfoVO">
+        <id property="adminId" column="admin_id"/>
+        <result property="adminUsername" column="admin_username"/>
+        <result property="adminEmail" column="admin_email"/>
+        <result property="adminPhone" column="admin_phone"/>
+        <result property="adminImage" column="admin_image"/>
+        <result property="adminIntroduce" column="admin_introduce"/>
+        <result property="adminState" column="admin_state"/>
+        <result property="adminLoginTime" column="admin_login_time"/>
+        <collection property="roleInfoVOS" ofType="com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO">
+            <id property="roleId" column="role_id"></id>
+            <result property="roleName" column="role_name"></result>
+            <result property="roleIntroduce" column="role_introduce"></result>
+            <collection property="permissionInfoVOS" ofType="com.zyh.easyapplyresume.model.vo.admin.PermissionInfoVO">
+                <id property="permissionId" column="permission_id"></id>
+                <result property="permissionUrl" column="permission_url"></result>
+                <result property="permissionName" column="permission_name"></result>
+                <result property="permissionIntroduce" column="permission_introduce"></result>
+            </collection>
+        </collection>
+    </resultMap>
+    
+    
+    <select id="findAdminInfoById" parameterType="int" resultMap="AdminInfoResultMap">
         select * from admin_admin
         left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId
         left join admin_role on admin_admin_role.roleId = admin_role.role_id

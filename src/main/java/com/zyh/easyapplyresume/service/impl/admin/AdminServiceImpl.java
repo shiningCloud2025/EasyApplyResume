@@ -13,9 +13,11 @@ import com.zyh.easyapplyresume.model.vo.admin.AdminPageVO;
 import com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminService;
 import com.zyh.easyapplyresume.utils.Validator.AdminFormValidator;
+import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +37,9 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
+    @Resource
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public Integer addAdmin(AdminForm adminForm) {
         if(adminForm==null) {
@@ -44,6 +49,7 @@ public class AdminServiceImpl implements AdminService {
         Admin admin = new Admin();
         admin.setAdminLoginTime(new Date());
         BeanUtils.copyProperties(adminForm, admin);
+        admin.setAdminPassword(passwordEncoder.encode(admin.getAdminPassword()));
         try{
             return adminMapper.insert(admin);
         }catch (DataAccessException e){
