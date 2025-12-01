@@ -16,7 +16,7 @@ import com.zyh.easyapplyresume.model.query.admin.EmploymentInformationQuery;
 import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationPageVO;
 import com.zyh.easyapplyresume.service.admin.EmploymentInformationService;
-import com.zyh.easyapplyresume.utils.Validator.EmploymentInformationFormValidator;
+import com.zyh.easyapplyresume.utils.adminvalidator.EmploymentInformationFormValidator;
 import org.apache.ibatis.executor.BatchResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

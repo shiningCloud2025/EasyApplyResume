@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.security;
 import com.zyh.easyapplyresume.filter.UserJwtAuthFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -13,10 +14,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 @Order(1)
 public class UserSecurityConfig {
-    private final UserJwtAuthFilter  userJwtAuthFilter;
+    @Autowired
+    private  UserJwtAuthFilter  userJwtAuthFilter;
 
     @Bean
     public SecurityFilterChain userSecurityFilterChain(HttpSecurity http) throws Exception{

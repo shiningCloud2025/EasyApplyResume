@@ -12,7 +12,7 @@ import com.zyh.easyapplyresume.model.vo.admin.PermissionInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.RolePageVO;
 import com.zyh.easyapplyresume.service.admin.RoleService;
-import com.zyh.easyapplyresume.utils.Validator.RoleFormValidator;
+import com.zyh.easyapplyresume.utils.adminvalidator.RoleFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;

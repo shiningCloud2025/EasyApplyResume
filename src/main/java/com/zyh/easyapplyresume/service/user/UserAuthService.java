@@ -18,12 +18,12 @@ public interface UserAuthService {
     /**
      * 手机登录(手机短信+密码)
      */
-    public boolean phoneLogin(String phone, String password);
+    public boolean phoneLogin(String phone, String messageCode);
 
     /**
      * 邮箱登录(邮箱验证码+密码)
      */
-    public boolean emailLogin(String email, String password);
+    public boolean emailLogin(String email, String messageCode);
 
     /**
      * 普通注册(账号+密码)
