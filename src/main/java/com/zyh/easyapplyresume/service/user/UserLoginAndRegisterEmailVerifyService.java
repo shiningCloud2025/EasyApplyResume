@@ -2,7 +2,7 @@ package com.zyh.easyapplyresume.service.user;
 /**
  * @author shiningCloud2025
  */
-public interface LoginAndRegisterEmailVerifyService {
+public interface UserLoginAndRegisterEmailVerifyService {
     /**
      * 发送邮箱验证码
      * @param toEmail

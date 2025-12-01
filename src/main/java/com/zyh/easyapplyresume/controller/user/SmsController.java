@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.controller.user;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.service.impl.user.SmsServiceImpl;
+import com.zyh.easyapplyresume.service.impl.user.UserSmsServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/admin/sms")
+@RequestMapping("/user/sms")
 @RequiredArgsConstructor
 @Tag(name = "短信验证码接口-用户端")
 public class SmsController {
 
-    private final SmsServiceImpl smsService;
+    private final UserSmsServiceImpl smsService;
 
     /**
      * 发送短信验证码接口（模仿邮箱：POST 请求）

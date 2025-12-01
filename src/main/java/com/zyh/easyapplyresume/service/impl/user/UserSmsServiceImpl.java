@@ -7,7 +7,7 @@ import com.aliyun.sdk.service.dypnsapi20170525.models.SendSmsVerifyCodeRequest;
 import com.aliyun.sdk.service.dypnsapi20170525.models.SendSmsVerifyCodeResponse;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
-import com.zyh.easyapplyresume.service.user.SmsService;
+import com.zyh.easyapplyresume.service.user.UserSmsService;
 import darabonba.core.client.ClientOverrideConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
-public class SmsServiceImpl implements SmsService {
+public class UserSmsServiceImpl implements UserSmsService {
 
     // ==================== Redis 相关 (从新配置读取) ====================
     @Resource

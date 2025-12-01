@@ -2,7 +2,7 @@ package com.zyh.easyapplyresume.service.user;
 /**
  * @author shiningCloud2025
  */
-public interface SmsService {
+public interface UserSmsService {
     /**
      * 发送短信验证码
      * @param phoneNumber
