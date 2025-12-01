@@ -15,7 +15,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
-
+/**
+ * @author shiningCloud2025
+ */
 @Slf4j
 @Service
 public class UserLoginAndRegisterEmailVerifyServiceImpl implements UserLoginAndRegisterEmailVerifyService {
