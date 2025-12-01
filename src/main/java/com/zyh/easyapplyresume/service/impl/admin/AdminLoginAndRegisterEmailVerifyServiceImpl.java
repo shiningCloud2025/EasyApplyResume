@@ -145,7 +145,7 @@ public class AdminLoginAndRegisterEmailVerifyServiceImpl implements AdminLoginAn
     @Override
     public void verifyCode(String email, String inputCode) {
         // 1. 校验输入参数
-        if (email == null || inputCode == null || inputCode.trim().isEmpty()) {
+        if (email == null || inputCode == null || inputCode.trim().isEmpty()||email.length()>25) {
             log.warn("邮箱 [{}] 验证码校验，输入参数无效", email);
             throw new BusException(AdminCodeEnum.EMAIL_VERIFY_CODE_INVALID);
         }
