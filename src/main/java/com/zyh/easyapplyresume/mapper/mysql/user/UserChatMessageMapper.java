@@ -5,6 +5,9 @@ import com.zyh.easyapplyresume.model.pojo.user.UserChatMessage;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+/**
+ * @author shiningCloud2025
+ */
 public interface UserChatMessageMapper extends BaseMapper<UserChatMessage> {
 
     List<UserChatMessage> selectLastNByConversationId(@Param("conversationId") String conversationId, @Param("lastN") Integer lastN);
