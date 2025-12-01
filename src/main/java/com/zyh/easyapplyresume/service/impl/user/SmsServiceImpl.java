@@ -1,4 +1,4 @@
-package com.zyh.easyapplyresume.service.impl.admin;
+package com.zyh.easyapplyresume.service.impl.user;
 
 import com.aliyun.auth.credentials.Credential;
 import com.aliyun.auth.credentials.provider.StaticCredentialProvider;
@@ -7,7 +7,7 @@ import com.aliyun.sdk.service.dypnsapi20170525.models.SendSmsVerifyCodeRequest;
 import com.aliyun.sdk.service.dypnsapi20170525.models.SendSmsVerifyCodeResponse;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
-import com.zyh.easyapplyresume.service.admin.SmsService;
+import com.zyh.easyapplyresume.service.user.SmsService;
 import darabonba.core.client.ClientOverrideConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
