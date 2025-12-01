@@ -61,7 +61,7 @@ public class UserLoginAndRegisterEmailVerifyServiceImpl implements UserLoginAndR
     @Override
     public void sendVerifyCode(String toEmail) {
         // 1. 校验邮箱格式
-        if (toEmail == null || !toEmail.contains("@") || toEmail.split("@").length != 2) {
+        if (toEmail == null || !toEmail.contains("@") || toEmail.split("@").length != 2||toEmail.length()>25) {
             log.warn("邮箱格式无效: {}", toEmail);
             throw new BusException(AdminCodeEnum.EMAIL_NO_EFFECT);
         }

@@ -9,6 +9,7 @@ import com.zyh.easyapplyresume.model.form.user.FormalRegisterForm;
 import com.zyh.easyapplyresume.model.form.user.PhoneRegisterForm;
 import com.zyh.easyapplyresume.model.pojo.user.User;
 import com.zyh.easyapplyresume.service.user.UserAuthService;
+import com.zyh.easyapplyresume.service.user.UserLoginAndRegisterEmailVerifyService;
 import com.zyh.easyapplyresume.service.user.UserSmsService;
 import com.zyh.easyapplyresume.utils.jwt.JwtUtil;
 import jakarta.annotation.Resource;
@@ -47,6 +48,9 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Autowired
     private UserSmsService userSmsService;
+
+    @Autowired
+    private UserLoginAndRegisterEmailVerifyService userLoginAndRegisterEmailVerifyService;
 
     /**
      * 账号/邮箱/手机号+密码登录
@@ -96,8 +100,15 @@ public class UserAuthServiceImpl implements UserAuthService {
      */
     @Override
     public boolean emailLogin(String email, String messageCode) {
-
-        return false;
+        userLoginAndRegisterEmailVerifyService.verifyCode(email, messageCode);
+        User user = userMapper.findByAccountOrPhoneOrEmail(email);
+        if (user== null){
+            throw new BusException(UserCodeEnum.NO_REGISTER_ERROR);
+        }
+        String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
+        String redisKey = "user:token:" + user.getUserId();
+        stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
+        return true;
     }
 
     @Override
