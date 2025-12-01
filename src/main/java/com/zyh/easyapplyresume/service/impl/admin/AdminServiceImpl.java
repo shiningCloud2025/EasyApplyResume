@@ -12,7 +12,7 @@ import com.zyh.easyapplyresume.model.vo.admin.AdminInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminPageVO;
 import com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminService;
-import com.zyh.easyapplyresume.utils.Validator.AdminFormValidator;
+import com.zyh.easyapplyresume.utils.adminvalidator.AdminFormValidator;
 import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

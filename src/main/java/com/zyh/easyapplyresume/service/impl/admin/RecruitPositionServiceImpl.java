@@ -11,7 +11,7 @@ import com.zyh.easyapplyresume.model.query.admin.RecruitPositionQuery;
 import com.zyh.easyapplyresume.model.vo.admin.RecruitPositionInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.RecruitPositionPageVO;
 import com.zyh.easyapplyresume.service.admin.RecruitPositionService;
-import com.zyh.easyapplyresume.utils.Validator.RecruitPositionFormValidator;
+import com.zyh.easyapplyresume.utils.adminvalidator.RecruitPositionFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,12 +28,14 @@ import java.util.Collections;
  */
 @Slf4j
 @Component
-@RequiredArgsConstructor
-public class UserJwtAuthFilter extends OncePerRequestFilter {
 
-    private final JwtUtil jwtUtil;
-    private final StringRedisTemplate stringRedisTemplate;
-    private final UserMapper userMapper;
+public class UserJwtAuthFilter extends OncePerRequestFilter {
+    @Autowired
+    private  JwtUtil jwtUtil;
+    @Autowired
+    private  StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private  UserMapper userMapper;
 
     @Value("${jwt.user.secret}")
     private String jwtSecret;

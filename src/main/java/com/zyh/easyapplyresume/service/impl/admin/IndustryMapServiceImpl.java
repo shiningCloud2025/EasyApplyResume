@@ -14,7 +14,7 @@ import com.zyh.easyapplyresume.model.query.admin.IndustryMapQuery;
 import com.zyh.easyapplyresume.model.vo.admin.IndustryMapInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.IndustryMapPageVO;
 import com.zyh.easyapplyresume.service.admin.IndustryMapService;
-import com.zyh.easyapplyresume.utils.Validator.IndustryMapFormValidator;
+import com.zyh.easyapplyresume.utils.adminvalidator.IndustryMapFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;

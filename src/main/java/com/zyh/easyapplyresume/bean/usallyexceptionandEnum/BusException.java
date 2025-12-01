@@ -25,4 +25,8 @@ public class BusException extends RuntimeException{
         this.code = industryMapEnum.getCode();
         this.msg = industryMapEnum.getMessage();
     }
+    public BusException(UserCodeEnum codeEnum){
+        this.code = codeEnum.getCode();
+        this.msg = codeEnum.getMessage();
+    }
 }

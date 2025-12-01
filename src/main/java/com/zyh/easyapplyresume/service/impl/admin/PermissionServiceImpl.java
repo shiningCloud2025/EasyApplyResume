@@ -12,7 +12,7 @@ import com.zyh.easyapplyresume.model.query.admin.PermissionPageQuery;
 import com.zyh.easyapplyresume.model.vo.admin.PermissionInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.PermissionPageVO;
 import com.zyh.easyapplyresume.service.admin.PermissionService;
-import com.zyh.easyapplyresume.utils.Validator.PermissionFormValidator;
+import com.zyh.easyapplyresume.utils.adminvalidator.PermissionFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

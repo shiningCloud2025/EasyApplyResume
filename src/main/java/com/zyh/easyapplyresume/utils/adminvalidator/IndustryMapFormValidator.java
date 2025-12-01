@@ -1,4 +1,4 @@
-package com.zyh.easyapplyresume.utils.Validator;
+package com.zyh.easyapplyresume.utils.adminvalidator;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.IndustryMapEnum;

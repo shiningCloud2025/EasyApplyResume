@@ -11,7 +11,7 @@ import com.zyh.easyapplyresume.model.query.admin.JobAdviceArticleQuery;
 import com.zyh.easyapplyresume.model.vo.admin.JobAdviceArticleInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.JobAdviceArticlePageVO;
 import com.zyh.easyapplyresume.service.admin.JobAdviceArticleService;
-import com.zyh.easyapplyresume.utils.Validator.JobAdviceArticleFormValidator;
+import com.zyh.easyapplyresume.utils.adminvalidator.JobAdviceArticleFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -13,7 +13,7 @@ import com.zyh.easyapplyresume.model.query.admin.ResumeTemplateQuery;
 import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplatePageVO;
 import com.zyh.easyapplyresume.service.admin.IndustryMapService;
-import com.zyh.easyapplyresume.utils.Validator.ResumeTemplateFormValidator;
+import com.zyh.easyapplyresume.utils.adminvalidator.ResumeTemplateFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
