@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.controller.user;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.service.user.LoginAndRegisterEmailVerifyService;
+import com.zyh.easyapplyresume.service.user.UserLoginAndRegisterEmailVerifyService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginAndRegisterEmailVerifyController {
 
     @Autowired
-    private LoginAndRegisterEmailVerifyService emailVerifyService;
+    private UserLoginAndRegisterEmailVerifyService emailVerifyService;
 
     /**
      * 发送邮箱验证码接口
