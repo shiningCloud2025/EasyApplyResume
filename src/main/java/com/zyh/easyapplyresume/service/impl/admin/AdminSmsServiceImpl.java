@@ -1,47 +1,47 @@
-package com.zyh.easyapplyresume.service.impl.user;
+package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.aliyun.auth.credentials.Credential;
 import com.aliyun.auth.credentials.provider.StaticCredentialProvider;
 import com.aliyun.sdk.service.dypnsapi20170525.AsyncClient;
 import com.aliyun.sdk.service.dypnsapi20170525.models.SendSmsVerifyCodeRequest;
 import com.aliyun.sdk.service.dypnsapi20170525.models.SendSmsVerifyCodeResponse;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
-import com.zyh.easyapplyresume.service.user.UserSmsService;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.service.admin.AdminSmsService;
 import darabonba.core.client.ClientOverrideConfiguration;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
-import jakarta.annotation.Resource;
 import java.security.SecureRandom;
 import java.util.concurrent.TimeUnit;
+
 /**
  * @author shiningCloud2025
  */
 @Slf4j
 @Service
-public class UserSmsServiceImpl implements UserSmsService {
-
+public class AdminSmsServiceImpl implements AdminSmsService {
     // ==================== Redis 相关 (从新配置读取) ====================
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
-    @Value("${custom.duanxin.verify.code.expire-seconds}")
+    @Value("${admin.duanxin.verify.code.expire-seconds}")
     private long codeExpireSeconds;
 
-    @Value("${custom.duanxin.verify.code.redis-prefix}")
+    @Value("${admin.duanxin.verify.code.redis-prefix}")
     private String codeRedisPrefix;
 
-    @Value("${custom.duanxin.verify.duanxin.send-interval-seconds}")
+    @Value("${admin.duanxin.verify.duanxin.send-interval-seconds}")
     private long sendIntervalSeconds;
 
-    @Value("${custom.duanxin.verify.duanxin.redis-prefix}")
+    @Value("${admin.duanxin.verify.duanxin.redis-prefix}")
     private String sendRecordRedisPrefix;
-    
+
 
     // ==================== 短信配置 (从新配置读取) ====================
     @Value("${ali.sms.access-key-id}")
@@ -63,7 +63,7 @@ public class UserSmsServiceImpl implements UserSmsService {
     private String endpoint;
 
     // 从新配置读取验证码长度，如果配置不存在则使用默认值6
-    @Value("${custom.duanxin.verify.code.length:6}")
+    @Value("${admin.duanxin.verify.code.length:6}")
     private int codeLength;
 
     @Value("${ali.sms.valid-time}")
@@ -73,39 +73,6 @@ public class UserSmsServiceImpl implements UserSmsService {
     private AsyncClient asyncClient;
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
     private static final String CODE_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    /**
-     * 初始化阿里云短信客户端
-     */
-    @PostConstruct
-    public void initClient() {
-        log.info("开始初始化阿里云短信客户端...");
-        try {
-            if (accessKeyId == null || accessKeySecret == null || signName == null || templateCode == null) {
-                log.error("阿里云短信核心配置缺失！");
-                throw new BusException(AdminCodeEnum.SMS_CONFIG_ERROR);
-            }
-
-            StaticCredentialProvider credentialProvider = StaticCredentialProvider.create(
-                    Credential.builder()
-                            .accessKeyId(accessKeyId)
-                            .accessKeySecret(accessKeySecret)
-                            .build()
-            );
-
-            this.asyncClient = AsyncClient.builder()
-                    .region(regionId)
-                    .credentialsProvider(credentialProvider)
-                    .overrideConfiguration(ClientOverrideConfiguration.create().setEndpointOverride(endpoint))
-                    .build();
-            log.info("阿里云短信客户端初始化完成");
-        } catch (BusException e) {
-            throw e;
-        } catch (Exception e) {
-            log.error("初始化阿里云短信客户端异常: ", e);
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
-        }
-    }
 
     /**
      * 发送短信验证码（使用新配置）
@@ -163,9 +130,6 @@ public class UserSmsServiceImpl implements UserSmsService {
         }
     }
 
-    /**
-     * 校验短信验证码
-     */
     @Override
     public void verifyCode(String phoneNumber, String inputCode) {
         // 1. 校验参数
@@ -188,6 +152,7 @@ public class UserSmsServiceImpl implements UserSmsService {
         }
     }
 
+
     /**
      * 手机号格式校验
      */
@@ -208,17 +173,5 @@ public class UserSmsServiceImpl implements UserSmsService {
             codeBuilder.append(CODE_CHARACTERS.charAt(SECURE_RANDOM.nextInt(CODE_CHARACTERS.length())));
         }
         return codeBuilder.toString();
-    }
-
-    /**
-     * 销毁短信客户端
-     */
-    @PreDestroy
-    public void destroyClient() {
-        if (asyncClient != null) {
-            log.info("关闭阿里云短信客户端...");
-            asyncClient.close();
-            log.info("阿里云短信客户端已关闭");
-        }
     }
 }
