@@ -1,9 +1,9 @@
 package com.zyh.easyapplyresume.mapper.mysql.user;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.zyh.easyapplyresume.model.pojo.user.User;
+import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
 /**
  * @author shiningCloud2025
  */
-public interface UserMapper extends BaseMapper<User> {
+public interface UserSaveResumeMapper extends BaseMapper<UserSaveResume> {
 }
