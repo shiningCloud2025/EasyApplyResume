@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user/sms")
 @RequiredArgsConstructor
 @Tag(name = "短信验证码接口-用户端")
-public class SmsController {
+public class UserSmsController {
 
     private final UserSmsServiceImpl smsService;
 

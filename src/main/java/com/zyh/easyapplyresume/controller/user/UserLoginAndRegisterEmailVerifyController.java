@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user/email/loginandregister")
 @Tag(name = "登录注册邮箱验证码接口-用户端")
-public class LoginAndRegisterEmailVerifyController {
+public class UserLoginAndRegisterEmailVerifyController {
 
     @Autowired
     private UserLoginAndRegisterEmailVerifyService emailVerifyService;
