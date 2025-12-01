@@ -1,7 +1,7 @@
-package com.zyh.easyapplyresume.controller.admin;
+package com.zyh.easyapplyresume.controller.user;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.service.impl.admin.SmsServiceImpl;
+import com.zyh.easyapplyresume.service.impl.user.SmsServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 手机短信验证控制器-管理端
+ * 手机短信验证控制器-用户端
  * Controller层只负责调用服务和返回成功，不处理任何异常
  *  @author shiningCloud2025
  */
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/admin/sms")
 @RequiredArgsConstructor
-@Tag(name = "短信验证码接口-管理端")
+@Tag(name = "短信验证码接口-用户端")
 public class SmsController {
 
     private final SmsServiceImpl smsService;
