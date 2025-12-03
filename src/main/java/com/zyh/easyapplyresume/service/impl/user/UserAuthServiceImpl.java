@@ -14,13 +14,16 @@ import com.zyh.easyapplyresume.service.user.UserSmsService;
 import com.zyh.easyapplyresume.utils.jwt.JwtUtil;
 import com.zyh.easyapplyresume.utils.uservalidator.FormalRegisterValidator;
 import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -114,13 +117,23 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Override
     public boolean formalRegister(FormalRegisterForm formalRegisterForm) {
+        if (formalRegisterForm == null) {
+            return false;
+        }
         FormalRegisterValidator.validateForRegister(formalRegisterForm);
 
-
-
-
-        return false;
+        try {
+            User user = new User();
+            formalRegisterForm.setUserCreateTime(new Date());
+            formalRegisterForm.setUserLoginTime(new Date());
+            BeanUtils.copyProperties(formalRegisterForm, user);
+            userMapper.insert(user);
+        } catch (DataAccessException e) {
+            throw resolveDbException(e);
+        }
+        return true;
     }
+
 
     @Override
     public boolean phoneRegister(PhoneRegisterForm phoneRegisterForm) {
@@ -135,5 +148,26 @@ public class UserAuthServiceImpl implements UserAuthService {
     @Override
     public boolean logout() {
         return false;
+    }
+
+    /**
+     * 私有辅助方法：解析数据库异常并转换为业务异常
+     */
+    private BusException resolveDbException(Exception e) {
+        String errorMsg = e.getMessage();
+        // 1. 处理唯一约束冲突（DuplicateKeyException 或 SQLIntegrityConstraintViolationException）
+        if (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException) {
+            if (errorMsg.contains("user_account")|| errorMsg.contains("user_user_pk")) {
+                // 匹配用户账号字段或账号唯一索引
+                return new BusException(UserCodeEnum.USER_ACCOUNT_DUPLICATE);
+            } else if (errorMsg.contains("user_phone")|| errorMsg.contains("user_user_pk_2")) {
+                // 匹配用户手机号字段或手机号唯一索引
+                return new BusException(UserCodeEnum.USER_PHONE_DUPLICATE);
+            } else if (errorMsg.contains("user_email")|| errorMsg.contains("user_user_pk_3")) {
+                // 匹配用户邮箱字段或邮箱唯一索引
+                return new BusException(UserCodeEnum.USER_EMAIL_DUPLICATE);
+            }
+        }
+        return new BusException(UserCodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
     }
 }
