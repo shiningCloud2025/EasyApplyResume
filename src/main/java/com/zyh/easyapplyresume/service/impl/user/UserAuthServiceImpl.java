@@ -12,6 +12,7 @@ import com.zyh.easyapplyresume.service.user.UserAuthService;
 import com.zyh.easyapplyresume.service.user.UserLoginAndRegisterEmailVerifyService;
 import com.zyh.easyapplyresume.service.user.UserSmsService;
 import com.zyh.easyapplyresume.utils.jwt.JwtUtil;
+import com.zyh.easyapplyresume.utils.uservalidator.FormalRegisterValidator;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -113,6 +114,11 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Override
     public boolean formalRegister(FormalRegisterForm formalRegisterForm) {
+        FormalRegisterValidator.validateForRegister(formalRegisterForm);
+
+
+
+
         return false;
     }
 
