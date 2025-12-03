@@ -38,6 +38,12 @@ public enum UserCodeEnum {
     USER_MAX_SALARY_LESS_THAN_MIN(10018, "用户最高月薪不能低于最低月薪"),
     USER_WEEK_WORK_DAY_NUM_ILLEGAL(10019, "用户希望的每周工作数必须在0-7之间"),
 
+    USER_ACCOUNT_DUPLICATE(10020, "用户账号已存在"),
+    USER_EMAIL_DUPLICATE(10021, "用户邮箱已存在"),
+    USER_PHONE_DUPLICATE(10022, "用户手机号已存在"),
+    UERR_ALREADY_EXIST(10023, "用户已存在"),
+    DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION(10999, "数据库异常转换失败"),
+
 
 
 

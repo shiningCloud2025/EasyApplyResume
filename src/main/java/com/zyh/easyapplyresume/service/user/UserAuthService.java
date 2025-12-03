@@ -26,17 +26,17 @@ public interface UserAuthService {
     public boolean emailLogin(String email, String messageCode);
 
     /**
-     * 普通注册(账号+密码)
+     * 普通注册(用户账号+用户名+账号+密码)
      */
     public boolean formalRegister(FormalRegisterForm formalRegisterForm);
 
     /**
-     * 手机注册(手机短信+密码)
+     * 手机注册(用户账号+用户名+账号手机短信+密码)
      */
     public boolean phoneRegister(PhoneRegisterForm phoneRegisterForm);
 
     /**
-     * 邮箱注册(邮箱验证码+密码)
+     * 邮箱注册(用户账号+用户名+邮箱验证码+密码)
      */
     public boolean emailRegister(EmailRegisterForm emailRegisterForm);
 

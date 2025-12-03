@@ -44,7 +44,7 @@ public class FormalRegisterForm {
     private Date userCreateTime;
 
     @Schema(description = "用户最后登录时间")
-    private Date userLastLoginTime;
+    private Date userLoginTime;
 
     @Schema(description = "用户目标岗位")
     private Integer userDreamPosition;

@@ -10,4 +10,5 @@ import org.apache.ibatis.annotations.Param;
 public interface UserMapper extends BaseMapper<User> {
     // 根据账号/邮箱/手机号查找
     User findByAccountOrPhoneOrEmail(@Param("accountOrPhoneOrEmail") String accountOrPhoneOrEmail);
+
 }
