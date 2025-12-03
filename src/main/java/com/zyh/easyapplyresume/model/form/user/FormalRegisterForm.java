@@ -40,8 +40,14 @@ public class FormalRegisterForm {
     @Schema(description = "用户介绍")
     private String userIntroduce;
 
+    @Schema(description = "用户创建时间")
+    private Date userCreateTime;
+
+    @Schema(description = "用户最后登录时间")
+    private Date userLastLoginTime;
+
     @Schema(description = "用户目标岗位")
-    private int userDreamPosition;
+    private Integer userDreamPosition;
 
     @Schema(description = "用户希望的最低月薪")
     private BigDecimal userDreamMinMonthSalary;
@@ -50,7 +56,7 @@ public class FormalRegisterForm {
     private BigDecimal userDreamMaxMonthSalary;
 
     @Schema(description = "用户希望的每周工作数")
-    private int userDreamWeekWorkDayNum;
+    private Integer userDreamWeekWorkDayNum;
 
     @Schema(description = "用户希望的福利待遇")
     private String userDreamGoodWelfare;
