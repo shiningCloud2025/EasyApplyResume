@@ -172,14 +172,17 @@ public class FormalRegisterValidator {
             form.setUserDreamGoodWelfare(welfare);
         }
 
-        // 13. 选填：用户地址-省级（默认"33"）
-        if (form.getUserRecruitLocationFirst() == null || form.getUserRecruitLocationFirst().trim().isEmpty()) {
+        // 13. 选填：用户地址（省份和城市要么同时为空要么同时不为空，都为空则设置默认值）→ USER_LOCATION_INCOMPLETE(10027)
+        String locationFirst = form.getUserRecruitLocationFirst();
+        String locationSecond = form.getUserRecruitLocationSecond();
+        boolean firstEmpty = locationFirst == null || locationFirst.trim().isEmpty();
+        boolean secondEmpty = locationSecond == null || locationSecond.trim().isEmpty();
+        
+        if (firstEmpty && secondEmpty) {
             form.setUserRecruitLocationFirst("33");
-        }
-
-        // 14. 选填：用户地址-市级（默认"99999"）
-        if (form.getUserRecruitLocationSecond() == null || form.getUserRecruitLocationSecond().trim().isEmpty()) {
             form.setUserRecruitLocationSecond("99999");
+        } else if (firstEmpty || secondEmpty) {
+            throw new BusException(UserCodeEnum.USER_LOCATION_INCOMPLETE);
         }
 
         // 15. 选填：用户大学编码（默认4001）

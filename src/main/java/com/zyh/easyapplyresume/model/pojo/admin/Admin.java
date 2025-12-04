@@ -24,6 +24,7 @@ public class Admin {
     @TableId(value = "admin_id", type = IdType.AUTO)
     private Integer adminId;
 
+
     /**
      * 管理员名称
      */
