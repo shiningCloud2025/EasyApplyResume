@@ -59,7 +59,7 @@ public class UserAuthServiceImpl implements UserAuthService {
      * @return
      */
     @Override
-    public boolean formalLogin(String accountOrPhoneOrEmail, String password) {
+    public String formalLogin(String accountOrPhoneOrEmail, String password) {
         User user = userMapper.findByAccountOrPhoneOrEmail(accountOrPhoneOrEmail);
         if (user== null){
             throw new BusException(UserCodeEnum.ACCOUNT_OR_PASSWORD_ERROR);
@@ -70,7 +70,7 @@ public class UserAuthServiceImpl implements UserAuthService {
         String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
         String redisKey = "user:token:" + user.getUserId();
         stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
-        return true;
+        return token;
     }
 
     /**
@@ -80,7 +80,7 @@ public class UserAuthServiceImpl implements UserAuthService {
      * @return
      */
     @Override
-    public boolean phoneLogin(String phone, String messageCode) {
+    public String phoneLogin(String phone, String messageCode) {
         userSmsService.verifyCode(phone, messageCode);
         User user = userMapper.findByAccountOrPhoneOrEmail(phone);
         if (user== null){
@@ -89,7 +89,7 @@ public class UserAuthServiceImpl implements UserAuthService {
         String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
         String redisKey = "user:token:" + user.getUserId();
         stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
-        return true;
+        return token;
     }
 
     /**
@@ -99,7 +99,7 @@ public class UserAuthServiceImpl implements UserAuthService {
      * @return
      */
     @Override
-    public boolean emailLogin(String email, String messageCode) {
+    public String emailLogin(String email, String messageCode) {
         userLoginAndRegisterEmailVerifyService.verifyCode(email, messageCode);
         User user = userMapper.findByAccountOrPhoneOrEmail(email);
         if (user== null){
@@ -108,11 +108,11 @@ public class UserAuthServiceImpl implements UserAuthService {
         String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
         String redisKey = "user:token:" + user.getUserId();
         stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
-        return true;
+        return token;
     }
 
     @Override
-    public boolean formalRegister(FormalRegisterForm formalRegisterForm) {
+    public String formalRegister(FormalRegisterForm formalRegisterForm) {
         if (formalRegisterForm == null) {
             throw new BusException(UserCodeEnum.USER_REGISTER_FORM_NOT_NULL);
         }
@@ -132,7 +132,10 @@ public class UserAuthServiceImpl implements UserAuthService {
         return true;
     }
 
-
+    @Override
+    public String generateRandomAccount() {
+        return "";
+    }
 
 
     @Override
