@@ -24,9 +24,11 @@ public class FormalRegisterForm {
     @Schema(description = "用户名称")
     private String userUsername;
 
+    @NotNull(message = "用户邮箱不能为空")
     @Schema(description = "用户邮箱")
     private String userEmail;
 
+    @NotNull(message = "用户手机不能为空")
     @Schema(description = "用户手机")
     private String userPhone;
 
@@ -69,5 +71,11 @@ public class FormalRegisterForm {
 
     @Schema(description = "用户大学编码")
     private int userUniversityCode;
+
+    @Schema(description = "手机验证码")
+    private String phoneMessageCode;
+
+    @Schema(description = "邮箱验证码")
+    private String emailMessageCode;
 
 }

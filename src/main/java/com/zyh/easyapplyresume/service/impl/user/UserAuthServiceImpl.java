@@ -1,19 +1,15 @@
 package com.zyh.easyapplyresume.service.impl.user;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.UserCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserMapper;
-import com.zyh.easyapplyresume.model.form.user.EmailRegisterForm;
 import com.zyh.easyapplyresume.model.form.user.FormalRegisterForm;
-import com.zyh.easyapplyresume.model.form.user.PhoneRegisterForm;
 import com.zyh.easyapplyresume.model.pojo.user.User;
 import com.zyh.easyapplyresume.service.user.UserAuthService;
 import com.zyh.easyapplyresume.service.user.UserLoginAndRegisterEmailVerifyService;
 import com.zyh.easyapplyresume.service.user.UserSmsService;
 import com.zyh.easyapplyresume.utils.jwt.JwtUtil;
 import com.zyh.easyapplyresume.utils.uservalidator.FormalRegisterValidator;
-import jakarta.annotation.Resource;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -118,10 +114,12 @@ public class UserAuthServiceImpl implements UserAuthService {
     @Override
     public boolean formalRegister(FormalRegisterForm formalRegisterForm) {
         if (formalRegisterForm == null) {
-            return false;
+            throw new BusException(UserCodeEnum.USER_REGISTER_FORM_NOT_NULL);
         }
-        FormalRegisterValidator.validateForRegister(formalRegisterForm);
+        userSmsService.verifyCode(formalRegisterForm.getUserPhone(), formalRegisterForm.getPhoneMessageCode());
+        userLoginAndRegisterEmailVerifyService.verifyCode(formalRegisterForm.getUserEmail(), formalRegisterForm.getEmailMessageCode());
 
+        FormalRegisterValidator.validateForRegister(formalRegisterForm);
         try {
             User user = new User();
             formalRegisterForm.setUserCreateTime(new Date());
@@ -135,15 +133,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
 
-    @Override
-    public boolean phoneRegister(PhoneRegisterForm phoneRegisterForm) {
-        return false;
-    }
 
-    @Override
-    public boolean emailRegister(EmailRegisterForm emailRegisterForm) {
-        return false;
-    }
 
     @Override
     public boolean logout() {

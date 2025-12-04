@@ -1,10 +1,6 @@
 package com.zyh.easyapplyresume.service.user;
 
-import com.zyh.easyapplyresume.model.form.user.EmailRegisterForm;
 import com.zyh.easyapplyresume.model.form.user.FormalRegisterForm;
-import com.zyh.easyapplyresume.model.form.user.PhoneRegisterForm;
-import com.zyh.easyapplyresume.model.form.user.UserUpdateForm;
-import com.zyh.easyapplyresume.model.vo.user.UserInfoVO;
 
 /**
  * @author shiningCloud2025
@@ -26,19 +22,14 @@ public interface UserAuthService {
     public boolean emailLogin(String email, String messageCode);
 
     /**
-     * 普通注册(用户账号+用户名+账号+密码)
+     * 普通注册(用户名+用户账号+邮箱+手机+密码)
      */
     public boolean formalRegister(FormalRegisterForm formalRegisterForm);
 
     /**
-     * 手机注册(用户账号+用户名+账号手机短信+密码)
+     * 生成随机账号(7-10位)
      */
-    public boolean phoneRegister(PhoneRegisterForm phoneRegisterForm);
-
-    /**
-     * 邮箱注册(用户账号+用户名+邮箱验证码+密码)
-     */
-    public boolean emailRegister(EmailRegisterForm emailRegisterForm);
+    public String generateRandomAccount();
 
     /**
      * 退出登录

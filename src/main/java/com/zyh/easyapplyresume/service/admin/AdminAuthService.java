@@ -1,9 +1,5 @@
 package com.zyh.easyapplyresume.service.admin;
 
-import com.zyh.easyapplyresume.model.form.user.EmailRegisterForm;
-import com.zyh.easyapplyresume.model.form.user.FormalRegisterForm;
-import com.zyh.easyapplyresume.model.form.user.PhoneRegisterForm;
-
 /**
  * @author shiningCloud2025
  */
