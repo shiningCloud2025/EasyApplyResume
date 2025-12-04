@@ -35,7 +35,7 @@ public interface UserAuthService {
      * 退出登录
      * @return
      */
-    public boolean logout();
+    public void logout(Integer userId);
 
 
 
