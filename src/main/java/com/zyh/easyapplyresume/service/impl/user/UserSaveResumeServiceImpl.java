@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.service.impl.user;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserSaveResumeMapper;
 import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
@@ -45,7 +46,13 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
 
     @Override
     public void deleteUserSaveResumeInfoByUserIdAndResumeId(Integer userId, Integer userSaveResumeSortedNum) {
+        LambdaQueryWrapper<UserSaveResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
+        lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeSortedNum, userSaveResumeSortedNum);
+        UserSaveResume userSaveResume = userSaveResumeMapper.selectOne(lambdaQueryWrapper);
 
+
+        userSaveResumeMapper.delete()
     }
 
     @Override
