@@ -42,6 +42,8 @@ public enum UserCodeEnum {
     USER_EMAIL_DUPLICATE(10021, "用户邮箱已存在"),
     USER_PHONE_DUPLICATE(10022, "用户手机号已存在"),
     UERR_ALREADY_EXIST(10023, "用户已存在"),
+    USER_REGISTER_FORM_NOT_NULL(10024, "用户注册表单不能为空"),
+
     DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION(10999, "数据库异常转换失败"),
 
 

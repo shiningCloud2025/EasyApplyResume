@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 /**
  * FormalRegisterForm检查工具类，用于验证用户注册表单数据并设置默认值
  * 核心规则：
- * - 必填项：用户账号、用户名称、用户密码
- * - 选填项：邮箱、手机号、头像、简介、目标岗位、薪资、工作数、福利、地址、大学编码（均有默认值）
+ * - 必填项：用户账号、用户名称、用户密码、邮箱、手机号
+ * - 选填项：头像、简介、目标岗位、薪资、工作数、福利、地址、大学编码（均有默认值）
  * @author shiningCloud2025
  */
 public class FormalRegisterValidator {
@@ -43,8 +43,8 @@ public class FormalRegisterValidator {
 
     /**
      * 普通注册校验规则：
-     * - 强制必填：用户账号（7-10位）、用户名称（1-20位）、用户密码（6-30位）
-     * - 选填字段：邮箱（默认"未填写邮箱+20位随机数"）、手机（默认"未填写手机号+5位随机数"）、头像、简介、目标岗位、薪资范围（0-100000）、工作天数（0-7）、福利、地址、大学编码（均设置默认值）
+     * - 强制必填：用户账号（7-10位）、用户名称（1-20位）、用户密码（6-30位）、邮箱（格式校验+长度≤25位）、手机号（格式校验）
+     * - 选填字段：头像、简介、目标岗位、薪资范围（0-100000）、工作天数（0-7）、福利、地址、大学编码（均设置默认值）
      */
     public static void validateForRegister(FormalRegisterForm form) {
         // 1. 强制必填：用户账号（非空+长度7-10位）→ USER_ACCOUNT_EMPTY(10003) / USER_ACCOUNT_LENGTH_ERROR(10004)
@@ -67,30 +67,28 @@ public class FormalRegisterValidator {
         }
         form.setUserUsername(username);
 
-        // 3. 选填：用户邮箱（默认"未填写邮箱+20位随机数"，填了则校验格式+长度≤25位）→ USER_EMAIL_TOO_LONG(10007) / USER_EMAIL_FORMAT_ERROR(10008)
+        // 3. 强制必填：用户邮箱（非空+格式校验+长度≤25位）→ USER_EMAIL_TOO_LONG(10007) / USER_EMAIL_FORMAT_ERROR(10008)
         if (form.getUserEmail() == null || form.getUserEmail().trim().isEmpty()) {
-            form.setUserEmail(DEFAULT_EMAIL_PREFIX + generateRandomNumber(20));
-        } else {
-            String email = form.getUserEmail().trim();
-            if (email.length() > EMAIL_MAX_LENGTH) {
-                throw new BusException(UserCodeEnum.USER_EMAIL_TOO_LONG);
-            }
-            if (!Pattern.matches(EMAIL_REGEX, email)) {
-                throw new BusException(UserCodeEnum.USER_EMAIL_FORMAT_ERROR);
-            }
-            form.setUserEmail(email);
+            throw new BusException(UserCodeEnum.USER_EMAIL_FORMAT_ERROR);
         }
+        String email = form.getUserEmail().trim();
+        if (email.length() > EMAIL_MAX_LENGTH) {
+            throw new BusException(UserCodeEnum.USER_EMAIL_TOO_LONG);
+        }
+        if (!Pattern.matches(EMAIL_REGEX, email)) {
+            throw new BusException(UserCodeEnum.USER_EMAIL_FORMAT_ERROR);
+        }
+        form.setUserEmail(email);
 
-        // 4. 选填：用户手机（默认"未填写手机号+5位随机数"，填了则校验格式）→ USER_PHONE_FORMAT_ERROR(10009)
+        // 4. 强制必填：用户手机（非空+格式校验）→ USER_PHONE_FORMAT_ERROR(10009)
         if (form.getUserPhone() == null || form.getUserPhone().trim().isEmpty()) {
-            form.setUserPhone(DEFAULT_PHONE_PREFIX + generateRandomNumber(5));
-        } else {
-            String phone = form.getUserPhone().trim();
-            if (!Pattern.matches(PHONE_REGEX, phone)) {
-                throw new BusException(UserCodeEnum.USER_PHONE_FORMAT_ERROR);
-            }
-            form.setUserPhone(phone);
+            throw new BusException(UserCodeEnum.USER_PHONE_FORMAT_ERROR);
         }
+        String phone = form.getUserPhone().trim();
+        if (!Pattern.matches(PHONE_REGEX, phone)) {
+            throw new BusException(UserCodeEnum.USER_PHONE_FORMAT_ERROR);
+        }
+        form.setUserPhone(phone);
 
         // 5. 强制必填：用户密码（非空+长度6-30位）→ USER_PASSWORD_EMPTY(10010) / USER_PASSWORD_LENGTH_ERROR(10011)
         if (form.getUserPassword() == null || form.getUserPassword().trim().isEmpty()) {
