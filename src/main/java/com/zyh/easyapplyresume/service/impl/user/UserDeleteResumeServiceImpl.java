@@ -36,6 +36,13 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
 
     @Override
     public UserDeleteResumeInfoVO getUserDeleteResumeInfoByUserIdAndResumeSortedNum(Integer userId, Integer resumeSortedNum) {
+        LambdaQueryWrapper<UserDeleteResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(UserDeleteResume::getUserDeleteResumeUserId, userId);
+        lambdaQueryWrapper.eq(UserDeleteResume::getUserDeleteResumeSortedNum, resumeSortedNum);
+        UserDeleteResume userDeleteResume = userDeleteResumeMapper.selectOne(lambdaQueryWrapper);
+        if (userDeleteResume != null){
+            return BeanUtil.copyProperties(userDeleteResume, UserDeleteResumeInfoVO.class);
+        }
         return null;
     }
 

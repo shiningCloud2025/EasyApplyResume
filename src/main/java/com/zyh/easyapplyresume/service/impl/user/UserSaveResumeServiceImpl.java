@@ -51,8 +51,8 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
         lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeSortedNum, userSaveResumeSortedNum);
         UserSaveResume userSaveResume = userSaveResumeMapper.selectOne(lambdaQueryWrapper);
 
-
-        userSaveResumeMapper.delete()
+        userSaveResumeMapper.delete(lambdaQueryWrapper);
+        reorderResumeSortedNum(userId, userSaveResumeSortedNum);
     }
 
     @Override
@@ -60,8 +60,27 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
         return null;
     }
 
+
     @Override
     public UserSaveResume saveUserSaveResumeInfoFirst(UserSaveResume userSaveResume) {
         return null;
+    }
+
+    private void reorderResumeSortedNum(Integer userId, Integer deletedSortedNum) {
+        LambdaQueryWrapper<UserSaveResume> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
+        queryWrapper.gt(UserSaveResume::getUserSaveResumeSortedNum, deletedSortedNum);
+        queryWrapper.orderByAsc(UserSaveResume::getUserSaveResumeSortedNum);
+        List<UserSaveResume> resumeList = userSaveResumeMapper.selectList(queryWrapper);
+        
+        if (resumeList != null && !resumeList.isEmpty()) {
+            for (UserSaveResume resume : resumeList) {
+                LambdaUpdateWrapper<UserSaveResume> updateWrapper = new LambdaUpdateWrapper<>();
+                updateWrapper.eq(UserSaveResume::getUserSaveResumeId, resume.getUserSaveResumeId());
+                updateWrapper.eq(UserSaveResume::getUserSaveResumeSortedNum, resume.getUserSaveResumeSortedNum());
+                updateWrapper.set(UserSaveResume::getUserSaveResumeSortedNum, resume.getUserSaveResumeSortedNum() - 1);
+                userSaveResumeMapper.update(null, updateWrapper);
+            }
+        }
     }
 }
