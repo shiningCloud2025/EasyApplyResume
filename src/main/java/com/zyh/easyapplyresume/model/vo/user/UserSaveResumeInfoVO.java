@@ -1,11 +1,14 @@
 package com.zyh.easyapplyresume.model.vo.user;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
 import java.util.Date;
 
 /**
  * @author shiningCloud2025
  */
+@Data
+@Schema(description = "用户保存的简历信息")
 public class UserSaveResumeInfoVO {
     @Schema(description = "简历主键ID")
     private Integer userSaveResumeId;

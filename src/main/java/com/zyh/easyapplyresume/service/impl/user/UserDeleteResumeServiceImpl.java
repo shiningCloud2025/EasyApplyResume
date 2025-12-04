@@ -48,7 +48,7 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
 
     @Override
     public void addUserDeleteSaveResume(UserSaveResumeInfoVO userSaveResumeInfoVO) {
-
+        userSaveResumeInfoVO.
     }
 
     @Override

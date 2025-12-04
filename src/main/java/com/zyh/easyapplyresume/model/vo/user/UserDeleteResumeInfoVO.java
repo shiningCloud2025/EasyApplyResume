@@ -4,16 +4,16 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
 
 import java.util.Date;
 
 /**
  * @author shiningCloud2025
  */
+@Data
+@Schema(description = "用户删除简历信息")
 public class UserDeleteResumeInfoVO {
-
-    @Schema(description = "删除简历id")
-    private Integer userDeleteResumeId;
 
     @Schema(description = "删除简历名称")
     private String userDeleteResumeResumeName;
