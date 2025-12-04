@@ -143,7 +143,28 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     @Override
     public String generateRandomAccount() {
-        return "";
+        String account;
+        int maxRetries = 10;
+        int retryCount = 0;
+        
+        do {
+            long timestamp = System.currentTimeMillis() % 100000000L;
+            int randomNum = (int) (Math.random() * 100);
+            account = String.format("%d%02d", timestamp, randomNum);
+            
+            if (account.length() > 10) {
+                account = account.substring(account.length() - 10);
+            } else if (account.length() < 7) {
+                account = String.format("%07d", Long.parseLong(account));
+            }
+            
+            retryCount++;
+            if (retryCount > maxRetries) {
+                throw new BusException(UserCodeEnum.GENERATE_ACCOUNT_FAIL);
+            }
+        } while (userMapper.findByAccountOrPhoneOrEmail(account) != null);
+        
+        return account;
     }
 
 
