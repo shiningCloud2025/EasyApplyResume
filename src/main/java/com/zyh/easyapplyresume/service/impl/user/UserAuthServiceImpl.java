@@ -67,6 +67,8 @@ public class UserAuthServiceImpl implements UserAuthService {
         if (!passwordEncoder.matches(password, user.getUserPassword())){
             throw new BusException(UserCodeEnum.ACCOUNT_OR_PASSWORD_ERROR);
         }
+        user.setUserLoginTime(new Date());
+        userMapper.updateById(user);
         String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
         String redisKey = "user:token:" + user.getUserId();
         stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
@@ -86,6 +88,8 @@ public class UserAuthServiceImpl implements UserAuthService {
         if (user== null){
             throw new BusException(UserCodeEnum.NO_REGISTER_ERROR);
         }
+        user.setUserLoginTime(new Date());
+        userMapper.updateById(user);
         String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
         String redisKey = "user:token:" + user.getUserId();
         stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
@@ -105,6 +109,8 @@ public class UserAuthServiceImpl implements UserAuthService {
         if (user== null){
             throw new BusException(UserCodeEnum.NO_REGISTER_ERROR);
         }
+        user.setUserLoginTime(new Date());
+        userMapper.updateById(user);
         String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
         String redisKey = "user:token:" + user.getUserId();
         stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
@@ -126,10 +132,13 @@ public class UserAuthServiceImpl implements UserAuthService {
             formalRegisterForm.setUserLoginTime(new Date());
             BeanUtils.copyProperties(formalRegisterForm, user);
             userMapper.insert(user);
+            String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
+            String redisKey = "user:token:" + user.getUserId();
+            stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
+            return token;
         } catch (DataAccessException e) {
             throw resolveDbException(e);
         }
-        return true;
     }
 
     @Override
