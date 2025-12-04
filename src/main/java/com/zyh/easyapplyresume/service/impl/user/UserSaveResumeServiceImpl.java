@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserSaveResumeMapper;
 import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
+import com.zyh.easyapplyresume.service.user.UserDeleteResumeService;
 import com.zyh.easyapplyresume.service.user.UserSaveResumeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import java.util.List;
 public class UserSaveResumeServiceImpl implements UserSaveResumeService {
     @Autowired
     private UserSaveResumeMapper userSaveResumeMapper;
+    @Autowired
+    private UserDeleteResumeService userDeleteResumeService;
     @Override
     public List<UserSaveResumeInfoVO> getUserSaveResumeInfoByUserId(Integer userSaveResumeUserId) {
         LambdaQueryWrapper<UserSaveResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -50,7 +53,8 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
         lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
         lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeSortedNum, userSaveResumeSortedNum);
         UserSaveResume userSaveResume = userSaveResumeMapper.selectOne(lambdaQueryWrapper);
-
+        UserSaveResumeInfoVO userSaveResumeInfoVO = BeanUtil.copyProperties(userSaveResume, UserSaveResumeInfoVO.class)
+        userDeleteResumeService.addUserDeleteSaveResume(userSaveResumeInfoVO);
         userSaveResumeMapper.delete(lambdaQueryWrapper);
         reorderResumeSortedNum(userId, userSaveResumeSortedNum);
     }

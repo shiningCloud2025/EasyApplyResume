@@ -3,15 +3,18 @@ package com.zyh.easyapplyresume.service.impl.user;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserDeleteResumeMapper;
+import com.zyh.easyapplyresume.mapper.mysql.user.UserSaveResumeMapper;
 import com.zyh.easyapplyresume.model.pojo.user.UserDeleteResume;
 import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
 import com.zyh.easyapplyresume.service.user.UserDeleteResumeService;
+import com.zyh.easyapplyresume.service.user.UserSaveResumeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +25,11 @@ import java.util.List;
 public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
     @Autowired
     private UserDeleteResumeMapper userDeleteResumeMapper;
+
+
+    @Autowired
+    private UserSaveResumeMapper userSaveResumeMapper;
+
     @Override
     public List<UserDeleteResumeInfoVO> getUserDeleteResumeInfoByUserId(Integer userDeleteResumeId) {
         LambdaQueryWrapper<UserDeleteResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -48,7 +56,22 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
 
     @Override
     public void addUserDeleteSaveResume(UserSaveResumeInfoVO userSaveResumeInfoVO) {
-        userSaveResumeInfoVO.
+        Integer userSaveResumeUserId = userSaveResumeInfoVO.getUserSaveResumeUserId();
+        LambdaQueryWrapper<UserDeleteResume> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserDeleteResume::getUserDeleteResumeUserId, userSaveResumeUserId);
+        queryWrapper.orderByDesc(UserDeleteResume::getUserDeleteResumeSortedNum);
+        List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(queryWrapper);
+        Integer userDeleteResumeSortedNum = userDeleteResumes.get(0).getUserDeleteResumeSortedNum();
+        UserDeleteResume userDeleteResume = new UserDeleteResume();
+        userDeleteResume.setUserDeleteResumeId(userSaveResumeInfoVO.getUserSaveResumeId());
+        userDeleteResume.setUserDeleteResumeResumeName(userSaveResumeInfoVO.getUserSaveResumeResumeName());
+        userDeleteResume.setUserDeleteResumeIndustry(userSaveResumeInfoVO.getUserSaveResumeIndustry());
+        userDeleteResume.setUserDeleteResumeResumeReactCode(userSaveResumeInfoVO.getUserSaveResumeResumeReactCode());
+        userDeleteResume.setUserDeleteResumeCreatedTime(new Date());
+        userDeleteResume.setUserDeleteResumeUpdatedTime(new Date());
+        userDeleteResume.setUserDeleteResumeSortedNum(userDeleteResumeSortedNum + 1);
+        userDeleteResume.setUserDeleteResumeUserId(userSaveResumeUserId);
+        userDeleteResumeMapper.insert(userDeleteResume);
     }
 
     @Override
