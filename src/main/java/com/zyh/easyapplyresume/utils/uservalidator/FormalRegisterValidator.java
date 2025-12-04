@@ -47,13 +47,16 @@ public class FormalRegisterValidator {
      * - 选填字段：头像、简介、目标岗位、薪资范围（0-100000）、工作天数（0-7）、福利、地址、大学编码（均设置默认值）
      */
     public static void validateForRegister(FormalRegisterForm form) {
-        // 1. 强制必填：用户账号（非空+长度7-10位）→ USER_ACCOUNT_EMPTY(10003) / USER_ACCOUNT_LENGTH_ERROR(10004)
+        // 1. 强制必填：用户账号（非空+长度7-10位+首位不为0）→ USER_ACCOUNT_EMPTY(10003) / USER_ACCOUNT_LENGTH_ERROR(10004) / USER_ACCOUNT_FIRST_CHAR_ZERO(10026)
         if (form.getUserAccount() == null || form.getUserAccount().trim().isEmpty()) {
             throw new BusException(UserCodeEnum.USER_ACCOUNT_EMPTY);
         }
         String account = form.getUserAccount().trim();
         if (account.length() < ACCOUNT_MIN_LENGTH || account.length() > ACCOUNT_MAX_LENGTH) {
             throw new BusException(UserCodeEnum.USER_ACCOUNT_LENGTH_ERROR);
+        }
+        if (account.charAt(0) == '0') {
+            throw new BusException(UserCodeEnum.USER_ACCOUNT_FIRST_CHAR_ZERO);
         }
         form.setUserAccount(account);
 
