@@ -148,8 +148,9 @@ public class UserAuthServiceImpl implements UserAuthService {
 
 
     @Override
-    public boolean logout() {
-        return false;
+    public void logout(Integer userId) {
+        String redisKey = "user:token:" + userId;
+        stringRedisTemplate.delete(redisKey);
     }
 
     /**
