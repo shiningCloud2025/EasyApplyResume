@@ -12,7 +12,7 @@ public interface UserService {
     public void updateUser(UserUpdateForm userUpdateForm);
 
     /**
-     * 根据id
+     * 根据id查询用户信息
      */
     public UserInfoVO getUserByUserId(String userId);
 }
