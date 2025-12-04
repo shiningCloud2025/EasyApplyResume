@@ -23,6 +23,7 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
     public List<UserSaveResumeInfoVO> getUserSaveResumeInfoByUserId(Integer userSaveResumeUserId) {
         LambdaQueryWrapper<UserSaveResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userSaveResumeUserId);
+        lambdaQueryWrapper.orderByDesc(UserSaveResume::getUserSaveResumeSortedNum);
         List<UserSaveResume> userSaveResumeList = userSaveResumeMapper.selectList(lambdaQueryWrapper);
         if (userSaveResumeList != null){
             return BeanUtil.copyToList(userSaveResumeList, UserSaveResumeInfoVO.class);
@@ -32,6 +33,13 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
 
     @Override
     public UserSaveResumeInfoVO getUserSaveResumeInfoByUserIdAndResumeId(Integer userId, Integer userSaveResumeSortedNum) {
+        LambdaQueryWrapper<UserSaveResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
+        lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeSortedNum, userSaveResumeSortedNum);
+        UserSaveResume userSaveResume = userSaveResumeMapper.selectOne(lambdaQueryWrapper);
+        if (userSaveResume != null){
+            return BeanUtil.copyProperties(userSaveResume, UserSaveResumeInfoVO.class);
+        }
         return null;
     }
 
