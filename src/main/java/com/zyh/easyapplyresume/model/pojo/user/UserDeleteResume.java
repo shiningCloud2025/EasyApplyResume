@@ -59,9 +59,5 @@ public class UserDeleteResume {
      */
     @TableField("userDeleteResume_userId")
     private Integer userDeleteResumeUserId;
-    /**
-     * 逻辑删除标识
-     */
-    @TableField("deleted")
-    private Integer deleted;
+
 }
