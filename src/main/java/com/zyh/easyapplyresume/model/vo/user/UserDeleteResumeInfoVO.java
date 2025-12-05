@@ -35,4 +35,7 @@ public class UserDeleteResumeInfoVO {
 
     @Schema(description = "简历所属用户")
     private Integer userDeleteResumeUserId;
+
+    @Schema(description = "简历删除时间")
+    private Date userDeleteResumeDeleteTime;
 }

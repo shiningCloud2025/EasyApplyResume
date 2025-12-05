@@ -60,4 +60,11 @@ public class UserDeleteResume {
     @TableField("userDeleteResume_userId")
     private Integer userDeleteResumeUserId;
 
+    /**
+     * 简历删除时间
+     */
+    @TableField("userDeleteResume_deleteTime")
+    private Date userDeleteResumeDeleteTime;
+
+
 }
