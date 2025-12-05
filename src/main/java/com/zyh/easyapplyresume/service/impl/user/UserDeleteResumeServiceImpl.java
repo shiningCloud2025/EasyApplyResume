@@ -73,10 +73,11 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
         userDeleteResume.setUserDeleteResumeResumeName(userSaveResumeInfoVO.getUserSaveResumeResumeName());
         userDeleteResume.setUserDeleteResumeIndustry(userSaveResumeInfoVO.getUserSaveResumeIndustry());
         userDeleteResume.setUserDeleteResumeResumeReactCode(userSaveResumeInfoVO.getUserSaveResumeResumeReactCode());
-        userDeleteResume.setUserDeleteResumeCreatedTime(new Date());
-        userDeleteResume.setUserDeleteResumeUpdatedTime(new Date());
+        userDeleteResume.setUserDeleteResumeCreatedTime(userSaveResumeInfoVO.getUserSaveResumeCreatedTime());
+        userDeleteResume.setUserDeleteResumeUpdatedTime(userSaveResumeInfoVO.getUserSaveResumeUpdatedTime());
         userDeleteResume.setUserDeleteResumeSortedNum(userDeleteResumeSortedNum + 1);
         userDeleteResume.setUserDeleteResumeUserId(userSaveResumeUserId);
+        userDeleteResume.setUserDeleteResumeDeleteTime(new Date());
         userDeleteResumeMapper.insert(userDeleteResume);
     }
 
@@ -98,8 +99,8 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
         IndustryMap industryMap = industryMapMapper.selectOne(queryWrapper1);
         userSaveResume.setUserSaveResumeIndustry(industryMap.getIndustryMapIndustryCode());
         userSaveResume.setUserSaveResumeResumeReactCode(userDeleteResumeInfoVO.getUserDeleteResumeResumeReactCode());
-        userSaveResume.setUserSaveResumeCreatedTime(new Date());
-        userSaveResume.setUserSaveResumeUpdatedTime(new Date());
+        userSaveResume.setUserSaveResumeCreatedTime(userDeleteResumeInfoVO.getUserDeleteResumeCreatedTime());
+        userSaveResume.setUserSaveResumeUpdatedTime(userDeleteResumeInfoVO.getUserDeleteResumeUpdatedTime());
         userSaveResume.setUserSaveResumeSortedNum(userSaveResumeSortedNum + 1);
         userSaveResume.setUserSaveResumeUserId(userId);
         userSaveResumeMapper.insert(userSaveResume);
@@ -107,6 +108,21 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
 
     @Override
     public void clearExpiredResume() {
-
+        List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(null);
+        if (userDeleteResumes == null || userDeleteResumes.isEmpty()) {
+            return;
+        }
+        Date now = new Date();
+        long sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000L;
+        for (UserDeleteResume userDeleteResume : userDeleteResumes) {
+            Date deleteTime = userDeleteResume.getUserDeleteResumeDeleteTime();
+            if (deleteTime != null) {
+                long timeDiff = now.getTime() - deleteTime.getTime();
+                if (timeDiff > sevenDaysInMillis) {
+                    userDeleteResumeMapper.deleteById(userDeleteResume.getUserDeleteResumeId());
+                    log.info("删除过期简历，简历ID: {}, 删除时间: {}", userDeleteResume.getUserDeleteResumeId(), deleteTime);
+                }
+            }
+        }
     }
 }
