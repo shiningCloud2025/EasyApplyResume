@@ -12,20 +12,25 @@ import com.zyh.easyapplyresume.model.pojo.user.UserDeleteResume;
 import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
+import com.zyh.easyapplyresume.service.user.UserDeleteResumeBySystemService;
 import com.zyh.easyapplyresume.service.user.UserDeleteResumeService;
 import com.zyh.easyapplyresume.service.user.UserSaveResumeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author shiningCloud2025
  */
 @Slf4j
 @Service
+@Transactional
 public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
     @Autowired
     private UserDeleteResumeMapper userDeleteResumeMapper;
@@ -35,6 +40,9 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
 
     @Autowired
     private IndustryMapMapper industryMapMapper;
+
+    @Autowired
+    private UserDeleteResumeBySystemService userDeleteResumeBySystemService;
 
     @Override
     public List<UserDeleteResumeInfoVO> getUserDeleteResumeInfoByUserId(Integer userDeleteResumeId) {
@@ -108,21 +116,33 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
 
     @Override
     public void clearExpiredResume() {
-        List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(null);
-        if (userDeleteResumes == null || userDeleteResumes.isEmpty()) {
-            return;
-        }
-        Date now = new Date();
-        long sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000L;
-        for (UserDeleteResume userDeleteResume : userDeleteResumes) {
-            Date deleteTime = userDeleteResume.getUserDeleteResumeDeleteTime();
-            if (deleteTime != null) {
-                long timeDiff = now.getTime() - deleteTime.getTime();
-                if (timeDiff > sevenDaysInMillis) {
-                    userDeleteResumeMapper.deleteById(userDeleteResume.getUserDeleteResumeId());
-                    log.info("删除过期简历，简历ID: {}, 删除时间: {}", userDeleteResume.getUserDeleteResumeId(), deleteTime);
+        try{
+            List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(null);
+            if (userDeleteResumes == null || userDeleteResumes.isEmpty()) {
+                return;
+            }
+            Date now = new Date();
+            long sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000L;
+            List<UserDeleteResume> expiredResumes = new ArrayList<>();
+            for (UserDeleteResume userDeleteResume : userDeleteResumes) {
+                Date deleteTime = userDeleteResume.getUserDeleteResumeDeleteTime();
+                if (deleteTime != null) {
+                    long timeDiff = now.getTime() - deleteTime.getTime();
+                    if (timeDiff > sevenDaysInMillis) {
+                        expiredResumes.add(userDeleteResume);
+                    }
                 }
             }
+            if (!expiredResumes.isEmpty()){
+                log.info("删除的简历有：{}", expiredResumes);
+                userDeleteResumeBySystemService.addExpiredUserDeleteResume(expiredResumes);
+                userDeleteResumeMapper.deleteBatchIds(expiredResumes.stream()
+                        .map(item -> item.getUserDeleteResumeId())
+                        .collect(Collectors.toList()));
+            }
+
+        } catch (Exception e){
+            log.error("系统删除简历表添加失败");
         }
     }
 }

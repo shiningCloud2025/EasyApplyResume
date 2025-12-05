@@ -17,6 +17,8 @@ import org.springframework.stereotype.Service;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import jakarta.annotation.Resource;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.security.SecureRandom;
 import java.util.concurrent.TimeUnit;
 /**
@@ -24,6 +26,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 @Service
+@Transactional
 public class UserSmsServiceImpl implements UserSmsService {
 
     // ==================== Redis 相关 (从新配置读取) ====================
