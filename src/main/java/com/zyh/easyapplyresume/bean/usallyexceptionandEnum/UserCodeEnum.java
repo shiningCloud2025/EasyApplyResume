@@ -54,6 +54,10 @@ public enum UserCodeEnum {
     USER_RECRUIT_LOCATION_EMPTY(10034, "用户地址不能为空"),
     USER_UNIVERSITY_CODE_EMPTY(10035, "用户大学编码不能为空"),
 
+
+    // ==================== 用户简历相关异常 (10036-10050) ====================
+    USER_SAVE_RESUME_NOT_DAYU_FIVE(10036, "用户保存的简历不能超过5个"),
+
     // ==================== 数据库异常 (10999) ====================
     DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION(10999, "数据库异常转换失败")
 

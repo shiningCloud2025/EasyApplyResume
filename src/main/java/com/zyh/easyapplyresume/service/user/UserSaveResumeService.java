@@ -33,6 +33,6 @@ public interface UserSaveResumeService {
     /**
      * 保存用户的简历(第一次添加，通过简历模版)
      */
-    public void saveUserSaveResumeInfoFirst(ResumeTemplateInfoVO resumeTemplateInfoVO);
+    public void saveUserSaveResumeInfoFirst(ResumeTemplateInfoVO resumeTemplateInfoVO, Integer userId);
 
 }
