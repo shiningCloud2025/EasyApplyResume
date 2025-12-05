@@ -27,8 +27,10 @@ import java.util.List;
 public class UserSaveResumeServiceImpl implements UserSaveResumeService {
     @Autowired
     private UserSaveResumeMapper userSaveResumeMapper;
+
     @Autowired
     private UserDeleteResumeService userDeleteResumeService;
+
     @Autowired
     private IndustryMapMapper industryMapMapper;
     @Override

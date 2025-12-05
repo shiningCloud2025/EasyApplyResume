@@ -2,8 +2,12 @@ package com.zyh.easyapplyresume.service.impl.user;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.UserCodeEnum;
+import com.zyh.easyapplyresume.mapper.mysql.admin.IndustryMapMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserDeleteResumeMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserSaveResumeMapper;
+import com.zyh.easyapplyresume.model.pojo.admin.IndustryMap;
 import com.zyh.easyapplyresume.model.pojo.user.UserDeleteResume;
 import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeInfoVO;
@@ -26,9 +30,11 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
     @Autowired
     private UserDeleteResumeMapper userDeleteResumeMapper;
 
-
     @Autowired
     private UserSaveResumeMapper userSaveResumeMapper;
+
+    @Autowired
+    private IndustryMapMapper industryMapMapper;
 
     @Override
     public List<UserDeleteResumeInfoVO> getUserDeleteResumeInfoByUserId(Integer userDeleteResumeId) {
@@ -76,7 +82,27 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
 
     @Override
     public void addUserDeleteResumeToUserSaveResume(UserDeleteResumeInfoVO userDeleteResumeInfoVO) {
-
+        Integer userId = userDeleteResumeInfoVO.getUserDeleteResumeUserId();
+        LambdaQueryWrapper<UserSaveResume> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
+        queryWrapper.orderByDesc(UserSaveResume::getUserSaveResumeSortedNum);
+        List<UserSaveResume> userSaveResumes = userSaveResumeMapper.selectList(queryWrapper);
+        Integer userSaveResumeSortedNum = userSaveResumes.get(0).getUserSaveResumeSortedNum();
+        if (userSaveResumeSortedNum>=4){
+            throw new BusException(UserCodeEnum.USER_SAVE_RESUME_NOT_DAYU_FIVE);
+        }
+        UserSaveResume userSaveResume = new UserSaveResume();
+        userSaveResume.setUserSaveResumeResumeName(userDeleteResumeInfoVO.getUserDeleteResumeResumeName());
+        LambdaQueryWrapper<IndustryMap> queryWrapper1 = new LambdaQueryWrapper<>();
+        queryWrapper1.eq(IndustryMap::getIndustryMapIndustryName, userDeleteResumeInfoVO.getUserDeleteResumeIndustryName());
+        IndustryMap industryMap = industryMapMapper.selectOne(queryWrapper1);
+        userSaveResume.setUserSaveResumeIndustry(industryMap.getIndustryMapIndustryCode());
+        userSaveResume.setUserSaveResumeResumeReactCode(userDeleteResumeInfoVO.getUserDeleteResumeResumeReactCode());
+        userSaveResume.setUserSaveResumeCreatedTime(new Date());
+        userSaveResume.setUserSaveResumeUpdatedTime(new Date());
+        userSaveResume.setUserSaveResumeSortedNum(userSaveResumeSortedNum + 1);
+        userSaveResume.setUserSaveResumeUserId(userId);
+        userSaveResumeMapper.insert(userSaveResume);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class UserDeleteResumeInfoVO {
     private String userDeleteResumeResumeName;
 
     @Schema(description = "删除简历行业")
-    private Integer userDeleteResumeIndustry;
+    private String userDeleteResumeIndustryName;
 
     @Schema(description = "删除简历React组件代码")
     private String userDeleteResumeResumeReactCode;
