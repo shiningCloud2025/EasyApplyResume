@@ -115,6 +115,15 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
     }
 
     @Override
+    public void clearUserAllDeleteResume(Integer userId) {
+        LambdaQueryWrapper<UserDeleteResume> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserDeleteResume::getUserDeleteResumeUserId, userId);
+        List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(queryWrapper);
+        userDeleteResumeBySystemService.addExpiredUserDeleteResume(userDeleteResumes);
+        userDeleteResumeMapper.delete(queryWrapper);
+    }
+
+    @Override
     public void clearExpiredResume() {
         try{
             List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(null);

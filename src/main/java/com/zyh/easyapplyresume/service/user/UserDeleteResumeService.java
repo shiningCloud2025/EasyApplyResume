@@ -33,6 +33,12 @@ public interface UserDeleteResumeService {
     public void addUserDeleteResumeToUserSaveResume(UserDeleteResumeInfoVO userDeleteResumeInfoVO);
 
     /**
+     * 清空垃圾箱
+     */
+    public void clearUserAllDeleteResume(Integer userId);
+
+
+    /**
      * 清理过期的简历定时任务，每天早上4点和晚上12点进行一次清理
      */
     public void clearExpiredResume();
