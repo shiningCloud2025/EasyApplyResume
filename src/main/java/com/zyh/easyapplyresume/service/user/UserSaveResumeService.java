@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.service.user;
 
 import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
+import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
 
 import java.util.List;
@@ -27,11 +28,11 @@ public interface UserSaveResumeService {
     /**
      * 保存用户保存的简历(非第一次添加)
      */
-    public UserSaveResume saveUserSaveResumeInfo(UserSaveResume userSaveResume);
+    public void saveUserSaveResumeInfo(UserSaveResumeInfoVO userSaveResumeInfoVO);
 
     /**
      * 保存用户的简历(第一次添加，通过简历模版)
      */
-    public UserSaveResume saveUserSaveResumeInfoFirst(UserSaveResume userSaveResume);
+    public void saveUserSaveResumeInfoFirst(ResumeTemplateInfoVO resumeTemplateInfoVO);
 
 }
