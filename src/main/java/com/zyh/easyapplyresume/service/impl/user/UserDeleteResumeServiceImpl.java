@@ -46,13 +46,19 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
 
     @Override
     public List<UserDeleteResumeInfoVO> getUserDeleteResumeInfoByUserId(Integer userDeleteResumeId) {
-        LambdaQueryWrapper<UserDeleteResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(UserDeleteResume::getUserDeleteResumeUserId, userDeleteResumeId);
-        lambdaQueryWrapper.orderByDesc(UserDeleteResume::getUserDeleteResumeSortedNum);
-        List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(lambdaQueryWrapper);
-        if (userDeleteResumes != null){
-            return BeanUtil.copyToList(userDeleteResumes, UserDeleteResumeInfoVO.class);
+        try{
+            log.info("根据用户id查询用户删除简历信息开始");
+            LambdaQueryWrapper<UserDeleteResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(UserDeleteResume::getUserDeleteResumeUserId, userDeleteResumeId);
+            lambdaQueryWrapper.orderByDesc(UserDeleteResume::getUserDeleteResumeSortedNum);
+            List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(lambdaQueryWrapper);
+            if (userDeleteResumes != null){
+                return BeanUtil.copyToList(userDeleteResumes, UserDeleteResumeInfoVO.class);
+            }
+        }catch (Exception e){
+            log.error("查询用户删除简历信息失败！");
         }
+
         return null;
     }
 
@@ -91,36 +97,50 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
 
     @Override
     public void addUserDeleteResumeToUserSaveResume(UserDeleteResumeInfoVO userDeleteResumeInfoVO) {
-        Integer userId = userDeleteResumeInfoVO.getUserDeleteResumeUserId();
-        LambdaQueryWrapper<UserSaveResume> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
-        queryWrapper.orderByDesc(UserSaveResume::getUserSaveResumeSortedNum);
-        List<UserSaveResume> userSaveResumes = userSaveResumeMapper.selectList(queryWrapper);
-        Integer userSaveResumeSortedNum = userSaveResumes.get(0).getUserSaveResumeSortedNum();
-        if (userSaveResumeSortedNum>=4){
-            throw new BusException(UserCodeEnum.USER_SAVE_RESUME_NOT_DAYU_FIVE);
+        try{
+            log.info("将用户删除简历添加到用户保存简历开始");
+            Integer userId = userDeleteResumeInfoVO.getUserDeleteResumeUserId();
+            LambdaQueryWrapper<UserSaveResume> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
+            queryWrapper.orderByDesc(UserSaveResume::getUserSaveResumeSortedNum);
+            List<UserSaveResume> userSaveResumes = userSaveResumeMapper.selectList(queryWrapper);
+            Integer userSaveResumeSortedNum = userSaveResumes.get(0).getUserSaveResumeSortedNum();
+            if (userSaveResumeSortedNum>=4){
+                throw new BusException(UserCodeEnum.USER_SAVE_RESUME_NOT_DAYU_FIVE);
+            }
+            UserSaveResume userSaveResume = new UserSaveResume();
+            userSaveResume.setUserSaveResumeResumeName(userDeleteResumeInfoVO.getUserDeleteResumeResumeName());
+            LambdaQueryWrapper<IndustryMap> queryWrapper1 = new LambdaQueryWrapper<>();
+            queryWrapper1.eq(IndustryMap::getIndustryMapIndustryName, userDeleteResumeInfoVO.getUserDeleteResumeIndustryName());
+            IndustryMap industryMap = industryMapMapper.selectOne(queryWrapper1);
+            userSaveResume.setUserSaveResumeIndustry(industryMap.getIndustryMapIndustryCode());
+            userSaveResume.setUserSaveResumeResumeReactCode(userDeleteResumeInfoVO.getUserDeleteResumeResumeReactCode());
+            userSaveResume.setUserSaveResumeCreatedTime(userDeleteResumeInfoVO.getUserDeleteResumeCreatedTime());
+            userSaveResume.setUserSaveResumeUpdatedTime(userDeleteResumeInfoVO.getUserDeleteResumeUpdatedTime());
+            userSaveResume.setUserSaveResumeSortedNum(userSaveResumeSortedNum + 1);
+            userSaveResume.setUserSaveResumeUserId(userId);
+            userSaveResumeMapper.insert(userSaveResume);
+            log.info("将用户删除简历添加到用户保存简历成功");
+        }catch (Exception e){
+            log.error("添加用户删除简历失败");
         }
-        UserSaveResume userSaveResume = new UserSaveResume();
-        userSaveResume.setUserSaveResumeResumeName(userDeleteResumeInfoVO.getUserDeleteResumeResumeName());
-        LambdaQueryWrapper<IndustryMap> queryWrapper1 = new LambdaQueryWrapper<>();
-        queryWrapper1.eq(IndustryMap::getIndustryMapIndustryName, userDeleteResumeInfoVO.getUserDeleteResumeIndustryName());
-        IndustryMap industryMap = industryMapMapper.selectOne(queryWrapper1);
-        userSaveResume.setUserSaveResumeIndustry(industryMap.getIndustryMapIndustryCode());
-        userSaveResume.setUserSaveResumeResumeReactCode(userDeleteResumeInfoVO.getUserDeleteResumeResumeReactCode());
-        userSaveResume.setUserSaveResumeCreatedTime(userDeleteResumeInfoVO.getUserDeleteResumeCreatedTime());
-        userSaveResume.setUserSaveResumeUpdatedTime(userDeleteResumeInfoVO.getUserDeleteResumeUpdatedTime());
-        userSaveResume.setUserSaveResumeSortedNum(userSaveResumeSortedNum + 1);
-        userSaveResume.setUserSaveResumeUserId(userId);
-        userSaveResumeMapper.insert(userSaveResume);
+
     }
 
     @Override
     public void clearUserAllDeleteResume(Integer userId) {
-        LambdaQueryWrapper<UserDeleteResume> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserDeleteResume::getUserDeleteResumeUserId, userId);
-        List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(queryWrapper);
-        userDeleteResumeBySystemService.addExpiredUserDeleteResume(userDeleteResumes);
-        userDeleteResumeMapper.delete(queryWrapper);
+        try{
+            log.info("开始删除用户所有删除简历");
+            LambdaQueryWrapper<UserDeleteResume> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(UserDeleteResume::getUserDeleteResumeUserId, userId);
+            List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(queryWrapper);
+            userDeleteResumeBySystemService.addExpiredUserDeleteResume(userDeleteResumes);
+            userDeleteResumeMapper.delete(queryWrapper);
+            log.info("删除用户所有删除简历成功");
+        }catch (Exception e){
+            log.error("删除用户所有删除简历失败");
+        }
+
     }
 
     @Override

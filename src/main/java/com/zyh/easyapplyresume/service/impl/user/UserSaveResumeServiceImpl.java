@@ -37,68 +37,101 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
     private IndustryMapMapper industryMapMapper;
     @Override
     public List<UserSaveResumeInfoVO> getUserSaveResumeInfoByUserId(Integer userSaveResumeUserId) {
-        LambdaQueryWrapper<UserSaveResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userSaveResumeUserId);
-        lambdaQueryWrapper.orderByDesc(UserSaveResume::getUserSaveResumeSortedNum);
-        List<UserSaveResume> userSaveResumeList = userSaveResumeMapper.selectList(lambdaQueryWrapper);
-        if (userSaveResumeList != null){
-            return BeanUtil.copyToList(userSaveResumeList, UserSaveResumeInfoVO.class);
+        try{
+            log.info("获取用户保存的简历信息开始");
+            LambdaQueryWrapper<UserSaveResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userSaveResumeUserId);
+            lambdaQueryWrapper.orderByDesc(UserSaveResume::getUserSaveResumeSortedNum);
+            List<UserSaveResume> userSaveResumeList = userSaveResumeMapper.selectList(lambdaQueryWrapper);
+            if (userSaveResumeList != null){
+                return BeanUtil.copyToList(userSaveResumeList, UserSaveResumeInfoVO.class);
+            }
+            log.info("获取用户保存的简历信息成功");
+        }catch (Exception e){
+            log.error("获取用户保存的简历信息失败");
         }
+
         return null;
     }
 
     @Override
     public UserSaveResumeInfoVO getUserSaveResumeInfoByUserIdAndResumeId(Integer userId, Integer userSaveResumeSortedNum) {
-        LambdaQueryWrapper<UserSaveResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
-        lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeSortedNum, userSaveResumeSortedNum);
-        UserSaveResume userSaveResume = userSaveResumeMapper.selectOne(lambdaQueryWrapper);
-        if (userSaveResume != null){
-            return BeanUtil.copyProperties(userSaveResume, UserSaveResumeInfoVO.class);
+        try{
+            log.info("获取用户保存的简历信息开始");
+            LambdaQueryWrapper<UserSaveResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
+            lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeSortedNum, userSaveResumeSortedNum);
+            UserSaveResume userSaveResume = userSaveResumeMapper.selectOne(lambdaQueryWrapper);
+            if (userSaveResume != null){
+                return BeanUtil.copyProperties(userSaveResume, UserSaveResumeInfoVO.class);
+            }
+            log.info("获取用户保存的简历信息成功");
+        }catch (Exception e){
+            log.error("获取用户保存的简历信息失败");
         }
         return null;
     }
 
     @Override
     public void deleteUserSaveResumeInfoByUserIdAndResumeId(Integer userId, Integer userSaveResumeSortedNum) {
-        LambdaQueryWrapper<UserSaveResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
-        lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeSortedNum, userSaveResumeSortedNum);
-        UserSaveResume userSaveResume = userSaveResumeMapper.selectOne(lambdaQueryWrapper);
-        UserSaveResumeInfoVO userSaveResumeInfoVO = BeanUtil.copyProperties(userSaveResume, UserSaveResumeInfoVO.class);
-        userDeleteResumeService.addUserDeleteSaveResume(userSaveResumeInfoVO);
-        userSaveResumeMapper.delete(lambdaQueryWrapper);
-        reorderResumeSortedNum(userId, userSaveResumeSortedNum);
+        try{
+            log.info("删除用户保存的简历信息开始");
+            LambdaQueryWrapper<UserSaveResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
+            lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeSortedNum, userSaveResumeSortedNum);
+            UserSaveResume userSaveResume = userSaveResumeMapper.selectOne(lambdaQueryWrapper);
+            UserSaveResumeInfoVO userSaveResumeInfoVO = BeanUtil.copyProperties(userSaveResume, UserSaveResumeInfoVO.class);
+            userDeleteResumeService.addUserDeleteSaveResume(userSaveResumeInfoVO);
+            userSaveResumeMapper.delete(lambdaQueryWrapper);
+            reorderResumeSortedNum(userId, userSaveResumeSortedNum);
+            log.info("删除用户保存的简历信息成功");
+        }catch (Exception e){
+            log.error("删除用户保存的简历信息失败");
+        }
+
     }
 
     @Override
     public void saveUserSaveResumeInfo(UserSaveResumeInfoVO userSaveResumeInfoVO) {
-        userSaveResumeMapper.updateById(BeanUtil.copyProperties(userSaveResumeInfoVO, UserSaveResume.class));
+        try{
+            log.info("保存用户保存的简历信息开始");
+            userSaveResumeMapper.updateById(BeanUtil.copyProperties(userSaveResumeInfoVO, UserSaveResume.class));
+            log.info("保存用户保存的简历信息成功");
+        }catch (Exception e){
+            log.error("保存用户保存的简历信息失败");
+        }
     }
 
 
     @Override
     public void saveUserSaveResumeInfoFirst(ResumeTemplateInfoVO resumeTemplateInfoVO, Integer userId) {
-        UserSaveResume userSaveResume = new UserSaveResume();
-        userSaveResume.setUserSaveResumeResumeName(resumeTemplateInfoVO.getResumeTemplateName());
-        LambdaQueryWrapper<IndustryMap> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(IndustryMap::getIndustryMapIndustryName, resumeTemplateInfoVO.getIndustryMapIndustryName());
-        IndustryMap industryMap = industryMapMapper.selectOne(queryWrapper);
-        userSaveResume.setUserSaveResumeIndustry(industryMap.getIndustryMapIndustryCode());
-        userSaveResume.setUserSaveResumeResumeReactCode(resumeTemplateInfoVO.getResumeTemplateReactCode());
-        userSaveResume.setUserSaveResumeCreatedTime(new Date());
-        userSaveResume.setUserSaveResumeUpdatedTime(new Date());
-        LambdaQueryWrapper<UserSaveResume> queryWrapper1 = new LambdaQueryWrapper<>();
-        queryWrapper1.eq(UserSaveResume::getUserSaveResumeUserId, userId);
-        queryWrapper1.orderByDesc(UserSaveResume::getUserSaveResumeSortedNum);
-        List<UserSaveResume> userSaveResumes = userSaveResumeMapper.selectList(queryWrapper1);
-        Integer userSaveResumeSortedNum = userSaveResumes.get(0).getUserSaveResumeSortedNum();
-        if (userSaveResumeSortedNum>=4){
-            throw new BusException(UserCodeEnum.USER_SAVE_RESUME_NOT_DAYU_FIVE);
+        try{
+            log.info("保存用户保存的简历信息开始");
+            UserSaveResume userSaveResume = new UserSaveResume();
+            userSaveResume.setUserSaveResumeResumeName(resumeTemplateInfoVO.getResumeTemplateName());
+            LambdaQueryWrapper<IndustryMap> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(IndustryMap::getIndustryMapIndustryName, resumeTemplateInfoVO.getIndustryMapIndustryName());
+            IndustryMap industryMap = industryMapMapper.selectOne(queryWrapper);
+            userSaveResume.setUserSaveResumeIndustry(industryMap.getIndustryMapIndustryCode());
+            userSaveResume.setUserSaveResumeResumeReactCode(resumeTemplateInfoVO.getResumeTemplateReactCode());
+            userSaveResume.setUserSaveResumeCreatedTime(new Date());
+            userSaveResume.setUserSaveResumeUpdatedTime(new Date());
+            LambdaQueryWrapper<UserSaveResume> queryWrapper1 = new LambdaQueryWrapper<>();
+            queryWrapper1.eq(UserSaveResume::getUserSaveResumeUserId, userId);
+            queryWrapper1.orderByDesc(UserSaveResume::getUserSaveResumeSortedNum);
+            List<UserSaveResume> userSaveResumes = userSaveResumeMapper.selectList(queryWrapper1);
+            Integer userSaveResumeSortedNum = userSaveResumes.get(0).getUserSaveResumeSortedNum();
+            if (userSaveResumeSortedNum>=4){
+                throw new BusException(UserCodeEnum.USER_SAVE_RESUME_NOT_DAYU_FIVE);
+            }
+            userSaveResume.setUserSaveResumeSortedNum(userSaveResumeSortedNum+1);
+            userSaveResume.setUserSaveResumeUserId(userId);
+            userSaveResumeMapper.insert(userSaveResume);
+            log.info("保存用户保存的简历信息成功");
+        }catch (Exception e){
+            log.error("保存用户保存的简历信息失败");
         }
-        userSaveResume.setUserSaveResumeSortedNum(userSaveResumeSortedNum+1);
-        userSaveResume.setUserSaveResumeUserId(userId);
-        userSaveResumeMapper.insert(userSaveResume);
+
     }
 
     private void reorderResumeSortedNum(Integer userId, Integer deletedSortedNum) {
