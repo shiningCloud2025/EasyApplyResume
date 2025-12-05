@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserSaveResumeMapper;
 import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
+import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
 import com.zyh.easyapplyresume.service.user.UserDeleteResumeService;
 import com.zyh.easyapplyresume.service.user.UserSaveResumeService;
@@ -53,20 +54,20 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
         lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
         lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeSortedNum, userSaveResumeSortedNum);
         UserSaveResume userSaveResume = userSaveResumeMapper.selectOne(lambdaQueryWrapper);
-        UserSaveResumeInfoVO userSaveResumeInfoVO = BeanUtil.copyProperties(userSaveResume, UserSaveResumeInfoVO.class)
+        UserSaveResumeInfoVO userSaveResumeInfoVO = BeanUtil.copyProperties(userSaveResume, UserSaveResumeInfoVO.class);
         userDeleteResumeService.addUserDeleteSaveResume(userSaveResumeInfoVO);
         userSaveResumeMapper.delete(lambdaQueryWrapper);
         reorderResumeSortedNum(userId, userSaveResumeSortedNum);
     }
 
     @Override
-    public UserSaveResume saveUserSaveResumeInfo(UserSaveResume userSaveResume) {
-        return null;
+    public void saveUserSaveResumeInfo(UserSaveResumeInfoVO userSaveResumeInfoVO) {
+        userSaveResumeMapper.updateById(BeanUtil.copyProperties(userSaveResumeInfoVO, UserSaveResume.class));
     }
 
 
     @Override
-    public UserSaveResume saveUserSaveResumeInfoFirst(UserSaveResume userSaveResume) {
+    public void saveUserSaveResumeInfoFirst(ResumeTemplateInfoVO resumeTemplateInfoVO) {
         return null;
     }
 
