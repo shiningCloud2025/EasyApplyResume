@@ -3,7 +3,11 @@ package com.zyh.easyapplyresume.service.impl.user;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.UserCodeEnum;
+import com.zyh.easyapplyresume.mapper.mysql.admin.IndustryMapMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserSaveResumeMapper;
+import com.zyh.easyapplyresume.model.pojo.admin.IndustryMap;
 import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
 import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
@@ -13,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 /**
  * @author shiningCloud2025
@@ -24,6 +29,8 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
     private UserSaveResumeMapper userSaveResumeMapper;
     @Autowired
     private UserDeleteResumeService userDeleteResumeService;
+    @Autowired
+    private IndustryMapMapper industryMapMapper;
     @Override
     public List<UserSaveResumeInfoVO> getUserSaveResumeInfoByUserId(Integer userSaveResumeUserId) {
         LambdaQueryWrapper<UserSaveResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -67,8 +74,27 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
 
 
     @Override
-    public void saveUserSaveResumeInfoFirst(ResumeTemplateInfoVO resumeTemplateInfoVO) {
-        return null;
+    public void saveUserSaveResumeInfoFirst(ResumeTemplateInfoVO resumeTemplateInfoVO, Integer userId) {
+        UserSaveResume userSaveResume = new UserSaveResume();
+        userSaveResume.setUserSaveResumeResumeName(resumeTemplateInfoVO.getResumeTemplateName());
+        LambdaQueryWrapper<IndustryMap> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(IndustryMap::getIndustryMapIndustryName, resumeTemplateInfoVO.getIndustryMapIndustryName());
+        IndustryMap industryMap = industryMapMapper.selectOne(queryWrapper);
+        userSaveResume.setUserSaveResumeIndustry(industryMap.getIndustryMapIndustryCode());
+        userSaveResume.setUserSaveResumeResumeReactCode(resumeTemplateInfoVO.getResumeTemplateReactCode());
+        userSaveResume.setUserSaveResumeCreatedTime(new Date());
+        userSaveResume.setUserSaveResumeUpdatedTime(new Date());
+        LambdaQueryWrapper<UserSaveResume> queryWrapper1 = new LambdaQueryWrapper<>();
+        queryWrapper1.eq(UserSaveResume::getUserSaveResumeUserId, userId);
+        queryWrapper1.orderByDesc(UserSaveResume::getUserSaveResumeSortedNum);
+        List<UserSaveResume> userSaveResumes = userSaveResumeMapper.selectList(queryWrapper1);
+        Integer userSaveResumeSortedNum = userSaveResumes.get(0).getUserSaveResumeSortedNum();
+        if (userSaveResumeSortedNum>=4){
+            throw new BusException(UserCodeEnum.USER_SAVE_RESUME_NOT_DAYU_FIVE);
+        }
+        userSaveResume.setUserSaveResumeSortedNum(userSaveResumeSortedNum+1);
+        userSaveResume.setUserSaveResumeUserId(userId);
+        userSaveResumeMapper.insert(userSaveResume);
     }
 
     private void reorderResumeSortedNum(Integer userId, Integer deletedSortedNum) {
