@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.service.user.UserLoginAndRegisterEmailVerifyServi
 import com.zyh.easyapplyresume.service.user.UserSmsService;
 import com.zyh.easyapplyresume.utils.jwt.JwtUtil;
 import com.zyh.easyapplyresume.utils.uservalidator.FormalRegisterValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +28,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Transactional
 @Service
+@Slf4j
 public class UserAuthServiceImpl implements UserAuthService {
     @Autowired
     private UserMapper userMapper;
