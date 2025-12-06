@@ -11,10 +11,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 /**
  * 用户认证控制器-用户端
  *  @author shiningCloud2025
@@ -28,44 +26,44 @@ public class UserAuthController {
 
 
     @Operation(summary = "普通登录")
-    @RequestMapping("/formalLogin")
+    @PostMapping("/formalLogin")
     public BaseResult<String> formalLogin(@RequestBody FormalLoginForm formalLoginForm) {
         return BaseResult.ok(userAuthService.formalLogin(formalLoginForm));
     }
 
     @Operation(summary = "手机登录")
-    @RequestMapping("/phoneLogin")
+    @PostMapping("/phoneLogin")
     public BaseResult<String> phoneLogin(@RequestBody PhoneLoginForm phoneLoginForm) {
         return BaseResult.ok(userAuthService.phoneLogin(phoneLoginForm));
     }
 
     @Operation(summary = "邮箱登录")
-    @RequestMapping("/emailLogin")
+    @PostMapping("/emailLogin")
     public BaseResult<String> emailLogin(@RequestBody EmailLoginForm emailLoginForm) {
         return BaseResult.ok(userAuthService.emailLogin(emailLoginForm));
     }
 
     @Operation(summary = "普通注册")
-    @RequestMapping("/formalRegister")
+    @PostMapping("/formalRegister")
     public BaseResult<String> formalRegister(@RequestBody FormalRegisterForm formalRegisterForm) {
         return BaseResult.ok(userAuthService.formalRegister(formalRegisterForm));
     }
 
     @Operation(summary = "生成随机账号")
-    @RequestMapping("/generateRandomAccount")
+    @PostMapping("/generateRandomAccount")
     public BaseResult<String> generateRandomAccount() {
         return BaseResult.ok(userAuthService.generateRandomAccount());
     }
 
     @Operation(summary = "退出登录")
-    @RequestMapping("/logout")
-    public BaseResult<?> logout(@RequestParam(required = true,value = "userId") Integer userId) {
+    @PostMapping("/logout")
+    public BaseResult<?> logout(@RequestBody Integer userId) {
         userAuthService.logout(userId);
         return BaseResult.ok();
     }
 
     @Operation(summary = "获取用户信息")
-    @RequestMapping("/getUserInfo")
+    @PostMapping("/getUserInfo")
     public BaseResult<SecurityUser> getUserInfo(@AuthenticationPrincipal SecurityUser securityUser){
         return BaseResult.ok(securityUser);
     }

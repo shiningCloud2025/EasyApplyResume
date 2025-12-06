@@ -32,8 +32,6 @@ public class UserServiceImpl implements UserService {
         }catch (Exception e){
             log.error("用户更新信息失败");
         }
-
-
     }
 
     @Override
