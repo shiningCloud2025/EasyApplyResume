@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.service.admin;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.model.form.admin.JobAdviceArticleForm;
 import com.zyh.easyapplyresume.model.query.admin.JobAdviceArticleQuery;
 import com.zyh.easyapplyresume.model.vo.admin.JobAdviceArticleInfoVO;
@@ -39,7 +40,7 @@ public interface JobAdviceArticleService {
      * @param jobAdviceArticleQuery
      * @return
      */
-    public List<JobAdviceArticlePageVO> getJobAdviceArticlePage(int size, int page, JobAdviceArticleQuery jobAdviceArticleQuery);
+    public Page<JobAdviceArticlePageVO> getJobAdviceArticlePage(int size, int page, JobAdviceArticleQuery jobAdviceArticleQuery);
     /**
      * 获取所有求职攻略文章信息
      * @return
