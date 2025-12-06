@@ -3,7 +3,10 @@ package com.zyh.easyapplyresume.service.impl.user;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.UserCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserMapper;
+import com.zyh.easyapplyresume.model.form.user.EmailLoginForm;
+import com.zyh.easyapplyresume.model.form.user.FormalLoginForm;
 import com.zyh.easyapplyresume.model.form.user.FormalRegisterForm;
+import com.zyh.easyapplyresume.model.form.user.PhoneLoginForm;
 import com.zyh.easyapplyresume.model.pojo.user.User;
 import com.zyh.easyapplyresume.service.user.UserAuthService;
 import com.zyh.easyapplyresume.service.user.UserLoginAndRegisterEmailVerifyService;
@@ -55,18 +58,17 @@ public class UserAuthServiceImpl implements UserAuthService {
     private UserLoginAndRegisterEmailVerifyService userLoginAndRegisterEmailVerifyService;
 
     /**
-     * 账号/邮箱/手机号+密码登录
-     * @param accountOrPhoneOrEmail
-     * @param password
+     * 普通登录(账号/手机号/邮箱号)
+     * @param formalLoginForm
      * @return
      */
     @Override
-    public String formalLogin(String accountOrPhoneOrEmail, String password) {
-        User user = userMapper.findByAccountOrPhoneOrEmail(accountOrPhoneOrEmail);
+    public String formalLogin(FormalLoginForm formalLoginForm) {
+        User user = userMapper.findByAccountOrPhoneOrEmail(formalLoginForm.getAccountOrPhoneOrEmail());
         if (user== null){
             throw new BusException(UserCodeEnum.ACCOUNT_OR_PASSWORD_ERROR);
         }
-        if (!passwordEncoder.matches(password, user.getUserPassword())){
+        if (!passwordEncoder.matches(formalLoginForm.getPassword(), user.getUserPassword())){
             throw new BusException(UserCodeEnum.ACCOUNT_OR_PASSWORD_ERROR);
         }
         user.setUserLoginTime(new Date());
@@ -79,14 +81,13 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     /**
      * 手机号+短信登录
-     * @param phone
-     * @param messageCode
+     * @param phoneLoginForm
      * @return
      */
     @Override
-    public String phoneLogin(String phone, String messageCode) {
-        userSmsService.verifyCode(phone, messageCode);
-        User user = userMapper.findByAccountOrPhoneOrEmail(phone);
+    public String phoneLogin(PhoneLoginForm phoneLoginForm) {
+        userSmsService.verifyCode(phoneLoginForm.getPhone(), phoneLoginForm.getMessageCode());
+        User user = userMapper.findByAccountOrPhoneOrEmail(phoneLoginForm.getPhone());
         if (user== null){
             throw new BusException(UserCodeEnum.NO_REGISTER_ERROR);
         }
@@ -100,14 +101,13 @@ public class UserAuthServiceImpl implements UserAuthService {
 
     /**
      * 邮箱+验证码登录
-     * @param email
-     * @param messageCode
+     * @param emailLoginForm
      * @return
      */
     @Override
-    public String emailLogin(String email, String messageCode) {
-        userLoginAndRegisterEmailVerifyService.verifyCode(email, messageCode);
-        User user = userMapper.findByAccountOrPhoneOrEmail(email);
+    public String emailLogin(EmailLoginForm emailLoginForm) {
+        userLoginAndRegisterEmailVerifyService.verifyCode(emailLoginForm.getEmail(), emailLoginForm.getMessageCode());
+        User user = userMapper.findByAccountOrPhoneOrEmail(emailLoginForm.getEmail());
         if (user== null){
             throw new BusException(UserCodeEnum.NO_REGISTER_ERROR);
         }
