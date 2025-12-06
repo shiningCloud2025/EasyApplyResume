@@ -10,7 +10,7 @@ import java.util.Date;
  */
 @Data
 @Schema(description = "管理员反馈信息")
-public class AdminFeedbackVO {
+public class AdminFeedbackInfoVO {
     
     @Schema(description = "管理员反馈ID")
     private Integer adminFeedbackId;
