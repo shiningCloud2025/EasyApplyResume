@@ -33,7 +33,7 @@ public class UniversityMapController {
 
     @Operation(summary = "模糊查询所有的大学")
     @GetMapping("/getAllUniversityMapByName")
-    public BaseResult<List<UniversityMap>> getAllUniversityMapByName(@RequestParam String universityMapName){
+    public BaseResult<List<UniversityMap>> getAllUniversityMapByName(@RequestParam(required = true, value = "universityMapName") String universityMapName){
         return BaseResult.ok(universityMapService.getAllUniversityMapByName(universityMapName));
     }
 }
