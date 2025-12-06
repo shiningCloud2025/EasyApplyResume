@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.model.pojo.admin.JobAdviceArticle;
 import com.zyh.easyapplyresume.model.query.admin.JobAdviceArticleQuery;
 import com.zyh.easyapplyresume.model.vo.admin.JobAdviceArticleInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.JobAdviceArticlePageVO;
+import com.zyh.easyapplyresume.model.vo.admin.PermissionPageVO;
 import com.zyh.easyapplyresume.service.admin.JobAdviceArticleService;
 import com.zyh.easyapplyresume.utils.adminvalidator.JobAdviceArticleFormValidator;
 import org.springframework.beans.BeanUtils;
@@ -67,7 +68,7 @@ public class JobAdviceArticleServiceImpl implements JobAdviceArticleService {
     }
 
     @Override
-    public List<JobAdviceArticlePageVO> getJobAdviceArticlePage(int size, int page, JobAdviceArticleQuery jobAdviceArticleQuery) {
+    public Page<JobAdviceArticlePageVO> getJobAdviceArticlePage(int size, int page, JobAdviceArticleQuery jobAdviceArticleQuery) {
         // 1. 构建 LambdaQueryWrapper（指定 JobAdviceArticle 数据库实体类）
         LambdaQueryWrapper<JobAdviceArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(JobAdviceArticle::getDeleted, 0);
@@ -114,8 +115,14 @@ public class JobAdviceArticleServiceImpl implements JobAdviceArticleService {
                 })
                 .collect(Collectors.toList());
 
-        // 5. 返回分页后的 VO 列表（无数据时返回空列表，避免空指针）
-        return voList != null ? voList : Collections.emptyList();
+        // 5. 封装 VO 分页对象（复制原始分页的所有分页参数，保证分页逻辑正确）
+        Page<JobAdviceArticlePageVO> jobAdviceArticlePageVOPage = new Page<>();
+        jobAdviceArticlePageVOPage.setRecords(voList);         // 核心：转换后的 VO 列表
+        jobAdviceArticlePageVOPage.setCurrent(jobAdviceArticlePage.getCurrent()); // 当前页码
+        jobAdviceArticlePageVOPage.setSize(jobAdviceArticlePage.getSize());       // 每页条数
+        jobAdviceArticlePageVOPage.setTotal(jobAdviceArticlePage.getTotal());     // 总数据量（关键：计算总页数用）
+        jobAdviceArticlePageVOPage.setPages(jobAdviceArticlePage.getPages());     // 总页数
+        return jobAdviceArticlePageVOPage;
     }
 
     @Override
