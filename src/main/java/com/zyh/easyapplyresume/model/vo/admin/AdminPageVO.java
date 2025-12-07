@@ -19,7 +19,6 @@ public class AdminPageVO {
     @Schema(description = "管理员账号")
     private String adminAccount;
 
-
     @Schema(description = "管理员名称")
     private String adminUsername;
 

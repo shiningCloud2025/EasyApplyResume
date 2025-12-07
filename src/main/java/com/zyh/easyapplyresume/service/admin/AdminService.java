@@ -49,4 +49,9 @@ public interface AdminService {
      */
     public Integer assignRoleToAdmin(Integer adminId, Integer[] roleIds);
 
+    /**
+     * 生成随机账号(7-10位)
+     */
+    public String generateRandomAccount();
+
 }

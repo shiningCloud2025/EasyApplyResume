@@ -133,6 +133,7 @@ public class UserAuthServiceImpl implements UserAuthService {
             formalRegisterForm.setUserCreateTime(new Date());
             formalRegisterForm.setUserLoginTime(new Date());
             BeanUtils.copyProperties(formalRegisterForm, user);
+            user.setUserPassword(passwordEncoder.encode(formalRegisterForm.getUserPassword()));
             userMapper.insert(user);
             String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
             String redisKey = "user:token:" + user.getUserId();
