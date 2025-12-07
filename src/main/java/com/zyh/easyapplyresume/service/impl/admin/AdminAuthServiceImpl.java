@@ -124,9 +124,5 @@ public class AdminAuthServiceImpl implements AdminAuthService {
     }
 
 
-    @Override
-    public void logout(Integer adminId) {
-        String redisKey = "admin:token:" + adminId;
-        stringRedisTemplate.delete(redisKey);
-    }
+
 }

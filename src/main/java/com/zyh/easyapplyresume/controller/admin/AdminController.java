@@ -7,10 +7,12 @@ import com.zyh.easyapplyresume.model.query.admin.AdminPageQuery;
 import com.zyh.easyapplyresume.model.vo.admin.AdminInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminPageVO;
 import com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO;
+import com.zyh.easyapplyresume.security.SecurityUser;
 import com.zyh.easyapplyresume.service.admin.AdminService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -77,6 +79,11 @@ public class AdminController {
         return BaseResult.ok(adminService.generateRandomAccount());
     }
 
+    @Operation(summary = "获取管理员信息")
+    @PostMapping("/getAdminInfo")
+    public BaseResult<SecurityUser> getAdminInfo(@AuthenticationPrincipal SecurityUser securityUser){
+        return BaseResult.ok(securityUser);
+    }
 
 
 }

@@ -54,4 +54,11 @@ public interface AdminService {
      */
     public String generateRandomAccount();
 
+    /**
+     * 退出登录
+     * @return
+     */
+    public void logout(Integer adminId);
+
+
 }
