@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -27,6 +28,7 @@ import java.util.Date;
  */
 @Slf4j
 @Service
+@Transactional
 public class AdminFeedbackServiceImpl implements AdminFeedbackService {
     @Autowired
     private AdminFeedbackMapper adminFeedbackMapper;
@@ -74,6 +76,10 @@ public class AdminFeedbackServiceImpl implements AdminFeedbackService {
         adminFeedbackRecord.setAdminFeedbackRecordCurrentStepSolveTime(new Date());
         adminFeedbackRecord.setAdminFeedbackRecordOldStep(adminFeedback.getAdminFeedbackCurStep());
         adminFeedbackRecord.setAdminFeedbackRecordApprovalPersonId(operationPersonId);
+        LambdaQueryWrapper<Admin> queryWrapper2 = new LambdaQueryWrapper<>();
+        queryWrapper2.eq(Admin::getAdminId, operationPersonId);
+        Admin admin1 = adminMapper.selectOne(queryWrapper2);
+        adminFeedbackRecord.setAdminFeedbackRecordNewStep(admin1.getAdminUsername());
         /**
          * TODO
          *                                              ->回复(操作码2)-发送短信，变成已回复
@@ -92,7 +98,7 @@ public class AdminFeedbackServiceImpl implements AdminFeedbackService {
             adminFeedback.setAdminFeedbackCurStep(AdminBusinessEnum.ADMIN_ALREADY_IGNORE.getMessage());
             adminFeedbackRecord.setAdminFeedbackRecordNewStep(adminFeedback.getAdminFeedbackCurStep());
         }else if(OperationCode==2){
-            sendCommunicationEmailService.sendTextEmailUsallyDefition(adminEmail,title, content);
+            sendCommunicationEmailService.sendHtmlEmailUsallyDefition(adminEmail,title, content);
             sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈处理完毕-管理平台","您有一条新的反馈处理完毕-管理平台");
             adminFeedback.setAdminFeedbackCurStep(AdminBusinessEnum.ADMIN_ALREADY_REPLY.getMessage());
             adminFeedbackRecord.setAdminFeedbackRecordNewStep(adminFeedback.getAdminFeedbackCurStep());
