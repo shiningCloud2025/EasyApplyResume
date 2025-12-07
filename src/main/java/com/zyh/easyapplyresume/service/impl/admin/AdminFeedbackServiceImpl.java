@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.businessEnum.AdminBusinessEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminFeedbackMapper;
+import com.zyh.easyapplyresume.mapper.mysql.admin.AdminFeedbackRecordMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminMapper;
 import com.zyh.easyapplyresume.model.form.admin.AdminFeedbackForm;
 import com.zyh.easyapplyresume.model.pojo.admin.Admin;
 import com.zyh.easyapplyresume.model.pojo.admin.AdminFeedback;
+import com.zyh.easyapplyresume.model.pojo.admin.AdminFeedbackRecord;
 import com.zyh.easyapplyresume.model.query.admin.AdminFeedbackQuery;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFeedbackInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFeedbackPageVO;
@@ -39,6 +41,9 @@ public class AdminFeedbackServiceImpl implements AdminFeedbackService {
     @Value("${spring.mail.username}")
     private String defaultFromEmail;
 
+    @Autowired
+    private AdminFeedbackRecordMapper adminFeedbackRecordMapper;
+
     @Override
     public void addFeedback(AdminFeedbackForm adminFeedbackForm) {
         AdminFeedback adminFeedback = new AdminFeedback();
@@ -49,10 +54,12 @@ public class AdminFeedbackServiceImpl implements AdminFeedbackService {
         adminFeedback.setAdminFeedbackCurStep(AdminBusinessEnum.ADMIN_WAIT_RECEIVED.getMessage());
         adminFeedback.setAdminFeedbackAdminId(adminFeedbackForm.getAdminFeedbackAdminId());
         adminFeedbackMapper.insert(adminFeedback);
+        sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈待接受-管理平台","您有一条新的反馈待接收-管理平台");
     }
 
     @Override
-    public void updateFeedbackStep(Integer feedbackId, Integer OperationCode,String title, String content) {
+    public void updateFeedbackStep(Integer feedbackId, Integer OperationCode,String title, String content,Integer operationPersonId) {
+        AdminFeedbackRecord adminFeedbackRecord = new AdminFeedbackRecord();
         LambdaQueryWrapper<AdminFeedback> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(AdminFeedback::getAdminFeedbackId, feedbackId);
         AdminFeedback adminFeedback = adminFeedbackMapper.selectOne(queryWrapper);
@@ -61,6 +68,12 @@ public class AdminFeedbackServiceImpl implements AdminFeedbackService {
         queryWrapper1.eq(Admin::getAdminId, adminFeedbackAdminId);
         Admin admin = adminMapper.selectOne(queryWrapper1);
         String adminEmail = admin.getAdminEmail();
+        adminFeedbackRecord.setAdminFeedbackRecordTitle(adminFeedback.getAdminFeedbackTitle());
+        adminFeedbackRecord.setAdminFeedbackRecordContent(adminFeedback.getAdminFeedbackContent());
+        adminFeedbackRecord.setAdminFeedbackRecordTime(adminFeedback.getAdminFeedbackTime());
+        adminFeedbackRecord.setAdminFeedbackRecordCurrentStepSolveTime(new Date());
+        adminFeedbackRecord.setAdminFeedbackRecordOldStep(adminFeedback.getAdminFeedbackCurStep());
+        adminFeedbackRecord.setAdminFeedbackRecordApprovalPersonId(operationPersonId);
         /**
          * TODO
          *                                              ->回复(操作码2)-发送短信，变成已回复
@@ -72,11 +85,25 @@ public class AdminFeedbackServiceImpl implements AdminFeedbackService {
          */
         if (OperationCode==0){
             sendCommunicationEmailService.sendTextEmailUsallyDefition(adminEmail,"您好"+admin.getAdminUsername()+",感谢您的反馈","您好"+admin.getAdminUsername()+"，您的反馈已被管理员接受，等待回复...");
-            sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈待处理-管理平台","您有一条新的反馈待处理-管理平台");
+            sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈待回复-管理平台","您有一条新的反馈待回复-管理平台");
             adminFeedback.setAdminFeedbackCurStep(AdminBusinessEnum.ADMIN_DO_RECEIVER.getMessage());
+            adminFeedbackRecord.setAdminFeedbackRecordNewStep(adminFeedback.getAdminFeedbackCurStep());
         }else if (OperationCode==1){
             adminFeedback.setAdminFeedbackCurStep(AdminBusinessEnum.ADMIN_ALREADY_IGNORE.getMessage());
+            adminFeedbackRecord.setAdminFeedbackRecordNewStep(adminFeedback.getAdminFeedbackCurStep());
+        }else if(OperationCode==2){
+            sendCommunicationEmailService.sendTextEmailUsallyDefition(adminEmail,title, content);
+            sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈处理完毕-管理平台","您有一条新的反馈处理完毕-管理平台");
+            adminFeedback.setAdminFeedbackCurStep(AdminBusinessEnum.ADMIN_ALREADY_REPLY.getMessage());
+            adminFeedbackRecord.setAdminFeedbackRecordNewStep(adminFeedback.getAdminFeedbackCurStep());
+        } else if (OperationCode==3) {
+            sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈处理完毕-管理平台","您有一条新的反馈处理完毕-管理平台");
+            adminFeedback.setAdminFeedbackCurStep(AdminBusinessEnum.ADMIN_REJECT_REPLY.getMessage());
+            adminFeedbackRecord.setAdminFeedbackRecordNewStep(adminFeedback.getAdminFeedbackCurStep());
         }
+        adminFeedback.setAdminFeedbackRecentTime(new Date());
+        adminFeedbackMapper.updateById(adminFeedback);
+        adminFeedbackRecordMapper.insert(adminFeedbackRecord);
     }
 
 
