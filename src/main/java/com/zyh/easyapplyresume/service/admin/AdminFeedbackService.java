@@ -22,7 +22,7 @@ public interface AdminFeedbackService {
      * @param feedbackId
      * @param OperationCode
      */
-    public void updateFeedbackStep(Integer feedbackId, Integer OperationCode,String title, String content);
+    public void updateFeedbackStep(Integer feedbackId, Integer OperationCode,String title, String content,Integer operationPersonId);
 
 
 
