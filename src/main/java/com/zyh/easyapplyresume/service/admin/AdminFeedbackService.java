@@ -18,6 +18,15 @@ public interface AdminFeedbackService {
     public void addFeedback(AdminFeedbackForm adminFeedbackForm);
 
     /**
+     * 更新反馈阶段
+     * @param feedbackId
+     * @param OperationCode
+     */
+    public void updateFeedbackStep(Integer feedbackId, Integer OperationCode,String title, String content);
+
+
+
+    /**
      * 删除反馈信息
      * @param feedbackId
      */
