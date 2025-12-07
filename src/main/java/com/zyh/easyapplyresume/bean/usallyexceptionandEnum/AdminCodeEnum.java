@@ -155,8 +155,11 @@ public enum AdminCodeEnum {
     SMS_SEND_FREQUENCY(771, "短信发送过于频繁，请3分钟后再试"),
     SMS_SEND_FAIL(772, "短信发送失败，请稍后重试"),
     SMS_VERIFY_CODE_INVALID(773, "短信验证码无效或已过期"),
-    SMS_CONFIG_ERROR(774, "短信服务配置缺失，请联系管理员")
+    SMS_CONFIG_ERROR(774, "短信服务配置缺失，请联系管理员"),
 
+    // ===================== 新增：登录业务（从785开始）=====================
+    ACCOUNT_OR_PASSWORD_ERROR(785, "账号或密码错误"),
+    NO_REGISTER_ERROR(786, "管理员未注册")
     ;
 
     private final Integer code;

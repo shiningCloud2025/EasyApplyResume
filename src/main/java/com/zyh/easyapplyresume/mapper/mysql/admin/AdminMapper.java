@@ -23,4 +23,8 @@ public interface AdminMapper extends BaseMapper<Admin> {
     // 给管理员分配角色
     Integer assignRoleToAdmin(@Param("adminId") Integer adminId,@Param("roleId") Integer roleId);
 
+    // 根据账号/邮箱/手机号查找
+    Admin findByAccountOrPhoneOrEmail(@Param("accountOrPhoneOrEmail") String accountOrPhoneOrEmail);
+
+
 }

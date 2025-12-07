@@ -166,4 +166,9 @@ public class AdminServiceImpl implements AdminService {
         }
         return count;
     }
+
+    @Override
+    public String generateRandomAccount() {
+        return "";
+    }
 }
