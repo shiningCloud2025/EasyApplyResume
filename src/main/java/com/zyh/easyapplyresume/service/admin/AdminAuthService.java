@@ -24,9 +24,5 @@ public interface AdminAuthService {
     public String emailLogin(EmailLoginForm emailLoginForm);
 
 
-    /**
-     * 退出登录
-     * @return
-     */
-    public void logout(Integer adminId);
+;
 }

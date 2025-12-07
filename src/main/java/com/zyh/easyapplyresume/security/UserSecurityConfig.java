@@ -28,7 +28,7 @@ public class UserSecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth->auth
-                        .requestMatchers("/api/user/aiResumeAssistant").permitAll()
+                        .requestMatchers("/api//user/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(userJwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
