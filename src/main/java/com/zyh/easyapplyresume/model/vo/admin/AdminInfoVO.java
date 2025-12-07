@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.model.vo.admin;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -14,6 +15,9 @@ import java.util.List;
 public class AdminInfoVO {
     @Schema(description = "管理员id")
     private Integer adminId;
+
+    @Schema(description = "管理员账号")
+    private String adminAccount;
 
     @Schema(description = "管理员名称")
     private String adminUsername;

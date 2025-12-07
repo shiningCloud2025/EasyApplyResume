@@ -19,6 +19,9 @@ public class UserInfoVO {
     @Schema(description = "用户id")
     private Integer userId;
 
+    @Schema(description = "用户账号")
+    private String userAccount;
+
     @Schema(description = "用户名称")
     private String userUsername;
 
