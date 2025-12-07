@@ -71,5 +71,12 @@ public class AdminController {
         return BaseResult.ok(adminService.assignRoleToAdmin(adminId,roleIds));
     }
 
+    @Operation(summary = "生成随机账号")
+    @GetMapping("/generateRandomAccount")
+    public BaseResult<String> generateRandomAccount(){
+        return BaseResult.ok(adminService.generateRandomAccount());
+    }
+
+
 
 }

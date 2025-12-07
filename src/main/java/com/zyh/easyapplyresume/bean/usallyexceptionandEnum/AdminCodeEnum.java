@@ -159,7 +159,9 @@ public enum AdminCodeEnum {
 
     // ===================== 新增：登录业务（从785开始）=====================
     ACCOUNT_OR_PASSWORD_ERROR(785, "账号或密码错误"),
-    NO_REGISTER_ERROR(786, "管理员未注册")
+    NO_REGISTER_ERROR(786, "管理员未注册"),
+    GENERATE_ACCOUNT_FAIL(787, "生成管理员账号失败")
+
     ;
 
     private final Integer code;
