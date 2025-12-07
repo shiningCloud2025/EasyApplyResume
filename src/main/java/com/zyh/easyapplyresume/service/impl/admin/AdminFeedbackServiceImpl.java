@@ -119,12 +119,50 @@ public class AdminFeedbackServiceImpl implements AdminFeedbackService {
         LambdaQueryWrapper<AdminFeedback> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(AdminFeedback::getAdminFeedbackId, feedbackId);
         AdminFeedback adminFeedback = adminFeedbackMapper.selectOne(queryWrapper);
-        return BeanUtil.toBean(adminFeedback, AdminFeedbackInfoVO.class);
+        AdminFeedbackInfoVO adminFeedbackInfoVO = BeanUtil.toBean(adminFeedback, AdminFeedbackInfoVO.class);
+        Admin admin = adminMapper.selectById(adminFeedback.getAdminFeedbackAdminId());
+        if (admin != null) {
+            adminFeedbackInfoVO.setAdminFeedbackAdminName(admin.getAdminUsername());
+        }
+        return  adminFeedbackInfoVO;
     }
 
     @Override
     public Page<AdminFeedbackPageVO> getFeedbackPage(int size, int page, AdminFeedbackQuery adminFeedbackQuery) {
+        LambdaQueryWrapper<AdminFeedback> lambdaQueryWrapper = new LambdaQueryWrapper<>();
 
-        return null;
+        if (adminFeedbackQuery != null) {
+            if (adminFeedbackQuery.getAdminFeedbackTitle() != null && !adminFeedbackQuery.getAdminFeedbackTitle().trim().isEmpty()) {
+                lambdaQueryWrapper.like(AdminFeedback::getAdminFeedbackTitle, adminFeedbackQuery.getAdminFeedbackTitle().trim());
+            }
+
+            if (adminFeedbackQuery.getAdminFeedbackContent() != null && !adminFeedbackQuery.getAdminFeedbackContent().trim().isEmpty()) {
+                lambdaQueryWrapper.like(AdminFeedback::getAdminFeedbackContent, adminFeedbackQuery.getAdminFeedbackContent().trim());
+            }
+        }
+
+        Page<AdminFeedback> feedbackPage = adminFeedbackMapper.selectPage(
+                new Page<>(page, size),
+                lambdaQueryWrapper
+        );
+
+        Page<AdminFeedbackPageVO> resultPage = new Page<>();
+        resultPage.setCurrent(feedbackPage.getCurrent());
+        resultPage.setSize(feedbackPage.getSize());
+        resultPage.setTotal(feedbackPage.getTotal());
+        resultPage.setPages(feedbackPage.getPages());
+        resultPage.setRecords(feedbackPage.getRecords().stream()
+                .map(feedback -> {
+                    AdminFeedbackPageVO pageVO = new AdminFeedbackPageVO();
+                    BeanUtil.copyProperties(feedback, pageVO);
+                    Admin admin = adminMapper.selectById(feedback.getAdminFeedbackAdminId());
+                    if (admin != null) {
+                        pageVO.setAdminFeedbackAdminName(admin.getAdminUsername());
+                    }
+                    return pageVO;
+                })
+                .toList());
+
+        return resultPage;
     }
 }
