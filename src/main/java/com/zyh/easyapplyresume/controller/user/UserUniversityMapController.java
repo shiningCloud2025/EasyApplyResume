@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user/universityMap")
 @Tag(name = "大学Map控制器-用户端")
-public class UniversityMapController {
+public class UserUniversityMapController {
 
     @Autowired
     private UniversityMapService universityMapService;
