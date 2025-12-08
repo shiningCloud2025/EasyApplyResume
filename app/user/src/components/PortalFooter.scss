@@ -1,0 +1,168 @@
+/* 门户页底部样式 */
+.portal-footer {
+  background: #262626;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 60px 0 20px;
+  margin-top: 80px;
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  .footer-section {
+    h4 {
+      color: white;
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 8px;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 30px;
+        height: 2px;
+        background: #1890ff;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 8px;
+
+        a {
+          color: rgba(255, 255, 255, 0.6);
+          text-decoration: none;
+          font-size: 14px;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #1890ff;
+          }
+        }
+      }
+    }
+
+    .contact-info {
+      p {
+        margin: 8px 0;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 14px;
+      }
+    }
+
+    .social-links {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+
+      a {
+        width: 36px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: #1890ff;
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+
+    .bottom-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+
+      p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 14px;
+      }
+
+      .links {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        a {
+          color: rgba(255, 255, 255, 0.6);
+          text-decoration: none;
+          font-size: 14px;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: #1890ff;
+          }
+        }
+
+        span {
+          color: rgba(255, 255, 255, 0.4);
+        }
+      }
+    }
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .portal-footer {
+    padding: 40px 0 20px;
+
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .footer-bottom {
+      .bottom-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+
+        p {
+          font-size: 12px;
+        }
+
+        .links {
+          font-size: 12px;
+
+          a {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}

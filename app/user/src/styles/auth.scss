@@ -1,0 +1,132 @@
+/* 认证页面样式 */
+.login-page,
+.register-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.login-form-container,
+.register-form-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.register-form-container {
+  max-width: 500px;
+}
+
+.login-header,
+.register-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.login-header h2,
+.register-header h2 {
+  color: #262626;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.login-header p,
+.register-header p {
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.login-button {
+  height: 44px !important;
+  border-radius: 6px !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+.divider-text {
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.register-link {
+  color: #1890ff !important;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.register-link:hover {
+  color: #40a9ff !important;
+}
+
+.separator {
+  color: #d9d9d9;
+  margin: 0 16px;
+}
+
+.random-account-link {
+  color: #52c41a !important;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.random-account-link:hover {
+  color: #73d13d !important;
+}
+
+/* 注册页面特定样式 */
+.register-steps {
+  margin-bottom: 32px;
+}
+
+.steps-content {
+  margin-bottom: 32px;
+  min-height: 300px;
+}
+
+.steps-action {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.steps-action .ant-btn {
+  margin: 0 8px;
+}
+
+.register-footer {
+  margin-top: 32px;
+}
+
+.login-link {
+  color: #1890ff !important;
+  text-decoration: none;
+  margin-left: 8px;
+}
+
+.login-link:hover {
+  color: #40a9ff !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .login-form-container,
+  .register-form-container {
+    max-width: 350px;
+    padding: 24px;
+  }
+  
+  .register-form-container {
+    max-width: 400px;
+  }
+}
