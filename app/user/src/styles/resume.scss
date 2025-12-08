@@ -1,0 +1,280 @@
+/* 简历管理模块样式 */
+.resume-templates {
+  .filter-card {
+    margin-bottom: 24px;
+  }
+
+  .template-card {
+    height: 100%;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+
+  .template-cover {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    background: #f5f5f5;
+
+    .template-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .template-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .template-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .template-meta {
+    .template-desc {
+      margin: 8px 0 0 0;
+      color: #666;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .ant-tag {
+      margin-bottom: 8px;
+    }
+  }
+
+  .pagination-wrapper {
+    text-align: center;
+    margin-top: 32px;
+  }
+}
+
+.my-resumes {
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      h2 {
+        margin: 0;
+      }
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+  }
+
+  .resume-card {
+    height: 100%;
+
+    .resume-card-title {
+      margin-bottom: 8px;
+    }
+
+    .resume-card-desc {
+      .resume-tags {
+        margin-bottom: 12px;
+      }
+
+      .resume-times {
+        p {
+          margin: 4px 0;
+          font-size: 12px;
+          color: #666;
+        }
+      }
+    }
+  }
+}
+
+.resume-editor {
+  height: calc(100vh - 64px);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+
+  &.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    height: 100vh;
+  }
+
+  .editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fafafa;
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
+      h2 {
+        margin: 0;
+        color: #262626;
+      }
+
+      .unsaved-indicator {
+        color: #ff4d4f;
+        font-size: 12px;
+      }
+
+      .saved-indicator {
+        color: #52c41a;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .editor-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .editor-sidebar {
+    width: 200px;
+    border-right: 1px solid #f0f0f0;
+    background: #fafafa;
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      border-bottom: 1px solid #f0f0f0;
+      font-weight: 500;
+    }
+
+    .sidebar-menu {
+      .menu-item {
+        padding: 12px 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: #e6f7ff;
+        }
+
+        &.active {
+          background: #e6f7ff;
+          border-right: 2px solid #1890ff;
+          color: #1890ff;
+        }
+      }
+    }
+  }
+
+  .editor-content {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+
+    .editor-section {
+      h3 {
+        margin-bottom: 20px;
+        color: #262626;
+        border-bottom: 2px solid #1890ff;
+        padding-bottom: 8px;
+      }
+
+      .form-fields {
+        .field-group {
+          margin-bottom: 20px;
+
+          label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #262626;
+          }
+        }
+      }
+
+      .editor-textarea {
+        .ant-input {
+          font-family: 'Microsoft YaHei', sans-serif;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .my-resumes {
+    .page-header {
+      flex-direction: column;
+      align-items: stretch;
+
+      .header-content {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+
+      .header-actions {
+        justify-content: center;
+      }
+    }
+  }
+
+  .resume-editor {
+    .editor-header {
+      padding: 12px 16px;
+      flex-direction: column;
+      gap: 12px;
+
+      .header-left,
+      .header-actions {
+        width: 100%;
+      }
+    }
+
+    .editor-sidebar {
+      width: 150px;
+    }
+
+    .editor-content {
+      padding: 16px;
+    }
+  }
+}
