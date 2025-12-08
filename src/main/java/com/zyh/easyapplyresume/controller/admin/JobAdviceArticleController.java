@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.controller.admin;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
 import com.zyh.easyapplyresume.model.form.admin.JobAdviceArticleForm;
 import com.zyh.easyapplyresume.model.query.admin.JobAdviceArticleQuery;
@@ -50,9 +51,9 @@ public class JobAdviceArticleController {
 
     @Operation(summary = "分页查询")
     @PostMapping("/getJobAdviceArticlePage")
-    public BaseResult<List<JobAdviceArticlePageVO>> getJobAdviceArticlePage(@RequestParam (required = false,value = "size",defaultValue = "10") int size,
-                                                                @RequestParam (required = false,value = "page",defaultValue = "1") int page,
-                                                                @RequestBody JobAdviceArticleQuery jobAdviceArticleQuery){
+    public BaseResult<Page<JobAdviceArticlePageVO>> getJobAdviceArticlePage(@RequestParam (required = false,value = "size",defaultValue = "10") int size,
+                                                                            @RequestParam (required = false,value = "page",defaultValue = "1") int page,
+                                                                            @RequestBody JobAdviceArticleQuery jobAdviceArticleQuery){
         return BaseResult.ok(jobAdviceArticleService.getJobAdviceArticlePage(size,page,jobAdviceArticleQuery));
     }
 
