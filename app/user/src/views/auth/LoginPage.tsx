@@ -377,4 +377,8 @@ const LoginPage: React.FC = () => {
           </span>
         </div>
       </div>
-  
+    </div>
+  )
+}
+
+export default LoginPage

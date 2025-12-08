@@ -152,9 +152,9 @@
 
       <!-- 底部链接 -->
       <div class="footer-section">
-        <el-button type="text" @click="goToRegister" class="link-button">
+        <span @click="alert('该功能尚未完成，请等待！')" class="link-button" style="cursor: pointer;">
           申请获取账号
-        </el-button>
+        </span>
         <el-button type="text" @click="goBack" class="link-button">
           返回首页
         </el-button>
@@ -362,8 +362,8 @@ const handleLogin = async () => {
 }
 
 // 跳转到注册页
-const goToRegister = () => {
-  ElMessage.info('该功能尚未完成，请等待！')
+const showComingSoon = () => {
+  alert('该功能尚未完成，请等待！')
 }
 
 // 返回首页
@@ -627,4 +627,7 @@ onBeforeUnmount(() => {
     transform: translateY(0px) rotate(0deg);
   }
   50% {
-    tra
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+</style>

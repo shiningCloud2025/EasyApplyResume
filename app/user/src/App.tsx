@@ -1,3 +1,4 @@
+import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useUserStore } from '@stores/userStore'
 import MainLayout from '@components/MainLayout'
@@ -6,6 +7,7 @@ import ProtectedRoute from '@components/ProtectedRoute'
 import LoadingSpinner from '@components/LoadingSpinner'
 
 // 页面组件懒加载
+const WelcomePage = React.lazy(() => import('@views/welcome/WelcomePage'))
 const HomePage = React.lazy(() => import('@views/home/HomePage'))
 const LoginPage = React.lazy(() => import('@views/auth/LoginPage'))
 const RegisterPage = React.lazy(() => import('@views/auth/RegisterPage'))
@@ -38,8 +40,8 @@ function App() {
 
   return (
     <Routes>
-      {/* 未登录默认重定向到登录页 */}
-      <Route path="/" element={<Navigate to={isLoggedIn ? "/home" : "/auth/login"} replace />} />
+      {/* 欢迎页面 - 未登录用户默认页面 */}
+      <Route path="/" element={<WelcomePage />} />
       
       {/* 认证布局 */}
       <Route path="/auth" element={<AuthLayout />}>
