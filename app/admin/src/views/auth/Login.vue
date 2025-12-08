@@ -14,7 +14,7 @@
           <div class="logo-icon">
             <i class="el-icon-platform"></i>
           </div>
-          <h1>易投简历</h1>
+          <h1>易投简历管理平台</h1>
         </div>
         <p>管理平台登录</p>
       </div>

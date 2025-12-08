@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Form, Input, Button, Tabs, Alert, Divider, message } from 'antd'
-import { UserOutlined, LockOutlined, PhoneOutlined, MailOutlined, EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
+import { Form, Input, Button, Tabs, message } from 'antd'
+import { UserOutlined, LockOutlined, PhoneOutlined, MailOutlined } from '@ant-design/icons'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { authAPI } from '@api/auth'
 import { sendSmsCode, sendEmailCode } from '@api/verify'
@@ -177,15 +177,27 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="login-page">
-      <div className="login-form-container">
-        <div className="login-header">
-          <h2>登录易投简历</h2>
-          <p>专业简历制作，助您求职成功</p>
+    <div className="login-container">
+      {/* 背景装饰 */}
+      <div className="background-decoration">
+        <div className="decoration-circle decoration-1"></div>
+        <div className="decoration-circle decoration-2"></div>
+        <div className="decoration-circle decoration-3"></div>
+      </div>
+
+      <div className="login-card">
+        <div className="logo-section">
+          <div className="logo">
+            <div className="logo-icon">
+              <UserOutlined style={{ fontSize: '24px', color: '#fff' }} />
+            </div>
+            <h1>易投简历</h1>
+          </div>
+          <p>用户登录</p>
         </div>
 
-        <Tabs defaultActiveKey="account" centered>
-          <TabPane tab="账号密码登录" key="account">
+        <Tabs defaultActiveKey="account" centered className="custom-tabs">
+          <TabPane tab="账号密码" key="account">
             <Form
               form={form}
               name="formLogin"
@@ -224,13 +236,13 @@ const LoginPage: React.FC = () => {
                   block
                   className="login-button"
                 >
-                  登录
+                  立即登录
                 </Button>
               </Form.Item>
             </Form>
           </TabPane>
 
-          <TabPane tab="手机验证码登录" key="phone">
+          <TabPane tab="手机验证码" key="phone">
             <Form
               form={phoneForm}
               name="phoneLogin"
@@ -251,7 +263,7 @@ const LoginPage: React.FC = () => {
                 />
               </Form.Item>
               <Form.Item>
-                <Input.Group compact>
+                <Input.Group compact className="code-input-group">
                   <Form.Item
                     name="verifyCode"
                     noStyle
@@ -263,14 +275,13 @@ const LoginPage: React.FC = () => {
                     <Input
                       prefix={<MailOutlined />}
                       placeholder="请输入验证码"
-                      style={{ width: 'calc(100% - 120px)' }}
                     />
                   </Form.Item>
                   <Button
                     onClick={handleSendSmsCode}
                     loading={smsSending}
                     disabled={countdown > 0}
-                    style={{ width: 120 }}
+                    className="code-button"
                   >
                     {countdown > 0 ? `${countdown}s` : '获取验证码'}
                   </Button>
@@ -284,13 +295,13 @@ const LoginPage: React.FC = () => {
                   block
                   className="login-button"
                 >
-                  登录
+                  立即登录
                 </Button>
               </Form.Item>
             </Form>
           </TabPane>
 
-          <TabPane tab="邮箱验证码登录" key="email">
+          <TabPane tab="邮箱验证码" key="email">
             <Form
               form={emailForm}
               name="emailLogin"
@@ -311,7 +322,7 @@ const LoginPage: React.FC = () => {
                 />
               </Form.Item>
               <Form.Item>
-                <Input.Group compact>
+                <Input.Group compact className="code-input-group">
                   <Form.Item
                     name="verifyCode"
                     noStyle
@@ -323,14 +334,13 @@ const LoginPage: React.FC = () => {
                     <Input
                       prefix={<MailOutlined />}
                       placeholder="请输入验证码"
-                      style={{ width: 'calc(100% - 120px)' }}
                     />
                   </Form.Item>
                   <Button
                     onClick={handleSendEmailCode}
                     loading={emailCodeSending}
                     disabled={countdown > 0}
-                    style={{ width: 120 }}
+                    className="code-button"
                   >
                     {countdown > 0 ? `${countdown}s` : '获取验证码'}
                   </Button>
@@ -344,29 +354,28 @@ const LoginPage: React.FC = () => {
                   block
                   className="login-button"
                 >
-                  登录
+                  立即登录
                 </Button>
               </Form.Item>
             </Form>
           </TabPane>
         </Tabs>
 
-        <Divider>
-          <span className="divider-text">其他操作</span>
-        </Divider>
-
-        <div className="login-footer">
-          <Link to="/auth/register" className="register-link">
+        <div className="footer-section">
+          <Link to="/auth/register" className="link-button apply-link">
             注册新账号
           </Link>
-          <span className="separator">·</span>
+          <span className="divider">|</span>
           <span 
-            className="random-account-link" 
+            className="link-button" 
             onClick={async () => {
               try {
                 const response = await authAPI.generateRandomAccount()
                 if (response.code === 200) {
-                  message.success(`生成成功：${response.data}`)
+                  message.success({
+                     content: `生成成功：${response.data}`,
+                     duration: 5,
+                  })
                 }
               } catch (error) {
                 console.error('生成随机账号失败:', error)
@@ -375,7 +384,18 @@ const LoginPage: React.FC = () => {
           >
             随机生成账号
           </span>
+          <span className="divider">|</span>
+          <Link to="/" className="link-button back-link">
+            返回首页
+          </Link>
         </div>
+      </div>
+
+      {/* 装饰性元素 */}
+      <div className="floating-elements">
+        <div className="element element-1"></div>
+        <div className="element element-2"></div>
+        <div className="element element-3"></div>
       </div>
     </div>
   )
