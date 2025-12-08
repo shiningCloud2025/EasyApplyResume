@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user/resumeTemplate")
 @Tag(name = "简历模板控制器-用户端")
-public class ResumeTemplateController {
+public class UserResumeTemplateController {
 
     @Autowired
     private ResumeTemplateService resumeTemplateService;

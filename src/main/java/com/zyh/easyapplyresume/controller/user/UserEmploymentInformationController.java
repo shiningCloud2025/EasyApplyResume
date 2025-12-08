@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user/employmentInformation")
 @Tag(name = "就业信息控制器-用户端")
-public class EmploymentInformationController {
+public class UserEmploymentInformationController {
 
     @Autowired
     private EmploymentInformationService employmentInformationService;

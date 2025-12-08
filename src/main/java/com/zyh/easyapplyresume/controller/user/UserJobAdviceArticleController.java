@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user/jobAdviceArticle")
 @Tag(name = "求职攻略控制器-用户端")
-public class JobAdviceArticleController {
+public class UserJobAdviceArticleController {
     @Autowired
     private JobAdviceArticleService jobAdviceArticleService;
 
