@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/industryMap")
 @Tag(name="行业Map控制器-管理端")
-public class IndustryMapController {
+public class AdminIndustryMapController {
 
     @Autowired
     private IndustryMapService industryMapService;

@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/provinceMap")
 @Tag(name="省份Map控制器-管理端")
-public class ProvinceMapController {
+public class AdminProvinceMapController {
     @Autowired
     private ProvinceMapService provinceMapService;
 

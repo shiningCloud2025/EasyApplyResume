@@ -24,15 +24,15 @@ const RegisterPage: React.FC = () => {
   const steps = [
     {
       title: '基本信息',
-      content: '基本信息',
+      description: '填写基本个人信息',
     },
     {
       title: '求职意向',
-      content: '求职意向',
+      description: '设置求职偏好',
     },
     {
       title: '验证确认',
-      content: '验证确认',
+      description: '手机邮箱验证',
     },
   ]
 

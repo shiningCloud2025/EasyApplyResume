@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/admin/email/communication")
 @Tag(name="发送沟通邮件控制器-管理端")
-public class SendCommunicationEmailController {
+public class AdminSendCommunicationEmailController {
     @Autowired
     private SendCommunicationEmailService sendCommunicationEmailService;
 

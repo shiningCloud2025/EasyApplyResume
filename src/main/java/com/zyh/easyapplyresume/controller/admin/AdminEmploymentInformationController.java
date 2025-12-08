@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/employmentInformation")
 @Tag(name = "招聘信息接口-管理端")
-public class EmploymentInformationController {
+public class AdminEmploymentInformationController {
 
     @Autowired
     private EmploymentInformationService employmentInformationService;

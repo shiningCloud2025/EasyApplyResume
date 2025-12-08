@@ -104,3 +104,289 @@ Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionExcep
 	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:165)
 	... 13 common frames omitted
 2025-12-08 13:38:07.836 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-08 13:38:26.927 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-08 13:38:26.931 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-08 13:38:26.932 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-08 13:38:26.938 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-08 13:38:26.955 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-08 13:38:27.012 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 34120 (D:\EasyApplyResume\target\classes started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-12-08 13:38:27.012 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-08 13:38:27.014 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-08 13:38:27.372 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+2025-12-08 13:38:27.463 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:179)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:417)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:290)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:349)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:118)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:789)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:607)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.zyh.easyapplyresume.EasyApplyResumeApplication.main(EasyApplyResumeApplication.java:21)
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'employmentInformationController' for bean class [com.zyh.easyapplyresume.controller.user.EmploymentInformationController] conflicts with existing, non-compatible bean definition of same name and class [com.zyh.easyapplyresume.controller.admin.EmploymentInformationController]
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:361)
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:288)
+	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:306)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:246)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:197)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:165)
+	... 13 common frames omitted
+2025-12-08 13:38:27.466 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-08 16:54:42.056 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-08 16:54:42.065 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-08 16:54:42.067 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-08 16:54:42.080 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-08 16:54:42.098 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-08 16:54:42.203 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 33184 (D:\EasyApplyResume\target\classes started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-12-08 16:54:42.203 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-08 16:54:42.203 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-08 16:54:42.601 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+2025-12-08 16:54:42.685 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:179)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:417)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:290)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:349)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:118)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:789)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:607)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.zyh.easyapplyresume.EasyApplyResumeApplication.main(EasyApplyResumeApplication.java:21)
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'employmentInformationController' for bean class [com.zyh.easyapplyresume.controller.user.EmploymentInformationController] conflicts with existing, non-compatible bean definition of same name and class [com.zyh.easyapplyresume.controller.admin.EmploymentInformationController]
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:361)
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:288)
+	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:306)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:246)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:197)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:165)
+	... 13 common frames omitted
+2025-12-08 16:54:42.688 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-08 16:54:42.688 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-08 16:55:55.844 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-08 16:55:55.847 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-08 16:55:55.847 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-08 16:55:55.864 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-08 16:55:55.871 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-08 16:55:55.954 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 7800 (D:\EasyApplyResume\target\classes started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-12-08 16:55:55.955 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-08 16:55:55.955 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-08 16:55:56.321 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+2025-12-08 16:55:56.351 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:179)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:417)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:290)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:349)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:118)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:789)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:607)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.zyh.easyapplyresume.EasyApplyResumeApplication.main(EasyApplyResumeApplication.java:21)
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'employmentInformationController' for bean class [com.zyh.easyapplyresume.controller.user.EmploymentInformationController] conflicts with existing, non-compatible bean definition of same name and class [com.zyh.easyapplyresume.controller.admin.EmploymentInformationController]
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:361)
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:288)
+	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:306)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:246)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:197)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:165)
+	... 13 common frames omitted
+2025-12-08 16:55:56.353 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-08 16:55:56.354 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-08 16:56:13.648 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-08 16:56:13.650 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-08 16:56:13.650 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-08 16:56:13.658 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-08 16:56:13.675 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-08 16:56:13.743 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 13972 (D:\EasyApplyResume\target\classes started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-12-08 16:56:13.743 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-08 16:56:13.744 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-08 16:56:14.104 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+2025-12-08 16:56:14.179 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:179)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:417)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:290)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:349)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:118)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:789)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:607)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.zyh.easyapplyresume.EasyApplyResumeApplication.main(EasyApplyResumeApplication.java:21)
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'employmentInformationController' for bean class [com.zyh.easyapplyresume.controller.user.EmploymentInformationController] conflicts with existing, non-compatible bean definition of same name and class [com.zyh.easyapplyresume.controller.admin.EmploymentInformationController]
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:361)
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:288)
+	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:306)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:246)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:197)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:165)
+	... 13 common frames omitted
+2025-12-08 16:56:14.182 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-08 16:56:14.183 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-08 17:26:06.761 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-08 17:26:06.763 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-08 17:26:06.764 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-08 17:26:06.772 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-08 17:26:06.789 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-08 17:26:06.862 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 15460 (D:\EasyApplyResume\target\classes started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-12-08 17:26:06.863 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-08 17:26:06.863 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-08 17:26:07.313 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+2025-12-08 17:26:07.382 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:179)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:417)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:290)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:349)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:118)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:789)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:607)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.zyh.easyapplyresume.EasyApplyResumeApplication.main(EasyApplyResumeApplication.java:21)
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'employmentInformationController' for bean class [com.zyh.easyapplyresume.controller.user.EmploymentInformationController] conflicts with existing, non-compatible bean definition of same name and class [com.zyh.easyapplyresume.controller.admin.EmploymentInformationController]
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:361)
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:288)
+	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:306)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:246)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:197)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:165)
+	... 13 common frames omitted
+2025-12-08 17:26:07.385 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-08 17:27:33.269 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-08 17:27:33.271 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-08 17:27:33.272 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-08 17:27:33.276 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-08 17:27:33.289 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-08 17:27:33.353 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 31152 (D:\EasyApplyResume\target\classes started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-12-08 17:27:33.353 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-08 17:27:33.353 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-08 17:27:33.659 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+2025-12-08 17:27:33.728 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:179)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:417)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:290)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:349)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:118)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:789)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:607)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.zyh.easyapplyresume.EasyApplyResumeApplication.main(EasyApplyResumeApplication.java:21)
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'employmentInformationController' for bean class [com.zyh.easyapplyresume.controller.user.EmploymentInformationController] conflicts with existing, non-compatible bean definition of same name and class [com.zyh.easyapplyresume.controller.admin.EmploymentInformationController]
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:361)
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:288)
+	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:306)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:246)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:197)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:165)
+	... 13 common frames omitted
+2025-12-08 17:27:33.731 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-08 17:27:33.732 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-08 17:33:04.229 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-08 17:33:04.231 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-08 17:33:04.232 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-08 17:33:04.236 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-08 17:33:04.251 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-08 17:33:04.310 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 35772 (D:\EasyApplyResume\target\classes started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-12-08 17:33:04.310 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-08 17:33:04.310 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-08 17:33:04.590 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+2025-12-08 17:33:04.677 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:179)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:417)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:290)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:349)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:118)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:789)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:607)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.zyh.easyapplyresume.EasyApplyResumeApplication.main(EasyApplyResumeApplication.java:21)
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'employmentInformationController' for bean class [com.zyh.easyapplyresume.controller.user.EmploymentInformationController] conflicts with existing, non-compatible bean definition of same name and class [com.zyh.easyapplyresume.controller.admin.EmploymentInformationController]
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:361)
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:288)
+	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:306)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:246)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:197)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:165)
+	... 13 common frames omitted
+2025-12-08 17:33:04.679 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-08 17:33:04.680 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-08 17:33:21.266 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-08 17:33:21.269 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-08 17:33:21.270 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-08 17:33:21.284 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-08 17:33:21.300 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-08 17:33:21.421 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 29388 (D:\EasyApplyResume\target\classes started by zhaoyunhan1 in D:\EasyApplyResume)
+2025-12-08 17:33:21.422 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-08 17:33:21.422 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-08 17:33:21.880 [main] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+2025-12-08 17:33:21.972 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanDefinitionStoreException: Failed to parse configuration class [com.zyh.easyapplyresume.EasyApplyResumeApplication]
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:179)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:417)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:290)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:349)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:118)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:789)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:607)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.zyh.easyapplyresume.EasyApplyResumeApplication.main(EasyApplyResumeApplication.java:21)
+Caused by: org.springframework.context.annotation.ConflictingBeanDefinitionException: Annotation-specified bean name 'employmentInformationController' for bean class [com.zyh.easyapplyresume.controller.user.EmploymentInformationController] conflicts with existing, non-compatible bean definition of same name and class [com.zyh.easyapplyresume.controller.admin.EmploymentInformationController]
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.checkCandidate(ClassPathBeanDefinitionScanner.java:361)
+	at org.springframework.context.annotation.ClassPathBeanDefinitionScanner.doScan(ClassPathBeanDefinitionScanner.java:288)
+	at org.springframework.context.annotation.ComponentScanAnnotationParser.parse(ComponentScanAnnotationParser.java:128)
+	at org.springframework.context.annotation.ConfigurationClassParser.doProcessConfigurationClass(ConfigurationClassParser.java:306)
+	at org.springframework.context.annotation.ConfigurationClassParser.processConfigurationClass(ConfigurationClassParser.java:246)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:197)
+	at org.springframework.context.annotation.ConfigurationClassParser.parse(ConfigurationClassParser.java:165)
+	... 13 common frames omitted
+2025-12-08 17:33:21.975 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-08 17:33:21.975 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
