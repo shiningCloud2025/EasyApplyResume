@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/jobAdviceArticle")
 @Tag(name="求职攻略文章控制器-管理端")
-public class JobAdviceArticleController {
+public class AdminJobAdviceArticleController {
     @Autowired
     private JobAdviceArticleService jobAdviceArticleService;
 

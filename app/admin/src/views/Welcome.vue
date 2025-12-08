@@ -122,7 +122,83 @@ const goToLogin = () => {
 }
 
 const goToRegister = () => {
-  router.push('/register')
+  const customAlert = document.createElement('div')
+  customAlert.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(249, 250, 251, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    min-width: 320px;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  `
+  
+  customAlert.innerHTML = `
+    <div style="
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    ">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8V12M12 16H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" 
+          stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h3 style="color: #1f2937; margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">功能未开发提示</h3>
+    <p style="color: #6b7280; margin: 0 0 24px 0; font-size: 14px; line-height: 1.5;">该功能尚未完成，请等待！</p>
+    <button id="closeBtn" style="
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    ">确定</button>
+  `
+  
+  document.body.appendChild(customAlert)
+  
+  // 遮罩层
+  const overlay = document.createElement('div')
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    z-index: 9998;
+  `
+  
+  // 关闭函数
+  const closeDialog = () => {
+    customAlert.remove()
+    overlay.remove()
+    // 刷新页面
+    window.location.reload()
+  }
+  
+  // 绑定关闭事件
+  document.getElementById('closeBtn').onclick = closeDialog
+  overlay.onclick = closeDialog
+  
+  document.body.appendChild(overlay)
 }
 </script>
 

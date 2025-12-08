@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/streetMap")
 @Tag(name="街道Map控制器-管理端")
-public class StreetMapController {
+public class AdminStreetMapController {
     @Autowired
     private StreetMapService streetMapService;
 

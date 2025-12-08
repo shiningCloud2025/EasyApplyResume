@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/cityMap")
 @Tag(name="城市Map控制器-管理端")
-public class CityMapController {
+public class AdminCityMapController {
     @Autowired
     private CityMapService cityMapService;
 

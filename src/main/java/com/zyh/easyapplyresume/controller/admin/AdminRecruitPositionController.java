@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/recruitPosition")
 @Tag(name="招聘岗位控制器-管理端")
-public class RecruitPositionController {
+public class AdminRecruitPositionController {
     @Autowired
     private RecruitPositionService recruitPositionService;
 

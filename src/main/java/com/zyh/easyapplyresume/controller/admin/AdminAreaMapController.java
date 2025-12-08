@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/areaMap")
 @Tag(name="区县Map控制器-管理端")
-public class AreaMapController {
+public class AdminAreaMapController {
     @Autowired
     private AreaMapService areaMapService;
 

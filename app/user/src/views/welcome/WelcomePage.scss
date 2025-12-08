@@ -1,185 +1,754 @@
 .welcome-page {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #fff;
 }
 
-.welcome-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
-  .header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-  }
-
-  .logo {
-    color: #1890ff;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 0;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-
-    span {
-      color: #666;
-      cursor: pointer;
-      transition: color 0.3s;
-
-      &:hover {
-        color: #1890ff;
-      }
-    }
-  }
-}
-
-.welcome-main {
-  padding-top: 80px;
-}
-
+/* Hero 区域 */
 .hero-section {
-  padding: 6rem 0;
-  text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 40%, #f093fb 100%);
   color: white;
+  padding: 8rem 0 6rem;
+  position: relative;
+  overflow: hidden;
 
-  .hero-title {
-    font-size: 3rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    line-height: 1.2;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+    animation: float 20s ease-in-out infinite;
   }
 
-  .hero-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
+  .container {
+    position: relative;
+    z-index: 2;
   }
+}
+
+.hero-content {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 4rem;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  animation: fadeInUp 1s ease-out;
+}
+
+.hero-subtitle {
+  font-size: 1.4rem;
+  margin-bottom: 3rem;
+  opacity: 0.95;
+  line-height: 1.6;
+  animation: fadeInUp 1s ease-out 0.2s backwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  animation: fadeInUp 1s ease-out 0.4s backwards;
 
   .cta-button {
-    font-size: 1.1rem;
     height: 50px;
     padding: 0 2rem;
+    font-size: 1.1rem;
     border-radius: 25px;
-    margin-bottom: 1rem;
-  }
+    font-weight: 500;
+    transition: all 0.3s ease;
 
-  .hero-description {
-    font-size: 1rem;
-    opacity: 0.8;
-  }
-}
-
-.features-section {
-  padding: 4rem 0;
-  background: white;
-
-  .feature-card {
-    text-align: center;
-    border: none;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    padding: 2rem;
-    height: 100%;
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: translateY(-5px);
-    }
-
-    .feature-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    h3 {
-      color: #333;
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      color: #666;
-      line-height: 1.6;
-    }
-  }
-}
-
-.companies-section {
-  padding: 4rem 0;
-  background: #f8f9fa;
-
-  .section-title {
-    text-align: center;
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 0.5rem;
-  }
-
-  .section-subtitle {
-    text-align: center;
-    color: #666;
-    margin-bottom: 3rem;
-  }
-
-  .company-item {
-    text-align: center;
-
-    .company-link {
-      display: block;
-      padding: 1rem;
-      background: white;
-      border-radius: 8px;
-      color: #333;
-      text-decoration: none;
-      transition: all 0.3s ease;
-
+    &.primary {
+      background: #fff;
+      color: #667eea;
+      border: none;
+      
       &:hover {
-        background: #1890ff;
-        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      }
+    }
+
+    &.secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid rgba(255,255,255,0.8);
+      
+      &:hover {
+        background: rgba(255,255,255,0.15);
+        border-color: white;
         transform: translateY(-2px);
       }
     }
   }
 }
 
-.welcome-footer {
-  background: #333;
+.hero-description {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  animation: fadeInUp 1s ease-out 0.6s backwards;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  animation: fadeInUp 1s ease-out 0.8s backwards;
+
+  .stat-item {
+    text-align: center;
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+  }
+}
+
+/* 特性展示 */
+.features-section {
+  padding: 6rem 0;
+  background: linear-gradient(to bottom, #fff, #f8f9fa);
+
+  .section-title {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  .section-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+}
+
+.feature-card {
+  text-align: center;
+  border: none;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  height: 100%;
+  transition: all 0.4s ease;
+  background: white;
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  }
+
+  .feature-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .feature-title {
+    color: #333;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .feature-description {
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+  }
+
+  .feature-details {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      color: #667eea;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      position: relative;
+      padding-left: 1.5rem;
+
+      &::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: #52c41a;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+/* 公司展示 */
+.companies-section {
+  padding: 6rem 0;
+  background: #fff;
+
+  .section-title {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  .section-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+}
+
+.company-item {
+  .company-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+    &:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      border-color: rgba(255,255,255,0.3);
+    }
+  }
+
+  .company-logo-text {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  .company-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+    line-height: 1.2;
+  }
+}
+
+/* 用户评价 */
+.testimonials-section {
+  padding: 6rem 0;
+  background: linear-gradient(to bottom, #fff, #f8f9fa);
+
+  .section-title {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  .section-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+}
+
+.testimonial-card {
+  text-align: center;
+  border: none;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  height: 100%;
+  background: white;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .testimonial-avatar {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .testimonial-author {
+    color: #333;
+    margin-bottom: 1rem;
+
+    .testimonial-role {
+      display: block;
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: normal;
+      margin-top: 0.25rem;
+    }
+  }
+
+  .testimonial-content {
+    color: #666;
+    line-height: 1.8;
+    font-style: italic;
+  }
+}
+
+/* 深度特性 */
+.deep-features-section {
+  padding: 6rem 0;
+  background: #fff;
+
+  .feature-content {
+    h2 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 2rem;
+      font-weight: bold;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem 0;
+
+      li {
+        padding: 1rem 0;
+        font-size: 1.1rem;
+        color: #666;
+        border-bottom: 1px solid #f0f0f0;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #667eea;
+        }
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+
+    .ant-btn {
+      height: 45px;
+      padding: 0 2rem;
+      font-size: 1rem;
+      border-radius: 22px;
+    }
+  }
+}
+
+/* CTA区域 */
+.cta-section {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 2rem 0;
   text-align: center;
 
-  p {
+  .cta-content {
+    max-width: 600px;
+    margin: 0 auto;
+
+    h2 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+
+      .ant-btn {
+        height: 45px;
+        padding: 0 2rem;
+        font-size: 1rem;
+        border-radius: 22px;
+        font-weight: 500;
+
+        &.ant-btn-primary {
+          background: white;
+          border-color: white;
+          color: #667eea;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255,255,255,0.3);
+          }
+        }
+
+        &:not(.ant-btn-primary) {
+          background: transparent;
+          border-color: white;
+          color: white;
+
+          &:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* 登录弹窗样式 */
+.login-modal {
+  .ant-modal-content {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    border: 1px solid #e9ecef;
+  }
+
+  .ant-modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-bottom: none;
+    padding: 0;
     margin: 0;
-    opacity: 0.8;
+  }
+
+  .ant-modal-title {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 1.5rem 2rem 1rem;
+    margin: 0;
+  }
+
+  .ant-modal-close {
+    color: white;
+    top: 1rem;
+    right: 1.5rem;
+
+    &:hover {
+      background: rgba(255,255,255,0.1);
+      border-radius: 6px;
+    }
+  }
+
+  .ant-modal-body {
+    padding: 0;
+  }
+}
+
+.login-modal-content {
+  padding: 2rem 2rem 2rem;
+}
+
+.login-form-wrapper {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.login-tabs {
+  margin-bottom: 1.5rem;
+
+  .ant-tabs-nav {
+    margin-bottom: 2rem;
+  }
+
+  .ant-tabs-tab {
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    padding: 0.75rem 2rem !important;
+  }
+
+  .ant-tabs-tab-active {
+    color: #667eea !important;
+    font-weight: 600 !important;
+  }
+
+  .ant-tabs-ink-bar {
+    background: #667eea !important;
+    height: 3px !important;
+    border-radius: 2px;
+  }
+}
+
+.login-register-link {
+  text-align: center;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+  font-size: 0.95rem;
+  color: #6c757d;
+
+  .ant-btn-link {
+    color: #667eea !important;
+    font-weight: 500;
+    padding: 0 0.5rem;
+    height: auto;
+  }
+}
+
+.login-form {
+  .form-item-custom {
+    margin-bottom: 1.5rem;
+
+    .ant-form-item-label {
+      padding-bottom: 0.5rem;
+    }
+
+    label {
+      font-weight: 500;
+      color: #495057;
+    }
+
+    .login-input {
+      height: 48px;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+      padding: 0 1rem;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+
+      &:hover {
+        border-color: #667eea;
+      }
+
+      &:focus,
+      &:focus-within {
+        border-color: #667eea;
+        box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+      }
+
+      .ant-input-prefix {
+        color: #667eea;
+        font-size: 1.1rem;
+      }
+    }
+
+    .ant-input-affix-wrapper-focused .ant-input-prefix {
+      color: #667eea;
+    }
+  }
+
+  .form-actions {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+
+    .login-button {
+      height: 48px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+.verification-input {
+  .ant-input-search-button {
+    background: #667eea !important;
+    border-color: #667eea !important;
+    border-radius: 0 8px 8px 0 !important;
+    
+    &:hover {
+      background: #764ba2 !important;
+      border-color: #764ba2 !important;
+    }
+  }
+
+  input.ant-input {
+    border-radius: 8px 0 0 8px !important;
+  }
+}
+
+/* AuthLayout 整体样式优化 */
+.auth-layout {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+    animation: float 20s ease-in-out infinite;
+  }
+}
+
+.auth-content {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.auth-container {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  overflow: hidden;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 600px;
+  display: flex;
+  position: relative;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .login-modal {
+    .ant-modal-content {
+      margin: 1rem;
+      border-radius: 12px;
+    }
+  }
+
+  .login-modal-content {
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .auth-container {
+    border-radius: 16px;
+    min-height: 400px;
+    margin: 1rem;
+  }
+
+  .login-links {
+    .separator {
+      margin: 0 0.5rem;
+    }
+  }
+
+  .quick-actions .quick-login-button {
+    height: 40px;
+    font-size: 0.9rem;
+  }
+}
+
+/* 动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateX(0) translateY(0);
+  }
+  25% {
+    transform: translateX(-20px) translateY(-10px);
+  }
+  50% {
+    transform: translateX(10px) translateY(20px);
+  }
+  75% {
+    transform: translateX(-10px) translateY(10px);
   }
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
   .hero-title {
-    font-size: 2rem !important;
+    font-size: 2.5rem !important;
   }
 
   .hero-subtitle {
-    font-size: 1rem !important;
+    font-size: 1.1rem !important;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-stats {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .section-title {
+    font-size: 2rem !important;
   }
 
   .feature-card {
-    margin-bottom: 1rem;
+    padding: 2rem 1.5rem;
   }
 
   .company-item .company-link {
-    padding: 0.8rem;
-    font-size: 0.9rem;
+    padding: 1rem;
+  }
+
+  .testimonial-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .deep-features-section .feature-content {
+    margin-bottom: 3rem;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-section .cta-content h2 {
+    font-size: 2rem;
   }
 }

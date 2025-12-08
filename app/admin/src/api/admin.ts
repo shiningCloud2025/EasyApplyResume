@@ -294,7 +294,7 @@ export const emailApi = {
     }),
   
   // 发送HTML邮件（指定发送者）
-  sendHtmlEmail specifySelf: (fromEmail: string, toEmail: string, subject: string, htmlContent: string) =>
+  sendHtmlEmailSpecifySelf: (fromEmail: string, toEmail: string, subject: string, htmlContent: string) =>
     api.post<void>('/admin/email/communication/selfde/sendHtml', htmlContent, {
       params: { fromEmail, toEmail, subject }
     }),

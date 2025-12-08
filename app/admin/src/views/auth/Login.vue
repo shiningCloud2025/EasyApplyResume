@@ -152,10 +152,11 @@
 
       <!-- 底部链接 -->
       <div class="footer-section">
-        <span @click="alert('该功能尚未完成，请等待！')" class="link-button" style="cursor: pointer;">
+        <span @click="showComingSoon" class="link-button apply-link">
           申请获取账号
         </span>
-        <el-button type="text" @click="goBack" class="link-button">
+        <span class="divider">|</span>
+        <el-button type="text" @click="goBack" class="link-button back-link">
           返回首页
         </el-button>
       </div>
@@ -363,7 +364,86 @@ const handleLogin = async () => {
 
 // 跳转到注册页
 const showComingSoon = () => {
-  alert('该功能尚未完成，请等待！')
+  const customAlert = document.createElement('div')
+  customAlert.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(249, 250, 251, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    min-width: 320px;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  `
+  
+  customAlert.innerHTML = `
+    <div style="
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    ">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8V12M12 16H12.01M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" 
+          stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h3 style="color: #1f2937; margin: 0 0 8px 0; font-size: 18px; font-weight: 600;">功能未开发提示</h3>
+    <p style="color: #6b7280; margin: 0 0 24px 0; font-size: 14px; line-height: 1.5;">该功能尚未完成，请等待！</p>
+    <button id="loginCloseBtn" style="
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    ">确定</button>
+  `
+  
+  document.body.appendChild(customAlert)
+  
+  // 遮罩层
+  const overlay = document.createElement('div')
+  overlay.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    z-index: 9998;
+  `
+  overlay.onclick = () => {
+    customAlert.remove()
+    overlay.remove()
+    // 刷新页面
+    window.location.reload()
+  }
+  
+  // 为确定按钮添加点击事件
+  const loginCloseBtn = document.getElementById('loginCloseBtn')
+  loginCloseBtn.onclick = () => {
+    customAlert.remove()
+    overlay.remove()
+    // 刷新页面
+    window.location.reload()
+  }
+  
+  document.body.appendChild(overlay)
 }
 
 // 返回首页
@@ -431,83 +511,84 @@ onBeforeUnmount(() => {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 400px;
+  max-width: 480px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 40px;
+  border-radius: 12px;
+  padding: 50px 45px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .logo-section {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .logo {
   display: inline-flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .logo-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
+  margin-right: 12px;
 }
 
 .logo-icon i {
-  font-size: 18px;
+  font-size: 20px;
   color: white;
 }
 
 .logo h1 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   color: #1f2937;
   margin: 0;
 }
 
 .logo-section > p {
-  font-size: 14px;
+  font-size: 16px;
   color: #6b7280;
   margin: 0;
+  font-weight: 400;
 }
 
 .login-tabs {
   display: flex;  
-  margin-bottom: 30px;
-  background: #f3f4f6;
-  border-radius: 12px;
-  padding: 4px;
+  margin-bottom: 35px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 3px;
 }
 
 .tab-item {
   flex: 1;
-  padding: 10px;
+  padding: 12px 16px;
   text-align: center;
-  border-radius: 8px;
-  font-size: 14px;
+  border-radius: 6px;
+  font-size: 15px;
   font-weight: 500;
   color: #6b7280;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .tab-item.active {
   background: white;
-  color: #3b82f6;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: #667eea;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .form-section {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .code-input-group {
@@ -526,39 +607,58 @@ onBeforeUnmount(() => {
 }
 
 .submit-section {
-  margin: 30px 0;
+  margin: 35px 0;
 }
 
 .login-button {
   width: 100%;
-  height: 50px;
+  height: 52px;
   font-size: 16px;
   font-weight: 600;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: none;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .login-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
 }
 
 .footer-section {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  align-items: center;
+  gap: 12px;
+  margin-top: 25px;
 }
 
 .link-button {
   color: #6b7280;
   font-size: 14px;
   padding: 0;
+  font-weight: 400;
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
 .link-button:hover {
-  color: #3b82f6;
+  color: #667eea;
+}
+
+.apply-link {
+  text-decoration: none;
+}
+
+.back-link {
+  text-decoration: none;
+}
+
+.divider {
+  color: #d1d5db;
+  font-size: 14px;
+  font-weight: 300;
 }
 
 .floating-elements {

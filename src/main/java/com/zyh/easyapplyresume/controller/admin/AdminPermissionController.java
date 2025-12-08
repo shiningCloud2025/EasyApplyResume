@@ -9,7 +9,6 @@ import com.zyh.easyapplyresume.model.vo.admin.PermissionPageVO;
 import com.zyh.easyapplyresume.service.admin.PermissionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/permission")
 @Tag(name="权限控制器-管理端")
-public class PermissionController {
+public class AdminPermissionController {
     @Autowired
     private PermissionService permissionService;
 

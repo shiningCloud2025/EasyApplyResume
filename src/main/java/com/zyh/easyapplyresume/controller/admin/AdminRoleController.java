@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/role")
 @Tag(name="角色控制器-管理端")
-public class RoleController {
+public class AdminRoleController {
     @Autowired
     private RoleService roleService;
 

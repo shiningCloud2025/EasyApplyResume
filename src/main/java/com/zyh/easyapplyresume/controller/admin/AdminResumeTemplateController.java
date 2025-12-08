@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/resumeTemplate")
 @Tag(name="简历模版控制器-管理端")
-public class ResumeTemplateController {
+public class AdminResumeTemplateController {
 
     @Autowired
     private ResumeTemplateService resumeTemplateService;
