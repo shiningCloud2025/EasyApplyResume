@@ -358,54 +358,75 @@ const WelcomePage: React.FC = () => {
 
       {/* 快速登录弹窗 */}
       <Modal
-        title="登录"
+        title={null}
         open={loginModalVisible}
         onCancel={() => setLoginModalVisible(false)}
         footer={null}
-        width={800}
+        width={500}
         centered
         className="login-modal"
+        closeIcon={<span style={{ color: '#999', fontSize: '24px' }}>×</span>}
       >
         <div className="login-modal-content">
-          <div className="login-form-wrapper">
-            <Form onFinish={handleLogin} layout="vertical" className="login-form">
-              <Form.Item 
-                name="username" 
-                rules={[{ required: true, message: '请输入用户名' }]}
-                className="form-item-custom"
-              >
-                <Input 
-                  prefix={<UserOutlined />} 
-                  placeholder="用户名/手机号/邮箱" 
-                  size="large"
-                  className="login-input"
-                />
-              </Form.Item>
-              <Form.Item 
-                name="password" 
-                rules={[{ required: true, message: '请输入密码' }]}
-                className="form-item-custom"
-              >
-                <Input.Password 
-                  prefix={<LockOutlined />} 
-                  placeholder="密码" 
-                  size="large"
-                  className="login-input"
-                />
-              </Form.Item>
-              <Form.Item className="form-actions">
-                <Button type="primary" htmlType="submit" size="large" className="login-button" loading={loading}>
-                  登录
-                </Button>
-              </Form.Item>
-            </Form>
+          <div className="login-header">
+            <div className="login-title">登录到易投简历</div>
+            <div className="login-subtitle">使用你的账号继续</div>
+          </div>
+          
+          <Form onFinish={handleLogin} layout="vertical" className="login-form">
+            <Form.Item 
+              name="username" 
+              rules={[{ required: true, message: '请输入用户名' }]}
+              className="form-item-custom"
+            >
+              <Input 
+                prefix={<UserOutlined className="input-icon" />} 
+                placeholder="用户名/手机号/邮箱" 
+                size="large"
+                className="login-input"
+              />
+            </Form.Item>
+            <Form.Item 
+              name="password" 
+              rules={[{ required: true, message: '请输入密码' }]}
+              className="form-item-custom"
+            >
+              <Input.Password 
+                prefix={<LockOutlined className="input-icon" />} 
+                placeholder="密码" 
+                size="large"
+                className="login-input"
+              />
+            </Form.Item>
+            <Form.Item className="form-actions">
+              <Button type="primary" htmlType="submit" block size="large" className="login-button" loading={loading}>
+                登录
+              </Button>
+            </Form.Item>
+          </Form>
+          
+          <div className="login-switch">
+            <span className="switch-text">还没有账号？</span>
+            <span className="switch-link" onClick={() => { setLoginModalVisible(false); navigate('/auth/register'); }}>
+              立即注册
+            </span>
           </div>
 
-          <div className="login-register-link">
-            还没有账号？
-            <Button type="link" onClick={() => { setLoginModalVisible(false); navigate('/auth/register'); }}>
-              立即注册
-            </Button>
+          <div className="divider-wrapper">
+            <Divider className="login-divider">
+              <span className="divider-text">或</span>
+            </Divider>
+          </div>
+
+          <div className="alternative-login">
+            <div className="alternative-item">
+              <PhoneOutlined className="alternative-icon" />
+              <span>手机验证码登录</span>
+            </div>
+            <div className="alternative-item">
+              <MailOutlined className="alternative-icon" />
+              <span>邮箱验证码登录</span>
+            </div>
           </div>
         </div>
       </Modal>

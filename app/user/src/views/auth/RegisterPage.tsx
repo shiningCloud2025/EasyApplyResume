@@ -325,58 +325,82 @@ const RegisterPage: React.FC = () => {
   }
 
   return (
-    <div className="register-page">
-      <div className="register-form-container">
+    <div className="register-container">
+      {/* 背景装饰 */}
+      <div className="background-decoration">
+        <div className="decoration-circle decoration-1"></div>
+        <div className="decoration-circle decoration-2"></div>
+        <div className="decoration-circle decoration-3"></div>
+      </div>
+
+      <div className="register-card">
         <div className="register-header">
-          <h2>注册易投简历</h2>
-          <p>开启您的求职之旅</p>
+          <div className="logo-section">
+            <div className="logo">
+              <div className="logo-icon">
+                <UserOutlined style={{ fontSize: '24px', color: '#fff' }} />
+              </div>
+              <h1>易投简历</h1>
+            </div>
+            <p>用户注册</p>
+          </div>
         </div>
 
-        <Steps current={current} className="register-steps">
-          {steps.map(item => (
-            <Step key={item.title} title={item.title} />
-          ))}
-        </Steps>
+        <div className="register-body">
+          <Steps current={current} className="register-steps">
+            {steps.map(item => (
+              <Step key={item.title} title={item.title} />
+            ))}
+          </Steps>
 
-        <div className="steps-content">
-          <Form
-            form={form}
-            layout="vertical"
-            size="large"
-            className="register-form"
-          >
-            {renderStepContent()}
-          </Form>
-        </div>
-
-        <div className="steps-action">
-          {current > 0 && (
-            <Button onClick={handlePrevious}>
-              上一步
-            </Button>
-          )}
-          {current < steps.length - 1 && (
-            <Button type="primary" onClick={handleNext}>
-              下一步
-            </Button>
-          )}
-          {current === steps.length - 1 && (
-            <Button 
-              type="primary" 
-              onClick={handleNext}
-              loading={loading}
+          <div className="steps-content">
+            <Form
+              form={form}
+              layout="vertical"
+              size="large"
+              className="register-form"
             >
-              完成注册
-            </Button>
-          )}
-        </div>
+              {renderStepContent()}
+            </Form>
+          </div>
 
-        <div className="register-footer text-center">
-          <span>已有账号？</span>
-          <Link to="/auth/login" className="login-link">
-            立即登录
-          </Link>
+          <div className="steps-action">
+            {current > 0 && (
+              <Button onClick={handlePrevious} className="action-button">
+                上一步
+              </Button>
+            )}
+            {current < steps.length - 1 && (
+              <Button type="primary" onClick={handleNext} className="action-button primary">
+                下一步
+              </Button>
+            )}
+            {current === steps.length - 1 && (
+              <Button 
+                type="primary" 
+                onClick={handleNext}
+                loading={loading}
+                className="action-button primary"
+              >
+                完成注册
+              </Button>
+            )}
+          </div>
+
+          <div className="footer-section">
+            <span style={{ color: '#6b7280' }}>已有账号？</span>
+            <Link to="/auth/login" className="link-button apply-link" style={{ marginLeft: 8 }}>
+              立即登录
+            </Link>
+          </div>
         </div>
+      </div>
+      
+       {/* 装饰性元素 */}
+      <div className="floating-elements">
+        <div className="element element-1"></div>
+        <div className="element element-2"></div>
+        <div className="element element-3"></div>
       </div>
     </div>
   )
