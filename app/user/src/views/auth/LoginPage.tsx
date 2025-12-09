@@ -1,13 +1,11 @@
-import React, { useState } from 'react'
-import { Form, Input, Button, Tabs, message } from 'antd'
+import React, { useState, useEffect } from 'react'
+import { Form, Input, Button, message } from 'antd'
 import { UserOutlined, LockOutlined, PhoneOutlined, MailOutlined } from '@ant-design/icons'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { authAPI } from '@api/auth'
 import { sendSmsCode, sendEmailCode } from '@api/verify'
 import { useUserStore } from '@stores/userStore'
 import type { LoginForm, PhoneLoginForm, EmailLoginForm } from '@types/index'
-
-const { TabPane } = Tabs
 
 const LoginPage: React.FC = () => {
   console.log('📝 LoginPage 渲染')
@@ -18,13 +16,38 @@ const LoginPage: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [smsSending, setSmsSending] = useState(false)
   const [emailCodeSending, setEmailCodeSending] = useState(false)
-  const [countdown, setCountdown] = useState(0)
+  const [phoneCountdown, setPhoneCountdown] = useState(0)
+  const [emailCountdown, setEmailCountdown] = useState(0)
+  const [activeTab, setActiveTab] = useState<'account' | 'phone' | 'email'>('account')
   
   const navigate = useNavigate()
   const location = useLocation()
   const { login } = useUserStore()
 
   const from = (location.state as any)?.from?.pathname || '/home'
+
+  // 清理倒计时定时器
+  useEffect(() => {
+    let phoneTimer: NodeJS.Timeout | null = null
+    let emailTimer: NodeJS.Timeout | null = null
+
+    if (phoneCountdown > 0) {
+      phoneTimer = setTimeout(() => {
+        setPhoneCountdown(prev => prev - 1)
+      }, 1000)
+    }
+
+    if (emailCountdown > 0) {
+      emailTimer = setTimeout(() => {
+        setEmailCountdown(prev => prev - 1)
+      }, 1000)
+    }
+
+    return () => {
+      if (phoneTimer) clearTimeout(phoneTimer)
+      if (emailTimer) clearTimeout(emailTimer)
+    }
+  }, [phoneCountdown, emailCountdown])
 
   const handleFormLogin = async (values: LoginForm) => {
     setLoading(true)
@@ -131,18 +154,10 @@ const LoginPage: React.FC = () => {
     try {
       await sendSmsCode(phone)
       message.success('验证码发送成功')
-      setCountdown(60)
-      const timer = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer)
-            return 0
-          }
-          return prev - 1
-        })
-      }, 1000)
+      setPhoneCountdown(60)
     } catch (error) {
       console.error('发送验证码失败:', error)
+      message.error('发送验证码失败')
     } finally {
       setSmsSending(false)
     }
@@ -159,20 +174,24 @@ const LoginPage: React.FC = () => {
     try {
       await sendEmailCode(email)
       message.success('验证码发送成功')
-      setCountdown(60)
-      const timer = setInterval(() => {
-        setCountdown((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer)
-            return 0
-          }
-          return prev - 1
-        })
-      }, 1000)
+      setEmailCountdown(60)
     } catch (error) {
       console.error('发送验证码失败:', error)
+      message.error('发送验证码失败')
     } finally {
       setEmailCodeSending(false)
+    }
+  }
+
+  const switchTab = (tab: 'account' | 'phone' | 'email') => {
+    setActiveTab(tab)
+    // 切换tab时清除表单验证
+    if (tab === 'account') {
+      form.resetFields()
+    } else if (tab === 'phone') {
+      phoneForm.resetFields()
+    } else {
+      emailForm.resetFields()
     }
   }
 
@@ -196,170 +215,200 @@ const LoginPage: React.FC = () => {
           <p>用户登录</p>
         </div>
 
-        <Tabs defaultActiveKey="account" centered className="custom-tabs">
-          <TabPane tab="账号密码" key="account">
-            <Form
-              form={form}
-              name="formLogin"
-              onFinish={handleFormLogin}
-              layout="vertical"
-              size="large"
-            >
-              <Form.Item
-                name="accountOrPhoneOrEmail"
-                rules={[
-                  { required: true, message: '请输入账号/手机号/邮箱' }
-                ]}
-              >
-                <Input
-                  prefix={<UserOutlined />}
-                  placeholder="请输入账号/手机号/邮箱"
-                />
-              </Form.Item>
-              <Form.Item
-                name="password"
-                rules={[
-                  { required: true, message: '请输入密码' },
-                  { min: 6, message: '密码长度不能少于6位' }
-                ]}
-              >
-                <Input.Password
-                  prefix={<LockOutlined />}
-                  placeholder="请输入密码"
-                />
-              </Form.Item>
-              <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  loading={loading}
-                  block
-                  className="login-button"
-                >
-                  立即登录
-                </Button>
-              </Form.Item>
-            </Form>
-          </TabPane>
+        {/* 自定义Tabs */}
+        <div className="login-tabs">
+          <div 
+            className={`tab-item ${activeTab === 'account' ? 'active' : ''}`}
+            onClick={() => switchTab('account')}
+          >
+            账号密码
+          </div>
+          <div 
+            className={`tab-item ${activeTab === 'phone' ? 'active' : ''}`}
+            onClick={() => switchTab('phone')}
+          >
+            手机验证码
+          </div>
+          <div 
+            className={`tab-item ${activeTab === 'email' ? 'active' : ''}`}
+            onClick={() => switchTab('email')}
+          >
+            邮箱验证码
+          </div>
+        </div>
 
-          <TabPane tab="手机验证码" key="phone">
-            <Form
-              form={phoneForm}
-              name="phoneLogin"
-              onFinish={handlePhoneLogin}
-              layout="vertical"
-              size="large"
+        {/* 账号密码登录 */}
+        <div className="form-section" style={{ display: activeTab === 'account' ? 'block' : 'none' }}>
+          <Form
+            form={form}
+            name="formLogin"
+            onFinish={handleFormLogin}
+            layout="vertical"
+            size="large"
+          >
+            <Form.Item
+              name="accountOrPhoneOrEmail"
+              rules={[
+                { required: true, message: '请输入账号/手机号/邮箱' }
+              ]}
             >
-              <Form.Item
-                name="phone"
-                rules={[
-                  { required: true, message: '请输入手机号' },
-                  { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号' }
-                ]}
+              <Input
+                prefix={<UserOutlined />}
+                placeholder="请输入账号/手机号/邮箱"
+                clearable
+              />
+            </Form.Item>
+            <Form.Item
+              name="password"
+              rules={[
+                { required: true, message: '请输入密码' },
+                { min: 6, message: '密码长度不能少于6位' }
+              ]}
+            >
+              <Input.Password
+                prefix={<LockOutlined />}
+                placeholder="请输入密码"
+                visibilityToggle
+                clearable
+              />
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={loading}
+                block
+                className="login-button"
               >
-                <Input
-                  prefix={<PhoneOutlined />}
-                  placeholder="请输入手机号"
-                />
-              </Form.Item>
-              <Form.Item>
-                <Input.Group compact className="code-input-group">
-                  <Form.Item
-                    name="verifyCode"
-                    noStyle
-                    rules={[
-                      { required: true, message: '请输入验证码' },
-                      { len: 6, message: '验证码为6位数字' }
-                    ]}
-                  >
-                    <Input
-                      prefix={<MailOutlined />}
-                      placeholder="请输入验证码"
-                    />
-                  </Form.Item>
-                  <Button
-                    onClick={handleSendSmsCode}
-                    loading={smsSending}
-                    disabled={countdown > 0}
-                    className="code-button"
-                  >
-                    {countdown > 0 ? `${countdown}s` : '获取验证码'}
-                  </Button>
-                </Input.Group>
-              </Form.Item>
-              <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  loading={loading}
-                  block
-                  className="login-button"
-                >
-                  立即登录
-                </Button>
-              </Form.Item>
-            </Form>
-          </TabPane>
+                立即登录
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
 
-          <TabPane tab="邮箱验证码" key="email">
-            <Form
-              form={emailForm}
-              name="emailLogin"
-              onFinish={handleEmailLogin}
-              layout="vertical"
-              size="large"
+        {/* 手机验证码登录 */}
+        <div className="form-section" style={{ display: activeTab === 'phone' ? 'block' : 'none' }}>
+          <Form
+            form={phoneForm}
+            name="phoneLogin"
+            onFinish={handlePhoneLogin}
+            layout="vertical"
+            size="large"
+          >
+            <Form.Item
+              name="phone"
+              rules={[
+                { required: true, message: '请输入手机号' },
+                { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号' }
+              ]}
             >
-              <Form.Item
-                name="email"
-                rules={[
-                  { required: true, message: '请输入邮箱' },
-                  { type: 'email', message: '请输入正确的邮箱格式' }
-                ]}
-              >
-                <Input
-                  prefix={<MailOutlined />}
-                  placeholder="请输入邮箱"
-                />
-              </Form.Item>
-              <Form.Item>
-                <Input.Group compact className="code-input-group">
-                  <Form.Item
-                    name="verifyCode"
-                    noStyle
-                    rules={[
-                      { required: true, message: '请输入验证码' },
-                      { len: 6, message: '验证码为6位数字' }
-                    ]}
-                  >
-                    <Input
-                      prefix={<MailOutlined />}
-                      placeholder="请输入验证码"
-                    />
-                  </Form.Item>
-                  <Button
-                    onClick={handleSendEmailCode}
-                    loading={emailCodeSending}
-                    disabled={countdown > 0}
-                    className="code-button"
-                  >
-                    {countdown > 0 ? `${countdown}s` : '获取验证码'}
-                  </Button>
-                </Input.Group>
-              </Form.Item>
-              <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  loading={loading}
-                  block
-                  className="login-button"
+              <Input
+                prefix={<PhoneOutlined />}
+                placeholder="请输入手机号"
+                clearable
+              />
+            </Form.Item>
+            <Form.Item>
+              <div className="code-input-group">
+                <Form.Item
+                  name="verifyCode"
+                  noStyle
+                  rules={[
+                    { required: true, message: '请输入验证码' },
+                    { len: 6, message: '验证码为6位数字' }
+                  ]}
                 >
-                  立即登录
+                  <Input
+                    prefix={<MailOutlined />}
+                    placeholder="请输入验证码"
+                    clearable
+                  />
+                </Form.Item>
+                <Button
+                  onClick={handleSendSmsCode}
+                  loading={smsSending}
+                  disabled={phoneCountdown > 0}
+                  className="code-button"
+                >
+                  {phoneCountdown > 0 ? `${phoneCountdown}s` : '获取验证码'}
                 </Button>
-              </Form.Item>
-            </Form>
-          </TabPane>
-        </Tabs>
+              </div>
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={loading}
+                block
+                className="login-button"
+              >
+                立即登录
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+
+        {/* 邮箱验证码登录 */}
+        <div className="form-section" style={{ display: activeTab === 'email' ? 'block' : 'none' }}>
+          <Form
+            form={emailForm}
+            name="emailLogin"
+            onFinish={handleEmailLogin}
+            layout="vertical"
+            size="large"
+          >
+            <Form.Item
+              name="email"
+              rules={[
+                { required: true, message: '请输入邮箱' },
+                { type: 'email', message: '请输入正确的邮箱格式' }
+              ]}
+            >
+              <Input
+                prefix={<MailOutlined />}
+                placeholder="请输入邮箱"
+                clearable
+              />
+            </Form.Item>
+            <Form.Item>
+              <div className="code-input-group">
+                <Form.Item
+                  name="verifyCode"
+                  noStyle
+                  rules={[
+                    { required: true, message: '请输入验证码' },
+                    { len: 6, message: '验证码为6位数字' }
+                  ]}
+                >
+                  <Input
+                    prefix={<MailOutlined />}
+                    placeholder="请输入验证码"
+                    clearable
+                  />
+                </Form.Item>
+                <Button
+                  onClick={handleSendEmailCode}
+                  loading={emailCodeSending}
+                  disabled={emailCountdown > 0}
+                  className="code-button"
+                >
+                  {emailCountdown > 0 ? `${emailCountdown}s` : '获取验证码'}
+                </Button>
+              </div>
+            </Form.Item>
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                loading={loading}
+                block
+                className="login-button"
+              >
+                立即登录
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
 
         <div className="footer-section">
           <Link to="/auth/register" className="link-button apply-link">
@@ -397,6 +446,80 @@ const LoginPage: React.FC = () => {
         <div className="element element-2"></div>
         <div className="element element-3"></div>
       </div>
+
+      <style jsx>{`
+        .login-tabs {
+          display: flex;  
+          margin-bottom: 35px;
+          background: #f8f9fa;
+          border-radius: 8px;
+          padding: 3px;
+        }
+
+        .tab-item {
+          flex: 1;
+          padding: 12px 16px;
+          text-align: center;
+          border-radius: 6px;
+          font-size: 15px;
+          font-weight: 500;
+          color: #6b7280;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .tab-item.active {
+          background: white;
+          color: #667eea;
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-section {
+          margin-bottom: 24px;
+        }
+
+        .code-input-group {
+          display: flex;
+          gap: 10px;
+        }
+
+        .code-input-group .ant-input {
+          flex: 1;
+        }
+
+        .code-button {
+          width: 100px;
+          color: #3b82f6;
+          font-size: 14px;
+        }
+
+        .login-button {
+          width: 100%;
+          height: 52px;
+          font-size: 16px;
+          font-weight: 600;
+          border-radius: 8px;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          border: none;
+          transition: all 0.2s ease;
+        }
+
+        .login-button:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 480px) {
+          .login-tabs {
+            margin-bottom: 20px;
+          }
+          
+          .tab-item {
+            font-size: 12px;
+            padding: 8px;
+          }
+        }
+      `}</style>
     </div>
   )
 }

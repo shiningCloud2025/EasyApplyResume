@@ -1083,3 +1083,25 @@ This generated password is for development use only. Your security configuration
 2025-12-08 20:34:33.965 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
 2025-12-08 20:34:33.969 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
 2025-12-08 20:34:35.482 [http-nio-8080-exec-3] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 1040 ms
+2025-12-09 08:54:06.616 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10h15m59s825ms644µs900ns).
+2025-12-09 08:56:57.161 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m19s404ms936µs300ns).
+2025-12-09 09:39:50.079 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m21s814ms340µs300ns).
+2025-12-09 10:50:51.548 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=33m30s871ms881µs900ns).
+2025-12-09 13:24:41.802 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h42m19s491ms374µs100ns).
+2025-12-09 14:36:00.435 [scheduling-1] INFO  c.z.e.t.u.UserDeleteResumeScheduledTask - 开始执行清理过期简历任务
+2025-12-09 14:36:00.680 [scheduling-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-12-09 14:36:01.931 [scheduling-1] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@32a993b2
+2025-12-09 14:36:01.935 [scheduling-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-12-09 14:36:02.130 [scheduling-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userDeleteResume_id,userDeleteResume_resumeName,userDeleteResume_industry,userDeleteResume_resumeReactCode,userDeleteResume_createdTime,userDeleteResume_updatedTime,userDeleteResume_sortedNum,userDeleteResume_userId,userDeleteResume_deleteTime FROM user_userDeleteResume
+2025-12-09 14:36:02.225 [scheduling-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 
+2025-12-09 14:36:02.745 [scheduling-1] ERROR c.z.e.s.i.u.UserDeleteResumeServiceImpl - 系统删除简历表添加失败
+2025-12-09 14:36:02.815 [scheduling-1] INFO  c.z.e.t.u.UserDeleteResumeScheduledTask - 清理过期简历任务执行完成
+2025-12-09 15:54:03.270 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=15m217ms587µs700ns).
+2025-12-09 15:54:13.879 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m97ms167µs300ns).
+2025-12-09 17:18:28.830 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=59m55s123ms418µs200ns).
+2025-12-09 17:18:39.231 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=59m54s905ms257µs700ns).
+2025-12-09 18:10:30.798 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m20s804ms897µs200ns).
+2025-12-09 18:50:03.450 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=43m33s585ms923µs500ns).
+2025-12-09 18:50:13.551 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=39m42s797ms569µs500ns).
+2025-12-09 20:11:31.638 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=26m47s263ms255µs).
+2025-12-09 20:11:51.536 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=26m47s261ms179µs600ns).
