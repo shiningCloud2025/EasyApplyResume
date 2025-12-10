@@ -15,7 +15,9 @@ const { TextArea } = Input
 const RegisterPage: React.FC = () => {
   // 页面加载时滚动到顶部
   React.useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    window.scrollTo(0, 0)
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
   }, [])
   
   const [form] = Form.useForm()
@@ -346,17 +348,22 @@ const RegisterPage: React.FC = () => {
       </div>
 
       <div className="register-card">
-        <div className="logo-section">
-          <div className="logo">
-            <div className="logo-icon">
-              <i className="icon-resume">📄</i>
+        {/* 左侧装饰区域 */}
+        <div className="register-card-left">
+          <div className="logo-section">
+            <div className="logo">
+              <div className="logo-icon">
+                <i className="icon-resume">📄</i>
+              </div>
+              <h1>易投简历</h1>
             </div>
-            <h1>易投简历</h1>
+            <p>用户注册</p>
           </div>
-          <p>用户注册</p>
         </div>
 
-        <div className="register-body">
+        {/* 右侧表单区域 */}
+        <div className="register-card-right">
+          <div className="register-body">
           <Steps current={current} className="register-steps">
             {steps.map(item => (
               <Step key={item.title} title={item.title} />
@@ -421,6 +428,7 @@ const RegisterPage: React.FC = () => {
               <HomeOutlined style={{ marginRight: 4 }} />
               返回首页
             </Link>
+          </div>
           </div>
         </div>
       </div>

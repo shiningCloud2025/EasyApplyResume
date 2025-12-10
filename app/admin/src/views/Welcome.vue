@@ -80,7 +80,7 @@
           class="action-button login-button"
         >
           <i class="el-icon-right"></i>
-          立即登录
+          {{ authStore.isLoggedIn ? '进入管理后台' : '立即登录' }}
         </el-button>
         
         <el-button 
@@ -114,11 +114,18 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/store/auth'
 
 const router = useRouter()
+const authStore = useAuthStore()
 
 const goToLogin = () => {
-  router.push('/login')
+  // 如果已登录，直接跳转到管理后台
+  if (authStore.isLoggedIn) {
+    router.push('/admin/dashboard')
+  } else {
+    router.push('/login')
+  }
 }
 
 const goToRegister = () => {

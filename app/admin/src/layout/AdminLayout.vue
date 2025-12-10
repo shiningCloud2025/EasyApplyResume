@@ -73,7 +73,7 @@
         <!-- Map管理 -->
         <el-sub-menu index="/admin/map">
           <template #title>
-            <el-icon><Map /></el-icon>
+            <el-icon><Location /></el-icon>
             <span>Map管理</span>
           </template>
           <el-menu-item index="/admin/map/industry">行业Map管理</el-menu-item>
@@ -235,7 +235,7 @@ import {
   Document,
   Briefcase,
   DocumentCopy,
-  Map,
+  Location,
   Cpu,
   Monitor,
   ChatLineSquare,
@@ -448,11 +448,10 @@ onMounted(() => {
   border-right: none !important;
   flex: 1;
   --el-menu-text-color: #cbd5e1;
-  --el-menu-hover-text-color: #f1f5f9;
-  --el-menu-active-color: #3b82f6;
+  --el-menu-hover-text-color: #ffffff;
+  --el-menu-active-color: #ffffff;
   --el-menu-bg-color: transparent;
-  --el-menu-hover-bg-color: rgba(59, 130, 246, 0.1);
-  --el-menu-active-bg-color: rgba(59, 130, 246, 0.15);
+  --el-menu-hover-bg-color: rgba(59, 130, 246, 0.15);
   
   .el-menu-item, .el-sub-menu__title {
     height: 50px;
@@ -462,34 +461,69 @@ onMounted(() => {
     transition: all 0.3s ease;
     
     &:hover {
-      background-color: rgba(59, 130, 246, 0.1);
+      background-color: rgba(59, 130, 246, 0.2);
+      color: #ffffff;
     }
   }
   
   .el-menu-item.is-active {
-    background-color: rgba(59, 130, 246, 0.15);
-    color: #3b82f6;
+    background: linear-gradient(90deg, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.15) 100%);
+    color: #ffffff;
+    font-weight: 600;
+    border-left: 3px solid #3b82f6;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: #3b82f6;
+      border-radius: 0 3px 3px 0;
+    }
+  }
+  
+  .el-sub-menu.is-active > .el-sub-menu__title {
+    color: #ffffff;
+    font-weight: 600;
   }
   
   .el-sub-menu .el-menu-item {
     margin: 2px 24px;
     height: 44px;
     line-height: 44px;
+    padding-left: 48px !important;
     
     &::before {
       content: '';
       position: absolute;
-      left: -12px;
+      left: 32px;
       top: 50%;
       transform: translateY(-50%);
-      width: 4px;
-      height: 4px;
+      width: 6px;
+      height: 6px;
       background-color: #64748b;
       border-radius: 50%;
+      transition: all 0.3s ease;
     }
     
-    &:hover::before, &.is-active::before {
+    &:hover::before {
       background-color: #3b82f6;
+      width: 8px;
+      height: 8px;
+    }
+    
+    &.is-active {
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.25) 0%, rgba(59, 130, 246, 0.1) 100%);
+      color: #ffffff;
+      font-weight: 500;
+      
+      &::before {
+        background-color: #3b82f6;
+        width: 8px;
+        height: 8px;
+      }
     }
   }
 }

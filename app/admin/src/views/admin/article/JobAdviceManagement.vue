@@ -298,8 +298,8 @@ const getArticleList = async () => {
   loading.value = true
   try {
     const response = await jobAdviceArticleApi.getJobAdviceArticlePage(
-      pagination.size,
       pagination.page,
+      pagination.size,
       searchForm
     )
     

@@ -56,13 +56,29 @@ export const useAuthStore = defineStore('auth', {
     async login(form: LoginForm) {
       try {
         this.loading = true
+        console.log('开始登录，参数:', form)
         const response = await api.post<string>('/admin/auth/formalLogin', null, { params: form })
-        this.setToken(response.data)
+        console.log('登录响应:', response)
         
-        // 获取用户信息
-        await this.getUserInfo()
+        if (!response.data) {
+          throw new Error('登录失败：未获取到token')
+        }
+        
+        this.setToken(response.data)
+        console.log('Token已保存:', response.data)
+        
+        // 获取用户信息（失败不影响登录）
+        try {
+          await this.getUserInfo()
+          console.log('用户信息已获取:', this.user)
+        } catch (error) {
+          console.warn('获取用户信息失败，但不影响登录:', error)
+        }
         
         return response.data
+      } catch (error: any) {
+        console.error('登录失败详情:', error)
+        throw error
       } finally {
         this.loading = false
       }
@@ -75,8 +91,12 @@ export const useAuthStore = defineStore('auth', {
         const response = await api.post<string>('/admin/auth/phoneLogin', null, { params: form })
         this.setToken(response.data)
         
-        // 获取用户信息
-        await this.getUserInfo()
+        // 获取用户信息（失败不影响登录）
+        try {
+          await this.getUserInfo()
+        } catch (error) {
+          console.warn('获取用户信息失败，但不影响登录:', error)
+        }
         
         return response.data
       } finally {
@@ -91,8 +111,12 @@ export const useAuthStore = defineStore('auth', {
         const response = await api.post<string>('/admin/auth/emailLogin', null, { params: form })
         this.setToken(response.data)
         
-        // 获取用户信息
-        await this.getUserInfo()
+        // 获取用户信息（失败不影响登录）
+        try {
+          await this.getUserInfo()
+        } catch (error) {
+          console.warn('获取用户信息失败，但不影响登录:', error)
+        }
         
         return response.data
       } finally {
@@ -102,9 +126,17 @@ export const useAuthStore = defineStore('auth', {
 
     // 获取用户信息
     async getUserInfo() {
-      const response = await api.post<AdminUser>('/admin/admin/getAdminInfo')
-      this.user = response.data
-      return response.data
+      try {
+        console.log('开始获取用户信息...')
+        const response = await api.post<AdminUser>('/admin/auth/getAdminInfo')
+        console.log('用户信息响应:', response)
+        this.user = response.data
+        return response.data
+      } catch (error: any) {
+        console.error('获取用户信息失败:', error)
+        // 获取用户信息失败不影响登录，只是没有用户详情
+        return null
+      }
     },
 
     // 设置token

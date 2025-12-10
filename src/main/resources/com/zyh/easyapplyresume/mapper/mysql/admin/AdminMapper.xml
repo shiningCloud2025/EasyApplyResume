@@ -51,7 +51,7 @@
 
     <select id="findByAccountOrPhoneOrEmail" parameterType="string" resultType="com.zyh.easyapplyresume.model.pojo.admin.Admin">
         select * from admin_admin
-        where admin_username = #{accountOrPhoneOrEmail} or admin_phone = #{accountOrPhoneOrEmail} or admin_email = #{accountOrPhoneOrEmail}
+        where admin_account = #{accountOrPhoneOrEmail} or admin_phone = #{accountOrPhoneOrEmail} or admin_email = #{accountOrPhoneOrEmail}
     </select>
 
 </mapper>

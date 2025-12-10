@@ -111,6 +111,7 @@ public class AdminJwtAuthFilter extends OncePerRequestFilter {
                     new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            filterChain.doFilter(request, response);
         }catch (Exception e) {
             log.error("管理端 Token 验证失败: {}", e.getMessage());
         }

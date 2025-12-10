@@ -380,10 +380,12 @@ const handleLogin = async () => {
 
     if (result) {
       ElMessage.success('登录成功')
-      router.push('/admin/dashboard')
+      // 使用 replace 替换当前历史记录，防止用户返回到登录页
+      await router.replace('/admin/dashboard')
     }
-  } catch (error) {
+  } catch (error: any) {
     console.error('登录失败:', error)
+    ElMessage.error(error.message || '登录失败，请重试')
   } finally {
     loading.value = false
   }

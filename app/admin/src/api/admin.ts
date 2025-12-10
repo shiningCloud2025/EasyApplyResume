@@ -188,8 +188,8 @@ export const jobAdviceArticleApi = {
     api.get<any>('/admin/jobAdviceArticle/getJobAdviceArticleInfo', { params: { jobAdviceArticleId } }),
   
   // 分页查询求职攻略
-  getJobAdviceArticlePage: (size: number, page: number, query: JobAdviceArticleQuery) => 
-    api.post<any>('/admin/jobAdviceArticle/getJobAdviceArticlePage', query, { params: { size, page } }),
+  getJobAdviceArticlePage: (pageNum: number, pageSize: number, query: JobAdviceArticleQuery) => 
+    api.post<any>('/admin/jobAdviceArticle/getJobAdviceArticlePage', query, { params: { pageNum, pageSize } }),
   
   // 查询所有求职攻略
   getAllJobAdviceArticles: () => api.get<any[]>('/admin/jobAdviceArticle/getAllJobAdviceArticle')
@@ -342,9 +342,9 @@ export const feedbackApi = {
   getFeedbackDetail: (feedbackId: number) => api.get<AdminFeedbackInfoVO>('/admin/feedback/findFeedbackById', { params: { feedbackId } }),
   
   // 分页查询反馈
-  getFeedbackPage: (size: number, page: number, query: AdminFeedbackQuery) =>
+  getFeedbackPage: (pageNum: number, pageSize: number, query: AdminFeedbackQuery) =>
     api.post<PageResult<AdminFeedbackPageVO>>('/admin/feedback/getFeedbackPage', query, {
-      params: { size, page }
+      params: { pageNum, pageSize }
     })
 }
 
