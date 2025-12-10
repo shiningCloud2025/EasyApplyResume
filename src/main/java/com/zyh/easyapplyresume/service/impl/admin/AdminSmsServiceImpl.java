@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.service.admin.AdminSmsService;
 import darabonba.core.client.ClientOverrideConfiguration;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -206,5 +207,17 @@ public class AdminSmsServiceImpl implements AdminSmsService {
             codeBuilder.append(CODE_CHARACTERS.charAt(SECURE_RANDOM.nextInt(CODE_CHARACTERS.length())));
         }
         return codeBuilder.toString();
+    }
+
+    /**
+     * 销毁短信客户端
+     */
+    @PreDestroy
+    public void destroyClient() {
+        if (asyncClient != null) {
+            log.info("关闭阿里云短信客户端...");
+            asyncClient.close();
+            log.info("阿里云短信客户端已关闭");
+        }
     }
 }
