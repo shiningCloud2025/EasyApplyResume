@@ -7,6 +7,7 @@ import { sendSmsCode, sendEmailCode } from '@api/verify'
 import { useUserStore } from '@stores/userStore'
 import type { LoginForm, PhoneLoginForm, EmailLoginForm } from '@types/index'
 import '@styles/auth.scss'
+import '@styles/auth-override.scss'
 
 const LoginPage: React.FC = () => {
   console.log('📝 LoginPage 渲染')

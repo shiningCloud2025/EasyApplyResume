@@ -6,6 +6,7 @@ import { authAPI } from '@api/auth'
 import { sendSmsCode, sendEmailCode } from '@api/verify'
 import type { RegisterForm } from '@types/index'
 import '@styles/auth.scss'
+import '@styles/auth-override.scss'
 
 const { Option } = Select
 const { Step } = Steps
