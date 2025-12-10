@@ -2,6 +2,7 @@
 .login-container,
 .register-container {
   min-height: 100vh;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9,8 +10,10 @@
   background-size: 400% 400%;
   animation: gradientFlow 15s ease infinite;
   padding: 20px;
-  position: relative;
-  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
@@ -79,9 +82,11 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 1400px;
-  min-height: 600px;
-  background: transparent;
+  max-width: 1134px;
+  min-height: 550px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   padding: 0;
   animation: fadeIn 0.6s ease-out;
   display: flex;
@@ -101,31 +106,35 @@
 /* 左侧装饰区域 */
 .login-card-left,
 .register-card-left {
-  flex: 0 0 45%;
-  background: transparent;
-  padding: 60px 50px;
+  flex: 0 0 35%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 50px 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-right: none;
 }
 
 /* 右侧表单区域 */
 .login-card-right,
 .register-card-right {
   flex: 1;
-  padding: 60px 80px;
+  padding: 50px 60px;
   overflow-y: auto;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .login-card {
-  min-height: 600px;
+  min-height: 550px;
+  max-height: 650px;
 }
 
 .register-card {
-  max-width: 1500px;
-  min-height: 700px;
+  max-width: 1200px;
+  min-height: 650px;
 }
 
 /* Header & Logo */
@@ -144,13 +153,14 @@
 .logo-icon {
   width: 56px;
   height: 56px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-right: 16px;
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   
   i, svg, .icon-resume {
     font-size: 28px;
@@ -177,33 +187,33 @@
 .login-tabs {
   display: flex;  
   margin-bottom: 40px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  padding: 4px;
+  background: #f3f4f6;
+  border-radius: 12px;
+  padding: 6px;
 }
 
 .tab-item {
   flex: 1;
   padding: 14px 20px;
   text-align: center;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #6b7280;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   user-select: none;
 }
 
 .tab-item.active {
-  background: rgba(255, 255, 255, 0.25);
-  color: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  background: white;
+  color: #667eea;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .tab-item:hover:not(.active) {
-  color: white;
-  background: rgba(255, 255, 255, 0.2);
+  color: #667eea;
+  background: rgba(255, 255, 255, 0.6);
 }
 
 /* Form Section */
@@ -248,37 +258,40 @@
 .register-container .ant-input,
 .register-container .ant-input-password input,
 .register-container .ant-input-affix-wrapper {
-  border-radius: 6px !important;
-  padding: 8px 11px !important;
-  border: 2px solid rgba(255, 255, 255, 0.3) !important;
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: white !important;
+  border-radius: 8px !important;
+  padding: 12px 15px !important;
+  border: 1px solid #e5e7eb !important;
+  background: #f9fafb !important;
+  color: #1f2937 !important;
   transition: all 0.3s ease !important;
+  font-size: 15px !important;
   
   &::placeholder {
-    color: rgba(255, 255, 255, 0.6) !important;
+    color: #9ca3af !important;
   }
   
   &:hover {
-    border-color: rgba(255, 255, 255, 0.5) !important;
-    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: #d1d5db !important;
+    background: #f3f4f6 !important;
   }
   
   &:focus, &.ant-input-affix-wrapper-focused {
-    border-color: rgba(255, 255, 255, 0.8) !important;
-    background: rgba(255, 255, 255, 0.25) !important;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15) !important;
+    border-color: #667eea !important;
+    background: white !important;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
   }
 }
 
 .ant-input-prefix {
-  color: rgba(255, 255, 255, 0.7);
+  color: #9ca3af;
   margin-right: 8px;
+  font-size: 16px;
 }
 
 .ant-form-item-label > label {
-  font-weight: 500;
-  color: white;
+  font-weight: 600;
+  color: #374151;
+  font-size: 15px;
 }
 
 /* Tabs */
@@ -301,19 +314,19 @@
 }
 
 .link-button {
-  color: rgba(255, 255, 255, 0.8);
+  color: #6b7280;
   font-size: 14px;
   cursor: pointer;
   transition: color 0.2s ease;
   text-decoration: none;
   
   &:hover {
-    color: white;
+    color: #667eea;
   }
 }
 
 .divider {
-  color: rgba(255, 255, 255, 0.5);
+  color: #d1d5db;
   font-size: 14px;
   font-weight: 300;
 }

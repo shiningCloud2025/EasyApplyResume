@@ -19,13 +19,13 @@
 
     <!-- 搜索和筛选 -->
     <el-card class="search-card">
-      <el-form :model="searchForm" inline>
+      <el-form :model="searchForm" :inline="true" class="search-form">
         <el-form-item label="岗位名称">
           <el-input
             v-model="searchForm.recruitPositionName"
             placeholder="请输入岗位名称"
             clearable
-            style="width: 200px"
+            style="width: 240px"
           />
         </el-form-item>
         <el-form-item label="薪资范围">
@@ -33,11 +33,11 @@
             v-model="searchForm.recruitPositionSalary"
             placeholder="请输入薪资范围"
             clearable
-            style="width: 150px"
+            style="width: 180px"
           />
         </el-form-item>
         <el-form-item label="状态">
-          <el-select v-model="searchForm.recruitPositionState" placeholder="请选择" clearable style="width: 120px">
+          <el-select v-model="searchForm.recruitPositionState" placeholder="请选择" clearable style="width: 180px">
             <el-option label="招聘中" :value="1" />
             <el-option label="已结束" :value="0" />
           </el-select>
@@ -63,18 +63,22 @@
         style="width: 100%"
         empty-text="暂无数据"
       >
-        <el-table-column prop="recruitPositionId" label="ID" width="80" />
+        <el-table-column prop="recruitPositionId" label="ID" width="70" />
         <el-table-column prop="recruitPositionName" label="岗位名称" min-width="200" />
         <el-table-column prop="recruitPositionSalary" label="薪资范围" width="120">
           <template #default="{ row }">
             <el-tag type="warning">{{ row.recruitPositionSalary }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="recruitPositionIntroduce" label="职位描述" min-width="250">
+        <el-table-column prop="recruitPositionIntroduce" label="职位描述" width="100" align="center">
           <template #default="{ row }">
-            <div class="position-intro">
-              {{ row.recruitPositionIntroduce?.substring(0, 100) }}...
-            </div>
+            <el-button
+              type="primary"
+              size="default"
+              @click="handleViewIntroduce(row)"
+            >
+              详情
+            </el-button>
           </template>
         </el-table-column>
         <el-table-column prop="recruitPositionState" label="状态" width="100" align="center">
@@ -89,18 +93,15 @@
             {{ formatDateTime(row.recruitPositionCreatedTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" width="300" fixed="right">
           <template #default="{ row }">
-            <el-button type="text" size="small" @click="handleView(row)">
-              <i class="el-icon-view"></i>
+            <el-button type="info" size="default" @click="handleView(row)">
               查看
             </el-button>
-            <el-button type="text" size="small" @click="handleEdit(row)">
-              <i class="el-icon-edit"></i>
+            <el-button type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
-            <el-button type="text" size="small" class="danger" @click="handleDelete(row)">
-              <i class="el-icon-delete"></i>
+            <el-button type="danger" size="default" @click="handleDelete(row)">
               删除
             </el-button>
           </template>
@@ -110,7 +111,7 @@
       <!-- 分页 -->
       <el-pagination
         class="pagination"
-        v-model:current-page="pagination.page"
+        v-model:current-page="pagination.current"
         v-model:page-size="pagination.size"
         :total="pagination.total"
         :page-sizes="[10, 20, 50, 100]"
@@ -182,6 +183,30 @@
       </template>
     </el-dialog>
 
+    </el-dialog>
+
+    <!-- 职位描述详情弹窗 -->
+    <el-dialog
+      v-model="introduceDialogVisible"
+      title="职位描述"
+      width="700px"
+    >
+      <el-card v-if="currentIntroducePosition">
+        <template #header>
+          <div style="font-weight: 600; font-size: 16px;">{{ currentIntroducePosition.recruitPositionName }}</div>
+        </template>
+        <div style="padding: 16px; min-height: 150px; white-space: pre-wrap; word-break: break-all; line-height: 1.8; max-height: 400px; overflow-y: auto;">
+          {{ currentIntroducePosition.recruitPositionIntroduce || '暂无职位描述' }}
+        </div>
+      </el-card>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="introduceDialogVisible = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
     <!-- 查看岗位详情对话框 -->
     <el-dialog
       v-model="showViewDialog"
@@ -249,7 +274,7 @@ const searchForm = reactive<RecruitPositionQuery>({
 
 // 分页
 const pagination = reactive({
-  page: 1,
+  current: 1,
   size: 10,
   total: 0
 })
@@ -292,7 +317,7 @@ const getPositionList = async () => {
   loading.value = true
   try {
     const response = await recruitPositionApi.getRecruitPositionPage(
-      pagination.page,
+      pagination.current,
       pagination.size,
       searchForm
     )
@@ -316,7 +341,7 @@ const openCreateDialog = () => {
 
 // 搜索
 const handleSearch = () => {
-  pagination.page = 1
+  pagination.current = 1
   getPositionList()
 }
 
@@ -325,7 +350,7 @@ const handleReset = () => {
   searchForm.recruitPositionName = ''
   searchForm.recruitPositionSalary = ''
   searchForm.recruitPositionState = undefined
-  pagination.page = 1
+  pagination.current = 1
   getPositionList()
 }
 
@@ -340,9 +365,18 @@ const handleSizeChange = (size: number) => {
   getPositionList()
 }
 
-const handleCurrentChange = (page: number) => {
-  pagination.page = page
+const handleCurrentChange = (current: number) => {
+  pagination.current = current
   getPositionList()
+}
+
+// 查看职位描述详情
+const introduceDialogVisible = ref(false)
+const currentIntroducePosition = ref<RecruitPositionPageVO | null>(null)
+
+const handleViewIntroduce = (row: RecruitPositionPageVO) => {
+  currentIntroducePosition.value = row
+  introduceDialogVisible.value = true
 }
 
 // 查看岗位详情
@@ -445,90 +479,90 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .position-management {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.header-content {
-  flex: 1;
-}
-
-.page-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 8px;
-}
-
-.page-description {
   font-size: 16px;
-  color: #6b7280;
-  margin: 0;
-}
-
-.header-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.search-card {
-  margin-bottom: 24px;
-}
-
-.table-card {
-  margin-bottom: 24px;
-}
-
-.position-intro {
-  color: #6b7280;
-  line-height: 1.4;
-}
-
-.pagination {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid #f3f4f6;
-}
-
-.dialog-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-}
-
-.position-detail {
-  .detail-content {
-    line-height: 1.6;
-    color: #374151;
-    white-space: pre-wrap;
-  }
-}
-
-.danger {
-  color: #ef4444;
   
-  &:hover {
-    color: #dc2626;
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .header-content {
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .page-description {
+      font-size: 14px;
+      color: #6b7280;
+      margin: 0;
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .search-card {
+    margin-bottom: 24px;
+  }
+
+  .search-form {
+    .el-form-item {
+      margin-bottom: 0;
+    }
+  }
+
+  .table-card {
+    .el-table {
+      font-size: 16px;
+    }
+  }
+
+  .position-intro {
+    color: #6b7280;
+    line-height: 1.4;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .position-detail {
+    .detail-content {
+      line-height: 1.6;
+      color: #374151;
+      white-space: pre-wrap;
+    }
+  }
+
+  .danger {
+    color: #ef4444;
+    
+    &:hover {
+      color: #dc2626;
+    }
   }
 }
 
 // 响应式设计
 @media (max-width: 768px) {
   .position-management {
-    padding: 16px;
-  }
   
   .page-header {
     flex-direction: column;
@@ -561,18 +595,4 @@ onMounted(() => {
   }
 }
 
-@media (max-width: 480px) {
-  .page-title {
-    font-size: 24px;
-  }
-  
-  .page-description {
-    font-size: 14px;
-  }
-  
-  .table-card {
-    margin: 0 -16px 24px -16px;
-    border-radius: 0;
-  }
-}
 </style>

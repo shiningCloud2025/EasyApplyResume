@@ -25,7 +25,7 @@
             v-model="searchForm.employmentInformationTitle"
             placeholder="请输入信息标题"
             clearable
-            style="width: 200px"
+            style="width: 240px"
           />
         </el-form-item>
         <el-form-item label="公司名称">
@@ -33,7 +33,7 @@
             v-model="searchForm.employmentInformationCompany"
             placeholder="请输入公司名称"
             clearable
-            style="width: 200px"
+            style="width: 240px"
           />
         </el-form-item>
         <el-form-item label="城市">
@@ -41,11 +41,11 @@
             v-model="searchForm.employmentInformationCity"
             placeholder="请输入城市"
             clearable
-            style="width: 150px"
+            style="width: 180px"
           />
         </el-form-item>
         <el-form-item label="状态">
-          <el-select v-model="searchForm.employmentInformationState" placeholder="请选择" clearable style="width: 120px">
+          <el-select v-model="searchForm.employmentInformationState" placeholder="请选择" clearable style="width: 180px">
             <el-option label="已发布" :value="1" />
             <el-option label="草稿" :value="0" />
           </el-select>
@@ -71,7 +71,7 @@
         style="width: 100%"
         empty-text="暂无数据"
       >
-        <el-table-column prop="employmentInformationId" label="ID" width="80" />
+        <el-table-column prop="employmentInformationId" label="ID" width="70" />
         <el-table-column prop="employmentInformationTitle" label="信息标题" min-width="200" />
         <el-table-column prop="employmentInformationCompany" label="公司名称" min-width="150" />
         <el-table-column prop="employmentInformationCity" label="城市" width="100" />
@@ -94,18 +94,15 @@
             {{ formatDateTime(row.employmentInformationCreatedTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" width="300" fixed="right">
           <template #default="{ row }">
-            <el-button type="text" size="small" @click="handleView(row)">
-              <i class="el-icon-view"></i>
+            <el-button type="info" size="default" @click="handleView(row)">
               查看
             </el-button>
-            <el-button type="text" size="small" @click="handleEdit(row)">
-              <i class="el-icon-edit"></i>
+            <el-button type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
-            <el-button type="text" size="small" class="danger" @click="handleDelete(row)">
-              <i class="el-icon-delete"></i>
+            <el-button type="danger" size="default" @click="handleDelete(row)">
               删除
             </el-button>
           </template>
@@ -115,7 +112,7 @@
       <!-- 分页 -->
       <el-pagination
         class="pagination"
-        v-model:current-page="pagination.page"
+        v-model:current-page="pagination.current"
         v-model:page-size="pagination.size"
         :total="pagination.total"
         :page-sizes="[10, 20, 50, 100]"
@@ -305,7 +302,7 @@ const searchForm = reactive<EmploymentInformationQuery>({
 
 // 分页
 const pagination = reactive({
-  page: 1,
+  current: 1,
   size: 10,
   total: 0
 })
@@ -355,7 +352,7 @@ const getInformationList = async () => {
   loading.value = true
   try {
     const response = await employmentInformationApi.getEmploymentInformationPage(
-      pagination.page,
+      pagination.current,
       pagination.size,
       searchForm
     )
@@ -379,7 +376,7 @@ const openCreateDialog = () => {
 
 // 搜索
 const handleSearch = () => {
-  pagination.page = 1
+  pagination.current = 1
   getInformationList()
 }
 
@@ -389,7 +386,7 @@ const handleReset = () => {
   searchForm.employmentInformationCompany = ''
   searchForm.employmentInformationCity = ''
   searchForm.employmentInformationState = undefined
-  pagination.page = 1
+  pagination.current = 1
   getInformationList()
 }
 
@@ -404,8 +401,8 @@ const handleSizeChange = (size: number) => {
   getInformationList()
 }
 
-const handleCurrentChange = (page: number) => {
-  pagination.page = page
+const handleCurrentChange = (current: number) => {
+  pagination.current = current
   getInformationList()
 }
 
@@ -521,6 +518,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .information-management {
+  font-size: 16px;
   max-width: 1400px;
   margin: 0 auto;
   padding: 24px;
@@ -563,6 +561,10 @@ onMounted(() => {
 
 .table-card {
   margin-bottom: 24px;
+  
+  .el-table {
+    font-size: 16px;
+  }
 }
 
 .pagination {

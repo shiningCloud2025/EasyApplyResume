@@ -6,26 +6,26 @@
         <p class="page-description">管理系统权限项，构建权限树结构</p>
       </div>
       <div class="header-actions">
-        <el-button type="primary" @click="openCreateDialog">
-          <i class="el-icon-plus"></i>
-          新增权限
-        </el-button>
         <el-button @click="refreshData">
-          <i class="el-icon-refresh"></i>
+          <el-icon><Refresh /></el-icon>
           刷新
+        </el-button>
+        <el-button type="primary" @click="openCreateDialog">
+          <el-icon><Plus /></el-icon>
+          新增权限
         </el-button>
       </div>
     </div>
 
     <!-- 搜索和筛选 -->
     <el-card class="search-card">
-      <el-form :model="searchForm" inline>
+      <el-form :model="searchForm" :inline="true" class="search-form">
         <el-form-item label="权限名称">
           <el-input
             v-model="searchForm.permissionName"
             placeholder="请输入权限名称"
             clearable
-            style="width: 200px"
+            style="width: 240px"
           />
         </el-form-item>
         <el-form-item label="请求路径">
@@ -33,16 +33,16 @@
             v-model="searchForm.permissionUrl"
             placeholder="请输入请求路径"
             clearable
-            style="width: 200px"
+            style="width: 240px"
           />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSearch">
-            <i class="el-icon-search"></i>
+            <el-icon><Search /></el-icon>
             搜索
           </el-button>
           <el-button @click="handleReset">
-            <i class="el-icon-refresh"></i>
+            <el-icon><RefreshRight /></el-icon>
             重置
           </el-button>
         </el-form-item>
@@ -57,7 +57,7 @@
         style="width: 100%"
         empty-text="暂无数据"
       >
-        <el-table-column prop="permissionId" label="ID" width="80" />
+        <el-table-column prop="permissionId" label="ID" width="70" />
         <el-table-column prop="permissionName" label="权限名称" min-width="150" />
         <el-table-column prop="permissionUrl" label="请求路径" min-width="200" />
         <el-table-column prop="permissionRequest" label="请求方式" width="100" align="center">
@@ -67,20 +67,28 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="permissionIntroduce" label="描述" min-width="180" />
+        <el-table-column label="描述" width="100" align="center">
+          <template #default="{ row }">
+            <el-button
+              type="primary"
+              size="default"
+              @click="handleViewIntroduce(row)"
+            >
+              详情
+            </el-button>
+          </template>
+        </el-table-column>
         <el-table-column prop="permissionCreatedTime" label="创建时间" width="160">
           <template #default="{ row }">
             {{ formatDateTime(row.permissionCreatedTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" width="280" fixed="right">
           <template #default="{ row }">
-            <el-button type="text" size="small" @click="handleEdit(row)">
-              <i class="el-icon-edit"></i>
+            <el-button type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
-            <el-button type="text" size="small" class="danger" @click="handleDelete(row)">
-              <i class="el-icon-delete"></i>
+            <el-button type="danger" size="default" @click="handleDelete(row)">
               删除
             </el-button>
           </template>
@@ -90,7 +98,7 @@
       <!-- 分页 -->
       <el-pagination
         class="pagination"
-        v-model:current-page="pagination.page"
+        v-model:current-page="pagination.current"
         v-model:page-size="pagination.size"
         :total="pagination.total"
         :page-sizes="[10, 20, 50, 100]"
@@ -145,12 +153,35 @@
         </span>
       </template>
     </el-dialog>
+
+    <!-- 描述详情弹窗 -->
+    <el-dialog
+      v-model="introduceDialogVisible"
+      title="权限描述"
+      width="600px"
+    >
+      <el-card v-if="currentIntroducePermission">
+        <template #header>
+          <div style="font-weight: 600; font-size: 16px;">{{ currentIntroducePermission.permissionName }}</div>
+        </template>
+        <div style="padding: 16px; min-height: 100px; white-space: pre-wrap; word-break: break-all; line-height: 1.8;">
+          {{ currentIntroducePermission.permissionIntroduce || '该权限暂无描述' }}
+        </div>
+      </el-card>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="introduceDialogVisible = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { Refresh, Plus, Search, RefreshRight } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
 import { permissionApi } from '@/api/admin'
 import type {
@@ -176,7 +207,7 @@ const searchForm = reactive<PermissionPageQuery>({
 
 // 分页
 const pagination = reactive({
-  page: 1,
+  current: 1,
   size: 20,
   total: 0
 })
@@ -218,7 +249,7 @@ const getPermissionList = async () => {
   loading.value = true
   try {
     const response = await permissionApi.getPermissionPage(
-      pagination.page,
+      pagination.current,
       pagination.size,
       searchForm
     )
@@ -242,7 +273,7 @@ const openCreateDialog = () => {
 
 // 搜索
 const handleSearch = () => {
-  pagination.page = 1
+  pagination.current = 1
   getPermissionList()
 }
 
@@ -251,7 +282,7 @@ const handleReset = () => {
   searchForm.permissionName = ''
   searchForm.permissionUrl = ''
   searchForm.permissionRequest = ''
-  pagination.page = 1
+  pagination.current = 1
   getPermissionList()
 }
 
@@ -266,9 +297,18 @@ const handleSizeChange = (size: number) => {
   getPermissionList()
 }
 
-const handleCurrentChange = (page: number) => {
-  pagination.page = page
+const handleCurrentChange = (current: number) => {
+  pagination.current = current
   getPermissionList()
+}
+
+// 查看描述详情
+const introduceDialogVisible = ref(false)
+const currentIntroducePermission = ref<PermissionPageVO | null>(null)
+
+const handleViewIntroduce = (row: PermissionPageVO) => {
+  currentIntroducePermission.value = row
+  introduceDialogVisible.value = true
 }
 
 // 编辑权限
@@ -360,77 +400,77 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .permission-management {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.header-content {
-  flex: 1;
-}
-
-.page-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 8px;
-}
-
-.page-description {
   font-size: 16px;
-  color: #6b7280;
-  margin: 0;
-}
-
-.header-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.search-card {
-  margin-bottom: 24px;
-}
-
-.table-card {
-  margin-bottom: 24px;
-}
-
-.pagination {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid #f3f4f6;
-}
-
-.dialog-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-}
-
-.danger {
-  color: #ef4444;
   
-  &:hover {
-    color: #dc2626;
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+
+  .header-content {
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .page-description {
+      font-size: 14px;
+      color: #6b7280;
+      margin: 0;
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .search-card {
+    margin-bottom: 24px;
+  }
+
+  .search-form {
+    .el-form-item {
+      margin-bottom: 0;
+    }
+  }
+
+  .table-card {
+    .el-table {
+      font-size: 16px;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .danger {
+    color: #ef4444;
+    
+    &:hover {
+      color: #dc2626;
+    }
   }
 }
 
 // 响应式设计
 @media (max-width: 768px) {
   .permission-management {
-    padding: 16px;
-  }
   
   .page-header {
     flex-direction: column;
@@ -463,18 +503,4 @@ onMounted(() => {
   }
 }
 
-@media (max-width: 480px) {
-  .page-title {
-    font-size: 24px;
-  }
-  
-  .page-description {
-    font-size: 14px;
-  }
-  
-  .table-card {
-    margin: 0 -16px 24px -16px;
-    border-radius: 0;
-  }
-}
 </style>

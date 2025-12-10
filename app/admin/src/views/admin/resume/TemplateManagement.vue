@@ -25,11 +25,11 @@
             v-model="searchForm.resumeTemplateName"
             placeholder="请输入模版名称"
             clearable
-            style="width: 200px"
+            style="width: 240px"
           />
         </el-form-item>
         <el-form-item label="状态">
-          <el-select v-model="searchForm.resumeTemplateState" placeholder="请选择" clearable style="width: 120px">
+          <el-select v-model="searchForm.resumeTemplateState" placeholder="请选择" clearable style="width: 180px">
             <el-option label="启用" :value="1" />
             <el-option label="禁用" :value="0" />
           </el-select>
@@ -88,7 +88,7 @@
       <!-- 分页 -->
       <el-pagination
         class="pagination"
-        v-model:current-page="pagination.page"
+        v-model:current-page="pagination.current"
         v-model:page-size="pagination.size"
         :total="pagination.total"
         :page-sizes="[12, 24, 48, 96]"
@@ -228,7 +228,7 @@ const searchForm = reactive<ResumeTemplateQuery>({
 
 // 分页
 const pagination = reactive({
-  page: 1,
+  current: 1,
   size: 12,
   total: 0
 })
@@ -271,7 +271,7 @@ const getTemplateList = async () => {
   loading.value = true
   try {
     const response = await resumeTemplateApi.getResumeTemplatePage(
-      pagination.page,
+      pagination.current,
       pagination.size,
       searchForm
     )
@@ -295,7 +295,7 @@ const openCreateDialog = () => {
 
 // 搜索
 const handleSearch = () => {
-  pagination.page = 1
+  pagination.current = 1
   getTemplateList()
 }
 
@@ -303,7 +303,7 @@ const handleSearch = () => {
 const handleReset = () => {
   searchForm.resumeTemplateName = ''
   searchForm.resumeTemplateState = undefined
-  pagination.page = 1
+  pagination.current = 1
   getTemplateList()
 }
 
@@ -318,8 +318,8 @@ const handleSizeChange = (size: number) => {
   getTemplateList()
 }
 
-const handleCurrentChange = (page: number) => {
-  pagination.page = page
+const handleCurrentChange = (current: number) => {
+  pagination.current = current
   getTemplateList()
 }
 
@@ -429,6 +429,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .template-management {
+  font-size: 16px;
   max-width: 1400px;
   margin: 0 auto;
   padding: 24px;

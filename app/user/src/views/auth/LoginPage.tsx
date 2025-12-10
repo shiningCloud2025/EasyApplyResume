@@ -429,25 +429,6 @@ const LoginPage: React.FC = () => {
             注册新账号
           </Link>
           <span className="divider">|</span>
-          <span 
-            className="link-button" 
-            onClick={async () => {
-              try {
-                const response = await authAPI.generateRandomAccount()
-                if (response.code === 200) {
-                  message.success({
-                     content: `生成成功：${response.data}`,
-                     duration: 5,
-                  })
-                }
-              } catch (error) {
-                console.error('生成随机账号失败:', error)
-              }
-            }}
-          >
-            随机生成账号
-          </span>
-          <span className="divider">|</span>
           <Link to="/" className="link-button back-link">
             <HomeOutlined style={{ marginRight: 4 }} />
             返回首页

@@ -6,13 +6,11 @@
         <p class="page-description">处理管理员提交的反馈信息</p>
       </div>
       <div class="header-actions">
-        <el-button type="primary" @click="openCreateDialog">
-          <i class="el-icon-plus"></i>
-          新增反馈
-        </el-button>
-        <el-button @click="refreshData">
-          <i class="el-icon-refresh"></i>
+        <el-button @click="refreshData" :icon="Refresh" type="default">
           刷新
+        </el-button>
+        <el-button type="primary" @click="openCreateDialog" :icon="Plus">
+          新增反馈
         </el-button>
       </div>
     </div>
@@ -25,7 +23,7 @@
             v-model="searchForm.adminFeedbackTitle"
             placeholder="请输入反馈标题"
             clearable
-            style="width: 200px"
+            style="width: 240px"
           />
         </el-form-item>
         <el-form-item label="反馈内容">
@@ -33,16 +31,16 @@
             v-model="searchForm.adminFeedbackContent"
             placeholder="请输入反馈内容"
             clearable
-            style="width: 200px"
+            style="width: 240px"
           />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSearch">
-            <i class="el-icon-search"></i>
+            <el-icon><Search /></el-icon>
             搜索
           </el-button>
           <el-button @click="handleReset">
-            <i class="el-icon-refresh"></i>
+            <el-icon><RefreshRight /></el-icon>
             重置
           </el-button>
         </el-form-item>
@@ -50,44 +48,67 @@
     </el-card>
 
     <!-- 反馈列表 -->
-    <el-card class="feedback-card">
+    <el-card class="table-card">
+      <div class="table-header">
+        <span class="table-title">反馈列表</span>
+      </div>
+
       <el-table 
         v-loading="loading"
         :data="tableData" 
         style="width: 100%"
         empty-text="暂无数据"
       >
-        <el-table-column prop="adminFeedbackId" label="ID" width="80" />
+        <el-table-column prop="adminFeedbackId" label="ID" width="70" />
         <el-table-column prop="adminFeedbackTitle" label="标题" min-width="200" />
-        <el-table-column prop="adminFeedbackAdminName" label="提交人" width="120" />
-        <el-table-column prop="adminFeedbackCurStep" label="当前状态" width="120">
+        <el-table-column prop="adminFeedbackAdminName" label="提交人" min-width="120" />
+        <el-table-column prop="adminFeedbackCurStep" label="当前状态" width="100">
           <template #default="{ row }">
             <el-tag :type="getStatusType(row.adminFeedbackCurStep)">
               {{ row.adminFeedbackCurStep }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="adminFeedbackRecentTime" label="最近处理时间" width="160" />
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column prop="adminFeedbackRecentTime" label="最近处理时间" min-width="160" />
+        <el-table-column label="操作" width="280" fixed="right">
           <template #default="{ row }">
-            <el-button type="text" @click="handleDetail(row)">详情</el-button>
-            <el-button type="text" @click="handleUpdate(row)">更新状态</el-button>
-            <el-button type="text" class="danger" @click="handleDelete(row)">删除</el-button>
+            <el-button
+              type="info"
+              size="default"
+              @click="handleDetail(row)"
+            >
+              详情
+            </el-button>
+            <el-button
+              type="primary"
+              size="default"
+              @click="handleUpdate(row)"
+            >
+              更新状态
+            </el-button>
+            <el-button
+              type="danger"
+              size="default"
+              @click="handleDelete(row)"
+            >
+              删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
 
       <!-- 分页 -->
-      <el-pagination
-        class="pagination"
-        v-model:current-page="pagination.page"
-        v-model:page-size="pagination.size"
-        :total="pagination.total"
-        :page-sizes="[10, 20, 50, 100]"
-        layout="total, sizes, prev, pager, next, jumper"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      />
+      <div class="pagination-wrapper">
+        <el-pagination
+          v-model:current-page="pagination.current"
+          v-model:page-size="pagination.size"
+          :total="pagination.total"
+          :page-sizes="[10, 20, 50, 100]"
+          layout="total, sizes, prev, pager, next, jumper"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        />
+      </div>
     </el-card>
 
     <!-- 新增反馈对话框 -->
@@ -209,6 +230,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { Refresh, Plus, Search, RefreshRight } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
 import { feedbackApi } from '@/api/admin'
 import type {
@@ -236,7 +258,7 @@ const searchForm = reactive<AdminFeedbackQuery>({
 
 // 分页
 const pagination = reactive({
-  page: 1,
+  current: 1,
   size: 10,
   total: 0
 })
@@ -289,8 +311,8 @@ const getFeedbackList = async () => {
   loading.value = true
   try {
     const response = await feedbackApi.getFeedbackPage(
+      pagination.current,
       pagination.size,
-      pagination.page,
       searchForm
     )
     
@@ -312,7 +334,7 @@ const openCreateDialog = () => {
 
 // 搜索
 const handleSearch = () => {
-  pagination.page = 1
+  pagination.current = 1
   getFeedbackList()
 }
 
@@ -320,7 +342,7 @@ const handleSearch = () => {
 const handleReset = () => {
   searchForm.adminFeedbackTitle = ''
   searchForm.adminFeedbackContent = ''
-  pagination.page = 1
+  pagination.current = 1
   getFeedbackList()
 }
 
@@ -335,8 +357,8 @@ const handleSizeChange = (size: number) => {
   getFeedbackList()
 }
 
-const handleCurrentChange = (page: number) => {
-  pagination.page = page
+const handleCurrentChange = (current: number) => {
+  pagination.current = current
   getFeedbackList()
 }
 
@@ -471,129 +493,104 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .feedback-manage {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.header-content {
-  flex: 1;
-}
-
-.page-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 8px;
-}
-
-.page-description {
   font-size: 16px;
-  color: #6b7280;
-  margin: 0;
-}
 
-.header-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.search-card {
-  margin-bottom: 24px;
-}
-
-.feedback-card {
-  margin-bottom: 24px;
-}
-
-.pagination {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid #f3f4f6;
-}
-
-.dialog-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-}
-
-.feedback-detail {
-  .detail-content {
-    line-height: 1.6;
-    color: #374151;
-    white-space: pre-wrap;
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
   }
-}
 
-.danger {
-  color: #ef4444;
-  
-  &:hover {
-    color: #dc2626;
+  .header-content {
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .page-description {
+      font-size: 14px;
+      color: #6b7280;
+      margin: 0;
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .search-card {
+    margin-bottom: 24px;
+  }
+
+  .search-form {
+    .el-form-item {
+      margin-bottom: 0;
+    }
+  }
+
+  .table-card {
+    .el-table {
+      font-size: 16px;
+    }
+    
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .table-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1f2937;
+    }
+  }
+
+  .pagination-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+  }
+
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .feedback-detail {
+    .detail-content {
+      line-height: 1.6;
+      color: #374151;
+      white-space: pre-wrap;
+    }
   }
 }
 
 // 响应式设计
 @media (max-width: 768px) {
   .feedback-manage {
-    padding: 16px;
-  }
-  
-  .page-header {
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .header-actions {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  
-  .search-card .el-form {
-    .el-form-item {
-      display: block;
-      margin-bottom: 16px;
-      
-      &:last-child {
-        margin-bottom: 0;
-      }
-      
-      .el-input,
-      .el-select {
+    .page-header {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .header-actions {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .search-form {
+      .el-form-item {
         width: 100%;
+        margin-bottom: 16px;
       }
     }
-  }
-  
-  .el-table {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .page-title {
-    font-size: 24px;
-  }
-  
-  .page-description {
-    font-size: 14px;
-  }
-  
-  .feedback-card {
-    margin: 0 -16px 24px -16px;
-    border-radius: 0;
   }
 }
 </style>
