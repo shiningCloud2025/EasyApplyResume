@@ -1,16 +1,22 @@
 import React, { useState } from 'react'
-import { Form, Input, Button, Select, message, Steps, Row, Col } from 'antd'
-import { UserOutlined, LockOutlined, PhoneOutlined, MailOutlined } from '@ant-design/icons'
+import { Form, Input, Button, Select, message, Steps, Row, Col, Checkbox } from 'antd'
+import { UserOutlined, LockOutlined, PhoneOutlined, MailOutlined, HomeOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import { authAPI } from '@api/auth'
 import { sendSmsCode, sendEmailCode } from '@api/verify'
 import type { RegisterForm } from '@types/index'
+import '@styles/auth.scss'
 
 const { Option } = Select
 const { Step } = Steps
 const { TextArea } = Input
 
 const RegisterPage: React.FC = () => {
+  // 页面加载时滚动到顶部
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [])
+  
   const [form] = Form.useForm()
   const [loading, setLoading] = useState(false)
   const [current, setCurrent] = useState(0)
@@ -18,6 +24,7 @@ const RegisterPage: React.FC = () => {
   const [emailCodeSending, setEmailCodeSending] = useState(false)
   const [phoneCountdown, setPhoneCountdown] = useState(0)
   const [emailCountdown, setEmailCountdown] = useState(0)
+  const [agreeTerms, setAgreeTerms] = useState(false)
 
   const navigate = useNavigate()
 
@@ -103,7 +110,11 @@ const RegisterPage: React.FC = () => {
           'userDreamPosition', 'userDreamMinMonthSalary', 'userDreamMaxMonthSalary'
         ])
       } else if (current === 2) {
-        // 最后一步，提交注册
+        // 最后一步，检查协议并提交注册
+        if (!agreeTerms) {
+          message.warning('请先同意用户协议和隐私政策')
+          return
+        }
         await form.validateFields()
         const values = form.getFieldsValue() as RegisterForm
         await handleRegister(values)
@@ -334,16 +345,14 @@ const RegisterPage: React.FC = () => {
       </div>
 
       <div className="register-card">
-        <div className="register-header">
-          <div className="logo-section">
-            <div className="logo">
-              <div className="logo-icon">
-                <UserOutlined style={{ fontSize: '24px', color: '#fff' }} />
-              </div>
-              <h1>易投简历</h1>
+        <div className="logo-section">
+          <div className="logo">
+            <div className="logo-icon">
+              <i className="icon-resume">📄</i>
             </div>
-            <p>用户注册</p>
+            <h1>易投简历</h1>
           </div>
+          <p>用户注册</p>
         </div>
 
         <div className="register-body">
@@ -376,14 +385,28 @@ const RegisterPage: React.FC = () => {
               </Button>
             )}
             {current === steps.length - 1 && (
-              <Button 
-                type="primary" 
-                onClick={handleNext}
-                loading={loading}
-                className="action-button primary"
-              >
-                完成注册
-              </Button>
+              <>
+                <div className="agreement-section">
+                  <Checkbox 
+                    checked={agreeTerms} 
+                    onChange={(e) => setAgreeTerms(e.target.checked)}
+                  >
+                    我已阅读并同意
+                    <a href="#" onClick={(e) => { e.preventDefault(); message.info('用户协议') }}>《用户协议》</a>
+                    和
+                    <a href="#" onClick={(e) => { e.preventDefault(); message.info('隐私政策') }}>《隐私政策》</a>
+                  </Checkbox>
+                </div>
+                <Button 
+                  type="primary" 
+                  onClick={handleNext}
+                  loading={loading}
+                  className="action-button primary register-submit-btn"
+                  block
+                >
+                  完成注册
+                </Button>
+              </>
             )}
           </div>
 
@@ -391,6 +414,11 @@ const RegisterPage: React.FC = () => {
             <span style={{ color: '#6b7280' }}>已有账号？</span>
             <Link to="/auth/login" className="link-button apply-link" style={{ marginLeft: 8 }}>
               立即登录
+            </Link>
+            <span className="divider">|</span>
+            <Link to="/" className="link-button back-link">
+              <HomeOutlined style={{ marginRight: 4 }} />
+              返回首页
             </Link>
           </div>
         </div>

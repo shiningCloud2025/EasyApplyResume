@@ -17,7 +17,7 @@ const WelcomePage: React.FC = () => {
   const { login } = useUserStore()
 
   const handleGetStarted = () => {
-    setLoginModalVisible(true)
+    navigate('/auth/login')
   }
 
   const handleLogin = async (values: any) => {

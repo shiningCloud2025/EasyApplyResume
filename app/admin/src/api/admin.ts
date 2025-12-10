@@ -41,13 +41,13 @@ import type {
 // 认证相关API
 export const authApi = {
   // 账号密码登录
-  login: (data: LoginForm) => api.post<string>('/admin/auth/formalLogin', data),
+  login: (data: LoginForm) => api.post<string>('/admin/auth/formalLogin', null, { params: data }),
   
   // 手机验证码登录
-  loginByPhone: (data: PhoneLoginForm) => api.post<string>('/admin/auth/phoneLogin', data),
+  loginByPhone: (data: PhoneLoginForm) => api.post<string>('/admin/auth/phoneLogin', null, { params: data }),
   
   // 邮箱验证码登录
-  loginByEmail: (data: EmailLoginForm) => api.post<string>('/admin/auth/emailLogin', data),
+  loginByEmail: (data: EmailLoginForm) => api.post<string>('/admin/auth/emailLogin', null, { params: data }),
   
   // 退出登录
   logout: (adminId: number) => api.get('/admin/auth/logout', { params: { adminId } }),
@@ -283,26 +283,26 @@ export const provinceMapApi = {
 export const emailApi = {
   // 发送纯文本邮件（指定发送者）
   sendTextEmailSpecifySelf: (fromEmail: string, toEmail: string, subject: string, content: string) =>
-    api.post<void>('/admin/email/communication/selfde/sendText', content, {
-      params: { fromEmail, toEmail, subject }
+    api.post<void>('/admin/email/communication/selfde/sendText', null, {
+      params: { fromEmail, toEmail, subject, content }
     }),
   
   // 发送纯文本邮件（使用默认发送者）
   sendTextEmail: (toEmail: string, subject: string, content: string) =>
-    api.post<void>('/admin/email/communication/usuallyde/sendText', content, {
-      params: { toEmail, subject }
+    api.post<void>('/admin/email/communication/usallyde/sendText', null, {
+      params: { toEmail, subject, content }
     }),
   
   // 发送HTML邮件（指定发送者）
   sendHtmlEmailSpecifySelf: (fromEmail: string, toEmail: string, subject: string, htmlContent: string) =>
-    api.post<void>('/admin/email/communication/selfde/sendHtml', htmlContent, {
-      params: { fromEmail, toEmail, subject }
+    api.post<void>('/admin/email/communication/selfde/sendHtml', null, {
+      params: { fromEmail, toEmail, subject, htmlContent }
     }),
   
   // 发送HTML邮件（使用默认发送者）
   sendHtmlEmail: (toEmail: string, subject: string, htmlContent: string) =>
-    api.post<void>('/admin/email/communication/usuallyde/sendHtml', htmlContent, {
-      params: { toEmail, subject }
+    api.post<void>('/admin/email/communication/usallyde/sendHtml', null, {
+      params: { toEmail, subject, htmlContent }
     })
 }
 
@@ -351,8 +351,8 @@ export const feedbackApi = {
 // 短信相关API
 export const smsApi = {
   // 发送短信验证码
-  sendPhoneCode: (phone: string) => api.post('/user/sms/send', null, { params: { phone } }),
+  sendPhoneCode: (phone: string) => api.post('/admin/sms/send', null, { params: { phone } }),
   
   // 校验短信验证码
-  checkPhoneCode: (phone: string, code: string) => api.post('/user/sms/check', null, { params: { phone, code } })
+  checkPhoneCode: (phone: string, code: string) => api.post('/admin/sms/check', null, { params: { phone, code } })
 }
