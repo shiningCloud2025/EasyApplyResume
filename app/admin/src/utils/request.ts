@@ -24,11 +24,9 @@ request.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // 添加token
     const token = localStorage.getItem('admin_token')
-    console.log('请求拦截 - Token:', token ? token.substring(0, 20) + '...' : '无Token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
-    console.log('请求拦截 - Headers:', config.headers)
     
     // 添加时间戳防止缓存
     if (config.method === 'get') {
@@ -49,10 +47,6 @@ request.interceptors.request.use(
 // 响应拦截器
 request.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
-    console.log('原始响应:', response)
-    console.log('响应数据:', response.data)
-    console.log('响应数据类型:', typeof response.data)
-    
     const { code, message, data } = response.data
     
     // 请求成功
@@ -61,7 +55,6 @@ request.interceptors.response.use(
     }
     
     // 业务错误
-    console.error('业务错误:', { code, message, data })
     ElMessage.error(message || '请求失败')
     return Promise.reject(new Error(message || '请求失败'))
   },

@@ -147,6 +147,7 @@ public class AdminServiceImpl implements AdminService {
         adminVOPage.setSize(adminPage.getSize());   // 每页条数
         adminVOPage.setCurrent(adminPage.getCurrent()); // 当前页码
         adminVOPage.setPages(adminPage.getPages()); // 总页数
+        adminVOPage.setTotal(adminPage.getTotal());
         return  adminVOPage;
         
     }

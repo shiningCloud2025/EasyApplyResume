@@ -24,7 +24,7 @@
             v-model="queryForm.adminUsername"
             placeholder="请输入账号名称"
             clearable
-            style="width: 200px"
+            style="width: 240px"
           />
         </el-form-item>
         <el-form-item label="邮箱">
@@ -32,7 +32,7 @@
             v-model="queryForm.adminEmail"
             placeholder="请输入邮箱"
             clearable
-            style="width: 200px"
+            style="width: 240px"
           />
         </el-form-item>
         <el-form-item label="手机号">
@@ -40,7 +40,7 @@
             v-model="queryForm.adminPhone"
             placeholder="请输入手机号"
             clearable
-            style="width: 200px"
+            style="width: 240px"
           />
         </el-form-item>
         <el-form-item label="状态">
@@ -48,7 +48,7 @@
             v-model="queryForm.adminState"
             placeholder="请选择状态"
             clearable
-            style="width: 150px"
+            style="width: 180px"
           >
             <el-option label="正常" :value="1" />
             <el-option label="禁用" :value="0" />
@@ -96,7 +96,7 @@
           <template #default="{ row }">
             <el-avatar
               :size="40"
-              :src="row.adminImage || defaultAvatar"
+              :src="row.adminImage"
               :alt="row.adminUsername"
             />
           </template>
@@ -323,8 +323,6 @@ const loading = ref(false)
 const submitting = ref(false)
 const tableData = ref<AdminPageVO[]>([])
 const selectedIds = ref<number[]>([])
-
-// 分页相关
 const pagination = reactive({
   current: 1,
   size: 10,
@@ -391,34 +389,18 @@ const currentAdmin = ref<AdminPageVO | null>(null)
 const allRoles = ref<Array<{ key: number; label: string }>>([])
 const selectedRoles = ref<number[]>([])
 
-// 默认头像
-const defaultAvatar = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-
 // 获取管理员列表
 const getAdminList = async () => {
   try {
     loading.value = true
-    console.log('请求分页数据:', {
-      pageNum: pagination.current,
-      pageSize: pagination.size,
-      query: queryForm
-    })
-    
     const response = await adminApi.getAdminPage(
       pagination.current,
       pagination.size,
       queryForm
     )
     
-    console.log('分页响应:', response)
-    console.log('response.data:', response.data)
-    console.log('response.data.records:', response.data.records)
-    console.log('response.data.total:', response.data.total)
-    
     tableData.value = response.data.records || []
-    pagination.total = response.data.total || response.data.records?.length || 0
-    
-    console.log('最终total:', pagination.total)
+    pagination.total = response.data.total || 0
   } catch (error) {
     console.error('获取管理员列表失败:', error)
     ElMessage.error('加载数据失败')
