@@ -630,36 +630,35 @@ onMounted(() => {
 // 响应式设计
 @media (max-width: 768px) {
   .job-advice-management {
-  
-  .page-header {
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .header-actions {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  
-  .search-card .el-form {
-    .el-form-item {
-      display: block;
-      margin-bottom: 16px;
-      
-      &:last-child {
-        margin-bottom: 0;
-      }
-      
-      .el-input,
-      .el-select {
-        width: 100%;
+    .page-header {
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .header-actions {
+      width: 100%;
+      justify-content: flex-start;
+    }
+    
+    .search-card .el-form {
+      .el-form-item {
+        display: block;
+        margin-bottom: 16px;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        .el-input,
+        .el-select {
+          width: 100%;
+        }
       }
     }
-  }
-  
-  .el-table {
-    font-size: 14px;
+    
+    .el-table {
+      font-size: 14px;
+    }
   }
 }
-
 </style>

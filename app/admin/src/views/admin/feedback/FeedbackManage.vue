@@ -17,7 +17,7 @@
 
     <!-- 搜索和筛选 -->
     <el-card class="search-card">
-      <el-form :model="searchForm" inline>
+      <el-form :model="searchForm" :inline="true" class="search-form">
         <el-form-item label="反馈标题">
           <el-input
             v-model="searchForm.adminFeedbackTitle"

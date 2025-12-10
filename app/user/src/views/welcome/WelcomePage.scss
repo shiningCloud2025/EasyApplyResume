@@ -65,27 +65,16 @@
     border-radius: 25px;
     font-weight: 600;
     transition: all 0.3s ease;
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
-    &.primary {
-      background: white;
-      color: #667eea;
-      border: 2px solid white;
-      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
-      
-      &:hover {
-        background: #f8f9ff;
-        color: #5566d8;
-        border-color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
-      }
-    }
-
+    &.primary,
     &.secondary {
       background: transparent;
       color: white;
       border: 2px solid white;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       
       &:hover {
         background: rgba(255, 255, 255, 0.15);
@@ -403,33 +392,24 @@
       gap: 1rem;
       justify-content: center;
 
-      .ant-btn {
-        height: 45px;
+      .cta-button {
+        height: 50px;
         padding: 0 2rem;
-        font-size: 1rem;
-        border-radius: 22px;
-        font-weight: 500;
+        font-size: 1.1rem;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 
-        &.ant-btn-primary {
-          background: white;
-          border-color: white;
-          color: #667eea;
-
-          &:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255,255,255,0.3);
-          }
-        }
-
-        &:not(.ant-btn-primary) {
-          background: transparent;
+        &:hover {
+          background: rgba(255, 255, 255, 0.15);
           border-color: white;
           color: white;
-
-          &:hover {
-            background: rgba(255,255,255,0.15);
-            transform: translateY(-2px);
-          }
+          transform: translateY(-2px);
+          box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
         }
       }
     }
