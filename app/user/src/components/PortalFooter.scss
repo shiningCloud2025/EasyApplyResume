@@ -85,9 +85,10 @@
         font-weight: bold;
         color: #667eea;
         margin-bottom: 0.75rem;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 0.5rem;
+        white-space: nowrap;
       }
 
       .slogan {

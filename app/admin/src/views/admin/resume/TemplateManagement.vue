@@ -19,7 +19,7 @@
 
     <!-- 搜索和筛选 -->
     <el-card class="search-card">
-      <el-form :model="searchForm" inline>
+      <el-form :model="searchForm" :inline="true" class="search-form">
         <el-form-item label="模版名称">
           <el-input
             v-model="searchForm.resumeTemplateName"
@@ -430,243 +430,225 @@ onMounted(() => {
 <style scoped lang="scss">
 .template-management {
   font-size: 16px;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.header-content {
-  flex: 1;
-}
-
-.page-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 8px;
-}
-
-.page-description {
-  font-size: 16px;
-  color: #6b7280;
-  margin: 0;
-}
-
-.header-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.search-card {
-  margin-bottom: 24px;
-}
-
-.templates-card {
-  .templates-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+  
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 24px;
   }
-  
-  .template-card {
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    
-    &:hover {
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      transform: translateY(-2px);
+
+  .header-content {
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .page-description {
+      font-size: 14px;
+      color: #6b7280;
+      margin: 0;
     }
   }
-  
-  .template-preview {
-    position: relative;
-    height: 200px;
-    background: #f9fafb;
-    
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+
+  .header-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .search-card {
+    margin-bottom: 24px;
+  }
+
+  .search-form {
+    .el-form-item {
+      margin-bottom: 0;
+    }
+  }
+
+  .templates-card {
+    .templates-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 24px;
     }
     
-    .template-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+    .template-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
       
       &:hover {
-        opacity: 1;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+      }
+    }
+    
+    .template-preview {
+      position: relative;
+      height: 200px;
+      background: #f9fafb;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
       
-      .overlay-actions {
+      .template-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
         display: flex;
-        gap: 12px;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
         
-        .el-button {
-          color: white;
-          background: rgba(255, 255, 255, 0.2);
-          border: 1px solid rgba(255, 255, 255, 0.3);
+        &:hover {
+          opacity: 1;
+        }
+        
+        .overlay-actions {
+          display: flex;
+          gap: 12px;
           
-          &:hover {
-            background: rgba(255, 255, 255, 0.3);
+          .el-button {
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            
+            &:hover {
+              background: rgba(255, 255, 255, 0.3);
+            }
           }
         }
       }
     }
-  }
-  
-  .template-info {
-    padding: 16px;
     
-    .template-name {
-      font-size: 16px;
-      font-weight: 600;
-      color: #1f2937;
-      margin: 0 0 8px 0;
-    }
-    
-    .template-meta {
-      margin-bottom: 12px;
+    .template-info {
+      padding: 16px;
       
-      .el-tag {
-        margin-right: 8px;
-      }
-    }
-    
-    .template-stats {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: #6b7280;
-      font-size: 14px;
-      
-      .price {
-        color: #ef4444;
+      .template-name {
+        font-size: 16px;
         font-weight: 600;
+        color: #1f2937;
+        margin: 0 0 8px 0;
       }
       
-      .create-time {
-        font-size: 12px;
+      .template-meta {
+        margin-bottom: 12px;
+        
+        .el-tag {
+          margin-right: 8px;
+        }
+      }
+      
+      .template-stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #6b7280;
+        font-size: 14px;
+        
+        .price {
+          color: #ef4444;
+          font-weight: 600;
+        }
+        
+        .create-time {
+          font-size: 12px;
+        }
       }
     }
   }
-}
 
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid #f3f4f6;
-}
-
-.template-tabs {
-  margin-top: 16px;
-}
-
-.dialog-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-}
-
-.preview-container {
-  .preview-header {
-    margin-bottom: 20px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #e5e7eb;
-    
-    h3 {
-      margin: 0 0 8px 0;
-      color: #1f2937;
-    }
-    
-    p {
-      margin: 0;
-      color: #6b7280;
-    }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
   }
-  
-  .preview-content {
-    max-height: 500px;
-    overflow-y: auto;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 20px;
-    background: white;
+
+  .template-tabs {
+    margin-top: 16px;
+  }
+
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .preview-container {
+    .preview-header {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e5e7eb;
+      
+      h3 {
+        margin: 0 0 8px 0;
+        color: #1f2937;
+      }
+      
+      p {
+        margin: 0;
+        color: #6b7280;
+      }
+    }
+    
+    .preview-content {
+      max-height: 500px;
+      overflow-y: auto;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 20px;
+      background: white;
+    }
   }
 }
 
 // 响应式设计
 @media (max-width: 768px) {
   .template-management {
-    padding: 16px;
-  }
-  
-  .page-header {
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .header-actions {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  
-  .templates-card .templates-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
-  .search-card .el-form {
-    .el-form-item {
-      display: block;
-      margin-bottom: 16px;
-      
-      &:last-child {
-        margin-bottom: 0;
-      }
-      
-      .el-input,
-      .el-select {
-        width: 100%;
+    .page-header {
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .header-actions {
+      width: 100%;
+      justify-content: flex-start;
+    }
+    
+    .templates-card .templates-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    
+    .search-card .el-form {
+      .el-form-item {
+        display: block;
+        margin-bottom: 16px;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        .el-input,
+        .el-select {
+          width: 100%;
+        }
       }
     }
-  }
-}
-
-@media (max-width: 480px) {
-  .page-title {
-    font-size: 24px;
-  }
-  
-  .page-description {
-    font-size: 14px;
-  }
-  
-  .templates-card {
-    margin: 0 -16px 24px -16px;
-    border-radius: 0;
   }
 }
 </style>

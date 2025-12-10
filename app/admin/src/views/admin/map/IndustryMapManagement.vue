@@ -19,7 +19,7 @@
 
     <!-- 搜索和筛选 -->
     <el-card class="search-card">
-      <el-form :model="searchForm" inline>
+      <el-form :model="searchForm" :inline="true" class="search-form">
         <el-form-item label="行业名称">
           <el-input
             v-model="searchForm.industryMapName"
@@ -481,125 +481,105 @@ onMounted(() => {
 <style scoped lang="scss">
 .industry-map-management {
   font-size: 16px;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.header-content {
-  flex: 1;
-}
-
-.page-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 8px;
-}
-
-.page-description {
-  font-size: 16px;
-  color: #6b7280;
-  margin: 0;
-}
-
-.header-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.search-card {
-  margin-bottom: 24px;
-}
-
-.table-card {
-  margin-bottom: 24px;
   
-  .el-table {
-    font-size: 16px;
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
   }
-}
 
-.pagination {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid #f3f4f6;
-}
+  .header-content {
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
 
-.dialog-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-}
+    .page-description {
+      font-size: 14px;
+      color: #6b7280;
+      margin: 0;
+    }
+  }
 
-.danger {
-  color: #ef4444;
-  
-  &:hover {
-    color: #dc2626;
+  .header-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .search-card {
+    margin-bottom: 24px;
+  }
+
+  .search-form {
+    .el-form-item {
+      margin-bottom: 0;
+    }
+  }
+
+  .table-card {
+    .el-table {
+      font-size: 16px;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .danger {
+    color: #ef4444;
+    
+    &:hover {
+      color: #dc2626;
+    }
   }
 }
 
 // 响应式设计
 @media (max-width: 768px) {
   .industry-map-management {
-    padding: 16px;
-  }
-  
-  .page-header {
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .header-actions {
-    width: 100%;
-    justify-content: flex-start;
-  }
-  
-  .search-card .el-form {
-    .el-form-item {
-      display: block;
-      margin-bottom: 16px;
-      
-      &:last-child {
-        margin-bottom: 0;
-      }
-      
-      .el-input,
-      .el-select {
-        width: 100%;
+    .page-header {
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .header-actions {
+      width: 100%;
+      justify-content: flex-start;
+    }
+    
+    .search-card .el-form {
+      .el-form-item {
+        display: block;
+        margin-bottom: 16px;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        .el-input,
+        .el-select {
+          width: 100%;
+        }
       }
     }
-  }
-  
-  .el-table {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 480px) {
-  .page-title {
-    font-size: 24px;
-  }
-  
-  .page-description {
-    font-size: 14px;
-  }
-  
-  .table-card {
-    margin: 0 -16px 24px -16px;
-    border-radius: 0;
+    
+    .el-table {
+      font-size: 14px;
+    }
   }
 }
 </style>

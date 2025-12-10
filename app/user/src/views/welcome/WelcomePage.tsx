@@ -342,10 +342,10 @@ const WelcomePage: React.FC = () => {
             <h2>准备好了吗？</h2>
             <p>立即加入EasyApplyResume，开启你的求职新征程</p>
             <div className="cta-buttons">
-              <Button type="primary" size="large" onClick={() => setLoginModalVisible(true)}>
+              <Button className="cta-button primary" size="large" onClick={() => setLoginModalVisible(true)}>
                 立即登录
               </Button>
-              <Button size="large" onClick={() => navigate('/auth/register')}>
+              <Button className="cta-button secondary" size="large" onClick={() => navigate('/auth/register')}>
                 免费注册
               </Button>
             </div>
