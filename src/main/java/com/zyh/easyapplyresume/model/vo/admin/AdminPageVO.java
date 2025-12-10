@@ -16,6 +16,9 @@ public class AdminPageVO {
     @Schema(description = "管理员id")
     private Integer adminId;
 
+    @Schema(description = "管理员头像")
+    private String adminImage;
+
     @Schema(description = "管理员账号")
     private String adminAccount;
 
@@ -30,6 +33,9 @@ public class AdminPageVO {
 
     @Schema(description = "管理员状态")
     private Integer adminState;
+
+    @Schema(description = "管理员介绍")
+    private String adminIntroduce;
 
     @Schema(description = "管理员最近登录时间")
     private Date adminLoginTime;
