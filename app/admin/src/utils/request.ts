@@ -12,7 +12,7 @@ export interface ApiResponse<T = any> {
 
 // 创建axios实例
 const request: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080',
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
@@ -100,13 +100,13 @@ export const api = {
   },
   
   // POST请求
-  post<T = any>(url: string, data?: any): Promise<ApiResponse<T>> {
-    return request.post(url, data)
+  post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+    return request.post(url, data, config)
   },
   
   // PUT请求
-  put<T = any>(url: string, data?: any): Promise<ApiResponse<T>> {
-    return request.put(url, data)
+  put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
+    return request.put(url, data, config)
   },
   
   // DELETE请求

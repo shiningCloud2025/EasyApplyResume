@@ -75,6 +75,39 @@ public class AdminSmsServiceImpl implements AdminSmsService {
     private static final String CODE_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
     /**
+     * 初始化阿里云短信客户端
+     */
+    @PostConstruct
+    public void initClient() {
+        log.info("开始初始化阿里云短信客户端...");
+        try {
+            if (accessKeyId == null || accessKeySecret == null || signName == null || templateCode == null) {
+                log.error("阿里云短信核心配置缺失！");
+                throw new BusException(AdminCodeEnum.SMS_CONFIG_ERROR);
+            }
+
+            StaticCredentialProvider credentialProvider = StaticCredentialProvider.create(
+                    Credential.builder()
+                            .accessKeyId(accessKeyId)
+                            .accessKeySecret(accessKeySecret)
+                            .build()
+            );
+
+            this.asyncClient = AsyncClient.builder()
+                    .region(regionId)
+                    .credentialsProvider(credentialProvider)
+                    .overrideConfiguration(ClientOverrideConfiguration.create().setEndpointOverride(endpoint))
+                    .build();
+            log.info("阿里云短信客户端初始化完成");
+        } catch (BusException e) {
+            throw e;
+        } catch (Exception e) {
+            log.error("初始化阿里云短信客户端异常: ", e);
+            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+        }
+    }
+
+    /**
      * 发送短信验证码（使用新配置）
      */
     @Override

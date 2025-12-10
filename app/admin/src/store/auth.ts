@@ -56,7 +56,7 @@ export const useAuthStore = defineStore('auth', {
     async login(form: LoginForm) {
       try {
         this.loading = true
-        const response = await api.post<string>('/admin/auth/formalLogin', form)
+        const response = await api.post<string>('/admin/auth/formalLogin', null, { params: form })
         this.setToken(response.data)
         
         // 获取用户信息
@@ -72,7 +72,7 @@ export const useAuthStore = defineStore('auth', {
     async loginByPhone(form: PhoneLoginForm) {
       try {
         this.loading = true
-        const response = await api.post<string>('/admin/auth/phoneLogin', form)
+        const response = await api.post<string>('/admin/auth/phoneLogin', null, { params: form })
         this.setToken(response.data)
         
         // 获取用户信息
@@ -88,7 +88,7 @@ export const useAuthStore = defineStore('auth', {
     async loginByEmail(form: EmailLoginForm) {
       try {
         this.loading = true
-        const response = await api.post<string>('/admin/auth/emailLogin', form)
+        const response = await api.post<string>('/admin/auth/emailLogin', null, { params: form })
         this.setToken(response.data)
         
         // 获取用户信息

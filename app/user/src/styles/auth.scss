@@ -9,6 +9,7 @@
   padding: 20px;
   position: relative;
   overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* 背景装饰 */
@@ -59,7 +60,19 @@
   border-radius: 12px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 40px;
+  padding: 50px 45px;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .login-card {
@@ -67,15 +80,23 @@
 }
 
 .register-card {
-  max-width: 800px;
-  display: flex;
-  flex-direction: column;
+  max-width: 700px;
 }
 
 /* Header & Logo */
 .logo-section, .register-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .logo {
@@ -94,10 +115,23 @@
   align-items: center;
   justify-content: center;
   margin-right: 12px;
+  animation: pulse 2s ease-in-out infinite;
   
-  i, svg {
+  i, svg, .icon-resume {
     font-size: 24px;
     color: white;
+    font-style: normal;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
   }
 }
 
@@ -115,30 +149,124 @@
   font-weight: 400;
 }
 
+/* Login Tabs */
+.login-tabs {
+  display: flex;  
+  margin-bottom: 35px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.tab-item {
+  flex: 1;
+  padding: 12px 16px;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.tab-item.active {
+  background: white;
+  color: #667eea;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tab-item:hover:not(.active) {
+  color: #667eea;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Form Section */
+.form-section {
+  margin-bottom: 24px;
+  animation: slideInRight 0.5s ease-out 0.4s both;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 /* Ant Design 覆盖 */
 .ant-btn-primary {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
   border: none !important;
-  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3) !important;
+  height: 52px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
   
   &:hover {
-    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%) !important;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4291 100%) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4) !important;
+  }
+  
+  &:active {
+    transform: translateY(0) !important;
   }
 }
 
-.login-button, .action-button.primary {
-  height: 48px !important;
+.login-button, .action-button.primary, .register-submit-btn {
+  width: 100%;
+  height: 52px !important;
   font-size: 16px !important;
   font-weight: 600 !important;
   border-radius: 8px !important;
 }
 
-.ant-input, .ant-input-password, .ant-input-affix-wrapper {
+/* Ant Design 覆盖 - 使用更高优先级 */
+.login-container .ant-input,
+.login-container .ant-input-password input,
+.login-container .ant-input-affix-wrapper,
+.register-container .ant-input,
+.register-container .ant-input-password input,
+.register-container .ant-input-affix-wrapper {
   border-radius: 6px !important;
-  padding-top: 6px;
-  padding-bottom: 6px;
+  padding: 8px 11px !important;
+  border: 1px solid rgba(209, 213, 219, 0.4) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #1f2937 !important;
+  transition: all 0.3s ease !important;
+  
+  &::placeholder {
+    color: #9ca3af !important;
+  }
+  
+  &:hover {
+    border-color: rgba(102, 126, 234, 0.6) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+  }
+  
+  &:focus, &.ant-input-affix-wrapper-focused {
+    border-color: #667eea !important;
+    background: rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15) !important;
+  }
+}
+
+.ant-input-prefix {
+  color: #9ca3af;
+  margin-right: 8px;
+}
+
+.ant-form-item-label > label {
+  font-weight: 500;
+  color: #374151;
 }
 
 /* Tabs */
@@ -181,7 +309,13 @@
 /* Code Input Group */
 .code-input-group {
   display: flex !important;
+  gap: 10px !important;
   width: 100% !important;
+  
+  .ant-form-item {
+    flex: 1;
+    margin-bottom: 0 !important;
+  }
   
   .ant-form-item-control-input-content {
     display: flex;
@@ -191,8 +325,16 @@
 }
 
 .code-button {
-  width: 120px !important;
+  width: 110px !important;
+  height: 40px !important;
   border-radius: 6px !important;
+  font-size: 14px !important;
+  flex-shrink: 0;
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 }
 
 /* Floating Elements */
@@ -248,23 +390,83 @@
 
 /* Register Specific */
 .register-body {
-  padding: 0 20px;
+  padding: 0;
+}
+
+.register-steps {
+  margin-bottom: 40px;
+  
+  .ant-steps-item-title {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+  }
+  
+  .ant-steps-item-process .ant-steps-item-icon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border-color: #667eea !important;
+  }
+  
+  .ant-steps-item-finish .ant-steps-item-icon {
+    border-color: #667eea !important;
+    
+    .ant-steps-icon {
+      color: #667eea !important;
+    }
+  }
+  
+  .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after {
+    background-color: #667eea !important;
+  }
 }
 
 .steps-content {
-  margin-top: 40px;
-  min-height: 400px;
+  min-height: 350px;
+  margin-bottom: 30px;
 }
 
 .steps-action {
   margin-top: 24px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   
   .ant-btn {
-    margin: 0 8px;
-    height: 40px;
+    margin: 0;
+    height: 44px;
     border-radius: 6px;
-    min-width: 100px;
+    min-width: 120px;
+    font-weight: 500;
+  }
+  
+  .action-button:not(.primary) {
+    border-color: #d1d5db;
+    color: #6b7280;
+    
+    &:hover {
+      border-color: #667eea;
+      color: #667eea;
+    }
+  }
+}
+
+.agreement-section {
+  text-align: center;
+  padding: 16px 0;
+  
+  .ant-checkbox-wrapper {
+    color: #6b7280;
+    font-size: 14px;
+  }
+  
+  a {
+    color: #667eea;
+    text-decoration: none;
+    margin: 0 4px;
+    
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -272,8 +474,21 @@
 @media (max-width: 768px) {
   .login-card,
   .register-card {
-    padding: 24px;
+    padding: 30px 24px;
     max-width: 100%;
+  }
+  
+  .login-tabs {
+    margin-bottom: 24px;
+  }
+  
+  .tab-item {
+    font-size: 13px;
+    padding: 10px 8px;
+  }
+  
+  .logo h1 {
+    font-size: 24px;
   }
   
   .code-input-group {
@@ -286,5 +501,41 @@
   
   .code-button {
     width: 100% !important;
+  }
+  
+  .steps-action {
+    .ant-btn {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card,
+  .register-card {
+    padding: 24px 20px;
+  }
+  
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+    
+    i, svg, .icon-resume {
+      font-size: 20px;
+    }
+  }
+  
+  .logo h1 {
+    font-size: 20px;
+  }
+  
+  .login-tabs {
+    margin-bottom: 20px;
+  }
+  
+  .tab-item {
+    font-size: 12px;
+    padding: 8px;
   }
 }

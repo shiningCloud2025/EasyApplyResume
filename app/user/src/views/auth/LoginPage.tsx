@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Input, Button, message } from 'antd'
-import { UserOutlined, LockOutlined, PhoneOutlined, MailOutlined } from '@ant-design/icons'
+import { UserOutlined, LockOutlined, PhoneOutlined, MailOutlined, HomeOutlined } from '@ant-design/icons'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { authAPI } from '@api/auth'
 import { sendSmsCode, sendEmailCode } from '@api/verify'
 import { useUserStore } from '@stores/userStore'
 import type { LoginForm, PhoneLoginForm, EmailLoginForm } from '@types/index'
+import '@styles/auth.scss'
 
 const LoginPage: React.FC = () => {
   console.log('📝 LoginPage 渲染')
+  
+  // 页面加载时滚动到顶部
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [])
   
   const [form] = Form.useForm()
   const [phoneForm] = Form.useForm()
@@ -208,7 +214,7 @@ const LoginPage: React.FC = () => {
         <div className="logo-section">
           <div className="logo">
             <div className="logo-icon">
-              <UserOutlined style={{ fontSize: '24px', color: '#fff' }} />
+              <i className="icon-resume">📄</i>
             </div>
             <h1>易投简历</h1>
           </div>
@@ -435,6 +441,7 @@ const LoginPage: React.FC = () => {
           </span>
           <span className="divider">|</span>
           <Link to="/" className="link-button back-link">
+            <HomeOutlined style={{ marginRight: 4 }} />
             返回首页
           </Link>
         </div>
@@ -447,79 +454,6 @@ const LoginPage: React.FC = () => {
         <div className="element element-3"></div>
       </div>
 
-      <style jsx>{`
-        .login-tabs {
-          display: flex;  
-          margin-bottom: 35px;
-          background: #f8f9fa;
-          border-radius: 8px;
-          padding: 3px;
-        }
-
-        .tab-item {
-          flex: 1;
-          padding: 12px 16px;
-          text-align: center;
-          border-radius: 6px;
-          font-size: 15px;
-          font-weight: 500;
-          color: #6b7280;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-
-        .tab-item.active {
-          background: white;
-          color: #667eea;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-section {
-          margin-bottom: 24px;
-        }
-
-        .code-input-group {
-          display: flex;
-          gap: 10px;
-        }
-
-        .code-input-group .ant-input {
-          flex: 1;
-        }
-
-        .code-button {
-          width: 100px;
-          color: #3b82f6;
-          font-size: 14px;
-        }
-
-        .login-button {
-          width: 100%;
-          height: 52px;
-          font-size: 16px;
-          font-weight: 600;
-          border-radius: 8px;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          border: none;
-          transition: all 0.2s ease;
-        }
-
-        .login-button:hover {
-          transform: translateY(-1px);
-          box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        @media (max-width: 480px) {
-          .login-tabs {
-            margin-bottom: 20px;
-          }
-          
-          .tab-item {
-            font-size: 12px;
-            padding: 8px;
-          }
-        }
-      `}</style>
     </div>
   )
 }
