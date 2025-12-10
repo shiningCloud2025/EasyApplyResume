@@ -25,11 +25,11 @@
             v-model="searchForm.industryMapName"
             placeholder="请输入行业名称"
             clearable
-            style="width: 200px"
+            style="width: 240px"
           />
         </el-form-item>
         <el-form-item label="行业等级">
-          <el-select v-model="searchForm.industryMapLevel" placeholder="请选择" clearable style="width: 120px">
+          <el-select v-model="searchForm.industryMapLevel" placeholder="请选择" clearable style="width: 180px">
             <el-option label="一级" :value="1" />
             <el-option label="二级" :value="2" />
             <el-option label="三级" :value="3" />
@@ -58,9 +58,19 @@
         :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
         row-key="industryMapId"
       >
-        <el-table-column prop="industryMapId" label="ID" width="80" />
+        <el-table-column prop="industryMapId" label="ID" width="70" />
         <el-table-column prop="industryMapName" label="行业名称" min-width="200" />
-        <el-table-column prop="industryMapIntroduce" label="描述" min-width="200" />
+        <el-table-column label="描述" width="100" align="center">
+          <template #default="{ row }">
+            <el-button
+              type="primary"
+              size="default"
+              @click="handleViewIntroduce(row)"
+            >
+              详情
+            </el-button>
+          </template>
+        </el-table-column>
         <el-table-column prop="industryMapParentId" label="父级ID" width="100" />
         <el-table-column prop="industryMapLevel" label="等级" width="80" align="center">
           <template #default="{ row }">
@@ -74,18 +84,15 @@
             {{ formatDateTime(row.industryMapCreatedTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" width="320" fixed="right">
           <template #default="{ row }">
-            <el-button type="text" size="small" @click="handleAddChild(row)">
-              <i class="el-icon-plus"></i>
+            <el-button type="success" size="default" @click="handleAddChild(row)">
               添加子行业
             </el-button>
-            <el-button type="text" size="small" @click="handleEdit(row)">
-              <i class="el-icon-edit"></i>
+            <el-button type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
-            <el-button type="text" size="small" class="danger" @click="handleDelete(row)">
-              <i class="el-icon-delete"></i>
+            <el-button type="danger" size="default" @click="handleDelete(row)">
               删除
             </el-button>
           </template>
@@ -95,7 +102,7 @@
       <!-- 分页 -->
       <el-pagination
         class="pagination"
-        v-model:current-page="pagination.page"
+        v-model:current-page="pagination.current"
         v-model:page-size="pagination.size"
         :total="pagination.total"
         :page-sizes="[10, 20, 50, 100]"
@@ -168,6 +175,28 @@
         </div>
       </template>
     </el-dialog>
+
+    <!-- 描述详情弹窗 -->
+    <el-dialog
+      v-model="introduceDialogVisible"
+      title="行业描述"
+      width="600px"
+    >
+      <el-card v-if="currentIntroduceIndustry">
+        <template #header>
+          <div style="font-weight: 600; font-size: 16px;">{{ currentIntroduceIndustry.industryMapName }}</div>
+        </template>
+        <div style="padding: 16px; min-height: 100px; white-space: pre-wrap; word-break: break-all; line-height: 1.8;">
+          {{ currentIntroduceIndustry.industryMapIntroduce || '该行业暂无描述' }}
+        </div>
+      </el-card>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="introduceDialogVisible = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -200,7 +229,7 @@ const searchForm = reactive<IndustryMapQuery>({
 
 // 分页
 const pagination = reactive({
-  page: 1,
+  current: 1,
   size: 10,
   total: 0
 })
@@ -248,7 +277,7 @@ const getIndustryList = async () => {
   loading.value = true
   try {
     const response = await industryMapApi.getIndustryMapPage(
-      pagination.page,
+      pagination.current,
       pagination.size,
       searchForm
     )
@@ -295,7 +324,7 @@ const handleAddChild = (row: IndustryMapPageVO) => {
 
 // 搜索
 const handleSearch = () => {
-  pagination.page = 1
+  pagination.current = 1
   getIndustryList()
 }
 
@@ -304,7 +333,7 @@ const handleReset = () => {
   searchForm.industryMapName = ''
   searchForm.industryMapParentId = undefined
   searchForm.industryMapLevel = undefined
-  pagination.page = 1
+  pagination.current = 1
   getIndustryList()
 }
 
@@ -319,9 +348,18 @@ const handleSizeChange = (size: number) => {
   getIndustryList()
 }
 
-const handleCurrentChange = (page: number) => {
-  pagination.page = page
+const handleCurrentChange = (current: number) => {
+  pagination.current = current
   getIndustryList()
+}
+
+// 查看描述详情
+const introduceDialogVisible = ref(false)
+const currentIntroduceIndustry = ref<IndustryMapPageVO | null>(null)
+
+const handleViewIntroduce = (row: IndustryMapPageVO) => {
+  currentIntroduceIndustry.value = row
+  introduceDialogVisible.value = true
 }
 
 // 编辑行业
@@ -442,6 +480,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .industry-map-management {
+  font-size: 16px;
   max-width: 1400px;
   margin: 0 auto;
   padding: 24px;
@@ -484,6 +523,10 @@ onMounted(() => {
 
 .table-card {
   margin-bottom: 24px;
+  
+  .el-table {
+    font-size: 16px;
+  }
 }
 
 .pagination {

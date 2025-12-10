@@ -19,17 +19,17 @@
 
     <!-- 搜索和筛选 -->
     <el-card class="search-card">
-      <el-form :model="searchForm" inline>
+      <el-form :model="searchForm" :inline="true" class="search-form">
         <el-form-item label="文章标题">
           <el-input
             v-model="searchForm.jobAdviceArticleTitle"
             placeholder="请输入文章标题"
             clearable
-            style="width: 250px"
+            style="width: 240px"
           />
         </el-form-item>
         <el-form-item label="分类">
-          <el-select v-model="searchForm.jobAdviceArticleCategory" placeholder="请选择" clearable style="width: 150px">
+          <el-select v-model="searchForm.jobAdviceArticleCategory" placeholder="请选择" clearable style="width: 180px">
             <el-option label="简历技巧" value="resume" />
             <el-option label="面试指南" value="interview" />
             <el-option label="职业规划" value="career" />
@@ -37,7 +37,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="状态">
-          <el-select v-model="searchForm.jobAdviceArticleState" placeholder="请选择" clearable style="width: 120px">
+          <el-select v-model="searchForm.jobAdviceArticleState" placeholder="请选择" clearable style="width: 180px">
             <el-option label="已发布" :value="1" />
             <el-option label="草稿" :value="0" />
           </el-select>
@@ -63,13 +63,24 @@
         style="width: 100%"
         empty-text="暂无数据"
       >
-        <el-table-column prop="jobAdviceArticleId" label="ID" width="80" />
+        <el-table-column prop="jobAdviceArticleId" label="ID" width="70" />
         <el-table-column prop="jobAdviceArticleTitle" label="文章标题" min-width="250">
           <template #default="{ row }">
             <div class="article-title">
               <h4>{{ row.jobAdviceArticleTitle }}</h4>
-              <p class="article-summary">{{ row.jobAdviceArticleContent?.substring(0, 100) }}...</p>
             </div>
+          </template>
+        </el-table-column>
+        
+        <el-table-column label="内容" width="100" align="center">
+          <template #default="{ row }">
+            <el-button
+              type="primary"
+              size="default"
+              @click="handleViewContent(row)"
+            >
+              详情
+            </el-button>
           </template>
         </el-table-column>
         <el-table-column prop="jobAdviceArticleCategory" label="分类" width="120">
@@ -103,18 +114,15 @@
             {{ formatDateTime(row.jobAdviceArticleCreatedTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" width="300" fixed="right">
           <template #default="{ row }">
-            <el-button type="text" size="small" @click="handlePreview(row)">
-              <i class="el-icon-view"></i>
+            <el-button type="info" size="default" @click="handlePreview(row)">
               预览
             </el-button>
-            <el-button type="text" size="small" @click="handleEdit(row)">
-              <i class="el-icon-edit"></i>
+            <el-button type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
-            <el-button type="text" size="small" class="danger" @click="handleDelete(row)">
-              <i class="el-icon-delete"></i>
+            <el-button type="danger" size="default" @click="handleDelete(row)">
               删除
             </el-button>
           </template>
@@ -124,7 +132,7 @@
       <!-- 分页 -->
       <el-pagination
         class="pagination"
-        v-model:current-page="pagination.page"
+        v-model:current-page="pagination.current"
         v-model:page-size="pagination.size"
         :total="pagination.total"
         :page-sizes="[10, 20, 50, 100]"
@@ -196,6 +204,30 @@
       </template>
     </el-dialog>
 
+    </el-dialog>
+
+    <!-- 内容详情弹窗 -->
+    <el-dialog
+      v-model="contentDialogVisible"
+      title="文章内容"
+      width="800px"
+    >
+      <el-card v-if="currentContentArticle">
+        <template #header>
+          <div style="font-weight: 600; font-size: 16px;">{{ currentContentArticle.jobAdviceArticleTitle }}</div>
+        </template>
+        <div style="padding: 16px; min-height: 200px; white-space: pre-wrap; word-break: break-all; line-height: 1.8; max-height: 500px; overflow-y: auto;">
+          {{ currentContentArticle.jobAdviceArticleContent || '暂无内容' }}
+        </div>
+      </el-card>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="contentDialogVisible = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
     <!-- 预览对话框 -->
     <el-dialog
       v-model="showPreviewDialog"
@@ -259,7 +291,7 @@ const searchForm = reactive<JobAdviceArticleQuery>({
 
 // 分页
 const pagination = reactive({
-  page: 1,
+  current: 1,
   size: 10,
   total: 0
 })
@@ -298,7 +330,7 @@ const getArticleList = async () => {
   loading.value = true
   try {
     const response = await jobAdviceArticleApi.getJobAdviceArticlePage(
-      pagination.page,
+      pagination.current,
       pagination.size,
       searchForm
     )
@@ -322,7 +354,7 @@ const openCreateDialog = () => {
 
 // 搜索
 const handleSearch = () => {
-  pagination.page = 1
+  pagination.current = 1
   getArticleList()
 }
 
@@ -331,7 +363,7 @@ const handleReset = () => {
   searchForm.jobAdviceArticleTitle = ''
   searchForm.jobAdviceArticleCategory = ''
   searchForm.jobAdviceArticleState = undefined
-  pagination.page = 1
+  pagination.current = 1
   getArticleList()
 }
 
@@ -346,9 +378,18 @@ const handleSizeChange = (size: number) => {
   getArticleList()
 }
 
-const handleCurrentChange = (page: number) => {
-  pagination.page = page
+const handleCurrentChange = (current: number) => {
+  pagination.current = current
   getArticleList()
+}
+
+// 查看内容详情
+const contentDialogVisible = ref(false)
+const currentContentArticle = ref<JobAdviceArticleVO | null>(null)
+
+const handleViewContent = (row: JobAdviceArticleVO) => {
+  currentContentArticle.value = row
+  contentDialogVisible.value = true
 }
 
 // 编辑文章
@@ -464,131 +505,131 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .job-advice-management {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-.page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.header-content {
-  flex: 1;
-}
-
-.page-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 8px;
-}
-
-.page-description {
   font-size: 16px;
-  color: #6b7280;
-  margin: 0;
-}
-
-.header-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.search-card {
-  margin-bottom: 24px;
-}
-
-.table-card {
-  margin-bottom: 24px;
-}
-
-.article-title {
-  h4 {
-    margin: 0 0 4px 0;
-    font-size: 14px;
-    font-weight: 600;
-    color: #1f2937;
-  }
   
-  .article-summary {
-    margin: 0;
-    color: #6b7280;
-    font-size: 12px;
-    line-height: 1.4;
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
   }
-}
 
-.pagination {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid #f3f4f6;
-}
+  .header-content {
+    .page-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
 
-.dialog-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-}
+    .page-description {
+      font-size: 14px;
+      color: #6b7280;
+      margin: 0;
+    }
+  }
 
-.preview-container {
-  .preview-header {
-    margin-bottom: 20px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #e5e7eb;
-    
-    h2 {
-      margin: 0 0 8px 0;
+  .header-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .search-card {
+    margin-bottom: 24px;
+  }
+
+  .search-form {
+    .el-form-item {
+      margin-bottom: 0;
+    }
+  }
+
+  .table-card {
+    .el-table {
+      font-size: 16px;
+    }
+  }
+
+  .article-title {
+    h4 {
+      margin: 0 0 4px 0;
+      font-size: 14px;
+      font-weight: 600;
       color: #1f2937;
     }
     
-    .preview-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .article-summary {
+      margin: 0;
+      color: #6b7280;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+
+  .preview-container {
+    .preview-header {
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #e5e7eb;
       
-      .create-time {
-        color: #6b7280;
-        font-size: 14px;
+      h2 {
+        margin: 0 0 8px 0;
+        color: #1f2937;
+      }
+      
+      .preview-meta {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        
+        .create-time {
+          color: #6b7280;
+          font-size: 14px;
+        }
+      }
+    }
+    
+    .preview-content {
+      max-height: 500px;
+      overflow-y: auto;
+      padding: 20px;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      
+      .article-content {
+        line-height: 1.6;
+        color: #374151;
       }
     }
   }
-  
-  .preview-content {
-    max-height: 500px;
-    overflow-y: auto;
-    padding: 20px;
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    
-    .article-content {
-      line-height: 1.6;
-      color: #374151;
-    }
-  }
-}
 
-.danger {
-  color: #ef4444;
-  
-  &:hover {
-    color: #dc2626;
+  .danger {
+    color: #ef4444;
+    
+    &:hover {
+      color: #dc2626;
+    }
   }
 }
 
 // 响应式设计
 @media (max-width: 768px) {
   .job-advice-management {
-    padding: 16px;
-  }
   
   .page-header {
     flex-direction: column;
@@ -621,18 +662,4 @@ onMounted(() => {
   }
 }
 
-@media (max-width: 480px) {
-  .page-title {
-    font-size: 24px;
-  }
-  
-  .page-description {
-    font-size: 14px;
-  }
-  
-  .table-card {
-    margin: 0 -16px 24px -16px;
-    border-radius: 0;
-  }
-}
 </style>

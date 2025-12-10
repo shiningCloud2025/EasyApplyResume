@@ -90,9 +90,9 @@
       >
         <el-table-column type="selection" width="55" />
         
-        <el-table-column prop="adminId" label="ID" width="80" />
+        <el-table-column prop="adminId" label="ID" width="70" />
         
-        <el-table-column label="头像" width="80">
+        <el-table-column label="头像" width="70">
           <template #default="{ row }">
             <el-avatar
               :size="40"
@@ -102,13 +102,13 @@
           </template>
         </el-table-column>
         
-        <el-table-column prop="adminAccount" label="账号" width="120" />
+        <el-table-column prop="adminAccount" label="账号" min-width="120" />
         
-        <el-table-column prop="adminUsername" label="姓名" width="120" />
+        <el-table-column prop="adminUsername" label="姓名" min-width="120" />
         
-        <el-table-column prop="adminEmail" label="邮箱" width="180" />
+        <el-table-column prop="adminEmail" label="邮箱" min-width="180" />
         
-        <el-table-column prop="adminPhone" label="手机号" width="130" />
+        <el-table-column prop="adminPhone" label="手机号" min-width="130" />
         
         <el-table-column label="状态" width="80">
           <template #default="{ row }">
@@ -121,44 +121,62 @@
           </template>
         </el-table-column>
         
-        <el-table-column prop="adminLoginTime" label="最后登录" width="160">
+        <el-table-column prop="adminLoginTime" label="最后登录" min-width="160">
           <template #default="{ row }">
             {{ formatDateTime(row.adminLoginTime) }}
           </template>
         </el-table-column>
         
-        <el-table-column label="角色" width="120">
+        <el-table-column label="角色" width="100" align="center">
           <template #default="{ row }">
-            <el-tag
-              v-for="role in row.roles"
-              :key="role.roleId"
-              size="small"
-              style="margin-right: 4px; margin-bottom: 4px;"
+            <el-button
+              type="success"
+              size="default"
+              @click="handleViewRoles(row)"
             >
-              {{ role.roleName }}
-            </el-tag>
+              详情
+            </el-button>
           </template>
         </el-table-column>
         
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="介绍" width="100" align="center">
           <template #default="{ row }">
             <el-button
               type="primary"
-              size="small"
+              size="default"
+              @click="handleViewIntroduce(row)"
+            >
+              详情
+            </el-button>
+          </template>
+        </el-table-column>
+        
+        <el-table-column label="操作" width="300" fixed="right">
+          <template #default="{ row }">
+            <el-button
+              type="info"
+              size="default"
+              @click="handleViewDetail(row)"
+            >
+              查看
+            </el-button>
+            <el-button
+              type="primary"
+              size="default"
               @click="handleEdit(row)"
             >
               编辑
             </el-button>
             <el-button
               type="warning"
-              size="small"
+              size="default"
               @click="handleAssignRole(row)"
             >
               分配角色
             </el-button>
             <el-button
               type="danger"
-              size="small"
+              size="default"
               :disabled="row.adminId === 1"
               @click="handleDelete(row)"
             >
@@ -259,6 +277,144 @@
           <el-button type="primary" @click="handleSubmit" :loading="submitting">
             确定
           </el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+    <!-- 角色详情弹窗 -->
+    <el-dialog
+      v-model="rolesDialogVisible"
+      title="管理员角色"
+      width="600px"
+    >
+      <el-card v-if="currentRolesAdmin">
+        <template #header>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <el-avatar
+              :size="50"
+              :src="currentRolesAdmin.adminImage"
+              :alt="currentRolesAdmin.adminUsername"
+            />
+            <div>
+              <div style="font-weight: 600; font-size: 16px;">{{ currentRolesAdmin.adminUsername }}</div>
+              <div style="color: #909399; font-size: 14px;">{{ currentRolesAdmin.adminAccount }}</div>
+            </div>
+          </div>
+        </template>
+        <div style="padding: 16px; min-height: 80px;">
+          <div v-if="currentRolesAdmin.roles && currentRolesAdmin.roles.length > 0" style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <el-tag
+              v-for="role in currentRolesAdmin.roles"
+              :key="role.roleId"
+              size="large"
+              type="success"
+            >
+              {{ role.roleName }}
+            </el-tag>
+          </div>
+          <div v-else style="color: #909399; text-align: center; padding: 20px;">
+            该管理员暂无角色
+          </div>
+        </div>
+      </el-card>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="rolesDialogVisible = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+    <!-- 介绍详情弹窗 -->
+    <el-dialog
+      v-model="introduceDialogVisible"
+      title="管理员介绍"
+      width="600px"
+    >
+      <el-card v-if="currentIntroduceAdmin">
+        <template #header>
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <el-avatar
+              :size="50"
+              :src="currentIntroduceAdmin.adminImage"
+              :alt="currentIntroduceAdmin.adminUsername"
+            />
+            <div>
+              <div style="font-weight: 600; font-size: 16px;">{{ currentIntroduceAdmin.adminUsername }}</div>
+              <div style="color: #909399; font-size: 14px;">{{ currentIntroduceAdmin.adminAccount }}</div>
+            </div>
+          </div>
+        </template>
+        <div style="padding: 16px; min-height: 100px; white-space: pre-wrap; word-break: break-all; line-height: 1.8;">
+          {{ currentIntroduceAdmin.adminIntroduce || '该管理员暂无介绍' }}
+        </div>
+      </el-card>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="introduceDialogVisible = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+    <!-- 查看详情弹窗 -->
+    <el-dialog
+      v-model="detailDialogVisible"
+      title="管理员完整信息"
+      width="700px"
+    >
+      <el-descriptions v-if="currentDetailAdmin" :column="2" border>
+        <el-descriptions-item label="管理员ID">
+          {{ currentDetailAdmin.adminId }}
+        </el-descriptions-item>
+        <el-descriptions-item label="账号">
+          {{ currentDetailAdmin.adminAccount }}
+        </el-descriptions-item>
+        <el-descriptions-item label="姓名">
+          {{ currentDetailAdmin.adminUsername }}
+        </el-descriptions-item>
+        <el-descriptions-item label="邮箱">
+          {{ currentDetailAdmin.adminEmail }}
+        </el-descriptions-item>
+        <el-descriptions-item label="手机号">
+          {{ currentDetailAdmin.adminPhone }}
+        </el-descriptions-item>
+        <el-descriptions-item label="状态">
+          <el-tag :type="currentDetailAdmin.adminState === 1 ? 'success' : 'danger'">
+            {{ currentDetailAdmin.adminState === 1 ? '正常' : '禁用' }}
+          </el-tag>
+        </el-descriptions-item>
+        <el-descriptions-item label="头像" :span="2">
+          <el-avatar
+            :size="80"
+            :src="currentDetailAdmin.adminImage"
+            :alt="currentDetailAdmin.adminUsername"
+          />
+        </el-descriptions-item>
+        <el-descriptions-item label="最后登录时间" :span="2">
+          {{ formatDateTime(currentDetailAdmin.adminLoginTime) }}
+        </el-descriptions-item>
+        <el-descriptions-item label="介绍" :span="2">
+          <div style="white-space: pre-wrap; word-break: break-all;">
+            {{ currentDetailAdmin.adminIntroduce || '暂无介绍' }}
+          </div>
+        </el-descriptions-item>
+        <el-descriptions-item label="角色" :span="2">
+          <el-tag
+            v-for="role in currentDetailAdmin.roles"
+            :key="role.roleId"
+            size="default"
+            style="margin-right: 8px; margin-bottom: 8px;"
+          >
+            {{ role.roleName }}
+          </el-tag>
+          <span v-if="!currentDetailAdmin.roles || currentDetailAdmin.roles.length === 0" style="color: #909399;">暂无角色</span>
+        </el-descriptions-item>
+      </el-descriptions>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="detailDialogVisible = false">关闭</el-button>
         </div>
       </template>
     </el-dialog>
@@ -383,6 +539,18 @@ const rules = {
   ]
 }
 
+// 角色详情弹窗相关
+const rolesDialogVisible = ref(false)
+const currentRolesAdmin = ref<AdminPageVO | null>(null)
+
+// 介绍详情弹窗相关
+const introduceDialogVisible = ref(false)
+const currentIntroduceAdmin = ref<AdminPageVO | null>(null)
+
+// 查看详情弹窗相关
+const detailDialogVisible = ref(false)
+const currentDetailAdmin = ref<AdminPageVO | null>(null)
+
 // 角色分配相关
 const roleDialogVisible = ref(false)
 const currentAdmin = ref<AdminPageVO | null>(null)
@@ -459,6 +627,24 @@ const showAddDialog = async () => {
   } catch (error) {
     console.error('生成随机账号失败:', error)
   }
+}
+
+// 查看角色
+const handleViewRoles = (row: AdminPageVO) => {
+  currentRolesAdmin.value = row
+  rolesDialogVisible.value = true
+}
+
+// 查看介绍
+const handleViewIntroduce = (row: AdminPageVO) => {
+  currentIntroduceAdmin.value = row
+  introduceDialogVisible.value = true
+}
+
+// 查看完整详情
+const handleViewDetail = (row: AdminPageVO) => {
+  currentDetailAdmin.value = row
+  detailDialogVisible.value = true
 }
 
 // 编辑管理员
@@ -625,6 +811,8 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .admin-management {
+  font-size: 16px;
+  
   .page-header {
     display: flex;
     justify-content: space-between;
@@ -663,6 +851,10 @@ onMounted(() => {
   }
 
   .table-card {
+    .el-table {
+      font-size: 16px;
+    }
+    
     .table-header {
       display: flex;
       justify-content: space-between;
