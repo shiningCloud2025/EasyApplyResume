@@ -22,8 +22,8 @@
       <!-- 登录表单 -->
       <el-form 
         ref="formRef" 
-        :model="loginForm" 
-        :rules="rules" 
+        :model="currentForm" 
+        :rules="currentRules" 
         size="large"
         class="login-form"
       >
@@ -186,6 +186,33 @@ const authStore = useAuthStore()
 const formRef = ref<FormInstance>()
 const loading = ref(false)
 const activeTab = ref<'account' | 'phone' | 'email'>('account')
+
+// 动态获取当前表单
+const currentForm = computed(() => {
+  switch (activeTab.value) {
+    case 'account': return loginForm
+    case 'phone': return phoneLoginForm
+    case 'email': return emailLoginForm
+  }
+})
+
+// 动态获取当前验证规则
+const currentRules = computed(() => {
+  switch (activeTab.value) {
+    case 'account': return {
+      accountOrPhoneOrEmail: rules.accountOrPhoneOrEmail,
+      password: rules.password
+    }
+    case 'phone': return {
+      phone: rules.phone,
+      messageCode: rules.messageCode
+    }
+    case 'email': return {
+      email: rules.email,
+      messageCode: rules.messageCode
+    }
+  }
+})
 
 // 手机验证码倒计时
 const phoneCodeCountdown = ref(0)
