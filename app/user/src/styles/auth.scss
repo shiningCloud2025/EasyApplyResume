@@ -6,10 +6,24 @@
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
   padding: 20px;
   position: relative;
   overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* 背景装饰 */
@@ -26,6 +40,7 @@
   position: absolute;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
+  animation: float 8s ease-in-out infinite;
 }
 
 .decoration-1 {
@@ -49,104 +64,111 @@
   right: -75px;
 }
 
-/* 卡片样式 - 添加key动画触发 */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+/* 卡片样式 - 超宽横屏布局 */
 .login-card,
 .register-card {
   position: relative;
   z-index: 2;
   width: 100%;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 12px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 50px 45px;
-  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 1400px;
+  min-height: 600px;
+  background: transparent;
+  padding: 0;
+  animation: fadeIn 0.6s ease-out;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
 }
 
-@keyframes fadeInUp {
-  0% {
+@keyframes fadeIn {
+  from {
     opacity: 0;
-    transform: translateY(60px) scale(0.95);
   }
-  100% {
+  to {
     opacity: 1;
-    transform: translateY(0) scale(1);
   }
+}
+
+/* 左侧装饰区域 */
+.login-card-left,
+.register-card-left {
+  flex: 0 0 45%;
+  background: transparent;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-right: none;
+}
+
+/* 右侧表单区域 */
+.login-card-right,
+.register-card-right {
+  flex: 1;
+  padding: 60px 80px;
+  overflow-y: auto;
 }
 
 .login-card {
-  max-width: 480px;
+  min-height: 600px;
 }
 
 .register-card {
-  max-width: 700px;
+  max-width: 1500px;
+  min-height: 700px;
 }
 
 /* Header & Logo */
 .logo-section, .register-header {
   text-align: center;
-  margin-bottom: 40px;
-  animation: fadeInScale 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-}
-
-@keyframes fadeInScale {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
+  margin-bottom: 50px;
 }
 
 .logo {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .logo-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 12px;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 12px;
-  animation: iconPulse 3s ease-in-out infinite;
+  margin-right: 16px;
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
   
   i, svg, .icon-resume {
-    font-size: 24px;
+    font-size: 28px;
     color: white;
     font-style: normal;
   }
 }
 
-@keyframes iconPulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
-  }
-  50% {
-    transform: scale(1.08);
-    box-shadow: 0 0 0 15px rgba(102, 126, 234, 0);
-  }
-}
-
 .logo h1 {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
-  color: #1f2937;
+  color: white;
   margin: 0;
 }
 
 .logo-section > p, .register-header p {
-  font-size: 16px;
-  color: #6b7280;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
   margin: 0;
   font-weight: 400;
 }
@@ -154,63 +176,39 @@
 /* Login Tabs */
 .login-tabs {
   display: flex;  
-  margin-bottom: 35px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 3px;
-  animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
-}
-
-@keyframes slideDown {
-  0% {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  margin-bottom: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 4px;
 }
 
 .tab-item {
   flex: 1;
-  padding: 12px 16px;
+  padding: 14px 20px;
   text-align: center;
-  border-radius: 6px;
-  font-size: 15px;
+  border-radius: 8px;
+  font-size: 16px;
   font-weight: 500;
-  color: #6b7280;
+  color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
   transition: all 0.2s ease;
   user-select: none;
 }
 
 .tab-item.active {
-  background: white;
-  color: #667eea;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .tab-item:hover:not(.active) {
-  color: #667eea;
-  background: rgba(255, 255, 255, 0.5);
+  color: white;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Form Section */
 .form-section {
   margin-bottom: 24px;
-  animation: fadeInSlide 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
-}
-
-@keyframes fadeInSlide {
-  0% {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
 }
 
 /* Ant Design 覆盖 */
@@ -252,35 +250,35 @@
 .register-container .ant-input-affix-wrapper {
   border-radius: 6px !important;
   padding: 8px 11px !important;
-  border: 1px solid rgba(209, 213, 219, 0.4) !important;
-  background: rgba(255, 255, 255, 0.05) !important;
-  color: #1f2937 !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: white !important;
   transition: all 0.3s ease !important;
   
   &::placeholder {
-    color: #9ca3af !important;
+    color: rgba(255, 255, 255, 0.6) !important;
   }
   
   &:hover {
-    border-color: rgba(102, 126, 234, 0.6) !important;
-    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    background: rgba(255, 255, 255, 0.2) !important;
   }
   
   &:focus, &.ant-input-affix-wrapper-focused {
-    border-color: #667eea !important;
+    border-color: rgba(255, 255, 255, 0.8) !important;
     background: rgba(255, 255, 255, 0.25) !important;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15) !important;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15) !important;
   }
 }
 
 .ant-input-prefix {
-  color: #9ca3af;
+  color: rgba(255, 255, 255, 0.7);
   margin-right: 8px;
 }
 
 .ant-form-item-label > label {
   font-weight: 500;
-  color: #374151;
+  color: white;
 }
 
 /* Tabs */
@@ -303,19 +301,19 @@
 }
 
 .link-button {
-  color: #6b7280;
+  color: rgba(255, 255, 255, 0.8);
   font-size: 14px;
   cursor: pointer;
   transition: color 0.2s ease;
   text-decoration: none;
   
   &:hover {
-    color: #667eea;
+    color: white;
   }
 }
 
 .divider {
-  color: #d1d5db;
+  color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
   font-weight: 300;
 }
@@ -391,15 +389,6 @@
   bottom: 10%;
   left: 20%;
   animation-delay: 4s;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(180deg);
-  }
 }
 
 /* Register Specific */
@@ -485,6 +474,22 @@
 }
 
 /* Responsive */
+@media (max-width: 1400px) {
+  .login-card,
+  .register-card {
+    max-width: 1000px;
+    padding: 50px 80px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .login-card,
+  .register-card {
+    max-width: 900px;
+    padding: 40px 60px;
+  }
+}
+
 @media (max-width: 768px) {
   .login-card,
   .register-card {

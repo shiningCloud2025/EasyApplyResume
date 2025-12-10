@@ -398,16 +398,30 @@ const defaultAvatar = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e5
 const getAdminList = async () => {
   try {
     loading.value = true
+    console.log('请求分页数据:', {
+      pageNum: pagination.current,
+      pageSize: pagination.size,
+      query: queryForm
+    })
+    
     const response = await adminApi.getAdminPage(
       pagination.current,
       pagination.size,
       queryForm
     )
     
-    tableData.value = response.data.records
-    pagination.total = response.data.total
+    console.log('分页响应:', response)
+    console.log('response.data:', response.data)
+    console.log('response.data.records:', response.data.records)
+    console.log('response.data.total:', response.data.total)
+    
+    tableData.value = response.data.records || []
+    pagination.total = response.data.total || response.data.records?.length || 0
+    
+    console.log('最终total:', pagination.total)
   } catch (error) {
     console.error('获取管理员列表失败:', error)
+    ElMessage.error('加载数据失败')
   } finally {
     loading.value = false
   }

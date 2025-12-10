@@ -11,7 +11,9 @@ const AuthLayout: React.FC = () => {
   // 监听路由变化，每次切换都滚动到顶部
   useEffect(() => {
     console.log('🔄 路由切换，滚动到顶部:', location.pathname)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo(0, 0)
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
   }, [location.pathname])
   
   return (

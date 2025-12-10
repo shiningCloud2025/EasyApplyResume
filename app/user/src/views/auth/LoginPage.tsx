@@ -14,7 +14,9 @@ const LoginPage: React.FC = () => {
   
   // 页面加载时滚动到顶部
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    window.scrollTo(0, 0)
+    document.documentElement.scrollTop = 0
+    document.body.scrollTop = 0
   }, [])
   
   const [form] = Form.useForm()
@@ -212,37 +214,42 @@ const LoginPage: React.FC = () => {
       </div>
 
       <div className="login-card">
-        <div className="logo-section">
-          <div className="logo">
-            <div className="logo-icon">
-              <i className="icon-resume">📄</i>
+        {/* 左侧装饰区域 */}
+        <div className="login-card-left">
+          <div className="logo-section">
+            <div className="logo">
+              <div className="logo-icon">
+                <i className="icon-resume">📄</i>
+              </div>
+              <h1>易投简历</h1>
             </div>
-            <h1>易投简历</h1>
+            <p>用户登录</p>
           </div>
-          <p>用户登录</p>
         </div>
 
-        {/* 自定义Tabs */}
-        <div className="login-tabs">
-          <div 
-            className={`tab-item ${activeTab === 'account' ? 'active' : ''}`}
-            onClick={() => switchTab('account')}
-          >
-            账号密码
+        {/* 右侧表单区域 */}
+        <div className="login-card-right">
+          {/* 自定义Tabs */}
+          <div className="login-tabs">
+            <div 
+              className={`tab-item ${activeTab === 'account' ? 'active' : ''}`}
+              onClick={() => switchTab('account')}
+            >
+              账号密码
+            </div>
+            <div 
+              className={`tab-item ${activeTab === 'phone' ? 'active' : ''}`}
+              onClick={() => switchTab('phone')}
+            >
+              手机验证码
+            </div>
+            <div 
+              className={`tab-item ${activeTab === 'email' ? 'active' : ''}`}
+              onClick={() => switchTab('email')}
+            >
+              邮箱验证码
+            </div>
           </div>
-          <div 
-            className={`tab-item ${activeTab === 'phone' ? 'active' : ''}`}
-            onClick={() => switchTab('phone')}
-          >
-            手机验证码
-          </div>
-          <div 
-            className={`tab-item ${activeTab === 'email' ? 'active' : ''}`}
-            onClick={() => switchTab('email')}
-          >
-            邮箱验证码
-          </div>
-        </div>
 
         {/* 账号密码登录 */}
         <div className="form-section" style={{ display: activeTab === 'account' ? 'block' : 'none' }}>
@@ -445,6 +452,7 @@ const LoginPage: React.FC = () => {
             <HomeOutlined style={{ marginRight: 4 }} />
             返回首页
           </Link>
+        </div>
         </div>
       </div>
 

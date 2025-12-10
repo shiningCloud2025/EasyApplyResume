@@ -1,0 +1,156 @@
+// 页面内容区域通用样式
+// 让所有页面内容靠左显示，右侧留少量空白
+
+// 为所有管理页面的根容器添加样式
+.job-advice-management,
+.template-management,
+.position-management,
+.information-management,
+.industry-map-management,
+.user-feedback-manage,
+.feedback-manage,
+.user-feedback-records,
+.feedback-records,
+.system-links,
+.admin-management,
+.role-management,
+.permission-management,
+.system-resume-management,
+.ai-chat,
+.ai-agent,
+.api-docs,
+.dashboard {
+  max-width: 95%;
+  margin: 0;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 50px;
+}
+
+// 通用卡片样式优化
+.el-card {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  
+  .el-card__body {
+    padding: 20px;
+  }
+}
+
+// 页面头部样式
+.page-header {
+  margin-bottom: 20px;
+  
+  .header-content {
+    margin-bottom: 12px;
+    
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1f2937;
+      margin: 0 0 8px 0;
+    }
+    
+    .page-description {
+      font-size: 14px;
+      color: #6b7280;
+      margin: 0;
+    }
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+// 搜索卡片
+.search-card {
+  .el-form {
+    margin-bottom: 0;
+  }
+}
+
+// 表格卡片
+.table-card {
+  .el-table {
+    font-size: 14px;
+  }
+}
+
+// 响应式调整
+@media (max-width: 1600px) {
+  .job-advice-management,
+  .template-management,
+  .position-management,
+  .information-management,
+  .industry-map-management,
+  .user-feedback-manage,
+  .feedback-manage,
+  .user-feedback-records,
+  .feedback-records,
+  .system-links,
+  .admin-management,
+  .role-management,
+  .permission-management,
+  .system-resume-management,
+  .ai-chat,
+  .ai-agent,
+  .api-docs,
+  .dashboard {
+    max-width: 96%;
+    padding-left: 16px;
+    padding-right: 40px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .job-advice-management,
+  .template-management,
+  .position-management,
+  .information-management,
+  .industry-map-management,
+  .user-feedback-manage,
+  .feedback-manage,
+  .user-feedback-records,
+  .feedback-records,
+  .system-links,
+  .admin-management,
+  .role-management,
+  .permission-management,
+  .system-resume-management,
+  .ai-chat,
+  .ai-agent,
+  .api-docs,
+  .dashboard {
+    max-width: 98%;
+    padding-left: 12px;
+    padding-right: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .job-advice-management,
+  .template-management,
+  .position-management,
+  .information-management,
+  .industry-map-management,
+  .user-feedback-manage,
+  .feedback-manage,
+  .user-feedback-records,
+  .feedback-records,
+  .system-links,
+  .admin-management,
+  .role-management,
+  .permission-management,
+  .system-resume-management,
+  .ai-chat,
+  .ai-agent,
+  .api-docs,
+  .dashboard {
+    max-width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}

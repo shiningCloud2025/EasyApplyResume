@@ -217,6 +217,12 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
   
+  // 如果已登录且访问登录页，跳转到首页
+  if (to.path === '/login' && authStore.isLoggedIn) {
+    next('/admin/dashboard')
+    return
+  }
+  
   // 需要登录的页面
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
     next('/login')

@@ -81,7 +81,7 @@ public class UserJwtAuthFilter extends OncePerRequestFilter {
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
+            filterChain.doFilter(request, response);
         }catch (Exception e) {
             log.error("用户端 Token 验证失败: {}", e.getMessage());
         }
