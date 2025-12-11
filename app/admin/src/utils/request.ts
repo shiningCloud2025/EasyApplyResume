@@ -90,10 +90,21 @@ request.interceptors.request.use(
       // 每次请求都检查token是否过期
       try {
         // 解析JWT token检查是否过期
-        const payload = JSON.parse(atob(token.split('.')[1]))
+        const parts = token.split('.')
+        if (parts.length !== 3) {
+          throw new Error('Invalid token format')
+        }
+        
+        // Base64 URL解码
+        const payload = parts[1].replace(/-/g, '+').replace(/_/g, '/')
+        const jsonPayload = decodeURIComponent(atob(payload + '='.repeat((4 - payload.length % 4) % 4)).split('').map((c) => {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+        }).join(''))
+        
+        const parsedPayload = JSON.parse(jsonPayload)
         const currentTime = Math.floor(Date.now() / 1000)
         
-        if (payload.exp && payload.exp < currentTime) {
+        if (parsedPayload.exp && parsedPayload.exp < currentTime) {
           // Token已过期，清除认证状态并跳转登录
           const authStore = useAuthStore()
           console.warn('Token已过期，自动退出登录')
