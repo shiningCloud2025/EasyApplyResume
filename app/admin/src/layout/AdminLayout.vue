@@ -23,6 +23,7 @@
         :unique-opened="true"
         router
         class="sidebar-menu"
+        @select="handleMenuSelect"
       >
         <!-- 首页 -->
         <el-menu-item index="/admin/dashboard">
@@ -111,10 +112,20 @@
         </el-sub-menu>
 
         <!-- API文档中心 -->
-        <el-menu-item index="/admin/api-docs">
-          <el-icon><Document /></el-icon>
-          <span>API文档中心</span>
-        </el-menu-item>
+        <el-sub-menu index="api-docs">
+          <template #title>
+            <el-icon><Document /></el-icon>
+            <span>API文档中心</span>
+          </template>
+          <el-menu-item index="/admin/api-docs">
+            <el-icon><Link /></el-icon>
+            <span>API对外文档中心</span>
+          </el-menu-item>
+          <el-menu-item index="internal-api-docs">
+            <el-icon><Lock /></el-icon>
+            <span>API对内文档中心</span>
+          </el-menu-item>
+        </el-sub-menu>
       </el-menu>
     </el-aside>
 
@@ -245,7 +256,9 @@ import {
   Fold,
   Expand,
   ArrowDown,
-  SwitchButton
+  SwitchButton,
+  Link,
+  Lock
 } from '@element-plus/icons-vue'
 
 const route = useRoute()
@@ -262,6 +275,17 @@ const toggleSidebar = () => {
 const searchText = ref('')
 const handleSearch = () => {
   console.log('搜索:', searchText.value)
+}
+
+// 菜单选择处理
+const handleMenuSelect = (index: string) => {
+  if (index === 'internal-api-docs') {
+    // 跳转到内部API文档页面
+    router.push('/admin/api-docs/internal')
+  } else {
+    // 其他菜单项正常跳转
+    router.push(index)
+  }
 }
 
 // 全屏切换
@@ -345,7 +369,8 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/feedback/management': '管理端反馈管理',
     '/admin/feedback/user-records': '用户端反馈记录',
     '/admin/feedback/records': '管理端反馈记录',
-    '/admin/api-docs': 'API文档中心'
+    '/admin/api-docs': 'API对外文档中心',
+    'internal-api-docs': 'API对内文档中心'
   }
 
   const breadcrumbs = []

@@ -158,7 +158,7 @@ onMounted(() => {
 .api-docs {
   width: 100%;
   height: 100%;
-  padding: 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
 }
@@ -237,7 +237,7 @@ onMounted(() => {
 
 .welcome-content {
   text-align: center;
-  padding: 30px 25px;
+  padding: 20px 20px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -246,14 +246,14 @@ onMounted(() => {
 }
   
   .icon-wrapper {
-    margin-bottom: 25px;
+    margin-bottom: 15px;
     
     .icon-bg {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       border-radius: 20px;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
@@ -272,7 +272,7 @@ onMounted(() => {
       }
       
       i {
-        font-size: 32px;
+        font-size: 24px;
         color: white;
         z-index: 1;
         position: relative;
@@ -281,8 +281,8 @@ onMounted(() => {
   }
   
   h2 {
-    margin: 0 0 12px 0;
-    font-size: 24px;
+    margin: 0 0 8px 0;
+    font-size: 20px;
     font-weight: 700;
     color: #1a202c;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -292,26 +292,26 @@ onMounted(() => {
   }
   
   .subtitle {
-    margin: 0 0 30px 0;
+    margin: 0 0 20px 0;
     color: #4a5568;
-    font-size: 16px;
-    max-width: 500px;
+    font-size: 14px;
+    max-width: 400px;
     margin-left: auto;
     margin-right: auto;
-    line-height: 1.6;
+    line-height: 1.5;
   }
 
 .features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 16px;
-  margin: 30px 0;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
   
   .feature-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 16px;
+    padding: 12px;
     background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
     border-radius: 12px;
     transition: all 0.3s ease;
@@ -327,14 +327,14 @@ onMounted(() => {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 45px;
-      height: 45px;
-      border-radius: 12px;
+      width: 35px;
+      height: 35px;
+      border-radius: 10px;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       
       i {
-        font-size: 18px;
+        font-size: 14px;
         color: white;
       }
     }
@@ -342,14 +342,14 @@ onMounted(() => {
     .feature-content {
       .feature-title {
         display: block;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 600;
         color: #1a202c;
-        margin-bottom: 4px;
+        margin-bottom: 3px;
       }
       
       .feature-desc {
-        font-size: 12px;
+        font-size: 10px;
         color: #718096;
       }
     }
@@ -357,10 +357,10 @@ onMounted(() => {
 }
 
 .action-section {
-  margin: 30px 0;
-  padding: 25px;
+  margin: 20px 0;
+  padding: 18px;
   background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid rgba(16, 185, 129, 0.2);
   position: relative;
   overflow: hidden;
@@ -380,20 +380,20 @@ onMounted(() => {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 15px;
     
     .action-icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
       background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
       
       i {
-        font-size: 16px;
+        font-size: 12px;
         color: white;
       }
     }
@@ -402,24 +402,24 @@ onMounted(() => {
       text-align: left;
       
       h3 {
-        margin: 0 0 6px 0;
+        margin: 0 0 4px 0;
         color: #1a202c;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
       }
       
       p {
         margin: 0;
         color: #4a5568;
-        font-size: 14px;
+        font-size: 12px;
       }
     }
   }
   
   .action-button {
-    font-size: 16px;
-    padding: 12px 30px;
-    border-radius: 10px;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 8px;
     background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
     border: none;
     font-weight: 600;
@@ -449,15 +449,15 @@ onMounted(() => {
 .quick-info {
   display: flex;
   justify-content: center;
-  gap: 30px;
-  margin-top: 20px;
+  gap: 20px;
+  margin-top: 15px;
   
   .info-item {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     color: #718096;
-    font-size: 12px;
+    font-size: 10px;
     
     i {
       color: #667eea;

@@ -10,6 +10,7 @@
 
     <resultMap id="AdminInfoResultMap" type="com.zyh.easyapplyresume.model.vo.admin.AdminInfoVO">
         <id property="adminId" column="admin_id"/>
+        <result property="adminAccount" column="admin_account"/>
         <result property="adminUsername" column="admin_username"/>
         <result property="adminEmail" column="admin_email"/>
         <result property="adminPhone" column="admin_phone"/>
