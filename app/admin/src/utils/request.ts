@@ -57,6 +57,7 @@ request.interceptors.response.use(
           break
         case 403:
           ElMessage.error('没有权限访问')
+          router.push('/403')
           break
         case 404:
           ElMessage.error('请求的资源不存在')
@@ -85,7 +86,7 @@ request.interceptors.request.use(
     
     // 如果存在token，每次都主动检查是否过期
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      config.headers['Admin-Authorization'] = `Admin ${token}`
       
       // 每次请求都检查token是否过期
       try {

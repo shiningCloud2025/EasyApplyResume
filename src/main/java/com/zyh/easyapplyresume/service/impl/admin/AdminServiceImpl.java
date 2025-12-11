@@ -155,6 +155,7 @@ public class AdminServiceImpl implements AdminService {
     // 查找用户拥有的角色
     @Override
     public List<RoleInfoVO> findRoleByAdmin(Integer adminId) {
+
         return adminMapper.findRoleByAdmin(adminId);
     }
 

@@ -58,6 +58,12 @@ public class AdminRoleController {
         return BaseResult.ok(roleService.findRoleByPage(pageNum,pageSize,rolePageQuery));
     }
 
+    @Operation(summary = "查询所有角色")
+    @GetMapping("/findAllRole")
+    public BaseResult<List<RoleInfoVO>> findAllRole(){
+        return BaseResult.ok(roleService.findAllRole());
+    }
+
     @Operation(summary = "查看角色拥有的权限")
     @GetMapping("/findPermissionByRole")
     public BaseResult<List<PermissionInfoVO>> findPermissionByRole(@RequestParam(required = true,value = "roleId") Integer roleId){
