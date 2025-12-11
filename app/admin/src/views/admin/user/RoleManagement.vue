@@ -59,29 +59,32 @@
       >
         <el-table-column prop="roleId" label="角色ID" width="70" />
         <el-table-column prop="roleName" label="角色名称" min-width="150" />
-        <el-table-column label="描述" width="100" align="center">
+        <el-table-column prop="roleIntroduce" label="角色描述" min-width="200" />
+        <el-table-column label="详情" width="100" align="center">
           <template #default="{ row }">
             <el-button
-              type="primary"
+              type="info"
               size="default"
-              @click="handleViewIntroduce(row)"
+              @click="handleViewRoleDetail(row)"
             >
               详情
             </el-button>
           </template>
         </el-table-column>
-        <el-table-column prop="roleCreatedTime" label="创建时间" width="160">
+        <el-table-column label="操作" width="280" fixed="right">
           <template #default="{ row }">
-            {{ formatDateTime(row.roleCreatedTime) }}
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="300" fixed="right">
-          <template #default="{ row }">
+            <el-button
+              type="info"
+              size="default"
+              @click="handleViewRoleDetail(row)"
+            >
+              查看
+            </el-button>
             <el-button type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
             <el-button type="warning" size="default" @click="handlePermission(row)">
-              权限
+              分配权限
             </el-button>
             <el-button type="danger" size="default" @click="handleDelete(row)">
               删除
@@ -138,52 +141,79 @@
       </template>
     </el-dialog>
 
-    <!-- 权限配置对话框 -->
+    <!-- 权限分配对话框 -->
     <el-dialog
       v-model="showPermissionDialog"
-      title="权限配置"
-      width="600px"
+      title="分配权限"
+      width="500px"
+      :close-on-click-modal="false"
     >
-      <div class="permission-setup">
-        <div class="permission-tree">
-          <el-tree
-            ref="permissionTreeRef"
-            :data="permissionTree"
-            show-checkbox
-            node-key="permissionId"
-            :default-expanded-keys="[1, 2, 3]"
-            :props="{ children: 'children', label: 'permissionName' }"
-          />
-        </div>
+      <div class="permission-info">
+        <el-descriptions :column="2" border>
+          <el-descriptions-item label="角色ID">
+            {{ editingRole?.roleId }}
+          </el-descriptions-item>
+          <el-descriptions-item label="角色名称">
+            {{ editingRole?.roleName }}
+          </el-descriptions-item>
+        </el-descriptions>
       </div>
+      
+      <div class="permission-selection">
+        <h4>选择权限</h4>
+        <el-transfer
+          v-model="selectedPermissionIds"
+          :data="allPermissions"
+          :titles="['可选权限', '已选权限']"
+          :button-texts="['移除', '添加']"
+          :format="{ noChecked: '${total}', hasChecked: '${checked}/${total}' }"
+        />
+      </div>
+      
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="showPermissionDialog = false">取消</el-button>
-          <el-button type="primary" @click="handleSavePermissions">
-            保存
+          <el-button type="primary" @click="handleSavePermissions" :loading="submitting">
+            确定
           </el-button>
         </span>
       </template>
     </el-dialog>
 
-    <!-- 描述详情弹窗 -->
+    <!-- 角色详情对话框 -->
     <el-dialog
-      v-model="introduceDialogVisible"
-      title="角色描述"
-      width="600px"
+      v-model="permissionDialogVisible"
+      title="角色详情"
+      width="700px"
     >
-      <el-card v-if="currentIntroduceRole">
-        <template #header>
-          <div style="font-weight: 600; font-size: 16px;">{{ currentIntroduceRole.roleName }}</div>
-        </template>
-        <div style="padding: 16px; min-height: 100px; white-space: pre-wrap; word-break: break-all; line-height: 1.8;">
-          {{ currentIntroduceRole.roleIntroduce || '该角色暂无描述' }}
-        </div>
-      </el-card>
+      <el-descriptions v-if="currentRoleDetail" :column="2" border>
+        <el-descriptions-item label="角色ID">
+          {{ currentRoleDetail.roleId }}
+        </el-descriptions-item>
+        <el-descriptions-item label="角色名称">
+          {{ currentRoleDetail.roleName }}
+        </el-descriptions-item>
+        <el-descriptions-item label="角色描述" :span="2">
+          <div style="white-space: pre-wrap; word-break: break-all;">
+            {{ currentRoleDetail.roleIntroduce || '暂无描述' }}
+          </div>
+        </el-descriptions-item>
+        <el-descriptions-item label="权限" :span="2">
+          <el-tag
+            v-for="permission in currentRoleDetail.permissionInfoVOS"
+            :key="permission.permissionId"
+            size="default"
+            style="margin-right: 8px; margin-bottom: 8px;"
+          >
+            {{ permission.permissionName }}
+          </el-tag>
+          <span v-if="!currentRoleDetail.permissionInfoVOS || currentRoleDetail.permissionInfoVOS.length === 0" style="color: #909399;">暂无权限</span>
+        </el-descriptions-item>
+      </el-descriptions>
       
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="introduceDialogVisible = false">关闭</el-button>
+          <el-button @click="permissionDialogVisible = false">关闭</el-button>
         </div>
       </template>
     </el-dialog>
@@ -200,6 +230,7 @@ import type {
   RolePageVO,
   RoleForm,
   RolePageQuery,
+  RoleInfoVO,
   PermissionInfoVO
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
@@ -249,6 +280,8 @@ const roleRules = {
 
 // 权限树数据
 const permissionTree = ref<PermissionInfoVO[]>([])
+const allPermissions = ref<Array<{ key: number; label: string }>>([])
+const selectedPermissionIds = ref<number[]>([])  
 
 // 加载所有权限
 const loadPermissions = async () => {
@@ -328,27 +361,38 @@ const handleEdit = (row: RolePageVO) => {
   showCreateDialog.value = true
 }
 
-// 查看描述详情
-const introduceDialogVisible = ref(false)
-const currentIntroduceRole = ref<RolePageVO | null>(null)
+// 查看角色详情
+const permissionDialogVisible = ref(false)
+const currentRoleDetail = ref<RoleInfoVO | null>(null)
 
-const handleViewIntroduce = (row: RolePageVO) => {
-  currentIntroduceRole.value = row
-  introduceDialogVisible.value = true
+const handleViewRoleDetail = async (row: RolePageVO) => {
+  try {
+    // 调用查看角色详情接口
+    const response = await roleApi.getRoleInfo(row.roleId)
+    currentRoleDetail.value = response.data
+    permissionDialogVisible.value = true
+  } catch (error) {
+    console.error('获取角色详情失败:', error)
+    ElMessage.error('获取角色详情失败')
+  }
 }
 
 // 配置权限
 const handlePermission = async (row: RolePageVO) => {
   editingRole.value = row
+  showPermissionDialog.value = true
+  
   try {
     // 获取角色当前权限
-    const response = await roleApi.getRolePermissions(row.roleId)
-    // 设置权限树的选中状态
-    // 这里需要根据实际返回的数据结构调整
+    const rolesPermissionsResponse = await roleApi.getRolePermissions(row.roleId)
+    selectedPermissionIds.value = rolesPermissionsResponse.data
+    
+    // 获取所有权限
+    const allPermissionsResponse = await permissionApi.getAllPermissions()
+    allPermissions.value = allPermissionsResponse.data
   } catch (error) {
-    console.error('获取角色权限失败:', error)
+    console.error('获取权限信息失败:', error)
   }
-  showPermissionDialog.value = true
 }
 
 // 保存权限
@@ -356,16 +400,18 @@ const handleSavePermissions = async () => {
   if (!editingRole.value) return
   
   try {
-    const selectedPermissionIds = permissionTree.value.map(p => p.permissionId)
+    submitting.value = true
     await roleApi.assignPermissionToRole(
       editingRole.value.roleId,
-      selectedPermissionIds
+      selectedPermissionIds.value
     )
-    ElMessage.success('权限配置保存成功')
+    ElMessage.success('权限分配成功')
     showPermissionDialog.value = false
   } catch (error) {
     console.error('保存权限失败:', error)
     ElMessage.error('保存失败')
+  } finally {
+    submitting.value = false
   }
 }
 
@@ -486,15 +532,15 @@ onMounted(() => {
     border-top: 1px solid #f3f4f6;
   }
 
-  .permission-setup {
-    max-height: 400px;
-    overflow-y: auto;
+  .permission-selection {
+    h4 {
+      margin-bottom: 16px;
+      color: #1f2937;
+    }
   }
-
-  .permission-tree {
-    padding: 16px;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
+  
+  .permission-info {
+    margin-bottom: 24px;
   }
 
   .dialog-footer {

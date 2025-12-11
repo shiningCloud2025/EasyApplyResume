@@ -71,7 +71,7 @@ export const adminApi = {
   deleteAdmin: (adminId: number) => api.delete<number>('/admin/admin/delete', { params: { adminId } }),
   
   // 查询管理员详情
-  getAdminInfo: (adminId: number) => api.get<AdminInfoVO>('/admin/admin/findById', { params: { adminId } }),
+  getAdminInfo: (adminId: number) => api.get<AdminInfoVO>(`/admin/admin/findById?adminId=${adminId}`),
   
   // 分页查询管理员
   getAdminPage: (pageNum: number, pageSize: number, query: AdminPageQuery) => 
@@ -80,11 +80,21 @@ export const adminApi = {
     }),
   
   // 查看管理员拥有的角色
-  getAdminRoles: (adminId: number) => api.get('/admin/admin/findRoleByAdmin', { params: { adminId } }),
+  getAdminRoles: (adminId: number) => api.get(`/admin/admin/findRoleByAdmin?adminId=${adminId}`),
   
   // 为管理员分配角色
-  assignRoleToAdmin: (adminId: number, roleIds: number[]) => 
-    api.post<number>('/admin/admin/assignRoleToAdmin', null, { params: { adminId, roleIds } }),
+  assignRoleToAdmin: (adminId: number, roleIds: number[]) => {
+    let params = `adminId=${adminId}`
+    if (roleIds.length > 0) {
+      roleIds.forEach(id => {
+        params += `&roleIds=${id}`
+      })
+    } else {
+      // 如果没有角色，传一个空数组
+      params += '&roleIds='
+    }
+    return api.post<number>(`/admin/admin/assignRoleToAdmin?${params}`)
+  },
   
   // 生成随机账号
   generateRandomAccount: () => api.get<string>('/admin/admin/generateRandomAccount'),
@@ -105,16 +115,19 @@ export const roleApi = {
   deleteRole: (roleId: number) => api.delete<number>('/admin/role/delete', { params: { roleId } }),
   
   // 查询角色详情
-  getRoleInfo: (roleId: number) => api.get<RoleInfoVO>('/admin/role/findById', { params: { roleId } }),
+  getRoleInfo: (roleId: number) => api.get<RoleInfoVO>(`/admin/role/findById?roleId=${roleId}`),
   
-  // 分页查询角色
+  // 查询所有角色
   getRolePage: (pageNum: number, pageSize: number, query: RolePageQuery) => 
     api.post<PageResult<RolePageVO>>('/admin/role/findByPage', query, { 
       params: { pageNum, pageSize } 
     }),
   
+  // 查询所有角色
+  getAllRoles: () => api.get('/admin/role/findAllRole'),
+  
   // 查看角色拥有的权限
-  getRolePermissions: (roleId: number) => api.get('/admin/role/findPermissionByRole', { params: { roleId } }),
+  getRolePermissions: (roleId: number) => api.get(`/admin/role/findPermissionByRole?roleId=${roleId}`),
   
   // 为角色分配权限
   assignPermissionToRole: (roleId: number, permissionIds: number[]) => 

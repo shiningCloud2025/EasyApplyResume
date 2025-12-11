@@ -102,56 +102,20 @@
           </template>
         </el-table-column>
         
-        <el-table-column prop="adminAccount" label="账号" min-width="120" />
-        
         <el-table-column prop="adminUsername" label="姓名" min-width="120" />
-        
+        <el-table-column prop="adminAccount" label="账号" min-width="150" />
         <el-table-column prop="adminEmail" label="邮箱" min-width="180" />
-        
         <el-table-column prop="adminPhone" label="手机号" min-width="130" />
         
         <el-table-column label="状态" width="80">
           <template #default="{ row }">
-            <el-tag
-              :type="row.adminState === 1 ? 'success' : 'danger'"
-              size="small"
-            >
+            <el-tag :type="row.adminState === 1 ? 'success' : 'danger'" size="small">
               {{ row.adminState === 1 ? '正常' : '禁用' }}
             </el-tag>
           </template>
         </el-table-column>
         
-        <el-table-column prop="adminLoginTime" label="最后登录" min-width="160">
-          <template #default="{ row }">
-            {{ formatDateTime(row.adminLoginTime) }}
-          </template>
-        </el-table-column>
-        
-        <el-table-column label="角色" width="100" align="center">
-          <template #default="{ row }">
-            <el-button
-              type="success"
-              size="default"
-              @click="handleViewRoles(row)"
-            >
-              详情
-            </el-button>
-          </template>
-        </el-table-column>
-        
-        <el-table-column label="介绍" width="100" align="center">
-          <template #default="{ row }">
-            <el-button
-              type="primary"
-              size="default"
-              @click="handleViewIntroduce(row)"
-            >
-              详情
-            </el-button>
-          </template>
-        </el-table-column>
-        
-        <el-table-column label="操作" width="300" fixed="right">
+        <el-table-column label="操作" width="280" fixed="right">
           <template #default="{ row }">
             <el-button
               type="info"
@@ -160,11 +124,7 @@
             >
               查看
             </el-button>
-            <el-button
-              type="primary"
-              size="default"
-              @click="handleEdit(row)"
-            >
+            <el-button type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
             <el-button
@@ -187,25 +147,23 @@
       </el-table>
 
       <!-- 分页 -->
-      <div class="pagination-wrapper">
-        <el-pagination
-          v-model:current-page="pagination.current"
-          v-model:page-size="pagination.size"
-          :total="pagination.total"
-          :page-sizes="[10, 20, 50, 100]"
-          layout="total, sizes, prev, pager, next, jumper"
-          @size-change="handleSizeChange"
-          @current-change="handleCurrentChange"
-        />
-      </div>
+      <el-pagination
+        class="pagination"
+        v-model:current-page="pagination.current"
+        v-model:page-size="pagination.size"
+        :total="pagination.total"
+        :page-sizes="[10, 20, 50, 100]"
+        layout="total, sizes, prev, pager, next, jumper"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
     </el-card>
 
-    <!-- 新增/编辑弹窗 -->
+    <!-- 创建/编辑管理员对话框 -->
     <el-dialog
       v-model="dialogVisible"
-      :title="dialogTitle"
+      :title="dialogType === 'create' ? '新增管理员' : '编辑管理员'"
       width="600px"
-      :close-on-click-modal="false"
       @close="resetForm"
     >
       <el-form
@@ -213,18 +171,17 @@
         :model="form"
         :rules="rules"
         label-width="100px"
-        size="default"
       >
-        <el-form-item label="管理员账号" prop="adminAccount">
-          <el-input
-            v-model="form.adminAccount"
-            placeholder="请输入管理员账号（7-10位）"
+        <el-form-item label="账号" prop="adminAccount">
+          <el-input 
+            v-model="form.adminAccount" 
+            placeholder="请输入账号"
             :disabled="dialogType === 'edit'"
           />
         </el-form-item>
         
-        <el-form-item label="管理员姓名" prop="adminUsername">
-          <el-input v-model="form.adminUsername" placeholder="请输入管理员姓名" />
+        <el-form-item label="姓名" prop="adminUsername">
+          <el-input v-model="form.adminUsername" placeholder="请输入姓名" />
         </el-form-item>
         
         <el-form-item label="邮箱" prop="adminEmail">
@@ -235,15 +192,11 @@
           <el-input v-model="form.adminPhone" placeholder="请输入手机号" />
         </el-form-item>
         
-        <el-form-item
-          label="密码"
-          prop="adminPassword"
-          v-if="dialogType === 'add'"
-        >
-          <el-input
-            v-model="form.adminPassword"
-            type="password"
-            placeholder="请输入密码（6-20位）"
+        <el-form-item label="密码" prop="adminPassword" v-if="dialogType === 'create'">
+          <el-input 
+            v-model="form.adminPassword" 
+            type="password" 
+            placeholder="请输入密码"
             show-password
           />
         </el-form-item>
@@ -277,144 +230,6 @@
           <el-button type="primary" @click="handleSubmit" :loading="submitting">
             确定
           </el-button>
-        </div>
-      </template>
-    </el-dialog>
-
-    <!-- 角色详情弹窗 -->
-    <el-dialog
-      v-model="rolesDialogVisible"
-      title="管理员角色"
-      width="600px"
-    >
-      <el-card v-if="currentRolesAdmin">
-        <template #header>
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <el-avatar
-              :size="50"
-              :src="currentRolesAdmin.adminImage"
-              :alt="currentRolesAdmin.adminUsername"
-            />
-            <div>
-              <div style="font-weight: 600; font-size: 16px;">{{ currentRolesAdmin.adminUsername }}</div>
-              <div style="color: #909399; font-size: 14px;">{{ currentRolesAdmin.adminAccount }}</div>
-            </div>
-          </div>
-        </template>
-        <div style="padding: 16px; min-height: 80px;">
-          <div v-if="currentRolesAdmin.roles && currentRolesAdmin.roles.length > 0" style="display: flex; flex-wrap: wrap; gap: 10px;">
-            <el-tag
-              v-for="role in currentRolesAdmin.roles"
-              :key="role.roleId"
-              size="large"
-              type="success"
-            >
-              {{ role.roleName }}
-            </el-tag>
-          </div>
-          <div v-else style="color: #909399; text-align: center; padding: 20px;">
-            该管理员暂无角色
-          </div>
-        </div>
-      </el-card>
-      
-      <template #footer>
-        <div class="dialog-footer">
-          <el-button @click="rolesDialogVisible = false">关闭</el-button>
-        </div>
-      </template>
-    </el-dialog>
-
-    <!-- 介绍详情弹窗 -->
-    <el-dialog
-      v-model="introduceDialogVisible"
-      title="管理员介绍"
-      width="600px"
-    >
-      <el-card v-if="currentIntroduceAdmin">
-        <template #header>
-          <div style="display: flex; align-items: center; gap: 12px;">
-            <el-avatar
-              :size="50"
-              :src="currentIntroduceAdmin.adminImage"
-              :alt="currentIntroduceAdmin.adminUsername"
-            />
-            <div>
-              <div style="font-weight: 600; font-size: 16px;">{{ currentIntroduceAdmin.adminUsername }}</div>
-              <div style="color: #909399; font-size: 14px;">{{ currentIntroduceAdmin.adminAccount }}</div>
-            </div>
-          </div>
-        </template>
-        <div style="padding: 16px; min-height: 100px; white-space: pre-wrap; word-break: break-all; line-height: 1.8;">
-          {{ currentIntroduceAdmin.adminIntroduce || '该管理员暂无介绍' }}
-        </div>
-      </el-card>
-      
-      <template #footer>
-        <div class="dialog-footer">
-          <el-button @click="introduceDialogVisible = false">关闭</el-button>
-        </div>
-      </template>
-    </el-dialog>
-
-    <!-- 查看详情弹窗 -->
-    <el-dialog
-      v-model="detailDialogVisible"
-      title="管理员完整信息"
-      width="700px"
-    >
-      <el-descriptions v-if="currentDetailAdmin" :column="2" border>
-        <el-descriptions-item label="管理员ID">
-          {{ currentDetailAdmin.adminId }}
-        </el-descriptions-item>
-        <el-descriptions-item label="账号">
-          {{ currentDetailAdmin.adminAccount }}
-        </el-descriptions-item>
-        <el-descriptions-item label="姓名">
-          {{ currentDetailAdmin.adminUsername }}
-        </el-descriptions-item>
-        <el-descriptions-item label="邮箱">
-          {{ currentDetailAdmin.adminEmail }}
-        </el-descriptions-item>
-        <el-descriptions-item label="手机号">
-          {{ currentDetailAdmin.adminPhone }}
-        </el-descriptions-item>
-        <el-descriptions-item label="状态">
-          <el-tag :type="currentDetailAdmin.adminState === 1 ? 'success' : 'danger'">
-            {{ currentDetailAdmin.adminState === 1 ? '正常' : '禁用' }}
-          </el-tag>
-        </el-descriptions-item>
-        <el-descriptions-item label="头像" :span="2">
-          <el-avatar
-            :size="80"
-            :src="currentDetailAdmin.adminImage"
-            :alt="currentDetailAdmin.adminUsername"
-          />
-        </el-descriptions-item>
-        <el-descriptions-item label="最后登录时间" :span="2">
-          {{ formatDateTime(currentDetailAdmin.adminLoginTime) }}
-        </el-descriptions-item>
-        <el-descriptions-item label="介绍" :span="2">
-          <div style="white-space: pre-wrap; word-break: break-all;">
-            {{ currentDetailAdmin.adminIntroduce || '暂无介绍' }}
-          </div>
-        </el-descriptions-item>
-        <el-descriptions-item label="角色" :span="2">
-          <el-tag
-            v-for="role in currentDetailAdmin.roles"
-            :key="role.roleId"
-            size="default"
-            style="margin-right: 8px; margin-bottom: 8px;"
-          >
-            {{ role.roleName }}
-          </el-tag>
-          <span v-if="!currentDetailAdmin.roles || currentDetailAdmin.roles.length === 0" style="color: #909399;">暂无角色</span>
-        </el-descriptions-item>
-      </el-descriptions>
-      
-      <template #footer>
-        <div class="dialog-footer">
-          <el-button @click="detailDialogVisible = false">关闭</el-button>
         </div>
       </template>
     </el-dialog>
@@ -457,13 +272,104 @@
         </div>
       </template>
     </el-dialog>
+
+    <!-- 查看详情弹窗 -->
+    <el-dialog
+      v-model="detailDialogVisible"
+      title="管理员完整信息"
+      width="700px"
+    >
+      <el-descriptions v-if="currentDetailAdmin" :column="2" border>
+        <el-descriptions-item label="管理员ID">
+          {{ currentDetailAdmin.adminId }}
+        </el-descriptions-item>
+        <el-descriptions-item label="账号">
+          {{ currentDetailAdmin.adminAccount }}
+        </el-descriptions-item>
+        <el-descriptions-item label="姓名">
+          {{ currentDetailAdmin.adminUsername }}
+        </el-descriptions-item>
+        <el-descriptions-item label="邮箱">
+          {{ currentDetailAdmin.adminEmail }}
+        </el-descriptions-item>
+        <el-descriptions-item label="手机号">
+          {{ currentDetailAdmin.adminPhone }}
+        </el-descriptions-item>
+        <el-descriptions-item label="状态">
+          <el-tag :type="currentDetailAdmin.adminState === 1 ? 'success' : 'danger'">
+            {{ currentDetailAdmin.adminState === 1 ? '正常' : '禁用' }}
+          </el-tag>
+        </el-descriptions-item>
+        <el-descriptions-item label="头像" :span="2">
+          <el-avatar
+            :size="80"
+            :src="currentDetailAdmin.adminImage"
+            :alt="currentDetailAdmin.adminUsername"
+          />
+        </el-descriptions-item>
+        <el-descriptions-item label="介绍" :span="2">
+          {{ currentDetailAdmin.adminIntroduce || '暂无介绍' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="角色信息" :span="2">
+          <div v-if="currentDetailAdmin.roleInfoVOS && currentDetailAdmin.roleInfoVOS.length > 0">
+            <div v-for="role in currentDetailAdmin.roleInfoVOS" :key="role.roleId" class="role-card">
+              <div class="role-header">
+                <el-tag type="primary" size="large" class="role-tag">
+                  {{ role.roleName }}
+                </el-tag>
+                <el-tag type="info" size="small" class="role-desc-tag">
+                  {{ role.roleIntroduce }}
+                </el-tag>
+              </div>
+              
+              <!-- 权限显示优化 -->
+              <div v-if="role.permissionInfoVOS && role.permissionInfoVOS.length > 0" class="permissions-section">
+                <div class="permissions-header">
+                  <i class="el-icon-key"></i>
+                  <span>权限详情</span>
+                  <el-badge :value="role.permissionInfoVOS.length" class="permission-count" />
+                </div>
+                <div class="permissions-grid">
+                  <div v-for="permission in role.permissionInfoVOS" :key="permission.permissionId" class="permission-card">
+                    <i class="el-icon-folder-opened"></i>
+                    <span class="permission-name">{{ permission.permissionName }}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div v-else class="no-permissions-card">
+                <i class="el-icon-warning-outline"></i>
+                <span>暂无具体权限</span>
+              </div>
+            </div>
+          </div>
+          
+          <div v-else class="no-roles-card">
+            <i class="el-icon-user"></i>
+            <span>该管理员暂无分配角色</span>
+          </div>
+        </el-descriptions-item>
+        
+        <el-descriptions-item label="最后登录" :span="2" v-if="currentDetailAdmin.adminLoginTime">
+          {{ formatDateTime(currentDetailAdmin.adminLoginTime) }}
+        </el-descriptions-item>
+      </el-descriptions>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="detailDialogVisible = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { adminApi } from '@/api/admin'
+import { Refresh, Plus, Search, RefreshRight } from '@element-plus/icons-vue'
+import { formatDateTime } from '@/utils'
+import { adminApi, roleApi } from '@/api/admin'
 import type {
   AdminPageVO,
   AdminPageQuery,
@@ -472,20 +378,26 @@ import type {
   RoleInfoVO
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
-import { formatDateTime } from '@/utils'
 
 // 响应式数据
 const loading = ref(false)
 const submitting = ref(false)
-const tableData = ref<AdminPageVO[]>([])
-const selectedIds = ref<number[]>([])
+const dialogVisible = ref(false)
+const dialogType = ref<'create' | 'edit'>('create')
+const formRef = ref<FormInstance>()
+
+// 分页
 const pagination = reactive({
   current: 1,
-  size: 10,
+  size: 20,
   total: 0
 })
 
-// 查询表单
+// 表格数据
+const tableData = ref<AdminPageVO[]>([])
+const selectedIds = ref<number[]>([])
+
+// 搜索表单
 const queryForm = reactive<AdminPageQuery>({
   adminUsername: '',
   adminEmail: '',
@@ -493,14 +405,9 @@ const queryForm = reactive<AdminPageQuery>({
   adminState: undefined
 })
 
-// 弹窗相关
-const dialogVisible = ref(false)
-const dialogType = ref<'add' | 'edit'>('add')
-const dialogTitle = computed(() => dialogType.value === 'add' ? '新增管理员' : '编辑管理员')
-
 // 表单数据
-const formRef = ref<FormInstance>()
 const form = reactive<AdminForm>({
+  adminId: undefined,
   adminAccount: '',
   adminUsername: '',
   adminEmail: '',
@@ -511,37 +418,29 @@ const form = reactive<AdminForm>({
   adminState: 1
 })
 
-// 表单验证规则
+// 表单校验规则
 const rules = {
   adminAccount: [
-    { required: true, message: '请输入管理员账号', trigger: 'blur' },
-    { min: 7, max: 10, message: '账号长度为7-10位', trigger: 'blur' }
+    { required: true, message: '请输入账号', trigger: 'blur' },
+    { min: 3, max: 50, message: '长度在 3 到 50 个字符', trigger: 'blur' }
   ],
   adminUsername: [
-    { required: true, message: '请输入管理员姓名', trigger: 'blur' },
-    { max: 15, message: '姓名长度不能超过15位', trigger: 'blur' }
+    { required: true, message: '请输入姓名', trigger: 'blur' },
+    { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
   ],
   adminEmail: [
     { required: true, message: '请输入邮箱', trigger: 'blur' },
-    { type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' },
-    { max: 25, message: '邮箱长度不能超过25位', trigger: 'blur' }
+    { type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' }
   ],
   adminPhone: [
     { required: true, message: '请输入手机号', trigger: 'blur' },
-    { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
+    { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号格式', trigger: 'blur' }
   ],
   adminPassword: [
     { required: true, message: '请输入密码', trigger: 'blur' },
-    { min: 6, max: 20, message: '密码长度为6-20位', trigger: 'blur' }
-  ],
-  adminIntroduce: [
-    { max: 200, message: '介绍长度不能超过200位', trigger: 'blur' }
+    { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' }
   ]
 }
-
-// 角色详情弹窗相关
-const rolesDialogVisible = ref(false)
-const currentRolesAdmin = ref<AdminPageVO | null>(null)
 
 // 介绍详情弹窗相关
 const introduceDialogVisible = ref(false)
@@ -549,7 +448,7 @@ const currentIntroduceAdmin = ref<AdminPageVO | null>(null)
 
 // 查看详情弹窗相关
 const detailDialogVisible = ref(false)
-const currentDetailAdmin = ref<AdminPageVO | null>(null)
+const currentDetailAdmin = ref<AdminInfoVO | null>(null)
 
 // 角色分配相关
 const roleDialogVisible = ref(false)
@@ -600,12 +499,7 @@ const refreshData = () => {
   getAdminList()
 }
 
-// 表格选择
-const handleSelectionChange = (selection: AdminPageVO[]) => {
-  selectedIds.value = selection.map(item => item.adminId)
-}
-
-// 分页处理
+// 分页变更
 const handleSizeChange = (size: number) => {
   pagination.size = size
   getAdminList()
@@ -616,109 +510,122 @@ const handleCurrentChange = (current: number) => {
   getAdminList()
 }
 
-// 新增管理员
-const showAddDialog = async () => {
-  dialogType.value = 'add'
+// 多选
+const handleSelectionChange = (selection: AdminPageVO[]) => {
+  selectedIds.value = selection.map(item => item.adminId)
+}
+
+// 显示新增对话框
+const showAddDialog = () => {
+  dialogType.value = 'create'
+  resetForm()
   dialogVisible.value = true
+}
+
+// 重置表单
+const resetForm = () => {
+  if (formRef.value) {
+    formRef.value.resetFields()
+  }
+  
+  Object.assign(form, {
+    adminId: undefined,
+    adminAccount: '',
+    adminUsername: '',
+    adminEmail: '',
+    adminPhone: '',
+    adminPassword: '',
+    adminImage: '',
+    adminIntroduce: '',
+    adminState: 1
+  })
+}
+
+// 提交表单
+const handleSubmit = async () => {
+  if (!formRef.value) return
   
   try {
-    const response = await adminApi.generateRandomAccount()
-    form.adminAccount = response.data
+    await formRef.value.validate()
+    submitting.value = true
+    
+    if (dialogType.value === 'create') {
+      await adminApi.addAdmin(form)
+      ElMessage.success('新增成功')
+    } else {
+      await adminApi.updateAdmin(form)
+      ElMessage.success('更新成功')
+    }
+    
+    dialogVisible.value = false
+    getAdminList()
   } catch (error) {
-    console.error('生成随机账号失败:', error)
+    console.error('操作失败:', error)
+    ElMessage.error('操作失败')
+  } finally {
+    submitting.value = false
   }
 }
 
-// 查看角色
-const handleViewRoles = (row: AdminPageVO) => {
-  currentRolesAdmin.value = row
-  rolesDialogVisible.value = true
-}
-
-// 查看介绍
-const handleViewIntroduce = (row: AdminPageVO) => {
-  currentIntroduceAdmin.value = row
-  introduceDialogVisible.value = true
-}
-
-// 查看完整详情
-const handleViewDetail = (row: AdminPageVO) => {
-  currentDetailAdmin.value = row
-  detailDialogVisible.value = true
-}
-
-// 编辑管理员
+// 编辑
 const handleEdit = (row: AdminPageVO) => {
   dialogType.value = 'edit'
-  dialogVisible.value = true
-  
-  // 填充表单数据
   Object.assign(form, {
     adminId: row.adminId,
     adminAccount: row.adminAccount,
     adminUsername: row.adminUsername,
     adminEmail: row.adminEmail,
     adminPhone: row.adminPhone,
-    adminPassword: '', // 编辑时不显示密码
+    adminPassword: '', // 编辑时密码置空
     adminImage: row.adminImage,
     adminIntroduce: row.adminIntroduce,
     adminState: row.adminState
   })
+  dialogVisible.value = true
 }
 
-// 删除管理员
-const handleDelete = async (row: AdminPageVO) => {
-  if (row.adminId === 1) {
-    ElMessage.warning('超级管理员不能删除')
-    return
-  }
-
-  try {
-    await ElMessageBox.confirm(
-      `确定要删除管理员"${row.adminUsername}"吗？`,
-      '警告',
-      {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }
-    )
-
-    await adminApi.deleteAdmin(row.adminId)
-    ElMessage.success('删除成功')
-    getAdminList()
-  } catch (error) {
-    if (error !== 'cancel') {
+// 删除
+const handleDelete = (row: AdminPageVO) => {
+  ElMessageBox.confirm(`确定要删除管理员"${row.adminUsername}"吗？`, '确认删除', {
+    type: 'warning'
+  }).then(async () => {
+    try {
+      await adminApi.deleteAdmin(row.adminId)
+      ElMessage.success('删除成功')
+      getAdminList()
+    } catch (error) {
       console.error('删除失败:', error)
+      ElMessage.error('删除失败')
     }
-  }
+  })
 }
 
 // 批量删除
-const handleBatchDelete = async () => {
-  try {
-    await ElMessageBox.confirm(
-      `确定要删除选中的 ${selectedIds.value.length} 个管理员吗？`,
-      '警告',
-      {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }
-    )
-
-    for (const id of selectedIds.value) {
-      if (id !== 1) {
-        await adminApi.deleteAdmin(id)
-      }
-    }
-    
-    ElMessage.success('批量删除成功')
-    getAdminList()
-  } catch (error) {
-    if (error !== 'cancel') {
+const handleBatchDelete = () => {
+  ElMessageBox.confirm(`确定要删除选中的 ${selectedIds.value.length} 个管理员吗？`, '确认批量删除', {
+    type: 'warning'
+  }).then(async () => {
+    try {
+      await Promise.all(selectedIds.value.map(id => adminApi.deleteAdmin(id)))
+      ElMessage.success('批量删除成功')
+      getAdminList()
+    } catch (error) {
       console.error('批量删除失败:', error)
+      ElMessage.error('批量删除失败')
     }
+  })
+}
+
+// 查看完整详情
+const handleViewDetail = async (row: AdminPageVO) => {
+  try {
+    // 调用查看管理员详情接口
+    const response = await adminApi.getAdminInfo(row.adminId)
+    currentDetailAdmin.value = response.data
+    detailDialogVisible.value = true
+  } catch (error) {
+    console.error('获取管理员详情失败:', error)
+    ElMessage.error('获取管理员详情失败')
   }
 }
 
@@ -732,12 +639,12 @@ const handleAssignRole = async (row: AdminPageVO) => {
     const rolesResponse = await adminApi.getAdminRoles(row.adminId)
     selectedRoles.value = rolesResponse.data.map((role: RoleInfoVO) => role.roleId)
     
-    // 获取所有角色（这里需要从角色管理API获取，暂用模拟数据）
-    allRoles.value = [
-      { key: 1, label: '超级管理员' },
-      { key: 2, label: '内容管理员' },
-      { key: 3, label: '数据审核员' }
-    ]
+    // 获取所有角色
+    const allRolesResponse = await roleApi.getAllRoles()
+    allRoles.value = allRolesResponse.data.map((role: RoleInfoVO) => ({
+      key: role.roleId,
+      label: role.roleName
+    }))
   } catch (error) {
     console.error('获取角色信息失败:', error)
   }
@@ -760,47 +667,15 @@ const handleAssignRoleSubmit = async () => {
   }
 }
 
-// 提交表单
-const handleSubmit = async () => {
-  if (!formRef.value) return
-
+// 生成随机账号
+const generateRandomAccount = async () => {
   try {
-    await formRef.value.validate()
-    submitting.value = true
-
-    if (dialogType.value === 'add') {
-      await adminApi.addAdmin(form)
-      ElMessage.success('新增成功')
-    } else {
-      await adminApi.updateAdmin(form)
-      ElMessage.success('更新成功')
-    }
-
-    dialogVisible.value = false
-    getAdminList()
+    const response = await adminApi.generateRandomAccount()
+    form.adminAccount = response.data
+    ElMessage.success('账号生成成功')
   } catch (error) {
-    console.error('提交失败:', error)
-  } finally {
-    submitting.value = false
+    console.error('生成随机账号失败:', error)
   }
-}
-
-// 重置表单
-const resetForm = () => {
-  if (formRef.value) {
-    formRef.value.resetFields()
-  }
-  
-  Object.assign(form, {
-    adminAccount: '',
-    adminUsername: '',
-    adminEmail: '',
-    adminPhone: '',
-    adminPassword: '',
-    adminImage: '',
-    adminIntroduce: '',
-    adminState: 1
-  })
 }
 
 // 组件挂载
@@ -812,6 +687,123 @@ onMounted(() => {
 <style scoped lang="scss">
 .admin-management {
   font-size: 16px;
+  
+  // 角色卡片样式
+  .role-card {
+    margin-bottom: 20px;
+    border: 1px solid #e4e7ed;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+  }
+
+  .role-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-bottom: 1px solid #e4e7ed;
+  }
+
+  .role-tag {
+    font-weight: 600;
+  }
+
+  .role-desc-tag {
+    flex: 1;
+    opacity: 0.9;
+  }
+
+  // 权限区域
+  .permissions-section {
+    padding: 20px;
+    background: #fafbfc;
+  }
+
+  .permissions-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    
+    i {
+      color: #3b82f6;
+      font-size: 16px;
+    }
+  }
+
+  .permission-count {
+    margin-left: auto;
+  }
+
+  .permissions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .permission-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+      transform: translateY(-1px);
+    }
+    
+    i {
+      color: #10b981;
+      font-size: 14px;
+    }
+    
+    .permission-name {
+      font-size: 14px;
+      color: #374151;
+    }
+  }
+
+  .no-permissions-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px;
+    background: white;
+    border: 1px dashed #d1d5db;
+    border-radius: 6px;
+    color: #6b7280;
+    
+    i {
+      font-size: 16px;
+    }
+  }
+
+  .no-roles-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 24px;
+    text-align: center;
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    color: #dc2626;
+    font-weight: 500;
+    
+    i {
+      font-size: 24px;
+    }
+  }
   
   .page-header {
     display: flex;
@@ -854,30 +846,32 @@ onMounted(() => {
     .el-table {
       font-size: 16px;
     }
-    
-    .table-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .table-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: #1f2937;
-    }
-
-    .table-actions {
-      display: flex;
-      gap: 8px;
-    }
   }
 
-  .pagination-wrapper {
+  .table-header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .table-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  .table-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: flex-end;
     margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #f3f4f6;
   }
 
   .dialog-footer {
@@ -886,14 +880,21 @@ onMounted(() => {
     gap: 12px;
   }
 
-  .role-info {
-    margin-bottom: 24px;
-  }
-
   .role-selection {
+    margin-top: 20px;
+    
     h4 {
       margin-bottom: 16px;
       color: #1f2937;
+      font-weight: 600;
+    }
+  }
+
+  .danger {
+    color: #ef4444;
+    
+    &:hover {
+      color: #dc2626;
     }
   }
 }
@@ -905,17 +906,30 @@ onMounted(() => {
       flex-direction: column;
       gap: 16px;
     }
-
+    
     .header-actions {
       width: 100%;
       justify-content: flex-start;
     }
-
-    .search-form {
+    
+    .search-card .el-form {
       .el-form-item {
-        width: 100%;
+        display: block;
         margin-bottom: 16px;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        .el-input,
+        .el-select {
+          width: 100%;
+        }
       }
+    }
+    
+    .el-table {
+      font-size: 14px;
     }
   }
 }
