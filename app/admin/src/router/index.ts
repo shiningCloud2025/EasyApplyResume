@@ -217,6 +217,28 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
   
+  // 检查token是否过期
+  const token = localStorage.getItem('admin_token')
+  if (token) {
+    try {
+      // 解析JWT token检查是否过期
+      const payload = JSON.parse(atob(token.split('.')[1]))
+      const currentTime = Math.floor(Date.now() / 1000)
+      
+      if (payload.exp && payload.exp < currentTime) {
+        // Token已过期，清除认证状态并跳转登录
+        authStore.clearAuth()
+        next('/login')
+        return
+      }
+    } catch (parseError) {
+      // Token格式错误，清除认证状态
+      authStore.clearAuth()
+      next('/login')
+      return
+    }
+  }
+  
   // 如果已登录且访问登录页，跳转到首页
   if (to.path === '/login' && authStore.isLoggedIn) {
     next('/admin/dashboard')

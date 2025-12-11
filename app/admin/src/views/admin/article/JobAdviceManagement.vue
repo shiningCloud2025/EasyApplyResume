@@ -204,8 +204,6 @@
       </template>
     </el-dialog>
 
-    </el-dialog>
-
     <!-- 内容详情弹窗 -->
     <el-dialog
       v-model="contentDialogVisible"

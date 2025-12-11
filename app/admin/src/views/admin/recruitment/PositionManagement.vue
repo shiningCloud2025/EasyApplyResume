@@ -183,8 +183,6 @@
       </template>
     </el-dialog>
 
-    </el-dialog>
-
     <!-- 职位描述详情弹窗 -->
     <el-dialog
       v-model="introduceDialogVisible"

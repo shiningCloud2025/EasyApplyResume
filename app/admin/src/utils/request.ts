@@ -19,31 +19,6 @@ const request: AxiosInstance = axios.create({
   }
 })
 
-// 请求拦截器
-request.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
-    // 添加token
-    const token = localStorage.getItem('admin_token')
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
-    }
-    
-    // 添加时间戳防止缓存
-    if (config.method === 'get') {
-      config.params = {
-        ...config.params,
-        _t: Date.now()
-      }
-    }
-    
-    return config
-  },
-  (error) => {
-    console.error('请求错误:', error)
-    return Promise.reject(error)
-  }
-)
-
 // 响应拦截器
 request.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
@@ -52,6 +27,15 @@ request.interceptors.response.use(
     // 请求成功
     if (code === 200) {
       return response.data
+    }
+    
+    // Token过期或未认证
+    if (code === 401) {
+      const authStore = useAuthStore()
+      ElMessage.error('登录已过期，请重新登录')
+      authStore.clearAuth()
+      router.push('/login')
+      return Promise.reject(new Error('登录已过期'))
     }
     
     // 业务错误
@@ -66,8 +50,9 @@ request.interceptors.response.use(
       
       switch (status) {
         case 401:
+          const authStore = useAuthStore()
           ElMessage.error('登录已过期，请重新登录')
-          localStorage.removeItem('admin_token')
+          authStore.clearAuth()
           router.push('/login')
           break
         case 403:
@@ -88,6 +73,58 @@ request.interceptors.response.use(
       ElMessage.error('网络错误，请检查网络连接')
     }
     
+    return Promise.reject(error)
+  }
+)
+
+// 请求拦截器 - 增强版，检查token有效性
+let tokenCheckCount = 0
+request.interceptors.request.use(
+  (config: AxiosRequestConfig) => {
+    const token = localStorage.getItem('admin_token')
+    
+    // 如果存在token，每次都主动检查是否过期
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+      
+      // 每次请求都检查token是否过期
+      try {
+        // 解析JWT token检查是否过期
+        const payload = JSON.parse(atob(token.split('.')[1]))
+        const currentTime = Math.floor(Date.now() / 1000)
+        
+        if (payload.exp && payload.exp < currentTime) {
+          // Token已过期，清除认证状态并跳转登录
+          const authStore = useAuthStore()
+          console.warn('Token已过期，自动退出登录')
+          ElMessage.warning('登录已过期，请重新登录')
+          authStore.clearAuth()
+          router.push('/login')
+          return Promise.reject(new Error('Token已过期'))
+        }
+      } catch (parseError) {
+        console.warn('Token解析失败，可能格式错误:', parseError)
+        // Token格式错误，也视为无效token
+        const authStore = useAuthStore()
+        ElMessage.warning('登录状态异常，请重新登录')
+        authStore.clearAuth()
+        router.push('/login')
+        return Promise.reject(new Error('Token解析失败'))
+      }
+    }
+    
+    // 添加时间戳防止缓存
+    if (config.method === 'get') {
+      config.params = {
+        ...config.params,
+        _t: Date.now()
+      }
+    }
+    
+    return config
+  },
+  (error) => {
+    console.error('请求错误:', error)
     return Promise.reject(error)
   }
 )
