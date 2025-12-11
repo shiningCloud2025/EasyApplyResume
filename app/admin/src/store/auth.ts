@@ -57,7 +57,7 @@ export const useAuthStore = defineStore('auth', {
       try {
         this.loading = true
         console.log('开始登录，参数:', form)
-        const response = await api.post<string>('/admin/auth/formalLogin', null, { params: form })
+        const response = await api.post<string>('/admin/auth/formalLogin', form)
         console.log('登录响应:', response)
         
         if (!response.data) {
@@ -88,7 +88,7 @@ export const useAuthStore = defineStore('auth', {
     async loginByPhone(form: PhoneLoginForm) {
       try {
         this.loading = true
-        const response = await api.post<string>('/admin/auth/phoneLogin', null, { params: form })
+        const response = await api.post<string>('/admin/auth/phoneLogin', form)
         this.setToken(response.data)
         
         // 获取用户信息（失败不影响登录）
@@ -108,7 +108,7 @@ export const useAuthStore = defineStore('auth', {
     async loginByEmail(form: EmailLoginForm) {
       try {
         this.loading = true
-        const response = await api.post<string>('/admin/auth/emailLogin', null, { params: form })
+        const response = await api.post<string>('/admin/auth/emailLogin', form)
         this.setToken(response.data)
         
         // 获取用户信息（失败不影响登录）
