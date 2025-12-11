@@ -115,6 +115,18 @@
           </template>
         </el-table-column>
         
+        <el-table-column label="角色" width="120">
+          <template #default="{ row }">
+            <el-button
+              type="info"
+              size="small"
+              @click="handleViewRoles(row)"
+            >
+              查看角色
+            </el-button>
+          </template>
+        </el-table-column>
+        
         <el-table-column label="操作" width="280" fixed="right">
           <template #default="{ row }">
             <el-button
@@ -277,7 +289,7 @@
     <el-dialog
       v-model="detailDialogVisible"
       title="管理员完整信息"
-      width="700px"
+      width="500px"
     >
       <el-descriptions v-if="currentDetailAdmin" :column="2" border>
         <el-descriptions-item label="管理员ID">
@@ -310,45 +322,6 @@
         <el-descriptions-item label="介绍" :span="2">
           {{ currentDetailAdmin.adminIntroduce || '暂无介绍' }}
         </el-descriptions-item>
-        <el-descriptions-item label="角色信息" :span="2">
-          <div v-if="currentDetailAdmin.roleInfoVOS && currentDetailAdmin.roleInfoVOS.length > 0">
-            <div v-for="role in currentDetailAdmin.roleInfoVOS" :key="role.roleId" class="role-card">
-              <div class="role-header">
-                <el-tag type="primary" size="large" class="role-tag">
-                  {{ role.roleName }}
-                </el-tag>
-                <el-tag type="info" size="small" class="role-desc-tag">
-                  {{ role.roleIntroduce }}
-                </el-tag>
-              </div>
-              
-              <!-- 权限显示优化 -->
-              <div v-if="role.permissionInfoVOS && role.permissionInfoVOS.length > 0" class="permissions-section">
-                <div class="permissions-header">
-                  <i class="el-icon-key"></i>
-                  <span>权限详情</span>
-                  <el-badge :value="role.permissionInfoVOS.length" class="permission-count" />
-                </div>
-                <div class="permissions-grid">
-                  <div v-for="permission in role.permissionInfoVOS" :key="permission.permissionId" class="permission-card">
-                    <i class="el-icon-folder-opened"></i>
-                    <span class="permission-name">{{ permission.permissionName }}</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div v-else class="no-permissions-card">
-                <i class="el-icon-warning-outline"></i>
-                <span>暂无具体权限</span>
-              </div>
-            </div>
-          </div>
-          
-          <div v-else class="no-roles-card">
-            <i class="el-icon-user"></i>
-            <span>该管理员暂无分配角色</span>
-          </div>
-        </el-descriptions-item>
         
         <el-descriptions-item label="最后登录" :span="2" v-if="currentDetailAdmin.adminLoginTime">
           {{ formatDateTime(currentDetailAdmin.adminLoginTime) }}
@@ -358,6 +331,65 @@
       <template #footer>
         <div class="dialog-footer">
           <el-button @click="detailDialogVisible = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+    <!-- 角色权限弹窗 -->
+    <el-dialog
+      v-model="rolesDialogVisible"
+      title="管理员角色权限"
+      width="700px"
+    >
+      <el-card>
+        <template #header>
+          <div style="font-weight: 600; font-size: 16px;">
+            {{ currentRolesAdmin?.adminUsername }} - 角色权限详情
+          </div>
+        </template>
+        
+        <div v-if="currentRoles && currentRoles.length > 0">
+          <div v-for="role in currentRoles" :key="role.roleId" class="role-card">
+            <div class="role-header">
+              <el-tag type="primary" size="large" class="role-tag">
+                {{ role.roleName }}
+              </el-tag>
+              <el-tag type="info" size="small" class="role-desc-tag">
+                {{ role.roleIntroduce }}
+              </el-tag>
+            </div>
+            
+            <!-- 权限显示优化 -->
+            <div v-if="role.permissionInfoVOS && role.permissionInfoVOS.length > 0" class="permissions-section">
+              <div class="permissions-header">
+                <i class="el-icon-key"></i>
+                <span>权限详情</span>
+                <el-badge :value="role.permissionInfoVOS.length" class="permission-count" />
+              </div>
+              <div class="permissions-grid">
+                <div v-for="permission in role.permissionInfoVOS" :key="permission.permissionId" class="permission-card">
+                  <i class="el-icon-folder-opened"></i>
+                  <span class="permission-name">{{ permission.permissionName }}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div v-else class="no-permissions-card">
+              <i class="el-icon-warning-outline"></i>
+              <span>暂无具体权限</span>
+            </div>
+          </div>
+        </div>
+        
+        <div v-else class="no-roles-card">
+          <i class="el-icon-user"></i>
+          <span>该管理员暂无分配角色</span>
+        </div>
+      </el-card>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="rolesDialogVisible = false">关闭</el-button>
         </div>
       </template>
     </el-dialog>
@@ -449,6 +481,11 @@ const currentIntroduceAdmin = ref<AdminPageVO | null>(null)
 // 查看详情弹窗相关
 const detailDialogVisible = ref(false)
 const currentDetailAdmin = ref<AdminInfoVO | null>(null)
+
+// 角色权限弹窗相关
+const rolesDialogVisible = ref(false)
+const currentRolesAdmin = ref<AdminPageVO | null>(null)
+const currentRoles = ref<any[]>([])
 
 // 角色分配相关
 const roleDialogVisible = ref(false)
@@ -614,6 +651,22 @@ const handleBatchDelete = () => {
       ElMessage.error('批量删除失败')
     }
   })
+}
+
+// 查看角色
+const handleViewRoles = async (row: AdminPageVO) => {
+  currentRolesAdmin.value = row
+  rolesDialogVisible.value = true
+  
+  try {
+    // 调用查看管理员拥有角色的接口
+    const response = await adminApi.getAdminRoles(row.adminId)
+    currentRoles.value = response.data
+  } catch (error) {
+    console.error('获取角色信息失败:', error)
+    ElMessage.error('获取角色信息失败')
+    currentRoles.value = []
+  }
 }
 
 // 查看完整详情

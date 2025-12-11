@@ -42,6 +42,7 @@
 
     <select id="findRoleByAdmin" parameterType="int" resultType="com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO">
         select * from admin_admin_role
+        left join admin_role on admin_admin_role.roleId = admin_role.role_id
         where adminId = #{adminId}
     </select>
 

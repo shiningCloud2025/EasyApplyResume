@@ -60,14 +60,14 @@
         <el-table-column prop="roleId" label="角色ID" width="70" />
         <el-table-column prop="roleName" label="角色名称" min-width="150" />
         <el-table-column prop="roleIntroduce" label="角色描述" min-width="200" />
-        <el-table-column label="详情" width="100" align="center">
+        <el-table-column label="权限" width="100" align="center">
           <template #default="{ row }">
             <el-button
               type="info"
               size="default"
               @click="handleViewRoleDetail(row)"
             >
-              详情
+              查看权限
             </el-button>
           </template>
         </el-table-column>
@@ -199,15 +199,33 @@
           </div>
         </el-descriptions-item>
         <el-descriptions-item label="权限" :span="2">
-          <el-tag
-            v-for="permission in currentRoleDetail.permissionInfoVOS"
-            :key="permission.permissionId"
-            size="default"
-            style="margin-right: 8px; margin-bottom: 8px;"
-          >
-            {{ permission.permissionName }}
-          </el-tag>
-          <span v-if="!currentRoleDetail.permissionInfoVOS || currentRoleDetail.permissionInfoVOS.length === 0" style="color: #909399;">暂无权限</span>
+          <el-card>
+            <template #header>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <i class="el-icon-key" style="color: #3b82f6;"></i>
+                <span>权限列表</span>
+              </div>
+            </template>
+            
+            <div v-if="currentRoleDetail?.permissionInfoVOS && currentRoleDetail.permissionInfoVOS.length > 0" 
+                 style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <el-tag 
+                v-for="permission in currentRoleDetail.permissionInfoVOS" 
+                :key="permission.permissionId" 
+                type="info"
+                size="default"
+                style="display: flex; align-items: center; gap: 4px;"
+              >
+                <i class="el-icon-folder-opened" style="font-size: 14px;"></i>
+                {{ permission.permissionName }}
+              </el-tag>
+            </div>
+            
+            <div v-else class="no-roles-card">
+              <i class="el-icon-user"></i>
+              <span>该角色暂无分配权限</span>
+            </div>
+          </el-card>
         </el-descriptions-item>
       </el-descriptions>
       
@@ -370,6 +388,9 @@ const handleViewRoleDetail = async (row: RolePageVO) => {
     // 调用查看角色详情接口
     const response = await roleApi.getRoleInfo(row.roleId)
     currentRoleDetail.value = response.data
+    console.log('角色详情数据:', response.data)
+    console.log('权限数据:', response.data?.permissionInfoVOS)
+    console.log('权限数量:', response.data?.permissionInfoVOS?.length)
     permissionDialogVisible.value = true
   } catch (error) {
     console.error('获取角色详情失败:', error)
@@ -389,7 +410,11 @@ const handlePermission = async (row: RolePageVO) => {
     
     // 获取所有权限
     const allPermissionsResponse = await permissionApi.getAllPermissions()
-    allPermissions.value = allPermissionsResponse.data
+    // 修复：正确映射权限数据格式为 el-transfer 需要的格式
+    allPermissions.value = allPermissionsResponse.data.map((permission: any) => ({
+      key: permission.permissionId,
+      label: permission.permissionName
+    }))
   } catch (error) {
     console.error('获取权限信息失败:', error)
   }
@@ -480,6 +505,23 @@ onMounted(() => {
 <style scoped lang="scss">
 .role-management {
   font-size: 16px;
+  
+  // 无权限卡片样式
+  .no-permissions-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px;
+    background: white;
+    border: 1px dashed #d1d5db;
+    border-radius: 6px;
+    color: #6b7280;
+    
+    i {
+      font-size: 16px;
+    }
+  }
   
   .page-header {
     display: flex;
