@@ -28,10 +28,18 @@
             style="width: 240px"
           />
         </el-form-item>
-        <el-form-item label="请求路径">
+        <el-form-item label="权限URL">
           <el-input
             v-model="searchForm.permissionUrl"
-            placeholder="请输入请求路径"
+            placeholder="请输入权限URL"
+            clearable
+            style="width: 240px"
+          />
+        </el-form-item>
+        <el-form-item label="权限简介">
+          <el-input
+            v-model="searchForm.permissionIntroduce"
+            placeholder="请输入权限简介"
             clearable
             style="width: 240px"
           />
@@ -57,34 +65,19 @@
         style="width: 100%"
         empty-text="暂无数据"
       >
-        <el-table-column prop="permissionId" label="ID" width="70" />
+        <el-table-column prop="permissionId" label="权限ID" width="70" />
         <el-table-column prop="permissionName" label="权限名称" min-width="150" />
-        <el-table-column prop="permissionUrl" label="请求路径" min-width="200" />
-        <el-table-column prop="permissionRequest" label="请求方式" width="100" align="center">
-          <template #default="{ row }">
-            <el-tag :type="getRequestTagType(row.permissionRequest)">
-              {{ row.permissionRequest }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column label="描述" width="100" align="center">
+        <el-table-column prop="permissionUrl" label="权限URL" min-width="200" />
+        <el-table-column prop="permissionIntroduce" label="权限简介" min-width="200" />
+        <el-table-column label="操作" width="220" fixed="right">
           <template #default="{ row }">
             <el-button
-              type="primary"
+              type="info"
               size="default"
-              @click="handleViewIntroduce(row)"
+              @click="handleViewDetail(row)"
             >
-              详情
+              查看
             </el-button>
-          </template>
-        </el-table-column>
-        <el-table-column prop="permissionCreatedTime" label="创建时间" width="160">
-          <template #default="{ row }">
-            {{ formatDateTime(row.permissionCreatedTime) }}
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="280" fixed="right">
-          <template #default="{ row }">
             <el-button type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
@@ -124,23 +117,15 @@
         <el-form-item label="权限名称" prop="permissionName">
           <el-input v-model="permissionForm.permissionName" placeholder="请输入权限名称" />
         </el-form-item>
-        <el-form-item label="请求路径" prop="permissionUrl">
-          <el-input v-model="permissionForm.permissionUrl" placeholder="请输入请求路径，如：/admin/user/list" />
+        <el-form-item label="权限URL" prop="permissionUrl">
+          <el-input v-model="permissionForm.permissionUrl" placeholder="请输入权限URL" />
         </el-form-item>
-        <el-form-item label="请求方式" prop="permissionRequest">
-          <el-select v-model="permissionForm.permissionRequest" placeholder="请选择请求方式">
-            <el-option label="GET" value="GET" />
-            <el-option label="POST" value="POST" />
-            <el-option label="PUT" value="PUT" />
-            <el-option label="DELETE" value="DELETE" />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="权限描述" prop="permissionIntroduce">
+        <el-form-item label="权限简介" prop="permissionIntroduce">
           <el-input
             v-model="permissionForm.permissionIntroduce"
             type="textarea"
             :rows="3"
-            placeholder="请输入权限描述"
+            placeholder="请输入权限简介"
           />
         </el-form-item>
       </el-form>
@@ -154,24 +139,32 @@
       </template>
     </el-dialog>
 
-    <!-- 描述详情弹窗 -->
+    <!-- 权限详情对话框 -->
     <el-dialog
-      v-model="introduceDialogVisible"
-      title="权限描述"
+      v-model="detailDialogVisible"
+      title="权限详情"
       width="600px"
     >
-      <el-card v-if="currentIntroducePermission">
-        <template #header>
-          <div style="font-weight: 600; font-size: 16px;">{{ currentIntroducePermission.permissionName }}</div>
-        </template>
-        <div style="padding: 16px; min-height: 100px; white-space: pre-wrap; word-break: break-all; line-height: 1.8;">
-          {{ currentIntroducePermission.permissionIntroduce || '该权限暂无描述' }}
-        </div>
-      </el-card>
+      <el-descriptions v-if="currentDetailPermission" :column="1" border>
+        <el-descriptions-item label="权限ID">
+          {{ currentDetailPermission.permissionId }}
+        </el-descriptions-item>
+        <el-descriptions-item label="权限名称">
+          {{ currentDetailPermission.permissionName }}
+        </el-descriptions-item>
+        <el-descriptions-item label="权限URL">
+          {{ currentDetailPermission.permissionUrl }}
+        </el-descriptions-item>
+        <el-descriptions-item label="权限简介">
+          <div style="white-space: pre-wrap; word-break: break-all;">
+            {{ currentDetailPermission.permissionIntroduce || '暂无简介' }}
+          </div>
+        </el-descriptions-item>
+      </el-descriptions>
       
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="introduceDialogVisible = false">关闭</el-button>
+          <el-button @click="detailDialogVisible = false">关闭</el-button>
         </div>
       </template>
     </el-dialog>
@@ -202,7 +195,7 @@ const editingPermission = ref<PermissionPageVO | null>(null)
 const searchForm = reactive<PermissionPageQuery>({
   permissionName: '',
   permissionUrl: '',
-  permissionRequest: ''
+  permissionIntroduce: ''
 })
 
 // 分页
@@ -221,7 +214,6 @@ const permissionForm = reactive<PermissionForm>({
   permissionId: undefined,
   permissionName: '',
   permissionUrl: '',
-  permissionRequest: 'GET',
   permissionIntroduce: ''
 })
 
@@ -232,15 +224,11 @@ const permissionRules = {
     { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
   ],
   permissionUrl: [
-    { required: true, message: '请输入请求路径', trigger: 'blur' },
+    { required: true, message: '请输入权限URL', trigger: 'blur' },
     { min: 2, max: 200, message: '长度在 2 到 200 个字符', trigger: 'blur' }
   ],
-  permissionRequest: [
-    { required: true, message: '请选择请求方式', trigger: 'change' }
-  ],
   permissionIntroduce: [
-    { required: true, message: '请输入权限描述', trigger: 'blur' },
-    { min: 5, max: 200, message: '长度在 5 到 200 个字符', trigger: 'blur' }
+    { max: 200, message: '简介长度不能超过200个字符', trigger: 'blur' }
   ]
 }
 
@@ -281,7 +269,7 @@ const handleSearch = () => {
 const handleReset = () => {
   searchForm.permissionName = ''
   searchForm.permissionUrl = ''
-  searchForm.permissionRequest = ''
+  searchForm.permissionIntroduce = ''
   pagination.current = 1
   getPermissionList()
 }
@@ -302,13 +290,19 @@ const handleCurrentChange = (current: number) => {
   getPermissionList()
 }
 
-// 查看描述详情
-const introduceDialogVisible = ref(false)
-const currentIntroducePermission = ref<PermissionPageVO | null>(null)
+// 查看权限详情
+const detailDialogVisible = ref(false)
+const currentDetailPermission = ref<PermissionInfoVO | null>(null)
 
-const handleViewIntroduce = (row: PermissionPageVO) => {
-  currentIntroducePermission.value = row
-  introduceDialogVisible.value = true
+const handleViewDetail = async (row: PermissionPageVO) => {
+  try {
+    const response = await permissionApi.getPermissionInfo(row.permissionId)
+    currentDetailPermission.value = response.data
+    detailDialogVisible.value = true
+  } catch (error) {
+    console.error('获取权限详情失败:', error)
+    ElMessage.error('获取权限详情失败')
+  }
 }
 
 // 编辑权限
@@ -318,7 +312,6 @@ const handleEdit = (row: PermissionPageVO) => {
     permissionId: row.permissionId,
     permissionName: row.permissionName,
     permissionUrl: row.permissionUrl,
-    permissionRequest: row.permissionRequest,
     permissionIntroduce: row.permissionIntroduce
   })
   showCreateDialog.value = true
@@ -387,7 +380,6 @@ const resetForm = () => {
     permissionId: undefined,
     permissionName: '',
     permissionUrl: '',
-    permissionRequest: 'GET',
     permissionIntroduce: ''
   })
 }

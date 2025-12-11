@@ -143,10 +143,10 @@ export const permissionApi = {
   updatePermission: (data: PermissionForm) => api.post<number>('/admin/permission/update', data),
   
   // 删除权限
-  deletePermission: (permissionId: number) => api.delete<number>('/admin/permission/delete', { params: { permissionId } }),
+  deletePermission: (permissionId: number) => api.get<number>(`/admin/permission/delete?permissionId=${permissionId}`),
   
   // 查询权限详情
-  getPermissionInfo: (permissionId: number) => api.get<PermissionInfoVO>('/admin/permission/findById', { params: { permissionId } }),
+  getPermissionInfo: (permissionId: number) => api.get<PermissionInfoVO>(`/admin/permission/findById?permissionId=${permissionId}`),
   
   // 分页查询权限
   getPermissionPage: (pageNum: number, pageSize: number, query: PermissionPageQuery) => 

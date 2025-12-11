@@ -1,246 +1,509 @@
 <template>
   <div class="api-docs">
     <div class="docs-header">
-      <h1>API文档中心</h1>
+      <h1>{{ pageTitle }}</h1>
       <div class="header-actions">
-        <el-button @click="exportDocs">
-          <i class="el-icon-download"></i>
-          导出文档
+        <el-button @click="openAPIDocs" type="primary" size="large">
+          <i class="el-icon-view"></i>
+          在新窗口打开{{ pageTitle }}
         </el-button>
       </div>
     </div>
 
     <div class="docs-content">
-      <div class="docs-sidebar">
-        <el-input
-          v-model="searchKeyword"
-          placeholder="搜索API..."
-          prefix-icon="el-icon-search"
-          class="search-input"
-        />
-        <div class="api-list">
-          <div 
-            v-for="api in filteredApis" 
-            :key="api.id"
-            class="api-item"
-            :class="{ active: selectedApi?.id === api.id }"
-            @click="selectApi(api)"
-          >
-            <div class="api-method" :class="api.method.toLowerCase()">
-              {{ api.method }}
+      <div class="welcome-card">
+        <div class="card-bg-decoration">
+          <div class="bg-circle bg-circle-1"></div>
+          <div class="bg-circle bg-circle-2"></div>
+          <div class="bg-circle bg-circle-3"></div>
+        </div>
+        
+        <el-card class="main-card" shadow="hover">
+          <div class="welcome-content">
+            <div class="icon-wrapper">
+              <div class="icon-bg">
+                <i :class="pageIcon"></i>
+              </div>
             </div>
-            <div class="api-info">
-              <div class="api-path">{{ api.path }}</div>
-              <div class="api-name">{{ api.name }}</div>
+            
+            <h2>{{ pageTitle }}</h2>
+            <p class="subtitle">{{ pageDescription }}</p>
+            
+            <div class="features">
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class="el-icon-platform-eleme"></i>
+                </div>
+                <div class="feature-content">
+                  <span class="feature-title">完整文档</span>
+                  <span class="feature-desc">全面的API接口说明</span>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class="el-icon-cpu"></i>
+                </div>
+                <div class="feature-content">
+                  <span class="feature-title">在线测试</span>
+                  <span class="feature-desc">实时API接口调试</span>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class="el-icon-notebook-2"></i>
+                </div>
+                <div class="feature-content">
+                  <span class="feature-title">参数详情</span>
+                  <span class="feature-desc">详细的参数规范</span>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">
+                  <i class="el-icon-data-analysis"></i>
+                </div>
+                <div class="feature-content">
+                  <span class="feature-title">响应示例</span>
+                  <span class="feature-desc">真实数据示例</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="action-section">
+              <div class="action-content">
+                <div class="action-icon">
+                  <i class="el-icon-right"></i>
+                </div>
+                <div class="action-text">
+                  <h3>开始使用</h3>
+                  <p>点击下方按钮在新窗口中查看完整的API文档</p>
+                </div>
+              </div>
+              <el-button 
+                size="large" 
+                type="primary" 
+                @click="openAPIDocs"
+                class="action-button"
+                :loading="loading"
+              >
+                <i class="el-icon-top-right"></i>
+                打开 {{ pageType === 'external' ? 'Swagger UI' : 'Knife4j UI' }}
+              </el-button>
+            </div>
+            
+            <div class="quick-info">
+              <div class="info-item">
+                <i class="el-icon-link"></i>
+                <span>{{ apiURL }}</span>
+              </div>
+              <div class="info-item">
+                <i class="el-icon-document"></i>
+                <span>{{ pageType === 'external' ? 'OpenAPI 3.0 规范' : 'Knife4j 增强版' }}</span>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="docs-main">
-        <div v-if="selectedApi" class="api-detail">
-          <div class="detail-header">
-            <div class="method-tag" :class="selectedApi.method.toLowerCase()">
-              {{ selectedApi.method }}
-            </div>
-            <h2>{{ selectedApi.path }}</h2>
-            <p>{{ selectedApi.description }}</p>
-          </div>
-
-          <el-card class="detail-card">
-            <template #header>请求参数</template>
-            <el-table :data="selectedApi.parameters" border>
-              <el-table-column prop="name" label="参数名" />
-              <el-table-column prop="type" label="类型" />
-              <el-table-column prop="required" label="必填">
-                <template #default="{ row }">
-                  <el-tag :type="row.required ? 'danger' : 'info'">
-                    {{ row.required ? '是' : '否' }}
-                  </el-tag>
-                </template>
-              </el-table-column>
-              <el-table-column prop="description" label="说明" />
-            </el-table>
-          </el-card>
-
-          <el-card class="detail-card">
-            <template #header>响应示例</template>
-            <pre>{{ JSON.stringify(selectedApi.responseExample, null, 2) }}</pre>
-          </el-card>
-        </div>
-
-        <div v-else class="welcome-message">
-          <i class="el-icon-document"></i>
-          <p>请从左侧选择API查看详情</p>
-        </div>
+        </el-card>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { ElMessage } from 'element-plus'
+import { ref, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 
-const searchKeyword = ref('')
-const selectedApi = ref(null)
+const route = useRoute()
+const loading = ref(false)
 
-const apis = ref([
-  {
-    id: 1,
-    method: 'GET',
-    path: '/api/admin/list',
-    name: '获取管理员列表',
-    description: '获取管理员列表，支持分页和筛选',
-    parameters: [
-      { name: 'page', type: 'int', required: false, description: '页码' },
-      { name: 'size', type: 'int', required: false, description: '每页数量' }
-    ],
-    responseExample: { code: 200, data: [], message: 'success' }
-  },
-  {
-    id: 2,
-    method: 'POST',
-    path: '/api/admin/create',
-    name: '创建管理员',
-    description: '创建新的管理员账户',
-    parameters: [
-      { name: 'username', type: 'string', required: true, description: '用户名' },
-      { name: 'password', type: 'string', required: true, description: '密码' }
-    ],
-    responseExample: { code: 200, data: { id: 1 }, message: 'success' }
-  }
-])
-
-const filteredApis = computed(() => {
-  return apis.value.filter(api => 
-    api.name.includes(searchKeyword.value) || 
-    api.path.includes(searchKeyword.value)
-  )
+const pageType = computed(() => {
+  return route.path.includes('external') ? 'external' : 'internal'
 })
 
-const selectApi = (api: any) => {
-  selectedApi.value = api
+const pageTitle = computed(() => {
+  return pageType.value === 'external' ? 'API对外文档中心' : 'API对内文档中心'
+})
+
+const pageDescription = computed(() => {
+  return pageType.value === 'external' 
+    ? '面向外部开发者的API接口文档，提供标准化的接口规范'
+    : '内部系统API接口文档，包含完整的管理端接口说明'
+})
+
+const pageIcon = computed(() => {
+  return pageType.value === 'external' ? 'el-icon-share' : 'el-icon-lock'
+})
+
+const apiURL = computed(() => {
+  return pageType.value === 'external' 
+    ? 'http://localhost:8080/api/swagger-ui/index.html'
+    : 'http://localhost:8080/api/doc.html#/home'
+})
+
+const openAPIDocs = async () => {
+  loading.value = true
+  try {
+    // 模拟加载效果
+    await new Promise(resolve => setTimeout(resolve, 500))
+    window.open(apiURL.value, '_blank')
+  } finally {
+    loading.value = false
+  }
 }
 
-const exportDocs = () => {
-  ElMessage.success('文档导出功能开发中')
-}
+onMounted(() => {
+  console.log(`${pageTitle.value}页面已加载`)
+})
 </script>
 
 <style scoped lang="scss">
 .api-docs {
-  height: calc(100vh - 120px);
-  padding: 24px;
-}
-
-.docs-header {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
+  flex-direction: column;
 }
 
 .docs-content {
-  display: flex;
-  gap: 24px;
-  height: calc(100% - 60px);
-}
-
-.docs-sidebar {
-  width: 350px;
-  background: white;
-  border-radius: 8px;
-  padding: 16px;
-  overflow-y: auto;
-}
-
-.search-input {
-  margin-bottom: 16px;
-}
-
-.api-list {
-  .api-item {
-    display: flex;
-    gap: 12px;
-    padding: 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    
-    &:hover {
-      background: #f5f5f5;
-    }
-    
-    &.active {
-      background: #eff6ff;
-    }
-  }
-}
-
-.api-method {
-  width: 60px;
-  height: 24px;
-  border-radius: 4px;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
-  font-weight: 600;
-  color: white;
-  
-  &.get { background: #67c23a; }
-  &.post { background: #409eff; }
-  &.put { background: #e6a23c; }
-  &.delete { background: #f56c6c; }
 }
 
-.docs-main {
-  flex: 1;
-  background: white;
-  border-radius: 8px;
-  padding: 24px;
-  overflow-y: auto;
+.welcome-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
-.detail-header {
-  margin-bottom: 24px;
+.card-bg-decoration {
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  right: -50px;
+  bottom: -50px;
+  z-index: -1;
+}
+
+.bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  animation: float 6s ease-in-out infinite;
   
-  .method-tag {
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 12px;
-    
-    &.get { background: #67c23a; }
-    &.post { background: #409eff; }
-    &.put { background: #e6a23c; }
-    &.delete { background: #f56c6c; }
+  &.bg-circle-1 {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+  
+  &.bg-circle-2 {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 10%;
+    animation-delay: 2s;
+  }
+  
+  &.bg-circle-3 {
+    width: 100px;
+    height: 100px;
+    bottom: 10%;
+    left: 20%;
+    animation-delay: 4s;
   }
 }
 
-.detail-card {
-  margin-bottom: 20px;
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
 }
 
-.welcome-message {
+.main-card {
+  border-radius: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 100%;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+  }
+}
+
+.welcome-content {
   text-align: center;
-  margin-top: 100px;
-  color: #999;
+  padding: 30px 25px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.98);
+}
   
-  i {
-    font-size: 64px;
-    margin-bottom: 16px;
+  .icon-wrapper {
+    margin-bottom: 25px;
+    
+    .icon-bg {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+      position: relative;
+      overflow: hidden;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: shine 3s infinite;
+      }
+      
+      i {
+        font-size: 32px;
+        color: white;
+        z-index: 1;
+        position: relative;
+      }
+    }
+  }
+  
+  h2 {
+    margin: 0 0 12px 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a202c;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .subtitle {
+    margin: 0 0 30px 0;
+    color: #4a5568;
+    font-size: 16px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin: 30px 0;
+  
+  .feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    
+    &:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 25px rgba(102, 126, 234, 0.2);
+      background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+    }
+    
+    .feature-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin-bottom: 12px;
+      
+      i {
+        font-size: 18px;
+        color: white;
+      }
+    }
+    
+    .feature-content {
+      .feature-title {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a202c;
+        margin-bottom: 4px;
+      }
+      
+      .feature-desc {
+        font-size: 12px;
+        color: #718096;
+      }
+    }
   }
 }
 
-pre {
-  background: #f5f5f5;
-  padding: 16px;
-  border-radius: 4px;
-  overflow-x: auto;
+.action-section {
+  margin: 30px 0;
+  padding: 25px;
+  background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    animation: shimmer 2s infinite;
+  }
+  
+  .action-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    
+    .action-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+      
+      i {
+        font-size: 16px;
+        color: white;
+      }
+    }
+    
+    .action-text {
+      text-align: left;
+      
+      h3 {
+        margin: 0 0 6px 0;
+        color: #1a202c;
+        font-size: 18px;
+        font-weight: 600;
+      }
+      
+      p {
+        margin: 0;
+        color: #4a5568;
+        font-size: 14px;
+      }
+    }
+  }
+  
+  .action-button {
+    font-size: 16px;
+    padding: 12px 30px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(72, 187, 120, 0.4);
+    }
+    
+    i {
+      margin-right: 8px;
+    }
+  }
+}
+
+@keyframes shine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.quick-info {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+  
+  .info-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #718096;
+    font-size: 12px;
+    
+    i {
+      color: #667eea;
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .api-docs {
+    padding: 16px;
+  }
+  
+  .welcome-content {
+    padding: 25px 20px;
+    h2 {
+      font-size: 20px;
+    }
+    
+    .subtitle {
+      font-size: 14px;
+    }
+  }
+  
+  .features {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+  }
+  
+  .action-section {
+    padding: 20px 15px;
+    
+    .action-content {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+  }
+  
+  .quick-info {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .bg-circle-1 { width: 80px; height: 80px; }
+  .bg-circle-2 { width: 60px; height: 60px; }
+  .bg-circle-3 { width: 40px; height: 40px; }
 }
 </style>

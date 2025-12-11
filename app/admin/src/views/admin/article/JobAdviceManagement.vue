@@ -36,11 +36,13 @@
             <el-option label="行业分析" value="industry" />
           </el-select>
         </el-form-item>
-        <el-form-item label="状态">
-          <el-select v-model="searchForm.jobAdviceArticleState" placeholder="请选择" clearable style="width: 180px">
-            <el-option label="已发布" :value="1" />
-            <el-option label="草稿" :value="0" />
-          </el-select>
+        <el-form-item label="作者">
+          <el-input
+            v-model="searchForm.jobAdviceArticleAuthorName"
+            placeholder="请输入作者名称"
+            clearable
+            style="width: 240px"
+          />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSearch">
@@ -64,25 +66,8 @@
         empty-text="暂无数据"
       >
         <el-table-column prop="jobAdviceArticleId" label="ID" width="70" />
-        <el-table-column prop="jobAdviceArticleTitle" label="文章标题" min-width="250">
-          <template #default="{ row }">
-            <div class="article-title">
-              <h4>{{ row.jobAdviceArticleTitle }}</h4>
-            </div>
-          </template>
-        </el-table-column>
-        
-        <el-table-column label="内容" width="100" align="center">
-          <template #default="{ row }">
-            <el-button
-              type="primary"
-              size="default"
-              @click="handleViewContent(row)"
-            >
-              详情
-            </el-button>
-          </template>
-        </el-table-column>
+        <el-table-column prop="jobAdviceArticleTitle" label="文章标题" min-width="200" />
+        <el-table-column prop="jobAdviceArticleAuthorName" label="作者" width="120" />
         <el-table-column prop="jobAdviceArticleCategory" label="分类" width="120">
           <template #default="{ row }">
             <el-tag :type="getCategoryTagType(row.jobAdviceArticleCategory)">
@@ -90,10 +75,10 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="jobAdviceArticleTag" label="标签" width="150">
+        <el-table-column prop="jobAdviceArticleTags" label="标签" width="150">
           <template #default="{ row }">
             <el-tag
-              v-for="tag in row.jobAdviceArticleTag?.split(',')"
+              v-for="tag in row.jobAdviceArticleTags?.split(',')"
               :key="tag"
               size="small"
               style="margin-right: 4px; margin-bottom: 4px;"
@@ -102,22 +87,10 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="jobAdviceArticleState" label="状态" width="100" align="center">
+        <el-table-column label="操作" width="250" fixed="right">
           <template #default="{ row }">
-            <el-tag :type="row.jobAdviceArticleState === 1 ? 'success' : 'info'">
-              {{ row.jobAdviceArticleState === 1 ? '已发布' : '草稿' }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="jobAdviceArticleCreatedTime" label="创建时间" width="160">
-          <template #default="{ row }">
-            {{ formatDateTime(row.jobAdviceArticleCreatedTime) }}
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="300" fixed="right">
-          <template #default="{ row }">
-            <el-button type="info" size="default" @click="handlePreview(row)">
-              预览
+            <el-button type="info" size="default" @click="handleViewContent(row)">
+              查看
             </el-button>
             <el-button type="primary" size="default" @click="handleEdit(row)">
               编辑
@@ -171,17 +144,14 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="文章标签" prop="jobAdviceArticleTag">
-              <el-input v-model="articleForm.jobAdviceArticleTag" placeholder="多个标签用逗号分隔" />
+            <el-form-item label="文章标签" prop="jobAdviceArticleTags">
+              <el-input v-model="articleForm.jobAdviceArticleTags" placeholder="多个标签用逗号分隔" />
             </el-form-item>
           </el-col>
         </el-row>
         
-        <el-form-item label="文章状态" prop="jobAdviceArticleState">
-          <el-radio-group v-model="articleForm.jobAdviceArticleState">
-            <el-radio :label="1">发布</el-radio>
-            <el-radio :label="0">草稿</el-radio>
-          </el-radio-group>
+        <el-form-item label="作者">
+          <el-input v-model="articleForm.jobAdviceArticleAuthorName" placeholder="请输入作者名称" />
         </el-form-item>
         
         <el-form-item label="文章内容" prop="jobAdviceArticleContent">
@@ -204,20 +174,41 @@
       </template>
     </el-dialog>
 
-    <!-- 内容详情弹窗 -->
+    <!-- 查看详情弹窗 -->
     <el-dialog
       v-model="contentDialogVisible"
-      title="文章内容"
+      title="文章详情"
       width="800px"
     >
-      <el-card v-if="currentContentArticle">
-        <template #header>
-          <div style="font-weight: 600; font-size: 16px;">{{ currentContentArticle.jobAdviceArticleTitle }}</div>
-        </template>
-        <div style="padding: 16px; min-height: 200px; white-space: pre-wrap; word-break: break-all; line-height: 1.8; max-height: 500px; overflow-y: auto;">
-          {{ currentContentArticle.jobAdviceArticleContent || '暂无内容' }}
-        </div>
-      </el-card>
+      <el-descriptions v-if="currentContentArticle" :column="1" border>
+        <el-descriptions-item label="文章ID">
+          {{ currentContentArticle.jobAdviceArticleId }}
+        </el-descriptions-item>
+        <el-descriptions-item label="文章标题">
+          {{ currentContentArticle.jobAdviceArticleTitle }}
+        </el-descriptions-item>
+        <el-descriptions-item label="作者">
+          {{ currentContentArticle.jobAdviceArticleAuthorName }}
+        </el-descriptions-item>
+        <el-descriptions-item label="分类">
+          {{ currentContentArticle.jobAdviceArticleCategory }}
+        </el-descriptions-item>
+        <el-descriptions-item label="标签">
+          <el-tag
+            v-for="tag in currentContentArticle.jobAdviceArticleTags?.split(',')"
+            :key="tag"
+            size="small"
+            style="margin-right: 4px; margin-bottom: 4px;"
+          >
+            {{ tag }}
+          </el-tag>
+        </el-descriptions-item>
+        <el-descriptions-item label="文章内容" :span="2">
+          <div style="white-space: pre-wrap; word-break: break-all; line-height: 1.8; max-height: 300px; overflow-y: auto;">
+            {{ currentContentArticle.jobAdviceArticleContent || '暂无内容' }}
+          </div>
+        </el-descriptions-item>
+      </el-descriptions>
       
       <template #footer>
         <div class="dialog-footer">
@@ -239,7 +230,7 @@
             <el-tag :type="getCategoryTagType(currentPreviewArticle.jobAdviceArticleCategory)">
               {{ getCategoryLabel(currentPreviewArticle.jobAdviceArticleCategory) }}
             </el-tag>
-            <span class="create-time">{{ formatDateTime(currentPreviewArticle.jobAdviceArticleCreatedTime) }}</span>
+            <span class="author">作者：{{ currentPreviewArticle.jobAdviceArticleAuthorName }}</span>
           </div>
         </div>
         <div class="preview-content">
@@ -257,19 +248,18 @@ import { formatDateTime } from '@/utils'
 import { jobAdviceArticleApi } from '@/api/admin'
 import type {
   JobAdviceArticleForm,
-  JobAdviceArticleQuery
+  JobAdviceArticleQuery,
+  JobAdviceArticlePageVO
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
 
-// 声明文章类型
-interface JobAdviceArticleVO {
+interface JobAdviceArticleInfoVO {
   jobAdviceArticleId: number
   jobAdviceArticleTitle: string
   jobAdviceArticleContent: string
   jobAdviceArticleCategory: string
-  jobAdviceArticleTag: string
-  jobAdviceArticleState: number
-  jobAdviceArticleCreatedTime: string
+  jobAdviceArticleTags: string
+  jobAdviceArticleAuthorName: string
 }
 
 // 响应式数据
@@ -277,14 +267,17 @@ const loading = ref(false)
 const submitting = ref(false)
 const showCreateDialog = ref(false)
 const showPreviewDialog = ref(false)
-const editingArticle = ref<JobAdviceArticleVO | null>(null)
-const currentPreviewArticle = ref<JobAdviceArticleVO | null>(null)
+const editingArticle = ref<JobAdviceArticlePageVO | null>(null)
+const currentPreviewArticle = ref<JobAdviceArticlePageVO | null>(null)
+const currentContentArticle = ref<JobAdviceArticleInfoVO | null>(null)
 
 // 搜索表单
 const searchForm = reactive<JobAdviceArticleQuery>({
   jobAdviceArticleTitle: '',
+  jobAdviceArticleContent: '',
   jobAdviceArticleCategory: '',
-  jobAdviceArticleState: undefined
+  jobAdviceArticleTags: '',
+  jobAdviceArticleAuthorName: ''
 })
 
 // 分页
@@ -295,7 +288,7 @@ const pagination = reactive({
 })
 
 // 表格数据
-const tableData = ref<JobAdviceArticleVO[]>([])
+const tableData = ref<JobAdviceArticlePageVO[]>([])
 
 // 文章表单
 const articleFormRef = ref<FormInstance>()
@@ -304,8 +297,8 @@ const articleForm = reactive<JobAdviceArticleForm>({
   jobAdviceArticleTitle: '',
   jobAdviceArticleContent: '',
   jobAdviceArticleCategory: '',
-  jobAdviceArticleTag: '',
-  jobAdviceArticleState: 1
+  jobAdviceArticleTags: '',
+  jobAdviceArticleAuthorName: ''
 })
 
 // 表单校验规则
@@ -359,8 +352,10 @@ const handleSearch = () => {
 // 重置搜索
 const handleReset = () => {
   searchForm.jobAdviceArticleTitle = ''
+  searchForm.jobAdviceArticleContent = ''
   searchForm.jobAdviceArticleCategory = ''
-  searchForm.jobAdviceArticleState = undefined
+  searchForm.jobAdviceArticleTags = ''
+  searchForm.jobAdviceArticleAuthorName = ''
   pagination.current = 1
   getArticleList()
 }
@@ -381,37 +376,40 @@ const handleCurrentChange = (current: number) => {
   getArticleList()
 }
 
-// 查看内容详情
-const contentDialogVisible = ref(false)
-const currentContentArticle = ref<JobAdviceArticleVO | null>(null)
 
-const handleViewContent = (row: JobAdviceArticleVO) => {
-  currentContentArticle.value = row
-  contentDialogVisible.value = true
+const handleViewContent = async (row: JobAdviceArticlePageVO) => {
+  try {
+    const response = await jobAdviceArticleApi.getJobAdviceArticleInfo(row.jobAdviceArticleId)
+    currentContentArticle.value = response.data
+    contentDialogVisible.value = true
+  } catch (error) {
+    console.error('获取文章详情失败:', error)
+    ElMessage.error('获取文章详情失败')
+  }
 }
 
 // 编辑文章
-const handleEdit = (row: JobAdviceArticleVO) => {
+const handleEdit = (row: JobAdviceArticlePageVO) => {
   editingArticle.value = row
   Object.assign(articleForm, {
     jobAdviceArticleId: row.jobAdviceArticleId,
     jobAdviceArticleTitle: row.jobAdviceArticleTitle,
     jobAdviceArticleContent: row.jobAdviceArticleContent,
     jobAdviceArticleCategory: row.jobAdviceArticleCategory,
-    jobAdviceArticleTag: row.jobAdviceArticleTag,
-    jobAdviceArticleState: row.jobAdviceArticleState
+    jobAdviceArticleTags: row.jobAdviceArticleTags,
+    jobAdviceArticleAuthorName: row.jobAdviceArticleAuthorName
   })
   showCreateDialog.value = true
 }
 
 // 预览文章
-const handlePreview = (row: JobAdviceArticleVO) => {
+const handlePreview = (row: JobAdviceArticlePageVO) => {
   currentPreviewArticle.value = row
   showPreviewDialog.value = true
 }
 
 // 删除文章
-const handleDelete = (row: JobAdviceArticleVO) => {
+const handleDelete = (row: JobAdviceArticlePageVO) => {
   ElMessageBox.confirm(`确定要删除文章"${row.jobAdviceArticleTitle}"吗？`, '确认删除', {
     type: 'warning'
   }).then(async () => {
@@ -490,8 +488,8 @@ const resetForm = () => {
     jobAdviceArticleTitle: '',
     jobAdviceArticleContent: '',
     jobAdviceArticleCategory: '',
-    jobAdviceArticleTag: '',
-    jobAdviceArticleState: 1
+    jobAdviceArticleTags: '',
+    jobAdviceArticleAuthorName: ''
   })
 }
 
@@ -594,7 +592,7 @@ onMounted(() => {
         align-items: center;
         gap: 12px;
         
-        .create-time {
+        .author {
           color: #6b7280;
           font-size: 14px;
         }

@@ -194,8 +194,22 @@ const router = createRouter({
         {
           path: 'api-docs',
           name: 'APIDocs',
-          component: () => import('@/views/admin/APIDocs.vue'),
-          meta: { title: 'API文档中心' }
+          redirect: '/admin/api-docs/external',
+          meta: { title: 'API文档中心' },
+          children: [
+            {
+              path: 'external',
+              name: 'ExternalAPIDocs',
+              component: () => import('@/views/admin/APIDocs.vue'),
+              meta: { title: 'API对外文档中心' }
+            },
+            {
+              path: 'internal',
+              name: 'InternalAPIDocs',
+              component: () => import('@/views/admin/APIDocs.vue'),
+              meta: { title: 'API对内文档中心' }
+            }
+          ]
         },
         {
           path: 'profile',
