@@ -65,7 +65,7 @@
             <el-button
               type="info"
               size="default"
-              @click="handleViewRoleDetail(row)"
+              @click="handleViewPermissions(row)"
             >
               查看权限
             </el-button>
@@ -76,7 +76,7 @@
             <el-button
               type="info"
               size="default"
-              @click="handleViewRoleDetail(row)"
+              @click="handleViewRoleInfo(row)"
             >
               查看
             </el-button>
@@ -180,58 +180,61 @@
       </template>
     </el-dialog>
 
-    <!-- 角色详情对话框 -->
+    <!-- 角色详情对话框（只显示角色信息） -->
     <el-dialog
-      v-model="permissionDialogVisible"
-      title="角色详情"
-      width="700px"
+      v-model="roleInfoDialogVisible"
+      title="角色详细信息"
+      width="500px"
     >
-      <el-descriptions v-if="currentRoleDetail" :column="2" border>
+      <el-descriptions v-if="currentRoleInfo" :column="2" border>
         <el-descriptions-item label="角色ID">
-          {{ currentRoleDetail.roleId }}
+          {{ currentRoleInfo.roleId }}
         </el-descriptions-item>
         <el-descriptions-item label="角色名称">
-          {{ currentRoleDetail.roleName }}
+          {{ currentRoleInfo.roleName }}
         </el-descriptions-item>
         <el-descriptions-item label="角色描述" :span="2">
           <div style="white-space: pre-wrap; word-break: break-all;">
-            {{ currentRoleDetail.roleIntroduce || '暂无描述' }}
+            {{ currentRoleInfo.roleIntroduce || '暂无描述' }}
           </div>
-        </el-descriptions-item>
-        <el-descriptions-item label="权限" :span="2">
-          <el-card>
-            <template #header>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <i class="el-icon-key" style="color: #3b82f6;"></i>
-                <span>权限列表</span>
-              </div>
-            </template>
-            
-            <div v-if="currentRoleDetail?.permissionInfoVOS && currentRoleDetail.permissionInfoVOS.length > 0" 
-                 style="display: flex; flex-wrap: wrap; gap: 8px;">
-              <el-tag 
-                v-for="permission in currentRoleDetail.permissionInfoVOS" 
-                :key="permission.permissionId" 
-                type="info"
-                size="default"
-                style="display: flex; align-items: center; gap: 4px;"
-              >
-                <i class="el-icon-folder-opened" style="font-size: 14px;"></i>
-                {{ permission.permissionName }}
-              </el-tag>
-            </div>
-            
-            <div v-else class="no-roles-card">
-              <i class="el-icon-user"></i>
-              <span>该角色暂无分配权限</span>
-            </div>
-          </el-card>
         </el-descriptions-item>
       </el-descriptions>
       
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="permissionDialogVisible = false">关闭</el-button>
+          <el-button @click="roleInfoDialogVisible = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+    <!-- 权限列表对话框（只显示权限） -->
+    <el-dialog
+      v-model="permissionsDialogVisible"
+      title="权限列表"
+      width="700px"
+    >
+      <div v-if="currentRolePermissions && currentRolePermissions.length > 0">
+        <div class="permissions-header">
+          <i class="el-icon-key"></i>
+          <span>权限列表</span>
+          <el-badge :value="currentRolePermissions.length" class="permission-count" />
+        </div>
+        <div class="permissions-grid">
+          <div v-for="permission in currentRolePermissions" :key="permission.permissionId" class="permission-card">
+            <i class="el-icon-folder-opened"></i>
+            <span class="permission-name">{{ permission.permissionName }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div v-else class="no-permissions-card">
+        <i class="el-icon-warning-outline"></i>
+        <span>该角色暂无分配权限</span>
+      </div>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="permissionsDialogVisible = false">关闭</el-button>
         </div>
       </template>
     </el-dialog>
@@ -379,22 +382,35 @@ const handleEdit = (row: RolePageVO) => {
   showCreateDialog.value = true
 }
 
-// 查看角色详情
-const permissionDialogVisible = ref(false)
-const currentRoleDetail = ref<RoleInfoVO | null>(null)
+// 查看角色基本信息（不包含权限）
+const roleInfoDialogVisible = ref(false)
+const currentRoleInfo = ref<RoleInfoVO | null>(null)
 
-const handleViewRoleDetail = async (row: RolePageVO) => {
+const handleViewRoleInfo = async (row: RolePageVO) => {
   try {
     // 调用查看角色详情接口
     const response = await roleApi.getRoleInfo(row.roleId)
-    currentRoleDetail.value = response.data
-    console.log('角色详情数据:', response.data)
-    console.log('权限数据:', response.data?.permissionInfoVOS)
-    console.log('权限数量:', response.data?.permissionInfoVOS?.length)
-    permissionDialogVisible.value = true
+    currentRoleInfo.value = response.data
+    roleInfoDialogVisible.value = true
   } catch (error) {
-    console.error('获取角色详情失败:', error)
-    ElMessage.error('获取角色详情失败')
+    console.error('获取角色信息失败:', error)
+    ElMessage.error('获取角色信息失败')
+  }
+}
+
+// 查看角色权限（只显示权限列表）
+const permissionsDialogVisible = ref(false)
+const currentRolePermissions = ref<PermissionInfoVO[]>([])
+
+const handleViewPermissions = async (row: RolePageVO) => {
+  try {
+    // 调用查看角色拥有的权限接口
+    const response = await roleApi.getRolePermissions(row.roleId)
+    currentRolePermissions.value = response.data
+    permissionsDialogVisible.value = true
+  } catch (error) {
+    console.error('获取角色权限失败:', error)
+    ElMessage.error('获取角色权限失败')
   }
 }
 
@@ -406,7 +422,8 @@ const handlePermission = async (row: RolePageVO) => {
   try {
     // 获取角色当前权限
     const rolesPermissionsResponse = await roleApi.getRolePermissions(row.roleId)
-    selectedPermissionIds.value = rolesPermissionsResponse.data
+    // 修复：将权限对象数组映射为权限ID数组
+    selectedPermissionIds.value = rolesPermissionsResponse.data.map((permission: any) => permission.permissionId)
     
     // 获取所有权限
     const allPermissionsResponse = await permissionApi.getAllPermissions()
@@ -505,6 +522,58 @@ onMounted(() => {
 <style scoped lang="scss">
 .role-management {
   font-size: 16px;
+  
+  // 权限区域样式
+  .permissions-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    
+    i {
+      color: #3b82f6;
+      font-size: 16px;
+    }
+  }
+
+  .permission-count {
+    margin-left: auto;
+  }
+
+  .permissions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .permission-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+      transform: translateY(-1px);
+    }
+    
+    i {
+      color: #10b981;
+      font-size: 14px;
+    }
+    
+    .permission-name {
+      font-size: 14px;
+      color: #374151;
+    }
+  }
   
   // 无权限卡片样式
   .no-permissions-card {

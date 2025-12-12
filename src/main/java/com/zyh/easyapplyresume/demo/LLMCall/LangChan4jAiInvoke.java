@@ -1,4 +1,4 @@
-//package com.zyh.easyapplyresume.demo.LLMCall;
+package com.zyh.easyapplyresume.demo.LLMCall;//package com.zyh.easyapplyresume.demo.LLMCall;
 //
 //import dev.langchain4j.community.model.dashscope.QwenChatModel;
 //import dev.langchain4j.model.chat.ChatLanguageModel;

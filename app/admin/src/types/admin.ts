@@ -75,6 +75,7 @@ export interface RoleInfoVO {
   roleId: number
   roleName: string
   roleIntroduce: string
+  permissions?: PermissionInfoVO[]
 }
 
 // 角色表单
