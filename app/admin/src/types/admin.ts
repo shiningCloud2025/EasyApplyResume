@@ -137,44 +137,38 @@ export interface PermissionPageVO {
 // 简历模板信息VO
 export interface ResumeTemplateInfoVO {
   resumeTemplateId: number
-  resumeTemplateUuid: string
   resumeTemplateName: string
-  resumeTemplateDescribe: string
-  resumeTemplateHtml: string
-  resumeTemplateCss: string
-  resumeTemplatePrice: number
-  resumeTemplateState: number
-  resumeTemplateCreatedTime: string
-  resumeTemplateUpdatedTime: string
+  resumeTemplateReactCode: string
+  industryMapIndustryName: string
+  isEnable: number
+  createTime: string
+  updateTime: string
 }
 
 // 简历模板表单
 export interface ResumeTemplateForm {
   resumeTemplateId?: number
-  resumeTemplateUuid?: string
   resumeTemplateName: string
-  resumeTemplateDescribe: string
-  resumeTemplateHtml: string
-  resumeTemplateCss: string
-  resumeTemplatePrice: number
-  resumeTemplateState?: number
+  resumeTemplateReactCode: string
+  resumeTemplateIndustry: number
+  resumeTemplateIsActive?: number
 }
 
 // 简历模板查询
 export interface ResumeTemplateQuery {
   resumeTemplateName?: string
-  resumeTemplateState?: number
+  resumeTemplateIndustry?: number
 }
 
 // 简历模板分页VO
 export interface ResumeTemplatePageVO {
   resumeTemplateId: number
-  resumeTemplateUuid: string
   resumeTemplateName: string
-  resumeTemplateDescribe: string
-  resumeTemplatePrice: number
-  resumeTemplateState: number
+  resumeTemplateReactCode: string
+  industryMapIndustryName: string
+  resumeTemplateIsActive: number
   resumeTemplateCreatedTime: string
+  resumeTemplateUpdatedTime: string
 }
 
 // 求职攻略文章表单
@@ -183,15 +177,31 @@ export interface JobAdviceArticleForm {
   jobAdviceArticleTitle: string
   jobAdviceArticleContent: string
   jobAdviceArticleCategory: string
-  jobAdviceArticleTag: string
-  jobAdviceArticleState: number
+  jobAdviceArticleTags: string
+  jobAdviceArticleAuthorName: string
+  jobAdviceArticlePublishedStatus: number
 }
 
 // 求职攻略文章查询
 export interface JobAdviceArticleQuery {
   jobAdviceArticleTitle?: string
+  jobAdviceArticleContent?: string
   jobAdviceArticleCategory?: string
-  jobAdviceArticleState?: number
+  jobAdviceArticleTags?: string
+  jobAdviceArticleAuthorName?: string
+}
+
+// 求职攻略文章分页VO
+export interface JobAdviceArticlePageVO {
+  jobAdviceArticleId: number
+  jobAdviceArticleTitle: string
+  jobAdviceArticleContent: string
+  jobAdviceArticleCategory: string
+  jobAdviceArticleTags: string
+  jobAdviceArticleAuthorName: string
+  jobAdviceArticlePublishedStatus: number
+  jobAdviceArticlePublishedTime: any
+  jobAdviceArticleUpdatedTime: any
 }
 
 // 招聘岗位信息VO
@@ -236,51 +246,82 @@ export interface RecruitPositionPageVO {
 // 招聘信息信息VO
 export interface EmploymentInformationInfoVO {
   employmentInformationId: number
-  employmentInformationTitle: string
-  employmentInformationCompany: string
-  employmentInformationSalary: string
-  employmentInformationCity: string
-  employmentInformationExperience: string
-  employmentInformationEducation: string
-  employmentInformationSkill: string
-  employmentInformationIntroduce: string
-  employmentInformationWelfare: string
-  employmentInformationState: number
-  employmentInformationCreatedTime: string
+  employmentInformationCode: number
+  employmentInformationCompanyName: string
+  employmentInformationIndustryCategoriesName: string
+  employmentInformationCompanyType: number
+  employmentInformationBatch: number
+  employmentInformationRecruitPosition: number
+  employmentInformationRecruitObject: number
+  employmentInformationRecruitLocationFirstName: string[]
+  employmentInformationRecruitLocationSecondName: string[]
+  employmentInformationRecruitLocationDetail: string[]
+  employmentInformationStartTime: string
+  employmentInformationStopTime: string
+  employmentInformationUpdatedTime: string
+  employmentInformationOnlineApplicationStatus: string
+  employmentInformationOfficialAnnouncement: string
+  employmentInformationSubmissionWay: string
+  employmentInformationEmployeeReferralCode: string
 }
 
 // 招聘信息表单
 export interface EmploymentInformationForm {
   employmentInformationId?: number
-  employmentInformationTitle: string
-  employmentInformationCompany: string
-  employmentInformationSalary: string
-  employmentInformationCity: string
-  employmentInformationExperience: string
-  employmentInformationEducation: string
-  employmentInformationSkill: string
-  employmentInformationIntroduce: string
-  employmentInformationWelfare: string
-  employmentInformationState?: number
+  employmentInformationCode?: number
+  employmentInformationCompanyName: string
+  employmentInformationIndustryCategories: number
+  employmentInformationCompanyType: number
+  employmentInformationBatch: number
+  employmentInformationRecruitPosition: number
+  employmentInformationRecruitObject: number
+  employmentInformationRecruitLocationFirst: number[]
+  employmentInformationRecruitLocationSecond: number[]
+  employmentInformationRecruitLocationDetail?: string
+  employmentInformationStopTime: string
+  employmentInformationOnlineApplicationStatus: string
+  employmentInformationOfficialAnnouncement?: string
+  employmentInformationSubmissionWay: string
+  employmentInformationEmployeeReferralCode?: string
 }
 
 // 招聘信息查询
 export interface EmploymentInformationQuery {
-  employmentInformationTitle?: string
-  employmentInformationCompany?: string
-  employmentInformationCity?: string
-  employmentInformationState?: number
+  employmentInformationCompanyName?: string
+  employmentInformationIndustryCategories?: number
+  employmentInformationCompanyType?: number
+  employmentInformationBatch?: number
+  employmentInformationRecruitPosition?: number
+  employmentInformationRecruitObject?: number
+  employmentInformationRecruitLocationFirst?: number
+  employmentInformationRecruitLocationSecond?: number
+  employmentInformationRecruitLocationDetail?: string
+  employmentInformationStopTime?: string
+  employmentInformationOnlineApplicationStatus?: string
+  employmentInformationOfficialAnnouncement?: string
+  employmentInformationSubmissionWay?: string
+  employmentInformationEmployeeReferralCode?: string
 }
 
 // 招聘信息分页VO
 export interface EmploymentInformationPageVO {
   employmentInformationId: number
-  employmentInformationTitle: string
-  employmentInformationCompany: string
-  employmentInformationSalary: string
-  employmentInformationCity: string
-  employmentInformationState: number
-  employmentInformationCreatedTime: string
+  employmentInformationCompanyName: string
+  employmentInformationIndustryCategoriesName: string
+  employmentInformationCompanyType: number
+  employmentInformationBatch: number
+  employmentInformationRecruitPosition: number
+  employmentInformationRecruitObject: number
+  employmentInformationRecruitLocationFirstName: string[]
+  employmentInformationRecruitLocationSecondName: string[]
+  employmentInformationRecruitLocationDetail: string[]
+  employmentInformationStartTime: string
+  employmentInformationStopTime: string
+  employmentInformationUpdatedTime: string
+  employmentInformationOnlineApplicationStatus: string
+  employmentInformationOfficialAnnouncement: string
+  employmentInformationSubmissionWay: string
+  employmentInformationEmployeeReferralCode: string
 }
 
 // 行业Map信息VO

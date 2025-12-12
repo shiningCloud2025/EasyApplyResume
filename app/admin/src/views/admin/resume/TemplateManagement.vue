@@ -2,16 +2,16 @@
   <div class="template-management">
     <div class="page-header">
       <div class="header-content">
-        <h1 class="page-title">简历模版管理</h1>
-        <p class="page-description">管理简历模版，为用户提供多样化的简历样式</p>
+        <h1 class="page-title">简历模板管理</h1>
+        <p class="page-description">管理简历模板，为用户提供多样化的简历样式</p>
       </div>
       <div class="header-actions">
         <el-button type="primary" @click="openCreateDialog">
-          <i class="el-icon-plus"></i>
-          新增模版
+          <el-icon><Plus /></el-icon>
+          新增模板
         </el-button>
         <el-button @click="refreshData">
-          <i class="el-icon-refresh"></i>
+          <el-icon><Refresh /></el-icon>
           刷新
         </el-button>
       </div>
@@ -20,70 +20,85 @@
     <!-- 搜索和筛选 -->
     <el-card class="search-card">
       <el-form :model="searchForm" :inline="true" class="search-form">
-        <el-form-item label="模版名称">
+        <el-form-item label="模板名称">
           <el-input
             v-model="searchForm.resumeTemplateName"
-            placeholder="请输入模版名称"
+            placeholder="请输入模板名称"
             clearable
             style="width: 240px"
           />
         </el-form-item>
-        <el-form-item label="状态">
-          <el-select v-model="searchForm.resumeTemplateState" placeholder="请选择" clearable style="width: 180px">
-            <el-option label="启用" :value="1" />
-            <el-option label="禁用" :value="0" />
+        <el-form-item label="行业">
+          <el-select 
+            v-model="searchForm.resumeTemplateIndustry" 
+            placeholder="请选择行业" 
+            clearable 
+            style="width: 180px"
+            filterable
+          >
+            <el-option
+              v-for="industry in industries"
+              :key="industry.industryMapIndustryCode"
+              :label="industry.industryMapIndustryName"
+              :value="industry.industryMapIndustryCode"
+            />
           </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSearch">
-            <i class="el-icon-search"></i>
+            <el-icon><Search /></el-icon>
             搜索
           </el-button>
           <el-button @click="handleReset">
-            <i class="el-icon-refresh"></i>
+            <el-icon><RefreshRight /></el-icon>
             重置
           </el-button>
         </el-form-item>
       </el-form>
     </el-card>
 
-    <!-- 模版网格展示 -->
-    <el-card class="templates-card">
-      <div class="templates-grid">
-        <div 
-          v-for="template in tableData" 
-          :key="template.resumeTemplateId"
-          class="template-card"
-        >
-          <div class="template-preview">
-            <img :src="template.thumbnail || '/default-template.jpg'" :alt="template.resumeTemplateName" />
-            <div class="template-overlay">
-              <div class="overlay-actions">
-                <el-button type="text" size="small" @click="handlePreview(template)">
-                  <i class="el-icon-view"></i>
-                  预览
-                </el-button>
-                <el-button type="text" size="small" @click="handleEdit(template)">
-                  <i class="el-icon-edit"></i>
-                  编辑
-                </el-button>
-              </div>
-            </div>
-          </div>
-          <div class="template-info">
-            <h4 class="template-name">{{ template.resumeTemplateName }}</h4>
-            <div class="template-meta">
-              <el-tag :type="template.resumeTemplateState === 1 ? 'success' : 'danger'" size="small">
-                {{ template.resumeTemplateState === 1 ? '启用' : '禁用' }}
-              </el-tag>
-            </div>
-            <div class="template-stats">
-              <span class="price">￥{{ template.resumeTemplatePrice }}</span>
-              <span class="create-time">{{ formatDate(template.resumeTemplateCreatedTime) }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <!-- 模板列表 -->
+    <el-card class="table-card">
+      <el-table
+        v-loading="loading"
+        :data="tableData"
+        style="width: 100%"
+        empty-text="暂无数据"
+      >
+        <el-table-column prop="resumeTemplateId" label="ID" width="70" />
+        <el-table-column prop="resumeTemplateName" label="模板名称" min-width="200" />
+        <el-table-column prop="industryMapIndustryName" label="所属行业" width="120" />
+        <el-table-column label="是否启用" width="100" align="center">
+          <template #default="{ row }">
+            <el-tag :type="row.resumeTemplateIsActive === 1 ? 'success' : 'danger'">
+              {{ row.resumeTemplateIsActive === 1 ? '启用' : '禁用' }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="resumeTemplateCreatedTime" label="创建时间" width="180">
+          <template #default="{ row }">
+            {{ formatDateTime(row.resumeTemplateCreatedTime) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="resumeTemplateUpdatedTime" label="更新时间" width="180">
+          <template #default="{ row }">
+            {{ formatDateTime(row.resumeTemplateUpdatedTime) }}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="260" fixed="right">
+          <template #default="{ row }">
+            <el-button type="info" size="default" @click="handleView(row)">
+              查看
+            </el-button>
+            <el-button type="primary" size="default" @click="handleEdit(row)">
+              编辑
+            </el-button>
+            <el-button type="danger" size="default" @click="handleDelete(row)">
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
 
       <!-- 分页 -->
       <el-pagination
@@ -91,18 +106,18 @@
         v-model:current-page="pagination.current"
         v-model:page-size="pagination.size"
         :total="pagination.total"
-        :page-sizes="[12, 24, 48, 96]"
+        :page-sizes="[10, 20, 50, 100]"
         layout="total, sizes, prev, pager, next, jumper"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       />
     </el-card>
 
-    <!-- 创建/编辑模版对话框 -->
+    <!-- 创建/编辑模板对话框 -->
     <el-dialog
       v-model="showCreateDialog"
-      :title="editingTemplate ? '编辑模版' : '新增模版'"
-      width="800px"
+      :title="editingTemplate ? '编辑模板' : '新增模板'"
+      width="900px"
       @close="resetForm"
     >
       <el-form
@@ -113,61 +128,45 @@
       >
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="模版名称" prop="resumeTemplateName">
-              <el-input v-model="templateForm.resumeTemplateName" placeholder="请输入模版名称" />
+            <el-form-item label="模板名称" prop="resumeTemplateName">
+              <el-input v-model="templateForm.resumeTemplateName" placeholder="请输入模板名称" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="模版价格" prop="resumeTemplatePrice">
-              <el-input-number 
-                v-model="templateForm.resumeTemplatePrice" 
-                :min="0" 
-                :precision="2"
-                placeholder="请输入价格"
+            <el-form-item label="所属行业" prop="resumeTemplateIndustry">
+              <el-select 
+                v-model="templateForm.resumeTemplateIndustry" 
+                placeholder="请选择行业"
                 style="width: 100%"
-              />
+                filterable
+              >
+                <el-option
+                  v-for="industry in industries"
+                  :key="industry.industryMapIndustryCode"
+                  :label="industry.industryMapIndustryName"
+                  :value="industry.industryMapIndustryCode"
+                />
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
         
-        <el-form-item label="模版描述" prop="resumeTemplateDescribe">
-          <el-input
-            v-model="templateForm.resumeTemplateDescribe"
-            type="textarea"
-            :rows="3"
-            placeholder="请输入模版描述"
-          />
-        </el-form-item>
-        
-        <el-form-item label="状态" prop="resumeTemplateState">
-          <el-radio-group v-model="templateForm.resumeTemplateState">
+        <el-form-item label="是否启用" prop="resumeTemplateIsActive">
+          <el-radio-group v-model="templateForm.resumeTemplateIsActive">
             <el-radio :label="1">启用</el-radio>
             <el-radio :label="0">禁用</el-radio>
           </el-radio-group>
         </el-form-item>
         
-        <el-tabs v-model="activeTab" class="template-tabs">
-          <el-tab-pane label="HTML模版" name="html">
-            <el-form-item label="HTML代码">
-              <el-input
-                v-model="templateForm.resumeTemplateHtml"
-                type="textarea"
-                :rows="12"
-                placeholder="请输入HTML模版代码"
-              />
-            </el-form-item>
-          </el-tab-pane>
-          <el-tab-pane label="CSS样式" name="css">
-            <el-form-item label="CSS代码">
-              <el-input
-                v-model="templateForm.resumeTemplateCss"
-                type="textarea"
-                :rows="12"
-                placeholder="请输入CSS样式代码"
-              />
-            </el-form-item>
-          </el-tab-pane>
-        </el-tabs>
+        <el-form-item label="React代码" prop="resumeTemplateReactCode">
+          <el-input
+            v-model="templateForm.resumeTemplateReactCode"
+            type="textarea"
+            :rows="18"
+            placeholder="请输入React模板代码"
+            style="font-family: 'Consolas', 'Monaco', 'Courier New', monospace;"
+          />
+        </el-form-item>
       </el-form>
       
       <template #footer>
@@ -180,21 +179,47 @@
       </template>
     </el-dialog>
 
-    <!-- 预览对话框 -->
+    <!-- 查看模板详情对话框 -->
     <el-dialog
-      v-model="showPreviewDialog"
-      title="模版预览"
+      v-model="showViewDialog"
+      title="模板详情"
       width="900px"
     >
-      <div class="preview-container" v-if="currentPreviewTemplate">
-        <div class="preview-header">
-          <h3>{{ currentPreviewTemplate.resumeTemplateName }}</h3>
-          <p>{{ currentPreviewTemplate.resumeTemplateDescribe }}</p>
-        </div>
-        <div class="preview-content">
-          <div v-html="currentPreviewTemplate.resumeTemplateHtml" class="preview-html"></div>
-        </div>
+      <div class="template-detail" v-if="currentViewTemplate">
+        <el-descriptions :column="2" border>
+          <el-descriptions-item label="模板ID">
+            {{ currentViewTemplate.resumeTemplateId }}
+          </el-descriptions-item>
+          <el-descriptions-item label="模板名称">
+            {{ currentViewTemplate.resumeTemplateName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="所属行业">
+            {{ currentViewTemplate.industryMapIndustryName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="是否启用">
+            <el-tag :type="currentViewTemplate.isEnable === 1 ? 'success' : 'danger'">
+              {{ currentViewTemplate.isEnable === 1 ? '启用' : '禁用' }}
+            </el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="创建时间">
+            {{ formatDateTime(currentViewTemplate.createTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="更新时间">
+            {{ formatDateTime(currentViewTemplate.updateTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="React代码" :span="2">
+            <div class="code-preview">
+              <pre><code>{{ currentViewTemplate.resumeTemplateReactCode }}</code></pre>
+            </div>
+          </el-descriptions-item>
+        </el-descriptions>
       </div>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="showViewDialog = false">关闭</el-button>
+        </div>
+      </template>
     </el-dialog>
   </div>
 </template>
@@ -202,7 +227,9 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { resumeTemplateApi } from '@/api/admin'
+import { Plus, Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
+import { formatDateTime } from '@/utils'
+import { resumeTemplateApi, industryMapApi } from '@/api/admin'
 import type {
   ResumeTemplatePageVO,
   ResumeTemplateForm,
@@ -215,58 +242,64 @@ import type { FormInstance } from 'element-plus'
 const loading = ref(false)
 const submitting = ref(false)
 const showCreateDialog = ref(false)
-const showPreviewDialog = ref(false)
+const showViewDialog = ref(false)
 const editingTemplate = ref<ResumeTemplatePageVO | null>(null)
-const currentPreviewTemplate = ref<ResumeTemplatePageVO | null>(null)
-const activeTab = ref('html')
+const currentViewTemplate = ref<ResumeTemplateInfoVO | null>(null)
 
 // 搜索表单
 const searchForm = reactive<ResumeTemplateQuery>({
   resumeTemplateName: '',
-  resumeTemplateState: undefined
+  resumeTemplateIndustry: undefined
 })
 
 // 分页
 const pagination = reactive({
   current: 1,
-  size: 12,
+  size: 10,
   total: 0
 })
 
 // 表格数据
 const tableData = ref<ResumeTemplatePageVO[]>([])
 
-// 模版表单
+// 行业数据
+const industries = ref<any[]>([])
+
+// 模板表单
 const templateFormRef = ref<FormInstance>()
 const templateForm = reactive<ResumeTemplateForm>({
   resumeTemplateId: undefined,
   resumeTemplateName: '',
-  resumeTemplateDescribe: '',
-  resumeTemplateHtml: '',
-  resumeTemplateCss: '',
-  resumeTemplatePrice: 0,
-  resumeTemplateState: 1
+  resumeTemplateReactCode: '',
+  resumeTemplateIndustry: 0,
+  resumeTemplateIsActive: 1
 })
 
 // 表单校验规则
 const templateRules = {
   resumeTemplateName: [
-    { required: true, message: '请输入模版名称', trigger: 'blur' },
+    { required: true, message: '请输入模板名称', trigger: 'blur' },
     { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
   ],
-  resumeTemplateDescribe: [
-    { required: true, message: '请输入模版描述', trigger: 'blur' },
-    { min: 10, max: 200, message: '长度在 10 到 200 个字符', trigger: 'blur' }
+  resumeTemplateIndustry: [
+    { required: true, message: '请选择所属行业', trigger: 'change' }
   ],
-  resumeTemplateHtml: [
-    { required: true, message: '请输入HTML模版代码', trigger: 'blur' }
-  ],
-  resumeTemplateCss: [
-    { required: true, message: '请输入CSS样式代码', trigger: 'blur' }
+  resumeTemplateReactCode: [
+    { required: true, message: '请输入React模板代码', trigger: 'blur' }
   ]
 }
 
-// 获取模版列表
+// 加载行业数据
+const loadIndustries = async () => {
+  try {
+    const response = await industryMapApi.findAllIndustryMap()
+    industries.value = response.data
+  } catch (error) {
+    console.error('加载行业数据失败:', error)
+  }
+}
+
+// 获取模板列表
 const getTemplateList = async () => {
   loading.value = true
   try {
@@ -279,14 +312,14 @@ const getTemplateList = async () => {
     tableData.value = response.data.records
     pagination.total = response.data.total
   } catch (error) {
-    console.error('获取模版列表失败:', error)
+    console.error('获取模板列表失败:', error)
     ElMessage.error('加载数据失败')
   } finally {
     loading.value = false
   }
 }
 
-// 新增模版
+// 新增模板
 const openCreateDialog = () => {
   editingTemplate.value = null
   resetForm()
@@ -302,7 +335,7 @@ const handleSearch = () => {
 // 重置搜索
 const handleReset = () => {
   searchForm.resumeTemplateName = ''
-  searchForm.resumeTemplateState = undefined
+  searchForm.resumeTemplateIndustry = undefined
   pagination.current = 1
   getTemplateList()
 }
@@ -323,53 +356,57 @@ const handleCurrentChange = (current: number) => {
   getTemplateList()
 }
 
-// 编辑模版
-const handleEdit = (row: ResumeTemplatePageVO) => {
-  editingTemplate.value = row
-  Object.assign(templateForm, {
-    resumeTemplateId: row.resumeTemplateId,
-    resumeTemplateName: row.resumeTemplateName,
-    resumeTemplateDescribe: row.resumeTemplateDescribe,
-    resumeTemplateHtml: '', // HTML和CSS需要单独加载
-    resumeTemplateCss: '',
-    resumeTemplatePrice: row.resumeTemplatePrice,
-    resumeTemplateState: row.resumeTemplateState
-  })
-  
-  // 加载详细的模版信息
-  loadTemplateDetail(row.resumeTemplateId)
-  showCreateDialog.value = true
-}
-
-// 加载模版详情
-const loadTemplateDetail = async (templateId: number) => {
+// 查看模板详情
+const handleView = async (row: ResumeTemplatePageVO) => {
   try {
-    const response = await resumeTemplateApi.getResumeTemplateInfo(templateId)
-    const detail = response.data
-    templateForm.resumeTemplateHtml = detail.resumeTemplateHtml
-    templateForm.resumeTemplateCss = detail.resumeTemplateCss
+    const response = await resumeTemplateApi.getResumeTemplateInfo(row.resumeTemplateId)
+    currentViewTemplate.value = response.data
+    showViewDialog.value = true
   } catch (error) {
-    console.error('加载模版详情失败:', error)
+    console.error('获取模板详情失败:', error)
+    ElMessage.error('获取模板详情失败')
   }
 }
 
-// 预览模版
-const handlePreview = async (row: ResumeTemplatePageVO) => {
-  currentPreviewTemplate.value = row
-  
-  // 如果没有详细信息，则加载
-  if (!row.resumeTemplateHtml) {
-    try {
-      const response = await resumeTemplateApi.getResumeTemplateInfo(row.resumeTemplateId)
-      currentPreviewTemplate.value = { ...row, ...response.data }
-    } catch (error) {
-      console.error('加载模版详情失败:', error)
-      ElMessage.error('加载模版详情失败')
-      return
-    }
+// 编辑模板
+const handleEdit = async (row: ResumeTemplatePageVO) => {
+  try {
+    const response = await resumeTemplateApi.getResumeTemplateInfo(row.resumeTemplateId)
+    const detail = response.data
+    
+    editingTemplate.value = row
+    
+    // 根据行业名称反查行业ID
+    const industry = industries.value.find(ind => ind.industryMapIndustryName === detail.industryMapIndustryName)
+    
+    Object.assign(templateForm, {
+      resumeTemplateId: detail.resumeTemplateId,
+      resumeTemplateName: detail.resumeTemplateName,
+      resumeTemplateReactCode: detail.resumeTemplateReactCode,
+      resumeTemplateIndustry: industry ? industry.industryMapIndustryCode : 0,
+      resumeTemplateIsActive: detail.isEnable
+    })
+    showCreateDialog.value = true
+  } catch (error) {
+    console.error('获取模板详情失败:', error)
+    ElMessage.error('获取模板详情失败')
   }
-  
-  showPreviewDialog.value = true
+}
+
+// 删除模板
+const handleDelete = (row: ResumeTemplatePageVO) => {
+  ElMessageBox.confirm(`确定要删除模板"${row.resumeTemplateName}"吗？`, '确认删除', {
+    type: 'warning'
+  }).then(async () => {
+    try {
+      await resumeTemplateApi.deleteResumeTemplate(row.resumeTemplateId)
+      ElMessage.success('删除成功')
+      getTemplateList()
+    } catch (error) {
+      console.error('删除失败:', error)
+      ElMessage.error('删除失败')
+    }
+  })
 }
 
 // 提交表单
@@ -404,25 +441,18 @@ const resetForm = () => {
   }
   
   editingTemplate.value = null
-  activeTab.value = 'html'
   Object.assign(templateForm, {
     resumeTemplateId: undefined,
     resumeTemplateName: '',
-    resumeTemplateDescribe: '',
-    resumeTemplateHtml: '',
-    resumeTemplateCss: '',
-    resumeTemplatePrice: 0,
-    resumeTemplateState: 1
+    resumeTemplateReactCode: '',
+    resumeTemplateIndustry: 0,
+    resumeTemplateIsActive: 1
   })
 }
 
-// 格式化日期
-const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString()
-}
-
 // 组件挂载
-onMounted(() => {
+onMounted(async () => {
+  await loadIndustries()
   getTemplateList()
 })
 </script>
@@ -468,118 +498,18 @@ onMounted(() => {
     }
   }
 
-  .templates-card {
-    .templates-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-      margin-bottom: 24px;
-    }
-    
-    .template-card {
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      
-      &:hover {
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        transform: translateY(-2px);
-      }
-    }
-    
-    .template-preview {
-      position: relative;
-      height: 200px;
-      background: #f9fafb;
-      
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      
-      .template-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        
-        &:hover {
-          opacity: 1;
-        }
-        
-        .overlay-actions {
-          display: flex;
-          gap: 12px;
-          
-          .el-button {
-            color: white;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            
-            &:hover {
-              background: rgba(255, 255, 255, 0.3);
-            }
-          }
-        }
-      }
-    }
-    
-    .template-info {
-      padding: 16px;
-      
-      .template-name {
-        font-size: 16px;
-        font-weight: 600;
-        color: #1f2937;
-        margin: 0 0 8px 0;
-      }
-      
-      .template-meta {
-        margin-bottom: 12px;
-        
-        .el-tag {
-          margin-right: 8px;
-        }
-      }
-      
-      .template-stats {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        color: #6b7280;
-        font-size: 14px;
-        
-        .price {
-          color: #ef4444;
-          font-weight: 600;
-        }
-        
-        .create-time {
-          font-size: 12px;
-        }
-      }
+  .table-card {
+    .el-table {
+      font-size: 16px;
     }
   }
 
   .pagination {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     margin-top: 24px;
     padding-top: 16px;
     border-top: 1px solid #f3f4f6;
-  }
-
-  .template-tabs {
-    margin-top: 16px;
   }
 
   .dialog-footer {
@@ -588,30 +518,34 @@ onMounted(() => {
     gap: 12px;
   }
 
-  .preview-container {
-    .preview-header {
-      margin-bottom: 20px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid #e5e7eb;
+  .template-detail {
+    .code-preview {
+      max-height: 400px;
+      overflow-y: auto;
+      background: #f5f5f5;
+      border-radius: 4px;
+      padding: 16px;
       
-      h3 {
-        margin: 0 0 8px 0;
-        color: #1f2937;
-      }
-      
-      p {
+      pre {
         margin: 0;
-        color: #6b7280;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        
+        code {
+          font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+          font-size: 13px;
+          line-height: 1.6;
+          color: #333;
+        }
       }
     }
+  }
+
+  .danger {
+    color: #ef4444;
     
-    .preview-content {
-      max-height: 500px;
-      overflow-y: auto;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      padding: 20px;
-      background: white;
+    &:hover {
+      color: #dc2626;
     }
   }
 }
@@ -629,11 +563,6 @@ onMounted(() => {
       justify-content: flex-start;
     }
     
-    .templates-card .templates-grid {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-    
     .search-card .el-form {
       .el-form-item {
         display: block;
@@ -648,6 +577,10 @@ onMounted(() => {
           width: 100%;
         }
       }
+    }
+    
+    .el-table {
+      font-size: 14px;
     }
   }
 }

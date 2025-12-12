@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
+
 /**
  * @author shiningCloud2025
  */
@@ -35,8 +37,8 @@ public class JobAdviceArticleInfoVO {
     private Integer jobAdviceArticlePublishedStatus;
 
     @Schema(description = "求职攻略文章发布时间")
-    private DateTime jobAdviceArticlePublishedTime;
+    private Date jobAdviceArticlePublishedTime;
 
     @Schema(description = "求职攻略文章最后更新时间")
-    private DateTime jobAdviceArticleUpdatedTime;
+    private Date jobAdviceArticleUpdatedTime;
 }

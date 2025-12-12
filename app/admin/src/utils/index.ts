@@ -7,10 +7,24 @@ dayjs.extend(relativeTime)
 dayjs.locale('zh-cn')
 
 /**
- * 格式化日期时间
+ * 格式化日期时间（兼容多种格式，包括 hutool DateTime）
  */
-export const formatDateTime = (date: string | Date, format = 'YYYY-MM-DD HH:mm:ss') => {
+export const formatDateTime = (date: string | Date | any, format = 'YYYY-MM-DD HH:mm:ss') => {
   if (!date) return '-'
+  
+  // 如果是对象类型（hutool DateTime），尝试提取时间戳或字符串
+  if (typeof date === 'object' && !(date instanceof Date)) {
+    // 尝试获取时间戳
+    if (date.time) {
+      return dayjs(date.time).format(format)
+    }
+    // 尝试转换为字符串
+    if (date.toString) {
+      const dateStr = date.toString()
+      return dayjs(dateStr).format(format)
+    }
+  }
+  
   return dayjs(date).format(format)
 }
 
