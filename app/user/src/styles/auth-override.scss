@@ -1,0 +1,60 @@
+/* Auth页面输入框样式覆盖 - 白色背景无撕裂感 */
+
+/* 输入框基础样式 - 浅灰白色背景 */
+.login-container,
+.register-container {
+  .ant-input,
+  .ant-input-password,
+  .ant-input-affix-wrapper,
+  .ant-input-password input,
+  input.ant-input {
+    border-radius: 8px !important;
+    padding: 12px 15px !important;
+    border: 1px solid #e5e7eb !important;
+    background: #f9fafb !important;
+    color: #1f2937 !important;
+    font-size: 15px !important;
+    transition: all 0.3s ease !important;
+    
+    &::placeholder {
+      color: #9ca3af !important;
+    }
+    
+    &:hover {
+      border-color: #d1d5db !important;
+      background: #f3f4f6 !important;
+    }
+    
+    &:focus,
+    &.ant-input-affix-wrapper-focused {
+      border-color: #667eea !important;
+      background: white !important;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+      outline: none !important;
+    }
+  }
+  
+  /* 前缀图标 */
+  .ant-input-prefix {
+    color: #9ca3af !important;
+    margin-right: 8px !important;
+    font-size: 16px !important;
+  }
+  
+  /* 后缀图标（密码眼睛等） */
+  .ant-input-suffix {
+    color: #6b7280 !important;
+  }
+  
+  /* 表单项间距 */
+  .ant-form-item {
+    margin-bottom: 20px !important;
+  }
+  
+  /* 表单标签 */
+  .ant-form-item-label > label {
+    font-weight: 600 !important;
+    color: #374151 !important;
+    font-size: 15px !important;
+  }
+}

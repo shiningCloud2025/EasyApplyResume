@@ -1,0 +1,110 @@
+
+> easy-apply-resume-admin@1.7.0 dev
+> vite
+
+▲ [WARNING] Duplicate key "@components" in object literal [duplicate-object-key]
+
+    vite.config.ts:34:6:
+      34 │       '@components': resolve(__dirname, 'src/components')
+         ╵       ~~~~~~~~~~~~~
+
+  The original key "@components" is here:
+
+    vite.config.ts:28:6:
+      28 │       '@components': resolve(__dirname, 'src/components'),
+         ╵       ~~~~~~~~~~~~~
+
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m2439[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m3000[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://10.127.192.122:[1m3000[22m/[39m
+DEPRECATION WARNING [legacy-js-api]: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/legacy-js-api
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+5 │ @import './variables.scss';
+  │         ^^^^^^^^^^^^^^^^^^
+  ╵
+    src\styles\index.scss 5:9  root stylesheet
+
+DEPRECATION WARNING [legacy-js-api]: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/legacy-js-api
+
+DEPRECATION WARNING [legacy-js-api]: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/legacy-js-api
+
+[2m17:41:15[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/request.ts[22m
+DEPRECATION WARNING [legacy-js-api]: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/legacy-js-api
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+5 │ @import './variables.scss';
+  │         ^^^^^^^^^^^^^^^^^^
+  ╵
+    src\styles\index.scss 5:9  root stylesheet
+
+[2m17:42:13[22m [36m[1m[vite][22m[39m [32mvite.config.ts changed, restarting server...[39m
+▲ [WARNING] Duplicate key "@components" in object literal [duplicate-object-key]
+
+    vite.config.ts:34:6:
+      34 │       '@components': resolve(__dirname, 'src/components')
+         ╵       ~~~~~~~~~~~~~
+
+  The original key "@components" is here:
+
+    vite.config.ts:28:6:
+      28 │       '@components': resolve(__dirname, 'src/components'),
+         ╵       ~~~~~~~~~~~~~
+
+[2m17:42:13[22m [36m[1m[vite][22m[39m server restarted.
+DEPRECATION WARNING [legacy-js-api]: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/legacy-js-api
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+5 │ @import './variables.scss';
+  │         ^^^^^^^^^^^^^^^^^^
+  ╵
+    src\styles\index.scss 5:9  root stylesheet
+
+DEPRECATION WARNING [legacy-js-api]: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/legacy-js-api
+
+[2m17:42:15[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/utils/request.ts[22m
+DEPRECATION WARNING [legacy-js-api]: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/legacy-js-api
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+  ╷
+5 │ @import './variables.scss';
+  │         ^^^^^^^^^^^^^^^^^^
+  ╵
+    src\styles\index.scss 5:9  root stylesheet
+
+DEPRECATION WARNING [legacy-js-api]: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/legacy-js-api
+

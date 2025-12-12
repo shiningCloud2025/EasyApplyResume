@@ -16,7 +16,7 @@
     "axios": "^1.7.2",
     "element-plus": "^2.7.6",
     "@element-plus/icons-vue": "^2.3.1",
-    " echarts": "^5.5.1",
+    "echarts": "^5.5.1",
     "vue-echarts": "^7.0.3",
     "dayjs": "^1.11.11",
     "lodash-es": "^4.17.21",

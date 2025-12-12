@@ -10,6 +10,7 @@
 
     <resultMap id="AdminInfoResultMap" type="com.zyh.easyapplyresume.model.vo.admin.AdminInfoVO">
         <id property="adminId" column="admin_id"/>
+        <result property="adminAccount" column="admin_account"/>
         <result property="adminUsername" column="admin_username"/>
         <result property="adminEmail" column="admin_email"/>
         <result property="adminPhone" column="admin_phone"/>
@@ -29,7 +30,19 @@
             </collection>
         </collection>
     </resultMap>
-    
+
+
+    <resultMap id="findRoleByAdminResultMap" type="com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO">
+            <id property="roleId" column="role_id"></id>
+            <result property="roleName" column="role_name"></result>
+            <result property="roleIntroduce" column="role_introduce"></result>
+            <collection property="permissionInfoVOS" ofType="com.zyh.easyapplyresume.model.vo.admin.PermissionInfoVO">
+                <id property="permissionId" column="permission_id"></id>
+                <result property="permissionUrl" column="permission_url"></result>
+                <result property="permissionName" column="permission_name"></result>
+                <result property="permissionIntroduce" column="permission_introduce"></result>
+            </collection>
+    </resultMap>
     
     <select id="findAdminInfoById" parameterType="int" resultMap="AdminInfoResultMap">
         select * from admin_admin
@@ -40,9 +53,12 @@
         where admin_admin.admin_id = #{adminId} and admin_admin.deleted = 0
     </select>
 
-    <select id="findRoleByAdmin" parameterType="int" resultType="com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO">
+    <select id="findRoleByAdmin" parameterType="int" resultMap="findRoleByAdminResultMap">
         select * from admin_admin_role
-        where adminId = #{adminId}
+        left join admin_role on admin_admin_role.roleId = admin_role.role_id
+        left join admin_role_permission on admin_role.role_id = admin_role.role_id
+        left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id
+        where admin_admin_role.adminId = #{adminId}
     </select>
 
     <insert id="assignRoleToAdmin" >
@@ -51,7 +67,7 @@
 
     <select id="findByAccountOrPhoneOrEmail" parameterType="string" resultType="com.zyh.easyapplyresume.model.pojo.admin.Admin">
         select * from admin_admin
-        where admin_username = #{accountOrPhoneOrEmail} or admin_phone = #{accountOrPhoneOrEmail} or admin_email = #{accountOrPhoneOrEmail}
+        where admin_account = #{accountOrPhoneOrEmail} or admin_phone = #{accountOrPhoneOrEmail} or admin_email = #{accountOrPhoneOrEmail}
     </select>
 
 </mapper>

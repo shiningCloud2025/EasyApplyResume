@@ -63,14 +63,18 @@ public class UserJwtAuthFilter extends OncePerRequestFilter {
             String cachedToken = stringRedisTemplate.opsForValue().get(redisKey);
             if (!token.equals(cachedToken)) {
                 log.warn("Token 不匹配或已失效，userId: {}", userId);
-                filterChain.doFilter(request, response);
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setContentType("application/json;charset=UTF-8");
+                response.getWriter().write("{\"code\":401,\"message\":\"Token已过期，请重新登录\"}");
                 return;
             }
             User user = userMapper.selectById(userId);
 
             if (user == null) {
                 log.warn("用户不存在或已被禁用，userId: {}", userId);
-                filterChain.doFilter(request, response);
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                response.setContentType("application/json;charset=UTF-8");
+                response.getWriter().write("{\"code\":403,\"message\":\"账户已被禁用或不存在\"}");
                 return;
             }
             SecurityUser securityUser = new SecurityUser();
@@ -81,7 +85,7 @@ public class UserJwtAuthFilter extends OncePerRequestFilter {
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
+            filterChain.doFilter(request, response);
         }catch (Exception e) {
             log.error("用户端 Token 验证失败: {}", e.getMessage());
         }

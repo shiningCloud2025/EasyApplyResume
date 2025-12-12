@@ -144,7 +144,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Integer assignPermissionToRole(Integer roleId, Integer[] permissionIds) {
         int count = 0;
-        if(permissionIds!=null){
+        if(permissionIds==null){
             return count;
         } else{
             roleMapper.deleteRolePermissionByRoleId(roleId);
