@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -19,10 +20,15 @@ public class UserSecurityConfig {
     @Autowired
     private  UserJwtAuthFilter  userJwtAuthFilter;
 
+    // 注入全局的CorsConfigurationSource(跨域处理)
+    @Autowired
+    private CorsConfigurationSource corsConfigurationSource;
     @Bean
     public SecurityFilterChain userSecurityFilterChain(HttpSecurity http) throws Exception{
         http
                 .securityMatcher("/api/user/**")
+                // 启用CORS跨域:指定自定义的CorsConfigurationSource
+                .cors(cors->cors.configurationSource(corsConfigurationSource))
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
