@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * 求职攻略实体类-通用
  * @author shiningCloud2025
@@ -57,12 +59,12 @@ public class JobAdviceArticle {
      * 求职攻略文章发布时间
      */
     @TableField("jobAdviceArticle_publishedTime")
-    private DateTime jobAdviceArticlePublishedTime;
+    private Date jobAdviceArticlePublishedTime;
     /**
      * 求职攻略文章最后更新时间
      */
     @TableField("jobAdviceArticle_updatedTime")
-    private DateTime jobAdviceArticleUpdatedTime;
+    private Date jobAdviceArticleUpdatedTime;
     /**
      * 逻辑删除标识
      */
