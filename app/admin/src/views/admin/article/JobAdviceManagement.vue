@@ -25,7 +25,7 @@
             v-model="searchForm.jobAdviceArticleTitle"
             placeholder="请输入文章标题"
             clearable
-            style="width: 240px"
+            style="width: 200px"
           />
         </el-form-item>
         <el-form-item label="分类">
@@ -33,7 +33,15 @@
             v-model="searchForm.jobAdviceArticleCategory"
             placeholder="请输入文章分类"
             clearable
-            style="width: 180px"
+            style="width: 160px"
+          />
+        </el-form-item>
+        <el-form-item label="标签">
+          <el-input
+            v-model="searchForm.jobAdviceArticleTags"
+            placeholder="请输入文章标签"
+            clearable
+            style="width: 160px"
           />
         </el-form-item>
         <el-form-item label="作者">
@@ -41,7 +49,7 @@
             v-model="searchForm.jobAdviceArticleAuthorName"
             placeholder="请输入作者名称"
             clearable
-            style="width: 240px"
+            style="width: 160px"
           />
         </el-form-item>
         <el-form-item>
@@ -67,8 +75,8 @@
         :default-sort="{ prop: 'jobAdviceArticleUpdatedTime', order: 'descending' }"
       >
         <el-table-column prop="jobAdviceArticleId" label="ID" width="60" />
-        <el-table-column prop="jobAdviceArticleTitle" label="文章标题" width="200" show-overflow-tooltip />
-        <el-table-column prop="jobAdviceArticleAuthorName" label="作者" width="100" />
+        <el-table-column prop="jobAdviceArticleTitle" label="文章标题" width="245" show-overflow-tooltip />
+        <el-table-column prop="jobAdviceArticleAuthorName" label="作者" width="180" />
         <el-table-column label="正文" width="100" align="center">
           <template #default="{ row }">
             <el-button type="primary" size="small" @click="handleViewContent(row)">
@@ -77,7 +85,7 @@
           </template>
         </el-table-column>
         <el-table-column prop="jobAdviceArticleCategory" label="分类" width="100" show-overflow-tooltip />
-        <el-table-column prop="jobAdviceArticleTags" label="标签" width="130" show-overflow-tooltip>
+        <el-table-column prop="jobAdviceArticleTags" label="标签" width="120" show-overflow-tooltip>
           <template #default="{ row }">
             <el-tag
               v-for="tag in row.jobAdviceArticleTags?.split(',')"
@@ -106,9 +114,12 @@
             {{ formatDateTime(row.jobAdviceArticleUpdatedTime, 'MM-DD HH:mm') }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="260" fixed="right">
+        <el-table-column width="200" fixed="right">
+          <template #header>
+            <div style="text-align: right; padding-right: 65px;">操作</div>
+          </template>
           <template #default="{ row }">
-            <div style="display: flex; gap: 8px; justify-content: flex-end;">
+            <div style="display: flex; gap: 8px; justify-content: flex-end; padding-right: 10px;">
               <el-button type="info" size="small" @click="handleView(row)">
                 查看
               </el-button>
@@ -204,9 +215,6 @@
       width="800px"
     >
       <div v-if="currentContentArticle" class="content-container">
-        <div class="content-header">
-          <h3>{{ currentContentArticle.jobAdviceArticleTitle }}</h3>
-        </div>
         <div class="content-body">
           <div style="white-space: pre-wrap; word-break: break-all; line-height: 1.8;">
             {{ currentContentArticle.jobAdviceArticleContent || '暂无内容' }}
@@ -355,15 +363,6 @@ const getArticleList = async () => {
     
     tableData.value = response.data.records
     pagination.total = response.data.total
-    
-    // 调试：打印后端返回的数据结构
-    console.log('=== 后端返回的分页数据 ===')
-    console.log('总数:', response.data.total)
-    console.log('记录条数:', response.data.records?.length)
-    if (response.data.records && response.data.records.length > 0) {
-      console.log('第一条记录:', response.data.records[0])
-      console.log('第一条记录的所有字段:', Object.keys(response.data.records[0]))
-    }
   } catch (error) {
     console.error('获取文章列表失败:', error)
     ElMessage.error('加载数据失败')
@@ -413,44 +412,16 @@ const handleCurrentChange = (current: number) => {
 }
 
 
-// 查看正文详情
-const handleViewContent = async (row: JobAdviceArticlePageVO) => {
-  console.log('查看正文 - row对象:', row)
-  console.log('文章ID:', row.jobAdviceArticleId)
-  
-  if (!row.jobAdviceArticleId) {
-    ElMessage.error('文章ID为空，无法查看详情')
-    return
-  }
-  
-  try {
-    const response = await jobAdviceArticleApi.getJobAdviceArticleInfo(row.jobAdviceArticleId)
-    currentContentArticle.value = response.data
-    contentDialogVisible.value = true
-  } catch (error) {
-    console.error('获取文章正文失败:', error)
-    ElMessage.error('获取文章正文失败')
-  }
+// 查看正文详情（直接使用分页返回的数据）
+const handleViewContent = (row: JobAdviceArticlePageVO) => {
+  currentContentArticle.value = row
+  contentDialogVisible.value = true
 }
 
-// 查看文章信息（不包含正文）
-const handleView = async (row: JobAdviceArticlePageVO) => {
-  console.log('查看文章信息 - row对象:', row)
-  console.log('文章ID:', row.jobAdviceArticleId)
-  
-  if (!row.jobAdviceArticleId) {
-    ElMessage.error('文章ID为空，无法查看详情')
-    return
-  }
-  
-  try {
-    const response = await jobAdviceArticleApi.getJobAdviceArticleInfo(row.jobAdviceArticleId)
-    currentViewArticle.value = response.data
-    viewDialogVisible.value = true
-  } catch (error) {
-    console.error('获取文章详情失败:', error)
-    ElMessage.error('获取文章详情失败')
-  }
+// 查看文章信息（不包含正文，直接使用分页返回的数据）
+const handleView = (row: JobAdviceArticlePageVO) => {
+  currentViewArticle.value = row
+  viewDialogVisible.value = true
 }
 
 // 编辑文章
