@@ -49,6 +49,12 @@ public class UserJwtAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        // 关键：放行OPTIONS预检请求（直接跳过JWT验证）
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String header = request.getHeader(headerName);
         // 如果请求头没有拿到token
         if (StrUtil.isBlank(header)||!header.startsWith(tokenPrefix)){
