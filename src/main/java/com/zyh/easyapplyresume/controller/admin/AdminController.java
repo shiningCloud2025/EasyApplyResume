@@ -79,11 +79,7 @@ public class AdminController {
         return BaseResult.ok(adminService.generateRandomAccount());
     }
 
-    @Operation(summary = "获取管理员信息")
-    @PostMapping("/getAdminInfo")
-    public BaseResult<SecurityUser> getAdminInfo(@AuthenticationPrincipal SecurityUser securityUser){
-        return BaseResult.ok(securityUser);
-    }
+
 
 
 }

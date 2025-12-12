@@ -1,0 +1,573 @@
+/* 认证页面通用样式 */
+.login-container,
+.register-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* 背景装饰 */
+.background-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.decoration-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 8s ease-in-out infinite;
+}
+
+.decoration-1 {
+  width: 200px;
+  height: 200px;
+  top: -100px;
+  left: -100px;
+}
+
+.decoration-2 {
+  width: 300px;
+  height: 300px;
+  bottom: -150px;
+  right: -150px;
+}
+
+.decoration-3 {
+  width: 150px;
+  height: 150px;
+  top: 50%;
+  right: -75px;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+/* 卡片样式 - 超宽横屏布局 */
+.login-card,
+.register-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1134px;
+  min-height: 550px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  animation: fadeIn 0.6s ease-out;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 左侧装饰区域 */
+.login-card-left,
+.register-card-left {
+  flex: 0 0 35%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 50px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 右侧表单区域 */
+.login-card-right,
+.register-card-right {
+  flex: 1;
+  padding: 50px 60px;
+  overflow-y: auto;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-card {
+  min-height: 550px;
+  max-height: 650px;
+}
+
+.register-card {
+  max-width: 1200px;
+  min-height: 650px;
+}
+
+/* Header & Logo */
+.logo-section, .register-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.logo-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  
+  i, svg, .icon-resume {
+    font-size: 28px;
+    color: white;
+    font-style: normal;
+  }
+}
+
+.logo h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.logo-section > p, .register-header p {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Login Tabs */
+.login-tabs {
+  display: flex;  
+  margin-bottom: 40px;
+  background: #f3f4f6;
+  border-radius: 12px;
+  padding: 6px;
+}
+
+.tab-item {
+  flex: 1;
+  padding: 14px 20px;
+  text-align: center;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.tab-item.active {
+  background: white;
+  color: #667eea;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.tab-item:hover:not(.active) {
+  color: #667eea;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Form Section */
+.form-section {
+  margin-bottom: 24px;
+}
+
+/* Ant Design 覆盖 */
+.ant-btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3) !important;
+  height: 52px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  
+  &:hover {
+    background: linear-gradient(135deg, #5a6fd8 0%, #6a4291 100%) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4) !important;
+  }
+  
+  &:active {
+    transform: translateY(0) !important;
+  }
+}
+
+.login-button, .action-button.primary, .register-submit-btn {
+  width: 100%;
+  height: 52px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+}
+
+/* Ant Design 覆盖 - 使用更高优先级 */
+.login-container .ant-input,
+.login-container .ant-input-password input,
+.login-container .ant-input-affix-wrapper,
+.register-container .ant-input,
+.register-container .ant-input-password input,
+.register-container .ant-input-affix-wrapper {
+  border-radius: 8px !important;
+  padding: 12px 15px !important;
+  border: 1px solid #e5e7eb !important;
+  background: #f9fafb !important;
+  color: #1f2937 !important;
+  transition: all 0.3s ease !important;
+  font-size: 15px !important;
+  
+  &::placeholder {
+    color: #9ca3af !important;
+  }
+  
+  &:hover {
+    border-color: #d1d5db !important;
+    background: #f3f4f6 !important;
+  }
+  
+  &:focus, &.ant-input-affix-wrapper-focused {
+    border-color: #667eea !important;
+    background: white !important;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+  }
+}
+
+.ant-input-prefix {
+  color: #9ca3af;
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+.ant-form-item-label > label {
+  font-weight: 600;
+  color: #374151;
+  font-size: 15px;
+}
+
+/* Tabs */
+.custom-tabs .ant-tabs-nav {
+  margin-bottom: 24px;
+}
+
+.custom-tabs .ant-tabs-tab {
+  font-size: 16px;
+  padding: 12px 0;
+}
+
+/* Footer Links */
+.footer-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.link-button {
+  color: #6b7280;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-decoration: none;
+  
+  &:hover {
+    color: #667eea;
+  }
+}
+
+.divider {
+  color: #d1d5db;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+/* Code Input Group */
+.code-input-group {
+  display: flex !important;
+  gap: 10px !important;
+  width: 100% !important;
+  
+  .ant-form-item {
+    flex: 1;
+    margin-bottom: 0 !important;
+  }
+  
+  .ant-form-item-control-input-content {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+}
+
+.code-button {
+  width: 110px !important;
+  height: 40px !important;
+  border-radius: 6px !important;
+  font-size: 14px !important;
+  flex-shrink: 0;
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+/* Floating Elements */
+.floating-elements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.element {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  animation: float 8s ease-in-out infinite;
+}
+
+.element-1 {
+  width: 60px;
+  height: 60px;
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.element-2 {
+  width: 40px;
+  height: 40px;
+  top: 60%;
+  right: 15%;
+  animation-delay: 2s;
+}
+
+.element-3 {
+  width: 80px;
+  height: 80px;
+  bottom: 10%;
+  left: 20%;
+  animation-delay: 4s;
+}
+
+/* Register Specific */
+.register-body {
+  padding: 0;
+}
+
+.register-steps {
+  margin-bottom: 40px;
+  
+  .ant-steps-item-title {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+  }
+  
+  .ant-steps-item-process .ant-steps-item-icon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border-color: #667eea !important;
+  }
+  
+  .ant-steps-item-finish .ant-steps-item-icon {
+    border-color: #667eea !important;
+    
+    .ant-steps-icon {
+      color: #667eea !important;
+    }
+  }
+  
+  .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after {
+    background-color: #667eea !important;
+  }
+}
+
+.steps-content {
+  min-height: 350px;
+  margin-bottom: 30px;
+}
+
+.steps-action {
+  margin-top: 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  
+  .ant-btn {
+    margin: 0;
+    height: 44px;
+    border-radius: 6px;
+    min-width: 120px;
+    font-weight: 500;
+  }
+  
+  .action-button:not(.primary) {
+    border-color: #d1d5db;
+    color: #6b7280;
+    
+    &:hover {
+      border-color: #667eea;
+      color: #667eea;
+    }
+  }
+}
+
+.agreement-section {
+  text-align: center;
+  padding: 16px 0;
+  
+  .ant-checkbox-wrapper {
+    color: #6b7280;
+    font-size: 14px;
+  }
+  
+  a {
+    color: #667eea;
+    text-decoration: none;
+    margin: 0 4px;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 1400px) {
+  .login-card,
+  .register-card {
+    max-width: 1000px;
+    padding: 50px 80px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .login-card,
+  .register-card {
+    max-width: 900px;
+    padding: 40px 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-card,
+  .register-card {
+    padding: 30px 24px;
+    max-width: 100%;
+  }
+  
+  .login-tabs {
+    margin-bottom: 24px;
+  }
+  
+  .tab-item {
+    font-size: 13px;
+    padding: 10px 8px;
+  }
+  
+  .logo h1 {
+    font-size: 24px;
+  }
+  
+  .code-input-group {
+    flex-direction: column;
+    
+    .ant-form-item-control-input-content {
+      flex-direction: column;
+    }
+  }
+  
+  .code-button {
+    width: 100% !important;
+  }
+  
+  .steps-action {
+    .ant-btn {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card,
+  .register-card {
+    padding: 24px 20px;
+  }
+  
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 8px;
+    
+    i, svg, .icon-resume {
+      font-size: 20px;
+    }
+  }
+  
+  .logo h1 {
+    font-size: 20px;
+  }
+  
+  .login-tabs {
+    margin-bottom: 20px;
+  }
+  
+  .tab-item {
+    font-size: 12px;
+    padding: 8px;
+  }
+}

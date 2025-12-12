@@ -1,0 +1,417 @@
+/* 门户页底部样式 - 全新设计 */
+.portal-footer {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #495057;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #667eea, transparent);
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  /* 返回顶部按钮 */
+  .back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+  }
+
+  .footer-main {
+    padding: 60px 0 40px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 50px 40px;
+    margin-bottom: 40px;
+  }
+
+  .footer-section {
+    .section-title {
+      color: #212529;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 30px;
+        height: 2px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 2px;
+      }
+    }
+  }
+
+  /* 公司信息区域 */
+  .company-info {
+    .company-brand {
+      margin-bottom: 2rem;
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #667eea;
+        margin-bottom: 0.75rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        white-space: nowrap;
+      }
+
+      .slogan {
+        font-size: 1.1rem;
+        color: #495057;
+        margin-bottom: 0.75rem;
+        font-weight: 500;
+      }
+
+      .description {
+        color: #6c757d;
+        line-height: 1.7;
+        font-size: 0.95rem;
+      }
+    }
+
+    .contact-methods {
+      margin-bottom: 2rem;
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        color: #6c757d;
+        font-size: 0.9rem;
+
+        .anticon {
+          color: #667eea;
+          font-size: 1rem;
+          width: 20px;
+        }
+      }
+    }
+
+    .social-section {
+      h4 {
+        color: #212529;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        font-weight: 600;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 12px;
+
+        .social-btn {
+          width: 40px;
+          height: 40px;
+          background: white;
+          border: 1px solid #e9ecef;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #6c757d;
+          text-decoration: none;
+          font-size: 1.1rem;
+          transition: all 0.3s ease;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+
+          &:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+          }
+        }
+      }
+    }
+  }
+
+  /* 链接网格 */
+  .link-grid {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .footer-link {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+
+    &:hover {
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transform: translateX(4px);
+
+      .link-name {
+        color: #667eea;
+      }
+    }
+
+    .link-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #495057;
+      margin-bottom: 0.15rem;
+      transition: color 0.3s ease;
+    }
+
+    .link-desc {
+      font-size: 0.75rem;
+      color: #6c757d;
+      line-height: 1.3;
+    }
+  }
+
+  /* 邮件订阅 */
+  .footer-newsletter {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: 1px solid #e9ecef;
+
+    .newsletter-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .newsletter-info {
+      h4 {
+        color: #212529;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+
+      p {
+        color: #6c757d;
+        margin: 0;
+        font-size: 0.95rem;
+      }
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0.75rem;
+      min-width: 350px;
+
+      input {
+        flex: 1;
+        height: 42px;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 0 1rem;
+        font-size: 0.9rem;
+        transition: border-color 0.3s ease;
+
+        &:focus {
+          border-color: #667eea;
+          outline: none;
+          box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+        }
+      }
+
+      .ant-btn {
+        height: 42px;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        font-weight: 500;
+        padding: 0 1.5rem;
+
+        &:hover {
+          background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+      }
+    }
+  }
+
+  /* 底部版权 */
+  .footer-bottom {
+    background: white;
+    border-top: 1px solid #e9ecef;
+    padding: 2rem 0;
+
+    .bottom-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .copyright {
+      p {
+        margin: 0;
+        color: #6c757d;
+        font-size: 0.85rem;
+        line-height: 1.4;
+
+        &:first-child {
+          font-weight: 500;
+          color: #495057;
+        }
+      }
+    }
+
+    .legal-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+
+      a {
+        color: #6c757d;
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #667eea;
+        }
+
+        &.separator {
+          color: #dee2e6;
+        }
+      }
+
+      .separator {
+        color: #dee2e6;
+        margin: 0 0.25rem;
+      }
+    }
+
+    .badges {
+      display: flex;
+      gap: 0.75rem;
+
+      .badge {
+        padding: 0.25rem 0.75rem;
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        color: #6c757d;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+/* 动画效果 */
+@keyframes shimmer {
+  0% { opacity: 0; transform: translateX(-100%); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(100%); }
+}
+
+/* 响应式设计 */
+@media (max-width: 1024px) {
+  .portal-footer .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 30px;
+  }
+
+  .portal-footer .footer-newsletter .newsletter-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .portal-footer .footer-newsletter .newsletter-form {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .portal-footer {
+    .footer-main {
+      padding: 60px 0 40px;
+    }
+
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .footer-newsletter {
+      padding: 1.5rem;
+
+      .newsletter-form {
+        flex-direction: column;
+        min-width: 100%;
+        gap: 1rem;
+      }
+    }
+
+    .footer-bottom {
+      padding: 1.5rem 0;
+
+      .bottom-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+
+      .legal-links {
+        justify-content: center;
+      }
+
+      .badges {
+        justify-content: center;
+      }
+    }
+
+    .back-to-top {
+      bottom: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+    }
+  }
+}

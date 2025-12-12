@@ -1,0 +1,219 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import './variables.scss';
+
+// Element Plus 样式定制
+.el-button {
+  border-radius: 8px !important;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.el-input {
+  .el-input__wrapper {
+    border-radius: 8px;
+    transition: all var(--transition-fast);
+    
+    &:hover {
+      box-shadow: 0 0 0 2px var(--primary-color-lighter);
+    }
+    
+    &.is-focus {
+      box-shadow: 0 0 0 2px var(--primary-color);
+    }
+  }
+}
+
+.el-card {
+  border-radius: 12px !important;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.el-table {
+  .el-table__header-wrapper {
+    background-color: var(--bg-tertiary);
+  }
+  
+  .el-table__row {
+    &:hover {
+      background-color: var(--bg-secondary);
+    }
+  }
+}
+
+.el-menu {
+  border-right: none !important;
+  
+  .el-menu-item {
+    border-radius: 8px;
+    margin: 4px 8px;
+    
+    &:hover {
+      background-color: var(--primary-color-lighter);
+      color: var(--primary-color);
+    }
+    
+    &.is-active {
+      background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-dark) 100%);
+      color: white;
+    }
+  }
+}
+
+// 自定义组件样式
+.page-container {
+  @apply p-6;
+  background: var(--bg-primary);
+  min-height: calc(100vh - 120px);
+}
+
+.page-header {
+  @apply mb-6;
+  
+  .page-title {
+    @apply text-2xl font-bold mb-2;
+    color: var(--text-primary);
+  }
+  
+  .page-description {
+    @apply text-sm;
+    color: var(--text-secondary);
+  }
+}
+
+.content-card {
+  @apply bg-white rounded-lg shadow-sm border border-gray-100 p-6;
+  transition: all var(--transition-normal);
+  
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.stat-card {
+  @apply bg-white rounded-lg p-6 border border-gray-100 relative overflow-hidden;
+  transition: all var(--transition-normal);
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--primary-color-light), var(--secondary-color-light));
+    opacity: 0.1;
+    border-radius: 0 0 0 100%;
+  }
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .stat-icon {
+    @apply w-12 h-12 rounded-lg flex items-center justify-center mb-4;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-color-dark));
+    color: white;
+  }
+  
+  .stat-value {
+    @apply text-3xl font-bold mb-1;
+    color: var(--text-primary);
+  }
+  
+  .stat-label {
+    @apply text-sm;
+    color: var(--text-secondary);
+  }
+  
+  .stat-trend {
+    @apply absolute top-6 right-6 text-sm font-medium;
+    
+    &.up {
+      color: var(--success-color);
+    }
+    
+    &.down {
+      color: var(--error-color);
+    }
+  }
+}
+
+// 动画效果
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+// 自定义滚动容器
+.scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color-light) var(--bg-tertiary);
+  
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: var(--primary-color-light);
+    border-radius: 3px;
+    
+    &:hover {
+      background: var(--primary-color);
+    }
+  }
+}
+
+// 加载动画
+.loading-spinner {
+  @apply inline-block w-8 h-8 border-4 border-gray-200 border-t-primary-500 rounded-full;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// 渐变文字
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// 玻璃态效果
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}

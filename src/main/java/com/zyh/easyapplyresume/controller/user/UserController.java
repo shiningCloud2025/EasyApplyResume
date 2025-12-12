@@ -21,7 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/updateUser")
+    @PutMapping("/updateUser")
     @Operation(summary = "用户更新信息")
     public BaseResult<?> updateUser(@RequestBody UserUpdateForm userUpdateForm) {
         userService.updateUser(userUpdateForm);

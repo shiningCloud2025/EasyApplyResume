@@ -118,7 +118,7 @@ public class AdminFormValidator {
     public static void validateForUpdate(AdminForm adminForm) {
         // 1. 账号：必须非空 + 长度7-10位
         if (adminForm.getAdminAccount() == null || adminForm.getAdminAccount().trim().isEmpty()) {
-            throw new BusException(AdminCodeEnum.ADMIN_UPDATE_ACCOUNT_EMPTY);
+            throw new BusException(AdminCodeEnum.ADMIN_ADD_ACCOUNT_EMPTY);
         }
         String account = adminForm.getAdminAccount().trim();
         if (account.length() < ACCOUNT_MIN_LENGTH || account.length() > ACCOUNT_MAX_LENGTH) {

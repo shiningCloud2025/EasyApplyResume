@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("/user/sms")
+@RequestMapping("/admin/sms")
 @Tag(name = "短信验证码接口-管理端")
 public class AdminSmsController {
     @Autowired
