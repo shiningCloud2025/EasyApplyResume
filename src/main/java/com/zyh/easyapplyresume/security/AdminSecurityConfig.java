@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -22,10 +23,16 @@ public class AdminSecurityConfig {
     @Autowired
     private  AdminJwtAuthFilter adminJwtAuthFilter;
 
+    // 注入全局的CorsConfigurationSource(跨域处理)
+    @Autowired
+    private CorsConfigurationSource corsConfigurationSource;
+
     @Bean
     public SecurityFilterChain adminSecurityFilterChain(HttpSecurity  http) throws Exception{
         http
                 .securityMatcher("/api/admin/**","/ad_monitor/**")
+                // 启用CORS跨域:指定自定义的CorsConfigurationSource
+                .cors(cors->cors.configurationSource(corsConfigurationSource))
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
