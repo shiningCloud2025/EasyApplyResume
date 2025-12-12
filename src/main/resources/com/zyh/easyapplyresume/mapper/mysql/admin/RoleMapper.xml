@@ -38,6 +38,7 @@
 
     <select id="findPermissionByRole" parameterType="int" resultType="com.zyh.easyapplyresume.model.vo.admin.PermissionInfoVO">
         select * from admin_role_permission
+        left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id
         where roleId = #{roleId}
     </select>
 
