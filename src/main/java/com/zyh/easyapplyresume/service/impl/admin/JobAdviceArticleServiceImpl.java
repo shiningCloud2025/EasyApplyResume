@@ -78,10 +78,6 @@ public class JobAdviceArticleServiceImpl implements JobAdviceArticleService {
             if (jobAdviceArticleQuery.getJobAdviceArticleTitle() != null && !jobAdviceArticleQuery.getJobAdviceArticleTitle().trim().isEmpty()) {
                 lambdaQueryWrapper.like(JobAdviceArticle::getJobAdviceArticleTitle, jobAdviceArticleQuery.getJobAdviceArticleTitle().trim());
             }
-            // 正文：不为空且非空串 → 模糊查询
-            if (jobAdviceArticleQuery.getJobAdviceArticleContent() != null && !jobAdviceArticleQuery.getJobAdviceArticleContent().trim().isEmpty()) {
-                lambdaQueryWrapper.like(JobAdviceArticle::getJobAdviceArticleContent, jobAdviceArticleQuery.getJobAdviceArticleContent().trim());
-            }
             // 分类：不为空且非空串 → 模糊查询
             if (jobAdviceArticleQuery.getJobAdviceArticleCategory() != null && !jobAdviceArticleQuery.getJobAdviceArticleCategory().trim().isEmpty()) {
                 lambdaQueryWrapper.like(JobAdviceArticle::getJobAdviceArticleCategory, jobAdviceArticleQuery.getJobAdviceArticleCategory().trim());
