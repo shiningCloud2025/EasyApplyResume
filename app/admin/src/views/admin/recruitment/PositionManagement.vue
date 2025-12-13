@@ -25,17 +25,58 @@
             v-model="searchForm.recruitPositionName"
             placeholder="请输入岗位名称"
             clearable
-            style="width: 240px"
+            style="width: 200px"
           />
         </el-form-item>
         <el-form-item label="所属行业">
-          <el-select v-model="searchForm.recruitPositionIndustryCode" placeholder="请选择行业" clearable style="width: 180px">
+          <el-select 
+            v-model="searchForm.recruitPositionIndustryCode" 
+            placeholder="请选择行业" 
+            clearable 
+            style="width: 160px"
+          >
             <el-option
               v-for="industry in industryList"
               :key="industry.industryMapIndustryCode"
               :label="industry.industryMapIndustryName"
               :value="industry.industryMapIndustryCode"
             />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="最低月薪">
+          <el-input-number
+            v-model="searchForm.minMonthSalary"
+            placeholder="最低薪资"
+            :min="0"
+            :step="1000"
+            :controls="false"
+            style="width: 130px"
+          />
+        </el-form-item>
+        <el-form-item label="最高月薪">
+          <el-input-number
+            v-model="searchForm.maxMonthSalary"
+            placeholder="最高薪资"
+            :min="0"
+            :step="1000"
+            :controls="false"
+            style="width: 130px"
+          />
+        </el-form-item>
+        <el-form-item label="周工作日">
+          <el-select 
+            v-model="searchForm.weekWorkDayNum" 
+            placeholder="请选择" 
+            clearable 
+            style="width: 120px"
+          >
+            <el-option label="1天" :value="1" />
+            <el-option label="2天" :value="2" />
+            <el-option label="3天" :value="3" />
+            <el-option label="4天" :value="4" />
+            <el-option label="5天" :value="5" />
+            <el-option label="6天" :value="6" />
+            <el-option label="7天" :value="7" />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -61,21 +102,33 @@
       >
         <el-table-column prop="recruitPositionId" label="ID" width="70" />
         <el-table-column prop="recruitPositionName" label="岗位名称" min-width="200" />
-        <el-table-column prop="recruitPositionIndustryName" label="所属行业" width="120" />
+        <el-table-column label="所属行业" width="120">
+          <template #default="{ row }">
+            {{ row.recruitPositionIndustryName || '-' }}
+          </template>
+        </el-table-column>
         <el-table-column label="薪资范围" width="150">
           <template #default="{ row }">
-            <el-tag type="warning">{{ row.minMonthSalary }}-{{ row.maxMonthSalary }}元/月</el-tag>
+            <el-tag type="warning" v-if="row.minMonthSalary && row.maxMonthSalary">
+              {{ row.minMonthSalary }}-{{ row.maxMonthSalary }}元/月
+            </el-tag>
+            <span v-else>-</span>
           </template>
         </el-table-column>
-        <el-table-column prop="weekWorkDayNum" label="周工作日" width="100" align="center">
+        <el-table-column label="周工作日" width="100" align="center">
           <template #default="{ row }">
-            {{ row.weekWorkDayNum }}天/周
+            <span v-if="row.weekWorkDayNum">{{ row.weekWorkDayNum }}天/周</span>
+            <span v-else>-</span>
           </template>
         </el-table-column>
-        <el-table-column prop="goodWelfare" label="福利待遇" min-width="200" show-overflow-tooltip />
-        <el-table-column prop="recruitPositionCreatedTime" label="创建时间" width="160">
+        <el-table-column label="福利待遇" min-width="200" show-overflow-tooltip>
           <template #default="{ row }">
-            {{ formatDateTime(row.recruitPositionCreatedTime) }}
+            {{ row.goodWelfare || '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" width="120">
+          <template #default="{ row }">
+            {{ row.createdTime ? formatDate(row.createdTime) : '-' }}
           </template>
         </el-table-column>
         <el-table-column label="操作" width="200" fixed="right">
@@ -180,8 +233,11 @@
             placeholder="请选择每周工作日数" 
             style="width: 100%"
           >
+            <el-option label="1天/周" :value="1" />
+            <el-option label="2天/周" :value="2" />
+            <el-option label="3天/周" :value="3" />
+            <el-option label="4天/周" :value="4" />
             <el-option label="5天/周" :value="5" />
-            <el-option label="5.5天/周" :value="5.5" />
             <el-option label="6天/周" :value="6" />
             <el-option label="7天/周" :value="7" />
           </el-select>
@@ -233,10 +289,10 @@
             {{ currentViewPosition.weekWorkDayNum }}天/周
           </el-descriptions-item>
           <el-descriptions-item label="创建时间">
-            {{ formatDateTime(currentViewPosition.recruitPositionCreatedTime) }}
+            {{ formatDate(currentViewPosition.createdTime) }}
           </el-descriptions-item>
-          <el-descriptions-item label="更新时间" v-if="currentViewPosition.recruitPositionUpdatedTime">
-            {{ formatDateTime(currentViewPosition.recruitPositionUpdatedTime) }}
+          <el-descriptions-item label="更新时间" v-if="currentViewPosition.updatedTime">
+            {{ formatDate(currentViewPosition.updatedTime) }}
           </el-descriptions-item>
           <el-descriptions-item label="福利待遇" :span="2">
             <div class="detail-content">{{ currentViewPosition.goodWelfare || '暂无' }}</div>
@@ -250,7 +306,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { formatDateTime } from '@/utils'
+import { formatDate } from '@/utils'
 import { recruitPositionApi, industryMapApi } from '@/api/admin'
 import type {
   RecruitPositionPageVO,
@@ -293,10 +349,10 @@ const positionFormRef = ref<FormInstance>()
 const positionForm = reactive<RecruitPositionForm>({
   recruitPositionId: undefined,
   recruitPositionName: '',
-  recruitPositionIndustryCode: 0,
-  minMonthSalary: 0,
-  maxMonthSalary: 0,
-  weekWorkDayNum: 5,
+  recruitPositionIndustryCode: undefined,
+  minMonthSalary: undefined,
+  maxMonthSalary: undefined,
+  weekWorkDayNum: undefined,
   goodWelfare: ''
 })
 
@@ -364,6 +420,12 @@ const getPositionList = async () => {
       pagination.size,
       searchForm
     )
+    
+    console.log('📊 后端返回的分页数据:', response.data)
+    console.log('📋 记录列表:', response.data.records)
+    if (response.data.records && response.data.records.length > 0) {
+      console.log('🔍 第一条数据详情:', response.data.records[0])
+    }
     
     tableData.value = response.data.records
     pagination.total = response.data.total
@@ -501,10 +563,10 @@ const resetForm = () => {
   Object.assign(positionForm, {
     recruitPositionId: undefined,
     recruitPositionName: '',
-    recruitPositionIndustryCode: 0,
-    minMonthSalary: 0,
-    maxMonthSalary: 0,
-    weekWorkDayNum: 5,
+    recruitPositionIndustryCode: undefined,
+    minMonthSalary: undefined,
+    maxMonthSalary: undefined,
+    weekWorkDayNum: undefined,
     goodWelfare: ''
   })
 }
