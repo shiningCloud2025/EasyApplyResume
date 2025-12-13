@@ -269,8 +269,8 @@ export const industryMapApi = {
   updateIndustryMap: (data: IndustryMapForm) => api.post<number>('/admin/industryMap/updateIndustryMap', data),
   
   // 查询行业详情
-  getIndustryMapInfo: (industryMapId: number) => 
-    api.get<any>('/admin/industryMap/findIndustryMapById', { params: { industryMapId } }),
+  getIndustryMapInfo: (industryMapIndustryCode: number) => 
+    api.get<IndustryMapInfoVO>('/admin/industryMap/findIndustryMapById', { params: { industryMapId: industryMapIndustryCode } }),
   
   // 分页查询行业
   getIndustryMapPage: (pageNum: number, pageSize: number, query: IndustryMapQuery) => 
@@ -279,7 +279,7 @@ export const industryMapApi = {
     }),
   
   // 查询所有行业
-  findAllIndustryMap: () => api.get<any[]>('/admin/industryMap/findAllIndustryMap')
+  findAllIndustryMap: () => api.get<IndustryMapInfoVO[]>('/admin/industryMap/findAllIndustryMap')
 }
 
 // 地区相关API
