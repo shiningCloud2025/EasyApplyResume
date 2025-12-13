@@ -8,6 +8,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
 /**
  * 行业Map-通用(无删除)
  * @author shiningCloud2025
@@ -33,11 +36,11 @@ public class IndustryMap {
      * 创建时间
      */
     @TableField("industryMap_createdTime")
-    private DateTime createdTime;
+    private Date createdTime;
 
     /**
      * 修改时间
      */
     @TableField("industryMap_updatedTime")
-    private DateTime updatedTime;
+    private Date updatedTime;
 }
