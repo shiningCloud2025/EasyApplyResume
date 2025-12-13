@@ -6,20 +6,20 @@
     <resultMap id="RecruitPositionInfoVO" type="com.zyh.easyapplyresume.model.vo.admin.RecruitPositionInfoVO">
         <id property="recruitPositionId" column="recruitPosition_id"/>
         <result property="recruitPositionName" column="recruitPosition_name"/>
-        <result property="createdTime" column="created_time"/>
-        <result property="updatedTime" column="updated_time"/>
+        <result property="createdTime" column="recruitPosition_createdTime"/>
+        <result property="updatedTime" column="recruitPosition_createdTime"/>
         <result property="recruitPositionIndustryCode" column="recruitPosition_industryCode"/>
         <result property="recruitPositionIndustryName" column="industryMap_industryName"/>
-        <result property="minMonthSalary" column="min_monthSalary"/>
-        <result property="maxMonthSalary" column="max_monthSalary"/>
-        <result property="weekWorkDayNum" column="week_workDayNum"/>
-        <result property="goodWelfare" column="good_welfare"/>
+        <result property="minMonthSalary" column="recruitPosition_minMonthSalary"/>
+        <result property="maxMonthSalary" column="recruitPosition_maxMonthSalary"/>
+        <result property="weekWorkDayNum" column="recruitPosition_weekWorkDayNum"/>
+        <result property="goodWelfare" column="recruitPosition_goodWelfare"/>
     </resultMap>
 
     <select id="findRecruitPositionInfoById" parameterType="int" resultMap="RecruitPositionInfoVO">
         select * from general_recruitPosition
         left join  general_industryMap on general_recruitPosition.recruitPosition_industryCode = general_industryMap.industryMap_industryCode
-        where general_recruitPosition.recruitPosition_industryCode = #{recruitPositionId}
+        where general_recruitPosition.recruitPosition_id = #{recruitPositionId}
     </select>
     <!-- 连表分页查询：招聘岗位表 LEFT JOIN 通用行业映射表 -->
     <select id="queryRecruitPositionPage" resultType="com.zyh.easyapplyresume.model.vo.admin.RecruitPositionPageVO">
@@ -28,13 +28,13 @@
         rp.recruitPosition_name AS recruitPositionName,
         rp.recruitPosition_industryCode AS recruitPositionIndustryCode,
         -- 连表字段：行业名称（从行业映射表查询）
-        gim.industryMap_industryName AS industryMapIndustryName,
-        rp.recruitPosition_minMonthSalary AS recruitPositionMinMonthSalary,
-        rp.recruitPosition_maxMonthSalary AS recruitPositionMaxMonthSalary,
-        rp.recruitPosition_weekWorkDayNum AS recruitPositionWeekWorkDayNum,
-        rp.recruitPosition_goodWelfare AS recruitPositionGoodWelfare,
-        rp.recruitPosition_createdTime AS recruitPositionCreatedTime,
-        rp.recruitPosition_updatedTime AS recruitPositionUpdatedTime
+        gim.industryMap_industryName AS recruitPositionIndustryName,
+        rp.recruitPosition_minMonthSalary AS minMonthSalary,
+        rp.recruitPosition_maxMonthSalary AS maxMonthSalary,
+        rp.recruitPosition_weekWorkDayNum AS weekWorkDayNum,
+        rp.recruitPosition_goodWelfare AS goodWelfare,
+        rp.recruitPosition_createdTime AS createdTime,
+        rp.recruitPosition_updatedTime AS updatedTime
         FROM
         general_recruitPosition rp -- 招聘岗位表别名rp
         -- 连表：通用行业映射表（别名gim），LEFT JOIN避免行业编码无效时丢失岗位数据

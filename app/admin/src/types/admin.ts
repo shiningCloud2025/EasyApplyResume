@@ -203,8 +203,8 @@ export interface RecruitPositionInfoVO {
   maxMonthSalary: number
   weekWorkDayNum: number
   goodWelfare?: string
-  recruitPositionCreatedTime?: string
-  recruitPositionUpdatedTime?: string
+  createdTime?: string
+  updatedTime?: string
 }
 
 // 招聘岗位表单
@@ -237,7 +237,7 @@ export interface RecruitPositionPageVO {
   maxMonthSalary: number
   weekWorkDayNum: number
   goodWelfare?: string
-  recruitPositionCreatedTime?: string
+  createdTime?: string
 }
 
 // 招聘信息信息VO
