@@ -104,14 +104,14 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="发布时间" width="140">
+        <el-table-column label="发布时间" width="120">
           <template #default="{ row }">
-            {{ formatDateTime(row.jobAdviceArticlePublishedTime, 'MM-DD HH:mm') }}
+            {{ formatDate(row.jobAdviceArticlePublishedTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="更新时间" width="140">
+        <el-table-column label="更新时间" width="120">
           <template #default="{ row }">
-            {{ formatDateTime(row.jobAdviceArticleUpdatedTime, 'MM-DD HH:mm') }}
+            {{ formatDate(row.jobAdviceArticleUpdatedTime) }}
           </template>
         </el-table-column>
         <el-table-column width="200" fixed="right">
@@ -264,10 +264,10 @@
           </el-tag>
         </el-descriptions-item>
         <el-descriptions-item label="发布时间">
-          {{ formatDateTime(currentViewArticle.jobAdviceArticlePublishedTime) }}
+          {{ formatDate(currentViewArticle.jobAdviceArticlePublishedTime) }}
         </el-descriptions-item>
         <el-descriptions-item label="更新时间" :span="2">
-          {{ formatDateTime(currentViewArticle.jobAdviceArticleUpdatedTime) }}
+          {{ formatDate(currentViewArticle.jobAdviceArticleUpdatedTime) }}
         </el-descriptions-item>
       </el-descriptions>
       
@@ -285,7 +285,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
-import { formatDateTime } from '@/utils'
+import { formatDateTime, formatDate } from '@/utils'
 import { jobAdviceArticleApi } from '@/api/admin'
 import type {
   JobAdviceArticleForm,

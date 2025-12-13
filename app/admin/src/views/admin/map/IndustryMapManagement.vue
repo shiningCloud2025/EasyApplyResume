@@ -59,14 +59,14 @@
       >
         <el-table-column prop="industryMapIndustryCode" label="行业代码" width="120" align="center" />
         <el-table-column prop="industryMapIndustryName" label="行业名称" min-width="200" />
-        <el-table-column prop="createdTime" label="创建时间" width="180">
+        <el-table-column prop="createdTime" label="创建时间" width="120">
           <template #default="{ row }">
-            {{ formatDateTime(row.createdTime) }}
+            {{ formatDate(row.createdTime) }}
           </template>
         </el-table-column>
-        <el-table-column prop="updatedTime" label="修改时间" width="180">
+        <el-table-column prop="updatedTime" label="修改时间" width="120">
           <template #default="{ row }">
-            {{ formatDateTime(row.updatedTime) }}
+            {{ formatDate(row.updatedTime) }}
           </template>
         </el-table-column>
         <el-table-column label="操作" width="200" fixed="right">
@@ -153,10 +153,10 @@
             {{ currentViewIndustry.industryMapIndustryName }}
           </el-descriptions-item>
           <el-descriptions-item label="创建时间">
-            {{ formatDateTime(currentViewIndustry.createdTime) }}
+            {{ formatDate(currentViewIndustry.createdTime) }}
           </el-descriptions-item>
           <el-descriptions-item label="修改时间">
-            {{ formatDateTime(currentViewIndustry.updatedTime) }}
+            {{ formatDate(currentViewIndustry.updatedTime) }}
           </el-descriptions-item>
         </el-descriptions>
       </div>
@@ -173,7 +173,7 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
-import { formatDateTime } from '@/utils'
+import { formatDate } from '@/utils'
 import { industryMapApi } from '@/api/admin'
 import type {
   IndustryMapPageVO,

@@ -50,7 +50,7 @@ export const authApi = {
   loginByEmail: (data: EmailLoginForm) => api.post<string>('/admin/auth/emailLogin', null, { params: data }),
   
   // 退出登录
-  logout: (adminId: number) => api.get('/admin/auth/logout', { params: { adminId } }),
+  logout: (adminId: number) => api.get('/admin/auth/logout', { adminId }),
   
   // 发送邮箱验证码
   sendEmailCode: (email: string) => api.post('/admin/email/loginandregister/send', null, { params: { email } }),
@@ -172,7 +172,7 @@ export const resumeTemplateApi = {
   
   // 查询简历模板详情
   getResumeTemplateInfo: (resumeTemplateId: number) => 
-    api.get<ResumeTemplateInfoVO>('/admin/resumeTemplate/findResumeTemplateById', { params: { resumeTemplateId } }),
+    api.get<ResumeTemplateInfoVO>('/admin/resumeTemplate/findResumeTemplateById', { resumeTemplateId }),
   
   // 分页查询简历模板
   getResumeTemplatePage: (pageNum: number, pageSize: number, query: ResumeTemplateQuery) => 
@@ -198,7 +198,7 @@ export const jobAdviceArticleApi = {
   
   // 查询求职攻略详情
   getJobAdviceArticleInfo: (jobAdviceArticleId: number) => 
-    api.get<any>('/admin/jobAdviceArticle/getJobAdviceArticleInfo', { params: { jobAdviceArticleId } }),
+    api.get<any>('/admin/jobAdviceArticle/getJobAdviceArticleInfo', { jobAdviceArticleId }),
   
   // 分页查询求职攻略
   getJobAdviceArticlePage: (pageNum: number, pageSize: number, query: JobAdviceArticleQuery) => 
@@ -222,7 +222,7 @@ export const recruitPositionApi = {
   
   // 查询招聘岗位详情
   getRecruitPositionInfo: (recruitPositionId: number) => 
-    api.get<RecruitPositionInfoVO>('/admin/recruitPosition/queryRecruitPosition', { params: { recruitPositionId } }),
+    api.get<RecruitPositionInfoVO>('/admin/recruitPosition/queryRecruitPosition', { recruitPositionId }),
   
   // 分页查询招聘岗位
   getRecruitPositionPage: (pageNum: number, pageSize: number, query: RecruitPositionQuery) => 
@@ -248,7 +248,7 @@ export const employmentInformationApi = {
   
   // 查询招聘信息详情
   getEmploymentInformationInfo: (employmentInformationId: number) => 
-    api.get<EmploymentInformationInfoVO>('/admin/employmentInformation/getEmploymentInformationInfo', { params: { employmentInformationId } }),
+    api.get<EmploymentInformationInfoVO>('/admin/employmentInformation/getEmploymentInformationInfo', { employmentInformationId }),
   
   // 分页查询招聘信息
   getEmploymentInformationPage: (pageNum: number, pageSize: number, query: EmploymentInformationQuery) => 
@@ -270,7 +270,7 @@ export const industryMapApi = {
   
   // 查询行业详情
   getIndustryMapInfo: (industryMapIndustryCode: number) => 
-    api.get<IndustryMapInfoVO>('/admin/industryMap/findIndustryMapById', { params: { industryMapId: industryMapIndustryCode } }),
+    api.get<IndustryMapInfoVO>('/admin/industryMap/findIndustryMapById', { industryMapId: industryMapIndustryCode }),
   
   // 分页查询行业
   getIndustryMapPage: (pageNum: number, pageSize: number, query: IndustryMapQuery) => 
@@ -289,7 +289,7 @@ export const provinceMapApi = {
   
   // 根据省份查询城市
   getCityByProvinceId: (provinceMapId: number) => 
-    api.get<any[]>('/admin/provinceMap/getCityByProvinceId', { params: { provinceMapId } })
+    api.get<any[]>('/admin/provinceMap/getCityByProvinceId', { provinceMapId })
 }
 
 // 邮件发送相关API
@@ -352,7 +352,7 @@ export const feedbackApi = {
     }),
   
   // 查询反馈详情
-  getFeedbackDetail: (feedbackId: number) => api.get<AdminFeedbackInfoVO>('/admin/feedback/findFeedbackById', { params: { feedbackId } }),
+  getFeedbackDetail: (feedbackId: number) => api.get<AdminFeedbackInfoVO>('/admin/feedback/findFeedbackById', { feedbackId }),
   
   // 分页查询反馈
   getFeedbackPage: (pageNum: number, pageSize: number, query: AdminFeedbackQuery) =>
