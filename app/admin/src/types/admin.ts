@@ -197,39 +197,47 @@ export interface JobAdviceArticleQuery {
 export interface RecruitPositionInfoVO {
   recruitPositionId: number
   recruitPositionName: string
-  recruitPositionSalary: string
-  recruitPositionIntroduce: string
-  recruitPositionRequirement: string
-  recruitPositionState: number
-  recruitPositionCreatedTime: string
-  recruitPositionUpdatedTime: string
+  recruitPositionIndustryCode: number
+  recruitPositionIndustryName?: string
+  minMonthSalary: number
+  maxMonthSalary: number
+  weekWorkDayNum: number
+  goodWelfare?: string
+  recruitPositionCreatedTime?: string
+  recruitPositionUpdatedTime?: string
 }
 
 // 招聘岗位表单
 export interface RecruitPositionForm {
   recruitPositionId?: number
   recruitPositionName: string
-  recruitPositionSalary: string
-  recruitPositionIntroduce: string
-  recruitPositionRequirement: string
-  recruitPositionState?: number
+  recruitPositionIndustryCode: number
+  minMonthSalary: number
+  maxMonthSalary: number
+  weekWorkDayNum: number
+  goodWelfare?: string
 }
 
 // 招聘岗位查询
 export interface RecruitPositionQuery {
   recruitPositionName?: string
-  recruitPositionSalary?: string
-  recruitPositionState?: number
+  recruitPositionIndustryCode?: number
+  minMonthSalary?: number
+  maxMonthSalary?: number
+  weekWorkDayNum?: number
 }
 
 // 招聘岗位分页VO
 export interface RecruitPositionPageVO {
   recruitPositionId: number
   recruitPositionName: string
-  recruitPositionSalary: string
-  recruitPositionIntroduce: string
-  recruitPositionState: number
-  recruitPositionCreatedTime: string
+  recruitPositionIndustryCode: number
+  recruitPositionIndustryName?: string
+  minMonthSalary: number
+  maxMonthSalary: number
+  weekWorkDayNum: number
+  goodWelfare?: string
+  recruitPositionCreatedTime?: string
 }
 
 // 招聘信息信息VO
@@ -284,38 +292,30 @@ export interface EmploymentInformationPageVO {
 
 // 行业Map信息VO
 export interface IndustryMapInfoVO {
-  industryMapId: number
-  industryMapName: string
-  industryMapIntroduce: string
-  industryMapParentId: number
-  industryMapLevel: number
-  industryMapCreatedTime: string
+  industryMapIndustryCode: number
+  industryMapIndustryName: string
+  createdTime: string
+  updatedTime: string
 }
 
 // 行业Map表单
 export interface IndustryMapForm {
-  industryMapId?: number
-  industryMapName: string
-  industryMapIntroduce: string
-  industryMapParentId?: number
-  industryMapLevel?: number
+  industryMapIndustryCode?: number
+  industryMapIndustryName: string
 }
 
 // 行业Map查询
 export interface IndustryMapQuery {
-  industryMapName?: string
-  industryMapParentId?: number
-  industryMapLevel?: number
+  industryMapIndustryCode?: number
+  industryMapIndustryName?: string
 }
 
 // 行业Map分页VO
 export interface IndustryMapPageVO {
-  industryMapId: number
-  industryMapName: string
-  industryMapIntroduce: string
-  industryMapParentId: number
-  industryMapLevel: number
-  industryMapCreatedTime: string
+  industryMapIndustryCode: number
+  industryMapIndustryName: string
+  createdTime: string
+  updatedTime: string
 }
 
 // 管理员反馈查询
