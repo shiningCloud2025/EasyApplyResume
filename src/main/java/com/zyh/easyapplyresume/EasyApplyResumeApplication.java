@@ -29,4 +29,5 @@ public class EasyApplyResumeApplication {
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         return interceptor;
     }
+
 }
