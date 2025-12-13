@@ -75,7 +75,7 @@
         :default-sort="{ prop: 'jobAdviceArticleUpdatedTime', order: 'descending' }"
       >
         <el-table-column prop="jobAdviceArticleId" label="ID" width="60" />
-        <el-table-column prop="jobAdviceArticleTitle" label="文章标题" width="245" show-overflow-tooltip />
+        <el-table-column prop="jobAdviceArticleTitle" label="文章标题" width="240" show-overflow-tooltip />
         <el-table-column prop="jobAdviceArticleAuthorName" label="作者" width="180" />
         <el-table-column label="正文" width="100" align="center">
           <template #default="{ row }">
@@ -121,14 +121,14 @@
           <template #default="{ row }">
             <div style="display: flex; gap: 8px; justify-content: flex-end; padding-right: 10px;">
               <el-button type="info" size="small" @click="handleView(row)">
-                查看
-              </el-button>
+              查看
+            </el-button>
               <el-button type="primary" size="small" @click="handleEdit(row)">
-                编辑
-              </el-button>
+              编辑
+            </el-button>
               <el-button type="danger" size="small" @click="handleDelete(row)">
-                删除
-              </el-button>
+              删除
+            </el-button>
             </div>
           </template>
         </el-table-column>
@@ -415,8 +415,8 @@ const handleCurrentChange = (current: number) => {
 // 查看正文详情（直接使用分页返回的数据）
 const handleViewContent = (row: JobAdviceArticlePageVO) => {
   currentContentArticle.value = row
-  contentDialogVisible.value = true
-}
+    contentDialogVisible.value = true
+  }
 
 // 查看文章信息（不包含正文，直接使用分页返回的数据）
 const handleView = (row: JobAdviceArticlePageVO) => {

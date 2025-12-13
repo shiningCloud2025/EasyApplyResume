@@ -213,14 +213,14 @@
       title="权限列表"
       width="700px"
     >
-      <div v-if="currentRolePermissions && currentRolePermissions.length > 0">
+      <div v-if="currentRolePermissions?.permissionInfoVOS && currentRolePermissions.permissionInfoVOS.length > 0">
         <div class="permissions-header">
           <i class="el-icon-key"></i>
           <span>权限列表</span>
-          <el-badge :value="currentRolePermissions.length" class="permission-count" />
+          <el-badge :value="currentRolePermissions.permissionInfoVOS.length" class="permission-count" />
         </div>
         <div class="permissions-grid">
-          <div v-for="permission in currentRolePermissions" :key="permission.permissionId" class="permission-card">
+          <div v-for="permission in currentRolePermissions.permissionInfoVOS" :key="permission.permissionId" class="permission-card">
             <i class="el-icon-folder-opened"></i>
             <span class="permission-name">{{ permission.permissionName }}</span>
           </div>
@@ -400,13 +400,16 @@ const handleViewRoleInfo = async (row: RolePageVO) => {
 
 // 查看角色权限（只显示权限列表）
 const permissionsDialogVisible = ref(false)
-const currentRolePermissions = ref<PermissionInfoVO[]>([])
+const currentRolePermissions = ref<RoleInfoVO | null>(null)
 
 const handleViewPermissions = async (row: RolePageVO) => {
   try {
-    // 调用查看角色拥有的权限接口
-    const response = await roleApi.getRolePermissions(row.roleId)
+    // 调用查看角色详情接口（包含权限信息）
+    const response = await roleApi.getRoleInfo(row.roleId)
     currentRolePermissions.value = response.data
+    console.log('角色权限数据:', response.data)
+    console.log('权限列表:', response.data?.permissionInfoVOS)
+    console.log('权限数量:', response.data?.permissionInfoVOS?.length)
     permissionsDialogVisible.value = true
   } catch (error) {
     console.error('获取角色权限失败:', error)
@@ -422,8 +425,7 @@ const handlePermission = async (row: RolePageVO) => {
   try {
     // 获取角色当前权限
     const rolesPermissionsResponse = await roleApi.getRolePermissions(row.roleId)
-    // 修复：将权限对象数组映射为权限ID数组
-    selectedPermissionIds.value = rolesPermissionsResponse.data.map((permission: any) => permission.permissionId)
+    selectedPermissionIds.value = rolesPermissionsResponse.data
     
     // 获取所有权限
     const allPermissionsResponse = await permissionApi.getAllPermissions()
