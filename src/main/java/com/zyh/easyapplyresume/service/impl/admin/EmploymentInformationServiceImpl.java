@@ -9,6 +9,7 @@ import com.zyh.easyapplyresume.bean.locationenum.ProvinceEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.EmploymentInformationMapper;
+import com.zyh.easyapplyresume.mapper.mysql.admin.IndustryMapMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.ProvinceMapMapper;
 import com.zyh.easyapplyresume.model.form.admin.EmploymentInformationForm;
 import com.zyh.easyapplyresume.model.pojo.admin.EmploymentInformation;
@@ -17,6 +18,8 @@ import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationPageVO;
 import com.zyh.easyapplyresume.service.admin.EmploymentInformationService;
 import com.zyh.easyapplyresume.utils.adminvalidator.EmploymentInformationFormValidator;
+import kotlin.jvm.internal.Lambda;
+import lombok.val;
 import org.apache.ibatis.executor.BatchResult;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +39,16 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
     private EmploymentInformationMapper employmentInformationMapper;
     @Autowired
     private ProvinceMapMapper provinceMapMapper;
+    @Autowired
+    private IndustryMapMapper industryMapMapper;
     @Override
     public Integer addEmploymentInformation(EmploymentInformationForm employmentInformationForm) {
         EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
         EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
-        employmentInformation.setEmploymentInformationCode(employmentInformation.getEmploymentInformationId());
+        LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.orderByDesc(EmploymentInformation::getEmploymentInformationId);
+        Integer employmentInformationId = employmentInformationMapper.selectList(null).get(0).getEmploymentInformationId();
+        employmentInformation.setEmploymentInformationCode(employmentInformationId+1);
         List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirstList();
         List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecondList();
         // 校验长度一致
@@ -72,7 +80,6 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         }
 
     }
-
     // 为了修改重载的
     private Integer addEmploymentInformationForUpdate(EmploymentInformationForm employmentInformationForm,Date startTime) {
         EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
@@ -286,6 +293,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
                     EmploymentInformationPageVO pageVO = new EmploymentInformationPageVO();
                     // 复制同名字段（要求：VO与数据库实体字段名一致、数据类型一致）
                     BeanUtils.copyProperties(employmentInformationInfo, pageVO);
+                    pageVO.setEmploymentInformationIndustryCategoriesName(industryMapMapper.selectById(info.getEmploymentInformationIndustryCategories()).getIndustryMapIndustryName());
                     // 字段差异补充映射（根据实际VO结构调整，以下为常见场景示例）
                     // 示例1：日期字段格式化（如截止时间转字符串，需导入日期工具类，如Hutool的DateUtil）
                     // if (info.getEmploymentInformationStopTime() != null) {

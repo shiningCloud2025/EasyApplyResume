@@ -53,8 +53,8 @@ export interface AdminInfoVO {
   adminIntroduce: string
   adminState: number
   adminLoginTime: string
-  adminCreatedTime: string
-  roles?: RoleInfoVO[]
+  adminCreatedTime?: string
+  roleInfoVOS?: RoleInfoVO[]
 }
 
 // 管理员表单

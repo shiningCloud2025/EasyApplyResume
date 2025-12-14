@@ -10,7 +10,7 @@
             <p class="user-meta">@{{ adminInfo?.adminAccount }} | {{ adminInfo?.adminEmail }}</p>
             <div class="user-tags">
               <el-tag 
-                v-for="role in adminInfo?.roles" 
+                v-for="role in adminInfo?.roleInfoVOS" 
                 :key="role.roleId"
                 type="primary"
                 size="small"
@@ -68,7 +68,7 @@
           </template>
           <div class="roles-list">
             <div 
-              v-for="role in adminInfo?.roles" 
+              v-for="role in adminInfo?.roleInfoVOS" 
               :key="role.roleId"
               class="role-item"
             >
@@ -79,7 +79,7 @@
               </div>
             </div>
             <el-empty 
-              v-if="!adminInfo?.roles || adminInfo.roles.length === 0" 
+              v-if="!adminInfo?.roleInfoVOS || adminInfo.roleInfoVOS.length === 0" 
               description="暂无角色"
               :image-size="60"
             />

@@ -95,6 +95,9 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
         lambdaQueryWrapper.eq(ResumeTemplate::getDeleted, 0);
         ResumeTemplate resumeTemplate = resumeTemplateMapper.selectOne(lambdaQueryWrapper);
         ResumeTemplateInfoVO resumeTemplateInfoVO = BeanUtil.copyProperties(resumeTemplate, ResumeTemplateInfoVO.class);
+        resumeTemplateInfoVO.setCreateTime(resumeTemplate.getResumeTemplateCreatedTime());
+        resumeTemplateInfoVO.setUpdateTime(resumeTemplate.getResumeTemplateUpdatedTime());
+        resumeTemplateInfoVO.setIsEnable(resumeTemplate.getResumeTemplateIsActive());
         resumeTemplateInfoVO.setIndustryMapIndustryName(industryMapService.findIndustryMapById(resumeTemplate.getResumeTemplateIndustry()).getIndustryMapIndustryName());
         return resumeTemplateInfoVO;
     }
