@@ -162,7 +162,17 @@ public enum AdminCodeEnum {
     NO_REGISTER_ERROR(786, "管理员未注册"),
     GENERATE_ACCOUNT_FAIL(787, "生成管理员账号失败"),
     ADMIN_ADD_ACCOUNT_EMPTY(788, "请输入管理员账号"),
-    ADMIN_ACCOUNT_LENGTH_ERROR(789, "管理员账号长度要在7-10位之间")
+    ADMIN_ACCOUNT_LENGTH_ERROR(789, "管理员账号长度要在7-10位之间"),
+
+
+    // ===================== 新增：公告（从800开始）=====================
+    ADMIN_ALREADY_ADD_ANNOUNCEMENT(800, "管理员已添加过该公告"),
+    ADMIN_ADD_ANNOUNCEMENT_FAIL(801, "管理员添加公告失败"),
+    ANNOUNCEMENT_TITLE_EMPTY(802, "公告标题不能为空"),
+    ANNOUNCEMENT_TITLE_TOO_LONG(803, "公告标题不能超过35个字符"),
+    ANNOUNCEMENT_CONTENT_EMPTY(804, "修改公告时内容不能为空"),
+    ADMIN_UPDATE_ANNOUNCEMENT_FAIL(805, "管理员修改公告失败"),
+    ADMIN_GET_ANNOUNCEMENT_INFO_FAIL(806, "管理员获取公告信息失败")
     ;
 
     private final Integer code;

@@ -58,6 +58,16 @@ public enum UserCodeEnum {
     // ==================== 用户简历相关异常 (10036-10050) ====================
     USER_SAVE_RESUME_NOT_DAYU_FIVE(10036, "用户保存的简历不能超过5个"),
 
+
+    // ==================== 公告业务相关 (10051-10070) ====================
+    USER_ANNOUNCEMENT_TITLE_EMPTY(10051, "用户公告标题不能为空"),
+    USER_ANNOUNCEMENT_TITLE_TOO_LONG(10052, "用户公告标题不能超过35个字符"),
+    USER_ANNOUNCEMENT_CONTENT_EMPTY(10053, "修改用户公告时内容不能为空"),
+    USER_ALREADY_ADD_ANNOUNCEMENT(10054, "用户已添加过公告"),
+    USER_ADD_ANNOUNCEMENT_FAIL(10055, "用户添加公告失败"),
+    USER_UPDATE_ANNOUNCEMENT_FAIL(10056, "用户修改公告失败"),
+    USER_GET_ANNOUNCEMENT_INFO_FAIL(10057, "用户获取公告信息失败"),
+
     // ==================== 数据库异常 (10999) ====================
     DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION(10999, "数据库异常转换失败")
 

@@ -23,8 +23,7 @@ public interface AdminAnnouncementService {
 
     /**
      * 获取公告信息
-     * @param announcementId
      * @return
      */
-    public AdminAnnouncementInfoVO getAnnouncementInfo(Integer announcementId);
+    public AdminAnnouncementInfoVO getAnnouncementInfo();
 }
