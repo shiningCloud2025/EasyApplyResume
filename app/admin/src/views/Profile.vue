@@ -52,8 +52,7 @@
             <el-descriptions-item label="姓名">{{ adminInfo?.adminUsername }}</el-descriptions-item>
             <el-descriptions-item label="手机号">{{ adminInfo?.adminPhone }}</el-descriptions-item>
             <el-descriptions-item label="邮箱" :span="2">{{ adminInfo?.adminEmail }}</el-descriptions-item>
-            <el-descriptions-item label="创建时间">{{ formatDateTime(adminInfo?.adminCreatedTime) }}</el-descriptions-item>
-            <el-descriptions-item label="最后登录">{{ formatDateTime(adminInfo?.adminLoginTime) }}</el-descriptions-item>
+            <el-descriptions-item label="最后登录" :span="2">{{ formatDate(adminInfo?.adminLoginTime) }}</el-descriptions-item>
             <el-descriptions-item label="个人简介" :span="2">
               {{ adminInfo?.adminIntroduce || '暂无简介' }}
             </el-descriptions-item>
@@ -175,9 +174,10 @@ const editRules = {
   ]
 }
 
-const formatDateTime = (dateStr: string | undefined) => {
+const formatDate = (dateStr: string | undefined) => {
   if (!dateStr) return '-'
-  return dateStr.replace('T', ' ').substring(0, 16)
+  // 只显示日期部分，不显示时分秒
+  return dateStr.substring(0, 10)
 }
 
 const getAdminInfo = async () => {

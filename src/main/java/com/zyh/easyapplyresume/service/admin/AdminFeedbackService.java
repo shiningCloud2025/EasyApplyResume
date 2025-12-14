@@ -42,7 +42,7 @@ public interface AdminFeedbackService {
     /**
      * 分页查询反馈信息
      */
-    public Page<AdminFeedbackPageVO> getFeedbackPage(int size, int page, AdminFeedbackQuery adminFeedbackQuery);
+    public Page<AdminFeedbackPageVO> getFeedbackPage(int pageNum, int pageSize, AdminFeedbackQuery adminFeedbackQuery);
 
 
 }
