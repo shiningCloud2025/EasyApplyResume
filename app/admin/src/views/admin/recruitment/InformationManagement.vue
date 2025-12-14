@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <!-- 搜索和筛选 - 完整6个字段 -->
+    <!-- 搜索和筛选 -->
     <el-card class="search-card">
       <el-form :model="searchForm" :inline="true" class="search-form">
         <el-form-item label="公司名称">
@@ -41,6 +41,23 @@
               :label="industry.industryMapIndustryName"
               :value="industry.industryMapIndustryCode"
             />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="企业性质">
+          <el-select 
+            v-model="searchForm.employmentInformationCompanyType"
+            placeholder="请选择" 
+            clearable 
+            style="width: 120px"
+          >
+            <el-option label="央企" :value="1" />
+            <el-option label="国企" :value="2" />
+            <el-option label="国企控股" :value="3" />
+            <el-option label="私企" :value="4" />
+            <el-option label="外企" :value="5" />
+            <el-option label="合资" :value="6" />
+            <el-option label="公务员" :value="7" />
+            <el-option label="事业编" :value="8" />
           </el-select>
         </el-form-item>
         <el-form-item label="招聘批次">
@@ -137,25 +154,51 @@
             {{ getBatchName(row.employmentInformationBatch) }}
           </template>
         </el-table-column>
+        <el-table-column label="招聘岗位" width="120">
+          <template #default="{ row }">
+            {{ getPositionName(row.employmentInformationRecruitPosition) }}
+          </template>
+        </el-table-column>
         <el-table-column label="招聘对象" width="100" align="center">
           <template #default="{ row }">
             {{ getRecruitObjectName(row.employmentInformationRecruitObject) }}
           </template>
         </el-table-column>
-        <el-table-column label="招聘城市" width="200">
+        <el-table-column label="招聘省份" width="150">
           <template #default="{ row }">
-              <el-tag
-              v-for="(city, index) in row.employmentInformationRecruitLocationSecondName?.slice(0, 3)" 
-                :key="index"
-                size="small"
+            <el-tag
+              v-for="(province, index) in row.employmentInformationRecruitLocationFirstName?.slice(0, 2)" 
+              :key="index"
+              size="small"
               style="margin-right: 4px; margin-bottom: 4px"
-              >
-                {{ city }}
-              </el-tag>
-            <span v-if="row.employmentInformationRecruitLocationSecondName && row.employmentInformationRecruitLocationSecondName.length > 3">
-              ...
+            >
+              {{ province }}
+            </el-tag>
+            <span v-if="row.employmentInformationRecruitLocationFirstName && row.employmentInformationRecruitLocationFirstName.length > 2">
+              +{{ row.employmentInformationRecruitLocationFirstName.length - 2 }}
+            </span>
+            <span v-if="!row.employmentInformationRecruitLocationFirstName || row.employmentInformationRecruitLocationFirstName.length === 0">-</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="招聘城市" width="180">
+          <template #default="{ row }">
+            <el-tag
+              v-for="(city, index) in row.employmentInformationRecruitLocationSecondName?.slice(0, 2)" 
+              :key="index"
+              size="small"
+              style="margin-right: 4px; margin-bottom: 4px"
+            >
+              {{ city }}
+            </el-tag>
+            <span v-if="row.employmentInformationRecruitLocationSecondName && row.employmentInformationRecruitLocationSecondName.length > 2">
+              +{{ row.employmentInformationRecruitLocationSecondName.length - 2 }}
             </span>
             <span v-if="!row.employmentInformationRecruitLocationSecondName || row.employmentInformationRecruitLocationSecondName.length === 0">-</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" width="120">
+          <template #default="{ row }">
+            {{ row.employmentInformationStartTime ? formatDate(row.employmentInformationStartTime) : '-' }}
           </template>
         </el-table-column>
         <el-table-column label="截止时间" width="120">
@@ -163,16 +206,47 @@
             {{ row.employmentInformationStopTime ? formatDate(row.employmentInformationStopTime) : '-' }}
           </template>
         </el-table-column>
-        <el-table-column label="网申状态" width="100">
+        <el-table-column label="更新时间" width="120">
+          <template #default="{ row }">
+            {{ row.employmentInformationUpdatedTime ? formatDate(row.employmentInformationUpdatedTime) : '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="网申状态" width="100" align="center">
           <template #default="{ row }">
             <el-tag :type="row.employmentInformationOnlineApplicationStatus === '进行中' ? 'success' : 'info'">
               {{ row.employmentInformationOnlineApplicationStatus || '-' }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="更新时间" width="120">
+        <el-table-column label="投递方式" min-width="200">
           <template #default="{ row }">
-            {{ row.employmentInformationUpdatedTime ? formatDate(row.employmentInformationUpdatedTime) : '-' }}
+            <el-tooltip :content="row.employmentInformationSubmissionWay || '暂无'" placement="top">
+              <div class="text-ellipsis">
+                {{ row.employmentInformationSubmissionWay || '-' }}
+              </div>
+            </el-tooltip>
+          </template>
+        </el-table-column>
+        <el-table-column label="内推码" width="120" align="center">
+          <template #default="{ row }">
+            <el-tag v-if="row.employmentInformationEmployeeReferralCode" type="success" size="small">
+              {{ row.employmentInformationEmployeeReferralCode }}
+            </el-tag>
+            <span v-else>-</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="官方公告" width="120" align="center">
+          <template #default="{ row }">
+            <el-button 
+              v-if="row.employmentInformationOfficialAnnouncement" 
+              type="primary" 
+              size="small" 
+              link
+              @click="showAnnouncement(row)"
+            >
+              查看公告
+            </el-button>
+            <span v-else>-</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="200" fixed="right">
@@ -532,10 +606,11 @@ const positionList = ref<any[]>([])
 const provinceList = ref<any[]>([])
 const cityList = ref<any[]>([])
 
-// 搜索表单 - 完整6个字段
+// 搜索表单
 const searchForm = reactive<EmploymentInformationQuery>({
   employmentInformationCompanyName: '',
   employmentInformationIndustryCategories: undefined,
+  employmentInformationCompanyType: undefined,
   employmentInformationBatch: undefined,
   employmentInformationRecruitPosition: undefined,
   employmentInformationRecruitObject: undefined,
@@ -647,6 +722,20 @@ const getRecruitObjectName = (obj: number) => {
     3: '实习生'
   }
   return objMap[obj] || '-'
+}
+
+// 获取岗位名称
+const getPositionName = (positionId: number) => {
+  const position = positionList.value.find(p => p.recruitPositionId === positionId)
+  return position?.recruitPositionName || '-'
+}
+
+// 显示官方公告
+const showAnnouncement = (row: EmploymentInformationPageVO) => {
+  ElMessageBox.alert(row.employmentInformationOfficialAnnouncement, '官方公告', {
+    confirmButtonText: '关闭',
+    dangerouslyUseHTMLString: false
+  })
 }
 
 // 获取行业列表
@@ -822,6 +911,7 @@ const handleSearch = () => {
 const handleReset = () => {
   searchForm.employmentInformationCompanyName = ''
   searchForm.employmentInformationIndustryCategories = undefined
+  searchForm.employmentInformationCompanyType = undefined
   searchForm.employmentInformationBatch = undefined
   searchForm.employmentInformationRecruitPosition = undefined
   searchForm.employmentInformationRecruitObject = undefined
@@ -1048,6 +1138,13 @@ onMounted(() => {
       color: #374151;
       white-space: pre-wrap;
     }
+  }
+
+  .text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
   }
 }
 

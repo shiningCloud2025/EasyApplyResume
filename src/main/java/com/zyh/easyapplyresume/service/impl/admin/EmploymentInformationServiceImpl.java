@@ -84,7 +84,8 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
     private Integer addEmploymentInformationForUpdate(EmploymentInformationForm employmentInformationForm,Date startTime) {
         EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
         EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
-        employmentInformation.setEmploymentInformationCode(employmentInformation.getEmploymentInformationId());
+        Integer employmentInformationId = employmentInformationMapper.selectList(null).get(0).getEmploymentInformationId();
+        employmentInformation.setEmploymentInformationCode(employmentInformationId+1);
         List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirstList();
         List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecondList();
         // 校验长度一致
@@ -196,6 +197,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         employmentInformationInfoVO.setEmploymentInformationRecruitLocationFirstName(provinces);
         employmentInformationInfoVO.setEmploymentInformationRecruitLocationSecondName(cities);
         employmentInformationInfoVO.setEmploymentInformationRecruitLocationDetail(details);
+        employmentInformationInfoVO.setEmploymentInformationIndustryCategoriesName(industryMapMapper.selectById(employmentInformations.getFirst().getEmploymentInformationIndustryCategories()).getIndustryMapIndustryName());
         return employmentInformationInfoVO;
     }
     /**

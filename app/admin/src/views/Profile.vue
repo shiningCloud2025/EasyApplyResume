@@ -2,8 +2,8 @@
   <div class="profile-page" v-loading="loading">
     <!-- 个人中心头部 - 紧凑版 -->
     <el-card class="profile-card" shadow="hover">
-      <div class="profile-header">
-        <div class="avatar-section">
+    <div class="profile-header">
+      <div class="avatar-section">
           <el-avatar :size="80" :src="adminInfo?.adminImage || defaultAvatar" />
           <div class="user-info">
             <h2>{{ adminInfo?.adminUsername || '加载中...' }}</h2>
@@ -23,20 +23,20 @@
               >
                 {{ adminInfo?.adminState === 1 ? '正常' : '禁用' }}
               </el-tag>
-            </div>
-          </div>
         </div>
-        <div class="header-actions">
+        </div>
+      </div>
+      <div class="header-actions">
           <el-button @click="getAdminInfo" :loading="loading">
             <el-icon><Refresh /></el-icon>
             刷新
           </el-button>
           <el-button type="primary" @click="openEditDialog">
             <el-icon><Edit /></el-icon>
-            编辑资料
-          </el-button>
-        </div>
+          编辑资料
+        </el-button>
       </div>
+    </div>
     </el-card>
 
     <!-- 信息展示 -->
@@ -83,8 +83,8 @@
               description="暂无角色"
               :image-size="60"
             />
-          </div>
-        </el-card>
+            </div>
+          </el-card>
       </el-col>
     </el-row>
 
@@ -103,13 +103,13 @@
       >
         <el-form-item label="姓名" prop="adminUsername">
           <el-input v-model="editForm.adminUsername" maxlength="15" show-word-limit />
-        </el-form-item>
+            </el-form-item>
         <el-form-item label="邮箱" prop="adminEmail">
           <el-input v-model="editForm.adminEmail" maxlength="25" show-word-limit />
-        </el-form-item>
+            </el-form-item>
         <el-form-item label="手机号" prop="adminPhone">
           <el-input v-model="editForm.adminPhone" maxlength="11" />
-        </el-form-item>
+            </el-form-item>
         <el-form-item label="头像URL" prop="adminImage">
           <el-input v-model="editForm.adminImage" type="textarea" :rows="2" />
         </el-form-item>
@@ -276,29 +276,29 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
-  .avatar-section {
-    display: flex;
-    align-items: center;
+
+.avatar-section {
+  display: flex;
+  align-items: center;
     gap: 16px;
   }
   
   .user-info {
     h2 {
-      margin: 0 0 8px 0;
+  margin: 0 0 8px 0;
       font-size: 20px;
-      font-weight: 600;
-      color: #1f2937;
-    }
-    
+  font-weight: 600;
+  color: #1f2937;
+}
+
     .user-meta {
       margin: 0 0 8px 0;
       font-size: 13px;
-      color: #6b7280;
-    }
-    
+  color: #6b7280;
+}
+
     .user-tags {
-      display: flex;
+  display: flex;
       gap: 8px;
       flex-wrap: wrap;
     }
@@ -315,7 +315,7 @@ onMounted(() => {
 }
 
 .role-item {
-  display: flex;
+    display: flex;
   align-items: flex-start;
   gap: 12px;
   padding: 12px;
