@@ -22,6 +22,15 @@ const request: AxiosInstance = axios.create({
 // 响应拦截器
 request.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
+    // 特殊处理：如果后端直接返回数组（如省份、城市API），包装成统一格式
+    if (Array.isArray(response.data)) {
+      return {
+        code: 200,
+        message: 'OK',
+        data: response.data
+      }
+    }
+    
     const { code, message, data } = response.data
     
     // 请求成功

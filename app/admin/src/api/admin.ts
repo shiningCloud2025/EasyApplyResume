@@ -1,4 +1,5 @@
 import { api } from '@/utils/request'
+import request from '@/utils/request'
 import type { AdminUser, LoginForm, PhoneLoginForm, EmailLoginForm } from '@/store/auth'
 import type { 
   PageQuery, 
@@ -35,7 +36,10 @@ import type {
   EmploymentInformationInfoVO,
   IndustryMapForm,
   IndustryMapQuery,
-  IndustryMapPageVO
+  IndustryMapPageVO,
+  ProvinceMap,
+  CityMap,
+  AreaMap
 } from '@/types/admin'
 
 // 认证相关API
@@ -282,14 +286,58 @@ export const industryMapApi = {
   findAllIndustryMap: () => api.get<IndustryMapInfoVO[]>('/admin/industryMap/findAllIndustryMap')
 }
 
-// 地区相关API
+// 地区相关API（注意：这些接口直接返回数据，没有BaseResult包装）
 export const provinceMapApi = {
   // 查询所有省份
-  getAllProvince: () => api.get<any[]>('/admin/provinceMap/getAllProvince'),
+  getAllProvince: async () => {
+    console.log('🔥 API层：开始调用 getAllProvince')
+    try {
+      const response = await request.get<ProvinceMap[]>('/admin/provinceMap/getAllProvince')
+      console.log('🔥 API层：getAllProvince axios响应:', response)
+      console.log('🔥 API层：getAllProvince 数据:', response.data)
+      // 响应拦截器已处理数组包装，直接返回
+      return response as any
+    } catch (error) {
+      console.error('🔥 API层：getAllProvince 失败:', error)
+      throw error
+    }
+  },
   
   // 根据省份查询城市
-  getCityByProvinceId: (provinceMapId: number) => 
-    api.get<any[]>('/admin/provinceMap/getCityByProvinceId', { provinceMapId })
+  getCityByProvinceId: async (provinceMapId: number) => {
+    console.log('🔥 API层：开始调用 getCityByProvinceId, 省份ID:', provinceMapId)
+    try {
+      const response = await request.get<CityMap[]>('/admin/provinceMap/getCityByProvinceId', { 
+        params: { provinceMapId } 
+      })
+      console.log('🔥 API层：getCityByProvinceId axios响应:', response)
+      console.log('🔥 API层：getCityByProvinceId 数据:', response.data)
+      // 响应拦截器已处理数组包装，直接返回
+      return response as any
+    } catch (error) {
+      console.error('🔥 API层：getCityByProvinceId 失败:', error)
+      throw error
+    }
+  }
+}
+
+// 城市相关API（注意：这些接口直接返回数据，没有BaseResult包装）
+export const cityMapApi = {
+  // 查询所有城市
+  getAllCity: async () => {
+    const response = await request.get<CityMap[]>('/admin/cityMap/getAllCity')
+    // 响应拦截器已处理数组包装，直接返回
+    return response as any
+  },
+  
+  // 根据城市查询区县
+  getAllAreaByCityId: async (cityId: number) => {
+    const response = await request.get<AreaMap[]>('/admin/cityMap/getAllAreaByCityId', { 
+      params: { cityId } 
+    })
+    // 响应拦截器已处理数组包装，直接返回
+    return response as any
+  }
 }
 
 // 邮件发送相关API

@@ -41,8 +41,8 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
         EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
         employmentInformation.setEmploymentInformationCode(employmentInformation.getEmploymentInformationId());
-        List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirst();
-        List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecond();
+        List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirstList();
+        List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecondList();
         // 校验长度一致
         if (provinceIds.size() != cityIds.size()) {
             throw new BusException(AdminCodeEnum.EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH);
@@ -78,8 +78,8 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
         EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
         employmentInformation.setEmploymentInformationCode(employmentInformation.getEmploymentInformationId());
-        List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirst();
-        List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecond();
+        List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirstList();
+        List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecondList();
         // 校验长度一致
         if (provinceIds.size() != cityIds.size()) {
             throw new BusException(AdminCodeEnum.EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH);
