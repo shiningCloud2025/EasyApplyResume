@@ -286,6 +286,7 @@ export interface EmploymentInformationForm {
 export interface EmploymentInformationQuery {
   employmentInformationCompanyName?: string
   employmentInformationIndustryCategories?: number
+  employmentInformationCompanyType?: number
   employmentInformationBatch?: number
   employmentInformationRecruitPosition?: number
   employmentInformationRecruitObject?: number
