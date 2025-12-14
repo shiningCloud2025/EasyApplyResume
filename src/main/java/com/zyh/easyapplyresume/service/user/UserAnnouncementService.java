@@ -26,10 +26,9 @@ public interface UserAnnouncementService {
 
     /**
      * 获取公告信息
-     * @param announcementId
      * @return
      */
-    public UserAnnouncementInfoVO getAnnouncementInfo(Integer announcementId);
+    public UserAnnouncementInfoVO getAnnouncementInfo();
 
 
 }
