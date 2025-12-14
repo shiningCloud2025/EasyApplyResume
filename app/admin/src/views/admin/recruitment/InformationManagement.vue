@@ -397,9 +397,9 @@
         
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="招聘省份" prop="employmentInformationRecruitLocationFirst">
+            <el-form-item label="招聘省份" prop="employmentInformationRecruitLocationFirstList">
               <el-select 
-                v-model="infoForm.employmentInformationRecruitLocationFirst" 
+                v-model="infoForm.employmentInformationRecruitLocationFirstList" 
                 placeholder="请选择省份（可多选）" 
                 multiple
                 collapse-tags
@@ -416,14 +416,14 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="招聘城市" prop="employmentInformationRecruitLocationSecond">
+            <el-form-item label="招聘城市" prop="employmentInformationRecruitLocationSecondList">
               <el-select 
-                v-model="infoForm.employmentInformationRecruitLocationSecond" 
+                v-model="infoForm.employmentInformationRecruitLocationSecondList" 
                 placeholder="请先选择省份" 
                 multiple
                 collapse-tags
                 style="width: 100%"
-                :disabled="!infoForm.employmentInformationRecruitLocationFirst || infoForm.employmentInformationRecruitLocationFirst.length === 0"
+                :disabled="!infoForm.employmentInformationRecruitLocationFirstList || infoForm.employmentInformationRecruitLocationFirstList.length === 0"
                 @focus="handleCityFocus"
               >
                 <el-option
@@ -563,8 +563,8 @@ const infoForm = reactive<EmploymentInformationForm>({
   employmentInformationBatch: undefined as any,
   employmentInformationRecruitPosition: undefined as any,
   employmentInformationRecruitObject: undefined as any,
-  employmentInformationRecruitLocationFirst: [],
-  employmentInformationRecruitLocationSecond: [],
+  employmentInformationRecruitLocationFirstList: [],
+  employmentInformationRecruitLocationSecondList: [],
   employmentInformationRecruitLocationDetail: '',
   employmentInformationStopTime: '',
   employmentInformationOnlineApplicationStatus: '',
@@ -594,10 +594,10 @@ const infoRules = {
   employmentInformationRecruitObject: [
     { required: true, message: '请选择招聘对象', trigger: 'change' }
   ],
-  employmentInformationRecruitLocationFirst: [
+  employmentInformationRecruitLocationFirstList: [
     { required: true, message: '请选择招聘省份', trigger: 'change' }
   ],
-  employmentInformationRecruitLocationSecond: [
+  employmentInformationRecruitLocationSecondList: [
     { required: true, message: '请选择招聘城市', trigger: 'change' }
   ],
   employmentInformationStopTime: [
@@ -715,54 +715,69 @@ const handleProvinceFocus = () => {
   getProvinceList()
 }
 
-// 城市选择框获得焦点时加载数据
-const handleCityFocus = () => {
-  console.log('👆 [城市] 用户点击了城市选择框')
-  console.log('👆 [城市] 当前城市列表长度:', cityList.value.length)
-  console.log('👆 [城市] 已选省份:', infoForm.employmentInformationRecruitLocationFirst)
-}
+// 记录最后一个被选择的省份ID
+const lastSelectedProvinceId = ref<number | null>(null)
 
-// 监听省份选择，加载对应城市
-watch(() => infoForm.employmentInformationRecruitLocationFirst, async (newProvinces, oldProvinces) => {
+// 监听省份选择，记录最后选择的省份
+watch(() => infoForm.employmentInformationRecruitLocationFirstList, (newProvinces, oldProvinces) => {
   console.log('👀 [省份变化] 新选择的省份:', newProvinces)
   console.log('👀 [省份变化] 旧的省份:', oldProvinces)
   
   if (newProvinces && newProvinces.length > 0) {
-    // 加载所有选中省份的城市
+    // 找出新增的省份（最后一个选择的）
+    const newProvince = newProvinces.find(id => !oldProvinces?.includes(id))
+    if (newProvince) {
+      lastSelectedProvinceId.value = newProvince
+      console.log('📍 [省份变化] 最后选择的省份ID:', newProvince)
+      // 清空城市下拉列表，等待用户点击时重新加载
+      cityList.value = []
+    }
+  } else {
+    console.log('🗑️ [省份变化] 清空所有省份')
+    lastSelectedProvinceId.value = null
+    cityList.value = []
+    infoForm.employmentInformationRecruitLocationSecondList = []
+  }
+}, { deep: true })
+
+// 城市选择框获得焦点时，加载最后选择的省份对应的城市
+const handleCityFocus = async () => {
+  console.log('👆 [城市] 用户点击了城市选择框')
+  console.log('👆 [城市] 已选省份:', infoForm.employmentInformationRecruitLocationFirstList)
+  console.log('👆 [城市] 最后选择的省份ID:', lastSelectedProvinceId.value)
+  
+  // 如果没有选择省份，提示用户
+  if (!infoForm.employmentInformationRecruitLocationFirstList || infoForm.employmentInformationRecruitLocationFirstList.length === 0) {
+    ElMessage.warning('请先选择省份')
+    return
+  }
+  
+  // 如果有最后选择的省份，加载该省份的城市
+  if (lastSelectedProvinceId.value) {
     try {
-      console.log('🏙️ [城市加载] 开始加载所有已选省份的城市...')
-      const allCities: any[] = []
-      
-      for (const provinceId of newProvinces) {
-        console.log(`🏙️ [城市加载] 正在加载省份ID ${provinceId} 的城市...`)
-        const response = await provinceMapApi.getCityByProvinceId(provinceId)
-        console.log(`🏙️ [城市加载] 省份ID ${provinceId} 返回 ${response.data?.length || 0} 个城市`)
-        allCities.push(...(response.data || []))
-      }
-      
-      console.log(`✅ [城市加载] 总共加载了 ${allCities.length} 个城市`)
-      cityList.value = allCities
-      
-      // 过滤掉不在当前省份下的城市（已选城市中，只保留当前省份包含的城市）
-      const validCityIds = allCities.map(c => c.cityMapCid)
-      const filteredCities = infoForm.employmentInformationRecruitLocationSecond.filter(
-        cityId => validCityIds.includes(cityId)
-      )
-      
-      console.log('🔍 [城市过滤] 原有已选城市:', infoForm.employmentInformationRecruitLocationSecond)
-      console.log('🔍 [城市过滤] 过滤后的城市:', filteredCities)
-      
-      infoForm.employmentInformationRecruitLocationSecond = filteredCities
+      console.log(`🏙️ [城市加载] 正在加载省份ID ${lastSelectedProvinceId.value} 的城市...`)
+      const response = await provinceMapApi.getCityByProvinceId(lastSelectedProvinceId.value)
+      cityList.value = response.data || []
+      console.log(`✅ [城市加载] 加载了 ${cityList.value.length} 个城市`)
     } catch (error) {
       console.error('❌ [城市加载] 获取城市列表失败:', error)
       ElMessage.error('获取城市列表失败')
     }
-  } else {
-    console.log('🗑️ [省份变化] 清空所有省份，清空城市列表')
-    cityList.value = []
-    infoForm.employmentInformationRecruitLocationSecond = []
+  } else if (infoForm.employmentInformationRecruitLocationFirstList.length > 0) {
+    // 如果没有记录最后选择的省份，但是有省份被选中，使用第一个省份
+    const firstProvinceId = infoForm.employmentInformationRecruitLocationFirstList[0]
+    lastSelectedProvinceId.value = firstProvinceId
+    console.log(`🏙️ [城市加载] 使用第一个省份ID ${firstProvinceId}`)
+    try {
+      const response = await provinceMapApi.getCityByProvinceId(firstProvinceId)
+      cityList.value = response.data || []
+      console.log(`✅ [城市加载] 加载了 ${cityList.value.length} 个城市`)
+    } catch (error) {
+      console.error('❌ [城市加载] 获取城市列表失败:', error)
+      ElMessage.error('获取城市列表失败')
+    }
   }
-}, { deep: true })
+}
 
 // 获取列表
 const getInfoList = async () => {
@@ -868,8 +883,8 @@ const handleEdit = async (row: EmploymentInformationPageVO) => {
       employmentInformationBatch: detail.employmentInformationBatch,
       employmentInformationRecruitPosition: detail.employmentInformationRecruitPosition,
       employmentInformationRecruitObject: detail.employmentInformationRecruitObject,
-      employmentInformationRecruitLocationFirst: [], 
-      employmentInformationRecruitLocationSecond: [],
+      employmentInformationRecruitLocationFirstList: [], 
+      employmentInformationRecruitLocationSecondList: [],
       employmentInformationRecruitLocationDetail: detailAddress,
       employmentInformationStopTime: detail.employmentInformationStopTime,
       employmentInformationOnlineApplicationStatus: detail.employmentInformationOnlineApplicationStatus,
@@ -946,8 +961,8 @@ const resetForm = () => {
     employmentInformationBatch: undefined,
     employmentInformationRecruitPosition: undefined,
     employmentInformationRecruitObject: undefined,
-    employmentInformationRecruitLocationFirst: [],
-    employmentInformationRecruitLocationSecond: [],
+    employmentInformationRecruitLocationFirstList: [],
+    employmentInformationRecruitLocationSecondList: [],
     employmentInformationRecruitLocationDetail: '',
     employmentInformationStopTime: '',
     employmentInformationOnlineApplicationStatus: '',

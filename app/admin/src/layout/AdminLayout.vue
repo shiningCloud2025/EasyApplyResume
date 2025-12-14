@@ -90,6 +90,18 @@
           <el-menu-item index="/admin/ai/agent">AI智能体助手</el-menu-item>
         </el-sub-menu>
 
+        <!-- 反馈管理 -->
+        <el-sub-menu index="/admin/feedback">
+          <template #title>
+            <el-icon><ChatLineSquare /></el-icon>
+            <span>反馈管理</span>
+          </template>
+          <el-menu-item index="/admin/feedback/user-management">用户端反馈管理</el-menu-item>
+          <el-menu-item index="/admin/feedback/management">管理端反馈管理</el-menu-item>
+          <el-menu-item index="/admin/feedback/user-records">用户端反馈记录</el-menu-item>
+          <el-menu-item index="/admin/feedback/records">管理端反馈记录</el-menu-item>
+        </el-sub-menu>
+
         <!-- 内部系统 -->
         <el-sub-menu index="/admin/system">
           <template #title>
@@ -106,16 +118,28 @@
           </el-menu-item>
         </el-sub-menu>
 
-        <!-- 反馈管理 -->
-        <el-sub-menu index="/admin/feedback">
+        <!-- 外部API -->
+        <el-sub-menu index="external-api">
           <template #title>
-            <el-icon><ChatLineSquare /></el-icon>
-            <span>反馈管理</span>
+            <el-icon><Connection /></el-icon>
+            <span>外部API</span>
           </template>
-          <el-menu-item index="/admin/feedback/user-management">用户端反馈管理</el-menu-item>
-          <el-menu-item index="/admin/feedback/management">管理端反馈管理</el-menu-item>
-          <el-menu-item index="/admin/feedback/user-records">用户端反馈记录</el-menu-item>
-          <el-menu-item index="/admin/feedback/records">管理端反馈记录</el-menu-item>
+          <el-menu-item index="/admin/external-api/bailian">
+            <el-icon><MagicStick /></el-icon>
+            <span>阿里云百炼平台</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/external-api/sms">
+            <el-icon><Message /></el-icon>
+            <span>阿里云短信平台</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/external-api/searchapi">
+            <el-icon><Search /></el-icon>
+            <span>SearchAPI平台</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/external-api/amap">
+            <el-icon><Location /></el-icon>
+            <span>高德开放平台</span>
+          </el-menu-item>
         </el-sub-menu>
 
         <!-- API文档中心 -->
@@ -266,7 +290,10 @@ import {
   SwitchButton,
   Link,
   Lock,
-  DataAnalysis
+  DataAnalysis,
+  Connection,
+  MagicStick,
+  Message
 } from '@element-plus/icons-vue'
 
 const route = useRoute()
@@ -316,7 +343,7 @@ const handleUserCommand = (command: string) => {
       router.push('/admin/profile')
       break
     case 'feedback':
-      router.push('/admin/feedback/management')
+      router.push('/admin/feedback/submit')
       break
     case 'logout':
       handleLogout()
@@ -374,12 +401,18 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/system/user-portal': '易投简历用户端',
     '/admin/system/observation-portal': '易投简历观测与广告端',
     '/admin/feedback': '反馈管理',
+    '/admin/feedback/submit': '意见反馈',
     '/admin/feedback/user-management': '用户端反馈管理',
     '/admin/feedback/management': '管理端反馈管理',
     '/admin/feedback/user-records': '用户端反馈记录',
     '/admin/feedback/records': '管理端反馈记录',
     '/admin/api-docs': 'API对外文档中心',
-    'internal-api-docs': 'API对内文档中心'
+    'internal-api-docs': 'API对内文档中心',
+    '/admin/external-api': '外部API',
+    '/admin/external-api/bailian': '阿里云百炼平台',
+    '/admin/external-api/sms': '阿里云短信平台',
+    '/admin/external-api/searchapi': 'SearchAPI平台',
+    '/admin/external-api/amap': '高德开放平台'
   }
 
   const breadcrumbs = []

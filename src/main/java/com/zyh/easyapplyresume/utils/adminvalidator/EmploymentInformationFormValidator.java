@@ -111,7 +111,7 @@ public class EmploymentInformationFormValidator {
         }
 
         // 7. 招聘地址(省级)非空：List不能为null且不能是空集合，集合元素不能为null
-        List<Integer> locationFirst = form.getEmploymentInformationRecruitLocationFirst();
+        List<Integer> locationFirst = form.getEmploymentInformationRecruitLocationFirstList();
         if (locationFirst == null || locationFirst.isEmpty()) {
             throw new BusException(AdminCodeEnum.EMPLOYMENT_RECRUIT_LOCATION_FIRST_EMPTY);
         }
@@ -122,7 +122,7 @@ public class EmploymentInformationFormValidator {
         }
 
         // 8. 招聘地址(市级)非空：List不能为null且不能是空集合，集合元素不能为null
-        List<Integer> locationSecond = form.getEmploymentInformationRecruitLocationSecond();
+        List<Integer> locationSecond = form.getEmploymentInformationRecruitLocationSecondList();
         if (locationSecond == null || locationSecond.isEmpty()) {
             throw new BusException(AdminCodeEnum.EMPLOYMENT_RECRUIT_LOCATION_SECOND_EMPTY);
         }
