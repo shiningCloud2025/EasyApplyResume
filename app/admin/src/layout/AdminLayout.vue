@@ -96,7 +96,14 @@
             <el-icon><Monitor /></el-icon>
             <span>内部系统</span>
           </template>
-          <el-menu-item index="/admin/system/links">系统链接</el-menu-item>
+          <el-menu-item index="/admin/system/user-portal">
+            <el-icon><User /></el-icon>
+            <span>易投简历用户端</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/system/observation-portal">
+            <el-icon><DataAnalysis /></el-icon>
+            <span>易投简历观测与广告端</span>
+          </el-menu-item>
         </el-sub-menu>
 
         <!-- 反馈管理 -->
@@ -258,7 +265,8 @@ import {
   ArrowDown,
   SwitchButton,
   Link,
-  Lock
+  Lock,
+  DataAnalysis
 } from '@element-plus/icons-vue'
 
 const route = useRoute()
@@ -363,7 +371,8 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/ai/chat': 'AI智能问答助手',
     '/admin/ai/agent': 'AI智能体助手',
     '/admin/system': '内部系统',
-    '/admin/system/links': '系统链接',
+    '/admin/system/user-portal': '易投简历用户端',
+    '/admin/system/observation-portal': '易投简历观测与广告端',
     '/admin/feedback': '反馈管理',
     '/admin/feedback/user-management': '用户端反馈管理',
     '/admin/feedback/management': '管理端反馈管理',

@@ -240,54 +240,77 @@ export interface RecruitPositionPageVO {
   createdTime?: string
 }
 
-// 招聘信息信息VO
+// 招聘信息详情VO
 export interface EmploymentInformationInfoVO {
   employmentInformationId: number
-  employmentInformationTitle: string
-  employmentInformationCompany: string
-  employmentInformationSalary: string
-  employmentInformationCity: string
-  employmentInformationExperience: string
-  employmentInformationEducation: string
-  employmentInformationSkill: string
-  employmentInformationIntroduce: string
-  employmentInformationWelfare: string
-  employmentInformationState: number
-  employmentInformationCreatedTime: string
+  employmentInformationCode?: number
+  employmentInformationCompanyName: string
+  employmentInformationIndustryCategoriesName?: string
+  employmentInformationCompanyType: number
+  employmentInformationBatch: number
+  employmentInformationRecruitPosition: number
+  employmentInformationRecruitObject: number
+  employmentInformationRecruitLocationFirstName?: string[]
+  employmentInformationRecruitLocationSecondName?: string[]
+  employmentInformationRecruitLocationDetail?: string[]
+  employmentInformationStartTime?: string
+  employmentInformationStopTime: string
+  employmentInformationUpdatedTime?: string
+  employmentInformationOnlineApplicationStatus: string
+  employmentInformationOfficialAnnouncement?: string
+  employmentInformationSubmissionWay: string
+  employmentInformationEmployeeReferralCode?: string
 }
 
 // 招聘信息表单
 export interface EmploymentInformationForm {
   employmentInformationId?: number
-  employmentInformationTitle: string
-  employmentInformationCompany: string
-  employmentInformationSalary: string
-  employmentInformationCity: string
-  employmentInformationExperience: string
-  employmentInformationEducation: string
-  employmentInformationSkill: string
-  employmentInformationIntroduce: string
-  employmentInformationWelfare: string
-  employmentInformationState?: number
+  employmentInformationCode?: number
+  employmentInformationCompanyName: string
+  employmentInformationIndustryCategories: number
+  employmentInformationCompanyType: number
+  employmentInformationBatch: number
+  employmentInformationRecruitPosition: number
+  employmentInformationRecruitObject: number
+  employmentInformationRecruitLocationFirst: number[]
+  employmentInformationRecruitLocationSecond: number[]
+  employmentInformationRecruitLocationDetail?: string
+  employmentInformationStopTime: string
+  employmentInformationOnlineApplicationStatus: string
+  employmentInformationOfficialAnnouncement?: string
+  employmentInformationSubmissionWay: string
+  employmentInformationEmployeeReferralCode?: string
 }
 
 // 招聘信息查询
 export interface EmploymentInformationQuery {
-  employmentInformationTitle?: string
-  employmentInformationCompany?: string
-  employmentInformationCity?: string
-  employmentInformationState?: number
+  employmentInformationCompanyName?: string
+  employmentInformationIndustryCategories?: number
+  employmentInformationBatch?: number
+  employmentInformationRecruitPosition?: number
+  employmentInformationRecruitObject?: number
+  employmentInformationOnlineApplicationStatus?: string
 }
 
 // 招聘信息分页VO
 export interface EmploymentInformationPageVO {
   employmentInformationId: number
-  employmentInformationTitle: string
-  employmentInformationCompany: string
-  employmentInformationSalary: string
-  employmentInformationCity: string
-  employmentInformationState: number
-  employmentInformationCreatedTime: string
+  employmentInformationCompanyName: string
+  employmentInformationIndustryCategoriesName?: string
+  employmentInformationCompanyType: number
+  employmentInformationBatch: number
+  employmentInformationRecruitPosition: number
+  employmentInformationRecruitObject: number
+  employmentInformationRecruitLocationFirstName?: string[]
+  employmentInformationRecruitLocationSecondName?: string[]
+  employmentInformationRecruitLocationDetail?: string[]
+  employmentInformationStartTime?: string
+  employmentInformationStopTime: string
+  employmentInformationUpdatedTime?: string
+  employmentInformationOnlineApplicationStatus: string
+  employmentInformationOfficialAnnouncement?: string
+  employmentInformationSubmissionWay: string
+  employmentInformationEmployeeReferralCode?: string
 }
 
 // 行业Map信息VO
@@ -359,4 +382,24 @@ export interface AdminFeedbackForm {
 export interface AdminUpdateFeedbackForm {
   title: string
   content: string
+}
+
+// 省份Map
+export interface ProvinceMap {
+  provinceMapPid: number
+  provinceMapPname: string
+}
+
+// 城市Map
+export interface CityMap {
+  cityMapCid: number
+  cityMapCname: string
+  cityMapPid: number
+}
+
+// 区县Map
+export interface AreaMap {
+  areaMapAid: number
+  areaMapAname: string
+  areaMapCid: number
 }

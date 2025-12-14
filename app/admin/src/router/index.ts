@@ -148,14 +148,20 @@ const router = createRouter({
         {
           path: 'system',
           name: 'SystemManagement',
-          redirect: '/admin/system/links',
+          redirect: '/admin/system/user-portal',
           meta: { title: '内部系统' },
           children: [
             {
-              path: 'links',
-              name: 'SystemLinks',
-              component: () => import('@/views/admin/system/SystemLinks.vue'),
-              meta: { title: '系统链接' }
+              path: 'user-portal',
+              name: 'UserPortal',
+              component: () => import('@/views/admin/system/UserPortal.vue'),
+              meta: { title: '易投简历用户端' }
+            },
+            {
+              path: 'observation-portal',
+              name: 'ObservationPortal',
+              component: () => import('@/views/admin/system/ObservationPortal.vue'),
+              meta: { title: '易投简历观测与广告端' }
             }
           ]
         },
