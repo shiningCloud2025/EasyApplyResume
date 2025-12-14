@@ -182,6 +182,7 @@
 import { ref, reactive, nextTick, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { formatDateTime, formatRelativeTime } from '@/utils'
+import { aiApi } from '@/api/admin'
 
 // 响应式数据
 const messagesContainer = ref(null)
@@ -288,20 +289,125 @@ const sendMessage = async () => {
   // 滚动到底部
   await scrollToBottom()
   
-  // 模拟AI回复
+  // 调用后端AI接口
   isTyping.value = true
-  setTimeout(() => {
-    const aiResponse = generateAIResponse(messageText)
+  let streamingContent = ''
+  
+  try {
+    console.log('📤 [AI Chat] 发送消息:', messageText)
+    console.log('📤 [AI Chat] 当前chatId:', currentChatId.value)
+    
+    // 构建请求URL
+    const baseURL = import.meta.env.VITE_API_BASE_URL || '/api'
+    const token = localStorage.getItem('admin_token')
+    let url = `${baseURL}/admin/aiSystemManagerAssistant/application/chat`
+    
+    if (currentChatId.value) {
+      url += `?chatId=${encodeURIComponent(currentChatId.value)}`
+    }
+    
+    console.log('📤 [AI Chat] 请求URL:', url)
+    
+    // 使用fetch API处理SSE流式响应
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain',
+        'Admin-Authorization': `Admin ${token}`
+      },
+      body: messageText
+    })
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
+    }
+
+    console.log('📥 [AI Chat] 开始接收SSE流...')
+    
+    // 读取响应流
+    const reader = response.body?.getReader()
+    const decoder = new TextDecoder()
+    
+    if (!reader) {
+      throw new Error('无法获取响应流')
+    }
+
+    // 创建AI消息对象（用于实时更新）
+    const aiMessageId = Date.now().toString()
     messages.value.push({
-      id: (Date.now() + 1).toString(),
+      id: aiMessageId,
       type: 'ai',
-      content: aiResponse,
+      content: '',
       timestamp: new Date(),
       liked: false
     })
+
+    while (true) {
+      const { done, value } = await reader.read()
+      
+      if (done) {
+        console.log('✅ [AI Chat] SSE流接收完成')
+        break
+      }
+      
+      // 解码数据块
+      const chunk = decoder.decode(value, { stream: true })
+      console.log('📦 [AI Chat] 接收数据块:', chunk)
+      
+      // SSE格式：data: {...}\n\n
+      const lines = chunk.split('\n')
+      
+      for (const line of lines) {
+        if (line.startsWith('data:')) {
+          const data = line.substring(5).trim()
+          
+          if (data === '[DONE]') {
+            console.log('✅ [AI Chat] 流式传输完成标记')
+            continue
+          }
+          
+          try {
+            // 尝试解析JSON
+            const parsed = JSON.parse(data)
+            console.log('📊 [AI Chat] 解析数据:', parsed)
+            
+            // 提取实际内容
+            if (parsed.data) {
+              streamingContent += parsed.data
+            } else if (typeof parsed === 'string') {
+              streamingContent += parsed
+            }
+          } catch (e) {
+            // 如果不是JSON，直接追加
+            if (data && data !== '') {
+              streamingContent += data
+            }
+          }
+          
+          // 实时更新最后一条AI消息
+          const lastMessage = messages.value[messages.value.length - 1]
+          if (lastMessage && lastMessage.id === aiMessageId) {
+            lastMessage.content = streamingContent
+          }
+          
+          scrollToBottom()
+        }
+      }
+    }
+
     isTyping.value = false
     scrollToBottom()
-  }, 1500)
+
+  } catch (error) {
+    console.error('❌ [AI Chat] 发送消息失败:', error)
+    ElMessage.error('发送失败，请稍后重试')
+    isTyping.value = false
+    
+    // 删除空的AI消息
+    if (messages.value[messages.value.length - 1]?.content === '') {
+      messages.value.pop()
+    }
+  }
 }
 
 // 生成AI回复

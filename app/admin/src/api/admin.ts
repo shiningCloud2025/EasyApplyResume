@@ -369,22 +369,52 @@ export const emailApi = {
 
 // AI助手相关API
 export const aiApi = {
-  // AI系统管理助手 - 应用对话（流式）
-  aiSystemManagerApplicationChat: (message: string, chatId?: string) => {
-    const params = chatId ? { chatId } : {}
-    return api.post('/admin/aiSystemManagerAssistant/application/chat', message, { 
-      params,
-      responseType: 'text/event-stream',
+  // AI系统管理助手 - 应用对话（流式）- 直接返回fetch响应，不经过拦截器
+  aiSystemManagerApplicationChat: async (message: string, chatId?: string) => {
+    const baseURL = import.meta.env.VITE_API_BASE_URL || '/api'
+    const token = localStorage.getItem('admin_token')
+    let url = `${baseURL}/admin/aiSystemManagerAssistant/application/chat`
+    
+    if (chatId) {
+      url += `?chatId=${encodeURIComponent(chatId)}`
+    }
+    
+    return fetch(url, {
+      method: 'POST',
       headers: {
-        'Content-Type': 'text/plain'
-      }
+        'Content-Type': 'text/plain',
+        'Admin-Authorization': `Admin ${token}`,
+        'Accept': 'text/event-stream'
+      },
+      body: message
     })
   },
   
-  // AI系统管理助手 - Agent对话（流式）
-  aiSystemManagerAgentChat: (message: string, chatId?: string) => {
-    const params = chatId ? { chatId } : {}
-    return api.post<any>('/admin/aiSystemManagerAssistant/agent/chat', message, { params })
+  // AI系统管理助手 - Agent对话（流式）- 直接返回fetch响应，不经过拦截器
+  aiSystemManagerAgentChat: async (message: string, chatId?: string) => {
+    const baseURL = import.meta.env.VITE_API_BASE_URL || '/api'
+    const token = localStorage.getItem('admin_token')
+    
+    // 如果没有chatId，生成一个UUID
+    if (!chatId) {
+      chatId = 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+    }
+    
+    let url = `${baseURL}/admin/aiSystemManagerAssistant/agent/chat?chatId=${encodeURIComponent(chatId)}`
+    
+    console.log('🔧 [API] Agent Chat URL:', url)
+    console.log('🔧 [API] Message:', message)
+    
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain',
+        'Admin-Authorization': `Admin ${token}`,
+        'Accept': 'text/event-stream',
+        'Cache-Control': 'no-cache'
+      },
+      body: message
+    })
   }
 }
 

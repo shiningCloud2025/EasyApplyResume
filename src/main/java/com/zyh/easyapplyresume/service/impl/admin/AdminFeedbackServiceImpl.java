@@ -134,7 +134,7 @@ public class AdminFeedbackServiceImpl implements AdminFeedbackService {
     }
 
     @Override
-    public Page<AdminFeedbackPageVO> getFeedbackPage(int size, int page, AdminFeedbackQuery adminFeedbackQuery) {
+    public Page<AdminFeedbackPageVO> getFeedbackPage(int pageNum, int pageSize, AdminFeedbackQuery adminFeedbackQuery) {
         LambdaQueryWrapper<AdminFeedback> lambdaQueryWrapper = new LambdaQueryWrapper<>();
 
         if (adminFeedbackQuery != null) {
@@ -148,7 +148,7 @@ public class AdminFeedbackServiceImpl implements AdminFeedbackService {
         }
 
         Page<AdminFeedback> feedbackPage = adminFeedbackMapper.selectPage(
-                new Page<>(page, size),
+                new Page<>(pageNum, pageSize),
                 lambdaQueryWrapper
         );
 

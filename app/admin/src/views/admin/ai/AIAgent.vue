@@ -87,7 +87,7 @@
 import { ref, nextTick, onMounted, onUnmounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Cpu, User, Delete, InfoFilled, Promotion } from '@element-plus/icons-vue'
-import { api } from '@/utils/request'
+import { aiApi } from '@/api/admin'
 
 interface Message {
   id: number
@@ -150,71 +150,110 @@ const sendMessage = async () => {
   streamingContent.value = ''
 
   try {
-    // 使用SSE接收流式响应
-    const baseURL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
-    const token = localStorage.getItem('admin_token')
+    console.log('📤 [AI Agent] 发送消息:', messageText)
+    console.log('📤 [AI Agent] 当前chatId:', currentChatId)
     
-    const url = new URL(`${baseURL}/admin/ai/agent/chat`)
-    if (currentChatId) {
-      url.searchParams.append('chatId', currentChatId)
+    // 调用API获取fetch响应
+    const response = await aiApi.aiSystemManagerAgentChat(messageText, currentChatId || undefined)
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`)
     }
 
-    eventSource = new EventSource(
-      `${url.toString()}&message=${encodeURIComponent(messageText)}&token=${token}`
-    )
+    console.log('📥 [AI Agent] 开始接收SSE流...')
+    console.log('📥 [AI Agent] Response headers:', response.headers)
+    
+    // 读取响应流
+    const reader = response.body?.getReader()
+    const decoder = new TextDecoder()
+    
+    if (!reader) {
+      throw new Error('无法获取响应流')
+    }
 
-    eventSource.onmessage = (event) => {
-      const data = event.data
+    let buffer = ''
+
+    while (true) {
+      const { done, value } = await reader.read()
       
-      if (data === '[DONE]') {
-        // 流式传输完成
-        if (streamingContent.value) {
-          messages.value.push({
-            id: Date.now(),
-            role: 'assistant',
-            content: streamingContent.value,
-            timestamp: new Date()
-          })
-        }
-        streamingContent.value = ''
-        isStreaming.value = false
-        if (eventSource) {
-          eventSource.close()
-          eventSource = null
-        }
-        scrollToBottom()
-      } else {
-        try {
-          const parsed = JSON.parse(data)
-          if (parsed.chatId) {
-            currentChatId = parsed.chatId
+      if (done) {
+        console.log('✅ [AI Agent] SSE流接收完成')
+        break
+      }
+      
+      // 解码数据块
+      buffer += decoder.decode(value, { stream: true })
+      console.log('📦 [AI Agent] 缓冲区内容:', buffer)
+      
+      // 按行处理SSE数据
+      const lines = buffer.split('\n')
+      buffer = lines.pop() || '' // 保留不完整的行
+      
+      for (const line of lines) {
+        console.log('📄 [AI Agent] 处理行:', line)
+        
+        if (line.startsWith('data:')) {
+          const data = line.substring(5).trim()
+          
+          if (data === '[DONE]' || data === 'DONE') {
+            console.log('✅ [AI Agent] 收到结束标记')
+            continue
           }
-          if (parsed.content) {
-            streamingContent.value += parsed.content
+          
+          if (!data) continue
+          
+          try {
+            // 尝试解析JSON
+            const parsed = JSON.parse(data)
+            console.log('📊 [AI Agent] 解析JSON:', parsed)
+            
+            // 提取内容 - 尝试多种可能的字段
+            let content = ''
+            if (parsed.data) {
+              content = typeof parsed.data === 'string' ? parsed.data : JSON.stringify(parsed.data)
+            } else if (parsed.content) {
+              content = parsed.content
+            } else if (parsed.message) {
+              content = parsed.message
+            } else if (typeof parsed === 'string') {
+              content = parsed
+            }
+            
+            if (content) {
+              streamingContent.value += content
+              scrollToBottom()
+            }
+          } catch (e) {
+            // 如果不是JSON，直接追加文本
+            console.log('📝 [AI Agent] 直接追加文本:', data)
+            streamingContent.value += data
             scrollToBottom()
           }
-        } catch (e) {
-          // 如果不是JSON，直接追加内容
-          streamingContent.value += data
-          scrollToBottom()
         }
       }
     }
 
-    eventSource.onerror = (error) => {
-      console.error('SSE错误:', error)
-      ElMessage.error('连接断开，请重试')
-      isStreaming.value = false
-      streamingContent.value = ''
-      if (eventSource) {
-        eventSource.close()
-        eventSource = null
-      }
+    // 流式传输完成，保存消息
+    if (streamingContent.value) {
+      messages.value.push({
+        id: Date.now(),
+        role: 'assistant',
+        content: streamingContent.value,
+        timestamp: new Date()
+      })
+      console.log('✅ [AI Agent] 消息已保存:', streamingContent.value)
+    } else {
+      console.warn('⚠️ [AI Agent] 未接收到任何内容')
+      ElMessage.warning('未接收到AI响应')
     }
+    
+    streamingContent.value = ''
+    isStreaming.value = false
+    scrollToBottom()
 
   } catch (error) {
-    console.error('发送消息失败:', error)
-    ElMessage.error('发送失败，请稍后重试')
+    console.error('❌ [AI Agent] 发送消息失败:', error)
+    ElMessage.error('发送失败：' + (error.message || '请稍后重试'))
     isStreaming.value = false
     streamingContent.value = ''
   }

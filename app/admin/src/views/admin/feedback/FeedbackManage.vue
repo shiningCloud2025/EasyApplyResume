@@ -58,16 +58,34 @@
       >
         <el-table-column prop="adminFeedbackId" label="ID" width="70" />
         <el-table-column prop="adminFeedbackTitle" label="标题" min-width="200" />
-        <el-table-column prop="adminFeedbackAdminName" label="提交人" min-width="120" />
-        <el-table-column prop="adminFeedbackCurStep" label="当前状态" width="100">
+        <el-table-column label="反馈内容" min-width="180">
+          <template #default="{ row }">
+            <el-tooltip :content="row.adminFeedbackContent || '暂无内容'" placement="top">
+              <div class="text-ellipsis">
+                {{ row.adminFeedbackContent ? row.adminFeedbackContent.substring(0, 30) + '...' : '-' }}
+              </div>
+            </el-tooltip>
+          </template>
+        </el-table-column>
+        <el-table-column label="提交时间" width="180">
+          <template #default="{ row }">
+            {{ row.adminFeedbackTime ? formatDateTime(row.adminFeedbackTime) : '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="最近处理时间" width="180">
+          <template #default="{ row }">
+            {{ row.adminFeedbackRecentTime ? formatDateTime(row.adminFeedbackRecentTime) : '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="adminFeedbackCurStep" label="当前状态" width="100" align="center">
           <template #default="{ row }">
             <el-tag :type="getStatusType(row.adminFeedbackCurStep)">
               {{ row.adminFeedbackCurStep }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="adminFeedbackRecentTime" label="最近处理时间" min-width="160" />
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column prop="adminFeedbackAdminName" label="提交人" width="120" />
+        <el-table-column label="操作" width="280" fixed="right">
           <template #default="{ row }">
             <el-button
               type="info"
@@ -76,13 +94,41 @@
             >
               查看
             </el-button>
-            <el-button
-              type="primary"
-              size="default"
-              @click="handleEdit(row)"
-            >
-              编辑
-            </el-button>
+            <!-- 待接收状态：显示接受和忽视按钮 -->
+            <template v-if="row.adminFeedbackCurStep === '待接收'">
+              <el-button
+                type="success"
+                size="default"
+                @click="handleProcess(row, 0, '接受')"
+              >
+                接受
+              </el-button>
+              <el-button
+                type="warning"
+                size="default"
+                @click="handleProcess(row, 1, '忽视')"
+              >
+                忽视
+              </el-button>
+            </template>
+            <!-- 待回复状态：显示回复和拒回复按钮 -->
+            <template v-else-if="row.adminFeedbackCurStep === '待回复'">
+              <el-button
+                type="primary"
+                size="default"
+                @click="handleProcess(row, 2, '回复')"
+              >
+                回复
+              </el-button>
+              <el-button
+                type="danger"
+                size="default"
+                @click="handleProcess(row, 3, '拒回复')"
+              >
+                拒回复
+              </el-button>
+            </template>
+            <!-- 已回复、忽视、拒回复状态：不显示处理按钮 -->
           </template>
         </el-table-column>
       </el-table>
@@ -133,46 +179,49 @@
       </div>
     </el-dialog>
 
-    <!-- 编辑反馈对话框 -->
+    <!-- 处理反馈对话框 -->
     <el-dialog
-      v-model="showEditDialog"
-      title="编辑反馈"
+      v-model="showProcessDialog"
+      :title="`${processAction} - ${currentFeedback?.adminFeedbackTitle || ''}`"
       width="600px"
-      @close="resetEditForm"
+      @close="resetProcessForm"
     >
       <el-form
-        ref="editFormRef"
-        :model="editForm"
-        :rules="editRules"
+        ref="processFormRef"
+        :model="processForm"
+        :rules="processRules"
         label-width="100px"
       >
-        <el-form-item label="操作类型" prop="operationCode">
-          <el-select v-model="editForm.operationCode" placeholder="请选择操作类型">
-            <el-option label="处理反馈" :value="1" />
-            <el-option label="回复反馈" :value="2" />
-            <el-option label="关闭反馈" :value="3" />
-          </el-select>
-        </el-form-item>
-        
         <el-form-item label="反馈标题" prop="title">
-          <el-input v-model="editForm.title" placeholder="请输入反馈标题" />
+          <el-input v-model="processForm.title" placeholder="请输入处理后的标题" />
         </el-form-item>
         
-        <el-form-item label="反馈内容" prop="content">
+        <el-form-item label="处理内容" prop="content">
           <el-input
-            v-model="editForm.content"
+            v-model="processForm.content"
             type="textarea"
             :rows="6"
-            placeholder="请输入反馈内容"
+            placeholder="请输入处理内容或备注"
           />
         </el-form-item>
+
+        <el-alert
+          type="info"
+          :closable="false"
+          show-icon
+          style="margin-top: 12px"
+        >
+          <template #title>
+            <span>操作说明：{{ getOperationDesc(processForm.operationCode) }}</span>
+          </template>
+        </el-alert>
       </el-form>
       
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="showEditDialog = false">取消</el-button>
-          <el-button type="primary" @click="handleEditSubmit" :loading="submitting">
-            确定
+          <el-button @click="showProcessDialog = false">取消</el-button>
+          <el-button type="primary" @click="handleProcessSubmit" :loading="submitting">
+            确定{{ processAction }}
           </el-button>
         </div>
       </template>
@@ -198,9 +247,10 @@ import type { FormInstance } from 'element-plus'
 const loading = ref(false)
 const submitting = ref(false)
 const showDetailDialog = ref(false)
-const showEditDialog = ref(false)
+const showProcessDialog = ref(false)
 const currentDetail = ref<AdminFeedbackInfoVO | null>(null)
 const currentFeedback = ref<AdminFeedbackPageVO | null>(null)
+const processAction = ref('')
 
 // 搜索表单
 const searchForm = reactive<AdminFeedbackQuery>({
@@ -218,24 +268,21 @@ const pagination = reactive({
 // 表格数据
 const tableData = ref<AdminFeedbackPageVO[]>([])
 
-// 编辑表单
-const editFormRef = ref<FormInstance>()
-const editForm = reactive<AdminUpdateFeedbackForm>({
-  operationCode: 1,
+// 处理表单
+const processFormRef = ref<FormInstance>()
+const processForm = reactive<AdminUpdateFeedbackForm>({
+  operationCode: 0,
   title: '',
   content: ''
 })
 
 // 表单校验规则
-const editRules = {
-  operationCode: [
-    { required: true, message: '请选择操作类型', trigger: 'change' }
-  ],
+const processRules = {
   title: [
-    { required: true, message: '请输入反馈标题', trigger: 'blur' }
+    { required: true, message: '请输入处理后的标题', trigger: 'blur' }
   ],
   content: [
-    { required: true, message: '请输入反馈内容', trigger: 'blur' }
+    { required: true, message: '请输入处理内容', trigger: 'blur' }
   ]
 }
 
@@ -301,69 +348,82 @@ const handleDetail = async (row: AdminFeedbackPageVO) => {
   }
 }
 
-// 编辑反馈
-const handleEdit = async (row: AdminFeedbackPageVO) => {
+// 处理反馈
+const handleProcess = async (row: AdminFeedbackPageVO, operationCode: number, actionName: string) => {
   try {
     const response = await feedbackApi.getFeedbackDetail(row.adminFeedbackId)
     currentFeedback.value = row
-    editForm.title = response.data.adminFeedbackTitle
-    editForm.content = response.data.adminFeedbackContent
-    editForm.operationCode = 1 // 默认为处理反馈
-    showEditDialog.value = true
+    processAction.value = actionName
+    processForm.operationCode = operationCode
+    processForm.title = response.data.adminFeedbackTitle
+    processForm.content = ''
+    showProcessDialog.value = true
   } catch (error) {
     console.error('获取反馈详情失败:', error)
     ElMessage.error('获取详情失败')
   }
 }
 
+// 获取操作说明
+const getOperationDesc = (code: number) => {
+  const descMap: Record<number, string> = {
+    0: '接受反馈后，状态将变为"待回复"，并会发送短信通知',
+    1: '忽视反馈后，状态将变为"忽视"',
+    2: '回复反馈后，状态将变为"已回复"，并会发送短信通知',
+    3: '拒绝回复后，状态将变为"拒回复"'
+  }
+  return descMap[code] || ''
+}
+
 // 获取状态类型
 const getStatusType = (status: string) => {
   const typeMap: Record<string, string> = {
-    '待处理': 'warning',
-    '处理中': 'primary',
-    '待回复': 'info',
-    '已完成': 'success',
-    '已关闭': 'danger'
+    '待接收': 'warning',
+    '待回复': 'primary',
+    '已回复': 'success',
+    '忽视': 'info',
+    '拒回复': 'danger'
   }
   return typeMap[status] || 'info'
 }
 
-// 提交编辑
-const handleEditSubmit = async () => {
-  if (!editFormRef.value || !currentFeedback.value) return
+// 提交处理
+const handleProcessSubmit = async () => {
+  if (!processFormRef.value || !currentFeedback.value) return
   
   try {
-    await editFormRef.value.validate()
+    await processFormRef.value.validate()
     submitting.value = true
     
     await feedbackApi.updateFeedbackStep(
       currentFeedback.value.adminFeedbackId,
-      editForm.operationCode,
-      editForm.title,
-      editForm.content,
+      processForm.operationCode,
+      processForm.title,
+      processForm.content,
       currentFeedback.value.adminFeedbackAdminId
     )
     
-    ElMessage.success('更新成功')
-    showEditDialog.value = false
+    ElMessage.success(`${processAction.value}成功`)
+    showProcessDialog.value = false
     getFeedbackList()
   } catch (error) {
-    console.error('更新失败:', error)
-    ElMessage.error('更新失败')
+    console.error('处理失败:', error)
+    ElMessage.error('处理失败')
   } finally {
     submitting.value = false
   }
 }
 
-// 重置编辑表单
-const resetEditForm = () => {
-  if (editFormRef.value) {
-    editFormRef.value.resetFields()
+// 重置处理表单
+const resetProcessForm = () => {
+  if (processFormRef.value) {
+    processFormRef.value.resetFields()
   }
   
   currentFeedback.value = null
-  Object.assign(editForm, {
-    operationCode: 1,
+  processAction.value = ''
+  Object.assign(processForm, {
+    operationCode: 0,
     title: '',
     content: ''
   })
@@ -453,6 +513,13 @@ onMounted(() => {
       color: #374151;
       white-space: pre-wrap;
     }
+  }
+
+  .text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: help;
   }
 }
 
