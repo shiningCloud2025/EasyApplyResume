@@ -172,6 +172,12 @@ const router = createRouter({
           meta: { title: '反馈管理' },
           children: [
             {
+              path: 'submit',
+              name: 'FeedbackSubmit',
+              component: () => import('@/views/admin/feedback/FeedbackSubmit.vue'),
+              meta: { title: '意见反馈' }
+            },
+            {
               path: 'user-management',
               name: 'UserFeedbackManage',
               component: () => import('@/views/admin/feedback/UserFeedbackManage.vue'),
@@ -214,6 +220,38 @@ const router = createRouter({
               name: 'InternalAPIDocs',
               component: () => import('@/views/admin/APIDocs.vue'),
               meta: { title: 'API对内文档中心' }
+            }
+          ]
+        },
+        {
+          path: 'external-api',
+          name: 'ExternalAPI',
+          redirect: '/admin/external-api/bailian',
+          meta: { title: '外部API' },
+          children: [
+            {
+              path: 'bailian',
+              name: 'BailianAPI',
+              component: () => import('@/views/admin/external-api/BailianAPI.vue'),
+              meta: { title: '阿里云百炼平台' }
+            },
+            {
+              path: 'sms',
+              name: 'SmsAPI',
+              component: () => import('@/views/admin/external-api/SmsAPI.vue'),
+              meta: { title: '阿里云短信平台' }
+            },
+            {
+              path: 'searchapi',
+              name: 'SearchAPI',
+              component: () => import('@/views/admin/external-api/SearchAPI.vue'),
+              meta: { title: 'SearchAPI平台' }
+            },
+            {
+              path: 'amap',
+              name: 'AmapAPI',
+              component: () => import('@/views/admin/external-api/AmapAPI.vue'),
+              meta: { title: '高德开放平台' }
             }
           ]
         },

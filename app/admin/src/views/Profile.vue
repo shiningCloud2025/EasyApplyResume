@@ -1,369 +1,350 @@
 <template>
-  <div class="profile">
-    <div class="profile-header">
-      <div class="avatar-section">
-        <div class="avatar-container">
-          <el-avatar :size="80" :src="profile.avatar" />
-          <el-button type="text" class="change-avatar" @click="changeAvatar">
-            <i class="el-icon-camera"></i>
+  <div class="profile-page" v-loading="loading">
+    <!-- 个人中心头部 - 紧凑版 -->
+    <el-card class="profile-card" shadow="hover">
+      <div class="profile-header">
+        <div class="avatar-section">
+          <el-avatar :size="80" :src="adminInfo?.adminImage || defaultAvatar" />
+          <div class="user-info">
+            <h2>{{ adminInfo?.adminUsername || '加载中...' }}</h2>
+            <p class="user-meta">@{{ adminInfo?.adminAccount }} | {{ adminInfo?.adminEmail }}</p>
+            <div class="user-tags">
+              <el-tag 
+                v-for="role in adminInfo?.roles" 
+                :key="role.roleId"
+                type="primary"
+                size="small"
+              >
+                {{ role.roleName }}
+              </el-tag>
+              <el-tag 
+                :type="adminInfo?.adminState === 1 ? 'success' : 'danger'" 
+                size="small"
+              >
+                {{ adminInfo?.adminState === 1 ? '正常' : '禁用' }}
+              </el-tag>
+            </div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <el-button @click="getAdminInfo" :loading="loading">
+            <el-icon><Refresh /></el-icon>
+            刷新
+          </el-button>
+          <el-button type="primary" @click="openEditDialog">
+            <el-icon><Edit /></el-icon>
+            编辑资料
           </el-button>
         </div>
-        <div class="avatar-info">
-          <h2>{{ profile.username }}</h2>
-          <p>{{ profile.role }}</p>
-        </div>
       </div>
-      <div class="header-actions">
-        <el-button type="primary" @click="editProfile">
-          <i class="el-icon-edit"></i>
-          编辑资料
-        </el-button>
-      </div>
-    </div>
+    </el-card>
 
-    <div class="profile-content">
-      <div class="profile-sidebar">
-        <el-menu :default-active="activeTab" @select="handleTabSelect">
-          <el-menu-item index="basic">
-            <i class="el-icon-user"></i>
-            <span>基本信息</span>
-          </el-menu-item>
-          <el-menu-item index="security">
-            <i class="el-icon-lock"></i>
-            <span>安全设置</span>
-          </el-menu-item>
-          <el-menu-item index="notifications">
-            <i class="el-icon-bell"></i>
-            <span>通知设置</span>
-          </el-menu-item>
-          <el-menu-item index="activity">
-            <i class="el-icon-time"></i>
-            <span>活动记录</span>
-          </el-menu-item>
-        </el-menu>
-      </div>
-
-      <div class="profile-main">
-        <!-- 基本信息 -->
-        <div v-if="activeTab === 'basic'" class="tab-content">
-          <h3>基本信息</h3>
-          <el-descriptions :column="2" border>
-            <el-descriptions-item label="用户名">{{ profile.username }}</el-descriptions-item>
-            <el-descriptions-item label="邮箱">{{ profile.email }}</el-descriptions-item>
-            <el-descriptions-item label="手机号">{{ profile.phone }}</el-descriptions-item>
-            <el-descriptions-item label="部门">{{ profile.department }}</el-descriptions-item>
-            <el-descriptions-item label="角色">{{ profile.role }}</el-descriptions-item>
-            <el-descriptions-item label="加入时间">{{ profile.joinTime }}</el-descriptions-item>
+    <!-- 信息展示 -->
+    <el-row :gutter="20" style="margin-top: 20px;">
+      <el-col :span="16">
+        <el-card shadow="hover">
+          <template #header>
+            <span style="font-weight: 600;">基本信息</span>
+          </template>
+          <el-descriptions :column="2" border size="default">
+            <el-descriptions-item label="管理员ID">{{ adminInfo?.adminId }}</el-descriptions-item>
+            <el-descriptions-item label="账号">{{ adminInfo?.adminAccount }}</el-descriptions-item>
+            <el-descriptions-item label="姓名">{{ adminInfo?.adminUsername }}</el-descriptions-item>
+            <el-descriptions-item label="手机号">{{ adminInfo?.adminPhone }}</el-descriptions-item>
+            <el-descriptions-item label="邮箱" :span="2">{{ adminInfo?.adminEmail }}</el-descriptions-item>
+            <el-descriptions-item label="创建时间">{{ formatDateTime(adminInfo?.adminCreatedTime) }}</el-descriptions-item>
+            <el-descriptions-item label="最后登录">{{ formatDateTime(adminInfo?.adminLoginTime) }}</el-descriptions-item>
+            <el-descriptions-item label="个人简介" :span="2">
+              {{ adminInfo?.adminIntroduce || '暂无简介' }}
+            </el-descriptions-item>
           </el-descriptions>
-        </div>
+        </el-card>
+      </el-col>
 
-        <!-- 安全设置 -->
-        <div v-if="activeTab === 'security'" class="tab-content">
-          <h3>安全设置</h3>
-          <el-card class="security-card">
-            <div class="security-item">
-              <div class="security-info">
-                <h4>修改密码</h4>
-                <p>定期更改密码可以保护账户安全</p>
-              </div>
-              <el-button @click="showPasswordDialog = true">修改密码</el-button>
-            </div>
-            <div class="security-item">
-              <div class="security-info">
-                <h4>绑定手机</h4>
-                <p>已绑定：{{ profile.phone }}</p>
-              </div>
-              <el-button>更换手机</el-button>
-            </div>
-            <div class="security-item">
-              <div class="security-info">
-                <h4>登录验证</h4>
-                <p>启用了短信验证码登录</p>
-              </div>
-              <el-switch v-model="securitySettings.smsLogin" />
-            </div>
-          </el-card>
-        </div>
-
-        <!-- 通知设置 -->
-        <div v-if="activeTab === 'notifications'" class="tab-content">
-          <h3>通知设置</h3>
-          <el-form label-width="120px">
-            <el-form-item label="邮件通知">
-              <el-switch v-model="notificationSettings.email" />
-            </el-form-item>
-            <el-form-item label="系统通知">
-              <el-switch v-model="notificationSettings.system" />
-            </el-form-item>
-            <el-form-item label="业务通知">
-              <el-switch v-model="notificationSettings.business" />
-            </el-form-item>
-          </el-form>
-        </div>
-
-        <!-- 活动记录 -->
-        <div v-if="activeTab === 'activity'" class="tab-content">
-          <h3>活动记录</h3>
-          <el-timeline>
-            <el-timeline-item 
-              v-for="activity in activities" 
-              :key="activity.id"
-              :timestamp="activity.time"
-              :color="activity.color"
+      <el-col :span="8">
+        <el-card shadow="hover">
+          <template #header>
+            <span style="font-weight: 600;">我的角色</span>
+          </template>
+          <div class="roles-list">
+            <div 
+              v-for="role in adminInfo?.roles" 
+              :key="role.roleId"
+              class="role-item"
             >
-              {{ activity.content }}
-            </el-timeline-item>
-          </el-timeline>
-        </div>
-      </div>
-    </div>
+              <el-icon color="#409eff"><Star /></el-icon>
+              <div class="role-info">
+                <div class="role-name">{{ role.roleName }}</div>
+                <div class="role-desc">{{ role.roleIntroduce }}</div>
+              </div>
+            </div>
+            <el-empty 
+              v-if="!adminInfo?.roles || adminInfo.roles.length === 0" 
+              description="暂无角色"
+              :image-size="60"
+            />
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
 
-    <!-- 编辑资料对话框 -->
-    <el-dialog v-model="showProfileDialog" title="编辑资料" width="500px">
-      <el-form :model="editForm" label-width="80px">
-        <el-form-item label="用户名">
-          <el-input v-model="editForm.username" />
+    <!-- 编辑对话框 -->
+    <el-dialog
+      v-model="showEditDialog"
+      title="编辑个人资料"
+      width="600px"
+      :close-on-click-modal="false"
+    >
+      <el-form
+        ref="editFormRef"
+        :model="editForm"
+        :rules="editRules"
+        label-width="100px"
+      >
+        <el-form-item label="姓名" prop="adminUsername">
+          <el-input v-model="editForm.adminUsername" maxlength="15" show-word-limit />
         </el-form-item>
-        <el-form-item label="邮箱">
-          <el-input v-model="editForm.email" />
+        <el-form-item label="邮箱" prop="adminEmail">
+          <el-input v-model="editForm.adminEmail" maxlength="25" show-word-limit />
         </el-form-item>
-        <el-form-item label="手机号">
-          <el-input v-model="editForm.phone" />
+        <el-form-item label="手机号" prop="adminPhone">
+          <el-input v-model="editForm.adminPhone" maxlength="11" />
         </el-form-item>
-        <el-form-item label="部门">
-          <el-input v-model="editForm.department" />
+        <el-form-item label="头像URL" prop="adminImage">
+          <el-input v-model="editForm.adminImage" type="textarea" :rows="2" />
+        </el-form-item>
+        <el-form-item label="个人简介" prop="adminIntroduce">
+          <el-input v-model="editForm.adminIntroduce" type="textarea" :rows="3" maxlength="200" show-word-limit />
+        </el-form-item>
+        <el-form-item label="修改密码">
+          <el-input v-model="editForm.adminPassword" type="password" placeholder="不修改请留空" show-password clearable />
+          <div style="font-size: 12px; color: #909399; margin-top: 4px;">如不需要修改密码，请留空</div>
         </el-form-item>
       </el-form>
+      
       <template #footer>
-        <el-button @click="showProfileDialog = false">取消</el-button>
-        <el-button type="primary" @click="saveProfile">保存</el-button>
-      </template>
-    </el-dialog>
-
-    <!-- 修改密码对话框 -->
-    <el-dialog v-model="showPasswordDialog" title="修改密码" width="400px">
-      <el-form :model="passwordForm" label-width="80px">
-        <el-form-item label="当前密码">
-          <el-input type="password" v-model="passwordForm.currentPassword" />
-        </el-form-item>
-        <el-form-item label="新密码">
-          <el-input type="password" v-model="passwordForm.newPassword" />
-        </el-form-item>
-        <el-form-item label="确认密码">
-          <el-input type="password" v-model="passwordForm.confirmPassword" />
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <el-button @click="showPasswordDialog = false">取消</el-button>
-        <el-button type="primary" @clickchangePassword>确定</el-button>
+        <el-button @click="showEditDialog = false">取消</el-button>
+        <el-button type="primary" @click="handleSubmit" :loading="submitting">保存</el-button>
       </template>
     </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
-import { ElMessage } from 'element-plus'
+import { ref, reactive, onMounted } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import type { FormInstance } from 'element-plus'
+import { Edit, Refresh, Star } from '@element-plus/icons-vue'
+import { adminApi } from '@/api/admin'
+import type { AdminInfoVO, AdminForm } from '@/types/admin'
+import { useAuthStore } from '@/store/auth'
 
-const activeTab = ref('basic')
-const showProfileDialog = ref(false)
-const showPasswordDialog = ref(false)
+const authStore = useAuthStore()
+const loading = ref(false)
+const showEditDialog = ref(false)
+const submitting = ref(false)
+const editFormRef = ref<FormInstance>()
 
-const profile = reactive({
-  username: 'admin',
-  email: 'admin@example.com',
-  phone: '138****8888',
-  department: '技术部',
-  role: '超级管理员',
-  joinTime: '2024-01-15',
-  avatar: ''
+const defaultAvatar = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+const adminInfo = ref<AdminInfoVO | null>(null)
+
+const editForm = reactive<AdminForm>({
+  adminId: undefined,
+  adminAccount: '',
+  adminUsername: '',
+  adminEmail: '',
+  adminPhone: '',
+  adminPassword: '',
+  adminImage: '',
+  adminIntroduce: '',
+  adminState: 1
 })
 
-const editForm = reactive({ ...profile })
-const passwordForm = reactive({
-  currentPassword: '',
-  newPassword: '',
-  confirmPassword: ''
-})
+const editRules = {
+  adminUsername: [
+    { required: true, message: '请输入姓名', trigger: 'blur' },
+    { min: 2, max: 15, message: '长度在 2 到 15 个字符', trigger: 'blur' }
+  ],
+  adminEmail: [
+    { required: true, message: '请输入邮箱', trigger: 'blur' },
+    { type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' }
+  ],
+  adminPhone: [
+    { required: true, message: '请输入手机号', trigger: 'blur' },
+    { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号', trigger: 'blur' }
+  ]
+}
 
-const securitySettings = reactive({
-  smsLogin: true
-})
+const formatDateTime = (dateStr: string | undefined) => {
+  if (!dateStr) return '-'
+  return dateStr.replace('T', ' ').substring(0, 16)
+}
 
-const notificationSettings = reactive({
-  email: true,
-  system: true,
-  business: false
-})
-
-const activities = ref([
-  {
-    id: 1,
-    content: '登录系统',
-    time: '2024-03-15 10:30',
-    color: '#67c23a'
-  },
-  {
-    id: 2,
-    content: '修改了简历模板',
-    time: '2024-03-15 09:45',
-    color: '#409eff'
-  },
-  {
-    id: 3,
-    content: '新增了招聘信息',
-    time: '2024-03-14 16:20',
-    color: '#409eff'
+const getAdminInfo = async () => {
+  loading.value = true
+  try {
+    // 先尝试刷新用户信息
+    if (!authStore.user) {
+      console.log('📥 [个人中心] authStore.user为空，尝试获取用户信息...')
+      await authStore.getUserInfo()
+    }
+    
+    const user = authStore.user
+    if (!user?.userId) {
+      ElMessage.error('未获取到用户信息，请重新登录')
+      console.error('❌ [个人中心] authStore.user:', user)
+      console.error('❌ [个人中心] 请检查登录状态或重新登录')
+      return
+    }
+    
+    console.log('📥 [个人中心] 当前用户:', user)
+    console.log('📥 [个人中心] 调用 /admin/admin/findById，adminId:', user.userId)
+    const response = await adminApi.getAdminInfo(user.userId)
+    console.log('📥 [个人中心] API响应:', response)
+    adminInfo.value = response.data
+    console.log('✅ [个人中心] 管理员信息加载成功:', adminInfo.value)
+  } catch (error) {
+    console.error('❌ [个人中心] 获取失败:', error)
+    ElMessage.error('获取个人信息失败，请重新登录')
+  } finally {
+    loading.value = false
   }
-])
-
-const handleTabSelect = (index: string) => {
-  activeTab.value = index
 }
 
-const editProfile = () => {
-  Object.assign(editForm, profile)
-  showProfileDialog.value = true
+const openEditDialog = () => {
+  if (!adminInfo.value) return
+  
+  Object.assign(editForm, {
+    adminId: adminInfo.value.adminId,
+    adminAccount: adminInfo.value.adminAccount,
+    adminUsername: adminInfo.value.adminUsername,
+    adminEmail: adminInfo.value.adminEmail,
+    adminPhone: adminInfo.value.adminPhone,
+    adminPassword: '',
+    adminImage: adminInfo.value.adminImage,
+    adminIntroduce: adminInfo.value.adminIntroduce,
+    adminState: adminInfo.value.adminState
+  })
+  
+  showEditDialog.value = true
 }
 
-const saveProfile = () => {
-  Object.assign(profile, editForm)
-  showProfileDialog.value = false
-  ElMessage.success('资料保存成功')
+const handleSubmit = async () => {
+  if (!editFormRef.value) return
+  
+  try {
+    await editFormRef.value.validate()
+    
+    submitting.value = true
+    
+    const submitData = { ...editForm }
+    if (!submitData.adminPassword) {
+      delete submitData.adminPassword
+    }
+    
+    await adminApi.updateAdmin(submitData)
+    ElMessage.success('修改成功')
+    showEditDialog.value = false
+    await getAdminInfo()
+  } catch (error: any) {
+    if (error !== 'cancel') {
+      console.error('❌ 修改失败:', error)
+      ElMessage.error('修改失败')
+    }
+  } finally {
+    submitting.value = false
+  }
 }
 
-const changePassword = () => {
-  // 实现修改密码逻辑
-  showPasswordDialog.value = false
-  ElMessage.success('密码修改成功')
-}
-
-const changeAvatar = () => {
-  ElMessage.info('头像上传功能开发中')
-}
+onMounted(() => {
+  getAdminInfo()
+})
 </script>
 
 <style scoped lang="scss">
-.profile {
+.profile-page {
+  padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px;
+}
+
+.profile-card {
+  margin-bottom: 20px;
 }
 
 .profile-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
-  padding: 24px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.avatar-section {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.avatar-container {
-  position: relative;
   
-  .change-avatar {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
+  .avatar-section {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 16px;
   }
-}
-
-.avatar-info h2 {
-  margin: 0 0 8px 0;
-  font-size: 24px;
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.avatar-info p {
-  margin: 0;
-  color: #6b7280;
-}
-
-.profile-content {
-  display: flex;
-  gap: 24px;
-}
-
-.profile-sidebar {
-  width: 250px;
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.profile-main {
-  flex: 1;
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.tab-content h3 {
-  margin: 0 0 24px 0;
-  font-size: 20px;
-  font-weight: 600;
-  color: #1f2937;
-}
-
-.security-card {
-  .security-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 0;
-    border-bottom: 1px solid #f3f4f6;
-    
-    &:last-child {
-      border-bottom: none;
-    }
-    
-    .security-info h4 {
-      margin: 0 0 4px 0;
-      font-size: 16px;
-      font-weight: 500;
+  
+  .user-info {
+    h2 {
+      margin: 0 0 8px 0;
+      font-size: 20px;
+      font-weight: 600;
       color: #1f2937;
     }
     
-    .security-info p {
-      margin: 0;
+    .user-meta {
+      margin: 0 0 8px 0;
+      font-size: 13px;
+      color: #6b7280;
+    }
+    
+    .user-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+.roles-list {
+  min-height: 100px;
+}
+
+.role-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  background: #f5f7fa;
+  border-radius: 8px;
+  
+  .role-info {
+    flex: 1;
+    
+    .role-name {
       font-size: 14px;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 4px;
+    }
+    
+    .role-desc {
+      font-size: 12px;
       color: #6b7280;
     }
   }
 }
 
 @media (max-width: 768px) {
-  .profile-content {
-    flex-direction: column;
-  }
-  
-  .profile-sidebar {
-    width: 100%;
-  }
-  
   .profile-header {
     flex-direction: column;
     gap: 16px;
+    align-items: flex-start;
   }
 }
 </style>

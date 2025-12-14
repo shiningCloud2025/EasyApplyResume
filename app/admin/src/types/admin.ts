@@ -272,8 +272,8 @@ export interface EmploymentInformationForm {
   employmentInformationBatch: number
   employmentInformationRecruitPosition: number
   employmentInformationRecruitObject: number
-  employmentInformationRecruitLocationFirst: number[]
-  employmentInformationRecruitLocationSecond: number[]
+  employmentInformationRecruitLocationFirstList: number[]
+  employmentInformationRecruitLocationSecondList: number[]
   employmentInformationRecruitLocationDetail?: string
   employmentInformationStopTime: string
   employmentInformationOnlineApplicationStatus: string
@@ -380,6 +380,7 @@ export interface AdminFeedbackForm {
 
 // 管理员反馈更新表单
 export interface AdminUpdateFeedbackForm {
+  operationCode: number
   title: string
   content: string
 }

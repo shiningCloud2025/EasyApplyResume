@@ -67,6 +67,20 @@
       >
         <el-table-column prop="resumeTemplateId" label="ID" width="70" />
         <el-table-column prop="resumeTemplateName" label="模板名称" min-width="200" />
+        <el-table-column prop="resumeTemplateReactCode" label="模板代码" min-width="180">
+          <template #default="{ row }">
+            <el-tooltip 
+              :content="row.resumeTemplateReactCode || '暂无代码'" 
+              placement="top"
+              effect="dark"
+              :show-after="300"
+            >
+              <div class="code-preview-cell">
+                {{ row.resumeTemplateReactCode ? row.resumeTemplateReactCode.substring(0, 30) + '...' : '暂无代码' }}
+              </div>
+            </el-tooltip>
+          </template>
+        </el-table-column>
         <el-table-column prop="industryMapIndustryName" label="所属行业" width="120" />
         <el-table-column label="是否启用" width="100" align="center">
           <template #default="{ row }">
@@ -271,7 +285,7 @@ const templateForm = reactive<ResumeTemplateForm>({
   resumeTemplateId: undefined,
   resumeTemplateName: '',
   resumeTemplateReactCode: '',
-  resumeTemplateIndustry: 0,
+  resumeTemplateIndustry: undefined,
   resumeTemplateIsActive: 1
 })
 
@@ -383,7 +397,7 @@ const handleEdit = async (row: ResumeTemplatePageVO) => {
       resumeTemplateId: detail.resumeTemplateId,
       resumeTemplateName: detail.resumeTemplateName,
       resumeTemplateReactCode: detail.resumeTemplateReactCode,
-      resumeTemplateIndustry: industry ? industry.industryMapIndustryCode : 0,
+      resumeTemplateIndustry: industry ? industry.industryMapIndustryCode : undefined,
       resumeTemplateIsActive: detail.isEnable
     })
     showCreateDialog.value = true
@@ -445,7 +459,7 @@ const resetForm = () => {
     resumeTemplateId: undefined,
     resumeTemplateName: '',
     resumeTemplateReactCode: '',
-    resumeTemplateIndustry: 0,
+    resumeTemplateIndustry: undefined,
     resumeTemplateIsActive: 1
   })
 }
@@ -502,6 +516,19 @@ onMounted(async () => {
     .el-table {
       font-size: 16px;
     }
+  }
+
+  .code-preview-cell {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    color: #555;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: help;
+    background: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 4px;
   }
 
   .pagination {

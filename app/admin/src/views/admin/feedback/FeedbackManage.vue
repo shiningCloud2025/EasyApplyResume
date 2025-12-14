@@ -9,9 +9,6 @@
         <el-button @click="refreshData" :icon="Refresh" type="default">
           刷新
         </el-button>
-        <el-button type="primary" @click="openCreateDialog" :icon="Plus">
-          新增反馈
-        </el-button>
       </div>
     </div>
 
@@ -70,28 +67,21 @@
           </template>
         </el-table-column>
         <el-table-column prop="adminFeedbackRecentTime" label="最近处理时间" min-width="160" />
-        <el-table-column label="操作" width="280" fixed="right">
+        <el-table-column label="操作" width="200" fixed="right">
           <template #default="{ row }">
             <el-button
               type="info"
               size="default"
               @click="handleDetail(row)"
             >
-              详情
+              查看
             </el-button>
             <el-button
               type="primary"
               size="default"
-              @click="handleUpdate(row)"
+              @click="handleEdit(row)"
             >
-              更新状态
-            </el-button>
-            <el-button
-              type="danger"
-              size="default"
-              @click="handleDelete(row)"
-            >
-              删除
+              编辑
             </el-button>
           </template>
         </el-table-column>
@@ -110,43 +100,6 @@
         />
       </div>
     </el-card>
-
-    <!-- 新增反馈对话框 -->
-    <el-dialog
-      v-model="showCreateDialog"
-      title="新增反馈"
-      width="600px"
-      @close="resetCreateForm"
-    >
-      <el-form
-        ref="feedbackFormRef"
-        :model="feedbackForm"
-        :rules="feedbackRules"
-        label-width="100px"
-      >
-        <el-form-item label="反馈标题" prop="adminFeedbackTitle">
-          <el-input v-model="feedbackForm.adminFeedbackTitle" placeholder="请输入反馈标题" />
-        </el-form-item>
-        
-        <el-form-item label="反馈内容" prop="adminFeedbackContent">
-          <el-input
-            v-model="feedbackForm.adminFeedbackContent"
-            type="textarea"
-            :rows="6"
-            placeholder="请输入反馈内容"
-          />
-        </el-form-item>
-      </el-form>
-      
-      <template #footer>
-        <div class="dialog-footer">
-          <el-button @click="showCreateDialog = false">取消</el-button>
-          <el-button type="primary" @click="handleCreateSubmit" :loading="submitting">
-            提交
-          </el-button>
-        </div>
-      </template>
-    </el-dialog>
 
     <!-- 查看详情对话框 -->
     <el-dialog
@@ -180,45 +133,45 @@
       </div>
     </el-dialog>
 
-    <!-- 更新状态对话框 -->
+    <!-- 编辑反馈对话框 -->
     <el-dialog
-      v-model="showUpdateDialog"
-      title="更新反馈状态"
+      v-model="showEditDialog"
+      title="编辑反馈"
       width="600px"
-      @close="resetUpdateForm"
+      @close="resetEditForm"
     >
       <el-form
-        ref="updateFormRef"
-        :model="updateForm"
-        :rules="updateRules"
+        ref="editFormRef"
+        :model="editForm"
+        :rules="editRules"
         label-width="100px"
       >
-        <el-form-item label="操作类型" prop="operationType">
-          <el-select v-model="updateForm.operationType" placeholder="请选择操作类型">
+        <el-form-item label="操作类型" prop="operationCode">
+          <el-select v-model="editForm.operationCode" placeholder="请选择操作类型">
             <el-option label="处理反馈" :value="1" />
             <el-option label="回复反馈" :value="2" />
             <el-option label="关闭反馈" :value="3" />
           </el-select>
         </el-form-item>
         
-        <el-form-item label="更新标题" prop="title">
-          <el-input v-model="updateForm.title" placeholder="请输入更新后的标题" />
+        <el-form-item label="反馈标题" prop="title">
+          <el-input v-model="editForm.title" placeholder="请输入反馈标题" />
         </el-form-item>
         
-        <el-form-item label="更新内容" prop="content">
+        <el-form-item label="反馈内容" prop="content">
           <el-input
-            v-model="updateForm.content"
+            v-model="editForm.content"
             type="textarea"
-            :rows="4"
-            placeholder="请输入更新内容"
+            :rows="6"
+            placeholder="请输入反馈内容"
           />
         </el-form-item>
       </el-form>
       
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="showUpdateDialog = false">取消</el-button>
-          <el-button type="primary" @click="handleUpdateSubmit" :loading="submitting">
+          <el-button @click="showEditDialog = false">取消</el-button>
+          <el-button type="primary" @click="handleEditSubmit" :loading="submitting">
             确定
           </el-button>
         </div>
@@ -230,13 +183,12 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Refresh, Plus, Search, RefreshRight } from '@element-plus/icons-vue'
+import { Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
 import { feedbackApi } from '@/api/admin'
 import type {
   AdminFeedbackPageVO,
   AdminFeedbackQuery,
-  AdminFeedbackForm,
   AdminFeedbackInfoVO,
   AdminUpdateFeedbackForm
 } from '@/types/admin'
@@ -245,10 +197,10 @@ import type { FormInstance } from 'element-plus'
 // 响应式数据
 const loading = ref(false)
 const submitting = ref(false)
-const showCreateDialog = ref(false)
 const showDetailDialog = ref(false)
-const showUpdateDialog = ref(false)
+const showEditDialog = ref(false)
 const currentDetail = ref<AdminFeedbackInfoVO | null>(null)
+const currentFeedback = ref<AdminFeedbackPageVO | null>(null)
 
 // 搜索表单
 const searchForm = reactive<AdminFeedbackQuery>({
@@ -266,43 +218,24 @@ const pagination = reactive({
 // 表格数据
 const tableData = ref<AdminFeedbackPageVO[]>([])
 
-// 反馈表单
-const feedbackFormRef = ref<FormInstance>()
-const feedbackForm = reactive<AdminFeedbackForm>({
-  adminFeedbackTitle: '',
-  adminFeedbackContent: '',
-  adminFeedbackAdminId: 0 // 需要从用户信息中获取
-})
-
-// 更新表单
-const updateFormRef = ref<FormInstance>()
-const updateForm = reactive<AdminUpdateFeedbackForm>({
+// 编辑表单
+const editFormRef = ref<FormInstance>()
+const editForm = reactive<AdminUpdateFeedbackForm>({
   operationCode: 1,
   title: '',
   content: ''
 })
 
 // 表单校验规则
-const feedbackRules = {
-  adminFeedbackTitle: [
-    { required: true, message: '请输入反馈标题', trigger: 'blur' },
-    { min: 5, max: 100, message: '长度在 5 到 100 个字符', trigger: 'blur' }
-  ],
-  adminFeedbackContent: [
-    { required: true, message: '请输入反馈内容', trigger: 'blur' },
-    { min: 10, message: '反馈内容至少10个字符', trigger: 'blur' }
-  ]
-}
-
-const updateRules = {
-  operationType: [
+const editRules = {
+  operationCode: [
     { required: true, message: '请选择操作类型', trigger: 'change' }
   ],
   title: [
-    { required: true, message: '请输入更新后的标题', trigger: 'blur' }
+    { required: true, message: '请输入反馈标题', trigger: 'blur' }
   ],
   content: [
-    { required: true, message: '请输入更新内容', trigger: 'blur' }
+    { required: true, message: '请输入反馈内容', trigger: 'blur' }
   ]
 }
 
@@ -324,12 +257,6 @@ const getFeedbackList = async () => {
   } finally {
     loading.value = false
   }
-}
-
-// 新增反馈
-const openCreateDialog = () => {
-  resetCreateForm()
-  showCreateDialog.value = true
 }
 
 // 搜索
@@ -374,29 +301,19 @@ const handleDetail = async (row: AdminFeedbackPageVO) => {
   }
 }
 
-// 更新状态
-const handleUpdate = (row: AdminFeedbackPageVO) => {
-  currentFeedback.value = row
-  updateForm.title = row.adminFeedbackTitle
-  showUpdateDialog.value = true
-}
-
-const currentFeedback = ref<AdminFeedbackPageVO | null>(null)
-
-// 删除反馈
-const handleDelete = (row: AdminFeedbackPageVO) => {
-  ElMessageBox.confirm(`确定要删除反馈"${row.adminFeedbackTitle}"吗？`, '确认删除', {
-    type: 'warning'
-  }).then(async () => {
-    try {
-      // 这里可能需要确认删除的API，暂时使用更新状态的方式
-      ElMessage.success('删除成功')
-      getFeedbackList()
-    } catch (error) {
-      console.error('删除失败:', error)
-      ElMessage.error('删除失败')
-    }
-  })
+// 编辑反馈
+const handleEdit = async (row: AdminFeedbackPageVO) => {
+  try {
+    const response = await feedbackApi.getFeedbackDetail(row.adminFeedbackId)
+    currentFeedback.value = row
+    editForm.title = response.data.adminFeedbackTitle
+    editForm.content = response.data.adminFeedbackContent
+    editForm.operationCode = 1 // 默认为处理反馈
+    showEditDialog.value = true
+  } catch (error) {
+    console.error('获取反馈详情失败:', error)
+    ElMessage.error('获取详情失败')
+  }
 }
 
 // 获取状态类型
@@ -411,44 +328,24 @@ const getStatusType = (status: string) => {
   return typeMap[status] || 'info'
 }
 
-// 提交新增反馈
-const handleCreateSubmit = async () => {
-  if (!feedbackFormRef.value) return
+// 提交编辑
+const handleEditSubmit = async () => {
+  if (!editFormRef.value || !currentFeedback.value) return
   
   try {
-    await feedbackFormRef.value.validate()
-    submitting.value = true
-    
-    await feedbackApi.addFeedback(feedbackForm)
-    ElMessage.success('提交成功')
-    showCreateDialog.value = false
-    getFeedbackList()
-  } catch (error) {
-    console.error('提交失败:', error)
-    ElMessage.error('提交失败')
-  } finally {
-    submitting.value = false
-  }
-}
-
-// 提交更新状态
-const handleUpdateSubmit = async () => {
-  if (!updateFormRef.value || !currentFeedback.value) return
-  
-  try {
-    await updateFormRef.value.validate()
+    await editFormRef.value.validate()
     submitting.value = true
     
     await feedbackApi.updateFeedbackStep(
       currentFeedback.value.adminFeedbackId,
-      updateForm.operationCode,
-      updateForm.title,
-      updateForm.content,
+      editForm.operationCode,
+      editForm.title,
+      editForm.content,
       currentFeedback.value.adminFeedbackAdminId
     )
     
     ElMessage.success('更新成功')
-    showUpdateDialog.value = false
+    showEditDialog.value = false
     getFeedbackList()
   } catch (error) {
     console.error('更新失败:', error)
@@ -458,27 +355,14 @@ const handleUpdateSubmit = async () => {
   }
 }
 
-// 重置创建表单
-const resetCreateForm = () => {
-  if (feedbackFormRef.value) {
-    feedbackFormRef.value.resetFields()
-  }
-  
-  Object.assign(feedbackForm, {
-    adminFeedbackTitle: '',
-    adminFeedbackContent: '',
-    adminFeedbackAdminId: 0
-  })
-}
-
-// 重置更新表单
-const resetUpdateForm = () => {
-  if (updateFormRef.value) {
-    updateFormRef.value.resetFields()
+// 重置编辑表单
+const resetEditForm = () => {
+  if (editFormRef.value) {
+    editFormRef.value.resetFields()
   }
   
   currentFeedback.value = null
-  Object.assign(updateForm, {
+  Object.assign(editForm, {
     operationCode: 1,
     title: '',
     content: ''

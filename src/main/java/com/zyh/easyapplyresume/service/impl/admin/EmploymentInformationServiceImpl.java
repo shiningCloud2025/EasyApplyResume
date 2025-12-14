@@ -58,7 +58,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
             employmentInformation.setEmploymentInformationRecruitLocationFirst(provinceId);
             employmentInformation.setEmploymentInformationRecruitLocationSecond(cityId);
             String provinceName = Objects.requireNonNull(ProvinceEnum.getById(provinceId)).getName();
-            String cityName = Objects.requireNonNull(ProvinceEnum.getById(cityId)).getName();
+            String cityName = Objects.requireNonNull(CityEnum.getById(cityId)).getName();
             employmentInformation.setEmploymentInformationStartTime(new Date());
             employmentInformation.setEmploymentInformationUpdatedTime(new Date());
             employmentInformation.setEmploymentInformationRecruitLocationDetail(provinceName + cityName);
