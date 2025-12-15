@@ -397,6 +397,8 @@ export interface AdminFeedbackRecordQuery {
 
 // 管理员反馈记录分页VO
 export interface AdminFeedbackRecordPageVO {
+  adminFeedbackRecordId: number             // 反馈记录ID
+  adminFeedbackRecordAdminId: number        // 反馈管理员ID
   adminFeedbackRecordName: string           // 反馈人
   adminFeedbackRecordTitle: string          // 标题
   adminFeedbackRecordContent: string        // 内容
@@ -410,6 +412,8 @@ export interface AdminFeedbackRecordPageVO {
 
 // 管理员反馈记录详情VO
 export interface AdminFeedbackRecordInfoVO {
+  adminFeedbackRecordId: number             // 反馈记录ID
+  adminFeedbackRecordAdminId: number        // 反馈管理员ID
   adminFeedbackRecordName: string           // 反馈人
   adminFeedbackRecordTitle: string          // 标题
   adminFeedbackRecordContent: string        // 内容

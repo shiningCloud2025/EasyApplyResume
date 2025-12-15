@@ -62,17 +62,37 @@
         :data="records"
         style="width: 100%"
       >
-        <el-table-column prop="adminFeedbackRecordTitle" label="反馈标题" min-width="200" show-overflow-tooltip />
+        <el-table-column prop="adminFeedbackRecordId" label="记录ID" width="90" align="center">
+          <template #default="{ row }">
+            <el-tag size="small" effect="plain">{{ row.adminFeedbackRecordId }}</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="adminFeedbackRecordAdminId" label="反馈人ID" width="100" align="center">
+          <template #default="{ row }">
+            <el-tag size="small" type="info">{{ row.adminFeedbackRecordAdminId }}</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column prop="adminFeedbackRecordName" label="反馈人" width="120" />
-        <el-table-column label="原阶段 → 新阶段" min-width="180">
+        <el-table-column prop="adminFeedbackRecordTitle" label="反馈标题" min-width="200" show-overflow-tooltip />
+        <el-table-column label="阶段变化" width="240" align="center">
           <template #default="{ row }">
             <div class="step-flow">
-              <el-tag size="small" type="info">{{ row.adminFeedbackRecordOldStep }}</el-tag>
-              <el-icon style="margin: 0 8px;"><Right /></el-icon>
+              <el-tag size="small" :type="getStatusType(row.adminFeedbackRecordOldStep)">
+                {{ row.adminFeedbackRecordOldStep }}
+              </el-tag>
+              <el-icon class="arrow-icon"><Right /></el-icon>
               <el-tag size="small" :type="getStatusType(row.adminFeedbackRecordNewStep)">
                 {{ row.adminFeedbackRecordNewStep }}
-            </el-tag>
+              </el-tag>
             </div>
+          </template>
+        </el-table-column>
+        <el-table-column prop="adminFeedbackRecordApprovalPersonId" label="处理人ID" width="100" align="center">
+          <template #default="{ row }">
+            <el-tag size="small" v-if="row.adminFeedbackRecordApprovalPersonId">
+              {{ row.adminFeedbackRecordApprovalPersonId }}
+            </el-tag>
+            <span v-else style="color: #999; font-size: 12px;">-</span>
           </template>
         </el-table-column>
         <el-table-column prop="adminFeedbackRecordApprovalPersonName" label="处理人" width="120" />
@@ -120,10 +140,22 @@
       width="700px"
     >
       <el-descriptions v-if="currentRecord" :column="2" border>
-        <el-descriptions-item label="反馈人">
-          {{ currentRecord.adminFeedbackRecordName }}
+        <el-descriptions-item label="记录ID">
+          <el-tag size="small" effect="plain">{{ currentRecord.adminFeedbackRecordId }}</el-tag>
         </el-descriptions-item>
-        <el-descriptions-item label="处理人">
+        <el-descriptions-item label="反馈人ID">
+          <el-tag size="small" type="info">{{ currentRecord.adminFeedbackRecordAdminId }}</el-tag>
+        </el-descriptions-item>
+        <el-descriptions-item label="反馈人姓名" :span="2">
+          <strong>{{ currentRecord.adminFeedbackRecordName }}</strong>
+        </el-descriptions-item>
+        <el-descriptions-item label="处理人ID">
+          <el-tag size="small" v-if="currentRecord.adminFeedbackRecordApprovalPersonId">
+            {{ currentRecord.adminFeedbackRecordApprovalPersonId }}
+          </el-tag>
+          <span v-else style="color: #999;">暂无</span>
+        </el-descriptions-item>
+        <el-descriptions-item label="处理人姓名">
           {{ currentRecord.adminFeedbackRecordApprovalPersonName || '暂无' }}
         </el-descriptions-item>
         <el-descriptions-item label="反馈标题" :span="2">
@@ -189,17 +221,20 @@ const queryForm = reactive<AdminFeedbackRecordQuery>({
 // 表格数据
 const records = ref<AdminFeedbackRecordPageVO[]>([])
 
-// 状态类型映射
+// 状态类型映射（优化颜色）
 const getStatusType = (status: string) => {
   const map: Record<string, string> = {
-    '待处理': 'warning',
-    '待回复': 'primary',
-    '已回复': 'success',
-    '已忽视': 'info',
-    '已接受': 'success',
-    '拒绝回复': 'danger'
+    '待处理': 'warning',      // 橙色
+    '待接受': 'warning',      // 橙色
+    '待回复': '',             // 蓝色（默认）
+    '已回复': 'success',      // 绿色
+    '已接受': 'success',      // 绿色
+    '已忽视': 'info',         // 灰色
+    '拒绝回复': 'danger',     // 红色
+    '特回复': '',             // 蓝色
+    '已处理': 'success'       // 绿色
   }
-  return map[status] || 'info'
+  return map[status] || ''  // 默认蓝色
 }
 
 // 获取记录列表
@@ -269,17 +304,14 @@ const handleCurrentChange = (current: number) => {
 // 查看详情
 const viewDetail = async (row: AdminFeedbackRecordPageVO) => {
   try {
-    console.log('📋 [反馈记录] 查看详情，记录:', row)
+    console.log('📋 [反馈记录] 查看详情，记录ID:', row.adminFeedbackRecordId)
     
-    // 注意：后端接口需要 feedbackRecordId，但 PageVO 中没有 ID 字段
-    // 这里假设使用某个唯一标识，或者需要后端添加 ID 字段
-    // 暂时使用 row 数据作为详情显示
-    currentRecord.value = row as any
+    // 调用详情接口获取完整信息
+    const response = await feedbackRecordApi.getRecordDetail(row.adminFeedbackRecordId)
+    console.log('📋 [反馈记录] 详情数据:', response.data)
+    
+    currentRecord.value = response.data
     detailDialogVisible.value = true
-    
-    // 如果有独立的详情接口，可以这样调用：
-    // const response = await feedbackRecordApi.getRecordDetail(feedbackRecordId)
-    // currentRecord.value = response.data
     
   } catch (error: any) {
     console.error('❌ [反馈记录] 获取详情失败:', error)
@@ -357,6 +389,18 @@ onMounted(() => {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+    
+    .arrow-icon {
+      color: #9ca3af;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    
+    .el-tag {
+      font-weight: 500;
+      padding: 4px 12px;
+    }
   }
 
   .content-display {

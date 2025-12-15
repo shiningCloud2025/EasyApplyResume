@@ -906,21 +906,21 @@ const handleSendEmail = async (row: AdminPageVO) => {
     const currentUserEmail = response.data.userEmail
     
     if (!currentUserEmail) {
-      ElMessage.error('无法获取当前用户邮箱，请重新登录')
-      return
-    }
-    
+    ElMessage.error('无法获取当前用户邮箱，请重新登录')
+    return
+  }
+  
     console.log('📧 [发邮件] 发件人邮箱:', currentUserEmail)
     console.log('📧 [发邮件] 收件人邮箱:', row.adminEmail)
     
     // 设置邮件表单数据
     emailForm.fromEmail = currentUserEmail
-    emailForm.toEmail = row.adminEmail
-    emailForm.subject = ''
-    emailForm.htmlContent = ''
-    showPreview.value = false
-    
-    emailDialogVisible.value = true
+  emailForm.toEmail = row.adminEmail
+  emailForm.subject = ''
+  emailForm.htmlContent = ''
+  showPreview.value = false
+  
+  emailDialogVisible.value = true
   } catch (error: any) {
     console.error('❌ [发邮件] 获取用户信息失败:', error)
     ElMessage.error('获取用户信息失败：' + (error.message || '请重新登录'))

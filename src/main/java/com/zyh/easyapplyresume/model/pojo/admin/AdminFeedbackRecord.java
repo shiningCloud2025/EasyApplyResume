@@ -24,7 +24,13 @@ public class AdminFeedbackRecord {
      */
     @TableId(value = "adminFeedbackRecord_id", type = IdType.AUTO)
     private Integer adminFeedbackRecordId;
-    
+
+    /**
+     * 反馈的管理员id
+     */
+    @TableField("adminFeedbackRecord_adminId")
+    private Integer adminFeedbackRecordAdminId;
+
     /**
      * 反馈记录标题（最多35字符）
      */
