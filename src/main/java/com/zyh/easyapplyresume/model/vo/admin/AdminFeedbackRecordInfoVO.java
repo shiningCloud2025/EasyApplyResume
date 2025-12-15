@@ -12,8 +12,8 @@ import java.util.Date;
 @Schema(description = "管理员反馈记录信息")
 public class AdminFeedbackRecordInfoVO {
     
-    @Schema(description = "管理员反馈记录ID")
-    private Integer adminFeedbackRecordId;
+    @Schema(description = "管理员反馈记录反馈人")
+    private String adminFeedbackRecordName;
     
     @Schema(description = "反馈记录标题")
     private String adminFeedbackRecordTitle;
@@ -35,7 +35,7 @@ public class AdminFeedbackRecordInfoVO {
     
     @Schema(description = "反馈处理人ID")
     private Integer adminFeedbackRecordApprovalPersonId;
-    
+
     @Schema(description = "反馈处理人姓名")
     private String adminFeedbackRecordApprovalPersonName;
 }

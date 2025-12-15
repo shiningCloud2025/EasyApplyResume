@@ -5404,3 +5404,501 @@ This generated password is for development use only. Your security configuration
 2025-12-14 22:40:33.774 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
 2025-12-14 22:40:33.776 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
 2025-12-14 22:40:33.817 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-14 23:39:00.280 [http-nio-8080-exec-3] INFO  c.z.e.c.admin.AdminSmsController - 收到发送短信验证码请求，手机号：18242991090
+2025-12-14 23:39:00.528 [http-nio-8080-exec-3] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 为手机号 [18242991090] 生成短信验证码：SEnacF
+2025-12-14 23:39:02.937 [http-nio-8080-exec-3] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 手机号 [18242991090] 短信发送成功
+2025-12-14 23:39:19.399 [http-nio-8080-exec-6] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 手机号 [18242991090] 验证码校验成功
+2025-12-14 23:39:19.409 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==>  Preparing: select * from admin_admin where admin_account = ? or admin_phone = ? or admin_email = ?
+2025-12-14 23:39:19.431 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==> Parameters: 18242991090(String), 18242991090(String), 18242991090(String)
+2025-12-14 23:39:19.505 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - <==      Total: 1
+2025-12-14 23:39:19.593 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==>  Preparing: UPDATE admin_admin SET admin_account=?, admin_username=?, admin_email=?, admin_phone=?, admin_password=?, admin_image=?, admin_introduce=?, admin_state=?, admin_login_time=? WHERE admin_id=? AND deleted=0
+2025-12-14 23:39:19.609 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==> Parameters: 1812463057(String), 超级管理员(String), 1812463057@qq.com(String), 18242991090(String), $2a$10$K5wVc3GF6ns1.D8gMP3OmeoDEc/F2Ykr7qqzWShoxxmr8uQeJdo.u(String), https://ts1.tc.mm.bing.net/th/id/R-C.928ef8908b5eb3666b2a27a1f6cfbe17?rik=h2FXLv1HNaxbTg&riu=http%3a%2f%2fp0.so.qhmsg.com%2ft018b5eb3666b2a27a1.jpg&ehk=QnGPPvZKq3cPW6%2bdkG%2b3zIRvAGXRsgYVTirfbvOBTaU%3d&risl=&pid=ImgRaw&r=0(String), 至高无上的超级管理员(String), 1(Integer), 2025-12-14 23:39:19.506(Timestamp), 1(Integer)
+2025-12-14 23:39:19.772 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.updateById - <==    Updates: 1
+2025-12-14 23:39:20.549 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-14 23:39:20.550 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-14 23:39:20.590 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-14 23:39:20.592 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-14 23:39:20.599 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-14 23:39:20.639 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-14 23:39:27.572 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-14 23:39:27.573 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-14 23:39:27.619 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-14 23:39:27.645 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-14 23:39:27.661 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-14 23:39:27.746 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-14 23:39:27.874 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-14 23:39:27.875 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-14 23:39:27.947 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-14 23:39:33.175 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-14 23:39:33.177 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-14 23:39:33.228 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-14 23:39:33.229 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-14 23:39:33.254 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-14 23:39:33.380 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-14 23:39:33.566 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-14 23:39:33.569 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-14 23:39:33.737 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 03:10:00.453 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h5m7s286ms453µs100ns).
+2025-12-15 03:09:55.555 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=3h5m10s924ms751µs100ns).
+2025-12-15 03:11:03.489 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m3s36ms175µs800ns).
+2025-12-15 03:11:03.489 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=1m7s935ms931µs400ns).
+2025-12-15 08:54:51.732 [lettuce-nioEventLoop-6-1] INFO  i.l.core.protocol.CommandHandler - null Unexpected exception during request: java.net.SocketException: Connection reset
+java.net.SocketException: Connection reset
+	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:401)
+	at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:434)
+	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:255)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:356)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-12-15 08:54:53.303 [lettuce-eventExecutorLoop-1-2] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was /117.50.184.138:37211
+2025-12-15 08:55:02.543 [lettuce-nioEventLoop-6-2] INFO  i.l.c.protocol.ReconnectionHandler - Reconnected to 117.50.184.138/<unresolved>:37211
+2025-12-15 08:55:28.462 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5h36m21s644ms814µs299ns).
+2025-12-15 08:55:28.462 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=5h36m21s645ms125µs400ns).
+2025-12-15 08:55:38.636 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==>  Preparing: select * from admin_admin where admin_account = ? or admin_phone = ? or admin_email = ?
+2025-12-15 08:55:38.637 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==> Parameters: 18242991090(String), 18242991090(String), 18242991090(String)
+2025-12-15 08:55:38.685 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - <==      Total: 1
+2025-12-15 08:55:42.860 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==>  Preparing: UPDATE admin_admin SET admin_account=?, admin_username=?, admin_email=?, admin_phone=?, admin_password=?, admin_image=?, admin_introduce=?, admin_state=?, admin_login_time=? WHERE admin_id=? AND deleted=0
+2025-12-15 08:55:42.866 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==> Parameters: 1812463057(String), 超级管理员(String), 1812463057@qq.com(String), 18242991090(String), $2a$10$K5wVc3GF6ns1.D8gMP3OmeoDEc/F2Ykr7qqzWShoxxmr8uQeJdo.u(String), https://ts1.tc.mm.bing.net/th/id/R-C.928ef8908b5eb3666b2a27a1f6cfbe17?rik=h2FXLv1HNaxbTg&riu=http%3a%2f%2fp0.so.qhmsg.com%2ft018b5eb3666b2a27a1.jpg&ehk=QnGPPvZKq3cPW6%2bdkG%2b3zIRvAGXRsgYVTirfbvOBTaU%3d&risl=&pid=ImgRaw&r=0(String), 至高无上的超级管理员(String), 1(Integer), 2025-12-15 08:55:42.857(Timestamp), 1(Integer)
+2025-12-15 08:55:43.058 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.updateById - <==    Updates: 1
+2025-12-15 08:55:43.412 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 08:55:43.413 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 08:55:43.460 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 08:55:43.462 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 08:55:43.463 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 08:55:43.515 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:04:29.722 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m29s799ms798µs800ns).
+2025-12-15 09:04:29.752 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=5m29s799ms968µs199ns).
+2025-12-15 09:10:33.168 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:10:33.170 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:10:33.212 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:10:33.216 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:10:33.218 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:10:33.460 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:10:33.906 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.J.selectList - ==>  Preparing: SELECT jobAdviceArticle_id,jobAdviceArticle_title,jobAdviceArticle_content,jobAdviceArticle_category,jobAdviceArticle_tags,jobAdviceArticle_authorName,jobAdviceArticle_publishedStatus,jobAdviceArticle_publishedTime,jobAdviceArticle_updatedTime,deleted FROM general_jobAdviceArticle WHERE deleted=0 AND (deleted = ?)
+2025-12-15 09:10:33.910 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.J.selectList - ==> Parameters: 0(Integer)
+2025-12-15 09:10:34.031 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.J.selectList - <==      Total: 1
+2025-12-15 09:10:47.624 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:10:47.626 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:10:47.832 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:10:47.834 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:10:47.834 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:10:48.114 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:10:48.232 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:10:48.233 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:10:48.275 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:10:48.276 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:10:48.277 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:10:48.322 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:10:48.366 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:10:48.367 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:10:48.414 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:10:53.698 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:10:53.698 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:10:53.739 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:10:53.741 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:10:53.741 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:10:53.783 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:10:53.834 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.J.selectList - ==>  Preparing: SELECT jobAdviceArticle_id,jobAdviceArticle_title,jobAdviceArticle_content,jobAdviceArticle_category,jobAdviceArticle_tags,jobAdviceArticle_authorName,jobAdviceArticle_publishedStatus,jobAdviceArticle_publishedTime,jobAdviceArticle_updatedTime,deleted FROM general_jobAdviceArticle WHERE deleted=0 AND (deleted = ?)
+2025-12-15 09:10:53.834 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.J.selectList - ==> Parameters: 0(Integer)
+2025-12-15 09:10:53.875 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.J.selectList - <==      Total: 1
+2025-12-15 09:11:14.746 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:11:14.747 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:11:14.793 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:11:14.795 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:11:14.796 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:11:14.847 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:11:14.904 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:11:14.905 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:11:14.945 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:13:09.329 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:13:09.331 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:09.360 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:13:09.360 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:09.378 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:13:09.379 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:13:09.383 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:09.405 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:13:09.406 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:13:09.407 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:09.452 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:13:09.533 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.I.selectList - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap
+2025-12-15 09:13:09.537 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.I.selectList - ==> Parameters: 
+2025-12-15 09:13:09.583 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.I.selectList - <==      Total: 2
+2025-12-15 09:13:09.612 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:13:09.940 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.R.queryRecruitPositionPage - ==>  Preparing: SELECT rp.recruitPosition_id AS recruitPositionId, rp.recruitPosition_name AS recruitPositionName, rp.recruitPosition_industryCode AS recruitPositionIndustryCode, -- 连表字段：行业名称（从行业映射表查询） gim.industryMap_industryName AS recruitPositionIndustryName, rp.recruitPosition_minMonthSalary AS minMonthSalary, rp.recruitPosition_maxMonthSalary AS maxMonthSalary, rp.recruitPosition_weekWorkDayNum AS weekWorkDayNum, rp.recruitPosition_goodWelfare AS goodWelfare, rp.recruitPosition_createdTime AS createdTime, rp.recruitPosition_updatedTime AS updatedTime FROM general_recruitPosition rp -- 招聘岗位表别名rp -- 连表：通用行业映射表（别名gim），LEFT JOIN避免行业编码无效时丢失岗位数据 LEFT JOIN general_industryMap gim ON rp.recruitPosition_industryCode = gim.industryMap_industryCode ORDER BY rp.recruitPosition_updatedTime DESC
+2025-12-15 09:13:09.943 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.R.queryRecruitPositionPage - ==> Parameters: 
+2025-12-15 09:13:09.996 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.R.queryRecruitPositionPage - <==      Total: 1
+2025-12-15 09:13:10.216 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:13:10.217 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:10.270 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:13:10.273 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:13:10.273 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:10.284 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:13:10.287 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:10.321 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:13:10.330 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:13:10.331 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:10.359 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:13:10.376 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:13:10.416 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectList - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap
+2025-12-15 09:13:10.417 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectList - ==> Parameters: 
+2025-12-15 09:13:10.461 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectList - <==      Total: 2
+2025-12-15 09:13:10.475 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:13:10.476 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:10.521 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:13:10.522 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:13:10.524 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:10.568 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:13:10.625 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition
+2025-12-15 09:13:10.625 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 
+2025-12-15 09:13:10.691 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-15 09:13:10.762 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.E.selectList - ==>  Preparing: SELECT employmentInformation_id,employmentInformation_code,employmentInformation_companyName,employmentInformation_industryCategories,employmentInformation_companyType,employmentInformation_batch,employmentInformation_recruitPosition,employmentInformation_recruitObject,employmentInformation_recruitLocationFirst,employmentInformation_recruitLocationSecond,employmentInformation_recruitLocationDetail,employmentInformation_startTime,employmentInformation_stopTime,employmentInformation_updatedTime,employmentInformation_onlineApplicationStatus,employmentInformation_officialAnnouncement,employmentInformation_submissionWay,employmentInformation_employeeReferralCode,deleted FROM general_employmentInformation WHERE deleted=0 AND (deleted = ?)
+2025-12-15 09:13:10.767 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.E.selectList - ==> Parameters: 0(Integer)
+2025-12-15 09:13:10.839 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.E.selectList - <==      Total: 1
+2025-12-15 09:13:10.863 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.E.selectList - ==>  Preparing: SELECT employmentInformation_id,employmentInformation_code,employmentInformation_companyName,employmentInformation_industryCategories,employmentInformation_companyType,employmentInformation_batch,employmentInformation_recruitPosition,employmentInformation_recruitObject,employmentInformation_recruitLocationFirst,employmentInformation_recruitLocationSecond,employmentInformation_recruitLocationDetail,employmentInformation_startTime,employmentInformation_stopTime,employmentInformation_updatedTime,employmentInformation_onlineApplicationStatus,employmentInformation_officialAnnouncement,employmentInformation_submissionWay,employmentInformation_employeeReferralCode,deleted FROM general_employmentInformation WHERE deleted=0 AND (employmentInformation_code = ? AND deleted = ?)
+2025-12-15 09:13:10.867 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.E.selectList - ==> Parameters: 1(Integer), 0(Integer)
+2025-12-15 09:13:10.923 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.E.selectList - <==      Total: 1
+2025-12-15 09:13:11.408 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-15 09:13:11.409 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:11.450 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-15 09:13:12.812 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:13:12.814 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:12.854 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:13:12.855 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:13:12.856 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:12.905 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:13:12.992 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectList - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE deleted=0 AND (deleted = ?)
+2025-12-15 09:13:12.993 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectList - ==> Parameters: 0(Integer)
+2025-12-15 09:13:13.043 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectList - <==      Total: 1
+2025-12-15 09:13:19.829 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:13:19.830 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:19.849 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:13:19.850 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:19.876 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:13:19.877 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:13:19.884 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:19.900 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:13:19.901 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:13:19.903 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:19.930 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:13:19.947 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:13:19.992 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.RoleMapper.selectList - ==>  Preparing: SELECT role_id,role_name,role_introduce,deleted FROM admin_role WHERE deleted=0 AND (deleted = ?)
+2025-12-15 09:13:19.992 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.P.selectList - ==>  Preparing: SELECT permission_id,permission_name,permission_url,permission_introduce,deleted FROM admin_permission WHERE deleted=0
+2025-12-15 09:13:19.993 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.P.selectList - ==> Parameters: 
+2025-12-15 09:13:19.993 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.RoleMapper.selectList - ==> Parameters: 0(Integer)
+2025-12-15 09:13:20.033 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.RoleMapper.selectList - <==      Total: 1
+2025-12-15 09:13:20.037 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.P.selectList - <==      Total: 1
+2025-12-15 09:13:48.380 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-15 09:13:48.382 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:48.428 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-15 09:13:48.431 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-15 09:13:48.433 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-15 09:13:48.480 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-15 09:13:48.526 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.BaseAgent - 正在执行步骤 1/10
+2025-12-15 09:13:48.539 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:根据用户需求，主动选择最合适的工具或工具组合。
+对于复杂任务，你可以分解问题并逐步使用不同的工具来解决。
+使用每个工具后，清楚地解释执行结果并建议下一步操作。
+如果你想在任何时候停止交互，请使用 `terminate` 工具/函数调用。
+
+2025-12-15 09:13:48.631 [http-nio-8080-exec-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Failure in @ExceptionHandler com.zyh.easyapplyresume.bean.usallyexceptionandEnum.GlobalExceptionHandler#defaultExceptionHandler(Exception)
+org.springframework.web.HttpMediaTypeNotAcceptableException: No acceptable representation
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:256)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:192)
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:78)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:136)
+	at org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver.doResolveHandlerMethodException(ExceptionHandlerExceptionResolver.java:432)
+	at org.springframework.web.servlet.handler.AbstractHandlerMethodExceptionResolver.doResolveException(AbstractHandlerMethodExceptionResolver.java:74)
+	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:175)
+	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:80)
+	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1358)
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1161)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1106)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at com.zyh.easyapplyresume.filter.UserJwtAuthFilter.doFilterInternal(UserJwtAuthFilter.java:61)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at com.zyh.easyapplyresume.filter.AdminJwtAuthFilter.doFilterInternal(AdminJwtAuthFilter.java:124)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:219)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-12-15 09:13:48.655 [http-nio-8080-exec-3] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpMediaTypeNotAcceptableException: No acceptable representation]
+2025-12-15 09:13:50.349 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，可以帮您完成各种任务。请告诉我您需要什么帮助？
+2025-12-15 09:13:50.349 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent的思考: 您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，可以帮您完成各种任务。请告诉我您需要什么帮助？
+2025-12-15 09:13:50.352 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择了 0 个工具来使用
+2025-12-15 09:13:50.353 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择的工具信息：
+
+2025-12-15 09:13:50.357 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.BaseAgent - 正在执行步骤 2/10
+2025-12-15 09:13:50.358 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:根据用户需求，主动选择最合适的工具或工具组合。
+对于复杂任务，你可以分解问题并逐步使用不同的工具来解决。
+使用每个工具后，清楚地解释执行结果并建议下一步操作。
+如果你想在任何时候停止交互，请使用 `terminate` 工具/函数调用。
+
+2025-12-15 09:13:51.357 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，可以帮您完成各种任务。请告诉我您需要什么帮助？
+2025-12-15 09:13:51.358 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent的思考: 您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，可以帮您完成各种任务。请告诉我您需要什么帮助？
+2025-12-15 09:13:51.358 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择了 0 个工具来使用
+2025-12-15 09:13:51.358 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择的工具信息：
+
+2025-12-15 09:13:51.358 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.BaseAgent - 正在执行步骤 3/10
+2025-12-15 09:13:51.367 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:根据用户需求，主动选择最合适的工具或工具组合。
+对于复杂任务，你可以分解问题并逐步使用不同的工具来解决。
+使用每个工具后，清楚地解释执行结果并建议下一步操作。
+如果你想在任何时候停止交互，请使用 `terminate` 工具/函数调用。
+
+2025-12-15 09:13:54.526 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:您好！我是 ResumeAssistantAgent，已准备就绪，可以为您处理任何任务。请告诉我您的具体需求，我将根据情况选择最合适的工具或工具组合来高效完成任务。无论是查找信息、生成文件、发送邮件，还是执行复杂操作，我都可以协助您。请开始描述您的请求吧！
+2025-12-15 09:13:54.526 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent的思考: 您好！我是 ResumeAssistantAgent，已准备就绪，可以为您处理任何任务。请告诉我您的具体需求，我将根据情况选择最合适的工具或工具组合来高效完成任务。无论是查找信息、生成文件、发送邮件，还是执行复杂操作，我都可以协助您。请开始描述您的请求吧！
+2025-12-15 09:13:54.526 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择了 0 个工具来使用
+2025-12-15 09:13:54.526 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择的工具信息：
+
+2025-12-15 09:13:54.526 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.BaseAgent - 正在执行步骤 4/10
+2025-12-15 09:13:54.526 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:根据用户需求，主动选择最合适的工具或工具组合。
+对于复杂任务，你可以分解问题并逐步使用不同的工具来解决。
+使用每个工具后，清楚地解释执行结果并建议下一步操作。
+如果你想在任何时候停止交互，请使用 `terminate` 工具/函数调用。
+
+2025-12-15 09:13:56.825 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:感谢您的说明！我已明确我的角色是 ResumeAssistantAgent，一个能够利用多种工具解决复杂任务的 AI 助手。
+
+请告诉我您需要完成的任务内容 —— 无论是查找信息、下载资源、生成文档、发送邮件，还是一系列组合操作，我都会主动规划步骤，选择最合适的工具，并在每一步为您提供清晰的反馈。
+
+现在，请告诉我您的具体需求吧！
+2025-12-15 09:13:56.825 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent的思考: 感谢您的说明！我已明确我的角色是 ResumeAssistantAgent，一个能够利用多种工具解决复杂任务的 AI 助手。
+
+请告诉我您需要完成的任务内容 —— 无论是查找信息、下载资源、生成文档、发送邮件，还是一系列组合操作，我都会主动规划步骤，选择最合适的工具，并在每一步为您提供清晰的反馈。
+
+现在，请告诉我您的具体需求吧！
+2025-12-15 09:13:56.826 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择了 0 个工具来使用
+2025-12-15 09:13:56.826 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择的工具信息：
+
+2025-12-15 09:13:56.827 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.BaseAgent - 正在执行步骤 5/10
+2025-12-15 09:13:56.827 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:根据用户需求，主动选择最合适的工具或工具组合。
+对于复杂任务，你可以分解问题并逐步使用不同的工具来解决。
+使用每个工具后，清楚地解释执行结果并建议下一步操作。
+如果你想在任何时候停止交互，请使用 `terminate` 工具/函数调用。
+
+2025-12-15 09:13:59.160 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，已准备就绪，可以为您处理任何任务。请告诉我您的具体需求——无论是查找信息、生成文档、发送邮件，还是执行复杂操作，我都可以协助您高效完成。
+
+请描述您需要我帮您做什么，我将立即开始行动！
+2025-12-15 09:13:59.163 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent的思考: 您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，已准备就绪，可以为您处理任何任务。请告诉我您的具体需求——无论是查找信息、生成文档、发送邮件，还是执行复杂操作，我都可以协助您高效完成。
+
+请描述您需要我帮您做什么，我将立即开始行动！
+2025-12-15 09:13:59.163 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择了 0 个工具来使用
+2025-12-15 09:13:59.163 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择的工具信息：
+
+2025-12-15 09:13:59.163 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.BaseAgent - 正在执行步骤 6/10
+2025-12-15 09:13:59.164 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:根据用户需求，主动选择最合适的工具或工具组合。
+对于复杂任务，你可以分解问题并逐步使用不同的工具来解决。
+使用每个工具后，清楚地解释执行结果并建议下一步操作。
+如果你想在任何时候停止交互，请使用 `terminate` 工具/函数调用。
+
+2025-12-15 09:14:01.551 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，已准备就绪，可以为您处理任何任务。
+
+请告诉我您需要我完成的具体请求——无论是查找信息、下载文件、生成 PDF、发送邮件，还是执行一系列复杂的操作，我都会主动规划步骤，选择最合适的工具组合，并在每一步向您清晰汇报进展。
+
+现在，请告诉我您的需求吧！
+2025-12-15 09:14:01.552 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent的思考: 您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，已准备就绪，可以为您处理任何任务。
+
+请告诉我您需要我完成的具体请求——无论是查找信息、下载文件、生成 PDF、发送邮件，还是执行一系列复杂的操作，我都会主动规划步骤，选择最合适的工具组合，并在每一步向您清晰汇报进展。
+
+现在，请告诉我您的需求吧！
+2025-12-15 09:14:01.552 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择了 0 个工具来使用
+2025-12-15 09:14:01.552 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择的工具信息：
+
+2025-12-15 09:14:01.552 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.BaseAgent - 正在执行步骤 7/10
+2025-12-15 09:14:01.552 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:根据用户需求，主动选择最合适的工具或工具组合。
+对于复杂任务，你可以分解问题并逐步使用不同的工具来解决。
+使用每个工具后，清楚地解释执行结果并建议下一步操作。
+如果你想在任何时候停止交互，请使用 `terminate` 工具/函数调用。
+
+2025-12-15 09:14:03.666 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，已准备就绪，可以为您处理任何任务。
+
+请告诉我您需要我帮您完成什么——无论是查找资料、生成简历、下载文件、发送邮件，还是执行一系列复杂操作，我都会主动规划步骤，选择最合适的工具，并逐步为您完成。
+
+现在，请告诉我您的具体需求吧！
+2025-12-15 09:14:03.666 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent的思考: 您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，已准备就绪，可以为您处理任何任务。
+
+请告诉我您需要我帮您完成什么——无论是查找资料、生成简历、下载文件、发送邮件，还是执行一系列复杂操作，我都会主动规划步骤，选择最合适的工具，并逐步为您完成。
+
+现在，请告诉我您的具体需求吧！
+2025-12-15 09:14:03.666 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择了 0 个工具来使用
+2025-12-15 09:14:03.666 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择的工具信息：
+
+2025-12-15 09:14:03.666 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.BaseAgent - 正在执行步骤 8/10
+2025-12-15 09:14:03.666 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:根据用户需求，主动选择最合适的工具或工具组合。
+对于复杂任务，你可以分解问题并逐步使用不同的工具来解决。
+使用每个工具后，清楚地解释执行结果并建议下一步操作。
+如果你想在任何时候停止交互，请使用 `terminate` 工具/函数调用。
+
+2025-12-15 09:14:07.947 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:感谢您的说明！我已明确我的角色是 **ResumeAssistantAgent**，一个全能的 AI 助手，能够通过调用多种工具来完成复杂任务。
+
+请告诉我您当前需要完成的任务内容。例如：
+
+- 是否需要查找某个主题的信息？
+- 是否要生成一份简历、报告或文档？
+- 是否要从网页下载资料并整理？
+- 是否需将内容发送至指定邮箱？
+
+我会根据您的需求，主动规划步骤，选择最合适的一组工具（如搜索、爬取、下载、读写文件、生成 PDF、发邮件等），并逐步执行，在每一步向您清晰汇报结果与后续计划。
+
+现在，请告诉我您的具体请求吧！
+2025-12-15 09:14:07.947 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent的思考: 感谢您的说明！我已明确我的角色是 **ResumeAssistantAgent**，一个全能的 AI 助手，能够通过调用多种工具来完成复杂任务。
+
+请告诉我您当前需要完成的任务内容。例如：
+
+- 是否需要查找某个主题的信息？
+- 是否要生成一份简历、报告或文档？
+- 是否要从网页下载资料并整理？
+- 是否需将内容发送至指定邮箱？
+
+我会根据您的需求，主动规划步骤，选择最合适的一组工具（如搜索、爬取、下载、读写文件、生成 PDF、发邮件等），并逐步执行，在每一步向您清晰汇报结果与后续计划。
+
+现在，请告诉我您的具体请求吧！
+2025-12-15 09:14:07.947 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择了 0 个工具来使用
+2025-12-15 09:14:07.947 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择的工具信息：
+
+2025-12-15 09:14:07.947 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.BaseAgent - 正在执行步骤 9/10
+2025-12-15 09:14:07.948 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:根据用户需求，主动选择最合适的工具或工具组合。
+对于复杂任务，你可以分解问题并逐步使用不同的工具来解决。
+使用每个工具后，清楚地解释执行结果并建议下一步操作。
+如果你想在任何时候停止交互，请使用 `terminate` 工具/函数调用。
+
+2025-12-15 09:14:11.950 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，已准备就绪，可以为您处理任何任务。
+
+请告诉我您需要我帮您完成什么——无论是：
+
+- 搜索信息（如查找某公司、职位要求、行业趋势）
+- 生成简历或文档
+- 下载网页资源或文件
+- 整理数据并生成 PDF
+- 发送邮件
+
+我都可以主动规划步骤，调用合适的工具（如搜索、爬取、下载、读写文件、生成PDF、发邮件等），并逐步向您汇报进展。
+
+现在，请告诉我您的具体需求吧！
+2025-12-15 09:14:11.950 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent的思考: 您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，已准备就绪，可以为您处理任何任务。
+
+请告诉我您需要我帮您完成什么——无论是：
+
+- 搜索信息（如查找某公司、职位要求、行业趋势）
+- 生成简历或文档
+- 下载网页资源或文件
+- 整理数据并生成 PDF
+- 发送邮件
+
+我都可以主动规划步骤，调用合适的工具（如搜索、爬取、下载、读写文件、生成PDF、发邮件等），并逐步向您汇报进展。
+
+现在，请告诉我您的具体需求吧！
+2025-12-15 09:14:11.950 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择了 0 个工具来使用
+2025-12-15 09:14:11.950 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择的工具信息：
+
+2025-12-15 09:14:11.950 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.BaseAgent - 正在执行步骤 10/10
+2025-12-15 09:14:11.951 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Request:根据用户需求，主动选择最合适的工具或工具组合。
+对于复杂任务，你可以分解问题并逐步使用不同的工具来解决。
+使用每个工具后，清楚地解释执行结果并建议下一步操作。
+如果你想在任何时候停止交互，请使用 `terminate` 工具/函数调用。
+
+2025-12-15 09:14:15.854 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.advisor.MyLoggerAdvisor - AI Response:您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，已准备就绪，可以为您处理任何任务。
+
+我具备以下能力：
+- 在百度上搜索信息
+- 爬取网页内容
+- 下载文件或资源
+- 读取和写入文件
+- 生成 PDF 文档
+- 发送电子邮件
+- 执行终端命令
+
+对于复杂任务，我会将其分解为多个步骤，逐步执行，并在每一步向您清晰汇报结果与后续计划。
+
+现在，请告诉我您需要我为您完成的具体任务吧！
+2025-12-15 09:14:15.854 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent的思考: 您好！我是 ResumeAssistantAgent，一个全能的 AI 助手，已准备就绪，可以为您处理任何任务。
+
+我具备以下能力：
+- 在百度上搜索信息
+- 爬取网页内容
+- 下载文件或资源
+- 读取和写入文件
+- 生成 PDF 文档
+- 发送电子邮件
+- 执行终端命令
+
+对于复杂任务，我会将其分解为多个步骤，逐步执行，并在每一步向您清晰汇报结果与后续计划。
+
+现在，请告诉我您需要我为您完成的具体任务吧！
+2025-12-15 09:14:15.854 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择了 0 个工具来使用
+2025-12-15 09:14:15.854 [ForkJoinPool.commonPool-worker-2] INFO  c.z.e.demo.agent.ToolCallAgent - ResumeAssistantAgent选择的工具信息：
+
+2025-12-15 09:22:22.123 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-15 09:22:22.124 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-12-15 09:22:22.125 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-15 09:22:22.127 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-12-15 09:22:22.153 [scheduling-1] INFO  c.z.e.t.u.UserDeleteResumeScheduledTask - 开始执行清理过期简历任务
+2025-12-15 09:22:22.492 [scheduling-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userDeleteResume_id,userDeleteResume_resumeName,userDeleteResume_industry,userDeleteResume_resumeReactCode,userDeleteResume_createdTime,userDeleteResume_updatedTime,userDeleteResume_sortedNum,userDeleteResume_userId,userDeleteResume_deleteTime FROM user_userDeleteResume
+2025-12-15 09:22:22.493 [scheduling-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 
+2025-12-15 09:22:23.100 [scheduling-1] ERROR c.z.e.s.i.u.UserDeleteResumeServiceImpl - 系统删除简历表添加失败
+2025-12-15 09:22:23.181 [scheduling-1] INFO  c.z.e.t.u.UserDeleteResumeScheduledTask - 清理过期简历任务执行完成
+2025-12-15 09:22:23.301 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-15 09:22:23.310 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-15 09:22:23.313 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-15 09:22:23.323 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-15 09:22:23.324 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-15 09:22:23.325 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-15 09:22:23.334 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-15 09:22:23.340 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
