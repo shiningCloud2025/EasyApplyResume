@@ -1,4 +1,4 @@
-package com.zyh.easyapplyresume.controller.user;
+package com.zyh.easyapplyresume.controller.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
  * @author shiningCloud2025
  */
 @RestController
-@RequestMapping("/user/feedbackRecord")
-@Tag(name="用户反馈记录控制器-用户端")
+@RequestMapping("/admin/feedbackRecord")
+@Tag(name="用户反馈记录控制器-管理端")
 public class UserFeedbackRecordController {
 
     @Autowired
