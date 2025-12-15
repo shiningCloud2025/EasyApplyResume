@@ -1,117 +1,106 @@
 <template>
   <div class="feedback-submit">
-    <div class="page-header">
-      <div class="header-content">
-        <h1 class="page-title">意见反馈</h1>
-        <p class="page-description">您的反馈对我们非常重要，帮助我们改进产品和服务</p>
+    <el-card class="feedback-card">
+      <!-- 页面标题 -->
+      <div class="page-header">
+        <div class="header-icon">
+          <el-icon :size="40"><ChatLineRound /></el-icon>
+        </div>
+        <div class="header-text">
+          <h1>意见反馈</h1>
+          <p>您的反馈对我们非常重要，帮助我们改进产品和服务</p>
+        </div>
       </div>
-    </div>
 
-    <div class="content-wrapper">
-      <el-card class="submit-card" shadow="hover">
-        <template #header>
-          <div class="card-header">
-            <el-icon><Edit /></el-icon>
-            <span>提交反馈</span>
-          </div>
+      <!-- 提示信息 -->
+      <el-alert
+        type="info"
+        :closable="false"
+        show-icon
+        class="tip-alert"
+      >
+        <template #title>
+          <span>温馨提示：请详细描述您遇到的问题或建议，我们会在1-3个工作日内处理您的反馈</span>
         </template>
+      </el-alert>
 
-        <el-alert
-          type="info"
-          :closable="false"
-          show-icon
-          class="tip-alert"
-        >
-          <template #title>
-            <span>温馨提示：请详细描述您遇到的问题或建议，我们会在1-3个工作日内处理您的反馈</span>
-          </template>
-        </el-alert>
+      <!-- 反馈表单 -->
+      <el-form
+        ref="feedbackFormRef"
+        :model="feedbackForm"
+        :rules="feedbackRules"
+        label-position="top"
+        class="feedback-form"
+      >
+        <el-form-item label="反馈标题" prop="adminFeedbackTitle">
+          <el-input
+            v-model="feedbackForm.adminFeedbackTitle"
+            placeholder="请简要描述您的问题或建议（5-35字符）"
+            maxlength="35"
+            show-word-limit
+            clearable
+            size="large"
+          />
+        </el-form-item>
 
-        <el-form
-          ref="feedbackFormRef"
-          :model="feedbackForm"
-          :rules="feedbackRules"
-          label-width="100px"
-          size="large"
-          class="feedback-form"
-        >
-          <el-form-item label="反馈标题" prop="adminFeedbackTitle">
-            <el-input
-              v-model="feedbackForm.adminFeedbackTitle"
-              placeholder="请简要描述您的问题或建议"
-              maxlength="35"
-              show-word-limit
-              clearable
-            />
-          </el-form-item>
+        <el-form-item label="反馈内容" prop="adminFeedbackContent">
+          <el-input
+            v-model="feedbackForm.adminFeedbackContent"
+            type="textarea"
+            :rows="10"
+            placeholder="请详细描述您遇到的问题或建议，我们会认真阅读并处理（至少10个字符）"
+            show-word-limit
+            resize="none"
+          />
+        </el-form-item>
 
-          <el-form-item label="反馈内容" prop="adminFeedbackContent">
-            <el-input
-              v-model="feedbackForm.adminFeedbackContent"
-              type="textarea"
-              :rows="12"
-              placeholder="请详细描述您遇到的问题或建议，我们会认真阅读并处理"
-              show-word-limit
-            />
-          </el-form-item>
+        <el-form-item>
+          <el-button 
+            type="primary" 
+            size="large" 
+            @click="handleSubmit" 
+            :loading="submitting"
+            style="width: 160px;"
+          >
+            <el-icon><Promotion /></el-icon>
+            提交反馈
+          </el-button>
+          <el-button 
+            size="large" 
+            @click="handleReset"
+            style="width: 120px;"
+          >
+            <el-icon><RefreshLeft /></el-icon>
+            重置
+          </el-button>
+        </el-form-item>
+      </el-form>
 
-          <el-form-item>
-            <el-button type="primary" size="large" @click="handleSubmit" :loading="submitting">
-              <el-icon><Position /></el-icon>
-              提交反馈
-            </el-button>
-            <el-button size="large" @click="handleReset">
-              <el-icon><RefreshLeft /></el-icon>
-              重置
-            </el-button>
-          </el-form-item>
-        </el-form>
-      </el-card>
-
-      <div class="stats-section">
-        <el-row :gutter="16">
-          <el-col :span="8">
-            <el-card class="stat-card" shadow="hover">
-              <div class="stat-content">
-                <el-icon class="stat-icon" :size="32" color="#409eff">
-                  <ChatDotRound />
-                </el-icon>
-                <div class="stat-info">
-                  <div class="stat-value">快速响应</div>
-                  <div class="stat-label">1-3个工作日</div>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="8">
-            <el-card class="stat-card" shadow="hover">
-              <div class="stat-content">
-                <el-icon class="stat-icon" :size="32" color="#67c23a">
-                  <CircleCheck />
-                </el-icon>
-                <div class="stat-info">
-                  <div class="stat-value">认真对待</div>
-                  <div class="stat-label">每条反馈必回复</div>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-          <el-col :span="8">
-            <el-card class="stat-card" shadow="hover">
-              <div class="stat-content">
-                <el-icon class="stat-icon" :size="32" color="#e6a23c">
-                  <TrendCharts />
-                </el-icon>
-                <div class="stat-info">
-                  <div class="stat-value">持续改进</div>
-                  <div class="stat-label">不断优化体验</div>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
+      <!-- 底部特色卡片 -->
+      <div class="features-section">
+        <div class="feature-item">
+          <el-icon :size="24" color="#409eff"><ChatDotRound /></el-icon>
+          <div class="feature-text">
+            <div class="feature-title">快速响应</div>
+            <div class="feature-desc">1-3个工作日内处理</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <el-icon :size="24" color="#67c23a"><CircleCheck /></el-icon>
+          <div class="feature-text">
+            <div class="feature-title">认真对待</div>
+            <div class="feature-desc">每条反馈必回复</div>
+          </div>
+        </div>
+        <div class="feature-item">
+          <el-icon :size="24" color="#e6a23c"><TrendCharts /></el-icon>
+          <div class="feature-text">
+            <div class="feature-title">持续改进</div>
+            <div class="feature-desc">不断优化体验</div>
+          </div>
+        </div>
       </div>
-    </div>
+    </el-card>
   </div>
 </template>
 
@@ -120,8 +109,8 @@ import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { FormInstance } from 'element-plus'
 import {
-  Edit,
-  Position,
+  ChatLineRound,
+  Promotion,
   RefreshLeft,
   ChatDotRound,
   CircleCheck,
@@ -165,7 +154,7 @@ const handleSubmit = async () => {
 
     const user = authStore.user
     if (!user?.userId) {
-      ElMessage.error('未获取到用户信息')
+      ElMessage.error('未获取到用户信息，请重新登录')
       return
     }
 
@@ -174,7 +163,9 @@ const handleSubmit = async () => {
     // 设置管理员ID
     feedbackForm.adminFeedbackAdminId = user.userId
 
-    console.log('📤 [反馈提交] 提交反馈:', feedbackForm)
+    console.log('📤 [反馈提交] 提交数据:', feedbackForm)
+    
+    // 调用后端接口 POST /admin/feedback/addFeedback
     await feedbackApi.addFeedback(feedbackForm)
 
     ElMessage.success('反馈提交成功！我们会尽快处理')
@@ -182,7 +173,7 @@ const handleSubmit = async () => {
     // 重置表单
     handleReset()
 
-    // 询问是否跳转到反馈记录页面
+    // 提示用户
     setTimeout(() => {
       ElMessage({
         message: '可在"管理端反馈记录"中查看处理进度',
@@ -190,8 +181,12 @@ const handleSubmit = async () => {
         duration: 3000
       })
     }, 1000)
-  } catch (error) {
+  } catch (error: any) {
     console.error('❌ [反馈提交] 提交失败:', error)
+    if (error.errors) {
+      // 表单验证失败
+      return
+    }
     ElMessage.error('提交失败，请稍后重试')
   } finally {
     submitting.value = false
@@ -214,108 +209,190 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .feedback-submit {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 0 auto;
+  min-height: calc(100vh - 120px);
+  padding: 40px 24px;
+  background: linear-gradient(to bottom, #f9fafb, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.feedback-card {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  overflow: visible;
+  padding: 40px;
 }
 
 .page-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
   margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #f3f4f6;
 
-  .header-content {
-    .page-title {
+  .header-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+  }
+
+  .header-text {
+    flex: 1;
+
+    h1 {
       font-size: 28px;
       font-weight: 700;
       color: #1f2937;
-      margin-bottom: 8px;
+      margin: 0 0 8px 0;
     }
 
-    .page-description {
+    p {
       font-size: 14px;
       color: #6b7280;
       margin: 0;
+      line-height: 1.5;
     }
   }
 }
 
-.content-wrapper {
-  max-width: 900px;
-  margin: 0 auto;
-}
+.tip-alert {
+  margin-bottom: 32px;
+  border-radius: 12px;
+  background: #f0f9ff;
+  border: 1px solid #bae7ff;
 
-.submit-card {
-  border-radius: 16px;
-  margin-bottom: 24px;
-  
-  .card-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #1f2937;
-  }
-
-  .tip-alert {
-    margin-bottom: 24px;
-    border-radius: 8px;
-
-    :deep(.el-alert__title) {
+  :deep(.el-alert__content) {
+    .el-alert__title {
       font-size: 14px;
       line-height: 1.6;
-    }
-  }
-
-  .feedback-form {
-    :deep(.el-form-item__label) {
-      font-weight: 500;
-    }
-
-    :deep(.el-input__wrapper) {
-      box-shadow: 0 0 0 1px var(--el-input-border-color,var(--el-border-color)) inset;
-    }
-
-    :deep(.el-textarea__inner) {
-      box-shadow: 0 0 0 1px var(--el-input-border-color,var(--el-border-color)) inset;
+      color: #1890ff;
     }
   }
 }
 
-.stats-section {
-  .stat-card {
+.feedback-form {
+  position: relative;
+  z-index: 1;
+
+  :deep(.el-form-item) {
+    margin-bottom: 28px;
+  }
+
+  :deep(.el-form-item__label) {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 8px;
+  }
+
+  :deep(.el-input) {
+    .el-input__wrapper {
+      border-radius: 10px;
+      padding: 12px 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s;
+
+      &:hover {
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+      }
+
+      &.is-focus {
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        border-color: #667eea;
+      }
+    }
+  }
+
+  :deep(.el-textarea) {
+    .el-textarea__inner {
+      border-radius: 10px;
+      padding: 12px 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      font-family: inherit;
+      line-height: 1.6;
+      transition: all 0.3s;
+
+      &:hover {
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+      }
+
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        border-color: #667eea;
+      }
+    }
+  }
+
+  .el-button {
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s;
+
+    &.el-button--primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+.features-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 2px solid #f3f4f6;
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
     border-radius: 12px;
-    cursor: pointer;
     transition: all 0.3s ease;
 
     &:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+      background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
     }
 
-    .stat-content {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 8px;
+    .el-icon {
+      flex-shrink: 0;
+    }
 
-      .stat-icon {
-        flex-shrink: 0;
+    .feature-text {
+      .feature-title {
+        font-size: 15px;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 4px;
       }
 
-      .stat-info {
-        flex: 1;
-
-        .stat-value {
-          font-size: 16px;
-          font-weight: 600;
-          color: #1f2937;
-          margin-bottom: 4px;
-        }
-
-        .stat-label {
-          font-size: 13px;
-          color: #6b7280;
-        }
+      .feature-desc {
+        font-size: 12px;
+        color: #6b7280;
       }
     }
   }
@@ -324,13 +401,36 @@ onMounted(() => {
 // 响应式设计
 @media (max-width: 768px) {
   .feedback-submit {
-    padding: 16px;
+    padding: 20px 12px;
   }
 
-  .stats-section {
-    .el-col {
-      margin-bottom: 12px;
+  .feedback-card {
+    padding: 24px 20px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    text-align: center;
+
+    .header-icon {
+      width: 60px;
+      height: 60px;
     }
+
+    .header-text {
+      h1 {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+
+  .features-section {
+    grid-template-columns: 1fr;
+    gap: 12px;
   }
 }
 </style>
