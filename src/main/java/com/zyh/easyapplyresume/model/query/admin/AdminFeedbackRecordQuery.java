@@ -17,7 +17,6 @@ public class AdminFeedbackRecordQuery {
     @Schema(description = "反馈记录标题")
     private String adminFeedbackRecordTitle;
 
-
     @Schema(description = "反馈处理人姓名")
     private String adminFeedbackRecordApprovalPersonName;
 }
