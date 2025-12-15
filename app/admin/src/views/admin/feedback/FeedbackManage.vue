@@ -58,13 +58,11 @@
       >
         <el-table-column prop="adminFeedbackId" label="反馈ID" width="80" />
         <el-table-column prop="adminFeedbackTitle" label="反馈标题" min-width="200" />
-        <el-table-column label="反馈内容" min-width="250">
+        <el-table-column label="反馈内容" min-width="150">
           <template #default="{ row }">
-            <el-tooltip :content="row.adminFeedbackContent || '暂无内容'" placement="top">
-              <div class="content-ellipsis">
-                {{ row.adminFeedbackContent ? row.adminFeedbackContent.substring(0, 50) + (row.adminFeedbackContent.length > 50 ? '...' : '') : '-' }}
-              </div>
-            </el-tooltip>
+            <el-button type="primary" size="small" @click="viewFeedbackContent(row)">
+              详情
+            </el-button>
           </template>
         </el-table-column>
         <el-table-column label="提交时间" width="120">
@@ -162,9 +160,6 @@
           <el-descriptions-item label="反馈标题">
             {{ currentDetail.adminFeedbackTitle }}
           </el-descriptions-item>
-          <el-descriptions-item label="反馈详细内容">
-            <div class="detail-content">{{ currentDetail.adminFeedbackContent }}</div>
-          </el-descriptions-item>
           <el-descriptions-item label="反馈提交时间">
             {{ formatDate(currentDetail.adminFeedbackTime) }}
           </el-descriptions-item>
@@ -184,6 +179,30 @@
           </el-descriptions-item>
         </el-descriptions>
       </div>
+    </el-dialog>
+
+    <!-- 查看反馈内容对话框 -->
+    <el-dialog
+      v-model="contentDialogVisible"
+      title="反馈内容"
+      width="800px"
+      :before-close="() => { contentDialogVisible = false }"
+    >
+      <template #header>
+        <div class="dialog-header">
+          <span class="el-dialog__title">反馈内容</span>
+          <button class="el-dialog__headerbtn" @click="contentDialogVisible = false">
+            <i class="el-dialog__close el-icon el-icon-close"></i>
+          </button>
+        </div>
+      </template>
+      <div class="feedback-content">
+        <div class="content-display">{{ currentContent?.adminFeedbackContent }}</div>
+      </div>
+      
+      <template #footer>
+        <el-button @click="contentDialogVisible = false">关闭</el-button>
+      </template>
     </el-dialog>
 
     <!-- 处理反馈对话框 -->
@@ -253,6 +272,50 @@
         </div>
       </template>
     </el-dialog>
+
+    <!-- 反馈详情对话框 -->
+    <el-dialog
+      v-model="detailDialogVisible"
+      title="反馈详情"
+      width="600px"
+      :before-close="() => { detailDialogVisible = false }"
+    >
+      <template #header>
+        <div class="dialog-header">
+          <span class="el-dialog__title">反馈详情</span>
+          <button class="el-dialog__headerbtn" @click="detailDialogVisible = false">
+            <i class="el-dialog__close el-icon el-icon-close"></i>
+          </button>
+        </div>
+      </template>
+      <div class="feedback-detail" v-if="currentFeedback">
+        <el-descriptions :column="1" border>
+          <el-descriptions-item label="反馈标题">
+            {{ currentFeedback.adminFeedbackTitle }}
+          </el-descriptions-item>
+          <el-descriptions-item label="反馈内容">
+            <div class="detail-content">
+              {{ currentFeedback.adminFeedbackContent }}
+            </div>
+          </el-descriptions-item>
+          <el-descriptions-item label="反馈时间">
+            {{ formatDateTime(currentFeedback.adminFeedbackTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="最近更新时间">
+            {{ formatDateTime(currentFeedback.adminFeedbackRecentTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="当前状态">
+            <el-tag :type="getStatusType(currentFeedback.adminFeedbackCurStep)">
+              {{ currentFeedback.adminFeedbackCurStep }}
+            </el-tag>
+          </el-descriptions-item>
+        </el-descriptions>
+      </div>
+      
+      <template #footer>
+        <el-button @click="detailDialogVisible = false">关闭</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -291,8 +354,11 @@ const loading = ref(false)
 const submitting = ref(false)
 const showDetailDialog = ref(false)
 const showProcessDialog = ref(false)
+const detailDialogVisible = ref(false)
+const contentDialogVisible = ref(false)
 const currentDetail = ref<AdminFeedbackInfoVO | null>(null)
 const currentFeedback = ref<AdminFeedbackPageVO | null>(null)
+const currentContent = ref<AdminFeedbackPageVO | null>(null)
 const processAction = ref('')
 
 // 搜索表单
@@ -430,6 +496,12 @@ const handleDetail = async (row: AdminFeedbackPageVO) => {
     console.error('获取反馈详情失败:', error)
     ElMessage.error('获取详情失败')
   }
+}
+
+// 查看反馈内容
+const viewFeedbackContent = (row: AdminFeedbackPageVO) => {
+  currentContent.value = row
+  contentDialogVisible.value = true
 }
 
 // 处理反馈
@@ -608,6 +680,8 @@ const resetProcessForm = () => {
   })
 }
 
+
+
 // 组件挂载
 onMounted(() => {
   getFeedbackList()
@@ -700,6 +774,106 @@ onBeforeUnmount(() => {
       color: #374151;
       white-space: pre-wrap;
     }
+  }
+
+  .feedback-content {
+    .content-display {
+      line-height: 1.6;
+      color: #374151;
+      white-space: pre-wrap;
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 12px;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+    }
+  }
+
+  .content-title {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+  }
+
+  .content-display {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 6px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .el-dialog__headerbtn {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+  }
+
+  .el-dialog__headerbtn:hover {
+    background-color: #f0f0f0;
+  }
+
+  .el-dialog__close {
+    font-size: 16px;
+    color: #909399;
+  }
+
+  .el-dialog__close:hover {
+    color: #409eff;
+  }
+
+  .dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .el-dialog__headerbtn {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+  }
+
+  .el-dialog__headerbtn:hover {
+    background-color: #f0f0f0;
+  }
+
+  .el-dialog__close {
+    font-size: 16px;
+    color: #909399;
+  }
+
+  .el-dialog__close:hover {
+    color: #409eff;
   }
 
   .content-ellipsis {
