@@ -34,18 +34,18 @@ public class AISystemManagerAssistantController {
 
     @Operation(summary = "AI系统管理助手应用对话")
     @PostMapping(value= "/application/chat",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public BaseResult<Flux<String>> applicationChat(@RequestBody String message,
+    public Flux<String> applicationChat(@RequestBody String message,
                                                    @RequestParam(required = false,value = "chatId") String chatId){
         chatId = UUID.randomUUID().toString();
-        return BaseResult.ok(aiSystemManagerAssistant.AiSystemManagerAssistantDoChatWithStream(message,chatId));
+        return aiSystemManagerAssistant.AiSystemManagerAssistantDoChatWithStream(message,chatId);
     }
 
     @Operation(summary = "AI系统管理助手Agent对话")
     @PostMapping(value = "/agent/chat")
-    public BaseResult<SseEmitter> agentChat(@RequestBody String message, @RequestParam(required = false,value = "chatId") String chatId){
+    public SseEmitter agentChat(@RequestBody String message, @RequestParam(required = false,value = "chatId") String chatId){
         chatId = UUID.randomUUID().toString();
         SystemAssistantAgent systemAssistantAgent = new SystemAssistantAgent(allTools,dashscopeChatModel);
-        return BaseResult.ok(systemAssistantAgent.runStream(message,chatId));
+        return systemAssistantAgent.runStream(message,chatId);
     }
 
 

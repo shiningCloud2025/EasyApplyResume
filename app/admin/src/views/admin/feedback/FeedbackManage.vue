@@ -56,25 +56,25 @@
         style="width: 100%"
         empty-text="暂无数据"
       >
-        <el-table-column prop="adminFeedbackId" label="ID" width="70" />
-        <el-table-column prop="adminFeedbackTitle" label="标题" min-width="200" />
-        <el-table-column label="反馈内容" min-width="180">
+        <el-table-column prop="adminFeedbackId" label="反馈ID" width="80" />
+        <el-table-column prop="adminFeedbackTitle" label="反馈标题" min-width="200" />
+        <el-table-column label="反馈内容" min-width="250">
           <template #default="{ row }">
             <el-tooltip :content="row.adminFeedbackContent || '暂无内容'" placement="top">
-              <div class="text-ellipsis">
-                {{ row.adminFeedbackContent ? row.adminFeedbackContent.substring(0, 30) + '...' : '-' }}
+              <div class="content-ellipsis">
+                {{ row.adminFeedbackContent ? row.adminFeedbackContent.substring(0, 50) + (row.adminFeedbackContent.length > 50 ? '...' : '') : '-' }}
               </div>
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column label="提交时间" width="180">
+        <el-table-column label="提交时间" width="120">
           <template #default="{ row }">
-            {{ row.adminFeedbackTime ? formatDateTime(row.adminFeedbackTime) : '-' }}
+            {{ row.adminFeedbackTime ? formatDate(row.adminFeedbackTime) : '-' }}
           </template>
         </el-table-column>
-        <el-table-column label="最近处理时间" width="180">
+        <el-table-column label="最近处理时间" width="120">
           <template #default="{ row }">
-            {{ row.adminFeedbackRecentTime ? formatDateTime(row.adminFeedbackRecentTime) : '-' }}
+            {{ row.adminFeedbackRecentTime ? formatDate(row.adminFeedbackRecentTime) : '-' }}
           </template>
         </el-table-column>
         <el-table-column prop="adminFeedbackCurStep" label="当前状态" width="100" align="center">
@@ -84,7 +84,8 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="adminFeedbackAdminName" label="提交人" width="120" />
+        <el-table-column prop="adminFeedbackAdminId" label="提交人ID" width="100" />
+        <el-table-column prop="adminFeedbackAdminName" label="提交人姓名" width="120" />
         <el-table-column label="操作" width="280" fixed="right">
           <template #default="{ row }">
             <el-button
@@ -192,16 +193,25 @@
         :rules="processRules"
         label-width="100px"
       >
-        <el-form-item label="反馈标题" prop="title">
-          <el-input v-model="processForm.title" placeholder="请输入处理后的标题" />
+        <el-form-item 
+          :label="processForm.operationCode === 2 ? '回复标题' : '处理标题'" 
+          prop="title"
+        >
+          <el-input 
+            v-model="processForm.title" 
+            :placeholder="processForm.operationCode === 2 ? '请输入回复标题（必填）' : '请输入处理标题（可选）'" 
+          />
         </el-form-item>
         
-        <el-form-item label="处理内容" prop="content">
+        <el-form-item 
+          :label="processForm.operationCode === 2 ? '回复内容' : '备注说明'" 
+          prop="content"
+        >
           <el-input
             v-model="processForm.content"
             type="textarea"
             :rows="6"
-            placeholder="请输入处理内容或备注"
+            :placeholder="processForm.operationCode === 2 ? '请输入回复内容（必填）' : '请输入备注说明（可选）'"
           />
         </el-form-item>
 
@@ -235,6 +245,16 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
 import { feedbackApi } from '@/api/admin'
+
+// 格式化日期（只显示日期，不显示时间）
+const formatDate = (dateStr: string | Date) => {
+  if (!dateStr) return '-'
+  const date = new Date(dateStr)
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
 import type {
   AdminFeedbackPageVO,
   AdminFeedbackQuery,
@@ -242,6 +262,9 @@ import type {
   AdminUpdateFeedbackForm
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
+import { useAuthStore } from '@/store/auth'
+
+const authStore = useAuthStore()
 
 // 响应式数据
 const loading = ref(false)
@@ -276,15 +299,15 @@ const processForm = reactive<AdminUpdateFeedbackForm>({
   content: ''
 })
 
-// 表单校验规则
-const processRules = {
+// 表单校验规则（动态计算）
+const processRules = reactive({
   title: [
-    { required: true, message: '请输入处理后的标题', trigger: 'blur' }
+    { required: false, message: '请输入处理后的标题', trigger: 'blur' }
   ],
   content: [
-    { required: true, message: '请输入处理内容', trigger: 'blur' }
+    { required: false, message: '请输入处理内容', trigger: 'blur' }
   ]
-}
+})
 
 // 获取反馈列表
 const getFeedbackList = async () => {
@@ -357,6 +380,13 @@ const handleProcess = async (row: AdminFeedbackPageVO, operationCode: number, ac
     processForm.operationCode = operationCode
     processForm.title = response.data.adminFeedbackTitle
     processForm.content = ''
+    
+    // 根据操作码设置验证规则
+    // 操作码2（回复）需要必填title和content，其他操作可选
+    const isReplyAction = operationCode === 2
+    processRules.title[0].required = isReplyAction
+    processRules.content[0].required = isReplyAction
+    
     showProcessDialog.value = true
   } catch (error) {
     console.error('获取反馈详情失败:', error)
@@ -392,23 +422,49 @@ const handleProcessSubmit = async () => {
   if (!processFormRef.value || !currentFeedback.value) return
   
   try {
+    // 只有操作码2（回复）需要验证
+    if (processForm.operationCode === 2) {
     await processFormRef.value.validate()
+    }
+    
+    // 获取当前登录管理员ID
+    const currentUser = authStore.user
+    if (!currentUser?.adminId && !currentUser?.userId) {
+      ElMessage.error('未获取到当前用户信息，请重新登录')
+      return
+    }
+    
+    const operationPersonId = currentUser.adminId || currentUser.userId
+    
     submitting.value = true
+    
+    console.log('📤 [反馈处理] 提交参数:', {
+      feedbackId: currentFeedback.value.adminFeedbackId,
+      operationCode: processForm.operationCode,
+      operationName: processAction.value,
+      title: processForm.title || '',
+      content: processForm.content || '',
+      operationPersonId
+    })
     
     await feedbackApi.updateFeedbackStep(
       currentFeedback.value.adminFeedbackId,
       processForm.operationCode,
-      processForm.title,
-      processForm.content,
-      currentFeedback.value.adminFeedbackAdminId
+      processForm.title || '',
+      processForm.content || '',
+      operationPersonId
     )
     
     ElMessage.success(`${processAction.value}成功`)
     showProcessDialog.value = false
     getFeedbackList()
-  } catch (error) {
-    console.error('处理失败:', error)
-    ElMessage.error('处理失败')
+  } catch (error: any) {
+    console.error('❌ [反馈处理] 处理失败:', error)
+    if (error?.errors) {
+      // 表单验证失败
+      return
+    }
+    ElMessage.error(error?.message || '处理失败，请检查网络或重试')
   } finally {
     submitting.value = false
   }
@@ -515,7 +571,7 @@ onMounted(() => {
     }
   }
 
-  .text-ellipsis {
+  .content-ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

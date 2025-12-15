@@ -390,28 +390,41 @@ export const aiApi = {
     })
   },
   
-  // AI系统管理助手 - Agent对话（流式）- 直接返回fetch响应，不经过拦截器
+  // AI系统管理助手 - Agent对话（流式）
+  // 注意：需要后端修改才能正常工作
+  // 
+  // 后端需要修改（修改后此接口可正常使用）：
+  // 1. 添加 produces = MediaType.TEXT_EVENT_STREAM_VALUE
+  // 2. 直接返回 SseEmitter（不用 BaseResult 包装）
+  // 
+  // 修改前：
+  // @PostMapping(value = "/agent/chat")
+  // public BaseResult<SseEmitter> agentChat(...) { return BaseResult.ok(emitter); }
+  // 
+  // 修改后：
+  // @PostMapping(value = "/agent/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+  // public SseEmitter agentChat(...) { return emitter; }
   aiSystemManagerAgentChat: async (message: string, chatId?: string) => {
     const baseURL = import.meta.env.VITE_API_BASE_URL || '/api'
     const token = localStorage.getItem('admin_token')
     
-    // 如果没有chatId，生成一个UUID
     if (!chatId) {
       chatId = 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
     }
     
     let url = `${baseURL}/admin/aiSystemManagerAssistant/agent/chat?chatId=${encodeURIComponent(chatId)}`
     
-    console.log('🔧 [API] Agent Chat URL:', url)
-    console.log('🔧 [API] Message:', message)
+    console.log('📤 [API] 调用 Agent Chat 接口')
+    console.log('   URL:', url)
+    console.log('   ChatId:', chatId)
     
+    // 发送 SSE 请求
     return fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'text/plain',
         'Admin-Authorization': `Admin ${token}`,
-        'Accept': 'text/event-stream',
-        'Cache-Control': 'no-cache'
+        'Accept': 'text/event-stream'  // 明确要求 SSE 响应
       },
       body: message
     })
@@ -430,7 +443,8 @@ export const feedbackApi = {
     }),
   
   // 查询反馈详情
-  getFeedbackDetail: (feedbackId: number) => api.get<AdminFeedbackInfoVO>('/admin/feedback/findFeedbackById', { feedbackId }),
+  getFeedbackDetail: (feedbackId: number) => 
+    api.get<AdminFeedbackInfoVO>(`/admin/feedback/findFeedbackById?feedbackId=${feedbackId}`),
   
   // 分页查询反馈
   getFeedbackPage: (pageNum: number, pageSize: number, query: AdminFeedbackQuery) =>

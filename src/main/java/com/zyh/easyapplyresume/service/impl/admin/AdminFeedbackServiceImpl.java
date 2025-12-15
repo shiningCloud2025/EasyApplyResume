@@ -4,6 +4,8 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.businessEnum.AdminBusinessEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminFeedbackMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminFeedbackRecordMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminMapper;
@@ -15,6 +17,7 @@ import com.zyh.easyapplyresume.model.query.admin.AdminFeedbackQuery;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFeedbackInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFeedbackPageVO;
 import com.zyh.easyapplyresume.service.admin.AdminFeedbackService;
+import com.zyh.easyapplyresume.utils.adminvalidator.AdminFeedbackFormValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,6 +51,7 @@ public class AdminFeedbackServiceImpl implements AdminFeedbackService {
 
     @Override
     public void addFeedback(AdminFeedbackForm adminFeedbackForm) {
+        AdminFeedbackFormValidator.validateForAdd(adminFeedbackForm);
         AdminFeedback adminFeedback = new AdminFeedback();
         adminFeedback.setAdminFeedbackTitle(adminFeedbackForm.getAdminFeedbackTitle());
         adminFeedback.setAdminFeedbackContent(adminFeedbackForm.getAdminFeedbackContent());
@@ -61,6 +65,11 @@ public class AdminFeedbackServiceImpl implements AdminFeedbackService {
 
     @Override
     public void updateFeedbackStep(Integer feedbackId, Integer OperationCode,String title, String content,Integer operationPersonId) {
+        AdminFeedbackForm adminFeedbackForm = new AdminFeedbackForm();
+        adminFeedbackForm.setAdminFeedbackAdminId(1);
+        adminFeedbackForm.setAdminFeedbackContent(content);
+        adminFeedbackForm.setAdminFeedbackTitle(title);
+        AdminFeedbackFormValidator.validateForUpdate(adminFeedbackForm);
         AdminFeedbackRecord adminFeedbackRecord = new AdminFeedbackRecord();
         LambdaQueryWrapper<AdminFeedback> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(AdminFeedback::getAdminFeedbackId, feedbackId);

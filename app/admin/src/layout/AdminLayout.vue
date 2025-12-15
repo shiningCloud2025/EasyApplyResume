@@ -442,10 +442,22 @@ watch(
   { immediate: true }
 )
 
-// 组件挂载时检查登录状态
-onMounted(() => {
+// 组件挂载时检查登录状态并获取用户信息
+onMounted(async () => {
   if (!authStore.isLoggedIn) {
     router.push('/login')
+    return
+  }
+  
+  // 如果已登录但没有用户信息，则获取用户信息
+  if (!authStore.user) {
+    console.log('🔄 AdminLayout: 检测到已登录但没有用户信息，开始获取...')
+    try {
+      await authStore.getUserInfo()
+      console.log('✅ AdminLayout: 用户信息获取成功', authStore.user)
+    } catch (error) {
+      console.error('❌ AdminLayout: 获取用户信息失败', error)
+    }
   }
 })
 </script>
