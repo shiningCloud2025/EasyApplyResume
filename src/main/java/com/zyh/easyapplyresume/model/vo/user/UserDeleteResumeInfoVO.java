@@ -15,30 +15,27 @@ import java.util.Date;
 @Schema(description = "用户删除简历信息")
 public class UserDeleteResumeInfoVO {
 
-    @Schema(description = "系统删除简历id")
-    private Integer userDeleteResumeBySystemId;
+    @Schema(description = "删除简历名称")
+    private String userDeleteResumeResumeName;
 
-    @Schema(description = "系统删除简历名称")
-    private String userDeleteResumeBySystemResumeName;
+    @Schema(description = "删除简历行业")
+    private String userDeleteResumeIndustryName;
 
-    @Schema(description = "系统删除简历行业")
-    private String userDeleteResumeBySystemIndustryName;
+    @Schema(description = "删除简历React组件代码")
+    private String userDeleteResumeResumeReactCode;
 
-    @Schema(description = "系统删除简历React组件代码")
-    private String userDeleteResumeBySystemResumeReactCode;
+    @Schema(description = "删除简历创建时间")
+    private Date userDeleteResumeCreatedTime;
 
-    @Schema(description = "系统删除简历创建时间")
-    private Date userDeleteResumeBySystemCreatedTime;
+    @Schema(description = "删除简历最后更新时间")
+    private Date userDeleteResumeUpdatedTime;
 
-    @Schema(description = "系统删除简历最后更新时间")
-    private Date userDeleteResumeBySystemUpdatedTime;
+    @Schema(description = "删除简历排序序号")
+    private Integer userDeleteResumeSortedNum;
 
-    @Schema(description = "系统删除简历排序序号")
-    private Integer userDeleteResumeBySystemSortedNum;
+    @Schema(description = "简历所属用户")
+    private Integer userDeleteResumeUserId;
 
-    @Schema(description = "系统删除简历所属用户")
-    private Integer userDeleteResumeBySystemUserId;
-
-    @Schema(description = "简历回收时间")
-    private Date userDeleteResumeBySystemRecycleTime;
+    @Schema(description = "简历删除时间")
+    private Date userDeleteResumeDeleteTime;
 }

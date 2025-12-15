@@ -142,6 +142,7 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
         voPage.setSize(resumeTemplatePage.getSize());
         voPage.setCurrent(resumeTemplatePage.getCurrent());
         voPage.setPages(resumeTemplatePage.getPages());
+        voPage.setTotal(resumeTemplatePage.getTotal());
         return voPage;
     }
     @Override

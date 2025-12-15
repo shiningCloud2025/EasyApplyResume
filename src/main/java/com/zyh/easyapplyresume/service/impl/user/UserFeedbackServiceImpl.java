@@ -89,7 +89,6 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
         LambdaQueryWrapper<Admin> queryWrapper2 = new LambdaQueryWrapper<>();
         queryWrapper2.eq(Admin::getAdminId, operationPersonId);
         Admin admin1 = adminMapper.selectOne(queryWrapper2);
-        userFeedbackRecord.setUserFeedbackRecordApprovalPersonName(admin1.getAdminUsername());
         /**
          * TODO
          *                                              ->回复(操作码2)-发送短信，变成已回复
