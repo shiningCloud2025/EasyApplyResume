@@ -162,7 +162,19 @@ public enum AdminCodeEnum {
     NO_REGISTER_ERROR(786, "管理员未注册"),
     GENERATE_ACCOUNT_FAIL(787, "生成管理员账号失败"),
     ADMIN_ADD_ACCOUNT_EMPTY(788, "请输入管理员账号"),
-    ADMIN_ACCOUNT_LENGTH_ERROR(789, "管理员账号长度要在7-10位之间")
+    ADMIN_ACCOUNT_LENGTH_ERROR(789, "管理员账号长度要在7-10位之间"),
+
+
+    // ===================== 新增：反馈业务（从810开始）=====================
+    ADMIN_FEEDBACK_TITLE_NOT_NULL(810, "反馈标题不能为空"),
+    ADMIN_FEEDBACK_CONTENT_NOT_NULL(811, "反馈内容不能为空"),
+    ADMIN_FEEDBACK_CONTENT_EMPTY(812, "反馈内容不能为空"),
+    ADMIN_FEEDBACK_ADMIN_ID_EMPTY(813, "提交反馈的管理员ID不能为空"),
+    ADMIN_FEEDBACK_TITLE_TOO_LONG(814, "反馈标题不能超过35个字符")
+
+
+
+
     ;
 
     private final Integer code;
