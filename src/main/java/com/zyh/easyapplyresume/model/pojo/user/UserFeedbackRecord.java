@@ -66,10 +66,5 @@ public class UserFeedbackRecord {
      */
     @TableField("userFeedbackRecord_approvalPersonId")
     private Integer userFeedbackRecordApprovalPersonId;
-    
-    /**
-     * 反馈处理人姓名
-     */
-    @TableField("userFeedbackRecord_approvalPersonName")
-    private String userFeedbackRecordApprovalPersonName;
-}
+
+    }
