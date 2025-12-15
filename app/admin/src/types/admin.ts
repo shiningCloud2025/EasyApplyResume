@@ -386,6 +386,41 @@ export interface AdminUpdateFeedbackForm {
   content: string
 }
 
+// ============= 管理员反馈记录（FeedbackRecord）=============
+
+// 管理员反馈记录查询条件
+export interface AdminFeedbackRecordQuery {
+  adminFeedbackRecordName?: string          // 反馈人姓名
+  adminFeedbackRecordTitle?: string         // 反馈标题
+  adminFeedbackRecordApprovalPersonName?: string  // 处理人姓名
+}
+
+// 管理员反馈记录分页VO
+export interface AdminFeedbackRecordPageVO {
+  adminFeedbackRecordName: string           // 反馈人
+  adminFeedbackRecordTitle: string          // 标题
+  adminFeedbackRecordContent: string        // 内容
+  adminFeedbackRecordTime: Date             // 创建时间
+  adminFeedbackRecordCurrentStepSolveTime: Date  // 处理时间
+  adminFeedbackRecordOldStep: string        // 原节点
+  adminFeedbackRecordNewStep: string        // 现阶段
+  adminFeedbackRecordApprovalPersonId: number    // 处理人ID
+  adminFeedbackRecordApprovalPersonName: string  // 处理人姓名
+}
+
+// 管理员反馈记录详情VO
+export interface AdminFeedbackRecordInfoVO {
+  adminFeedbackRecordName: string           // 反馈人
+  adminFeedbackRecordTitle: string          // 标题
+  adminFeedbackRecordContent: string        // 内容
+  adminFeedbackRecordTime: Date             // 创建时间
+  adminFeedbackRecordCurrentStepSolveTime: Date  // 处理时间
+  adminFeedbackRecordOldStep: string        // 原节点
+  adminFeedbackRecordNewStep: string        // 现阶段
+  adminFeedbackRecordApprovalPersonId: number    // 处理人ID
+  adminFeedbackRecordApprovalPersonName: string  // 处理人姓名
+}
+
 // 省份Map
 export interface ProvinceMap {
   provinceMapPid: number

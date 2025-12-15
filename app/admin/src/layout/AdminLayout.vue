@@ -268,7 +268,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
 import {
@@ -442,6 +442,52 @@ watch(
   { immediate: true }
 )
 
+// 定时器ID
+let userInfoTimer: NodeJS.Timeout | null = null
+
+// 获取用户信息的函数
+const fetchUserInfo = async (silent: boolean = false) => {
+  if (!authStore.isLoggedIn) {
+    console.log('⚠️ AdminLayout: 用户未登录，停止获取用户信息')
+    if (userInfoTimer) {
+      clearInterval(userInfoTimer)
+      userInfoTimer = null
+    }
+    router.push('/login')
+    return
+  }
+
+  // 如果已经有用户信息，清除定时器
+  if (authStore.user) {
+    console.log('✅ AdminLayout: 用户信息已存在，停止定时获取')
+    if (userInfoTimer) {
+      clearInterval(userInfoTimer)
+      userInfoTimer = null
+    }
+    return
+  }
+
+  // 尝试获取用户信息
+  if (!silent) {
+    console.log('🔄 AdminLayout: 尝试获取用户信息...')
+  }
+  try {
+    await authStore.getUserInfo(silent)
+    if (authStore.user) {
+      console.log('✅ AdminLayout: 用户信息获取成功', authStore.user)
+      // 获取成功后清除定时器
+      if (userInfoTimer) {
+        clearInterval(userInfoTimer)
+        userInfoTimer = null
+      }
+    }
+  } catch (error) {
+    if (!silent) {
+      console.error('❌ AdminLayout: 获取用户信息失败，15秒后重试', error)
+    }
+  }
+}
+
 // 组件挂载时检查登录状态并获取用户信息
 onMounted(async () => {
   if (!authStore.isLoggedIn) {
@@ -449,15 +495,22 @@ onMounted(async () => {
     return
   }
   
-  // 如果已登录但没有用户信息，则获取用户信息
-  if (!authStore.user) {
-    console.log('🔄 AdminLayout: 检测到已登录但没有用户信息，开始获取...')
-    try {
-      await authStore.getUserInfo()
-      console.log('✅ AdminLayout: 用户信息获取成功', authStore.user)
-    } catch (error) {
-      console.error('❌ AdminLayout: 获取用户信息失败', error)
-    }
+  // 首次尝试获取用户信息（不静默，显示错误）
+  await fetchUserInfo(false)
+  
+  // 如果首次获取失败，启动定时器每15秒重试一次（静默模式）
+  if (!authStore.user && authStore.isLoggedIn) {
+    console.log('⏰ AdminLayout: 启动定时器，每15秒静默重试获取用户信息')
+    userInfoTimer = setInterval(() => fetchUserInfo(true), 15000)
+  }
+})
+
+// 组件卸载时清除定时器
+onUnmounted(() => {
+  if (userInfoTimer) {
+    console.log('🧹 AdminLayout: 清除用户信息获取定时器')
+    clearInterval(userInfoTimer)
+    userInfoTimer = null
   }
 })
 </script>

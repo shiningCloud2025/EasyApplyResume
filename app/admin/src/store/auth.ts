@@ -129,17 +129,19 @@ export const useAuthStore = defineStore('auth', {
     },
 
     // 获取用户信息
-    async getUserInfo() {
+    async getUserInfo(silent: boolean = false) {
       try {
-        console.log('开始获取用户信息...')
+        console.log('开始获取用户信息...', silent ? '(静默模式)' : '')
         // 先获取基本的SecurityUser信息（包含userId）
-        const response = await api.post<any>('/admin/auth/getAdminInfo')
+        const response = await api.post<any>('/admin/auth/getAdminInfo', {}, { silent })
         console.log('SecurityUser信息:', response)
         
         if (response.data?.userId) {
           // 使用userId获取完整的管理员信息
           console.log('获取完整管理员信息，adminId:', response.data.userId)
-          const adminResponse = await api.get<AdminUser>(`/admin/admin/findById?adminId=${response.data.userId}`)
+          const adminResponse = await api.get<AdminUser>(`/admin/admin/findById?adminId=${response.data.userId}`, { 
+            silent 
+          })
           console.log('完整管理员信息:', adminResponse)
           
           // 合并SecurityUser和AdminUser信息
@@ -159,7 +161,9 @@ export const useAuthStore = defineStore('auth', {
           return response.data
         }
       } catch (error: any) {
-        console.error('获取用户信息失败:', error)
+        if (!silent) {
+          console.error('获取用户信息失败:', error)
+        }
         // 获取用户信息失败不影响登录，只是没有用户详情
         return null
       }

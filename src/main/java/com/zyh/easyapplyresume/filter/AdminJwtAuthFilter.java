@@ -112,7 +112,9 @@ public class AdminJwtAuthFilter extends OncePerRequestFilter {
 
             SecurityUser securityUser = new SecurityUser();
             securityUser.setUserId(admin.getAdminId());
+            securityUser.setUserEmail(admin.getAdminEmail());
             securityUser.setUsername(admin.getAdminUsername());
+            securityUser.setPassword(admin.getAdminPassword());
             securityUser.setUserType("admin");
             securityUser.setEnabled(admin.getAdminState() == 1);
             securityUser.setAuthorities(authorities);

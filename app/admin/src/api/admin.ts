@@ -12,6 +12,9 @@ import type {
   AdminFeedbackQuery,
   AdminFeedbackPageVO,
   AdminFeedbackInfoVO,
+  AdminFeedbackRecordQuery,
+  AdminFeedbackRecordPageVO,
+  AdminFeedbackRecordInfoVO,
   RoleForm,
   RolePageQuery,
   RolePageVO,
@@ -54,7 +57,7 @@ export const authApi = {
   loginByEmail: (data: EmailLoginForm) => api.post<string>('/admin/auth/emailLogin', null, { params: data }),
   
   // 退出登录
-  logout: (adminId: number) => api.get('/admin/auth/logout', { adminId }),
+  logout: (adminId: number) => api.get('/admin/auth/logout', { params: { adminId } }),
   
   // 发送邮箱验证码
   sendEmailCode: (email: string) => api.post('/admin/email/loginandregister/send', null, { params: { email } }),
@@ -76,6 +79,9 @@ export const adminApi = {
   
   // 查询管理员详情
   getAdminInfo: (adminId: number) => api.get<AdminInfoVO>(`/admin/admin/findById?adminId=${adminId}`),
+  
+  // 获取当前登录管理员信息（通过 JWT）
+  getCurrentAdminInfo: () => api.post<{userId: number, userEmail: string, username: string, authorities: string[]}>('/admin/admin/getAdminInfo'),
   
   // 分页查询管理员
   getAdminPage: (pageNum: number, pageSize: number, query: AdminPageQuery) => 
@@ -176,7 +182,7 @@ export const resumeTemplateApi = {
   
   // 查询简历模板详情
   getResumeTemplateInfo: (resumeTemplateId: number) => 
-    api.get<ResumeTemplateInfoVO>('/admin/resumeTemplate/findResumeTemplateById', { resumeTemplateId }),
+    api.get<ResumeTemplateInfoVO>('/admin/resumeTemplate/findResumeTemplateById', { params: { resumeTemplateId } }),
   
   // 分页查询简历模板
   getResumeTemplatePage: (pageNum: number, pageSize: number, query: ResumeTemplateQuery) => 
@@ -202,7 +208,7 @@ export const jobAdviceArticleApi = {
   
   // 查询求职攻略详情
   getJobAdviceArticleInfo: (jobAdviceArticleId: number) => 
-    api.get<any>('/admin/jobAdviceArticle/getJobAdviceArticleInfo', { jobAdviceArticleId }),
+    api.get<any>('/admin/jobAdviceArticle/getJobAdviceArticleInfo', { params: { jobAdviceArticleId } }),
   
   // 分页查询求职攻略
   getJobAdviceArticlePage: (pageNum: number, pageSize: number, query: JobAdviceArticleQuery) => 
@@ -226,7 +232,7 @@ export const recruitPositionApi = {
   
   // 查询招聘岗位详情
   getRecruitPositionInfo: (recruitPositionId: number) => 
-    api.get<RecruitPositionInfoVO>('/admin/recruitPosition/queryRecruitPosition', { recruitPositionId }),
+    api.get<RecruitPositionInfoVO>('/admin/recruitPosition/queryRecruitPosition', { params: { recruitPositionId } }),
   
   // 分页查询招聘岗位
   getRecruitPositionPage: (pageNum: number, pageSize: number, query: RecruitPositionQuery) => 
@@ -252,7 +258,7 @@ export const employmentInformationApi = {
   
   // 查询招聘信息详情
   getEmploymentInformationInfo: (employmentInformationId: number) => 
-    api.get<EmploymentInformationInfoVO>('/admin/employmentInformation/getEmploymentInformationInfo', { employmentInformationId }),
+    api.get<EmploymentInformationInfoVO>('/admin/employmentInformation/getEmploymentInformationInfo', { params: { employmentInformationId } }),
   
   // 分页查询招聘信息
   getEmploymentInformationPage: (pageNum: number, pageSize: number, query: EmploymentInformationQuery) => 
@@ -274,7 +280,7 @@ export const industryMapApi = {
   
   // 查询行业详情
   getIndustryMapInfo: (industryMapIndustryCode: number) => 
-    api.get<IndustryMapInfoVO>('/admin/industryMap/findIndustryMapById', { industryMapId: industryMapIndustryCode }),
+    api.get<IndustryMapInfoVO>('/admin/industryMap/findIndustryMapById', { params: { industryMapId: industryMapIndustryCode } }),
   
   // 分页查询行业
   getIndustryMapPage: (pageNum: number, pageSize: number, query: IndustryMapQuery) => 
@@ -342,28 +348,28 @@ export const cityMapApi = {
 
 // 邮件发送相关API
 export const emailApi = {
-  // 发送纯文本邮件（指定发送者）
-  sendTextEmailSpecifySelf: (fromEmail: string, toEmail: string, subject: string, content: string) =>
-    api.post<void>('/admin/email/communication/selfde/sendText', null, {
-      params: { fromEmail, toEmail, subject, content }
-    }),
-  
-  // 发送纯文本邮件（使用默认发送者）
-  sendTextEmail: (toEmail: string, subject: string, content: string) =>
-    api.post<void>('/admin/email/communication/usallyde/sendText', null, {
-      params: { toEmail, subject, content }
-    }),
-  
   // 发送HTML邮件（指定发送者）
-  sendHtmlEmailSpecifySelf: (fromEmail: string, toEmail: string, subject: string, htmlContent: string) =>
-    api.post<void>('/admin/email/communication/selfde/sendHtml', null, {
+  sendHtmlEmailSelfDef: (fromEmail: string, toEmail: string, subject: string, htmlContent: string) =>
+    request.post('/admin/email/communication/selfde/sendHtml', null, {
       params: { fromEmail, toEmail, subject, htmlContent }
     }),
   
   // 发送HTML邮件（使用默认发送者）
-  sendHtmlEmail: (toEmail: string, subject: string, htmlContent: string) =>
-    api.post<void>('/admin/email/communication/usallyde/sendHtml', null, {
+  sendHtmlEmailUsuallyDef: (toEmail: string, subject: string, htmlContent: string) =>
+    request.post('/admin/email/communication/usallyde/sendHtml', null, {
       params: { toEmail, subject, htmlContent }
+    }),
+  
+  // 发送纯文本邮件（指定发送者）
+  sendTextEmailSelfDef: (fromEmail: string, toEmail: string, subject: string, content: string) =>
+    request.post('/admin/email/communication/selfde/sendText', null, {
+      params: { fromEmail, toEmail, subject, content }
+    }),
+  
+  // 发送纯文本邮件（使用默认发送者）
+  sendTextEmailUsuallyDef: (toEmail: string, subject: string, content: string) =>
+    request.post('/admin/email/communication/usallyde/sendText', null, {
+      params: { toEmail, subject, content }
     })
 }
 
@@ -450,6 +456,21 @@ export const feedbackApi = {
   getFeedbackPage: (pageNum: number, pageSize: number, query: AdminFeedbackQuery) =>
     api.post<PageResult<AdminFeedbackPageVO>>('/admin/feedback/getFeedbackPage', query, {
       params: { pageNum, pageSize }
+    })
+}
+
+// 反馈记录相关API
+export const feedbackRecordApi = {
+  // 分页查询反馈记录
+  getRecordPage: (pageNum: number, pageSize: number, query: AdminFeedbackRecordQuery) =>
+    api.post<PageResult<AdminFeedbackRecordPageVO>>('/admin/adminFeedbackRecord/findAdminFeedbackRecordPage', query, {
+      params: { pageNum, pageSize }
+    }),
+  
+  // 查询反馈记录详情
+  getRecordDetail: (feedbackRecordId: number) =>
+    api.get<AdminFeedbackRecordInfoVO>('/admin/adminFeedbackRecord/findAdminFeedbackRecordByFeedbackRecordId', {
+      params: { feedbackRecordId }
     })
 }
 

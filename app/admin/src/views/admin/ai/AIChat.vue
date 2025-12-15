@@ -6,16 +6,16 @@
           <div class="header-info">
           <div class="avatar">
             <el-icon :size="28"><ChatDotRound /></el-icon>
-          </div>
+            </div>
           <div class="info-text">
             <h2>AI智能问答助手</h2>
             <p>专业的智能对话助手，为您提供准确的答案</p>
+            </div>
           </div>
-        </div>
         <el-button @click="clearMessages" type="danger" plain>
           <el-icon><Delete /></el-icon>
           清空对话
-        </el-button>
+              </el-button>
         </div>
 
       <!-- 聊天消息区域 -->
@@ -33,7 +33,7 @@
             <div class="message-content">
             <div class="message-text" v-html="formatMessage(message.content)"></div>
             <div class="message-time">{{ formatTime(message.timestamp) }}</div>
-          </div>
+            </div>
           </div>
           
         <!-- 正在输入指示器 -->
@@ -70,7 +70,7 @@
           </div>
               <el-button 
                 type="primary" 
-            @click="sendMessage" 
+                @click="sendMessage"
             :loading="isStreaming"
                 :disabled="!inputMessage.trim()"
               >
@@ -240,7 +240,7 @@ const sendMessage = async () => {
             
             if (content) {
               streamingContent.value += content
-              scrollToBottom()
+          scrollToBottom()
             }
           } catch (e) {
             // 如果不是JSON，直接追加文本
@@ -528,8 +528,154 @@ onUnmounted(() => {
 
 .message-text {
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.8;
   margin-bottom: 6px;
+  
+  // Markdown 样式
+  :deep(.msg-paragraph) {
+    margin: 0 0 12px 0;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  :deep(.msg-h2) {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 16px 0 8px 0;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e5e7eb;
+    color: #1f2937;
+  }
+  
+  :deep(.msg-h3) {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 12px 0 6px 0;
+    color: #374151;
+  }
+  
+  :deep(.msg-h4) {
+  font-size: 14px;
+    font-weight: 600;
+    margin: 10px 0 6px 0;
+    color: #4b5563;
+  }
+  
+  :deep(.inline-code) {
+    background: #f3f4f6;
+    color: #ef4444;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+  }
+  
+  :deep(.code-block) {
+    background: #1f2937;
+    color: #f9fafb;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 12px 0;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    
+    code {
+      color: #f9fafb;
+    }
+  }
+  
+  :deep(.formatted-list) {
+    margin: 12px 0;
+    padding-left: 24px;
+    
+    li {
+      margin: 6px 0;
+      line-height: 1.6;
+    }
+  }
+  
+  :deep(.numbered-item) {
+    list-style-type: decimal;
+    color: #374151;
+    
+    &::marker {
+      color: #10b981;
+      font-weight: 600;
+    }
+  }
+  
+  :deep(.bullet-item) {
+    list-style-type: disc;
+    color: #374151;
+    
+    &::marker {
+      color: #10b981;
+    }
+  }
+  
+  :deep(.msg-link) {
+      color: #3b82f6;
+    text-decoration: none;
+    border-bottom: 1px solid #93c5fd;
+    transition: all 0.2s;
+    
+    &:hover {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+    }
+  }
+  
+  :deep(.keyword-tech) {
+    color: #10b981;
+    font-weight: 600;
+    padding: 0 2px;
+  }
+  
+  :deep(strong) {
+    font-weight: 600;
+    color: #1f2937;
+  }
+  
+  :deep(em) {
+    font-style: italic;
+    color: #4b5563;
+  }
+  
+  // 用户消息中的样式适配（白色文字背景）
+  .user-message & {
+    :deep(.keyword-tech) {
+      color: #86efac;
+    }
+    
+    :deep(.inline-code) {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fef3c7;
+    }
+    
+    :deep(.msg-h2),
+    :deep(.msg-h3),
+    :deep(.msg-h4) {
+      color: white;
+      border-bottom-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    :deep(.numbered-item),
+    :deep(.bullet-item) {
+      color: rgba(255, 255, 255, 0.95);
+      
+      &::marker {
+        color: white;
+      }
+    }
+    
+    :deep(strong) {
+      color: white;
+    }
+  }
 }
 
 .message-time {
@@ -619,7 +765,7 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .ai-chat {
-    padding: 12px;
+  padding: 12px;
     height: calc(100vh - 100px);
   }
 
@@ -640,7 +786,7 @@ onUnmounted(() => {
         }
 
         p {
-          font-size: 12px;
+    font-size: 12px;
         }
       }
     }
@@ -662,15 +808,15 @@ onUnmounted(() => {
   .input-actions {
     flex-direction: column;
     gap: 12px;
-
+  
     .input-tips {
-      width: 100%;
+    width: 100%;
       justify-content: center;
-    }
-
+  }
+  
     .el-button {
       width: 100%;
-    }
+  }
   }
 }
 </style>
