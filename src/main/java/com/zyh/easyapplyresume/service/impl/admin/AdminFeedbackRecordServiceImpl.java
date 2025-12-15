@@ -82,6 +82,7 @@ public class AdminFeedbackRecordServiceImpl implements AdminFeedbackRecordServic
 
         Page<AdminFeedbackRecordPageVO> resultPage = new Page<>();
         resultPage.setCurrent(feedbackRecordPage.getCurrent());
+        resultPage.setPages(feedbackRecordPage.getPages());
         resultPage.setSize(feedbackRecordPage.getSize());
         resultPage.setTotal(feedbackRecordPage.getTotal());
         resultPage.setRecords(feedbackRecordPage.getRecords().stream().map(

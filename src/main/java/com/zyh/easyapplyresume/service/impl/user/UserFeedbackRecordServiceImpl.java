@@ -96,6 +96,7 @@ public class UserFeedbackRecordServiceImpl implements UserFeedbackRecordService 
                     return userFeedbackRecordPageVO;
                 }
         ).toList());
+        resultPage.setPages(feedbackRecordPage.getPages());
 
         return resultPage;
     }

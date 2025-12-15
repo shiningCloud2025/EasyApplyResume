@@ -16,7 +16,7 @@ public class UserDeleteResumeQuery {
 
 
     @Schema(description = "系统删除简历所属用户")
-    private String userDeleteResumeBySystemUserId;
+    private Integer userDeleteResumeBySystemUserId;
 
 
     @Schema(description = "简历回收时间")
