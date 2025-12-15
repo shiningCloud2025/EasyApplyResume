@@ -81,6 +81,7 @@ public class AdminFeedbackServiceImpl implements AdminFeedbackService {
         adminFeedbackRecord.setAdminFeedbackRecordCurrentStepSolveTime(new Date());
         adminFeedbackRecord.setAdminFeedbackRecordOldStep(adminFeedback.getAdminFeedbackCurStep());
         adminFeedbackRecord.setAdminFeedbackRecordApprovalPersonId(operationPersonId);
+        adminFeedbackRecord.setAdminFeedbackRecordAdminId(admin.getAdminId());
         LambdaQueryWrapper<Admin> queryWrapper2 = new LambdaQueryWrapper<>();
         queryWrapper2.eq(Admin::getAdminId, operationPersonId);
         Admin admin1 = adminMapper.selectOne(queryWrapper2);
@@ -156,6 +157,7 @@ public class AdminFeedbackServiceImpl implements AdminFeedbackService {
                 lambdaQueryWrapper.like(AdminFeedback::getAdminFeedbackContent, adminFeedbackQuery.getAdminFeedbackContent().trim());
             }
         }
+        lambdaQueryWrapper.orderByDesc(AdminFeedback::getAdminFeedbackId);
 
         Page<AdminFeedback> feedbackPage = adminFeedbackMapper.selectPage(
                 new Page<>(pageNum, pageSize),

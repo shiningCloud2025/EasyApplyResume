@@ -74,6 +74,7 @@ public class AdminFeedbackRecordServiceImpl implements AdminFeedbackRecordServic
                 lambdaQueryWrapper.in(AdminFeedbackRecord::getAdminFeedbackRecordApprovalPersonId, idList);
             }
         }
+        lambdaQueryWrapper.orderByDesc(AdminFeedbackRecord::getAdminFeedbackRecordId);
 
         Page<AdminFeedbackRecord> feedbackRecordPage = adminFeedbackRecordMapper.selectPage(
                 new Page<>(pageNum, pageSize),
@@ -89,7 +90,7 @@ public class AdminFeedbackRecordServiceImpl implements AdminFeedbackRecordServic
                 feedbackRecord -> {
                     AdminFeedbackRecordPageVO adminFeedbackRecordPageVO = new AdminFeedbackRecordPageVO();
                     BeanUtil.copyProperties(feedbackRecord, adminFeedbackRecordPageVO);
-                    adminFeedbackRecordPageVO.setAdminFeedbackRecordName(adminMapper.selectById(feedbackRecord.getAdminFeedbackRecordId()).getAdminUsername());
+                    adminFeedbackRecordPageVO.setAdminFeedbackRecordName(adminMapper.selectById(feedbackRecord.getAdminFeedbackRecordAdminId()).getAdminUsername());
                     adminFeedbackRecordPageVO.setAdminFeedbackRecordApprovalPersonName(adminMapper.selectById(feedbackRecord.getAdminFeedbackRecordApprovalPersonId()).getAdminUsername());
                     return adminFeedbackRecordPageVO;
                 }
