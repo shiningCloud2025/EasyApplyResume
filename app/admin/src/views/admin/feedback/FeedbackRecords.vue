@@ -62,11 +62,7 @@
         :data="records"
         style="width: 100%"
       >
-        <el-table-column prop="adminFeedbackRecordId" label="记录ID" width="90" align="center">
-          <template #default="{ row }">
-            <el-tag size="small" effect="plain">{{ row.adminFeedbackRecordId }}</el-tag>
-          </template>
-        </el-table-column>
+        <el-table-column prop="adminFeedbackRecordId" label="记录ID" width="80" />
         <el-table-column prop="adminFeedbackRecordAdminId" label="反馈人ID" width="100" align="center">
           <template #default="{ row }">
             <el-tag size="small" type="info">{{ row.adminFeedbackRecordAdminId }}</el-tag>
@@ -74,6 +70,13 @@
         </el-table-column>
         <el-table-column prop="adminFeedbackRecordName" label="反馈人" width="120" />
         <el-table-column prop="adminFeedbackRecordTitle" label="反馈标题" min-width="200" show-overflow-tooltip />
+        <el-table-column label="反馈内容" min-width="150">
+          <template #default="{ row }">
+            <el-button type="primary" size="small" @click="viewRecordContent(row)">
+              详情
+            </el-button>
+          </template>
+        </el-table-column>
         <el-table-column label="阶段变化" width="240" align="center">
           <template #default="{ row }">
             <div class="step-flow">
@@ -96,14 +99,14 @@
           </template>
         </el-table-column>
         <el-table-column prop="adminFeedbackRecordApprovalPersonName" label="处理人" width="120" />
-        <el-table-column prop="adminFeedbackRecordTime" label="创建时间" width="180">
+        <el-table-column prop="adminFeedbackRecordTime" label="创建时间" width="120">
           <template #default="{ row }">
-            {{ formatDateTime(row.adminFeedbackRecordTime) }}
+            {{ formatDate(row.adminFeedbackRecordTime) }}
           </template>
         </el-table-column>
-        <el-table-column prop="adminFeedbackRecordCurrentStepSolveTime" label="处理时间" width="180">
+        <el-table-column prop="adminFeedbackRecordCurrentStepSolveTime" label="处理时间" width="120">
           <template #default="{ row }">
-            {{ formatDateTime(row.adminFeedbackRecordCurrentStepSolveTime) }}
+            {{ formatDate(row.adminFeedbackRecordCurrentStepSolveTime) }}
           </template>
         </el-table-column>
         <el-table-column label="操作" width="120" fixed="right">
@@ -138,10 +141,19 @@
       v-model="detailDialogVisible"
       title="反馈记录详情"
       width="700px"
+      :before-close="() => { detailDialogVisible = false }"
     >
+      <template #header>
+        <div class="dialog-header">
+          <span class="el-dialog__title">反馈记录详情</span>
+          <button class="el-dialog__headerbtn" @click="detailDialogVisible = false">
+            <i class="el-dialog__close el-icon el-icon-close"></i>
+          </button>
+        </div>
+      </template>
       <el-descriptions v-if="currentRecord" :column="2" border>
         <el-descriptions-item label="记录ID">
-          <el-tag size="small" effect="plain">{{ currentRecord.adminFeedbackRecordId }}</el-tag>
+          {{ currentRecord.adminFeedbackRecordId }}
         </el-descriptions-item>
         <el-descriptions-item label="反馈人ID">
           <el-tag size="small" type="info">{{ currentRecord.adminFeedbackRecordAdminId }}</el-tag>
@@ -161,9 +173,7 @@
         <el-descriptions-item label="反馈标题" :span="2">
           <strong>{{ currentRecord.adminFeedbackRecordTitle }}</strong>
         </el-descriptions-item>
-        <el-descriptions-item label="反馈内容" :span="2">
-          <div class="content-display">{{ currentRecord.adminFeedbackRecordContent }}</div>
-        </el-descriptions-item>
+        
         <el-descriptions-item label="原阶段">
           <el-tag type="info" size="small">{{ currentRecord.adminFeedbackRecordOldStep }}</el-tag>
         </el-descriptions-item>
@@ -173,10 +183,10 @@
           </el-tag>
         </el-descriptions-item>
         <el-descriptions-item label="创建时间">
-          {{ formatDateTime(currentRecord.adminFeedbackRecordTime) }}
+          {{ formatDate(currentRecord.adminFeedbackRecordTime) }}
         </el-descriptions-item>
         <el-descriptions-item label="处理时间">
-          {{ formatDateTime(currentRecord.adminFeedbackRecordCurrentStepSolveTime) }}
+          {{ formatDate(currentRecord.adminFeedbackRecordCurrentStepSolveTime) }}
         </el-descriptions-item>
       </el-descriptions>
       
@@ -184,6 +194,32 @@
         <el-button @click="detailDialogVisible = false">关闭</el-button>
       </template>
     </el-dialog>
+
+    <!-- 查看反馈内容对话框 -->
+    <el-dialog
+      v-model="contentDialogVisible"
+      title="反馈内容"
+      width="800px"
+      :before-close="() => { contentDialogVisible = false }"
+    >
+      <template #header>
+        <div class="dialog-header">
+          <span class="el-dialog__title">反馈内容</span>
+          <button class="el-dialog__headerbtn" @click="contentDialogVisible = false">
+            <i class="el-dialog__close el-icon el-icon-close"></i>
+          </button>
+        </div>
+      </template>
+      <div class="feedback-content">
+        <div class="content-display">{{ currentContent?.adminFeedbackRecordContent }}</div>
+      </div>
+      
+      <template #footer>
+        <el-button @click="contentDialogVisible = false">关闭</el-button>
+      </template>
+    </el-dialog>
+
+    
   </div>
 </template>
 
@@ -192,7 +228,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Refresh, Search, RefreshRight, Right } from '@element-plus/icons-vue'
 import { feedbackRecordApi } from '@/api/admin'
-import { formatDateTime } from '@/utils'
+import { formatDateTime, formatDate } from '@/utils'
 import type { 
   AdminFeedbackRecordQuery, 
   AdminFeedbackRecordPageVO,
@@ -202,7 +238,9 @@ import type {
 // 响应式数据
 const loading = ref(false)
 const detailDialogVisible = ref(false)
+const contentDialogVisible = ref(false)
 const currentRecord = ref<AdminFeedbackRecordInfoVO | null>(null)
+const currentContent = ref<AdminFeedbackRecordPageVO | null>(null)
 
 // 分页
 const pagination = reactive({
@@ -319,6 +357,14 @@ const viewDetail = async (row: AdminFeedbackRecordPageVO) => {
   }
 }
 
+// 查看反馈内容详情
+const viewRecordContent = (row: AdminFeedbackRecordPageVO) => {
+  currentContent.value = row
+  contentDialogVisible.value = true
+}
+
+
+
 // 组件挂载
 onMounted(() => {
   getRecordsList()
@@ -403,6 +449,14 @@ onMounted(() => {
     }
   }
 
+  .content-title {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+  }
+
   .content-display {
     max-height: 300px;
     overflow-y: auto;
@@ -412,6 +466,40 @@ onMounted(() => {
     line-height: 1.6;
     white-space: pre-wrap;
     word-break: break-word;
+  }
+
+  .dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .el-dialog__headerbtn {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+  }
+
+  .el-dialog__headerbtn:hover {
+    background-color: #f0f0f0;
+  }
+
+  .el-dialog__close {
+    font-size: 16px;
+    color: #909399;
+  }
+
+  .el-dialog__close:hover {
+    color: #409eff;
   }
 
   .pagination-wrapper {

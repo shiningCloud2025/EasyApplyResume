@@ -36,7 +36,7 @@ public class AdminFeedbackRecordServiceImpl implements AdminFeedbackRecordServic
             AdminFeedbackRecord adminFeedbackRecord = adminFeedbackRecordMapper.selectById(feedbackRecordId);
             AdminFeedbackRecordInfoVO adminFeedbackRecordInfoVO = new AdminFeedbackRecordInfoVO();
             BeanUtil.copyProperties(adminFeedbackRecord, adminFeedbackRecordInfoVO);
-            adminFeedbackRecordInfoVO.setAdminFeedbackRecordName(adminMapper.selectById(adminFeedbackRecord.getAdminFeedbackRecordId()).getAdminUsername());
+            adminFeedbackRecordInfoVO.setAdminFeedbackRecordName(adminMapper.selectById(adminFeedbackRecord.getAdminFeedbackRecordAdminId()).getAdminUsername());
             adminFeedbackRecordInfoVO.setAdminFeedbackRecordApprovalPersonName(adminMapper.selectById(adminFeedbackRecord.getAdminFeedbackRecordApprovalPersonId()).getAdminUsername());
             log.info("管理员反馈记录信息：{}", adminFeedbackRecordInfoVO);
             return adminFeedbackRecordInfoVO;
