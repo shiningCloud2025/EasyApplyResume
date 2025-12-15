@@ -127,7 +127,7 @@
           </template>
         </el-table-column>
         
-        <el-table-column label="操作" width="280" fixed="right">
+        <el-table-column label="操作" width="360" fixed="right">
           <template #default="{ row }">
             <el-button
               type="info"
@@ -145,6 +145,14 @@
               @click="handleAssignRole(row)"
             >
               分配角色
+            </el-button>
+            <el-button
+              type="success"
+              size="default"
+              @click="handleSendEmail(row)"
+            >
+              <el-icon><Message /></el-icon>
+              发邮件
             </el-button>
             <el-button
               type="danger"
@@ -335,6 +343,134 @@
       </template>
     </el-dialog>
 
+    <!-- 发送邮件对话框 -->
+    <el-dialog
+      v-model="emailDialogVisible"
+      title="发送邮件"
+      width="800px"
+      :close-on-click-modal="false"
+    >
+      <el-form
+        ref="emailFormRef"
+        :model="emailForm"
+        :rules="emailRules"
+        label-width="100px"
+      >
+        <el-form-item label="收件人">
+          <el-input v-model="emailForm.toEmail" disabled>
+            <template #prepend>
+              <el-icon><User /></el-icon>
+            </template>
+          </el-input>
+        </el-form-item>
+        
+        <el-form-item label="发件人">
+          <el-input v-model="emailForm.fromEmail" disabled>
+            <template #prepend>
+              <el-icon><User /></el-icon>
+            </template>
+          </el-input>
+        </el-form-item>
+        
+        <el-form-item label="邮件主题" prop="subject">
+          <el-input
+            v-model="emailForm.subject"
+            placeholder="请输入邮件主题"
+            maxlength="100"
+            show-word-limit
+          />
+        </el-form-item>
+        
+        <el-form-item label="邮件内容" prop="htmlContent">
+          <div class="rich-editor-container">
+            <!-- 工具栏 -->
+            <div class="editor-toolbar">
+              <el-button-group>
+                <el-button size="small" @click="insertTag('b', '粗体文本')" title="粗体">
+                  <strong>B</strong>
+                </el-button>
+                <el-button size="small" @click="insertTag('i', '斜体文本')" title="斜体">
+                  <em>I</em>
+                </el-button>
+                <el-button size="small" @click="insertTag('u', '下划线文本')" title="下划线">
+                  <u>U</u>
+                </el-button>
+              </el-button-group>
+              
+              <el-button-group style="margin-left: 8px;">
+                <el-button size="small" @click="insertHeading(1)" title="一级标题">H1</el-button>
+                <el-button size="small" @click="insertHeading(2)" title="二级标题">H2</el-button>
+                <el-button size="small" @click="insertHeading(3)" title="三级标题">H3</el-button>
+              </el-button-group>
+              
+              <el-button-group style="margin-left: 8px;">
+                <el-button size="small" @click="insertList('ul')" title="无序列表">
+                  <el-icon><List /></el-icon>
+                </el-button>
+                <el-button size="small" @click="insertList('ol')" title="有序列表">
+                  <el-icon><Finished /></el-icon>
+                </el-button>
+              </el-button-group>
+              
+              <el-button-group style="margin-left: 8px;">
+                <el-button size="small" @click="insertLink" title="插入链接">
+                  <el-icon><Link /></el-icon>
+                </el-button>
+                <el-button size="small" @click="insertHr" title="分割线">
+                  <el-icon><Minus /></el-icon>
+                </el-button>
+              </el-button-group>
+              
+              <el-button 
+                size="small" 
+                @click="showPreview = !showPreview" 
+                type="primary"
+                style="margin-left: auto;"
+              >
+                <el-icon><View /></el-icon>
+                {{ showPreview ? '编辑' : '预览' }}
+              </el-button>
+            </div>
+            
+            <!-- 编辑区域 -->
+            <div class="editor-content" v-show="!showPreview">
+              <el-input
+                ref="contentEditorRef"
+                v-model="emailForm.htmlContent"
+                type="textarea"
+                :rows="12"
+                placeholder="请输入邮件内容，支持 HTML 格式..."
+                @keydown.tab.prevent="insertTab"
+              />
+            </div>
+            
+            <!-- 预览区域 -->
+            <div class="editor-preview" v-show="showPreview">
+              <div class="preview-label">预览效果：</div>
+              <div class="preview-content" v-html="emailForm.htmlContent || '<p style=\'color: #999;\'>暂无内容</p>'"></div>
+            </div>
+          </div>
+        </el-form-item>
+        
+        <el-alert
+          title="提示：内容支持 HTML 格式，使用工具栏快速插入格式标签"
+          type="info"
+          :closable="false"
+          show-icon
+        />
+      </el-form>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="emailDialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="handleSendEmailSubmit" :loading="sendingEmail">
+            <el-icon><Promotion /></el-icon>
+            发送邮件
+          </el-button>
+        </div>
+      </template>
+    </el-dialog>
+
     <!-- 角色权限弹窗 -->
     <el-dialog
       v-model="rolesDialogVisible"
@@ -399,9 +535,10 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Refresh, Plus, Search, RefreshRight } from '@element-plus/icons-vue'
+import { Refresh, Plus, Search, RefreshRight, Message, User, Promotion, View, List, Finished, Link, Minus } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
-import { adminApi, roleApi } from '@/api/admin'
+import { adminApi, roleApi, emailApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type {
   AdminPageVO,
   AdminPageQuery,
@@ -411,12 +548,37 @@ import type {
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
 
+const authStore = useAuthStore()
+
 // 响应式数据
 const loading = ref(false)
 const submitting = ref(false)
 const dialogVisible = ref(false)
 const dialogType = ref<'create' | 'edit'>('create')
 const formRef = ref<FormInstance>()
+
+// 邮件相关
+const emailDialogVisible = ref(false)
+const emailFormRef = ref<FormInstance>()
+const contentEditorRef = ref()
+const sendingEmail = ref(false)
+const showPreview = ref(false)
+const emailForm = reactive({
+  fromEmail: '',
+  toEmail: '',
+  subject: '',
+  htmlContent: ''
+})
+
+const emailRules = {
+  subject: [
+    { required: true, message: '请输入邮件主题', trigger: 'blur' },
+    { min: 1, max: 100, message: '主题长度在 1 到 100 个字符', trigger: 'blur' }
+  ],
+  htmlContent: [
+    { required: true, message: '请输入邮件内容', trigger: 'blur' }
+  ]
+}
 
 // 分页
 const pagination = reactive({
@@ -729,6 +891,172 @@ const generateRandomAccount = async () => {
   } catch (error) {
     console.error('生成随机账号失败:', error)
   }
+}
+
+// 发送邮件
+const handleSendEmail = async (row: AdminPageVO) => {
+  console.log('📧 [发邮件] 目标管理员:', row)
+  
+  try {
+    // 调用后端接口获取当前登录用户信息
+    console.log('📧 [发邮件] 正在获取当前用户信息...')
+    const response = await adminApi.getCurrentAdminInfo()
+    console.log('📧 [发邮件] 当前用户信息:', response.data)
+    
+    const currentUserEmail = response.data.userEmail
+    
+    if (!currentUserEmail) {
+      ElMessage.error('无法获取当前用户邮箱，请重新登录')
+      return
+    }
+    
+    console.log('📧 [发邮件] 发件人邮箱:', currentUserEmail)
+    console.log('📧 [发邮件] 收件人邮箱:', row.adminEmail)
+    
+    // 设置邮件表单数据
+    emailForm.fromEmail = currentUserEmail
+    emailForm.toEmail = row.adminEmail
+    emailForm.subject = ''
+    emailForm.htmlContent = ''
+    showPreview.value = false
+    
+    emailDialogVisible.value = true
+  } catch (error: any) {
+    console.error('❌ [发邮件] 获取用户信息失败:', error)
+    ElMessage.error('获取用户信息失败：' + (error.message || '请重新登录'))
+  }
+}
+
+// 提交发送邮件
+const handleSendEmailSubmit = async () => {
+  if (!emailFormRef.value) return
+  
+  try {
+    await emailFormRef.value.validate()
+    
+    ElMessageBox.confirm(
+      `确定要向 ${emailForm.toEmail} 发送邮件吗？`,
+      '确认发送',
+      {
+        type: 'warning',
+        confirmButtonText: '确定发送',
+        cancelButtonText: '取消'
+      }
+    ).then(async () => {
+      try {
+        sendingEmail.value = true
+        console.log('📧 [发邮件] 发送参数:', emailForm)
+        
+        await emailApi.sendHtmlEmailSelfDef(
+          emailForm.fromEmail,
+          emailForm.toEmail,
+          emailForm.subject,
+          emailForm.htmlContent
+        )
+        
+        ElMessage.success('邮件发送成功')
+        emailDialogVisible.value = false
+      } catch (error: any) {
+        console.error('❌ [发邮件] 发送失败:', error)
+        ElMessage.error('发送失败：' + (error.message || '请稍后重试'))
+      } finally {
+        sendingEmail.value = false
+      }
+    }).catch(() => {
+      // 用户取消
+    })
+  } catch (error) {
+    console.log('表单验证失败')
+  }
+}
+
+// 富文本编辑器辅助函数
+const insertTag = (tag: string, defaultText: string) => {
+  const textarea = contentEditorRef.value?.textarea
+  if (!textarea) return
+  
+  const start = textarea.selectionStart
+  const end = textarea.selectionEnd
+  const selectedText = emailForm.htmlContent.substring(start, end) || defaultText
+  const beforeText = emailForm.htmlContent.substring(0, start)
+  const afterText = emailForm.htmlContent.substring(end)
+  
+  emailForm.htmlContent = beforeText + `<${tag}>${selectedText}</${tag}>` + afterText
+  
+  // 重新设置焦点和选区
+  nextTick(() => {
+    textarea.focus()
+    const newPosition = start + tag.length + 2 + selectedText.length
+    textarea.setSelectionRange(newPosition, newPosition)
+  })
+}
+
+const insertHeading = (level: number) => {
+  const textarea = contentEditorRef.value?.textarea
+  if (!textarea) return
+  
+  const start = textarea.selectionStart
+  const end = textarea.selectionEnd
+  const selectedText = emailForm.htmlContent.substring(start, end) || `标题${level}`
+  const beforeText = emailForm.htmlContent.substring(0, start)
+  const afterText = emailForm.htmlContent.substring(end)
+  
+  emailForm.htmlContent = beforeText + `<h${level}>${selectedText}</h${level}>` + afterText
+}
+
+const insertList = (type: 'ul' | 'ol') => {
+  const textarea = contentEditorRef.value?.textarea
+  if (!textarea) return
+  
+  const start = textarea.selectionStart
+  const beforeText = emailForm.htmlContent.substring(0, start)
+  const afterText = emailForm.htmlContent.substring(start)
+  
+  const listHtml = type === 'ul' 
+    ? '<ul>\n  <li>列表项 1</li>\n  <li>列表项 2</li>\n  <li>列表项 3</li>\n</ul>'
+    : '<ol>\n  <li>列表项 1</li>\n  <li>列表项 2</li>\n  <li>列表项 3</li>\n</ol>'
+  
+  emailForm.htmlContent = beforeText + listHtml + afterText
+}
+
+const insertLink = () => {
+  const textarea = contentEditorRef.value?.textarea
+  if (!textarea) return
+  
+  const start = textarea.selectionStart
+  const end = textarea.selectionEnd
+  const selectedText = emailForm.htmlContent.substring(start, end) || '链接文本'
+  const beforeText = emailForm.htmlContent.substring(0, start)
+  const afterText = emailForm.htmlContent.substring(end)
+  
+  emailForm.htmlContent = beforeText + `<a href="https://www.example.com">${selectedText}</a>` + afterText
+}
+
+const insertHr = () => {
+  const textarea = contentEditorRef.value?.textarea
+  if (!textarea) return
+  
+  const start = textarea.selectionStart
+  const beforeText = emailForm.htmlContent.substring(0, start)
+  const afterText = emailForm.htmlContent.substring(start)
+  
+  emailForm.htmlContent = beforeText + '<hr />\n' + afterText
+}
+
+const insertTab = () => {
+  const textarea = contentEditorRef.value?.textarea
+  if (!textarea) return
+  
+  const start = textarea.selectionStart
+  const beforeText = emailForm.htmlContent.substring(0, start)
+  const afterText = emailForm.htmlContent.substring(start)
+  
+  emailForm.htmlContent = beforeText + '  ' + afterText
+  
+  nextTick(() => {
+    textarea.focus()
+    textarea.setSelectionRange(start + 2, start + 2)
+  })
 }
 
 // 组件挂载

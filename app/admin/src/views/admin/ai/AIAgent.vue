@@ -81,7 +81,7 @@
             
             <!-- 普通消息或用户消息 -->
             <template v-else>
-              <div class="message-text" v-html="formatMessage(message.content)"></div>
+            <div class="message-text" v-html="formatMessage(message.content)"></div>
             </template>
             
             <div class="message-time">{{ formatTime(message.timestamp) }}</div>
@@ -408,9 +408,77 @@ const clearMessages = () => {
   ElMessage.success('对话已清空')
 }
 
-// 格式化消息内容（支持换行）
+// 格式化消息内容（支持 Markdown 和智能分段）
 const formatMessage = (content: string) => {
-  return content.replace(/\n/g, '<br>')
+  let formatted = content
+  
+  // 1. 处理代码块 ```code```
+  formatted = formatted.replace(/```(\w+)?\n([\s\S]*?)```/g, (match, lang, code) => {
+    return `<pre class="code-block"><code class="language-${lang || 'text'}">${escapeHtml(code.trim())}</code></pre>`
+  })
+  
+  // 2. 处理行内代码 `code`
+  formatted = formatted.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
+  
+  // 3. 处理粗体 **text**
+  formatted = formatted.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+  
+  // 4. 处理斜体 *text*
+  formatted = formatted.replace(/\*([^*]+)\*/g, '<em>$1</em>')
+  
+  // 5. 处理有序列表
+  formatted = formatted.replace(/^\d+\.\s+(.+)$/gm, '<li class="numbered-item">$1</li>')
+  
+  // 6. 处理无序列表
+  formatted = formatted.replace(/^[-*]\s+(.+)$/gm, '<li class="bullet-item">$1</li>')
+  
+  // 7. 处理标题
+  formatted = formatted.replace(/^### (.+)$/gm, '<h4 class="msg-h4">$1</h4>')
+  formatted = formatted.replace(/^## (.+)$/gm, '<h3 class="msg-h3">$1</h3>')
+  formatted = formatted.replace(/^# (.+)$/gm, '<h2 class="msg-h2">$1</h2>')
+  
+  // 8. 处理链接
+  formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" class="msg-link">$1</a>')
+  
+  // 9. 智能分段（识别段落）
+  formatted = formatted.replace(/\n\n/g, '</p><p class="msg-paragraph">')
+  formatted = formatted.replace(/\n/g, '<br>')
+  
+  // 10. 包装段落
+  if (!formatted.startsWith('<')) {
+    formatted = '<p class="msg-paragraph">' + formatted + '</p>'
+  }
+  
+  // 11. 高亮技术关键词
+  formatted = highlightKeywords(formatted)
+  
+  return formatted
+}
+
+// HTML 转义
+const escapeHtml = (text: string) => {
+  const map: { [key: string]: string } = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  }
+  return text.replace(/[&<>"']/g, m => map[m])
+}
+
+// 高亮关键词
+const highlightKeywords = (content: string) => {
+  const techKeywords = ['Vue3', 'SpringBoot', 'Spring Security', 'JWT', 'RBAC', 'MyBatis-Plus',
+                        'Lombok', 'MySQL', 'Redis', 'PGVector', 'Docker', 'Nginx', 'OpenAPI',
+                        'Vite', 'Pinia', 'Composition API', 'TypeScript', 'Swagger']
+  
+  techKeywords.forEach(keyword => {
+    const regex = new RegExp(`\\b(${keyword})\\b`, 'g')
+    content = content.replace(regex, '<span class="keyword-tech">$1</span>')
+  })
+  
+  return content
 }
 
 // 格式化时间
@@ -834,8 +902,138 @@ onUnmounted(() => {
 
 .message-text {
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.8;
   margin-bottom: 6px;
+  
+  // Markdown 样式
+  :deep(.msg-paragraph) {
+    margin: 0 0 12px 0;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  :deep(.msg-h2) {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 16px 0 8px 0;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e5e7eb;
+    color: #1f2937;
+  }
+  
+  :deep(.msg-h3) {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 12px 0 6px 0;
+    color: #374151;
+  }
+  
+  :deep(.msg-h4) {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 10px 0 6px 0;
+    color: #4b5563;
+  }
+  
+  :deep(.inline-code) {
+    background: #f3f4f6;
+    color: #ef4444;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+  }
+  
+  :deep(.code-block) {
+    background: #1f2937;
+    color: #f9fafb;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 12px 0;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    
+    code {
+      color: #f9fafb;
+    }
+  }
+  
+  :deep(.formatted-list) {
+    margin: 12px 0;
+    padding-left: 24px;
+    
+    li {
+      margin: 6px 0;
+      line-height: 1.6;
+    }
+  }
+  
+  :deep(.numbered-item) {
+    list-style-type: decimal;
+    color: #374151;
+    
+    &::marker {
+      color: #667eea;
+      font-weight: 600;
+    }
+  }
+  
+  :deep(.bullet-item) {
+    list-style-type: disc;
+    color: #374151;
+    
+    &::marker {
+      color: #667eea;
+    }
+  }
+  
+  :deep(.msg-link) {
+    color: #3b82f6;
+    text-decoration: none;
+    border-bottom: 1px solid #93c5fd;
+    transition: all 0.2s;
+    
+    &:hover {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+    }
+  }
+  
+  :deep(.keyword-tech) {
+    color: #667eea;
+    font-weight: 600;
+    padding: 0 2px;
+  }
+  
+  :deep(strong) {
+    font-weight: 600;
+    color: #1f2937;
+  }
+  
+  :deep(em) {
+    font-style: italic;
+    color: #4b5563;
+  }
+  
+  // 用户消息中的样式适配
+  .user-message & {
+    :deep(.keyword-tech) {
+      color: #60a5fa;
+    }
+    
+    :deep(.inline-code) {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fef3c7;
+    }
+    
+    :deep(strong) {
+      color: white;
+    }
+  }
 }
 
 .message-time {

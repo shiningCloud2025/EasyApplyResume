@@ -13,10 +13,48 @@
       </div>
     </div>
 
+    <!-- 搜索筛选 -->
+    <el-card class="search-card">
+      <el-form :model="queryForm" :inline="true" class="search-form">
+        <el-form-item label="反馈人">
+          <el-input
+            v-model="queryForm.adminFeedbackRecordName"
+            placeholder="请输入反馈人姓名"
+            clearable
+            style="width: 200px"
+          />
+        </el-form-item>
+        <el-form-item label="反馈标题">
+          <el-input
+            v-model="queryForm.adminFeedbackRecordTitle"
+            placeholder="请输入反馈标题"
+            clearable
+            style="width: 240px"
+          />
+        </el-form-item>
+        <el-form-item label="处理人">
+          <el-input
+            v-model="queryForm.adminFeedbackRecordApprovalPersonName"
+            placeholder="请输入处理人姓名"
+            clearable
+            style="width: 200px"
+          />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="handleSearch" :icon="Search">
+            搜索
+          </el-button>
+          <el-button @click="resetSearch" :icon="RefreshRight">
+            重置
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-card>
+
     <!-- 数据表格 -->
     <el-card class="table-card">
       <div class="table-header">
-        <span class="table-title">反馈记录列表</span>
+        <span class="table-title">反馈记录列表（共 {{ pagination.total }} 条）</span>
       </div>
 
       <el-table
@@ -24,25 +62,38 @@
         :data="records"
         style="width: 100%"
       >
-        <el-table-column prop="id" label="ID" width="70" />
-        <el-table-column prop="title" label="反馈标题" min-width="200" />
-        <el-table-column prop="adminName" label="提交人" min-width="120" />
-        <el-table-column prop="curStep" label="状态" width="100">
+        <el-table-column prop="adminFeedbackRecordTitle" label="反馈标题" min-width="200" show-overflow-tooltip />
+        <el-table-column prop="adminFeedbackRecordName" label="反馈人" width="120" />
+        <el-table-column label="原阶段 → 新阶段" min-width="180">
           <template #default="{ row }">
-            <el-tag :type="getStatusType(row.curStep)" size="small">
-              {{ row.curStep }}
+            <div class="step-flow">
+              <el-tag size="small" type="info">{{ row.adminFeedbackRecordOldStep }}</el-tag>
+              <el-icon style="margin: 0 8px;"><Right /></el-icon>
+              <el-tag size="small" :type="getStatusType(row.adminFeedbackRecordNewStep)">
+                {{ row.adminFeedbackRecordNewStep }}
             </el-tag>
+            </div>
           </template>
         </el-table-column>
-        <el-table-column prop="recentTime" label="最后更新" min-width="160" />
+        <el-table-column prop="adminFeedbackRecordApprovalPersonName" label="处理人" width="120" />
+        <el-table-column prop="adminFeedbackRecordTime" label="创建时间" width="180">
+          <template #default="{ row }">
+            {{ formatDateTime(row.adminFeedbackRecordTime) }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="adminFeedbackRecordCurrentStepSolveTime" label="处理时间" width="180">
+          <template #default="{ row }">
+            {{ formatDateTime(row.adminFeedbackRecordCurrentStepSolveTime) }}
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="120" fixed="right">
           <template #default="{ row }">
             <el-button
-              type="info"
+              type="primary"
               size="default"
               @click="viewDetail(row)"
             >
-              查看
+              查看详情
             </el-button>
           </template>
         </el-table-column>
@@ -61,67 +112,142 @@
         />
       </div>
     </el-card>
+
+    <!-- 详情对话框 -->
+    <el-dialog
+      v-model="detailDialogVisible"
+      title="反馈记录详情"
+      width="700px"
+    >
+      <el-descriptions v-if="currentRecord" :column="2" border>
+        <el-descriptions-item label="反馈人">
+          {{ currentRecord.adminFeedbackRecordName }}
+        </el-descriptions-item>
+        <el-descriptions-item label="处理人">
+          {{ currentRecord.adminFeedbackRecordApprovalPersonName || '暂无' }}
+        </el-descriptions-item>
+        <el-descriptions-item label="反馈标题" :span="2">
+          <strong>{{ currentRecord.adminFeedbackRecordTitle }}</strong>
+        </el-descriptions-item>
+        <el-descriptions-item label="反馈内容" :span="2">
+          <div class="content-display">{{ currentRecord.adminFeedbackRecordContent }}</div>
+        </el-descriptions-item>
+        <el-descriptions-item label="原阶段">
+          <el-tag type="info" size="small">{{ currentRecord.adminFeedbackRecordOldStep }}</el-tag>
+        </el-descriptions-item>
+        <el-descriptions-item label="新阶段">
+          <el-tag :type="getStatusType(currentRecord.adminFeedbackRecordNewStep)" size="small">
+            {{ currentRecord.adminFeedbackRecordNewStep }}
+          </el-tag>
+        </el-descriptions-item>
+        <el-descriptions-item label="创建时间">
+          {{ formatDateTime(currentRecord.adminFeedbackRecordTime) }}
+        </el-descriptions-item>
+        <el-descriptions-item label="处理时间">
+          {{ formatDateTime(currentRecord.adminFeedbackRecordCurrentStepSolveTime) }}
+        </el-descriptions-item>
+      </el-descriptions>
+      
+      <template #footer>
+        <el-button @click="detailDialogVisible = false">关闭</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
-import { Refresh } from '@element-plus/icons-vue'
+import { Refresh, Search, RefreshRight, Right } from '@element-plus/icons-vue'
+import { feedbackRecordApi } from '@/api/admin'
+import { formatDateTime } from '@/utils'
+import type { 
+  AdminFeedbackRecordQuery, 
+  AdminFeedbackRecordPageVO,
+  AdminFeedbackRecordInfoVO 
+} from '@/types/admin'
 
 // 响应式数据
 const loading = ref(false)
+const detailDialogVisible = ref(false)
+const currentRecord = ref<AdminFeedbackRecordInfoVO | null>(null)
 
+// 分页
 const pagination = reactive({
   current: 1,
   size: 20,
-  total: 50
+  total: 0
 })
 
-const records = ref([
-  {
-    id: 1,
-    title: '系统功能建议',
-    adminName: '张三',
-    curStep: '已回复',
-    recentTime: '2024-03-15 15:30'
-  },
-  {
-    id: 2,
-    title: '界面优化反馈',
-    adminName: '李四',
-    curStep: '已忽视',
-    recentTime: '2024-03-14 10:20'
-  }
-])
+// 搜索表单
+const queryForm = reactive<AdminFeedbackRecordQuery>({
+  adminFeedbackRecordName: '',
+  adminFeedbackRecordTitle: '',
+  adminFeedbackRecordApprovalPersonName: ''
+})
 
+// 表格数据
+const records = ref<AdminFeedbackRecordPageVO[]>([])
+
+// 状态类型映射
 const getStatusType = (status: string) => {
   const map: Record<string, string> = {
     '待处理': 'warning',
     '待回复': 'primary',
     '已回复': 'success',
-    '已忽视': 'info'
+    '已忽视': 'info',
+    '已接受': 'success',
+    '拒绝回复': 'danger'
   }
   return map[status] || 'info'
 }
 
 // 获取记录列表
 const getRecordsList = async () => {
-  loading.value = true
   try {
-    // TODO: 调用实际API
-    // const response = await feedbackApi.getFeedbackRecords(
-    //   pagination.current,
-    //   pagination.size
-    // )
-    // records.value = response.data.records
-    // pagination.total = response.data.total
-  } catch (error) {
-    console.error('获取记录列表失败:', error)
-    ElMessage.error('加载数据失败')
+    loading.value = true
+    console.log('📋 [反馈记录] 开始获取列表...')
+    console.log('📋 [反馈记录] 查询参数:', queryForm)
+    console.log('📋 [反馈记录] 分页参数:', pagination.current, pagination.size)
+    
+    const response = await feedbackRecordApi.getRecordPage(
+      pagination.current,
+      pagination.size,
+      queryForm
+    )
+    
+    console.log('📋 [反馈记录] API响应:', response)
+    
+    if (response && response.data) {
+      records.value = response.data.records || []
+      pagination.total = response.data.total || 0
+      
+      console.log('✅ [反馈记录] 加载成功，共', pagination.total, '条记录')
+      console.log('📋 [反馈记录] 当前页数据:', records.value)
+    }
+  } catch (error: any) {
+    console.error('❌ [反馈记录] 获取列表失败:', error)
+    ElMessage.error('加载数据失败：' + (error.message || '请稍后重试'))
   } finally {
     loading.value = false
   }
+}
+
+// 搜索
+const handleSearch = () => {
+  pagination.current = 1
+  getRecordsList()
+}
+
+// 重置搜索
+const resetSearch = () => {
+  Object.assign(queryForm, {
+    adminFeedbackRecordName: '',
+    adminFeedbackRecordTitle: '',
+    adminFeedbackRecordApprovalPersonName: ''
+  })
+  pagination.current = 1
+  getRecordsList()
 }
 
 // 刷新数据
@@ -141,13 +267,29 @@ const handleCurrentChange = (current: number) => {
 }
 
 // 查看详情
-const viewDetail = (row: any) => {
-  ElMessage.info('查看反馈详情')
+const viewDetail = async (row: AdminFeedbackRecordPageVO) => {
+  try {
+    console.log('📋 [反馈记录] 查看详情，记录:', row)
+    
+    // 注意：后端接口需要 feedbackRecordId，但 PageVO 中没有 ID 字段
+    // 这里假设使用某个唯一标识，或者需要后端添加 ID 字段
+    // 暂时使用 row 数据作为详情显示
+    currentRecord.value = row as any
+    detailDialogVisible.value = true
+    
+    // 如果有独立的详情接口，可以这样调用：
+    // const response = await feedbackRecordApi.getRecordDetail(feedbackRecordId)
+    // currentRecord.value = response.data
+    
+  } catch (error: any) {
+    console.error('❌ [反馈记录] 获取详情失败:', error)
+    ElMessage.error('获取详情失败：' + (error.message || '请稍后重试'))
+  }
 }
 
 // 组件挂载
 onMounted(() => {
-  // getRecordsList()
+  getRecordsList()
 })
 </script>
 
@@ -182,9 +324,19 @@ onMounted(() => {
     gap: 12px;
   }
 
+  .search-card {
+    margin-bottom: 24px;
+
+    .search-form {
+      :deep(.el-form-item) {
+        margin-bottom: 16px;
+      }
+    }
+  }
+
   .table-card {
     .el-table {
-      font-size: 16px;
+      font-size: 14px;
     }
     
     .table-header {
@@ -199,6 +351,23 @@ onMounted(() => {
       font-weight: 600;
       color: #1f2937;
     }
+  }
+
+  .step-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content-display {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 6px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
   }
 
   .pagination-wrapper {
@@ -219,6 +388,13 @@ onMounted(() => {
     .header-actions {
       width: 100%;
       justify-content: flex-start;
+    }
+
+    .search-form {
+      :deep(.el-form-item) {
+        display: block;
+        width: 100%;
+      }
     }
   }
 }
