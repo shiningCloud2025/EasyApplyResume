@@ -356,16 +356,8 @@
         :rules="emailRules"
         label-width="100px"
       >
-        <el-form-item label="收件人">
+        <el-form-item label="收件人" prop="toEmail">
           <el-input v-model="emailForm.toEmail" disabled>
-            <template #prepend>
-              <el-icon><User /></el-icon>
-            </template>
-          </el-input>
-        </el-form-item>
-        
-        <el-form-item label="发件人">
-          <el-input v-model="emailForm.fromEmail" disabled>
             <template #prepend>
               <el-icon><User /></el-icon>
             </template>
@@ -403,7 +395,7 @@
         </el-form-item>
         
         <el-alert
-          title="提示：内容支持 HTML 格式，使用工具栏快速插入格式标签"
+          title="提示：内容支持 HTML 格式，使用工具栏快速插入格式标签去参考管理员管理的发邮件"
           type="info"
           :closable="false"
           show-icon
@@ -556,9 +548,13 @@ const emailForm = reactive({
 })
 
 const emailRules = {
+  toEmail: [
+    { required: true, message: '请输入收件人邮箱', trigger: 'blur' },
+    { type: 'email', message: '请输入正确的邮箱格式', trigger: 'blur' }
+  ],
   subject: [
     { required: true, message: '请输入邮件主题', trigger: 'blur' },
-    { min: 1, max: 100, message: '主题长度在 1 到 100 个字符', trigger: 'blur' }
+    { min: 1, max: 35, message: '主题长度在 1 到 35 个字符', trigger: 'blur' }
   ],
   htmlContent: [
     { required: true, message: '请输入邮件内容', trigger: 'blur' }
@@ -898,13 +894,12 @@ const handleSendEmail = async (row: AdminPageVO) => {
     console.log('📧 [发邮件] 发件人邮箱:', currentUserEmail)
     console.log('📧 [发邮件] 收件人邮箱:', row.adminEmail)
     
-    // 设置邮件表单数据
-    emailForm.fromEmail = currentUserEmail
-  emailForm.toEmail = row.adminEmail
-  emailForm.subject = ''
-  emailForm.htmlContent = ''
+    // 设置邮件表单数据（使用默认发送者，不需要设置fromEmail）
+    emailForm.toEmail = row.adminEmail
+    emailForm.subject = ''
+    emailForm.htmlContent = ''
   
-  emailDialogVisible.value = true
+    emailDialogVisible.value = true
   } catch (error: any) {
     console.error('❌ [发邮件] 获取用户信息失败:', error)
     ElMessage.error('获取用户信息失败：' + (error.message || '请重新登录'))
@@ -931,8 +926,8 @@ const handleSendEmailSubmit = async () => {
         sendingEmail.value = true
         console.log('📧 [发邮件] 发送参数:', emailForm)
         
-        await emailApi.sendHtmlEmailSelfDef(
-          emailForm.fromEmail,
+        // 使用第四个接口：发送HTML邮件（使用默认发送者）
+        await emailApi.sendHtmlEmailUsuallyDef(
           emailForm.toEmail,
           emailForm.subject,
           emailForm.htmlContent

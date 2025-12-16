@@ -30,7 +30,7 @@ public class AdminSecurityConfig {
     @Bean
     public SecurityFilterChain adminSecurityFilterChain(HttpSecurity  http) throws Exception{
         http
-                .securityMatcher("/api/admin/**","/ad_monitor/**")
+                .securityMatcher("/admin/**","/ad_monitor/**")
                 // 启用CORS跨域:指定自定义的CorsConfigurationSource
                 .cors(cors->cors.configurationSource(corsConfigurationSource))
                 .csrf(AbstractHttpConfigurer::disable)
@@ -38,7 +38,7 @@ public class AdminSecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth-> auth
-                        .requestMatchers("/api/admin/auth/**").permitAll()
+                        .requestMatchers("/admin/auth/**").permitAll()
                         .requestMatchers("/doc.html", "/webjars/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )

@@ -151,6 +151,50 @@ export interface University {
   universityLevel: string
 }
 
+// 大学Map类型
+export interface UniversityMap {
+  universityMapId: number
+  universityMapName: string
+  universityMapAddress: string
+  universityMapLat: string
+  universityMapLng: string
+  universityMapStatus: number
+}
+
+// 省份类型
+export interface ProvinceMap {
+  provinceMapPid: number
+  provinceMapPname: string
+}
+
+// 城市类型
+export interface CityMap {
+  cityMapCid: number
+  cityMapCname: string
+  cityMapPid: number
+}
+
+// 区县类型
+export interface AreaMap {
+  areaMapAid: number
+  areaMapAname: string
+  areaMapCid: number
+}
+
+// 招聘岗位类型
+export interface RecruitPosition {
+  recruitPositionId: number
+  recruitPositionName: string
+  createdTime: string
+  updatedTime: string
+  recruitPositionIndustryCode: number
+  recruitPositionIndustryName: string
+  minMonthSalary: number
+  maxMonthSalary: number
+  weekWorkDayNum: number
+  goodWelfare: string
+}
+
 // 分页类型
 export interface PaginationParams {
   pageNum: number
