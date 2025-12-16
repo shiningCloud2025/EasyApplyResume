@@ -92,8 +92,9 @@ const RegisterPage: React.FC = () => {
   const handleUniversitySearch = async (value: string) => {
     setUniversitySearchLoading(true)
     try {
-      // 传递用户输入的值（包括空值）给后端
-      const res = await universityAPI.searchUniversities(value?.trim() || '')
+      // 传递用户输入的值（包括空字符串）给后端
+      const searchValue = value ? value.trim() : ''
+      const res = await universityAPI.searchUniversities(searchValue)
       if (res.code === 200 && Array.isArray(res.data)) {
         setUniversities(res.data)
       }
@@ -393,6 +394,11 @@ const RegisterPage: React.FC = () => {
                 showSearch
                 loading={universitySearchLoading}
                 onSearch={handleUniversitySearch}
+                onDropdownVisibleChange={(open) => {
+                  if (open && universities.length === 0) {
+                    handleUniversitySearch('')
+                  }
+                }}
                 filterOption={false}
                 notFoundContent={universitySearchLoading ? '搜索中...' : '未找到匹配的大学'}
               >

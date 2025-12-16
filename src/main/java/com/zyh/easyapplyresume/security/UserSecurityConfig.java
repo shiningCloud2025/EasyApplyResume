@@ -60,8 +60,10 @@ public class UserSecurityConfig {
                         .requestMatchers("/user/universityMap/**").permitAll()
                         // 放行职位查询,注册需要使用
                         .requestMatchers("/user/recruitPosition/queryAllRecruitPositionPage").permitAll()
-                        // 验证业务
+                        // 验证业务(短信)
                         .requestMatchers("/user/sms/**").permitAll()
+                        // 验证业务(邮箱)
+                        .requestMatchers("/user/email/loginandregister/**").permitAll()
                         .requestMatchers("/user/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
