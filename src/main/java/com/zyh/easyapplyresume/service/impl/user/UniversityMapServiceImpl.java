@@ -39,7 +39,11 @@ public class UniversityMapServiceImpl implements UniversityMapService {
         try{
             log.info("根据大学名称模糊查询大学");
             LambdaQueryWrapper<UniversityMap> queryWrapper = new LambdaQueryWrapper<>();
-            queryWrapper.like(UniversityMap::getUniversityMapName, universityMapName);
+            if (universityMapName == null){
+                return universityMapMapper.selectList(null);
+            }else{
+                queryWrapper.like(UniversityMap::getUniversityMapName, universityMapName);
+            }
             return universityMapMapper.selectList(queryWrapper);
         }catch (Exception e){
             log.error("根据大学名称模糊查询大学失败");

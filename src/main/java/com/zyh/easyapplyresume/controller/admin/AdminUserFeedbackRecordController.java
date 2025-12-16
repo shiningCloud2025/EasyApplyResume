@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.*;
  * @author shiningCloud2025
  */
 @RestController
-@RequestMapping("/admin/feedbackRecord")
+@RequestMapping("/admin/userfeedbackRecord")
 @Tag(name="用户反馈记录控制器-管理端")
-public class UserFeedbackRecordController {
+public class AdminUserFeedbackRecordController {
 
     @Autowired
     private UserFeedbackRecordService userFeedbackRecordService;

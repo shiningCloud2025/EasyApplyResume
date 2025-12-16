@@ -42,6 +42,8 @@ public class UserSecurityConfig {
                         .requestMatchers("/user/universityMap/**").permitAll()
                         // 放行职位查询,注册需要使用
                         .requestMatchers("/user/recruitPosition/queryAllRecruitPositionPage").permitAll()
+                        // 验证业务
+                        .requestMatchers("/user/sms").permitAll()
                         .requestMatchers("/user/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )

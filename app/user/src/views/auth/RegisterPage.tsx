@@ -36,7 +36,6 @@ const RegisterPage: React.FC = () => {
   const [universities, setUniversities] = useState<UniversityMap[]>([])
   const [positions, setPositions] = useState<RecruitPosition[]>([])
   const [universitySearchLoading, setUniversitySearchLoading] = useState(false)
-  const [universityLoaded, setUniversityLoaded] = useState(false) // 标记大学数据是否已加载
   const [positionLoaded, setPositionLoaded] = useState(false) // 标记岗位数据是否已加载
   const [provinceLoaded, setProvinceLoaded] = useState(false) // 标记省份数据是否已加载
 
@@ -72,24 +71,6 @@ const RegisterPage: React.FC = () => {
     }
   }
 
-  // 点击大学下拉框时加载大学数据
-  const handleUniversityDropdownOpen = async (open: boolean) => {
-    if (open && !universityLoaded) {
-      setUniversitySearchLoading(true)
-      try {
-        const universityRes = await universityAPI.getAllUniversities()
-        if (universityRes.code === 200 && Array.isArray(universityRes.data)) {
-          setUniversities(universityRes.data)
-          setUniversityLoaded(true)
-        }
-      } catch (error) {
-        console.error('加载大学失败:', error)
-      } finally {
-        setUniversitySearchLoading(false)
-      }
-    }
-  }
-
   // 省份选择变化时加载城市
   const handleProvinceChange = async (provinceId: number) => {
     form.setFieldsValue({ userRecruitLocationSecond: undefined })
@@ -107,19 +88,12 @@ const RegisterPage: React.FC = () => {
     }
   }
 
-  // 大学搜索
+  // 大学搜索（输入时调用模糊查询接口）
   const handleUniversitySearch = async (value: string) => {
-    if (!value || value.length < 1) {
-      // 如果搜索框清空，重新加载所有大学
-      const universityRes = await universityAPI.getAllUniversities()
-      if (universityRes.code === 200 && Array.isArray(universityRes.data)) {
-        setUniversities(universityRes.data)
-      }
-      return
-    }
     setUniversitySearchLoading(true)
     try {
-      const res = await universityAPI.searchUniversities(value)
+      // 传递用户输入的值（包括空值）给后端
+      const res = await universityAPI.searchUniversities(value?.trim() || '')
       if (res.code === 200 && Array.isArray(res.data)) {
         setUniversities(res.data)
       }
@@ -414,13 +388,13 @@ const RegisterPage: React.FC = () => {
               label="毕业院校"
             >
               <Select
-                placeholder="请选择或搜索大学（选填）"
+                placeholder="请输入大学名称搜索（选填）"
                 allowClear
                 showSearch
                 loading={universitySearchLoading}
-                onDropdownVisibleChange={handleUniversityDropdownOpen}
                 onSearch={handleUniversitySearch}
                 filterOption={false}
+                notFoundContent={universitySearchLoading ? '搜索中...' : '未找到匹配的大学'}
               >
                 {universities.map(uni => (
                   <Option key={uni.universityMapId} value={uni.universityMapId}>

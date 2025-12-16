@@ -15,6 +15,10 @@ import type {
   AdminFeedbackRecordQuery,
   AdminFeedbackRecordPageVO,
   AdminFeedbackRecordInfoVO,
+  UserFeedbackQuery,
+  UserFeedbackPageVO,
+  UserFeedbackInfoVO,
+  UserUpdateFeedbackForm,
   RoleForm,
   RolePageQuery,
   RolePageVO,
@@ -468,6 +472,25 @@ export const feedbackRecordApi = {
   getRecordDetail: (feedbackRecordId: number) =>
     api.get<AdminFeedbackRecordInfoVO>('/admin/adminFeedbackRecord/findAdminFeedbackRecordByFeedbackRecordId', {
       params: { feedbackRecordId }
+    })
+}
+
+// 用户反馈相关API
+export const userFeedbackApi = {
+  // 分页查询用户反馈
+  getUserFeedbackPage: (size: number, page: number, query: UserFeedbackQuery) =>
+    api.post<PageResult<UserFeedbackPageVO>>('/admin/userFeedback/getFeedbackPage', query, {
+      params: { size, page }
+    }),
+  
+  // 查询用户反馈详情
+  getUserFeedbackDetail: (feedbackId: number) => 
+    api.get<UserFeedbackInfoVO>(`/admin/userFeedback/findFeedbackById?feedbackId=${feedbackId}`),
+  
+  // 更新用户反馈阶段
+  updateUserFeedbackStep: (feedbackId: number, operationCode: number, title: string, content: string, operationPersonId: number) =>
+    api.post('/admin/userFeedback/updateFeedbackStep', { title, content }, {
+      params: { feedbackId, OperationCode: operationCode, operationPersonId }
     })
 }
 
