@@ -1,8 +1,6 @@
-package com.zyh.easyapplyresume.controller;
+package com.zyh.easyapplyresume.controller.admin;
 
-import com.zyh.easyapplyresume.controller.admin.AdminController;
 import com.zyh.easyapplyresume.model.form.admin.AdminForm;
-import com.zyh.easyapplyresume.model.pojo.admin.Admin;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
