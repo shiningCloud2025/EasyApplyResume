@@ -4048,3 +4048,714 @@ This generated password is for development use only. Your security configuration
 2025-12-16 22:17:22.034 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
 2025-12-16 22:17:22.036 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
 2025-12-16 22:17:22.042 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-12-16 22:22:19.100 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-16 22:22:19.105 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-16 22:22:19.106 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-16 22:22:19.116 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-16 22:22:19.133 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-16 22:22:19.289 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 30052 (C:\Users\shini\IdeaProjects\EasyApplyResume\target\classes started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-16 22:22:19.290 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-16 22:22:19.290 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-16 22:22:21.538 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-12-16 22:22:21.543 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-12-16 22:22:21.612 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 47 ms. Found 0 Redis repository interfaces.
+2025-12-16 22:22:21.807 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.808 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.809 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.809 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.810 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.810 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.811 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.812 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.812 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.813 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.813 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.814 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.814 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.815 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.815 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.815 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.816 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.816 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.817 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.817 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.818 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.819 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.820 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.820 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.821 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.821 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:22:21.825 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-12-16 22:22:22.223 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-12-16 22:22:22.236 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-16 22:22:22.379 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-12-16 22:22:22.379 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-12-16 22:22:22.382 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-16 22:22:23.118 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-16 22:22:23.142 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-16 22:22:23.149 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-16 22:22:23.149 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-12-16 22:22:23.303 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-12-16 22:22:23.303 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3926 ms
+2025-12-16 22:22:24.738 [main] DEBUG c.z.e.filter.UserJwtAuthFilter - Filter 'userJwtAuthFilter' configured for use
+2025-12-16 22:22:24.739 [main] DEBUG c.z.e.filter.AdminJwtAuthFilter - Filter 'adminJwtAuthFilter' configured for use
+2025-12-16 22:22:24.988 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-16 22:22:31.189 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-16 22:22:32.568 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 敏感词初始化完成，共加载 137 个敏感词
+2025-12-16 22:22:34.968 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 38868 (C:\Users\shini\IdeaProjects\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-16 22:22:34.970 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-12-16 22:22:36.533 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-12-16 22:22:36.629 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-12-16 22:22:36.678 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 2.329 seconds (process running for 3.447)
+2025-12-16 22:22:39.386 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-12-16 22:22:39.400 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-12-16 22:22:39.871 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-16 22:22:39.885 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-16 22:22:39.894 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-16 22:22:44.489 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 38797fa5-8daf-4275-a3f5-b80e26899a5e
+2025-12-16 22:22:44.695 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 921a2b38-e86a-430a-8e1f-16a542a68233
+2025-12-16 22:22:44.882 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 7d7129b5-6ecd-4c00-ae75-93f9d71fddb1
+2025-12-16 22:22:45.117 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-16 22:22:45.137 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-16 22:22:45.163 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserCollections".
+2025-12-16 22:22:45.164 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserCollections ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2025-12-16 22:22:45.546 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-12-16 22:22:45.781 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-12-16 22:22:45.784 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-12-16 22:22:45.786 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-12-16 22:22:45.794 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-16 22:22:46.251 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@54df9ab1
+2025-12-16 22:22:46.258 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-16 22:22:46.812 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 45bd03e6-dcff-4485-9691-bdeb45a86d30
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-12-16 22:22:46.826 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-12-16 22:22:48.144 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-16 22:22:48.164 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-12-16 22:22:48.188 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 29.81 seconds (process running for 31.025)
+2025-12-16 22:23:25.170 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-16 22:23:25.170 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-16 22:23:25.184 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 13 ms
+2025-12-16 22:23:27.058 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-12-16 22:23:28.757 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5ec5c5f3
+2025-12-16 22:23:28.758 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-12-16 22:23:28.798 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:23:28.935 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:23:29.162 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:23:29.192 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:23:29.193 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:23:29.218 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:23:29.220 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:23:29.270 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:23:29.271 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:23:29.281 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:23:39.947 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:23:40.030 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:23:41.951 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userFeedbackRecord_id,userFeedbackRecord_title,userFeedbackRecord_content,userFeedbackRecord_time,userFeedbackRecord_currentStepSolveTime,userFeedbackRecord_oldStep,userFeedbackRecord_newStep,userFeedbackRecord_approvalPersonId FROM user_userFeedbackRecord
+2025-12-16 22:23:41.953 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 
+2025-12-16 22:23:42.117 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:24:04.994 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:24:04.996 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:24:05.053 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:24:05.053 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:24:05.053 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:24:05.149 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:24:06.678 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:24:06.680 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:24:06.780 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:24:06.781 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:24:06.783 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:24:06.822 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:24:06.881 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:24:06.882 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:24:06.989 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:24:37.402 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition
+2025-12-16 22:24:37.402 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 
+2025-12-16 22:24:37.505 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-16 22:24:39.383 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.P.selectList - ==>  Preparing: SELECT provinceMap_pid,provinceMap_pname FROM general_provinceMap
+2025-12-16 22:24:39.384 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.P.selectList - ==> Parameters: 
+2025-12-16 22:24:39.450 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.P.selectList - <==      Total: 34
+2025-12-16 22:24:40.412 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==>  Preparing: SELECT cityMap_cid,cityMap_cname,cityMap_pid FROM general_cityMap WHERE (cityMap_pid = ?)
+2025-12-16 22:24:40.414 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==> Parameters: 2(Integer)
+2025-12-16 22:24:40.578 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - <==      Total: 16
+2025-12-16 22:24:48.927 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:48.953 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:49.005 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %l%(String)
+2025-12-16 22:24:49.177 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:49.178 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:49.178 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %li%(String)
+2025-12-16 22:24:49.221 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 9
+2025-12-16 22:24:49.229 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:24:49.282 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:49.284 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:49.284 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %lia%(String)
+2025-12-16 22:24:49.359 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:24:49.386 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:49.387 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:49.388 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liao%(String)
+2025-12-16 22:24:49.432 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:24:49.495 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:49.496 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:49.496 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liaon%(String)
+2025-12-16 22:24:49.548 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:24:49.690 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:49.692 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:49.693 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁%(String)
+2025-12-16 22:24:50.013 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 93
+2025-12-16 22:24:50.992 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:50.993 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:50.994 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁g%(String)
+2025-12-16 22:24:51.041 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:24:51.092 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:51.094 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:51.095 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁go%(String)
+2025-12-16 22:24:51.144 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:24:51.156 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:51.158 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:51.159 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gon%(String)
+2025-12-16 22:24:51.180 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:51.182 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:51.183 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gong%(String)
+2025-12-16 22:24:51.223 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:24:51.232 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:24:51.422 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:51.423 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:51.424 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gongc%(String)
+2025-12-16 22:24:51.470 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:24:51.523 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:51.526 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:51.527 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁工程%(String)
+2025-12-16 22:24:51.580 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 3
+2025-12-16 22:24:52.186 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:52.189 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:52.190 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁工程j%(String)
+2025-12-16 22:24:52.238 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:24:52.265 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:52.267 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:52.268 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁工程ji%(String)
+2025-12-16 22:24:52.314 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:24:52.365 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:52.368 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:52.369 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁工程jis%(String)
+2025-12-16 22:24:52.424 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:24:52.481 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:24:52.484 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:24:52.485 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁工程技术%(String)
+2025-12-16 22:24:52.533 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 3
+2025-12-16 22:25:14.733 [http-nio-8080-exec-6] INFO  c.z.e.c.user.UserSmsController - 收到发送短信验证码请求，手机号：18242991090
+2025-12-16 22:25:15.038 [http-nio-8080-exec-6] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 为手机号 [18242991090] 生成短信验证码：YrAp0y
+2025-12-16 22:25:17.232 [http-nio-8080-exec-6] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 手机号 [18242991090] 短信发送成功
+2025-12-16 22:25:39.044 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition
+2025-12-16 22:25:39.045 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 
+2025-12-16 22:25:39.146 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-16 22:25:40.178 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.P.selectList - ==>  Preparing: SELECT provinceMap_pid,provinceMap_pname FROM general_provinceMap
+2025-12-16 22:25:40.179 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.P.selectList - ==> Parameters: 
+2025-12-16 22:25:40.220 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.P.selectList - <==      Total: 34
+2025-12-16 22:25:41.209 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==>  Preparing: SELECT cityMap_cid,cityMap_cname,cityMap_pid FROM general_cityMap WHERE (cityMap_pid = ?)
+2025-12-16 22:25:41.210 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==> Parameters: 2(Integer)
+2025-12-16 22:25:41.249 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - <==      Total: 16
+2025-12-16 22:27:02.109 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:02.256 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:12.320 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:12.320 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:12.322 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %a%(String)
+2025-12-16 22:27:12.322 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %aa%(String)
+2025-12-16 22:27:12.367 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:12.367 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:12.368 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:12.368 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:12.368 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %%(String)
+2025-12-16 22:27:12.368 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %z%(String)
+2025-12-16 22:27:12.384 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:27:12.388 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 58
+2025-12-16 22:27:12.430 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-16 22:27:12.514 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:12.516 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:12.516 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %a%(String)
+2025-12-16 22:27:12.575 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 58
+2025-12-16 22:27:13.147 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 12200
+2025-12-16 22:27:13.312 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:13.313 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:13.313 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %%(String)
+2025-12-16 22:27:14.799 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:14.802 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:14.803 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %q%(String)
+2025-12-16 22:27:14.850 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 4
+2025-12-16 22:27:15.151 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 12200
+2025-12-16 22:27:15.801 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:15.803 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:15.804 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %%(String)
+2025-12-16 22:27:15.970 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:15.971 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:15.971 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %q%(String)
+2025-12-16 22:27:16.034 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 4
+2025-12-16 22:27:16.167 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:16.168 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:16.169 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %qi%(String)
+2025-12-16 22:27:16.221 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:27:16.263 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:16.264 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:16.265 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %qin%(String)
+2025-12-16 22:27:16.266 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:16.268 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:16.268 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %qing%(String)
+2025-12-16 22:27:16.312 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:27:16.313 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:27:16.386 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:16.387 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:16.388 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %qingh%(String)
+2025-12-16 22:27:16.439 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:27:16.547 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:16.549 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:16.550 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %qinghu%(String)
+2025-12-16 22:27:16.552 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:16.553 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:16.553 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %qinghua%(String)
+2025-12-16 22:27:16.609 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:27:16.611 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:27:16.637 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:27:16.638 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:27:16.640 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %清华%(String)
+2025-12-16 22:27:16.685 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 22
+2025-12-16 22:27:16.873 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 12200
+2025-12-16 22:27:26.617 [http-nio-8080-exec-5] INFO  c.z.e.c.user.UserSmsController - 收到发送短信验证码请求，手机号：18242991090
+2025-12-16 22:27:26.732 [http-nio-8080-exec-5] WARN  c.z.e.s.impl.user.UserSmsServiceImpl - 手机号 [18242991090] 发送短信过于频繁
+2025-12-16 22:28:22.731 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-16 22:28:22.735 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-16 22:28:22.736 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-16 22:28:22.744 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-16 22:28:22.757 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-16 22:28:22.880 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 40100 (C:\Users\shini\IdeaProjects\EasyApplyResume\target\classes started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-16 22:28:22.881 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-16 22:28:22.882 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-16 22:28:24.848 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-12-16 22:28:24.851 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-12-16 22:28:24.909 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 41 ms. Found 0 Redis repository interfaces.
+2025-12-16 22:28:25.088 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.089 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.090 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.093 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.094 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.095 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.096 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.098 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.099 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.100 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.101 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.102 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.102 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.103 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.103 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.104 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.104 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.105 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.106 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.107 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.107 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.108 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.108 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.109 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.109 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.110 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:28:25.113 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-12-16 22:28:25.530 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-12-16 22:28:25.537 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-16 22:28:25.668 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-12-16 22:28:25.669 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-12-16 22:28:25.673 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-16 22:28:25.932 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-12-16 22:28:25.932 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-16 22:28:25.933 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-16 22:28:25.933 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-12-16 22:28:25.987 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-16 22:28:25.993 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-16 22:28:25.994 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-16 22:28:26.000 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-16 22:28:26.000 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-16 22:28:26.001 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-16 22:28:26.006 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-16 22:28:26.040 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-12-16 22:28:26.481 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-16 22:28:26.514 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-16 22:28:26.521 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-16 22:28:26.521 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-12-16 22:28:26.758 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-12-16 22:28:26.758 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3812 ms
+2025-12-16 22:28:27.954 [main] DEBUG c.z.e.filter.UserJwtAuthFilter - Filter 'userJwtAuthFilter' configured for use
+2025-12-16 22:28:27.954 [main] DEBUG c.z.e.filter.AdminJwtAuthFilter - Filter 'adminJwtAuthFilter' configured for use
+2025-12-16 22:28:28.176 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-16 22:28:28.531 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-16 22:28:29.582 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 敏感词初始化完成，共加载 137 个敏感词
+2025-12-16 22:28:31.767 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 27264 (C:\Users\shini\IdeaProjects\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-16 22:28:31.781 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-12-16 22:28:38.865 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-12-16 22:28:39.491 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 8.22 seconds (process running for 9.343)
+2025-12-16 22:28:40.111 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-12-16 22:28:48.893 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-12-16 22:28:48.955 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-12-16 22:28:52.810 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-16 22:28:52.820 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-16 22:28:52.826 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-16 22:28:58.606 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 74796ed6-24b5-4853-9860-1359582b0018
+2025-12-16 22:28:58.815 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = e9d3f7aa-9eb5-470a-a05b-e29c53f7dc9f
+2025-12-16 22:28:59.039 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 0709ff86-3601-4da2-8a3c-598954225ecd
+2025-12-16 22:28:59.427 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-16 22:28:59.608 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-16 22:28:59.991 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserCollections".
+2025-12-16 22:29:00.002 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserCollections ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2025-12-16 22:29:03.886 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-12-16 22:29:04.635 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-12-16 22:29:04.650 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-12-16 22:29:04.651 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-12-16 22:29:04.686 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-16 22:29:15.695 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@10f3562f
+2025-12-16 22:29:15.709 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-16 22:29:20.529 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 2b3ab539-cdad-41bb-bd51-966b8f6f2f38
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-12-16 22:29:20.555 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-12-16 22:29:28.600 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-16 22:29:28.672 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-12-16 22:29:28.772 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 66.697 seconds (process running for 67.695)
+2025-12-16 22:30:45.301 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-16 22:30:45.304 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-16 22:30:45.317 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 7 ms
+2025-12-16 22:30:45.749 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-12-16 22:30:47.261 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@58396f97
+2025-12-16 22:30:47.262 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-12-16 22:30:47.608 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition
+2025-12-16 22:30:47.719 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 
+2025-12-16 22:30:48.143 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-16 22:30:49.741 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition
+2025-12-16 22:30:49.741 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 
+2025-12-16 22:30:49.825 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-16 22:30:51.201 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.P.selectList - ==>  Preparing: SELECT provinceMap_pid,provinceMap_pname FROM general_provinceMap
+2025-12-16 22:30:51.202 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.P.selectList - ==> Parameters: 
+2025-12-16 22:30:51.248 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.P.selectList - <==      Total: 34
+2025-12-16 22:30:52.603 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==>  Preparing: SELECT cityMap_cid,cityMap_cname,cityMap_pid FROM general_cityMap WHERE (cityMap_pid = ?)
+2025-12-16 22:30:52.615 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==> Parameters: 2(Integer)
+2025-12-16 22:30:52.659 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - <==      Total: 16
+2025-12-16 22:30:58.228 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:30:58.270 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:30:58.300 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %%(String)
+2025-12-16 22:31:01.798 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 12200
+2025-12-16 22:31:04.367 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:31:04.369 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:31:04.369 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %l%(String)
+2025-12-16 22:31:04.418 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 9
+2025-12-16 22:31:04.494 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:31:04.495 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:31:04.496 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %li%(String)
+2025-12-16 22:31:04.541 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:31:04.617 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:31:04.618 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:31:04.622 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liao%(String)
+2025-12-16 22:31:04.652 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:31:04.652 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:31:04.653 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %lia%(String)
+2025-12-16 22:31:04.674 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:31:04.705 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:31:04.776 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:31:04.778 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:31:04.779 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liaon%(String)
+2025-12-16 22:31:04.823 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:31:04.832 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:31:04.833 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:31:04.834 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁%(String)
+2025-12-16 22:31:04.897 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 93
+2025-12-16 22:31:05.904 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:31:05.904 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:31:05.905 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:31:05.905 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:31:05.906 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gon%(String)
+2025-12-16 22:31:05.906 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁g%(String)
+2025-12-16 22:31:05.915 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:31:05.917 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:31:05.918 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁go%(String)
+2025-12-16 22:31:05.923 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:31:05.925 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:31:05.926 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gong%(String)
+2025-12-16 22:31:05.956 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:31:05.964 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:31:05.971 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:31:06.040 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:31:06.173 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:31:06.174 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:31:06.176 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gongc%(String)
+2025-12-16 22:31:06.193 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:31:06.196 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:31:06.197 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁工程%(String)
+2025-12-16 22:31:06.226 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:31:06.243 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 3
+2025-12-16 22:31:24.067 [http-nio-8080-exec-9] INFO  c.z.e.c.user.UserSmsController - 收到发送短信验证码请求，手机号：18242991090
+2025-12-16 22:31:24.252 [http-nio-8080-exec-9] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 为手机号 [18242991090] 生成短信验证码：M69ykz
+2025-12-16 22:31:34.955 [http-nio-8080-exec-9] ERROR c.z.e.s.impl.user.UserSmsServiceImpl - 手机号 [18242991090] 短信发送异常: 
+java.util.concurrent.ExecutionException: java.net.SocketTimeoutException: 10000 MILLISECONDS
+	at java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:396)
+	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2073)
+	at com.zyh.easyapplyresume.service.impl.user.UserSmsServiceImpl.sendVerifyCode(UserSmsServiceImpl.java:144)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.zyh.easyapplyresume.service.impl.user.UserSmsServiceImpl$$SpringCGLIB$$0.sendVerifyCode(<generated>)
+	at com.zyh.easyapplyresume.controller.user.UserSmsController.sendVerifyCode(UserSmsController.java:36)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:110)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at com.zyh.easyapplyresume.filter.AdminJwtAuthFilter.doFilterInternal(AdminJwtAuthFilter.java:73)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:365)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:131)
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:85)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at com.zyh.easyapplyresume.filter.UserJwtAuthFilter.doFilterInternal(UserJwtAuthFilter.java:61)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:374)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:362)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:278)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:384)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.net.SocketTimeoutException: 10000 MILLISECONDS
+	at com.aliyun.apache.hc.core5.io.SocketTimeoutExceptionFactory.create(SocketTimeoutExceptionFactory.java:50)
+	at com.aliyun.apache.hc.core5.reactor.ssl.SSLIOSession$1.timeout(SSLIOSession.java:220)
+	at com.aliyun.apache.hc.core5.reactor.InternalDataChannel.onTimeout(InternalDataChannel.java:169)
+	at com.aliyun.apache.hc.core5.reactor.InternalChannel.checkTimeout(InternalChannel.java:67)
+	at com.aliyun.apache.hc.core5.reactor.SingleCoreIOReactor.checkTimeout(SingleCoreIOReactor.java:241)
+	at com.aliyun.apache.hc.core5.reactor.SingleCoreIOReactor.validateActiveChannels(SingleCoreIOReactor.java:168)
+	at com.aliyun.apache.hc.core5.reactor.SingleCoreIOReactor.doExecute(SingleCoreIOReactor.java:130)
+	at com.aliyun.apache.hc.core5.reactor.AbstractSingleCoreIOReactor.execute(AbstractSingleCoreIOReactor.java:86)
+	at com.aliyun.apache.hc.core5.reactor.IOReactorWorker.run(IOReactorWorker.java:44)
+	... 1 common frames omitted
+2025-12-16 22:35:03.919 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-12-16 22:35:03.919 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-16 22:35:03.919 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-12-16 22:35:03.919 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-16 22:35:03.958 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-16 22:35:03.962 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-16 22:35:03.963 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-16 22:35:03.966 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-16 22:35:03.967 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-16 22:35:03.967 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-16 22:35:03.971 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-16 22:35:03.980 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-12-16 22:43:01.820 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-16 22:43:01.823 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-16 22:43:01.823 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-16 22:43:01.832 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-16 22:43:01.847 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-16 22:43:01.969 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 38596 (C:\Users\shini\IdeaProjects\EasyApplyResume\target\classes started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-16 22:43:01.969 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-16 22:43:01.970 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-16 22:43:03.966 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-12-16 22:43:03.971 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-12-16 22:43:04.055 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 52 ms. Found 0 Redis repository interfaces.
+2025-12-16 22:43:04.251 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.251 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.252 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.253 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.253 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.254 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.254 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.254 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.255 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.256 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.256 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.257 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.257 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.258 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.258 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.258 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.259 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.260 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.260 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.260 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.261 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.261 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.262 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.262 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.263 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.264 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:43:04.266 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-12-16 22:43:04.602 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-12-16 22:43:04.612 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-16 22:43:04.727 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-12-16 22:43:04.727 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-12-16 22:43:04.731 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-16 22:43:05.319 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-16 22:43:05.334 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-16 22:43:05.337 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-16 22:43:05.337 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-12-16 22:43:05.453 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-12-16 22:43:05.453 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3411 ms
+2025-12-16 22:43:06.571 [main] DEBUG c.z.e.filter.UserJwtAuthFilter - Filter 'userJwtAuthFilter' configured for use
+2025-12-16 22:43:06.571 [main] DEBUG c.z.e.filter.AdminJwtAuthFilter - Filter 'adminJwtAuthFilter' configured for use
+2025-12-16 22:43:06.778 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-16 22:43:07.107 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-16 22:43:08.187 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 敏感词初始化完成，共加载 137 个敏感词
+2025-12-16 22:43:11.299 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 32312 (C:\Users\shini\IdeaProjects\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-16 22:43:11.300 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-12-16 22:43:12.453 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-12-16 22:43:12.518 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-12-16 22:43:12.551 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.716 seconds (process running for 3.828)
+2025-12-16 22:43:16.242 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-12-16 22:43:16.252 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-12-16 22:43:18.181 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-16 22:43:18.205 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-16 22:43:18.230 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-16 22:43:26.333 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 751fde3f-751d-4058-b88c-e38d39cbf284
+2025-12-16 22:43:26.618 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 9f3858f7-4911-4008-bae8-23f15405e14f
+2025-12-16 22:43:27.405 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 3a9f779b-0096-47cf-9c56-ef79326358a9
+2025-12-16 22:43:28.075 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-16 22:43:28.261 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-16 22:43:28.581 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserCollections".
+2025-12-16 22:43:28.582 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserCollections ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2025-12-16 22:43:33.199 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-12-16 22:43:33.984 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-12-16 22:43:33.996 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-12-16 22:43:33.999 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-12-16 22:43:34.026 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-16 22:43:35.391 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@47318922
+2025-12-16 22:43:35.413 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-16 22:43:39.270 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 7373d8d8-9808-4b65-aa80-367ff4de1551
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-12-16 22:43:39.333 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-12-16 22:43:53.442 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-16 22:43:53.599 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-12-16 22:43:53.777 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 52.664 seconds (process running for 55.742)
+2025-12-16 22:44:06.137 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-16 22:44:06.138 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-16 22:44:06.151 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 13 ms
+2025-12-16 22:44:06.579 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-12-16 22:44:08.625 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1cf9aefc
+2025-12-16 22:44:08.626 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-12-16 22:44:08.790 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition
+2025-12-16 22:44:08.822 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 
+2025-12-16 22:44:08.966 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-16 22:44:09.341 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.P.selectList - ==>  Preparing: SELECT provinceMap_pid,provinceMap_pname FROM general_provinceMap
+2025-12-16 22:44:09.341 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.P.selectList - ==> Parameters: 
+2025-12-16 22:44:09.385 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition
+2025-12-16 22:44:09.385 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 
+2025-12-16 22:44:09.388 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.P.selectList - <==      Total: 34
+2025-12-16 22:44:09.436 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-16 22:44:12.864 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==>  Preparing: SELECT cityMap_cid,cityMap_cname,cityMap_pid FROM general_cityMap WHERE (cityMap_pid = ?)
+2025-12-16 22:44:12.884 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==> Parameters: 2(Integer)
+2025-12-16 22:44:12.948 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - <==      Total: 16
+2025-12-16 22:47:01.843 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-12-16 22:47:01.843 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-16 22:47:01.844 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-16 22:47:01.844 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-12-16 22:47:01.886 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-16 22:47:01.890 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-16 22:47:01.891 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-16 22:47:01.896 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-16 22:47:01.896 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-16 22:47:01.897 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-16 22:47:01.900 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-16 22:47:01.908 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
