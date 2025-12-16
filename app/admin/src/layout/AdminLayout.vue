@@ -187,15 +187,6 @@
             @keyup.enter="handleSearch"
           />
 
-          <!-- 发送简历 -->
-          <el-button 
-            :icon="Promotion" 
-            text 
-            class="header-button"
-            @click="showSendResumeDialog"
-            title="发送简历"
-          />
-
           <!-- 消息通知 -->
           <el-badge :value="0" :max="99" class="notification-badge">
             <el-button :icon="Bell" text class="header-button" />
@@ -207,6 +198,15 @@
             text 
             class="header-button"
             @click="toggleFullScreen"
+          />
+
+          <!-- 发送邮件 -->
+          <el-button 
+            :icon="Promotion" 
+            text 
+            class="header-button"
+            @click="showSendResumeDialog"
+            title="发送邮件"
           />
 
           <!-- 用户菜单 -->
@@ -274,18 +274,20 @@
       </el-footer>
     </el-container>
   </el-container>
-    <!-- 发送简历对话框 -->
+    <!-- 发送邮件对话框 -->
     <el-dialog
       v-model="sendResumeDialogVisible"
-      title="发送简历"
+      title="发送邮件"
       width="800px"
       :close-on-click-modal="false"
+      @open="resetSendResumeFormValidation"
     >
       <el-form
         ref="sendResumeFormRef"
         :model="sendResumeForm"
         :rules="sendResumeRules"
         label-width="100px"
+        validate-on-rule-change="false"
       >
         <el-form-item label="收件人" prop="toEmail">
           <el-input
@@ -304,20 +306,29 @@
           <el-input
             v-model="sendResumeForm.subject"
             placeholder="请输入邮件主题"
-            maxlength="100"
+            maxlength="35"
             show-word-limit
           />
         </el-form-item>
         
-        <el-form-item label="邮件内容">
-          <el-input
-            v-model="sendResumeForm.htmlContent"
-            type="textarea"
-            :rows="6"
-            placeholder="请输入邮件内容"
-          />
+        <el-form-item label="邮件内容" prop="htmlContent">
+          <div style="border: 1px solid #dcdfe6; border-radius: 4px;">
+            <Toolbar
+              :editor="editorRef"
+              :defaultConfig="toolbarConfig"
+              mode="default"
+              style="border-bottom: 1px solid #dcdfe6"
+            />
+            <Editor
+              v-model="sendResumeForm.htmlContent"
+              :defaultConfig="editorConfig"
+              mode="default"
+              style="height: 300px; overflow-y: hidden;"
+              @onCreated="handleEditorCreated"
+            />
+          </div>
           <div style="font-size: 12px; color: #909399; margin-top: 4px;">
-            邮件内容将作为简历说明一同发送
+            支持富文本格式，内容将以HTML格式发送
           </div>
         </el-form-item>
       </el-form>
@@ -327,7 +338,7 @@
           <el-button @click="sendResumeDialogVisible = false">取消</el-button>
           <el-button type="primary" @click="handleSendResumeSubmit" :loading="sendingResume">
             <el-icon><Promotion /></el-icon>
-            发送简历
+            发送邮件
           </el-button>
         </div>
       </template>
@@ -335,7 +346,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch, shallowRef, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
 import {
@@ -363,6 +374,11 @@ import {
   Message,
   Promotion
 } from '@element-plus/icons-vue'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import { IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
+import '@wangeditor/editor/dist/css/style.css'
+import { emailApi } from '@/api/admin'
+import type { FormInstance } from 'element-plus'
 
 const route = useRoute()
 const router = useRouter()
@@ -556,15 +572,49 @@ const fetchUserInfo = async (silent: boolean = false) => {
   }
 }
 
-// 发送简历相关
+// 发送邮件相关
 const sendResumeDialogVisible = ref(false)
-const sendResumeForm = reactive({
-  toEmail: '',
-  subject: '简历分享',
-  htmlContent: ''
-})
 const sendResumeFormRef = ref<FormInstance>()
 const sendingResume = ref(false)
+
+// 富文本编辑器相关
+const editorRef = shallowRef()
+const editorConfig: Partial<IEditorConfig> = {
+  placeholder: '请输入邮件内容，支持富文本格式...',
+  MENU_CONF: {}
+}
+const toolbarConfig: Partial<IToolbarConfig> = {
+  toolbarKeys: [
+    'headerSelect',
+    'bold',
+    'italic',
+    'underline',
+    'color',
+    'bgColor',
+    '|',
+    'fontSize',
+    'fontFamily',
+    '|',
+    'bulletedList',
+    'numberedList',
+    '|',
+    'justifyLeft',
+    'justifyCenter',
+    'justifyRight',
+    '|',
+    'emotion',
+    'insertLink',
+    '|',
+    'undo',
+    'redo'
+  ]
+}
+
+const sendResumeForm = reactive({
+  toEmail: '',
+  subject: '',
+  htmlContent: ''
+})
 
 // 邮箱格式验证规则
 const validateEmail = (rule: any, value: string, callback: any) => {
@@ -584,24 +634,37 @@ const validateEmail = (rule: any, value: string, callback: any) => {
 
 const sendResumeRules = {
   toEmail: [
-    { required: true, validator: validateEmail, trigger: 'blur' }
+    { required: true, validator: validateEmail, trigger: ['blur', 'change'] }
   ],
   subject: [
-    { required: true, message: '请输入邮件主题', trigger: 'blur' },
-    { min: 1, max: 100, message: '主题长度在 1 到 100 个字符', trigger: 'blur' }
+    { required: true, message: '请输入邮件主题', trigger: ['blur', 'change'] },
+    { min: 1, max: 35, message: '主题长度在 1 到 35 个字符', trigger: ['blur', 'change'] }
+  ],
+  htmlContent: [
+    { required: true, message: '请输入邮件内容', trigger: ['blur', 'change'] }
   ]
 }
 
-// 显示发送简历对话框
+// 显示发送邮件对话框
 const showSendResumeDialog = () => {
   sendResumeDialogVisible.value = true
   // 初始化表单数据
   sendResumeForm.toEmail = ''
-  sendResumeForm.subject = '简历分享'
-  sendResumeForm.htmlContent = '<p>您好，这是我的简历，请查收。</p>'
+  sendResumeForm.subject = ''
+  sendResumeForm.htmlContent = ''
 }
 
-// 发送简历
+// 重置表单验证状态
+const resetSendResumeFormValidation = () => {
+  // 延迟清除验证状态，确保在DOM更新后执行
+  setTimeout(() => {
+    if (sendResumeFormRef.value) {
+      sendResumeFormRef.value.clearValidate()
+    }
+  }, 100)
+}
+
+// 发送邮件
 const handleSendResumeSubmit = async () => {
   if (!sendResumeFormRef.value) return
   
@@ -616,7 +679,7 @@ const handleSendResumeSubmit = async () => {
     }
     
     ElMessageBox.confirm(
-      `确定要向 ${sendResumeForm.toEmail} 发送简历吗？`,
+      `确定要向 ${sendResumeForm.toEmail} 发送邮件吗？`,
       '确认发送',
       {
         type: 'warning',
@@ -635,11 +698,11 @@ const handleSendResumeSubmit = async () => {
           sendResumeForm.htmlContent
         )
         
-        ElMessage.success('简历发送成功')
+        ElMessage.success('发送成功')
         sendResumeDialogVisible.value = false
       } catch (error: any) {
-        console.error('❌ [发送简历] 发送失败:', error)
-        ElMessage.error('发送失败：' + (error.message || '请稍后重试'))
+        console.error('❌ [发送邮件] 发送失败:', error)
+        ElMessage.error('发送失败')
       } finally {
         sendingResume.value = false
       }
@@ -668,12 +731,24 @@ onMounted(async () => {
   }
 })
 
+// 富文本编辑器创建回调
+const handleEditorCreated = (editor: any) => {
+  editorRef.value = editor
+  console.log('📝 富文本编辑器创建成功')
+}
+
 // 组件卸载时清除定时器
 onUnmounted(() => {
   if (userInfoTimer) {
     console.log('🧹 AdminLayout: 清除用户信息获取定时器')
     clearInterval(userInfoTimer)
     userInfoTimer = null
+  }
+  
+  // 组件卸载时销毁编辑器
+  const editor = editorRef.value
+  if (editor) {
+    editor.destroy()
   }
 })
 </script>

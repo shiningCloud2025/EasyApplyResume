@@ -377,7 +377,7 @@ const RegisterPage: React.FC = () => {
                     }
                   >
                     {provinces.map(province => (
-                      <Option key={province.provinceMapPid} value={String(province.provinceMapPid)}>
+                      <Option key={province.provinceMapPid} value={province.provinceMapPid}>
                         {province.provinceMapPname}
                       </Option>
                     ))}
@@ -400,7 +400,7 @@ const RegisterPage: React.FC = () => {
                     }
                   >
                     {cities.map(city => (
-                      <Option key={city.cityMapCid} value={String(city.cityMapCid)}>
+                      <Option key={city.cityMapCid} value={city.cityMapCid}>
                         {city.cityMapCname}
                       </Option>
                     ))}
