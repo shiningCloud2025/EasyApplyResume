@@ -109,9 +109,22 @@ const RegisterPage: React.FC = () => {
           'userAccount', 'userUsername', 'userEmail', 'userPhone', 'userPassword'
         ])
       } else if (current === 1) {
-        await form.validateFields([
-          'userDreamPosition', 'userDreamMinMonthSalary', 'userDreamMaxMonthSalary'
-        ])
+        // 第二步所有字段都是选填，不需要强制验证
+        // 仅验证已填写的字段格式是否正确
+        const minSalary = form.getFieldValue('userDreamMinMonthSalary')
+        const maxSalary = form.getFieldValue('userDreamMaxMonthSalary')
+        if (minSalary !== undefined && minSalary !== null && minSalary !== '') {
+          if (Number(minSalary) < 0 || Number(minSalary) > 100000) {
+            message.error('最低月薪范围为0-100000')
+            return
+          }
+        }
+        if (maxSalary !== undefined && maxSalary !== null && maxSalary !== '') {
+          if (minSalary !== undefined && minSalary !== null && minSalary !== '' && Number(maxSalary) < Number(minSalary)) {
+            message.error('最高月薪不能低于最低月薪')
+            return
+          }
+        }
       } else if (current === 2) {
         // 最后一步，检查协议并提交注册
         if (!agreeTerms) {
@@ -158,11 +171,11 @@ const RegisterPage: React.FC = () => {
               label="用户账号"
               rules={[
                 { required: true, message: '请输入用户账号' },
-                { min: 3, max: 20, message: '账号长度为3-20位' },
-                { pattern: /^[a-zA-Z0-9_]+$/, message: '账号只能包含字母、数字和下划线' }
+                { min: 7, max: 10, message: '账号长度为7-10位' },
+                { pattern: /^[1-9]\d{6,9}$/, message: '账号必须为数字，且首位不能为0' }
               ]}
             >
-              <Input prefix={<UserOutlined />} placeholder="请输入用户账号" />
+              <Input prefix={<UserOutlined />} placeholder="请输入7-10位数字账号，首位不能为0" />
             </Form.Item>
 
             <Form.Item
@@ -170,10 +183,10 @@ const RegisterPage: React.FC = () => {
               label="用户名"
               rules={[
                 { required: true, message: '请输入用户名' },
-                { min: 2, max: 10, message: '用户名长度为2-10位' }
+                { min: 1, max: 20, message: '用户名长度为1-20位' }
               ]}
             >
-              <Input prefix={<UserOutlined />} placeholder="请输入用户名" />
+              <Input prefix={<UserOutlined />} placeholder="请输入用户名（1-20位）" />
             </Form.Item>
 
             <Form.Item
@@ -181,10 +194,11 @@ const RegisterPage: React.FC = () => {
               label="邮箱"
               rules={[
                 { required: true, message: '请输入邮箱' },
-                { type: 'email', message: '请输入正确的邮箱格式' }
+                { type: 'email', message: '请输入正确的邮箱格式' },
+                { max: 25, message: '邮箱长度不能超过25位' }
               ]}
             >
-              <Input prefix={<MailOutlined />} placeholder="请输入邮箱" />
+              <Input prefix={<MailOutlined />} placeholder="请输入邮箱（不超过25位）" />
             </Form.Item>
 
             <Form.Item
@@ -203,17 +217,20 @@ const RegisterPage: React.FC = () => {
               label="密码"
               rules={[
                 { required: true, message: '请输入密码' },
-                { min: 6, max: 20, message: '密码长度为6-20位' }
+                { min: 6, max: 30, message: '密码长度为6-30位' }
               ]}
             >
-              <Input.Password prefix={<LockOutlined />} placeholder="请输入密码" />
+              <Input.Password prefix={<LockOutlined />} placeholder="请输入密码（6-30位）" />
             </Form.Item>
 
             <Form.Item
               name="userIntroduce"
               label="个人介绍"
+              rules={[
+                { max: 200, message: '个人介绍不能超过200字' }
+              ]}
             >
-              <TextArea rows={3} placeholder="请输入个人介绍（选填）" />
+              <TextArea rows={3} placeholder="请输入个人介绍（选填，不超过200字）" maxLength={200} showCount />
             </Form.Item>
           </>
         )
@@ -224,9 +241,8 @@ const RegisterPage: React.FC = () => {
             <Form.Item
               name="userDreamPosition"
               label="目标岗位"
-              rules={[{ required: true, message: '请选择目标岗位' }]}
             >
-              <Select placeholder="请选择目标岗位">
+              <Select placeholder="请选择目标岗位（选填）" allowClear>
                 <Option value={1}>前端开发工程师</Option>
                 <Option value={2}>后端开发工程师</Option>
                 <Option value={3}>全栈开发工程师</Option>
@@ -243,18 +259,40 @@ const RegisterPage: React.FC = () => {
                 <Form.Item
                   name="userDreamMinMonthSalary"
                   label="最低月薪"
-                  rules={[{ required: true, message: '请输入最低月薪' }]}
+                  rules={[
+                    {
+                      validator: (_, value) => {
+                        if (value === undefined || value === null || value === '') return Promise.resolve()
+                        const num = Number(value)
+                        if (isNaN(num) || num < 0) return Promise.reject('月薪不能为负数')
+                        if (num > 100000) return Promise.reject('月薪不能超过100000')
+                        return Promise.resolve()
+                      }
+                    }
+                  ]}
                 >
-                  <Input type="number" placeholder="例如：8000" />
+                  <Input type="number" placeholder="选填，范围0-100000" />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item
                   name="userDreamMaxMonthSalary"
                   label="最高月薪"
-                  rules={[{ required: true, message: '请输入最高月薪' }]}
+                  dependencies={['userDreamMinMonthSalary']}
+                  rules={[
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (value === undefined || value === null || value === '') return Promise.resolve()
+                        const minSalary = getFieldValue('userDreamMinMonthSalary')
+                        if (minSalary !== undefined && minSalary !== null && minSalary !== '' && Number(value) < Number(minSalary)) {
+                          return Promise.reject('最高月薪不能低于最低月薪')
+                        }
+                        return Promise.resolve()
+                      }
+                    })
+                  ]}
                 >
-                  <Input type="number" placeholder="例如：15000" />
+                  <Input type="number" placeholder="选填，需≥最低月薪" />
                 </Form.Item>
               </Col>
             </Row>
@@ -262,9 +300,13 @@ const RegisterPage: React.FC = () => {
             <Form.Item
               name="userDreamWeekWorkDayNum"
               label="期望工作天数"
-              rules={[{ required: true, message: '请选择期望工作天数' }]}
             >
-              <Select placeholder="请选择每周工作天数">
+              <Select placeholder="请选择每周工作天数（选填，默认5天）" allowClear>
+                <Option value={0}>弹性工作</Option>
+                <Option value={1}>1天</Option>
+                <Option value={2}>2天</Option>
+                <Option value={3}>3天</Option>
+                <Option value={4}>4天</Option>
                 <Option value={5}>5天</Option>
                 <Option value={6}>6天</Option>
                 <Option value={7}>7天</Option>
@@ -274,8 +316,11 @@ const RegisterPage: React.FC = () => {
             <Form.Item
               name="userDreamGoodWelfare"
               label="期望福利待遇"
+              rules={[
+                { max: 200, message: '福利待遇描述不能超过200字' }
+              ]}
             >
-              <TextArea rows={3} placeholder="例如：五险一金、带薪年假、餐补等（选填）" />
+              <TextArea rows={3} placeholder="例如：五险一金、带薪年假、餐补等（选填，不超过200字）" maxLength={200} showCount />
             </Form.Item>
           </>
         )

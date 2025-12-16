@@ -382,73 +382,23 @@
         </el-form-item>
         
         <el-form-item label="邮件内容" prop="htmlContent">
-          <div class="rich-editor-container">
-            <!-- 工具栏 -->
-            <div class="editor-toolbar">
-              <el-button-group>
-                <el-button size="small" @click="insertTag('b', '粗体文本')" title="粗体">
-                  <strong>B</strong>
-                </el-button>
-                <el-button size="small" @click="insertTag('i', '斜体文本')" title="斜体">
-                  <em>I</em>
-                </el-button>
-                <el-button size="small" @click="insertTag('u', '下划线文本')" title="下划线">
-                  <u>U</u>
-                </el-button>
-              </el-button-group>
-              
-              <el-button-group style="margin-left: 8px;">
-                <el-button size="small" @click="insertHeading(1)" title="一级标题">H1</el-button>
-                <el-button size="small" @click="insertHeading(2)" title="二级标题">H2</el-button>
-                <el-button size="small" @click="insertHeading(3)" title="三级标题">H3</el-button>
-              </el-button-group>
-              
-              <el-button-group style="margin-left: 8px;">
-                <el-button size="small" @click="insertList('ul')" title="无序列表">
-                  <el-icon><List /></el-icon>
-                </el-button>
-                <el-button size="small" @click="insertList('ol')" title="有序列表">
-                  <el-icon><Finished /></el-icon>
-                </el-button>
-              </el-button-group>
-              
-              <el-button-group style="margin-left: 8px;">
-                <el-button size="small" @click="insertLink" title="插入链接">
-                  <el-icon><Link /></el-icon>
-                </el-button>
-                <el-button size="small" @click="insertHr" title="分割线">
-                  <el-icon><Minus /></el-icon>
-                </el-button>
-              </el-button-group>
-              
-              <el-button 
-                size="small" 
-                @click="showPreview = !showPreview" 
-                type="primary"
-                style="margin-left: auto;"
-              >
-                <el-icon><View /></el-icon>
-                {{ showPreview ? '编辑' : '预览' }}
-              </el-button>
-            </div>
-            
-            <!-- 编辑区域 -->
-            <div class="editor-content" v-show="!showPreview">
-              <el-input
-                ref="contentEditorRef"
-                v-model="emailForm.htmlContent"
-                type="textarea"
-                :rows="12"
-                placeholder="请输入邮件内容，支持 HTML 格式..."
-                @keydown.tab.prevent="insertTab"
-              />
-            </div>
-            
-            <!-- 预览区域 -->
-            <div class="editor-preview" v-show="showPreview">
-              <div class="preview-label">预览效果：</div>
-              <div class="preview-content" v-html="emailForm.htmlContent || '<p style=\'color: #999;\'>暂无内容</p>'"></div>
-            </div>
+          <div style="border: 1px solid #dcdfe6; border-radius: 4px;">
+            <Toolbar
+              :editor="editorRef"
+              :defaultConfig="toolbarConfig"
+              mode="default"
+              style="border-bottom: 1px solid #dcdfe6"
+            />
+            <Editor
+              v-model="emailForm.htmlContent"
+              :defaultConfig="editorConfig"
+              mode="default"
+              style="height: 300px; overflow-y: hidden;"
+              @onCreated="handleEditorCreated"
+            />
+          </div>
+          <div style="font-size: 12px; color: #909399; margin-top: 4px;">
+            支持富文本格式，内容将以HTML格式发送
           </div>
         </el-form-item>
         
@@ -533,12 +483,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted, onBeforeUnmount, shallowRef, nextTick } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Refresh, Plus, Search, RefreshRight, Message, User, Promotion, View, List, Finished, Link, Minus } from '@element-plus/icons-vue'
+import { Refresh, Plus, Search, RefreshRight, Message, User, Promotion } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
 import { adminApi, roleApi, emailApi } from '@/api/admin'
 import { useAuthStore } from '@/store/auth'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import { IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
+import '@wangeditor/editor/dist/css/style.css'
 import type {
   AdminPageVO,
   AdminPageQuery,
@@ -560,9 +513,41 @@ const formRef = ref<FormInstance>()
 // 邮件相关
 const emailDialogVisible = ref(false)
 const emailFormRef = ref<FormInstance>()
-const contentEditorRef = ref()
 const sendingEmail = ref(false)
-const showPreview = ref(false)
+
+// 富文本编辑器相关
+const editorRef = shallowRef()
+const editorConfig: Partial<IEditorConfig> = {
+  placeholder: '请输入邮件内容，支持富文本格式...',
+  MENU_CONF: {}
+}
+const toolbarConfig: Partial<IToolbarConfig> = {
+  toolbarKeys: [
+    'headerSelect',
+    'bold',
+    'italic',
+    'underline',
+    'color',
+    'bgColor',
+    '|',
+    'fontSize',
+    'fontFamily',
+    '|',
+    'bulletedList',
+    'numberedList',
+    '|',
+    'justifyLeft',
+    'justifyCenter',
+    'justifyRight',
+    '|',
+    'emotion',
+    'insertLink',
+    '|',
+    'undo',
+    'redo'
+  ]
+}
+
 const emailForm = reactive({
   fromEmail: '',
   toEmail: '',
@@ -918,7 +903,6 @@ const handleSendEmail = async (row: AdminPageVO) => {
   emailForm.toEmail = row.adminEmail
   emailForm.subject = ''
   emailForm.htmlContent = ''
-  showPreview.value = false
   
   emailDialogVisible.value = true
   } catch (error: any) {
@@ -970,98 +954,25 @@ const handleSendEmailSubmit = async () => {
   }
 }
 
-// 富文本编辑器辅助函数
-const insertTag = (tag: string, defaultText: string) => {
-  const textarea = contentEditorRef.value?.textarea
-  if (!textarea) return
-  
-  const start = textarea.selectionStart
-  const end = textarea.selectionEnd
-  const selectedText = emailForm.htmlContent.substring(start, end) || defaultText
-  const beforeText = emailForm.htmlContent.substring(0, start)
-  const afterText = emailForm.htmlContent.substring(end)
-  
-  emailForm.htmlContent = beforeText + `<${tag}>${selectedText}</${tag}>` + afterText
-  
-  // 重新设置焦点和选区
-  nextTick(() => {
-    textarea.focus()
-    const newPosition = start + tag.length + 2 + selectedText.length
-    textarea.setSelectionRange(newPosition, newPosition)
-  })
-}
 
-const insertHeading = (level: number) => {
-  const textarea = contentEditorRef.value?.textarea
-  if (!textarea) return
-  
-  const start = textarea.selectionStart
-  const end = textarea.selectionEnd
-  const selectedText = emailForm.htmlContent.substring(start, end) || `标题${level}`
-  const beforeText = emailForm.htmlContent.substring(0, start)
-  const afterText = emailForm.htmlContent.substring(end)
-  
-  emailForm.htmlContent = beforeText + `<h${level}>${selectedText}</h${level}>` + afterText
-}
 
-const insertList = (type: 'ul' | 'ol') => {
-  const textarea = contentEditorRef.value?.textarea
-  if (!textarea) return
-  
-  const start = textarea.selectionStart
-  const beforeText = emailForm.htmlContent.substring(0, start)
-  const afterText = emailForm.htmlContent.substring(start)
-  
-  const listHtml = type === 'ul' 
-    ? '<ul>\n  <li>列表项 1</li>\n  <li>列表项 2</li>\n  <li>列表项 3</li>\n</ul>'
-    : '<ol>\n  <li>列表项 1</li>\n  <li>列表项 2</li>\n  <li>列表项 3</li>\n</ol>'
-  
-  emailForm.htmlContent = beforeText + listHtml + afterText
-}
-
-const insertLink = () => {
-  const textarea = contentEditorRef.value?.textarea
-  if (!textarea) return
-  
-  const start = textarea.selectionStart
-  const end = textarea.selectionEnd
-  const selectedText = emailForm.htmlContent.substring(start, end) || '链接文本'
-  const beforeText = emailForm.htmlContent.substring(0, start)
-  const afterText = emailForm.htmlContent.substring(end)
-  
-  emailForm.htmlContent = beforeText + `<a href="https://www.example.com">${selectedText}</a>` + afterText
-}
-
-const insertHr = () => {
-  const textarea = contentEditorRef.value?.textarea
-  if (!textarea) return
-  
-  const start = textarea.selectionStart
-  const beforeText = emailForm.htmlContent.substring(0, start)
-  const afterText = emailForm.htmlContent.substring(start)
-  
-  emailForm.htmlContent = beforeText + '<hr />\n' + afterText
-}
-
-const insertTab = () => {
-  const textarea = contentEditorRef.value?.textarea
-  if (!textarea) return
-  
-  const start = textarea.selectionStart
-  const beforeText = emailForm.htmlContent.substring(0, start)
-  const afterText = emailForm.htmlContent.substring(start)
-  
-  emailForm.htmlContent = beforeText + '  ' + afterText
-  
-  nextTick(() => {
-    textarea.focus()
-    textarea.setSelectionRange(start + 2, start + 2)
-  })
+// 富文本编辑器创建回调
+const handleEditorCreated = (editor: any) => {
+  editorRef.value = editor
+  console.log('📝 富文本编辑器创建成功')
 }
 
 // 组件挂载
 onMounted(() => {
   getAdminList()
+})
+
+// 组件卸载时销毁编辑器
+onBeforeUnmount(() => {
+  const editor = editorRef.value
+  if (editor) {
+    editor.destroy()
+  }
 })
 </script>
 

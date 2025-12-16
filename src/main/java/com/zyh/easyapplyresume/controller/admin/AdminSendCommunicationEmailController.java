@@ -23,7 +23,7 @@ public class AdminSendCommunicationEmailController {
 
     @Operation(summary = "发送纯文本沟通邮件-要指定发送者")
     @PostMapping("/selfde/sendText")
-    public void sendTextEmailSelfDefition(@RequestParam(required = false,value = "fromEmail") String fromEmail,
+    public void sendTextEmailSelfDefition(@RequestParam(required = true,value = "fromEmail") String fromEmail,
                                           @RequestParam(required = true,value = "toEmail") String toEmail,
                                           @RequestParam(required = true,value = "subject") String subject,
                                           @RequestParam(required = true,value = "content") String content) {
@@ -40,7 +40,7 @@ public class AdminSendCommunicationEmailController {
 
     @Operation(summary = "发送HTML格式的沟通邮件-要指定发送者")
     @PostMapping("/selfde/sendHtml")
-    public void sendHtmlEmailSelfDefition(@RequestParam(required = false,value = "fromEmail") String fromEmail,
+    public void sendHtmlEmailSelfDefition(@RequestParam(required = true,value = "fromEmail") String fromEmail,
                                           @RequestParam(required = true,value = "toEmail") String toEmail,
                                           @RequestParam(required = true,value = "subject") String subject,
                                           @RequestParam(required = true,value = "htmlContent") String htmlContent) {

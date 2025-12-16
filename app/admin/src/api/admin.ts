@@ -81,7 +81,7 @@ export const adminApi = {
   getAdminInfo: (adminId: number) => api.get<AdminInfoVO>(`/admin/admin/findById?adminId=${adminId}`),
   
   // 获取当前登录管理员信息（通过 JWT）
-  getCurrentAdminInfo: () => api.post<{userId: number, userEmail: string, username: string, authorities: string[]}>('/admin/admin/getAdminInfo'),
+  getCurrentAdminInfo: () => api.post<{userId: number, userEmail: string, username: string, authorities: string[]}>('/admin/auth/getAdminInfo'),
   
   // 分页查询管理员
   getAdminPage: (pageNum: number, pageSize: number, query: AdminPageQuery) => 
