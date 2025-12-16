@@ -26,7 +26,7 @@ public class UserSecurityConfig {
     @Bean
     public SecurityFilterChain userSecurityFilterChain(HttpSecurity http) throws Exception{
         http
-                .securityMatcher("/api/user/**")
+                .securityMatcher("/user/**")
                 // 启用CORS跨域:指定自定义的CorsConfigurationSource
                 .cors(cors->cors.configurationSource(corsConfigurationSource))
                 .csrf(AbstractHttpConfigurer::disable)
@@ -34,7 +34,15 @@ public class UserSecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth->auth
-                        .requestMatchers("/api/user/auth/**").permitAll()
+                        // 放行省份查询,注册需要使用
+                        .requestMatchers("/userprovinceMap/**").permitAll()
+                        // 放行城市查询,注册需要使用
+                        .requestMatchers("/user/cityMap/**").permitAll()
+                        // 放行大学查询,注册需要使用
+                        .requestMatchers("/user/universityMap/**").permitAll()
+                        // 放行职位查询,注册需要使用
+                        .requestMatchers("/user/recruitPosition/queryAllRecruitPositionPage").permitAll()
+                        .requestMatchers("/user/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(userJwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

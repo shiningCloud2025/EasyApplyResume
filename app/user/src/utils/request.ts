@@ -45,6 +45,16 @@ request.interceptors.response.use(
   (response: AxiosResponse<BaseResponse>) => {
     const { data } = response
     
+    // 如果返回的是数组，直接返回（部分接口直接返回数组，不包装BaseResponse）
+    if (Array.isArray(data)) {
+      return data
+    }
+    
+    // 如果没有code字段，说明是直接返回的数据，不是BaseResponse格式
+    if (data.code === undefined) {
+      return data
+    }
+    
     // 检查业务状态码
     if (data.code !== 200) {
       message.error(data.message || '请求失败')

@@ -1,0 +1,47 @@
+package com.zyh.easyapplyresume.controller.user;
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
+import com.zyh.easyapplyresume.model.query.admin.RecruitPositionQuery;
+import com.zyh.easyapplyresume.model.vo.admin.RecruitPositionInfoVO;
+import com.zyh.easyapplyresume.model.vo.admin.RecruitPositionPageVO;
+import com.zyh.easyapplyresume.service.admin.RecruitPositionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * 招聘岗位控制器-用户端
+ * @author shiningCloud2025
+ */
+@RestController
+@RequestMapping("/user/recruitPosition")
+@Tag(name="招聘岗位控制器-用户端")
+public class UserRecruitPositionController {
+    @Autowired
+    private RecruitPositionService recruitPositionService;
+
+    @Operation(summary = "查看招聘岗位")
+    @GetMapping("/queryRecruitPosition")
+    public BaseResult<RecruitPositionInfoVO> queryRecruitPosition(@RequestParam(required = true,value = "recruitPositionId") Integer recruitPositionId){
+        return BaseResult.ok(recruitPositionService.queryRecruitPosition(recruitPositionId));
+    }
+
+    @Operation(summary = "分页查询招聘岗位")
+    @PostMapping("/queryRecruitPositionPage")
+    public BaseResult<Page<RecruitPositionPageVO>> queryRecruitPositionPage(@RequestParam(required = false,value = "pageNum",defaultValue = "1") Integer pageNum,
+                                                                            @RequestParam(required = false,value = "pageSize",defaultValue = "10") Integer pageSize,
+                                                                            @RequestBody RecruitPositionQuery recruitPositionQuery){
+        return BaseResult.ok(recruitPositionService.queryRecruitPositionPage(pageNum,pageSize,recruitPositionQuery));
+    }
+
+    @Operation(summary = "查看所有招聘岗位")
+    @GetMapping("/queryAllRecruitPositionPage")
+    public BaseResult<List<RecruitPositionInfoVO>> queryAllRecruitPositionPage(){
+        return BaseResult.ok(recruitPositionService.queryAllRecruitPositionPage());
+    }
+
+}

@@ -107,10 +107,7 @@ export const adminApi = {
   },
   
   // 生成随机账号
-  generateRandomAccount: () => api.get<string>('/admin/admin/generateRandomAccount'),
-  
-  // 获取当前管理员信息
-  getCurrentAdminInfo: () => api.post<any>('/admin/admin/getAdminInfo')
+  generateRandomAccount: () => api.get<string>('/admin/admin/generateRandomAccount')
 }
 
 // 角色相关API

@@ -4,7 +4,8 @@ import { UserOutlined, LockOutlined, PhoneOutlined, MailOutlined, HomeOutlined }
 import { Link, useNavigate } from 'react-router-dom'
 import { authAPI } from '@api/auth'
 import { sendSmsCode, sendEmailCode } from '@api/verify'
-import type { RegisterForm } from '@types/index'
+import { provinceAPI, universityAPI, recruitPositionAPI } from '@api/system'
+import type { RegisterForm, ProvinceMap, CityMap, UniversityMap, RecruitPosition } from '@types/index'
 import '@styles/auth.scss'
 import '@styles/auth-override.scss'
 
@@ -29,7 +30,105 @@ const RegisterPage: React.FC = () => {
   const [emailCountdown, setEmailCountdown] = useState(0)
   const [agreeTerms, setAgreeTerms] = useState(false)
 
+  // 省份、城市、大学、岗位数据
+  const [provinces, setProvinces] = useState<ProvinceMap[]>([])
+  const [cities, setCities] = useState<CityMap[]>([])
+  const [universities, setUniversities] = useState<UniversityMap[]>([])
+  const [positions, setPositions] = useState<RecruitPosition[]>([])
+  const [universitySearchLoading, setUniversitySearchLoading] = useState(false)
+  const [universityLoaded, setUniversityLoaded] = useState(false) // 标记大学数据是否已加载
+  const [positionLoaded, setPositionLoaded] = useState(false) // 标记岗位数据是否已加载
+  const [provinceLoaded, setProvinceLoaded] = useState(false) // 标记省份数据是否已加载
+
   const navigate = useNavigate()
+
+  // 点击省份下拉框时加载省份数据
+  const handleProvinceDropdownOpen = async (open: boolean) => {
+    if (open && !provinceLoaded) {
+      try {
+        const provinceRes = await provinceAPI.getAllProvince()
+        if (Array.isArray(provinceRes)) {
+          setProvinces(provinceRes)
+          setProvinceLoaded(true)
+        }
+      } catch (error) {
+        console.error('加载省份失败:', error)
+      }
+    }
+  }
+
+  // 点击岗位下拉框时加载岗位数据
+  const handlePositionDropdownOpen = async (open: boolean) => {
+    if (open && !positionLoaded) {
+      try {
+        const positionRes = await recruitPositionAPI.getAllRecruitPosition()
+        if (positionRes.code === 200 && Array.isArray(positionRes.data)) {
+          setPositions(positionRes.data)
+          setPositionLoaded(true)
+        }
+      } catch (error) {
+        console.error('加载岗位失败:', error)
+      }
+    }
+  }
+
+  // 点击大学下拉框时加载大学数据
+  const handleUniversityDropdownOpen = async (open: boolean) => {
+    if (open && !universityLoaded) {
+      setUniversitySearchLoading(true)
+      try {
+        const universityRes = await universityAPI.getAllUniversities()
+        if (universityRes.code === 200 && Array.isArray(universityRes.data)) {
+          setUniversities(universityRes.data)
+          setUniversityLoaded(true)
+        }
+      } catch (error) {
+        console.error('加载大学失败:', error)
+      } finally {
+        setUniversitySearchLoading(false)
+      }
+    }
+  }
+
+  // 省份选择变化时加载城市
+  const handleProvinceChange = async (provinceId: number) => {
+    form.setFieldsValue({ userRecruitLocationSecond: undefined })
+    setCities([])
+    if (provinceId) {
+      try {
+        // 直接返回数组
+        const res = await provinceAPI.getCityByProvinceId(provinceId)
+        if (Array.isArray(res)) {
+          setCities(res)
+        }
+      } catch (error) {
+        console.error('加载城市失败:', error)
+      }
+    }
+  }
+
+  // 大学搜索
+  const handleUniversitySearch = async (value: string) => {
+    if (!value || value.length < 1) {
+      // 如果搜索框清空，重新加载所有大学
+      const universityRes = await universityAPI.getAllUniversities()
+      if (universityRes.code === 200 && Array.isArray(universityRes.data)) {
+        setUniversities(universityRes.data)
+      }
+      return
+    }
+    setUniversitySearchLoading(true)
+    try {
+      const res = await universityAPI.searchUniversities(value)
+      if (res.code === 200 && Array.isArray(res.data)) {
+        setUniversities(res.data)
+      }
+    } catch (error) {
+      console.error('搜索大学失败:', error)
+    } finally {
+      setUniversitySearchLoading(false)
+    }
+  }
 
   const steps = [
     {
@@ -242,15 +341,92 @@ const RegisterPage: React.FC = () => {
               name="userDreamPosition"
               label="目标岗位"
             >
-              <Select placeholder="请选择目标岗位（选填）" allowClear>
-                <Option value={1}>前端开发工程师</Option>
-                <Option value={2}>后端开发工程师</Option>
-                <Option value={3}>全栈开发工程师</Option>
-                <Option value={4}>产品经理</Option>
-                <Option value={5}>UI设计师</Option>
-                <Option value={6}>数据分析师</Option>
-                <Option value={7}>运营专员</Option>
-                <Option value={8}>其他</Option>
+              <Select 
+                placeholder="请选择目标岗位（选填）" 
+                allowClear
+                showSearch
+                optionFilterProp="children"
+                onDropdownVisibleChange={handlePositionDropdownOpen}
+                filterOption={(input, option) =>
+                  (option?.children as unknown as string)?.toLowerCase().includes(input.toLowerCase())
+                }
+              >
+                {positions.map(pos => (
+                  <Option key={pos.recruitPositionId} value={pos.recruitPositionId}>
+                    {pos.recruitPositionName}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+
+            <Row gutter={16}>
+              <Col span={12}>
+                <Form.Item
+                  name="userRecruitLocationFirst"
+                  label="期望工作省份"
+                >
+                  <Select
+                    placeholder="请选择省份（选填）"
+                    allowClear
+                    showSearch
+                    optionFilterProp="children"
+                    onDropdownVisibleChange={handleProvinceDropdownOpen}
+                    onChange={handleProvinceChange}
+                    filterOption={(input, option) =>
+                      (option?.children as unknown as string)?.toLowerCase().includes(input.toLowerCase())
+                    }
+                  >
+                    {provinces.map(province => (
+                      <Option key={province.provinceMapPid} value={String(province.provinceMapPid)}>
+                        {province.provinceMapPname}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="userRecruitLocationSecond"
+                  label="期望工作城市"
+                >
+                  <Select
+                    placeholder="请先选择省份"
+                    allowClear
+                    showSearch
+                    optionFilterProp="children"
+                    disabled={cities.length === 0}
+                    filterOption={(input, option) =>
+                      (option?.children as unknown as string)?.toLowerCase().includes(input.toLowerCase())
+                    }
+                  >
+                    {cities.map(city => (
+                      <Option key={city.cityMapCid} value={String(city.cityMapCid)}>
+                        {city.cityMapCname}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Form.Item
+              name="userUniversityCode"
+              label="毕业院校"
+            >
+              <Select
+                placeholder="请选择或搜索大学（选填）"
+                allowClear
+                showSearch
+                loading={universitySearchLoading}
+                onDropdownVisibleChange={handleUniversityDropdownOpen}
+                onSearch={handleUniversitySearch}
+                filterOption={false}
+              >
+                {universities.map(uni => (
+                  <Option key={uni.universityMapId} value={uni.universityMapId}>
+                    {uni.universityMapName}
+                  </Option>
+                ))}
               </Select>
             </Form.Item>
 
@@ -302,7 +478,6 @@ const RegisterPage: React.FC = () => {
               label="期望工作天数"
             >
               <Select placeholder="请选择每周工作天数（选填，默认5天）" allowClear>
-                <Option value={0}>弹性工作</Option>
                 <Option value={1}>1天</Option>
                 <Option value={2}>2天</Option>
                 <Option value={3}>3天</Option>

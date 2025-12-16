@@ -187,6 +187,15 @@
             @keyup.enter="handleSearch"
           />
 
+          <!-- 发送简历 -->
+          <el-button 
+            :icon="Promotion" 
+            text 
+            class="header-button"
+            @click="showSendResumeDialog"
+            title="发送简历"
+          />
+
           <!-- 消息通知 -->
           <el-badge :value="0" :max="99" class="notification-badge">
             <el-button :icon="Bell" text class="header-button" />
@@ -265,6 +274,64 @@
       </el-footer>
     </el-container>
   </el-container>
+    <!-- 发送简历对话框 -->
+    <el-dialog
+      v-model="sendResumeDialogVisible"
+      title="发送简历"
+      width="800px"
+      :close-on-click-modal="false"
+    >
+      <el-form
+        ref="sendResumeFormRef"
+        :model="sendResumeForm"
+        :rules="sendResumeRules"
+        label-width="100px"
+      >
+        <el-form-item label="收件人" prop="toEmail">
+          <el-input
+            v-model="sendResumeForm.toEmail"
+            placeholder="请输入收件人邮箱"
+            maxlength="25"
+            show-word-limit
+          >
+            <template #prepend>
+              <el-icon><User /></el-icon>
+            </template>
+          </el-input>
+        </el-form-item>
+        
+        <el-form-item label="邮件主题" prop="subject">
+          <el-input
+            v-model="sendResumeForm.subject"
+            placeholder="请输入邮件主题"
+            maxlength="100"
+            show-word-limit
+          />
+        </el-form-item>
+        
+        <el-form-item label="邮件内容">
+          <el-input
+            v-model="sendResumeForm.htmlContent"
+            type="textarea"
+            :rows="6"
+            placeholder="请输入邮件内容"
+          />
+          <div style="font-size: 12px; color: #909399; margin-top: 4px;">
+            邮件内容将作为简历说明一同发送
+          </div>
+        </el-form-item>
+      </el-form>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="sendResumeDialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="handleSendResumeSubmit" :loading="sendingResume">
+            <el-icon><Promotion /></el-icon>
+            发送简历
+          </el-button>
+        </div>
+      </template>
+    </el-dialog>
 </template>
 
 <script setup lang="ts">
@@ -293,7 +360,8 @@ import {
   DataAnalysis,
   Connection,
   MagicStick,
-  Message
+  Message,
+  Promotion
 } from '@element-plus/icons-vue'
 
 const route = useRoute()
@@ -485,6 +553,101 @@ const fetchUserInfo = async (silent: boolean = false) => {
     if (!silent) {
       console.error('❌ AdminLayout: 获取用户信息失败，15秒后重试', error)
     }
+  }
+}
+
+// 发送简历相关
+const sendResumeDialogVisible = ref(false)
+const sendResumeForm = reactive({
+  toEmail: '',
+  subject: '简历分享',
+  htmlContent: ''
+})
+const sendResumeFormRef = ref<FormInstance>()
+const sendingResume = ref(false)
+
+// 邮箱格式验证规则
+const validateEmail = (rule: any, value: string, callback: any) => {
+  if (!value) {
+    callback(new Error('请输入收件人邮箱'))
+  } else {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(value)) {
+      callback(new Error('请输入正确的邮箱格式'))
+    } else if (value.length > 25) {
+      callback(new Error('邮箱长度不能超过25个字符'))
+    } else {
+      callback()
+    }
+  }
+}
+
+const sendResumeRules = {
+  toEmail: [
+    { required: true, validator: validateEmail, trigger: 'blur' }
+  ],
+  subject: [
+    { required: true, message: '请输入邮件主题', trigger: 'blur' },
+    { min: 1, max: 100, message: '主题长度在 1 到 100 个字符', trigger: 'blur' }
+  ]
+}
+
+// 显示发送简历对话框
+const showSendResumeDialog = () => {
+  sendResumeDialogVisible.value = true
+  // 初始化表单数据
+  sendResumeForm.toEmail = ''
+  sendResumeForm.subject = '简历分享'
+  sendResumeForm.htmlContent = '<p>您好，这是我的简历，请查收。</p>'
+}
+
+// 发送简历
+const handleSendResumeSubmit = async () => {
+  if (!sendResumeFormRef.value) return
+  
+  try {
+    await sendResumeFormRef.value.validate()
+    
+    // 获取当前用户信息
+    const currentUserEmail = authStore.user?.adminEmail
+    if (!currentUserEmail) {
+      ElMessage.error('无法获取当前用户邮箱，请重新登录')
+      return
+    }
+    
+    ElMessageBox.confirm(
+      `确定要向 ${sendResumeForm.toEmail} 发送简历吗？`,
+      '确认发送',
+      {
+        type: 'warning',
+        confirmButtonText: '确定发送',
+        cancelButtonText: '取消'
+      }
+    ).then(async () => {
+      try {
+        sendingResume.value = true
+        
+        // 调用邮件发送API
+        await emailApi.sendHtmlEmailSelfDef(
+          currentUserEmail,
+          sendResumeForm.toEmail,
+          sendResumeForm.subject,
+          sendResumeForm.htmlContent
+        )
+        
+        ElMessage.success('简历发送成功')
+        sendResumeDialogVisible.value = false
+      } catch (error: any) {
+        console.error('❌ [发送简历] 发送失败:', error)
+        ElMessage.error('发送失败：' + (error.message || '请稍后重试'))
+      } finally {
+        sendingResume.value = false
+      }
+    }).catch(() => {
+      // 用户取消
+    })
+  } catch (error) {
+    console.log('表单验证失败')
   }
 }
 

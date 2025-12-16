@@ -11,11 +11,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 /**
  * @author shiningCloud2025
  */
 @Slf4j
 @Service
+@Transactional
 public class SendCommunicationEmailServiceImpl implements SendCommunicationEmailService {
 
     @Resource
@@ -58,9 +61,9 @@ public class SendCommunicationEmailServiceImpl implements SendCommunicationEmail
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
-            helper.setFrom(fromEmail);
+            helper.setFrom(defaultFromEmail);
             helper.setTo(toEmail);
-            helper.setSubject(subject); // 使用配置文件中的默认主题
+            helper.setSubject(subject+"----发送人:"+fromEmail); // 使用配置文件中的默认主题
             helper.setText(content, false); // false 表示发送纯文本
 
             // 3. 发送邮件
@@ -137,9 +140,9 @@ public class SendCommunicationEmailServiceImpl implements SendCommunicationEmail
             // 注意：这里的第二个参数 "true" 表示邮件是多部分的（multipart），这对于发送HTML是必要的
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
-            helper.setFrom(fromEmail);
+            helper.setFrom(defaultFromEmail);
             helper.setTo(toEmail);
-            helper.setSubject(subject);
+            helper.setSubject(subject+"----发送人:"+fromEmail);
             // 核心改动：第二个参数设置为 true，表示内容是 HTML
             helper.setText(htmlContent, true);
 
