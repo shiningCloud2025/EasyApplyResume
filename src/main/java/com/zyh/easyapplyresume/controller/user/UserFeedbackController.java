@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/user/feedback")
-@Tag(name = "用户反馈信息管理接口-用户端+管理端")
+@Tag(name = "用户反馈信息接口-用户端")
 public class UserFeedbackController {
     @Autowired
     private UserFeedbackService userFeedbackService;
@@ -31,29 +31,7 @@ public class UserFeedbackController {
         return BaseResult.ok();
     }
 
-    @Operation(summary = "更新反馈阶段")
-    @PostMapping("/updateFeedbackStep")
-    public BaseResult<?> updateFeedbackStep(@RequestParam(required = true,value = "feedbackId") Integer feedbackId,
-                                            @RequestParam(required = true,value = "OperationCode") Integer OperationCode,
-                                            @RequestBody UserUpdateFeedbackForm userUpdateFeedbackForm,
-                                            @RequestParam(required = true,value = "operationPersonId") Integer operationPersonId) {
-        userFeedbackService.updateFeedbackStep(feedbackId, OperationCode, userUpdateFeedbackForm.getTitle(), userUpdateFeedbackForm.getContent(), operationPersonId);
-        return BaseResult.ok();
-    }
 
-    @Operation(summary = "查询反馈信息")
-    @GetMapping("/findFeedbackById")
-    public BaseResult<UserFeedbackInfoVO> findFeedbackById(@RequestParam(required = true,value = "feedbackId") Integer feedbackId) {
-        return BaseResult.ok(userFeedbackService.findFeedbackById(feedbackId));
-    }
-
-    @Operation(summary = "分页查询反馈信息")
-    @PostMapping("/getFeedbackPage")
-    public BaseResult<Page<UserFeedbackPageVO>> getFeedbackPage(@RequestParam(required = true,value = "size") Integer size,
-                                                                @RequestParam(required = true,value = "page") Integer page,
-                                                                @RequestBody UserFeedbackQuery userFeedbackQuery) {
-        return BaseResult.ok(userFeedbackService.getFeedbackPage(size, page, userFeedbackQuery));
-    }
 
 
 }

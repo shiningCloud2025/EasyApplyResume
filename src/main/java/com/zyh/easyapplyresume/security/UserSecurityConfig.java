@@ -35,7 +35,7 @@ public class UserSecurityConfig {
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth->auth
                         // 放行省份查询,注册需要使用
-                        .requestMatchers("/userprovinceMap/**").permitAll()
+                        .requestMatchers("/user/provinceMap/**").permitAll()
                         // 放行城市查询,注册需要使用
                         .requestMatchers("/user/cityMap/**").permitAll()
                         // 放行大学查询,注册需要使用

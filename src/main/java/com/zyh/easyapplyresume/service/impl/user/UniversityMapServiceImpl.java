@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+/**
+ * @author shiningCloud2025
+ */
 @Transactional
 @Service
 @Slf4j
@@ -26,6 +29,7 @@ public class UniversityMapServiceImpl implements UniversityMapService {
         }
         catch (Exception e){
             log.error("获取所有大学信息失败");
+            e.printStackTrace();
         }
         return null;
     }
