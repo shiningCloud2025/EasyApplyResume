@@ -63,11 +63,7 @@
         style="width: 100%"
       >
         <el-table-column prop="adminFeedbackRecordId" label="记录ID" width="80" />
-        <el-table-column prop="adminFeedbackRecordAdminId" label="反馈人ID" width="100" align="center">
-          <template #default="{ row }">
-            <el-tag size="small" type="info">{{ row.adminFeedbackRecordAdminId }}</el-tag>
-          </template>
-        </el-table-column>
+        <el-table-column prop="adminFeedbackRecordAdminId" label="反馈人ID" width="100" align="center" />
         <el-table-column prop="adminFeedbackRecordName" label="反馈人" width="120" />
         <el-table-column prop="adminFeedbackRecordTitle" label="反馈标题" min-width="200" show-overflow-tooltip />
         <el-table-column label="反馈内容" min-width="150">
@@ -156,7 +152,7 @@
           {{ currentRecord.adminFeedbackRecordId }}
         </el-descriptions-item>
         <el-descriptions-item label="反馈人ID">
-          <el-tag size="small" type="info">{{ currentRecord.adminFeedbackRecordAdminId }}</el-tag>
+          {{ currentRecord.adminFeedbackRecordAdminId }}
         </el-descriptions-item>
         <el-descriptions-item label="反馈人姓名" :span="2">
           <strong>{{ currentRecord.adminFeedbackRecordName }}</strong>

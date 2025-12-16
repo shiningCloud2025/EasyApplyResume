@@ -34,18 +34,18 @@ public class AIResumeAssistantController {
 
     @Operation(summary = "AI简历助手应用对话")
     @PostMapping(value = "/application/chat",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public BaseResult<Flux<String>> applicationChat(@RequestBody String message,
+    public Flux<String> applicationChat(@RequestBody String message,
                                                    @RequestParam(required = false,value = "chatId") String chatId){
         chatId = UUID.randomUUID().toString();
-        return BaseResult.ok(aiResumeAssistant.AiResumeAssistantDoChatWithStream(message,chatId));
+        return aiResumeAssistant.AiResumeAssistantDoChatWithStream(message,chatId);
     }
 
     @Operation(summary = "AI简历助手Agent对话")
     @PostMapping(value = "/agent/chat")
-    public BaseResult<SseEmitter> agentChat(@RequestBody String message, @RequestParam(required = false,value = "chatId") String chatId){
+    public SseEmitter agentChat(@RequestBody String message, @RequestParam(required = false,value = "chatId") String chatId){
         chatId = UUID.randomUUID().toString();
         ResumeAssistantAgent resumeAssistantAgent = new ResumeAssistantAgent(allTools,dashscopeChatModel);
-        return BaseResult.ok(resumeAssistantAgent.runStream(message,chatId));
+        return resumeAssistantAgent.runStream(message,chatId);
     }
 
 }
