@@ -444,3 +444,41 @@ export interface AreaMap {
   areaMapAname: string
   areaMapCid: number
 }
+
+// ============= 用户反馈（UserFeedback）=============
+// 用户反馈查询
+export interface UserFeedbackQuery {
+  userFeedbackTitle?: string
+  userFeedbackContent?: string
+}
+
+// 用户反馈分页VO
+export interface UserFeedbackPageVO {
+  userFeedbackId: number
+  userFeedbackTitle: string
+  userFeedbackContent: string
+  userFeedbackTime: string
+  userFeedbackRecentTime: string
+  userFeedbackCurStep: string
+  userFeedbackUserId: number
+  userFeedbackUserName: string
+}
+
+// 用户反馈详情VO
+export interface UserFeedbackInfoVO {
+  userFeedbackId: number
+  userFeedbackTitle: string
+  userFeedbackContent: string
+  userFeedbackTime: string
+  userFeedbackRecentTime: string
+  userFeedbackCurStep: string
+  userFeedbackUserId: number
+  userFeedbackUserName: string
+}
+
+// 用户反馈更新表单
+export interface UserUpdateFeedbackForm {
+  operationCode: number
+  title: string
+  content: string
+}

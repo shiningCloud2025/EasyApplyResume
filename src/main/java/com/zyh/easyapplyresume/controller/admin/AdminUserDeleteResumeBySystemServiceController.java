@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/userDeleteResumeBySystemService")
 @Tag(name = "系统回收用户删除的简历控制器-管理端")
-public class UserDeleteResumeBySystemServiceController {
+public class AdminUserDeleteResumeBySystemServiceController {
     @Autowired
     private UserDeleteResumeBySystemService userDeleteResumeBySystemService;
 

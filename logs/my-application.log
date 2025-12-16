@@ -3160,3 +3160,330 @@ This generated password is for development use only. Your security configuration
 2025-12-16 20:05:33.997 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap
 2025-12-16 20:05:33.997 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 
 2025-12-16 20:05:35.138 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 12200
+2025-12-16 20:09:04.420 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 20:09:04.421 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 20:09:04.421 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 20:09:04.421 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 20:09:04.462 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 20:09:04.463 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 20:09:04.476 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 20:09:04.464 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 20:09:04.477 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 20:09:04.477 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 20:09:04.527 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 20:09:04.537 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 20:09:04.875 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectList - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE deleted=0 AND (deleted = ?)
+2025-12-16 20:09:04.876 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectList - ==> Parameters: 0(Integer)
+2025-12-16 20:09:04.916 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectList - <==      Total: 1
+2025-12-16 20:09:04.928 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 20:09:04.929 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 20:09:04.966 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 20:09:04.966 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 20:09:04.967 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 20:09:05.005 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 20:09:05.048 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 20:09:05.049 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 20:09:05.090 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 20:09:23.925 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 20:09:23.926 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 20:09:23.986 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 20:09:23.987 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 20:09:23.988 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 20:09:24.028 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 20:09:24.125 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminFeedback_id,adminFeedback_title,adminFeedback_content,adminFeedback_time,adminFeedback_recentTime,adminFeedback_curStep,adminFeedback_adminId FROM admin_adminFeedback ORDER BY adminFeedback_id DESC
+2025-12-16 20:09:24.125 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2025-12-16 20:09:24.187 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 7
+2025-12-16 20:09:24.196 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 20:09:24.197 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 20:09:24.294 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 20:13:17.094 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition
+2025-12-16 20:13:17.095 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 
+2025-12-16 20:13:17.142 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-16 20:13:18.518 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.P.selectList - ==>  Preparing: SELECT provinceMap_pid,provinceMap_pname FROM general_provinceMap
+2025-12-16 20:13:18.520 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.P.selectList - ==> Parameters: 
+2025-12-16 20:13:18.579 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.P.selectList - <==      Total: 34
+2025-12-16 20:13:21.274 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==>  Preparing: SELECT cityMap_cid,cityMap_cname,cityMap_pid FROM general_cityMap WHERE (cityMap_pid = ?)
+2025-12-16 20:13:21.275 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==> Parameters: 2(Integer)
+2025-12-16 20:13:21.313 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - <==      Total: 16
+2025-12-16 20:14:37.246 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:14:37.398 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:14:37.528 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:14:37.592 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:14:37.728 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:14:37.834 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:14:54.252 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:14:54.253 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %dong%(String)
+2025-12-16 20:14:54.253 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:14:54.253 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:14:54.253 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %do%(String)
+2025-12-16 20:14:54.253 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:14:54.253 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:14:54.253 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %dongbe%(String)
+2025-12-16 20:14:54.252 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:14:54.254 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %don%(String)
+2025-12-16 20:14:54.254 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %d%(String)
+2025-12-16 20:14:54.254 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %dongb%(String)
+2025-12-16 20:14:54.422 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:14:54.422 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:14:54.422 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:14:54.422 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 21
+2025-12-16 20:14:54.422 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 1
+2025-12-16 20:14:54.422 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:14:54.884 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:14:56.879 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:14:56.880 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %dongbei%(String)
+2025-12-16 20:14:56.952 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:14:56.952 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:14:56.952 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:14:56.952 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:14:56.952 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:15:02.939 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:15:04.153 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:15:04.153 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:15:04.153 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:15:04.153 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:15:04.153 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %东北d%(String)
+2025-12-16 20:15:04.153 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %东北daxu%(String)
+2025-12-16 20:15:04.153 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %东北da%(String)
+2025-12-16 20:15:04.153 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %东北dax%(String)
+2025-12-16 20:15:04.154 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:15:04.154 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %东北%(String)
+2025-12-16 20:15:04.218 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:15:04.219 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 51
+2025-12-16 20:15:04.234 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:15:04.244 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:15:04.245 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:15:04.290 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:08.893 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=2m34s71ms839µs600ns).
+2025-12-16 20:17:08.901 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m31s706ms906µs500ns).
+2025-12-16 20:17:08.920 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:08.921 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %东北daxue%(String)
+2025-12-16 20:17:08.952 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:08.952 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:08.953 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:08.954 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:08.954 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %dongbe%(String)
+2025-12-16 20:17:08.955 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %东北大学%(String)
+2025-12-16 20:17:08.967 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:08.968 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:08.969 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %do%(String)
+2025-12-16 20:17:08.977 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:08.988 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:08.989 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:08.989 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %dongb%(String)
+2025-12-16 20:17:09.001 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:09.001 [http-nio-8080-exec-12] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:09.001 [http-nio-8080-exec-11] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:09.002 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:09.002 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:09.002 [http-nio-8080-exec-11] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:09.004 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:09.004 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %don%(String)
+2025-12-16 20:17:09.004 [http-nio-8080-exec-13] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:09.004 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:09.004 [http-nio-8080-exec-11] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %dong%(String)
+2025-12-16 20:17:09.004 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 8
+2025-12-16 20:17:09.004 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %dongbei%(String)
+2025-12-16 20:17:09.004 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:09.004 [http-nio-8080-exec-13] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:09.004 [http-nio-8080-exec-13] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %东北%(String)
+2025-12-16 20:17:09.004 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %d%(String)
+2025-12-16 20:17:09.013 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 1
+2025-12-16 20:17:09.093 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:09.093 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:09.093 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 21
+2025-12-16 20:17:09.093 [http-nio-8080-exec-11] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:09.093 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:09.095 [http-nio-8080-exec-13] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 51
+2025-12-16 20:17:14.570 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:14.572 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:14.572 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %d%(String)
+2025-12-16 20:17:14.626 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 21
+2025-12-16 20:17:14.821 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:14.823 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:14.823 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %do%(String)
+2025-12-16 20:17:14.898 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 1
+2025-12-16 20:17:14.976 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:14.977 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:14.982 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %don%(String)
+2025-12-16 20:17:15.029 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:15.032 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:15.034 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:15.036 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %dong%(String)
+2025-12-16 20:17:15.099 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:15.148 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:15.151 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:15.162 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %dongb%(String)
+2025-12-16 20:17:15.202 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:15.205 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:15.205 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %dongbe%(String)
+2025-12-16 20:17:15.208 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:15.253 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:15.333 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:15.338 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:15.339 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %dongbei%(String)
+2025-12-16 20:17:15.384 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:15.441 [http-nio-8080-exec-12] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:15.444 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:15.444 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %东北%(String)
+2025-12-16 20:17:15.503 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 51
+2025-12-16 20:17:16.632 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:16.635 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:16.635 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %东北d%(String)
+2025-12-16 20:17:16.689 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:16.759 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:16.761 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:16.762 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %东北da%(String)
+2025-12-16 20:17:16.777 [http-nio-8080-exec-11] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:16.779 [http-nio-8080-exec-11] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:16.781 [http-nio-8080-exec-11] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %东北dax%(String)
+2025-12-16 20:17:16.812 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:16.845 [http-nio-8080-exec-11] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:17.318 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:17.320 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:17.320 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %东北大学%(String)
+2025-12-16 20:17:17.368 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 8
+2025-12-16 20:17:22.786 [http-nio-8080-exec-13] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:22.787 [http-nio-8080-exec-13] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:22.788 [http-nio-8080-exec-13] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %l%(String)
+2025-12-16 20:17:22.835 [http-nio-8080-exec-13] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 9
+2025-12-16 20:17:22.867 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:22.869 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:22.870 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %li%(String)
+2025-12-16 20:17:22.935 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:22.936 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:22.939 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:22.949 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %lia%(String)
+2025-12-16 20:17:23.011 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:24.225 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:24.227 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:24.228 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %lian%(String)
+2025-12-16 20:17:24.274 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:25.458 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:25.460 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:25.461 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %连%(String)
+2025-12-16 20:17:25.564 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 119
+2025-12-16 20:17:26.020 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:26.021 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:26.022 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %l%(String)
+2025-12-16 20:17:26.070 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 9
+2025-12-16 20:17:26.187 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:26.188 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:26.188 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %li%(String)
+2025-12-16 20:17:26.233 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:26.356 [http-nio-8080-exec-12] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:26.359 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:26.360 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liao%(String)
+2025-12-16 20:17:26.397 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:26.398 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:26.400 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %lia%(String)
+2025-12-16 20:17:26.410 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:26.446 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:26.508 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:26.510 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:26.511 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liaon%(String)
+2025-12-16 20:17:26.558 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:26.677 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:26.679 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:26.680 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁%(String)
+2025-12-16 20:17:26.730 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 93
+2025-12-16 20:17:27.550 [http-nio-8080-exec-11] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:27.552 [http-nio-8080-exec-11] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:27.552 [http-nio-8080-exec-11] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁g%(String)
+2025-12-16 20:17:27.599 [http-nio-8080-exec-11] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:27.644 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:27.646 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:27.648 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁go%(String)
+2025-12-16 20:17:27.697 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:27.715 [http-nio-8080-exec-13] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:27.716 [http-nio-8080-exec-13] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:27.716 [http-nio-8080-exec-13] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gon%(String)
+2025-12-16 20:17:27.762 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:27.763 [http-nio-8080-exec-13] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:27.763 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:27.764 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gong%(String)
+2025-12-16 20:17:27.813 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:27.976 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:27.977 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:27.979 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gongc%(String)
+2025-12-16 20:17:28.025 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:17:28.066 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:17:28.068 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:17:28.069 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁工程%(String)
+2025-12-16 20:17:28.122 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 3
+2025-12-16 20:18:08.452 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:18:08.454 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:18:08.455 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %l%(String)
+2025-12-16 20:18:08.505 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 9
+2025-12-16 20:18:08.770 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:18:08.771 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:18:08.772 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %li%(String)
+2025-12-16 20:18:08.822 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:18:09.245 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:18:09.246 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:18:09.247 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %l%(String)
+2025-12-16 20:18:09.303 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 9
+2025-12-16 20:18:09.355 [http-nio-8080-exec-12] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:18:09.357 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:18:09.359 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %%(String)
+2025-12-16 20:18:13.225 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 12200
+2025-12-16 20:19:02.718 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:19:02.721 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:19:02.722 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %l%(String)
+2025-12-16 20:19:02.781 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 9
+2025-12-16 20:19:02.892 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:19:02.894 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:19:02.894 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %li%(String)
+2025-12-16 20:19:02.940 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:19:03.310 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:19:03.312 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:19:03.313 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %lia%(String)
+2025-12-16 20:19:03.360 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:19:03.422 [http-nio-8080-exec-12] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:19:03.424 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:19:03.425 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liao%(String)
+2025-12-16 20:19:03.472 [http-nio-8080-exec-12] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:19:03.935 [http-nio-8080-exec-11] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:19:03.942 [http-nio-8080-exec-11] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:19:03.943 [http-nio-8080-exec-11] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liaon%(String)
+2025-12-16 20:19:03.989 [http-nio-8080-exec-11] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:19:04.045 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:19:04.047 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:19:04.050 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁%(String)
+2025-12-16 20:19:04.112 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 93
+2025-12-16 20:19:06.545 [http-nio-8080-exec-13] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:19:06.546 [http-nio-8080-exec-13] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:19:06.547 [http-nio-8080-exec-13] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁g%(String)
+2025-12-16 20:19:06.601 [http-nio-8080-exec-13] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:19:06.968 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:19:06.969 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:19:06.970 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁go%(String)
+2025-12-16 20:19:07.018 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:19:07.027 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:19:07.029 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:19:07.030 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gog%(String)
+2025-12-16 20:19:07.081 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:19:07.083 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:19:07.084 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gogn%(String)
+2025-12-16 20:19:07.092 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:19:07.131 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:19:07.205 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:19:07.209 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:19:07.211 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gognc%(String)
+2025-12-16 20:19:07.258 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 20:19:07.357 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 20:19:07.362 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 20:19:07.363 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁工程%(String)
+2025-12-16 20:19:07.411 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 3
+2025-12-16 20:20:34.531 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-16 20:20:34.532 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-12-16 20:20:34.533 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-12-16 20:20:34.533 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-16 20:20:34.643 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-16 20:20:34.650 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-16 20:20:34.651 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-16 20:20:34.661 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-16 20:20:34.663 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-16 20:20:34.666 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-16 20:20:34.676 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-16 20:20:34.698 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.

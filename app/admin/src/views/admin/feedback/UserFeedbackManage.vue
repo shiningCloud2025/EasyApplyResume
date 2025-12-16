@@ -18,31 +18,26 @@
       <el-form :model="searchForm" :inline="true" class="search-form">
         <el-form-item label="反馈标题">
           <el-input
-            v-model="searchForm.title"
-            placeholder="请输入标题"
+            v-model="searchForm.userFeedbackTitle"
+            placeholder="请输入反馈标题"
             clearable
             style="width: 240px"
           />
         </el-form-item>
-        <el-form-item label="处理状态">
-          <el-select
-            v-model="searchForm.status"
-            placeholder="请选择"
+        <el-form-item label="反馈内容">
+          <el-input
+            v-model="searchForm.userFeedbackContent"
+            placeholder="请输入反馈内容"
             clearable
-            style="width: 180px"
-          >
-            <el-option label="待处理" value="pending" />
-            <el-option label="待回复" value="waiting_reply" />
-            <el-option label="已回复" value="replied" />
-            <el-option label="已忽视" value="ignored" />
-          </el-select>
+            style="width: 240px"
+          />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSearch">
             <el-icon><Search /></el-icon>
             搜索
           </el-button>
-          <el-button @click="resetSearch">
+          <el-button @click="handleReset">
             <el-icon><RefreshRight /></el-icon>
             重置
           </el-button>
@@ -61,17 +56,21 @@
         :data="feedbackList"
         style="width: 100%"
       >
-        <el-table-column prop="id" label="ID" width="70" />
-        <el-table-column prop="title" label="标题" min-width="200" />
-        <el-table-column prop="userName" label="用户" min-width="120" />
-        <el-table-column prop="status" label="状态" width="100">
+        <el-table-column prop="userFeedbackId" label="反馈ID" width="80" />
+        <el-table-column prop="userFeedbackTitle" label="反馈标题" min-width="200" />
+        <el-table-column prop="userFeedbackUserName" label="用户姓名" min-width="120" />
+        <el-table-column prop="userFeedbackCurStep" label="当前阶段" width="100">
           <template #default="{ row }">
-            <el-tag :type="getStatusType(row.status)" size="small">
-              {{ getStatusText(row.status) }}
+            <el-tag :type="getStatusType(row.userFeedbackCurStep)">
+              {{ row.userFeedbackCurStep }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="提交时间" min-width="160" />
+        <el-table-column prop="userFeedbackTime" label="提交时间" min-width="160">
+          <template #default="{ row }">
+            {{ formatDate(row.userFeedbackTime) }}
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="280" fixed="right">
           <template #default="{ row }">
             <el-button
@@ -81,22 +80,41 @@
             >
               详情
             </el-button>
-            <el-button
-              v-if="row.status === 'pending'"
-              type="primary"
-              size="default"
-              @click="handleProcess(row)"
-            >
-              处理
-            </el-button>
-            <el-button
-              v-if="row.status === 'waiting_reply'"
-              type="success"
-              size="default"
-              @click="handleReply(row)"
-            >
-              回复
-            </el-button>
+            <!-- 待处理状态：显示接受和忽视按钮 -->
+            <template v-if="row.userFeedbackCurStep === '待处理'">
+              <el-button
+                type="primary"
+                size="default"
+                @click="handleProcess(row, 0, '接受')"
+              >
+                接受
+              </el-button>
+              <el-button
+                type="warning"
+                size="default"
+                @click="handleProcess(row, 1, '忽视')"
+              >
+                忽视
+              </el-button>
+            </template>
+            <!-- 待回复状态：显示回复和拒回复按钮 -->
+            <template v-else-if="row.userFeedbackCurStep === '待回复'">
+              <el-button
+                type="primary"
+                size="default"
+                @click="handleProcess(row, 2, '回复')"
+              >
+                回复
+              </el-button>
+              <el-button
+                type="danger"
+                size="default"
+                @click="handleProcess(row, 3, '拒回复')"
+              >
+                拒回复
+              </el-button>
+            </template>
+            <!-- 已回复、忽视、拒回复状态：不显示处理按钮 -->
           </template>
         </el-table-column>
       </el-table>
@@ -114,72 +132,141 @@
         />
       </div>
     </el-card>
+
+    <!-- 查看详情对话框 -->
+    <el-dialog
+      v-model="showDetailDialog"
+      title="反馈详情"
+      width="700px"
+    >
+      <div class="feedback-detail" v-if="currentDetail">
+        <el-descriptions :column="1" border>
+          <el-descriptions-item label="用户反馈ID">
+            {{ currentDetail.userFeedbackId }}
+          </el-descriptions-item>
+          <el-descriptions-item label="反馈标题">
+            {{ currentDetail.userFeedbackTitle }}
+          </el-descriptions-item>
+          <el-descriptions-item label="反馈提交时间">
+            {{ formatDate(currentDetail.userFeedbackTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="最近一次处理时间">
+            {{ formatDate(currentDetail.userFeedbackRecentTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="反馈现阶段">
+            <el-tag :type="getStatusType(currentDetail.userFeedbackCurStep)">
+              {{ currentDetail.userFeedbackCurStep }}
+            </el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="提交反馈的用户ID">
+            {{ currentDetail.userFeedbackUserId }}
+          </el-descriptions-item>
+          <el-descriptions-item label="提交反馈的用户姓名">
+            {{ currentDetail.userFeedbackUserName }}
+          </el-descriptions-item>
+        </el-descriptions>
+      </div>
+    </el-dialog>
+
+    <!-- 查看反馈内容对话框 -->
+    <el-dialog
+      v-model="contentDialogVisible"
+      title="反馈内容"
+      width="800px"
+      :before-close="() => { contentDialogVisible = false }"
+    >
+      <template #header>
+        <div class="dialog-header">
+          <span class="el-dialog__title">反馈内容</span>
+          <button class="el-dialog__headerbtn" @click="contentDialogVisible = false">
+            <i class="el-dialog__close el-icon el-icon-close"></i>
+          </button>
+        </div>
+      </template>
+      <div class="feedback-content">
+        <div class="content-title" v-if="currentContent && currentContent.userFeedbackTitle">
+          <h3>{{ currentContent.userFeedbackTitle }}</h3>
+        </div>
+        <div class="content-body" v-if="currentContent">
+          <div v-html="currentContent.userFeedbackContent"></div>
+        </div>
+      </div>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="contentDialogVisible = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
+import { userFeedbackApi } from '@/api/admin'
+import type { UserFeedbackPageVO, UserFeedbackInfoVO, UserFeedbackQuery } from '@/types/admin'
+import { useAuthStore } from '@/store/auth'
 
 // 响应式数据
 const loading = ref(false)
+const showDetailDialog = ref(false)
+const contentDialogVisible = ref(false)
+const currentDetail = ref<UserFeedbackInfoVO | null>(null)
+const currentContent = ref<UserFeedbackInfoVO | null>(null)
 
-const searchForm = reactive({
-  title: '',
-  status: ''
+const searchForm = reactive<UserFeedbackQuery>({
+  userFeedbackTitle: '',
+  userFeedbackContent: ''
 })
 
 const pagination = reactive({
   current: 1,
   size: 10,
-  total: 1
+  total: 0
 })
 
-const feedbackList = ref([
-  {
-    id: 1,
-    title: '简历模板建议',
-    userName: '张三',
-    status: 'pending',
-    createTime: '2024-03-15 10:30'
-  }
-])
+const feedbackList = ref<UserFeedbackPageVO[]>([])
 
+// 获取状态标签类型
 const getStatusType = (status: string) => {
-  const map: Record<string, string> = {
-    'pending': 'warning',
-    'waiting_reply': 'primary',
-    'replied': 'success',
-    'ignored': 'info'
+  const statusMap: Record<string, string> = {
+    '待处理': 'warning',
+    '待回复': 'primary',
+    '已回复': 'success',
+    '已忽视': 'info',
+    '拒回复': 'danger'
   }
-  return map[status] || 'info'
+  return statusMap[status] || 'info'
 }
 
-const getStatusText = (status: string) => {
-  const map: Record<string, string> = {
-    'pending': '待处理',
-    'waiting_reply': '待回复',
-    'replied': '已回复',
-    'ignored': '已忽视'
-  }
-  return map[status] || status
+// 格式化日期
+const formatDate = (dateString: string) => {
+  if (!dateString) return ''
+  const date = new Date(dateString)
+  return date.toLocaleString('zh-CN', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  }).replace(/\//g, '-')
 }
 
 // 获取反馈列表
 const getFeedbackList = async () => {
   loading.value = true
   try {
-    // TODO: 调用实际API
-    // const response = await feedbackApi.getUserFeedbackPage(
-    //   pagination.current,
-    //   pagination.size,
-    //   searchForm
-    // )
-    // feedbackList.value = response.data.records
-    // pagination.total = response.data.total
+    const response = await userFeedbackApi.getUserFeedbackPage(
+      pagination.size,
+      pagination.current,
+      searchForm
+    )
+    feedbackList.value = response.data.records
+    pagination.total = response.data.total
   } catch (error) {
-    console.error('获取反馈列表失败:', error)
+    console.error('获取用户反馈列表失败:', error)
     ElMessage.error('加载数据失败')
   } finally {
     loading.value = false
@@ -193,9 +280,9 @@ const handleSearch = () => {
 }
 
 // 重置搜索
-const resetSearch = () => {
-  searchForm.title = ''
-  searchForm.status = ''
+const handleReset = () => {
+  searchForm.userFeedbackTitle = ''
+  searchForm.userFeedbackContent = ''
   pagination.current = 1
   getFeedbackList()
 }
@@ -217,23 +304,69 @@ const handleCurrentChange = (current: number) => {
 }
 
 // 查看详情
-const handleDetail = (row: any) => {
-  ElMessage.info('查看用户反馈详情')
+const handleDetail = async (row: UserFeedbackPageVO) => {
+  try {
+    const response = await userFeedbackApi.getUserFeedbackDetail(row.userFeedbackId)
+    currentDetail.value = response.data
+    showDetailDialog.value = true
+  } catch (error) {
+    console.error('获取反馈详情失败:', error)
+    ElMessage.error('获取详情失败')
+  }
 }
 
-// 处理反馈
-const handleProcess = (row: any) => {
-  ElMessage.success('处理反馈')
+// 查看反馈内容
+const handleShowContent = async (row: UserFeedbackPageVO) => {
+  try {
+    const response = await userFeedbackApi.getUserFeedbackDetail(row.userFeedbackId)
+    currentContent.value = response.data
+    contentDialogVisible.value = true
+  } catch (error) {
+    console.error('获取反馈内容失败:', error)
+    ElMessage.error('获取内容失败')
+  }
 }
 
-// 回复反馈
-const handleReply = (row: any) => {
-  ElMessage.success('回复反馈')
+// 处理反馈（接受/忽视/回复/拒回复）
+const handleProcess = (row: UserFeedbackPageVO, operationCode: number, action: string) => {
+  ElMessageBox.prompt(`请输入${action}理由：`, `${action}反馈`, {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    inputPattern: /^.{1,200}$/,
+    inputErrorMessage: '理由长度应在1-200个字符之间'
+  }).then(async ({ value }) => {
+    try {
+      const authStore = useAuthStore()
+      const adminId = authStore.user?.adminId
+      
+      if (!adminId) {
+        ElMessage.error('无法获取管理员信息，请重新登录')
+        return
+      }
+      
+      await userFeedbackApi.updateUserFeedbackStep(
+        row.userFeedbackId,
+        operationCode,
+        row.userFeedbackTitle,
+        value, // 使用输入的理由作为内容
+        adminId
+      )
+      
+      ElMessage.success(`${action}成功`)
+      // 刷新列表
+      getFeedbackList()
+    } catch (error) {
+      console.error(`${action}反馈失败:`, error)
+      ElMessage.error(`${action}失败`)
+    }
+  }).catch(() => {
+    // 用户取消操作
+  })
 }
 
 // 组件挂载
 onMounted(() => {
-  // getFeedbackList()
+  getFeedbackList()
 })
 </script>
 
@@ -297,32 +430,34 @@ onMounted(() => {
     }
   }
 
-  .pagination-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 24px;
-  }
-}
-
-// 响应式设计
-@media (max-width: 768px) {
-  .user-feedback-manage {
-    .page-header {
-      flex-direction: column;
-      gap: 16px;
+  .feedback-content {
+    padding: 20px;
+    
+    .content-title {
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      
+      h3 {
+        margin: 0;
+        font-size: 20px;
+        color: #333;
+      }
     }
-
-    .header-actions {
-      width: 100%;
-      justify-content: flex-start;
-    }
-
-    .search-form {
-      .el-form-item {
-        width: 100%;
-        margin-bottom: 16px;
+    
+    .content-body {
+      line-height: 1.6;
+      
+      :deep(img) {
+        max-width: 100%;
+        height: auto;
+      }
+      
+      :deep(p) {
+        margin: 10px 0;
       }
     }
   }
 }
 </style>
+</file>
