@@ -16,26 +16,29 @@
     <!-- 搜索和筛选 -->
     <el-card class="search-card">
       <el-form :model="searchForm" :inline="true" class="search-form">
-        <el-form-item label="用户名">
+        <el-form-item label="反馈人">
           <el-input
-            v-model="searchForm.userName"
-            placeholder="请输入用户名"
+            v-model="searchForm.userFeedbackRecordName"
+            placeholder="请输入反馈人姓名"
             clearable
             style="width: 240px"
           />
         </el-form-item>
-        <el-form-item label="状态">
-          <el-select
-            v-model="searchForm.status"
-            placeholder="请选择"
+        <el-form-item label="反馈标题">
+          <el-input
+            v-model="searchForm.userFeedbackRecordTitle"
+            placeholder="请输入反馈标题"
             clearable
-            style="width: 180px"
-          >
-            <el-option label="待处理" value="pending" />
-            <el-option label="待回复" value="waiting_reply" />
-            <el-option label="已回复" value="replied" />
-            <el-option label="已忽视" value="ignored" />
-          </el-select>
+            style="width: 240px"
+          />
+        </el-form-item>
+        <el-form-item label="处理人">
+          <el-input
+            v-model="searchForm.userFeedbackRecordApprovalPersonName"
+            placeholder="请输入处理人姓名"
+            clearable
+            style="width: 240px"
+          />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSearch">
@@ -61,18 +64,19 @@
         :data="records"
         style="width: 100%"
       >
-        <el-table-column prop="id" label="ID" width="70" />
-        <el-table-column prop="title" label="反馈标题" min-width="200" />
-        <el-table-column prop="userName" label="用户名" min-width="120" />
-        <el-table-column prop="status" label="状态" width="100">
+        <el-table-column prop="userFeedbackRecordId" label="记录ID" width="80" />
+        <el-table-column prop="userFeedbackRecordTitle" label="反馈标题" min-width="200" />
+        <el-table-column prop="userFeedbackRecordName" label="反馈人" min-width="120" />
+        <el-table-column prop="userFeedbackRecordNewStep" label="状态" width="100">
           <template #default="{ row }">
-            <el-tag :type="getStatusType(row.status)" size="small">
-              {{ getStatusText(row.status) }}
+            <el-tag :type="getStatusType(row.userFeedbackRecordNewStep)" size="small">
+              {{ row.userFeedbackRecordNewStep }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="提交时间" min-width="160" />
-        <el-table-column prop="recentTime" label="最后更新" min-width="160" />
+        <el-table-column prop="userFeedbackRecordTime" label="提交时间" min-width="160" />
+        <el-table-column prop="userFeedbackRecordCurrentStepSolveTime" label="处理时间" min-width="160" />
+        <el-table-column prop="adminFeedbackRecordApprovalPersonName" label="处理人" min-width="120" />
         <el-table-column label="操作" width="120" fixed="right">
           <template #default="{ row }">
             <el-button
@@ -99,79 +103,100 @@
         />
       </div>
     </el-card>
+
+    <!-- 详情对话框 -->
+    <el-dialog
+      v-model="detailDialogVisible"
+      title="反馈记录详情"
+      width="60%"
+      top="5vh"
+      :before-close="() => { detailDialogVisible = false }"
+    >
+      <div v-if="currentDetail" class="detail-content">
+        <el-descriptions :column="1" border>
+          <el-descriptions-item label="记录ID">
+            {{ currentDetail.userFeedbackRecordId }}
+          </el-descriptions-item>
+          <el-descriptions-item label="反馈标题">
+            {{ currentDetail.userFeedbackRecordTitle }}
+          </el-descriptions-item>
+          <el-descriptions-item label="反馈人">
+            {{ currentDetail.userFeedbackRecordName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="原节点">
+            {{ currentDetail.userFeedbackRecordOldStep }}
+          </el-descriptions-item>
+          <el-descriptions-item label="现阶段">
+            <el-tag :type="getStatusType(currentDetail.userFeedbackRecordNewStep)">
+              {{ currentDetail.userFeedbackRecordNewStep }}
+            </el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="提交时间">
+            {{ currentDetail.userFeedbackRecordTime }}
+          </el-descriptions-item>
+          <el-descriptions-item label="处理时间">
+            {{ currentDetail.userFeedbackRecordCurrentStepSolveTime }}
+          </el-descriptions-item>
+          <el-descriptions-item label="处理人">
+            {{ currentDetail.adminFeedbackRecordApprovalPersonName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="反馈内容" :span="1">
+            <div class="content-display" v-html="currentDetail.userFeedbackRecordContent"></div>
+          </el-descriptions-item>
+        </el-descriptions>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
+import { userFeedbackRecordApi } from '@/api/admin'
+import type { UserFeedbackRecordPageVO, UserFeedbackRecordQuery, UserFeedbackRecordInfoVO } from '@/types/admin'
 
 // 响应式数据
 const loading = ref(false)
+const detailDialogVisible = ref(false)
+const currentDetail = ref<UserFeedbackRecordInfoVO | null>(null)
 
-const searchForm = reactive({
-  userName: '',
-  status: ''
+const searchForm = reactive<UserFeedbackRecordQuery>({
+  userFeedbackRecordName: '',
+  userFeedbackRecordTitle: '',
+  userFeedbackRecordApprovalPersonName: ''
 })
 
 const pagination = reactive({
   current: 1,
   size: 20,
-  total: 100
+  total: 0
 })
 
-const records = ref([
-  {
-    id: 1,
-    title: '功能建议',
-    userName: '用户A',
-    status: 'replied',
-    createTime: '2024-03-15 10:30',
-    recentTime: '2024-03-15 15:30'
-  },
-  {
-    id: 2,
-    title: 'Bug反馈',
-    userName: '用户B',
-    status: 'ignored',
-    createTime: '2024-03-14 09:20',
-    recentTime: '2024-03-14 10:15'
-  }
-])
+const records = ref<UserFeedbackRecordPageVO[]>([])
 
 const getStatusType = (status: string) => {
   const map: Record<string, string> = {
-    'pending': 'warning',
-    'waiting_reply': 'primary',
-    'replied': 'success',
-    'ignored': 'info'
+    '待处理': 'warning',
+    '待回复': 'primary',
+    '已回复': 'success',
+    '已忽视': 'info',
+    '已拒绝': 'danger'
   }
   return map[status] || 'info'
-}
-
-const getStatusText = (status: string) => {
-  const map: Record<string, string> = {
-    'pending': '待处理',
-    'waiting_reply': '待回复',
-    'replied': '已回复',
-    'ignored': '已忽视'
-  }
-  return map[status] || status
 }
 
 // 获取记录列表
 const getRecordsList = async () => {
   loading.value = true
   try {
-    // TODO: 调用实际API
-    // const response = await feedbackApi.getUserFeedbackRecords(
-    //   pagination.current,
-    //   pagination.size,
-    //   searchForm
-    // )
-    // records.value = response.data.records
-    // pagination.total = response.data.total
+    const response = await userFeedbackRecordApi.getUserFeedbackRecordPage(
+      pagination.current,
+      pagination.size,
+      searchForm
+    )
+    records.value = response.data.records
+    pagination.total = response.data.total
   } catch (error) {
     console.error('获取记录列表失败:', error)
     ElMessage.error('加载数据失败')
@@ -188,8 +213,9 @@ const handleSearch = () => {
 
 // 重置搜索
 const resetSearch = () => {
-  searchForm.userName = ''
-  searchForm.status = ''
+  searchForm.userFeedbackRecordName = ''
+  searchForm.userFeedbackRecordTitle = ''
+  searchForm.userFeedbackRecordApprovalPersonName = ''
   pagination.current = 1
   getRecordsList()
 }
@@ -211,13 +237,20 @@ const handleCurrentChange = (current: number) => {
 }
 
 // 查看详情
-const viewDetail = (row: any) => {
-  ElMessage.info('查看反馈详情')
+const viewDetail = async (row: UserFeedbackRecordPageVO) => {
+  try {
+    const response = await userFeedbackRecordApi.getUserFeedbackRecordDetail(row.userFeedbackRecordId)
+    currentDetail.value = response.data
+    detailDialogVisible.value = true
+  } catch (error) {
+    console.error('获取反馈记录详情失败:', error)
+    ElMessage.error('获取详情失败')
+  }
 }
 
 // 组件挂载
 onMounted(() => {
-  // getRecordsList()
+  getRecordsList()
 })
 </script>
 
@@ -308,5 +341,16 @@ onMounted(() => {
       }
     }
   }
+}
+
+.detail-content {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.content-display {
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.6;
 }
 </style>

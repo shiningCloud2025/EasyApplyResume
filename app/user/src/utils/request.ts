@@ -57,12 +57,20 @@ request.interceptors.response.use(
     
     // 检查业务状态码
     if (data.code !== 200) {
-      message.error(data.message || '请求失败')
-      
       // 401: 未登录 或 Token失效
       if (data.code === 401) {
+        message.error('未登录，请先登录')
         removeToken()
-        window.location.href = '/auth/login'
+        setTimeout(() => {
+          window.location.href = '/auth/login'
+        }, 1500)
+      } else if (data.code === 403) {
+        message.error('您未拥有权限')
+        setTimeout(() => {
+          window.location.href = '/403'
+        }, 1500)
+      } else {
+        message.error(data.message || '请求失败')
       }
       
       return Promise.reject(new Error(data.message || 'Error'))
@@ -79,13 +87,18 @@ request.interceptors.response.use(
           errorMessage = '请求参数错误'
           break
         case 401:
-          errorMessage = '未登录或登录已过期'
+          message.error('未登录，请先登录')
           removeToken()
-          window.location.href = '/auth/login'
-          break
+          setTimeout(() => {
+            window.location.href = '/auth/login'
+          }, 1500)
+          return Promise.reject(error)
         case 403:
-          errorMessage = '没有权限访问'
-          break
+          message.error('您未拥有权限')
+          setTimeout(() => {
+            window.location.href = '/403'
+          }, 1500)
+          return Promise.reject(error)
         case 404:
           errorMessage = '请求的资源不存在'
           break

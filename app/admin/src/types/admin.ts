@@ -482,3 +482,40 @@ export interface UserUpdateFeedbackForm {
   title: string
   content: string
 }
+
+// ============= 用户反馈记录（UserFeedbackRecord）=============
+
+// 用户反馈记录查询条件
+export interface UserFeedbackRecordQuery {
+  userFeedbackRecordName?: string          // 反馈人姓名
+  userFeedbackRecordTitle?: string         // 反馈标题
+  userFeedbackRecordApprovalPersonName?: string  // 处理人姓名
+}
+
+// 用户反馈记录分页VO
+export interface UserFeedbackRecordPageVO {
+  userFeedbackRecordId: number             // 反馈记录ID
+  userFeedbackRecordName: string           // 反馈人
+  userFeedbackRecordTitle: string          // 标题
+  userFeedbackRecordContent: string        // 内容
+  userFeedbackRecordTime: string           // 创建时间
+  userFeedbackRecordCurrentStepSolveTime: string  // 处理时间
+  userFeedbackRecordOldStep: string        // 原节点
+  userFeedbackRecordNewStep: string        // 现阶段
+  userFeedbackRecordApprovalPersonId: number    // 处理人ID
+  adminFeedbackRecordApprovalPersonName: string  // 处理人姓名
+}
+
+// 用户反馈记录详情VO
+export interface UserFeedbackRecordInfoVO {
+  userFeedbackRecordId: number             // 反馈记录ID
+  userFeedbackRecordName: string           // 反馈人
+  userFeedbackRecordTitle: string          // 标题
+  userFeedbackRecordContent: string        // 内容
+  userFeedbackRecordTime: string           // 创建时间
+  userFeedbackRecordCurrentStepSolveTime: string  // 处理时间
+  userFeedbackRecordOldStep: string        // 原节点
+  userFeedbackRecordNewStep: string        // 现阶段
+  userFeedbackRecordApprovalPersonId: number    // 处理人ID
+  adminFeedbackRecordApprovalPersonName: string  // 处理人姓名
+}

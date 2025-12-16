@@ -12,6 +12,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import java.io.IOException;
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +28,19 @@ public class UserSecurityConfig {
     // 注入全局的CorsConfigurationSource(跨域处理)
     @Autowired
     private CorsConfigurationSource corsConfigurationSource;
+
+
+    // 自定义未认证请求的响应
+    AuthenticationEntryPoint unauthorizedEntryPoint = new AuthenticationEntryPoint() {
+        @Override
+        public void commence(HttpServletRequest request, HttpServletResponse response,
+                             org.springframework.security.core.AuthenticationException authException)
+                throws IOException, ServletException {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write("{\"code\":401,\"message\":\"未登录，请先登录\"}");
+        }
+    };
     @Bean
     public SecurityFilterChain userSecurityFilterChain(HttpSecurity http) throws Exception{
         http
@@ -43,11 +61,17 @@ public class UserSecurityConfig {
                         // 放行职位查询,注册需要使用
                         .requestMatchers("/user/recruitPosition/queryAllRecruitPositionPage").permitAll()
                         // 验证业务
-                        .requestMatchers("/user/sms").permitAll()
+                        .requestMatchers("/user/sms/**").permitAll()
                         .requestMatchers("/user/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
+                .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedEntryPoint))
                 .addFilterBefore(userJwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
+
+
+
+
 }

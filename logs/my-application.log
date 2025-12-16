@@ -3487,3 +3487,564 @@ This generated password is for development use only. Your security configuration
 2025-12-16 20:20:34.666 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
 2025-12-16 20:20:34.676 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
 2025-12-16 20:20:34.698 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-12-16 22:09:25.527 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-16 22:09:25.531 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-16 22:09:25.532 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-16 22:09:25.542 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-16 22:09:25.560 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-16 22:09:25.678 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 3712 (C:\Users\shini\IdeaProjects\EasyApplyResume\target\classes started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-16 22:09:25.678 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-16 22:09:25.678 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-16 22:09:27.996 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-12-16 22:09:28.002 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-12-16 22:09:28.087 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 55 ms. Found 0 Redis repository interfaces.
+2025-12-16 22:09:28.313 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.314 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.314 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.315 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.316 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.317 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.317 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.318 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.319 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.320 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.322 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.322 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.323 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.324 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.324 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.325 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.326 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.326 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.327 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.328 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.329 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.329 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.330 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.331 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.331 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.332 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-16 22:09:28.336 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-12-16 22:09:28.803 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-12-16 22:09:28.817 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-16 22:09:29.001 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-12-16 22:09:29.002 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-12-16 22:09:29.032 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-16 22:09:29.853 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-16 22:09:29.873 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-16 22:09:29.878 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-16 22:09:29.879 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-12-16 22:09:30.004 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-12-16 22:09:30.005 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4257 ms
+2025-12-16 22:09:31.281 [main] DEBUG c.z.e.filter.UserJwtAuthFilter - Filter 'userJwtAuthFilter' configured for use
+2025-12-16 22:09:31.281 [main] DEBUG c.z.e.filter.AdminJwtAuthFilter - Filter 'adminJwtAuthFilter' configured for use
+2025-12-16 22:09:31.525 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-16 22:09:31.974 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-16 22:09:33.089 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 敏感词初始化完成，共加载 137 个敏感词
+2025-12-16 22:09:35.622 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 12524 (C:\Users\shini\IdeaProjects\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-16 22:09:35.623 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-12-16 22:09:36.788 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-12-16 22:09:36.868 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-12-16 22:09:36.918 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.833 seconds (process running for 3.273)
+2025-12-16 22:09:41.147 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-12-16 22:09:41.167 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-12-16 22:09:44.209 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-16 22:09:44.215 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-16 22:09:44.225 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-16 22:09:50.162 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = fcb1464f-4a0a-469d-bbb0-df8f657fb5c5
+2025-12-16 22:09:50.344 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 2ca94d12-5ece-4ff3-a398-9aee8f13e3f0
+2025-12-16 22:09:50.533 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = b39830d8-1213-42e4-9c36-8051c3179b19
+2025-12-16 22:09:50.757 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-16 22:09:50.776 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-16 22:09:50.808 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserCollections".
+2025-12-16 22:09:50.809 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserCollections ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2025-12-16 22:09:51.075 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-12-16 22:09:51.181 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-12-16 22:09:51.184 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-12-16 22:09:51.184 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-12-16 22:09:51.190 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-16 22:09:51.659 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4b51a287
+2025-12-16 22:09:51.661 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-16 22:09:52.231 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 250832c8-ba63-4b7b-96b1-36cbc84f09b9
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-12-16 22:09:52.244 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-12-16 22:09:53.545 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-16 22:09:53.566 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-12-16 22:09:53.588 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 28.788 seconds (process running for 30.603)
+2025-12-16 22:10:23.950 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-16 22:10:23.951 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-16 22:10:23.952 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-12-16 22:10:24.229 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-12-16 22:10:24.731 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@11c3dc3e
+2025-12-16 22:10:24.732 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-12-16 22:10:24.735 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:10:24.772 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:24.838 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:10:24.844 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:10:24.845 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:24.884 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:10:29.513 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:10:29.514 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:29.551 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:10:29.551 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:10:29.551 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:29.588 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:10:29.645 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:10:29.646 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:29.690 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:10:44.217 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:10:44.218 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:44.231 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:10:44.232 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:44.257 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:10:44.258 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:10:44.258 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:44.270 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:10:44.272 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:10:44.273 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:44.300 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:10:44.315 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:10:44.439 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:10:44.441 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:44.486 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:10:44.487 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:10:44.488 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:44.530 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:10:44.578 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:10:44.578 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:44.614 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:10:44.958 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userFeedbackRecord_id,userFeedbackRecord_title,userFeedbackRecord_content,userFeedbackRecord_time,userFeedbackRecord_currentStepSolveTime,userFeedbackRecord_oldStep,userFeedbackRecord_newStep,userFeedbackRecord_approvalPersonId FROM user_userFeedbackRecord
+2025-12-16 22:10:44.960 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 
+2025-12-16 22:10:44.997 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:10:48.980 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:10:48.981 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:49.018 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:10:49.019 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:10:49.020 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:49.060 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:10:49.159 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminFeedback_id,adminFeedback_title,adminFeedback_content,adminFeedback_time,adminFeedback_recentTime,adminFeedback_curStep,adminFeedback_adminId FROM admin_adminFeedback ORDER BY adminFeedback_id DESC
+2025-12-16 22:10:49.160 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2025-12-16 22:10:49.211 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 7
+2025-12-16 22:10:49.484 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:10:49.487 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:49.540 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:10:55.802 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:10:55.803 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:55.841 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:10:55.841 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:10:55.841 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:10:55.880 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:10:55.926 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userFeedbackRecord_id,userFeedbackRecord_title,userFeedbackRecord_content,userFeedbackRecord_time,userFeedbackRecord_currentStepSolveTime,userFeedbackRecord_oldStep,userFeedbackRecord_newStep,userFeedbackRecord_approvalPersonId FROM user_userFeedbackRecord
+2025-12-16 22:10:55.927 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 
+2025-12-16 22:10:55.963 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:11:01.863 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:01.863 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:01.904 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:01.905 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:01.906 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:01.958 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:02.003 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminFeedback_id,adminFeedback_title,adminFeedback_content,adminFeedback_time,adminFeedback_recentTime,adminFeedback_curStep,adminFeedback_adminId FROM admin_adminFeedback ORDER BY adminFeedback_id DESC
+2025-12-16 22:11:02.004 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2025-12-16 22:11:02.047 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 7
+2025-12-16 22:11:02.049 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:02.049 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:02.105 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:13.920 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:13.921 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:13.961 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:13.961 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:13.962 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:14.000 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:14.004 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:14.005 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:14.041 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminFeedback_id,adminFeedback_title,adminFeedback_content,adminFeedback_time,adminFeedback_recentTime,adminFeedback_curStep,adminFeedback_adminId FROM admin_adminFeedback ORDER BY adminFeedback_id DESC
+2025-12-16 22:11:14.042 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2025-12-16 22:11:14.042 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:14.043 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:14.044 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:14.082 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:14.084 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 7
+2025-12-16 22:11:14.085 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:14.093 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:14.132 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:14.147 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:14.149 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:14.186 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:14.187 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:14.188 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:14.234 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:14.279 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:14.279 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:14.322 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:20.454 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:20.455 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:20.493 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:20.496 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:20.497 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:20.601 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:20.674 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminFeedbackRecord_id,adminFeedbackRecord_adminId,adminFeedbackRecord_title,adminFeedbackRecord_content,adminFeedbackRecord_time,adminFeedbackRecord_currentStepSolveTime,adminFeedbackRecord_oldStep,adminFeedbackRecord_newStep,adminFeedbackRecord_approvalPersonId FROM admin_adminFeedbackRecord ORDER BY adminFeedbackRecord_id DESC
+2025-12-16 22:11:20.674 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2025-12-16 22:11:20.713 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 8
+2025-12-16 22:11:20.805 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:20.817 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:20.858 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:24.087 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:24.088 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:24.127 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:24.127 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:24.128 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:24.166 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:24.213 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userFeedbackRecord_id,userFeedbackRecord_title,userFeedbackRecord_content,userFeedbackRecord_time,userFeedbackRecord_currentStepSolveTime,userFeedbackRecord_oldStep,userFeedbackRecord_newStep,userFeedbackRecord_approvalPersonId FROM user_userFeedbackRecord
+2025-12-16 22:11:24.213 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 
+2025-12-16 22:11:24.251 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:11:26.720 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:26.720 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:26.758 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:26.758 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:26.759 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:26.798 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:26.849 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminFeedback_id,adminFeedback_title,adminFeedback_content,adminFeedback_time,adminFeedback_recentTime,adminFeedback_curStep,adminFeedback_adminId FROM admin_adminFeedback ORDER BY adminFeedback_id DESC
+2025-12-16 22:11:26.849 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2025-12-16 22:11:26.888 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 7
+2025-12-16 22:11:26.890 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:26.891 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:26.930 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:34.715 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:34.716 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:34.719 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:34.720 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:34.725 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:34.726 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:34.732 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:34.732 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:34.736 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:34.737 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:34.756 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:34.758 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:34.758 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:34.758 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:34.758 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:34.759 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:34.761 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:34.762 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:34.762 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:34.769 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:34.771 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:34.771 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:34.775 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:34.776 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:34.776 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:34.801 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:34.802 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:34.804 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:34.807 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:34.813 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:34.842 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminFeedbackRecord_id,adminFeedbackRecord_adminId,adminFeedbackRecord_title,adminFeedbackRecord_content,adminFeedbackRecord_time,adminFeedbackRecord_currentStepSolveTime,adminFeedbackRecord_oldStep,adminFeedbackRecord_newStep,adminFeedbackRecord_approvalPersonId FROM admin_adminFeedbackRecord ORDER BY adminFeedbackRecord_id DESC
+2025-12-16 22:11:34.842 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminFeedbackRecord_id,adminFeedbackRecord_adminId,adminFeedbackRecord_title,adminFeedbackRecord_content,adminFeedbackRecord_time,adminFeedbackRecord_currentStepSolveTime,adminFeedbackRecord_oldStep,adminFeedbackRecord_newStep,adminFeedbackRecord_approvalPersonId FROM admin_adminFeedbackRecord ORDER BY adminFeedbackRecord_id DESC
+2025-12-16 22:11:34.843 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2025-12-16 22:11:34.843 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2025-12-16 22:11:34.852 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userFeedbackRecord_id,userFeedbackRecord_title,userFeedbackRecord_content,userFeedbackRecord_time,userFeedbackRecord_currentStepSolveTime,userFeedbackRecord_oldStep,userFeedbackRecord_newStep,userFeedbackRecord_approvalPersonId FROM user_userFeedbackRecord
+2025-12-16 22:11:34.852 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userFeedbackRecord_id,userFeedbackRecord_title,userFeedbackRecord_content,userFeedbackRecord_time,userFeedbackRecord_currentStepSolveTime,userFeedbackRecord_oldStep,userFeedbackRecord_newStep,userFeedbackRecord_approvalPersonId FROM user_userFeedbackRecord
+2025-12-16 22:11:34.852 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 
+2025-12-16 22:11:34.852 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 
+2025-12-16 22:11:34.861 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userFeedbackRecord_id,userFeedbackRecord_title,userFeedbackRecord_content,userFeedbackRecord_time,userFeedbackRecord_currentStepSolveTime,userFeedbackRecord_oldStep,userFeedbackRecord_newStep,userFeedbackRecord_approvalPersonId FROM user_userFeedbackRecord
+2025-12-16 22:11:34.862 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 
+2025-12-16 22:11:34.883 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 8
+2025-12-16 22:11:34.884 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 8
+2025-12-16 22:11:34.884 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:34.884 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:34.888 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:11:34.888 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:11:34.890 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:34.890 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:34.897 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:11:34.927 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:34.928 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:36.327 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:36.328 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:36.365 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:11:36.367 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-16 22:11:36.367 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:36.405 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-16 22:11:36.448 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminFeedback_id,adminFeedback_title,adminFeedback_content,adminFeedback_time,adminFeedback_recentTime,adminFeedback_curStep,adminFeedback_adminId FROM admin_adminFeedback ORDER BY adminFeedback_id DESC
+2025-12-16 22:11:36.450 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2025-12-16 22:11:36.489 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 7
+2025-12-16 22:11:36.490 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_login_time,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-16 22:11:36.491 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-16 22:11:36.534 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-16 22:12:16.374 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition
+2025-12-16 22:12:16.376 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 
+2025-12-16 22:12:16.418 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-16 22:12:18.309 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.P.selectList - ==>  Preparing: SELECT provinceMap_pid,provinceMap_pname FROM general_provinceMap
+2025-12-16 22:12:18.310 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.P.selectList - ==> Parameters: 
+2025-12-16 22:12:18.350 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.P.selectList - <==      Total: 34
+2025-12-16 22:12:27.195 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:27.245 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:29.277 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:29.940 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:36.070 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==>  Preparing: SELECT cityMap_cid,cityMap_cname,cityMap_pid FROM general_cityMap WHERE (cityMap_pid = ?)
+2025-12-16 22:12:36.070 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==>  Preparing: SELECT cityMap_cid,cityMap_cname,cityMap_pid FROM general_cityMap WHERE (cityMap_pid = ?)
+2025-12-16 22:12:36.070 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:36.070 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:36.070 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:36.070 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:36.070 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==> Parameters: 25(Integer)
+2025-12-16 22:12:36.070 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==> Parameters: 2(Integer)
+2025-12-16 22:12:36.072 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %sh%(String)
+2025-12-16 22:12:36.072 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %是%(String)
+2025-12-16 22:12:36.072 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %%(String)
+2025-12-16 22:12:36.072 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %s%(String)
+2025-12-16 22:12:36.128 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - <==      Total: 16
+2025-12-16 22:12:36.129 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - <==      Total: 16
+2025-12-16 22:12:36.130 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 1
+2025-12-16 22:12:36.131 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 6
+2025-12-16 22:12:36.131 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 28
+2025-12-16 22:12:36.325 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:36.327 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:36.327 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %shang%(String)
+2025-12-16 22:12:36.329 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:36.331 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:36.331 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:36.331 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %sha%(String)
+2025-12-16 22:12:36.331 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:36.331 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:36.332 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:36.332 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:36.332 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:36.332 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %shangha%(String)
+2025-12-16 22:12:36.332 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %shangh%(String)
+2025-12-16 22:12:36.332 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %shan%(String)
+2025-12-16 22:12:36.408 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:36.408 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:36.408 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:36.411 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:36.411 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:36.559 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:36.559 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:36.560 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %shanghai%(String)
+2025-12-16 22:12:36.565 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:36.566 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:36.567 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %上海%(String)
+2025-12-16 22:12:36.607 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:36.607 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:36.608 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:36.608 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==>  Preparing: SELECT cityMap_cid,cityMap_cname,cityMap_pid FROM general_cityMap WHERE (cityMap_pid = ?)
+2025-12-16 22:12:36.609 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %s%(String)
+2025-12-16 22:12:36.609 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==> Parameters: 2(Integer)
+2025-12-16 22:12:36.648 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - <==      Total: 16
+2025-12-16 22:12:37.046 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 425
+2025-12-16 22:12:37.081 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 28
+2025-12-16 22:12:37.247 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 12200
+2025-12-16 22:12:38.320 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:38.322 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:38.326 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %%(String)
+2025-12-16 22:12:47.017 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:47.019 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:47.029 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %s%(String)
+2025-12-16 22:12:47.080 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 28
+2025-12-16 22:12:50.317 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:50.320 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:50.323 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %shan%(String)
+2025-12-16 22:12:50.324 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:50.326 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:50.327 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %sh%(String)
+2025-12-16 22:12:50.348 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:50.349 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:50.349 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %sha%(String)
+2025-12-16 22:12:50.371 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:50.376 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 1
+2025-12-16 22:12:50.399 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:51.026 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:51.027 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:51.034 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %shang%(String)
+2025-12-16 22:12:51.098 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:51.468 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 12200
+2025-12-16 22:12:51.469 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:51.470 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:51.470 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %shangh%(String)
+2025-12-16 22:12:51.518 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:51.518 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:51.518 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:51.521 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:51.521 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:51.521 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %shanghai%(String)
+2025-12-16 22:12:51.521 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %shangha%(String)
+2025-12-16 22:12:51.581 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:51.581 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:51.694 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:51.694 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:51.695 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %上海%(String)
+2025-12-16 22:12:51.706 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:51.707 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:51.707 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %上海l%(String)
+2025-12-16 22:12:51.752 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:51.796 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:51.797 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:51.797 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %上海li%(String)
+2025-12-16 22:12:51.822 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:51.823 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:51.825 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %%(String)
+2025-12-16 22:12:51.825 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 425
+2025-12-16 22:12:51.856 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:51.894 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:51.895 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:51.895 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %上海l%(String)
+2025-12-16 22:12:51.943 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:52.032 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:52.033 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:52.034 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %上海%(String)
+2025-12-16 22:12:52.255 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 425
+2025-12-16 22:12:53.137 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 12200
+2025-12-16 22:12:56.271 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:56.271 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:56.272 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:56.274 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:56.275 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %lia%(String)
+2025-12-16 22:12:56.275 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:56.275 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:56.276 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:56.276 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:56.277 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liao%(String)
+2025-12-16 22:12:56.277 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:56.276 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:56.277 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liaon%(String)
+2025-12-16 22:12:56.277 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁%(String)
+2025-12-16 22:12:56.278 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:56.279 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %l%(String)
+2025-12-16 22:12:56.280 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:56.293 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %li%(String)
+2025-12-16 22:12:56.328 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:56.330 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:56.339 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 93
+2025-12-16 22:12:56.340 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:56.344 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 9
+2025-12-16 22:12:56.344 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:56.453 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:56.454 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:56.455 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁g%(String)
+2025-12-16 22:12:56.485 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:56.486 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:56.486 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁go%(String)
+2025-12-16 22:12:56.501 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:56.528 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:56.530 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:56.532 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:56.533 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gon%(String)
+2025-12-16 22:12:56.572 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:56.573 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:56.574 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gong%(String)
+2025-12-16 22:12:56.578 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:56.621 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:56.796 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:56.799 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:56.799 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gongc%(String)
+2025-12-16 22:12:56.855 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:12:56.872 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:12:56.874 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:12:56.875 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁工程%(String)
+2025-12-16 22:12:56.928 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 3
+2025-12-16 22:13:43.665 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition
+2025-12-16 22:13:43.666 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 
+2025-12-16 22:13:43.703 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-16 22:13:44.700 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.P.selectList - ==>  Preparing: SELECT provinceMap_pid,provinceMap_pname FROM general_provinceMap
+2025-12-16 22:13:44.700 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.P.selectList - ==> Parameters: 
+2025-12-16 22:13:44.737 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.P.selectList - <==      Total: 34
+2025-12-16 22:13:45.517 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==>  Preparing: SELECT cityMap_cid,cityMap_cname,cityMap_pid FROM general_cityMap WHERE (cityMap_pid = ?)
+2025-12-16 22:13:45.518 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - ==> Parameters: 2(Integer)
+2025-12-16 22:13:45.556 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.CityMapMapper.selectList - <==      Total: 16
+2025-12-16 22:13:49.268 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:49.270 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:49.271 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %l%(String)
+2025-12-16 22:13:49.318 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 9
+2025-12-16 22:13:49.665 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:49.666 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:49.667 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %li%(String)
+2025-12-16 22:13:49.718 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:13:49.746 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:49.748 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:49.748 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %lia%(String)
+2025-12-16 22:13:49.796 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:13:49.818 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:49.818 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:49.819 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liao%(String)
+2025-12-16 22:13:49.864 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:13:49.990 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:49.992 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:49.992 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liaon%(String)
+2025-12-16 22:13:50.038 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:13:50.073 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:50.073 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:50.074 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁%(String)
+2025-12-16 22:13:50.125 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 93
+2025-12-16 22:13:50.922 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:50.924 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:50.924 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽%(String)
+2025-12-16 22:13:51.006 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 118
+2025-12-16 22:13:51.038 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:51.040 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:51.041 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %%(String)
+2025-12-16 22:13:53.026 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 12200
+2025-12-16 22:13:53.781 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:53.784 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:53.785 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %l%(String)
+2025-12-16 22:13:53.841 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 9
+2025-12-16 22:13:54.015 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:54.016 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:54.016 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %li%(String)
+2025-12-16 22:13:54.062 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:13:54.164 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:54.166 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:54.166 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %lia%(String)
+2025-12-16 22:13:54.185 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:54.187 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:54.188 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liao%(String)
+2025-12-16 22:13:54.211 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:13:54.234 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:13:54.329 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:54.330 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:54.331 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %liaon%(String)
+2025-12-16 22:13:54.365 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:54.365 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:54.366 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁%(String)
+2025-12-16 22:13:54.376 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:13:54.418 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 93
+2025-12-16 22:13:58.600 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:58.602 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:58.602 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁g%(String)
+2025-12-16 22:13:58.651 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:13:58.664 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:58.667 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:58.674 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁go%(String)
+2025-12-16 22:13:58.730 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:13:58.740 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:58.742 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:58.743 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gon%(String)
+2025-12-16 22:13:58.779 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:58.780 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:58.782 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gong%(String)
+2025-12-16 22:13:58.794 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:13:58.831 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:13:59.016 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:59.018 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:59.018 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁gongc%(String)
+2025-12-16 22:13:59.068 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-16 22:13:59.092 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UniversityMapServiceImpl - 根据大学名称模糊查询大学
+2025-12-16 22:13:59.093 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE (universityMap_name LIKE ?)
+2025-12-16 22:13:59.094 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: %辽宁工程%(String)
+2025-12-16 22:13:59.140 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 3
+2025-12-16 22:17:21.976 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-16 22:17:21.976 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-12-16 22:17:21.976 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-16 22:17:21.976 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-12-16 22:17:22.021 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-16 22:17:22.026 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-16 22:17:22.026 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-16 22:17:22.033 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-16 22:17:22.033 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-16 22:17:22.034 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-16 22:17:22.036 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-16 22:17:22.042 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
