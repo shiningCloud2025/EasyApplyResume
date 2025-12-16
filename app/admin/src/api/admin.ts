@@ -494,6 +494,21 @@ export const userFeedbackApi = {
     })
 }
 
+// 用户反馈记录相关API
+export const userFeedbackRecordApi = {
+  // 分页查询用户反馈记录
+  getUserFeedbackRecordPage: (pageNum: number, pageSize: number, query: UserFeedbackRecordQuery) =>
+    api.post<PageResult<UserFeedbackRecordPageVO>>('/admin/userfeedbackRecord/findUserFeedbackRecordPage', query, {
+      params: { pageNum, pageSize }
+    }),
+  
+  // 查询用户反馈记录详情
+  getUserFeedbackRecordDetail: (feedbackRecordId: number) =>
+    api.get<UserFeedbackRecordInfoVO>('/admin/userfeedbackRecord/findUserFeedbackRecordByFeedbackRecordId', {
+      params: { feedbackRecordId }
+    })
+}
+
 // 短信相关API
 export const smsApi = {
   // 发送短信验证码
