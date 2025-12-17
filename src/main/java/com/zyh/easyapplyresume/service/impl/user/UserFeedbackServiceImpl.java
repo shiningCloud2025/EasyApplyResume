@@ -158,6 +158,8 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
             }
         }
 
+        lambdaQueryWrapper.orderByDesc(UserFeedback::getUserFeedbackId);
+
         Page<UserFeedback> feedbackPage = userFeedbackMapper.selectPage(
                 new Page<>(page, size),
                 lambdaQueryWrapper

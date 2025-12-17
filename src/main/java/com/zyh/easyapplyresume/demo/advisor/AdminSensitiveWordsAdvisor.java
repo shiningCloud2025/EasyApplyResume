@@ -1,7 +1,6 @@
 package com.zyh.easyapplyresume.demo.advisor;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
-import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.LLMCodeEnum;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +19,9 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Component // 必须注册为Spring组件才能生效
-public class SensitiveWordsAdvisor implements CallAroundAdvisor, StreamAroundAdvisor {
-
+public class AdminSensitiveWordsAdvisor implements CallAroundAdvisor, StreamAroundAdvisor {
     // 从配置文件注入敏感词列表
-    @Value("${sensitive.words-user}")
+    @Value("${sensitive.words-admin}")
     private String sensitiveWordsStr;
 
     // 拆分后的敏感词列表（初始化后复用）
@@ -36,7 +34,7 @@ public class SensitiveWordsAdvisor implements CallAroundAdvisor, StreamAroundAdv
         // 处理空配置：如果没配置敏感词，初始化空列表
         if (sensitiveWordsStr == null || sensitiveWordsStr.trim().isEmpty()) {
             sensitiveWordList = List.of();
-            log.info("未配置用户端敏感词，敏感词过滤功能不启用");
+            log.info("未配置管理端敏感词，敏感词过滤功能不启用");
             return;
         }
 
@@ -47,7 +45,7 @@ public class SensitiveWordsAdvisor implements CallAroundAdvisor, StreamAroundAdv
                 .distinct() // 去重，避免重复过滤
                 .collect(Collectors.toList());
 
-        log.info("用户端敏感词初始化完成，共加载 {} 个敏感词", sensitiveWordList.size());
+        log.info("管理端敏感词初始化完成，共加载 {} 个敏感词", sensitiveWordList.size());
     }
     @Override
     public AdvisedResponse aroundCall(AdvisedRequest advisedRequest, CallAroundAdvisorChain chain) {
@@ -107,4 +105,5 @@ public class SensitiveWordsAdvisor implements CallAroundAdvisor, StreamAroundAdv
     public int getOrder() {
         return -100000;
     }
+
 }
