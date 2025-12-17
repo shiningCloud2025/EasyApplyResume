@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Button, Space, Dropdown, message, Input } from 'antd'
-import { UserOutlined, LogoutOutlined, SearchOutlined } from '@ant-design/icons'
+import { UserOutlined, LogoutOutlined, SearchOutlined, DownOutlined } from '@ant-design/icons'
 import { useUserStore } from '@stores/userStore'
 import { userAPI } from '@api/feedback'
 import './PortalHeader.scss'
@@ -24,6 +24,22 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // 页面加载/刷新时，自动获取用户信息填充用户名和头像
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      if (isLoggedIn && user?.userId) {
+        try {
+          console.log('🔄 页面加载，自动获取用户信息...')
+          await getUserById(String(user.userId))
+          console.log('✅ 用户信息获取成功')
+        } catch (error) {
+          console.error('❌ 自动获取用户信息失败:', error)
+        }
+      }
+    }
+    fetchUserInfo()
+  }, [isLoggedIn, user?.userId, getUserById])
 
   // 点击个人中心时调用 getUserByUserId 接口
   const handleGoToProfile = async () => {
@@ -94,11 +110,23 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
     { key: 'templates', label: '简历模板', path: '/resume/templates' },
     { key: 'jobs', label: '招聘信息', path: '/jobs' },
     { key: 'advice', label: '求职攻略', path: '/advice' },
-    { key: 'ai', label: 'AI简历助手', path: '/ai' },
+    { 
+      key: 'ai', 
+      label: 'AI简历助手', 
+      path: '/ai/chat',
+      children: [
+        { key: 'ai-chat', label: 'AI智能问答助手', path: '/ai/chat' },
+        { key: 'ai-agent', label: 'AI智能体助手', path: '/ai/agent' }
+      ]
+    },
     { key: 'feedback', label: '反馈', path: '/feedback/submit' }
   ]
 
-  const isActiveRoute = (path: string) => {
+  const isActiveRoute = (path: string, item?: any) => {
+    // 检查是否有子菜单
+    if (item?.children) {
+      return item.children.some((child: any) => location.pathname === child.path)
+    }
     return location.pathname === path || 
            (activeMenu && portalMenuItems.find(item => item.key === activeMenu)?.path === path)
   }
@@ -117,14 +145,31 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
             {portalMenuItems.map(item => (
               <li 
                 key={item.key} 
-                className={`nav-item ${isActiveRoute(item.path) ? 'active' : ''}`}
+                className={`nav-item ${isActiveRoute(item.path, item) ? 'active' : ''}`}
               >
-                <button 
-                  className="nav-link"
-                  onClick={() => handleNavigate(item.path, item.key, (item as any).requireLogin)}
-                >
-                  {item.label}
-                </button>
+                {(item as any).children ? (
+                  <Dropdown 
+                    menu={{ 
+                      items: (item as any).children.map((child: any) => ({
+                        key: child.key,
+                        label: child.label,
+                        onClick: () => handleNavigate(child.path, child.key)
+                      }))
+                    }}
+                    placement="bottom"
+                  >
+                    <button className="nav-link nav-dropdown">
+                      {item.label} <DownOutlined style={{ fontSize: 10, marginLeft: 4 }} />
+                    </button>
+                  </Dropdown>
+                ) : (
+                  <button 
+                    className="nav-link"
+                    onClick={() => handleNavigate(item.path, item.key, (item as any).requireLogin)}
+                  >
+                    {item.label}
+                  </button>
+                )}
               </li>
             ))}
           </ul>

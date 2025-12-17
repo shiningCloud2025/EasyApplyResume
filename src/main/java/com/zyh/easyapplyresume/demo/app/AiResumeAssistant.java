@@ -225,7 +225,6 @@ public class AiResumeAssistant {
                 .advisors(spec->spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY,chatId)
                         .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY,50))
                 .advisors(
-                        new SensitiveWordsAdvisor(),
                         new MyLoggerAdvisor(),
 //                        new ReReadingAdvisor(),
                         aiResumeAssistantRagCloudAdvisor

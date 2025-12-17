@@ -20,6 +20,8 @@ const JobDetail = React.lazy(() => import('@views/job/JobDetail'))
 const AdviceList = React.lazy(() => import('@views/advice/AdviceList'))
 const AdviceDetail = React.lazy(() => import('@views/advice/AdviceDetail'))
 const AIAssistant = React.lazy(() => import('@views/ai/AIAssistant'))
+const AIChat = React.lazy(() => import('@views/ai/AIChat'))
+const AIAgent = React.lazy(() => import('@views/ai/AIAgent'))
 const FeedbackSubmit = React.lazy(() => import('@views/feedback/FeedbackSubmit'))
 const MyFeedback = React.lazy(() => import('@views/feedback/MyFeedback'))
 const FeedbackDetail = React.lazy(() => import('@views/feedback/FeedbackDetail'))
@@ -66,7 +68,9 @@ function App() {
         <Route path="job/:id" element={<JobDetail />} />
         <Route path="advice" element={<AdviceList />} />
         <Route path="advice/:id" element={<AdviceDetail />} />
-        <Route path="ai" element={<AIAssistant />} />
+        <Route path="ai" element={<Navigate to="/ai/chat" replace />} />
+        <Route path="ai/chat" element={<AIChat />} />
+        <Route path="ai/agent" element={<AIAgent />} />
         <Route path="feedback/submit" element={<FeedbackSubmit />} />
         <Route path="feedback/my" element={<MyFeedback />} />
         <Route path="feedback/:id" element={<FeedbackDetail />} />
