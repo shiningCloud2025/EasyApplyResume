@@ -89,14 +89,18 @@ public class UserJwtAuthFilter extends OncePerRequestFilter {
             securityUser.setUsername(user.getUserUsername());
             securityUser.setPassword(user.getUserPassword());
             securityUser.setUserType("user");
+            securityUser.setEnabled(true);
             securityUser.setAuthorities(Collections.emptyList());
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(securityUser, null, securityUser.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             filterChain.doFilter(request, response);
         }catch (Exception e) {
+            // 保底操作
             log.error("用户端 Token 验证失败: {}", e.getMessage());
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write("{\"code\":401,\"message\":\"Token验证失败\"}");
         }
-        filterChain.doFilter(request, response);
     }
 }

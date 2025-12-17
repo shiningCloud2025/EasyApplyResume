@@ -3,14 +3,13 @@ import type { PaginationParams } from '@types/index'
 
 // 职位信息相关API
 export const jobAPI = {
-  // 分页查询招聘信息
+  // 分页查询招聘信息 (POST 请求)
   getJobs: (params: PaginationParams & { query?: any }) => {
-    return request.get('/user/employmentInformation/getEmploymentInformationPage', {
+    return request.post('/user/employmentInformation/getEmploymentInformationPage', params.query || {}, {
       params: {
-        size: params.pageSize,
-        page: params.pageNum,
-      },
-      data: params.query
+        pageNum: params.pageNum,
+        pageSize: params.pageSize
+      }
     })
   },
 

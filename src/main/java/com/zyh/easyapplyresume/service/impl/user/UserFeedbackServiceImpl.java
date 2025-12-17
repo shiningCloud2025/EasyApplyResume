@@ -58,15 +58,20 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
     private AdminMapper adminMapper;
     @Override
     public void addFeedback(UserFeedbackForm userFeedbackForm) {
-        UserFeedback userFeedback = new UserFeedback();
-        userFeedback.setUserFeedbackTitle(userFeedbackForm.getUserFeedbackTitle());
-        userFeedback.setUserFeedbackContent(userFeedbackForm.getUserFeedbackContent());
-        userFeedback.setUserFeedbackTime(new Date());
-        userFeedback.setUserFeedbackRecentTime(new Date());
-        userFeedback.setUserFeedbackCurStep(UserBusinessEnum.USER_WAIT_RECEIVED.getMessage());
-        userFeedback.setUserFeedbackUserId(userFeedbackForm.getUserFeedbackUserId());
-        userFeedbackMapper.insert(userFeedback);
-        sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈待接受-用户平台","您有一条新的反馈待接收-用户平台");
+        try {
+            UserFeedback userFeedback = new UserFeedback();
+            userFeedback.setUserFeedbackTitle(userFeedbackForm.getUserFeedbackTitle());
+            userFeedback.setUserFeedbackContent(userFeedbackForm.getUserFeedbackContent());
+            userFeedback.setUserFeedbackTime(new Date());
+            userFeedback.setUserFeedbackRecentTime(new Date());
+            userFeedback.setUserFeedbackCurStep(UserBusinessEnum.USER_WAIT_RECEIVED.getMessage());
+            userFeedback.setUserFeedbackUserId(userFeedbackForm.getUserFeedbackUserId());
+            userFeedbackMapper.insert(userFeedback);
+            sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈待接受-用户平台","您有一条新的反馈待接收-用户平台");
+        }catch (Exception e){
+
+        }
+
     }
 
     @Override

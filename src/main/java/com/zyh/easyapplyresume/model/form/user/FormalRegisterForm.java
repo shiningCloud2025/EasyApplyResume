@@ -43,7 +43,7 @@ public class FormalRegisterForm {
     private String userIntroduce;
 
     @Schema(description = "用户创建时间")
-    private Date userCreateTime;
+    private Date userCreatedTime;
 
     @Schema(description = "用户最后登录时间")
     private Date userLoginTime;

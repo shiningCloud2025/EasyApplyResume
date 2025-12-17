@@ -33,6 +33,12 @@ request.interceptors.request.use(
     if (token) {
       config.headers['User-Authorization'] = `User ${token}`
     }
+    
+    // 调试日志：查看发送的请求数据
+    console.log('🚀 [Axios] 发送请求:', config.method?.toUpperCase(), config.url)
+    console.log('🚀 [Axios] 请求数据:', config.data)
+    console.log('🚀 [Axios] 请求数据类型:', typeof config.data)
+    
     return config
   },
   (error) => {
@@ -43,7 +49,24 @@ request.interceptors.request.use(
 // 响应拦截器
 request.interceptors.response.use(
   (response: AxiosResponse<BaseResponse>) => {
-    const { data } = response
+    let { data } = response
+    
+    // 如果 data 是字符串，尝试解析为 JSON
+    if (typeof data === 'string') {
+      try {
+        // 处理后端返回两个 JSON 拼接的情况
+        const strData = data as string
+        let jsonStr = strData
+        const firstJsonEnd = strData.indexOf('}{')
+        if (firstJsonEnd > 0) {
+          jsonStr = strData.substring(0, firstJsonEnd + 1)
+          console.log('🔧 [响应处理] 检测到拼接JSON，截取第一个:', jsonStr)
+        }
+        data = JSON.parse(jsonStr)
+      } catch (e) {
+        console.error('响应数据解析失败:', e)
+      }
+    }
     
     // 如果返回的是数组，直接返回（部分接口直接返回数组，不包装BaseResponse）
     if (Array.isArray(data)) {
