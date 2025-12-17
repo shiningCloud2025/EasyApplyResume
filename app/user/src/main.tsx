@@ -38,15 +38,14 @@ console.log('🚀 main.tsx 开始加载')
 console.log('📍 root 元素:', document.getElementById('root'))
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <ConfigProvider locale={zhCN} theme={theme}>
-          <Suspense fallback={<LoadingSpinner />}>
-            <App />
-          </Suspense>
-        </ConfigProvider>
-      </QueryClientProvider>
-    </BrowserRouter>
-  </React.StrictMode>,
+  // 移除 React.StrictMode 以避免开发环境下组件双重渲染导致 API 重复调用
+  <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <ConfigProvider locale={zhCN} theme={theme}>
+        <Suspense fallback={<LoadingSpinner />}>
+          <App />
+        </Suspense>
+      </ConfigProvider>
+    </QueryClientProvider>
+  </BrowserRouter>
 )

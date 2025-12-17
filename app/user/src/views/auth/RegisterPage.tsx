@@ -206,7 +206,7 @@ const RegisterPage: React.FC = () => {
           return
         }
         await form.validateFields()
-        const values = form.getFieldsValue() as RegisterForm
+        const values = form.getFieldsValue(true) as RegisterForm
         await handleRegister(values)
         return
       }
@@ -484,18 +484,23 @@ const RegisterPage: React.FC = () => {
         return (
           <>
             <Form.Item
-              name="phoneMessageCode"
               label="手机验证码"
-              rules={[
-                { required: true, message: '请输入手机验证码' },
-                { len: 6, message: '验证码为6位数字' }
-              ]}
+              required
             >
-              <Input.Group compact>
-                <Input
-                  style={{ width: 'calc(100% - 120px)' }}
-                  placeholder="请输入手机验证码"
-                />
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <Form.Item
+                  name="phoneMessageCode"
+                  noStyle
+                  rules={[
+                    { required: true, message: '请输入手机验证码' },
+                    { len: 6, message: '验证码为6位' }
+                  ]}
+                >
+                  <Input
+                    style={{ flex: 1 }}
+                    placeholder="请输入手机验证码"
+                  />
+                </Form.Item>
                 <Button
                   onClick={handleSendSmsCode}
                   loading={smsSending}
@@ -504,22 +509,27 @@ const RegisterPage: React.FC = () => {
                 >
                   {phoneCountdown > 0 ? `${phoneCountdown}s` : '获取验证码'}
                 </Button>
-              </Input.Group>
+              </div>
             </Form.Item>
 
             <Form.Item
-              name="emailMessageCode"
               label="邮箱验证码"
-              rules={[
-                { required: true, message: '请输入邮箱验证码' },
-                { len: 6, message: '验证码为6位数字' }
-              ]}
+              required
             >
-              <Input.Group compact>
-                <Input
-                  style={{ width: 'calc(100% - 120px)' }}
-                  placeholder="请输入邮箱验证码"
-                />
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <Form.Item
+                  name="emailMessageCode"
+                  noStyle
+                  rules={[
+                    { required: true, message: '请输入邮箱验证码' },
+                    { len: 6, message: '验证码为6位' }
+                  ]}
+                >
+                  <Input
+                    style={{ flex: 1 }}
+                    placeholder="请输入邮箱验证码"
+                  />
+                </Form.Item>
                 <Button
                   onClick={handleSendEmailCode}
                   loading={emailCodeSending}
@@ -528,7 +538,7 @@ const RegisterPage: React.FC = () => {
                 >
                   {emailCountdown > 0 ? `${emailCountdown}s` : '获取验证码'}
                 </Button>
-              </Input.Group>
+              </div>
             </Form.Item>
           </>
         )
@@ -576,6 +586,7 @@ const RegisterPage: React.FC = () => {
               layout="vertical"
               size="large"
               className="register-form"
+              preserve={true}
             >
               {renderStepContent()}
             </Form>

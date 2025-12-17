@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Button, Space, Dropdown, message, Input } from 'antd'
 import { UserOutlined, LogoutOutlined, SearchOutlined } from '@ant-design/icons'
 import { useUserStore } from '@stores/userStore'
+import { userAPI } from '@api/feedback'
 import './PortalHeader.scss'
 
 interface PortalHeaderProps {
@@ -12,10 +13,9 @@ interface PortalHeaderProps {
 
 const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) => {
   const navigate = useNavigate()
-  const { user, isLoggedIn, logout } = useUserStore()
+  const { user, isLoggedIn, logout, getUserById } = useUserStore()
   const location = useLocation()
   const [isSticky, setIsSticky] = useState(false)
-  const [searchVisible, setSearchVisible] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,12 +25,30 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // 点击个人中心时调用 getUserByUserId 接口
+  const handleGoToProfile = async () => {
+    if (user?.userId) {
+      try {
+        console.log('👤 点击个人中心，获取用户详细信息...')
+        const res = await userAPI.getUserById(String(user.userId))
+        if (res.data) {
+          console.log('✅ 用户详细信息:', res.data)
+          // 更新 store 中的用户信息
+          await getUserById(String(user.userId))
+        }
+      } catch (error) {
+        console.error('❌ 获取用户信息失败:', error)
+      }
+    }
+    navigate('/profile')
+  }
+
   const userMenuItems = [
     {
       key: 'profile',
       icon: <UserOutlined />,
       label: '个人中心',
-      onClick: () => navigate('/profile'),
+      onClick: handleGoToProfile,
     },
     {
       type: 'divider' as const,
@@ -46,9 +64,16 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
     },
   ]
 
-  const handleNavigate = (path: string, menuKey?: string) => {
+  const handleNavigate = (path: string, menuKey?: string, requireLogin?: boolean) => {
     if (onMenuClick && menuKey) {
       onMenuClick(menuKey)
+    }
+    
+    // 需要登录的菜单项
+    if (requireLogin && !isLoggedIn) {
+      message.info('请先登录')
+      navigate('/auth/login')
+      return
     }
     
     if (path === '/my-resumes' && !isLoggedIn) {
@@ -64,7 +89,8 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
   }
 
   const portalMenuItems = [
-    { key: 'home', label: '首页', path: '/' },
+    { key: 'home', label: '首页', path: '/home' },
+    { key: 'my-resumes', label: '我的简历', path: '/resume/my-resumes', requireLogin: true },
     { key: 'templates', label: '简历模板', path: '/resume/templates' },
     { key: 'jobs', label: '招聘信息', path: '/jobs' },
     { key: 'advice', label: '求职攻略', path: '/advice' },
@@ -95,7 +121,7 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
               >
                 <button 
                   className="nav-link"
-                  onClick={() => handleNavigate(item.path, item.key)}
+                  onClick={() => handleNavigate(item.path, item.key, (item as any).requireLogin)}
                 >
                   {item.label}
                 </button>
@@ -106,11 +132,18 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
 
         <div className="header-right">
           <div className="header-actions">
-            <Button 
-              type="text" 
-              icon={<SearchOutlined />}
-              className="search-btn"
-              onClick={() => setSearchVisible(!searchVisible)}
+            {/* 搜索框固定显示 */}
+            <Input
+              placeholder="搜索..."
+              className="header-search"
+              prefix={<SearchOutlined style={{ color: '#999' }} />}
+              style={{ width: 200 }}
+              onPressEnter={(e) => {
+                const value = (e.target as HTMLInputElement).value
+                if (value) {
+                  message.info('搜索功能开发中...')
+                }
+              }}
             />
             
             {isLoggedIn ? (
@@ -145,25 +178,6 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
           </div>
         </div>
       </div>
-      
-      {/* 搜索栏 */}
-      {searchVisible && (
-        <div className="search-bar">
-          <Input.Search
-            placeholder="搜索简历模板、职位或攻略..."
-            style={{ maxWidth: 600 }}
-            size="large"
-            onSearch={(value) => {
-              if (value) {
-                // 这里可以添加搜索逻辑
-                message.info('搜索功能开发中...')
-              }
-              setSearchVisible(false)
-            }}
-            onBlur={() => setTimeout(() => setSearchVisible(false), 200)}
-          />
-        </div>
-      )}
     </header>
   )
 }

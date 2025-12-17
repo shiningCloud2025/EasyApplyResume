@@ -3,8 +3,6 @@ import { Button, Row, Col, Typography, Card, Space } from 'antd'
 import { ArrowRightOutlined, FileTextOutlined, ThunderboltOutlined, RocketOutlined, CheckCircleOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { useUserStore } from '@stores/userStore'
-import PortalHeader from '@components/PortalHeader'
-import PortalFooter from '@components/PortalFooter'
 
 const { Title, Paragraph } = Typography
 
@@ -55,8 +53,6 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="home-page-portal">
-      <PortalHeader />
-      
       {/* Hero Section */}
       <section className="hero-section">
         <div className="hero-content">
@@ -184,7 +180,6 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Footer */}
-      <PortalFooter />
     </div>
   )
 }

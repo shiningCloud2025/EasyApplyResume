@@ -67,11 +67,9 @@ function App() {
         <Route path="advice" element={<AdviceList />} />
         <Route path="advice/:id" element={<AdviceDetail />} />
         <Route path="ai" element={<AIAssistant />} />
-        <Route path="feedback" element={<Navigate to="/feedback/submit" replace />}>
-          <Route path="submit" element={<FeedbackSubmit />} />
-          <Route path="my" element={<MyFeedback />} />
-          <Route path=":id" element={<FeedbackDetail />} />
-        </Route>
+        <Route path="feedback/submit" element={<FeedbackSubmit />} />
+        <Route path="feedback/my" element={<MyFeedback />} />
+        <Route path="feedback/:id" element={<FeedbackDetail />} />
       </Route>
 
       {/* 404页面 */}

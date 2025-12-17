@@ -1,7 +1,7 @@
 /* 门户首页样式 */
 .home-page-portal {
   min-height: 100vh;
-  padding-top: 64px; // 为固定头部留出空间
+  // MainLayout 已经有 margin-top: 64px，这里不需要额外的 padding-top
 }
 
 /* Hero Section */
