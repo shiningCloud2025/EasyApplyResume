@@ -108,7 +108,8 @@ const messages = ref<Message[]>([
   }
 ])
 
-let currentChatId = ref<string>('')
+// 页面加载时生成随机 chatId，整个会话期间保持不变
+const currentChatId = ref<string>('chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9))
 
 // 滚动到底部
 const scrollToBottom = () => {
@@ -287,8 +288,9 @@ const clearMessages = () => {
       timestamp: new Date()
     }
   ]
-  currentChatId.value = ''
-  ElMessage.success('对话已清空')
+  // 清空时生成新的 chatId
+  currentChatId.value = 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+  ElMessage.success('对话已清空，已开启新会话')
 }
 
 // 格式化消息内容（支持 Markdown 和智能分段）

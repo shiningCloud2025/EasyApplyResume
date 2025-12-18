@@ -964,17 +964,69 @@ const handleEdit = async (row: EmploymentInformationPageVO) => {
       ? detail.employmentInformationRecruitLocationDetail.join(', ') 
       : (detail.employmentInformationRecruitLocationDetail || '')
     
+    // 确保行业列表已加载
+    if (industryList.value.length === 0) {
+      await getIndustryList()
+    }
+    
+    // 根据行业名称反查行业 ID
+    let industryId: number | undefined = undefined
+    if (detail.employmentInformationIndustryCategoriesName) {
+      const foundIndustry = industryList.value.find(
+        (ind: any) => ind.industryMapIndustryName === detail.employmentInformationIndustryCategoriesName
+      )
+      if (foundIndustry) {
+        industryId = foundIndustry.industryMapIndustryCode
+      }
+    }
+    
+    // 加载省份列表
+    if (provinceList.value.length === 0) {
+      await getProvinceList()
+    }
+    
+    // 根据省份名称反查省份 ID
+    let provinceIds: number[] = []
+    if (detail.employmentInformationRecruitLocationFirstName && Array.isArray(detail.employmentInformationRecruitLocationFirstName)) {
+      for (const provinceName of detail.employmentInformationRecruitLocationFirstName) {
+        const foundProvince = provinceList.value.find(
+          (p: any) => p.provinceMapProvinceName === provinceName
+        )
+        if (foundProvince) {
+          provinceIds.push(foundProvince.provinceMapProvinceCode)
+        }
+      }
+    }
+    
+    // 加载城市列表并反查城市 ID
+    let cityIds: number[] = []
+    if (provinceIds.length > 0 && detail.employmentInformationRecruitLocationSecondName && Array.isArray(detail.employmentInformationRecruitLocationSecondName)) {
+      // 加载第一个省份的城市
+      lastSelectedProvinceId.value = provinceIds[0]
+      const cityResponse = await provinceMapApi.getCityByProvinceId(provinceIds[0])
+      cityList.value = cityResponse.data || []
+      
+      for (const cityName of detail.employmentInformationRecruitLocationSecondName) {
+        const foundCity = cityList.value.find(
+          (c: any) => c.provinceMapCityName === cityName
+        )
+        if (foundCity) {
+          cityIds.push(foundCity.provinceMapCityCode)
+        }
+      }
+    }
+    
     Object.assign(infoForm, {
       employmentInformationId: detail.employmentInformationId,
       employmentInformationCode: detail.employmentInformationCode,
       employmentInformationCompanyName: detail.employmentInformationCompanyName,
-      employmentInformationIndustryCategories: detail.employmentInformationCompanyType,
+      employmentInformationIndustryCategories: industryId,
       employmentInformationCompanyType: detail.employmentInformationCompanyType,
       employmentInformationBatch: detail.employmentInformationBatch,
       employmentInformationRecruitPosition: detail.employmentInformationRecruitPosition,
       employmentInformationRecruitObject: detail.employmentInformationRecruitObject,
-      employmentInformationRecruitLocationFirstList: [], 
-      employmentInformationRecruitLocationSecondList: [],
+      employmentInformationRecruitLocationFirstList: provinceIds,
+      employmentInformationRecruitLocationSecondList: cityIds,
       employmentInformationRecruitLocationDetail: detailAddress,
       employmentInformationStopTime: detail.employmentInformationStopTime,
       employmentInformationOnlineApplicationStatus: detail.employmentInformationOnlineApplicationStatus,
