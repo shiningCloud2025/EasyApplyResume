@@ -186,7 +186,8 @@ const messages = ref<Message[]>([
 ])
 
 let eventSource: EventSource | null = null
-let currentChatId = ''
+// 页面加载时生成随机 chatId，整个会话期间保持不变
+let currentChatId = 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
 let currentStepNumber = 0
 
 // 滚动到底部
@@ -404,8 +405,9 @@ const clearMessages = () => {
       timestamp: new Date()
     }
   ]
-  currentChatId = ''
-  ElMessage.success('对话已清空')
+  // 清空时生成新的 chatId
+  currentChatId = 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+  ElMessage.success('对话已清空，已开启新会话')
 }
 
 // 格式化消息内容（支持 Markdown 和智能分段）
