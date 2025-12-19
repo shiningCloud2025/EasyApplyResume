@@ -1,42 +1,45 @@
-import React, { useState, useEffect } from 'react'
-import { 
-  Card, 
-  List, 
-  Row, 
-  Col, 
-  Input, 
-  Select, 
-  Button, 
-  Tag, 
-  Avatar, 
-  Empty, 
-  Spin, 
-  Pagination,
+import React, { useState } from 'react'
+import {
+  Card,
+  Table,
+  Row,
+  Col,
+  Input,
+  Button,
+  Tag,
+  Empty,
+  Select,
   message
 } from 'antd'
-import { SearchOutlined, BankOutlined, EnvironmentOutlined, CalendarOutlined } from '@ant-design/icons'
+import { SearchOutlined, ReloadOutlined, BankOutlined } from '@ant-design/icons'
 import { useQuery } from 'react-query'
 import { jobAPI } from '@api/job'
 import { useNavigate } from 'react-router-dom'
-import type { JobPosition } from '@types/index'
-
-const { Search } = Input
-const { Option } = Select
+import './JobList.scss'
 
 const JobList: React.FC = () => {
   const navigate = useNavigate()
   const [filters, setFilters] = useState({
-    keyword: '',
-    industry: undefined,
-    location: undefined,
-    salary: undefined
+    employmentInformationCompanyName: '',
+    employmentInformationIndustryCategories: undefined as number | undefined,
+    employmentInformationRecruitLocationDetail: ''
   })
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 12
+    pageSize: 10
   })
 
-  // 获取职位列表
+  // 获取行业列表
+  const { data: industries } = useQuery(
+    ['industries'],
+    () => jobAPI.getAllIndustries(),
+    {
+      select: (response) => response.data || [],
+      staleTime: 1000 * 60 * 10 // 10分钟缓存
+    }
+  )
+
+  // 获取招聘信息列表
   const {
     data: jobsData,
     isLoading,
@@ -52,49 +55,14 @@ const JobList: React.FC = () => {
     {
       keepPreviousData: true,
       select: (response) => response.data,
-      onSuccess: (data) => {
-        console.log('获取职位列表成功:', data)
-      },
-      onError: (error) => {
-        message.error('获取职位列表失败')
-        console.error('API错误:', error)
+      onError: () => {
+        message.error('获取招聘信息失败')
       }
     }
   )
 
-      const industries = [
-    { label: '全部', value: undefined },
-    { label: '互联网', value: 1 },
-    { label: '金融', value: 2 },
-    { label: '教育', value: 3 },
-    { label: '医疗', value: 4 },
-    { label: '制造业', value: 5 }
-  ]
-
-  const locations = [
-    { label: '全部', value: undefined },
-    { label: '北京', value: 'beijing' },
-    { label: '上海', value: 'shanghai' },
-    { label: '杭州', value: 'hangzhou' },
-    { label: '深圳', value: 'shenzhen' },
-    { label: '广州', value: 'guangzhou' }
-  ]
-
-  const salaryRanges = [
-    { label: '全部', value: undefined },
-    { label: '10k以下', value: '0-10' },
-    { label: '10k-20k', value: '10-20' },
-    { label: '20k-30k', value: '20-30' },
-    { label: '30k以上', value: '30-999' }
-  ]
-
-  const handleSearch = (value: string) => {
-    setFilters({ ...filters, keyword: value })
-    setPagination({ ...pagination, current: 1 })
-  }
-
   const handleFilterChange = (key: string, value: any) => {
-    setFilters({ ...filters, [key]: value })
+    setFilters({ ...filters, [key]: value === undefined ? undefined : value })
     setPagination({ ...pagination, current: 1 })
   }
 
@@ -106,173 +74,249 @@ const JobList: React.FC = () => {
     navigate(`/job/${jobId}`)
   }
 
-  const getIndustryName = (industryId: number) => {
-    const industry = industries.find(item => item.value === industryId)
-    return industry?.label || '其他'
+  const formatDate = (dateString: string) => {
+    if (!dateString) return '-'
+    return new Date(dateString).toLocaleDateString('zh-CN')
   }
 
-  const getDaysAgo = (dateString: string) => {
-    const now = new Date()
-    const date = new Date(dateString)
-    const diffTime = Math.abs(now.getTime() - date.getTime())
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-    
-    if (diffDays === 0) return '今天'
-    if (diffDays === 1) return '昨天'
-    if (diffDays <= 7) return `${diffDays}天前`
-    return date.toLocaleDateString('zh-CN')
+  // 网申状态标签颜色
+  const getStatusColor = (status: string) => {
+    if (!status) return 'default'
+    if (status.includes('进行中') || status.includes('开放')) return 'green'
+    if (status.includes('已结束') || status.includes('关闭')) return 'red'
+    return 'blue'
+  }
+
+  // 企业性质映射
+  const getCompanyTypeName = (type: number) => {
+    const typeMap: Record<number, string> = {
+      1: '央企', 2: '国企', 3: '国企控股', 4: '私企', 
+      5: '外企', 6: '合资', 7: '公务员', 8: '事业编'
+    }
+    return typeMap[type] || '-'
+  }
+
+  // 招聘批次映射
+  const getBatchName = (batch: number) => {
+    const batchMap: Record<number, string> = {
+      1: '春招', 2: '暑期实习', 3: '秋招', 4: '寒假实习', 5: '日常实习'
+    }
+    return batchMap[batch] || '-'
+  }
+
+  // 招聘对象映射
+  const getRecruitObjectName = (obj: number) => {
+    const objMap: Record<number, string> = {
+      1: '应届生', 2: '社会招聘', 3: '实习生'
+    }
+    return objMap[obj] || '-'
   }
 
   return (
     <div className="job-list-page">
-      <Card className="filter-card" title="职位筛选">
-        <Row gutter={[16, 16]}>
-          <Col xs={24} sm={12} md={6}>
-            <Search
-              placeholder="搜索职位或公司"
-              onSearch={handleSearch}
+      <div className="page-header">
+        <h1>招聘信息</h1>
+        <p>浏览最新招聘信息，找到适合您的职位</p>
+      </div>
+
+      <Card className="filter-card">
+        <Row gutter={24} align="middle">
+          <Col>
+            <span className="filter-label">公司名称</span>
+          </Col>
+          <Col>
+            <Input
+              placeholder="请输入公司名称"
+              value={filters.employmentInformationCompanyName}
+              onChange={(e) => handleFilterChange('employmentInformationCompanyName', e.target.value)}
               allowClear
+              style={{ width: 180 }}
             />
           </Col>
-          <Col xs={24} sm={12} md={6}>
+          <Col>
+            <span className="filter-label">行业</span>
+          </Col>
+          <Col>
             <Select
-              placeholder="选择行业"
-              style={{ width: '100%' }}
-              value={filters.industry}
-              onChange={(value) => handleFilterChange('industry', value)}
+              placeholder="请选择行业"
+              style={{ width: 150 }}
+              value={filters.employmentInformationIndustryCategories}
+              onChange={(value) => handleFilterChange('employmentInformationIndustryCategories', value)}
               allowClear
             >
-              {industries.map(industry => (
-                <Option key={industry.value} value={industry.value}>
-                  {industry.label}
-                </Option>
+              {industries?.map((item: any) => (
+                <Select.Option key={item.industryMapIndustryCode} value={item.industryMapIndustryCode}>
+                  {item.industryMapIndustryName}
+                </Select.Option>
               ))}
             </Select>
           </Col>
-          <Col xs={24} sm={12} md={6}>
-            <Select
-              placeholder="工作地点"
-              style={{ width: '100%' }}
-              value={filters.location}
-              onChange={(value) => handleFilterChange('location', value)}
-              allowClear
-            >
-              {locations.map(location => (
-                <Option key={location.value} value={location.value}>
-                  {location.label}
-                </Option>
-              ))}
-            </Select>
+          <Col>
+            <span className="filter-label">详细地址</span>
           </Col>
-          <Col xs={24} sm={12} md={6}>
-            <Select
-              placeholder="薪资范围"
-              style={{ width: '100%' }}
-              value={filters.salary}
-              onChange={(value) => handleFilterChange('salary', value)}
+          <Col>
+            <Input
+              placeholder="请输入地址"
+              value={filters.employmentInformationRecruitLocationDetail}
+              onChange={(e) => handleFilterChange('employmentInformationRecruitLocationDetail', e.target.value)}
               allowClear
-            >
-              {salaryRanges.map(range => (
-                <Option key={range.value} value={range.value}>
-                  {range.label}
-                </Option>
-              ))}
-            </Select>
+              style={{ width: 150 }}
+            />
+          </Col>
+          <Col>
+            <Button type="primary" icon={<SearchOutlined />} onClick={() => refetch()}>
+              搜索
+            </Button>
+          </Col>
+          <Col>
+            <Button icon={<ReloadOutlined />} onClick={() => {
+              setFilters({
+                employmentInformationCompanyName: '',
+                employmentInformationIndustryCategories: undefined,
+                employmentInformationRecruitLocationDetail: ''
+              })
+              setPagination({ current: 1, pageSize: 10 })
+            }}>
+              重置
+            </Button>
           </Col>
         </Row>
       </Card>
 
-      <Spin spinning={isLoading}>
+      <Card className="table-card">
         {error ? (
-          <div style={{ textAlign: 'center', padding: '50px' }}>
-            <Empty
-              description="加载失败，请重试"
-              image={Empty.PRESENTED_IMAGE_SIMPLE}
-            >
-              <Button type="primary" onClick={() => refetch()}>
-                重试
-              </Button>
-            </Empty>
-          </div>
-        ) : !jobsData?.records?.length ? (
           <Empty
-            description="暂无匹配的职位"
+            description="加载失败，请重试"
             image={Empty.PRESENTED_IMAGE_SIMPLE}
-          />
+          >
+            <Button type="primary" onClick={() => refetch()}>
+              重试
+            </Button>
+          </Empty>
         ) : (
-          <>
-            <List
-              itemLayout="vertical"
-              size="large"
-              dataSource={jobsData.records}
-              renderItem={(job) => (
-                <List.Item
-                  key={job.employmentInformationId}
-                  className="job-item"
-                  onClick={() => handleJobClick(job.employmentInformationId)}
-                >
-                  <List.Item.Meta
-                    avatar={
-                      <Avatar 
-                        src={job.employmentInformationCompanyLogo}
-                        icon={<BankOutlined />}
-                        size={48}
-                      />
-                    }
-                    title={
-                      <div className="job-title">
-                        <h3>{job.employmentInformationPositionName}</h3>
-                        <Tag color="blue">{job.employmentInformationSalary}</Tag>
-                      </div>
-                    }
-                    description={
-                      <div className="job-description">
-                        <div className="company-info">
-                          <span className="company-name">{job.employmentInformationCompanyName}</span>
-                          <Tag color="cyan">
-                            {getIndustryName(job.employmentInformationIndustry)}
-                          </Tag>
-                        </div>
-                        <p className="job-desc-text">{job.employmentInformationDescription}</p>
-                        <div className="job-requirements">
-                          <Tag color="orange">{job.employmentInformationRequirements}</Tag>
-                        </div>
-                        <div className="job-meta">
-                          <span className="meta-item">
-                            <EnvironmentOutlined />
-                            {job.employmentInformationLocation}
-                          </span>
-                          <span className="meta-item">
-                            <CalendarOutlined />
-                            {getDaysAgo(job.employmentInformationCreatedTime)}
-                          </span>
-                        </div>
-                      </div>
-                    }
-                  />
-                </List.Item>
-              )}
-            />
-
-            {jobsData?.total && jobsData.total > pagination.pageSize && (
-              <div className="pagination-wrapper">
-                <Pagination
-                  current={pagination.current}
-                  pageSize={pagination.pageSize}
-                  total={total}
-                  onChange={handlePageChange}
-                  showSizeChanger
-                  showQuickJumper
-                  pageSizeOptions={['12', '24', '36', '48']}
-                  showTotal={(total, range) =>
-                    `第 ${range[0]}-${range[1]} 条，共 ${total} 条`
-                  }
-                />
-              </div>
-            )}
-          </>
+          <Table
+            dataSource={jobsData?.records || []}
+            loading={isLoading}
+            rowKey="employmentInformationId"
+            scroll={{ x: 1800 }}
+            onRow={(record: any) => ({
+              onClick: () => handleJobClick(record.employmentInformationId),
+              style: { cursor: 'pointer' }
+            })}
+            pagination={{
+              current: pagination.current,
+              pageSize: pagination.pageSize,
+              total: jobsData?.total || 0,
+              onChange: handlePageChange,
+              showSizeChanger: true,
+              showQuickJumper: true,
+              pageSizeOptions: ['10', '20', '50'],
+              showTotal: (total, range) => `第 ${range[0]}-${range[1]} 条，共 ${total} 条`
+            }}
+            columns={[
+              {
+                title: '公司名称',
+                dataIndex: 'employmentInformationCompanyName',
+                key: 'companyName',
+                fixed: 'left',
+                width: 180,
+                render: (text: string) => (
+                  <span className="company-name-cell">
+                    <BankOutlined style={{ marginRight: 8, color: '#1890ff' }} />
+                    {text}
+                  </span>
+                )
+              },
+              {
+                title: '行业大类',
+                dataIndex: 'employmentInformationIndustryCategoriesName',
+                key: 'industry',
+                width: 120,
+                render: (text: string) => text || '-'
+              },
+              {
+                title: '企业性质',
+                dataIndex: 'employmentInformationCompanyType',
+                key: 'companyType',
+                width: 100,
+                render: (val: number) => getCompanyTypeName(val)
+              },
+              {
+                title: '招聘批次',
+                dataIndex: 'employmentInformationBatch',
+                key: 'batch',
+                width: 100,
+                render: (val: number) => getBatchName(val)
+              },
+              {
+                title: '招聘对象',
+                dataIndex: 'employmentInformationRecruitObject',
+                key: 'object',
+                width: 100,
+                render: (val: number) => getRecruitObjectName(val)
+              },
+              {
+                title: '招聘岗位',
+                dataIndex: 'employmentInformationRecruitPositionName',
+                key: 'position',
+                width: 120,
+                render: (text: string) => text || '-'
+              },
+              {
+                title: '招聘地址(省)',
+                dataIndex: 'employmentInformationRecruitLocationFirstName',
+                key: 'locationProvince',
+                width: 150,
+                render: (list: string[]) => list?.join('、') || '-'
+              },
+              {
+                title: '招聘地址(市)',
+                dataIndex: 'employmentInformationRecruitLocationSecondName',
+                key: 'locationCity',
+                width: 150,
+                render: (list: string[]) => list?.join('、') || '-'
+              },
+              {
+                title: '详细地址',
+                dataIndex: 'employmentInformationRecruitLocationDetail',
+                key: 'locationDetail',
+                width: 200,
+                render: (list: string[]) => list?.join('、') || '-'
+              },
+              {
+                title: '网申状态',
+                dataIndex: 'employmentInformationOnlineApplicationStatus',
+                key: 'status',
+                width: 100,
+                render: (text: string) => (
+                  text ? <Tag color={getStatusColor(text)}>{text}</Tag> : '-'
+                )
+              },
+              {
+                title: '创建时间',
+                dataIndex: 'employmentInformationStartTime',
+                key: 'startTime',
+                width: 110,
+                render: (text: string) => formatDate(text)
+              },
+              {
+                title: '截止时间',
+                dataIndex: 'employmentInformationStopTime',
+                key: 'stopTime',
+                width: 110,
+                render: (text: string) => formatDate(text)
+              },
+              {
+                title: '更新时间',
+                dataIndex: 'employmentInformationUpdatedTime',
+                key: 'updatedTime',
+                width: 110,
+                render: (text: string) => formatDate(text)
+              }
+            ]}
+          />
         )}
-      </Spin>
+      </Card>
     </div>
   )
 }

@@ -76,23 +76,38 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
 
     @Override
     public void addUserDeleteSaveResume(UserSaveResumeInfoVO userSaveResumeInfoVO) {
-        Integer userSaveResumeUserId = userSaveResumeInfoVO.getUserSaveResumeUserId();
-        LambdaQueryWrapper<UserDeleteResume> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserDeleteResume::getUserDeleteResumeUserId, userSaveResumeUserId);
-        queryWrapper.orderByDesc(UserDeleteResume::getUserDeleteResumeSortedNum);
-        List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(queryWrapper);
-        Integer userDeleteResumeSortedNum = userDeleteResumes.get(0).getUserDeleteResumeSortedNum();
-        UserDeleteResume userDeleteResume = new UserDeleteResume();
-        userDeleteResume.setUserDeleteResumeId(userSaveResumeInfoVO.getUserSaveResumeId());
-        userDeleteResume.setUserDeleteResumeResumeName(userSaveResumeInfoVO.getUserSaveResumeResumeName());
-        userDeleteResume.setUserDeleteResumeIndustry(userSaveResumeInfoVO.getUserSaveResumeIndustry());
-        userDeleteResume.setUserDeleteResumeResumeReactCode(userSaveResumeInfoVO.getUserSaveResumeResumeReactCode());
-        userDeleteResume.setUserDeleteResumeCreatedTime(userSaveResumeInfoVO.getUserSaveResumeCreatedTime());
-        userDeleteResume.setUserDeleteResumeUpdatedTime(userSaveResumeInfoVO.getUserSaveResumeUpdatedTime());
-        userDeleteResume.setUserDeleteResumeSortedNum(userDeleteResumeSortedNum + 1);
-        userDeleteResume.setUserDeleteResumeUserId(userSaveResumeUserId);
-        userDeleteResume.setUserDeleteResumeDeleteTime(new Date());
-        userDeleteResumeMapper.insert(userDeleteResume);
+        try{
+            log.info("将用户保存的简历添加到用户删除简历开始");
+            Integer userSaveResumeUserId = userSaveResumeInfoVO.getUserSaveResumeUserId();
+            LambdaQueryWrapper<UserDeleteResume> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(UserDeleteResume::getUserDeleteResumeUserId, userSaveResumeUserId);
+            queryWrapper.orderByDesc(UserDeleteResume::getUserDeleteResumeSortedNum);
+            List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(queryWrapper);
+            Integer userDeleteResumeSortedNum = 0;
+            if (userDeleteResumes==null||userDeleteResumes.isEmpty()){
+                userDeleteResumeSortedNum = 0;
+            }else{
+                userDeleteResumeSortedNum = userDeleteResumes.get(0).getUserDeleteResumeSortedNum();
+
+            }
+            UserDeleteResume userDeleteResume = new UserDeleteResume();
+            userDeleteResume.setUserDeleteResumeId(userSaveResumeInfoVO.getUserSaveResumeId());
+            userDeleteResume.setUserDeleteResumeResumeName(userSaveResumeInfoVO.getUserSaveResumeResumeName());
+            userDeleteResume.setUserDeleteResumeIndustry(userSaveResumeInfoVO.getUserSaveResumeIndustry());
+            userDeleteResume.setUserDeleteResumeResumeReactCode(userSaveResumeInfoVO.getUserSaveResumeResumeReactCode());
+            userDeleteResume.setUserDeleteResumeCreatedTime(userSaveResumeInfoVO.getUserSaveResumeCreatedTime());
+            userDeleteResume.setUserDeleteResumeUpdatedTime(userSaveResumeInfoVO.getUserSaveResumeUpdatedTime());
+            userDeleteResume.setUserDeleteResumeSortedNum(userDeleteResumeSortedNum + 1);
+            userDeleteResume.setUserDeleteResumeUserId(userSaveResumeUserId);
+            userDeleteResume.setUserDeleteResumeDeleteTime(new Date());
+            userDeleteResumeMapper.insert(userDeleteResume);
+        }catch (Exception e){
+            log.error("将用户保存的简历添加到用户删除简历失败");
+            e.printStackTrace();
+            // TODO:一定要回抛,不然事务失效就会有，删除了但是记录失败 按理说两者要同成功或者同失败的
+            throw new RuntimeException("将用户保存的简历添加到用户删除简历失败");
+        }
+
     }
 
     @Override

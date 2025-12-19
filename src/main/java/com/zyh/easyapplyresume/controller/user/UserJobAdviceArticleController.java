@@ -22,7 +22,7 @@ public class UserJobAdviceArticleController {
     @Autowired
     private JobAdviceArticleService jobAdviceArticleService;
 
-    @GetMapping("/getJobAdviceArticlePage")
+    @PostMapping("/getJobAdviceArticlePage")
     @Operation(summary = "分页查询求职攻略信息")
     public BaseResult<Page<JobAdviceArticlePageVO>> getJobAdviceArticlePage(@RequestParam(required = false, defaultValue = "10") int size,
                                                                             @RequestParam(required = false, defaultValue = "1") int page,

@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { 
   Card, 
-  List, 
   Button, 
   Input, 
   Empty, 
   Modal, 
-  Popconfirm, 
   message,
   Tag,
   Tooltip,
-  Avatar,
-  Spin
+  Spin,
+  Tabs
 } from 'antd'
 import { 
   PlusOutlined, 
@@ -19,16 +17,62 @@ import {
   DeleteOutlined, 
   CopyOutlined, 
   EyeOutlined,
-  MoreOutlined
+  HeartOutlined,
+  RestOutlined
 } from '@ant-design/icons'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { resumeAPI } from '@api/resume'
 import { useNavigate } from 'react-router-dom'
 import type { UserResume } from '@types/index'
 import { useUserStore } from '@stores/userStore'
+import { LiveProvider, LivePreview, LiveError } from 'react-live'
+import './MyResumes.scss'
 
 const { Search } = Input
-const { TextArea, Text } = Input
+
+// React代码预览组件（小尺寸）
+const ReactCodePreview: React.FC<{ code: string }> = ({ code }) => {
+  if (!code) {
+    return (
+      <div className="preview-placeholder">
+        <span>暂无预览</span>
+      </div>
+    )
+  }
+
+  const processCode = (rawCode: string): string => {
+    let processed = rawCode
+      .replace(/import\s+.*?from\s+['"].*?['"]\s*;?/g, '')
+      .replace(/import\s+['"].*?['"]\s*;?/g, '')
+      .replace(/export\s+default\s+/g, '')
+      .replace(/export\s+/g, '')
+      .trim()
+
+    if (processed.match(/^(const|function|class)\s+\w+/)) {
+      const componentMatch = processed.match(/^(?:const|function|class)\s+(\w+)/)
+      if (componentMatch) {
+        const componentName = componentMatch[1]
+        processed = `${processed}\n\nrender(<${componentName} />)`
+      }
+    }
+    return processed
+  }
+
+  const scope = {
+    React,
+    useState: React.useState,
+    useEffect: React.useEffect,
+  }
+
+  return (
+    <LiveProvider code={processCode(code)} scope={scope} noInline={true}>
+      <div className="mini-preview">
+        <LivePreview />
+      </div>
+      <LiveError className="preview-error" />
+    </LiveProvider>
+  )
+}
 
 const MyResumes: React.FC = () => {
   const navigate = useNavigate()
@@ -37,6 +81,7 @@ const MyResumes: React.FC = () => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [deleteModalVisible, setDeleteModalVisible] = useState(false)
   const [selectedResume, setSelectedResume] = useState<UserResume | null>(null)
+  const [activeTab, setActiveTab] = useState('my-resumes')
 
   // 获取用户简历列表
   const {
@@ -63,6 +108,23 @@ const MyResumes: React.FC = () => {
     }
   )
 
+  // 获取用户收藏的模板
+  const {
+    data: collectionsData = [],
+    isLoading: collectionsLoading,
+    refetch: refetchCollections
+  } = useQuery(
+    ['user-collections', user?.userId],
+    () => {
+      if (!user?.userId) return Promise.resolve([])
+      return resumeAPI.getUserCollections(user.userId)
+    },
+    {
+      enabled: !!user?.userId && activeTab === 'my-collections',
+      select: (response) => response.data || []
+    }
+  )
+
   // 删除简历mutation
   const deleteResumeMutation = useMutation(
     (resumeId: number) => resumeAPI.deleteResume(user!.userId, resumeId),
@@ -82,6 +144,7 @@ const MyResumes: React.FC = () => {
 
   const handleSearch = (value: string) => {
     setSearchKeyword(value)
+    refetch() // 重新获取数据
   }
 
   const handleEdit = (resume: UserResume) => {
@@ -163,15 +226,39 @@ const MyResumes: React.FC = () => {
     return colors[industryId] || 'default'
   }
 
-  const filteredResumes = resumesData.filter(resume =>
-    resume.userSaveResumeResumeName.toLowerCase().includes(searchKeyword.toLowerCase())
-  )
+  const filteredResumes = Array.isArray(resumesData) 
+    ? resumesData.filter(resume =>
+        resume.userSaveResumeResumeName?.toLowerCase().includes(searchKeyword.toLowerCase())
+      )
+    : []
+
+  const handleOpenRecycleBin = () => {
+    navigate('/resume/recycle-bin')
+  }
 
   return (
     <div className="my-resumes">
+      {/* 页面标题 + Tab切换 */}
       <div className="page-header">
-        <div className="header-content">
-          <h2>我的简历</h2>
+        <Tabs 
+          activeKey={activeTab} 
+          onChange={setActiveTab}
+          items={[
+            { key: 'my-resumes', label: '我的简历' },
+            { key: 'my-collections', label: '我的收藏' }
+          ]}
+        />
+      </div>
+
+      {/* 筛选卡片 */}
+      <Card className="filter-card" style={{ marginBottom: 24 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Search
+            placeholder="搜索简历名称"
+            onSearch={handleSearch}
+            style={{ width: 300 }}
+            allowClear
+          />
           <Button
             type="primary"
             icon={<PlusOutlined />}
@@ -180,15 +267,7 @@ const MyResumes: React.FC = () => {
             创建新简历
           </Button>
         </div>
-        <div className="header-actions">
-          <Search
-            placeholder="搜索简历名称"
-            onSearch={handleSearch}
-            style={{ width: 300 }}
-            allowClear
-          />
-        </div>
-      </div>
+      </Card>
 
       {!user ? (
         <div style={{ textAlign: 'center', padding: '50px' }}>
@@ -216,99 +295,107 @@ const MyResumes: React.FC = () => {
             </Button>
           </Empty>
         </div>
-      ) : (
-        <>
-          <List
-            grid={{ gutter: [24, 24], xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 4 }}
-            loading={isLoading}
-            dataSource={filteredResumes}
-            renderItem={(resume) => (
-          <List.Item>
-            <Card
-              hoverable
-              className="resume-card"
-              actions={[
-                <Tooltip title="预览">
-                  <Button
-                    type="text"
-                    icon={<EyeOutlined />}
-                    onClick={() => handlePreview(resume)}
-                  />
-                </Tooltip>,
-                <Tooltip title="编辑">
-                  <Button
-                    type="text"
-                    icon={<EditOutlined />}
+      ) : activeTab === 'my-resumes' ? (
+        filteredResumes.length === 0 ? (
+          <Empty
+            description={searchKeyword ? '未找到匹配的简历' : '暂无简历'}
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+          >
+            {!searchKeyword && (
+              <Button 
+                type="primary" 
+                icon={<PlusOutlined />}
+                onClick={() => navigate('/resume/templates')}
+              >
+                创建简历
+              </Button>
+            )}
+          </Empty>
+        ) : (
+          <div className="resume-grid">
+            {filteredResumes.map((resume) => (
+              <Card
+                key={resume.userSaveResumeSortedNum}
+                hoverable
+                className="resume-card"
+                cover={
+                  <div 
+                    className="resume-preview-container"
                     onClick={() => handleEdit(resume)}
-                  />
-                </Tooltip>,
-                <Tooltip title="复制">
-                  <Button
-                    type="text"
-                    icon={<CopyOutlined />}
-                    onClick={() => handleDuplicate(resume)}
-                  />
-                </Tooltip>,
-                <Tooltip title="删除">
-                  <Button
-                    type="text"
-                    danger
-                    icon={<DeleteOutlined />}
-                    onClick={() => handleDelete(resume)}
-                  />
-                </Tooltip>,
-              ]}
-            >
-              <Card.Meta
-                avatar={
-                  <Avatar 
-                    style={{ backgroundColor: '#1890ff' }}
-                    size="large"
                   >
-                    {resume.userSaveResumeResumeName.substring(0, 2)}
-                  </Avatar>
-                }
-                title={
-                  <div className="resume-card-title">
-                    <Text strong>{resume.userSaveResumeResumeName}</Text>
+                    <ReactCodePreview code={resume.userSaveResumeResumeReactCode} />
                   </div>
                 }
-                description={
-                  <div className="resume-card-desc">
-                    <div className="resume-tags">
-                      <Tag color={getIndustryColor(resume.userSaveResumeIndustry)}>
-                        {getIndustryName(resume.userSaveResumeIndustry)}
-                      </Tag>
-                    </div>
-                    <div className="resume-times">
-                      <p>创建：{new Date(resume.userSaveResumeCreatedTime).toLocaleDateString('zh-CN')}</p>
-                      <p>更新：{new Date(resume.userSaveResumeUpdatedTime).toLocaleDateString('zh-CN')}</p>
-                    </div>
+              >
+                <div className="resume-info" onClick={() => handleEdit(resume)}>
+                  <h3 className="resume-name">
+                    <span className="resume-order">#{resume.userSaveResumeSortedNum}</span>
+                    {resume.userSaveResumeResumeName}
+                  </h3>
+                  <div className="resume-meta">
+                    <Tag color={getIndustryColor(resume.userSaveResumeIndustry)}>
+                      {getIndustryName(resume.userSaveResumeIndustry)}
+                    </Tag>
                   </div>
-                }
-              />
-            </Card>
-          </List.Item>
-        )}
-      />
-          </>
-      )}
-
-      {user && !isLoading && !error && filteredResumes.length === 0 && (
-        <Empty
-          description={searchKeyword ? '未找到匹配的简历' : '暂无简历'}
-          image={Empty.PRESENTED_IMAGE_SIMPLE}
-        >
-          {!searchKeyword && (
-            <Button 
-              type="primary" 
-              icon={<PlusOutlined />}
-              onClick={() => navigate('/resume/templates')}
-            >
-              创建简历
+                  <div className="resume-times">
+                    <span>创建：{new Date(resume.userSaveResumeCreatedTime).toLocaleDateString('zh-CN')}</span>
+                    <span>更新：{new Date(resume.userSaveResumeUpdatedTime).toLocaleDateString('zh-CN')}</span>
+                  </div>
+                </div>
+                <div className="resume-actions">
+                  <Tooltip title="编辑">
+                    <Button type="text" icon={<EditOutlined />} onClick={() => handleEdit(resume)} />
+                  </Tooltip>
+                  <Tooltip title="删除">
+                    <Button type="text" danger icon={<DeleteOutlined />} onClick={() => handleDelete(resume)} />
+                  </Tooltip>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )
+      ) : (
+        // 我的收藏 Tab
+        collectionsLoading ? (
+          <div style={{ textAlign: 'center', padding: '50px' }}>
+            <Spin size="large" />
+          </div>
+        ) : collectionsData.length === 0 ? (
+          <Empty
+            description="暂无收藏"
+            image={Empty.PRESENTED_IMAGE_SIMPLE}
+          >
+            <Button type="primary" onClick={() => navigate('/resume/templates')}>
+              去收藏模板
             </Button>
-          )}
-        </Empty>
+          </Empty>
+        ) : (
+          <div className="resume-grid">
+            {collectionsData.map((collection: any) => (
+              <Card
+                key={collection.userCollectionsSortedNum}
+                hoverable
+                className="resume-card"
+                cover={
+                  <div className="resume-preview-container">
+                    <ReactCodePreview code={collection.resumeTemplateReactCode} />
+                  </div>
+                }
+                onClick={() => navigate(`/resume/template/${collection.resumeTemplateId}`)}
+              >
+                <div className="resume-info">
+                  <h3 className="resume-name">{collection.resumeTemplateName || '收藏模板'}</h3>
+                  <div className="resume-meta">
+                    <Tag color="purple"><HeartOutlined /> 已收藏</Tag>
+                  </div>
+                  <div className="resume-times">
+                    <span>收藏时间：{new Date(collection.createdTime).toLocaleDateString('zh-CN')}</span>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )
       )}
 
       {/* 删除确认弹窗 */}
@@ -328,6 +415,30 @@ const MyResumes: React.FC = () => {
         <p>确定要删除简历"{selectedResume?.userSaveResumeResumeName}"吗？</p>
         <p>删除后简历将移入回收站，仍可在30天内恢复。</p>
       </Modal>
+
+      {/* 回收站入口 */}
+      <div 
+        className="recycle-bin-entry"
+        onClick={handleOpenRecycleBin}
+        style={{
+          position: 'fixed',
+          right: 32,
+          bottom: 100,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '16px 20px',
+          background: '#fff',
+          borderRadius: 12,
+          boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+          cursor: 'pointer',
+          transition: 'all 0.3s',
+          zIndex: 999
+        }}
+      >
+        <RestOutlined style={{ fontSize: 28, color: '#666' }} />
+        <span style={{ fontSize: 13, color: '#666', marginTop: 6, fontWeight: 500 }}>回收站</span>
+      </div>
     </div>
   )
 }
