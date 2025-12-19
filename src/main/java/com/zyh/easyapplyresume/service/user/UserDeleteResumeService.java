@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.service.user;
 
 import com.zyh.easyapplyresume.model.pojo.user.UserDeleteResume;
 import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
+import com.zyh.easyapplyresume.model.query.user.CPortUserDeleteResumeQuery;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
 
@@ -14,7 +15,7 @@ public interface UserDeleteResumeService {
     /**
      * 根据用户id查询用户删除的所有简历
      */
-    public List<UserDeleteResumeInfoVO> getUserDeleteResumeInfoByUserId(Integer userId);
+    public List<UserDeleteResumeInfoVO> getUserDeleteResumeInfoByUserId(Integer userId, CPortUserDeleteResumeQuery cPortUserDeleteResumeQuery);
 
     /**
      * 根据用户id和简历排序查询用户删除的简历
