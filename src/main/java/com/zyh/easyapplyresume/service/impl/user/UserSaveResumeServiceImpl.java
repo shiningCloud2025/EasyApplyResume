@@ -9,6 +9,7 @@ import com.zyh.easyapplyresume.mapper.mysql.admin.IndustryMapMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserSaveResumeMapper;
 import com.zyh.easyapplyresume.model.pojo.admin.IndustryMap;
 import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
+import com.zyh.easyapplyresume.model.query.user.UserSaveResumeQuery;
 import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
 import com.zyh.easyapplyresume.service.user.UserDeleteResumeService;
@@ -36,12 +37,22 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
     @Autowired
     private IndustryMapMapper industryMapMapper;
     @Override
-    public List<UserSaveResumeInfoVO> getUserSaveResumeInfoByUserId(Integer userSaveResumeUserId) {
+    public List<UserSaveResumeInfoVO> getUserSaveResumeInfoByUserId(Integer userSaveResumeUserId, UserSaveResumeQuery userSaveResumeQuery) {
         try{
             log.info("获取用户保存的简历信息开始");
             LambdaQueryWrapper<UserSaveResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userSaveResumeUserId);
             lambdaQueryWrapper.orderByDesc(UserSaveResume::getUserSaveResumeSortedNum);
+            if (userSaveResumeQuery != null){
+                if (userSaveResumeQuery.getUserSaveResumeResumeName() != null&& !userSaveResumeQuery.getUserSaveResumeResumeName().isEmpty()){
+                    lambdaQueryWrapper.like(UserSaveResume::getUserSaveResumeResumeName, userSaveResumeQuery.getUserSaveResumeResumeName());
+                }
+                if (userSaveResumeQuery.getUserSaveResumeIndustry() != null&& userSaveResumeQuery.getUserSaveResumeIndustry() != 0){
+                    lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeIndustry, userSaveResumeQuery.getUserSaveResumeIndustry());
+                }
+            }
+
+
             List<UserSaveResume> userSaveResumeList = userSaveResumeMapper.selectList(lambdaQueryWrapper);
             if (userSaveResumeList != null){
                 return BeanUtil.copyToList(userSaveResumeList, UserSaveResumeInfoVO.class);

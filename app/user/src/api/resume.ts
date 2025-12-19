@@ -81,11 +81,32 @@ export const resumeAPI = {
     })
   },
 
+  // 获取回收站单个简历详情
+  getDeletedResume: (userId: number, resumeSortedNum: number) => {
+    return request.get('/user/deleteResume/getUserDeleteResumeInfoByUserIdAndResumeSortedNum', {
+      params: { userId, resumeSortedNum }
+    })
+  },
+
   // 恢复简历
   restoreResume: (resumeData: any) => {
     return request.post('/user/deleteResume/addUserDeleteResumeToUserSaveResume', resumeData)
   },
 
+  // 清空回收站
+  clearTrash: (userId: number) => {
+    return request.delete('/user/deleteResume/clearUserAllDeleteResume', {
+      params: { userId }
+    })
+  }
+}
+  // 清空回收站
+  clearTrash: (userId: number) => {
+    return request.delete('/user/deleteResume/clearUserAllDeleteResume', {
+      params: { userId }
+    })
+  }
+}
   // 清空回收站
   clearTrash: (userId: number) => {
     return request.delete('/user/deleteResume/clearUserAllDeleteResume', {
