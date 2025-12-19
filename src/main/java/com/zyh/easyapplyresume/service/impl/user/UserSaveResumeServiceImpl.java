@@ -104,11 +104,15 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
 
 
     @Override
-    public void saveUserSaveResumeInfoFirst(ResumeTemplateInfoVO resumeTemplateInfoVO, Integer userId) {
+    public void saveUserSaveResumeInfoFirst(ResumeTemplateInfoVO resumeTemplateInfoVO, Integer userId,String resumeName) {
         try{
             log.info("保存用户保存的简历信息开始");
             UserSaveResume userSaveResume = new UserSaveResume();
-            userSaveResume.setUserSaveResumeResumeName(resumeTemplateInfoVO.getResumeTemplateName());
+            if (resumeName != null || !resumeName.isEmpty()){
+                userSaveResume.setUserSaveResumeResumeName(resumeName);
+            }else{
+                userSaveResume.setUserSaveResumeResumeName(resumeTemplateInfoVO.getResumeTemplateName());
+            }
             LambdaQueryWrapper<IndustryMap> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.eq(IndustryMap::getIndustryMapIndustryName, resumeTemplateInfoVO.getIndustryMapIndustryName());
             IndustryMap industryMap = industryMapMapper.selectOne(queryWrapper);
@@ -120,11 +124,15 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
             queryWrapper1.eq(UserSaveResume::getUserSaveResumeUserId, userId);
             queryWrapper1.orderByDesc(UserSaveResume::getUserSaveResumeSortedNum);
             List<UserSaveResume> userSaveResumes = userSaveResumeMapper.selectList(queryWrapper1);
-            Integer userSaveResumeSortedNum = userSaveResumes.get(0).getUserSaveResumeSortedNum();
-            if (userSaveResumeSortedNum>=4){
-                throw new BusException(UserCodeEnum.USER_SAVE_RESUME_NOT_DAYU_FIVE);
+            if (userSaveResumes.isEmpty()){
+                userSaveResume.setUserSaveResumeSortedNum(1);
+            }else{
+                Integer userSaveResumeSortedNum = userSaveResumes.get(0).getUserSaveResumeSortedNum();
+                userSaveResume.setUserSaveResumeSortedNum(userSaveResumeSortedNum+1);
+                if (userSaveResumeSortedNum>=4){
+                    throw new BusException(UserCodeEnum.USER_SAVE_RESUME_NOT_DAYU_FIVE);
+                }
             }
-            userSaveResume.setUserSaveResumeSortedNum(userSaveResumeSortedNum+1);
             userSaveResume.setUserSaveResumeUserId(userId);
             userSaveResumeMapper.insert(userSaveResume);
             log.info("保存用户保存的简历信息成功");

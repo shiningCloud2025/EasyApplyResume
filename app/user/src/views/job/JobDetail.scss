@@ -1,0 +1,53 @@
+.job-detail-page {
+  padding: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  .loading-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+  }
+
+  .detail-card {
+    border-radius: 8px;
+
+    .back-btn {
+      padding-left: 0;
+      margin-bottom: 16px;
+    }
+
+    .job-header {
+      .job-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 12px;
+      }
+
+      .job-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+    }
+
+    .announcement-content {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #333;
+      padding: 16px;
+      background: #fafafa;
+      border-radius: 8px;
+
+      p {
+        margin-bottom: 12px;
+      }
+
+      a {
+        color: #1890ff;
+      }
+    }
+  }
+}

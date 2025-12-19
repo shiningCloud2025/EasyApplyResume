@@ -254,6 +254,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
 import { resumeTemplateApi, industryMapApi } from '@/api/admin'
+import dayjs from 'dayjs'
 import type {
   ResumeTemplatePageVO,
   ResumeTemplateForm,
@@ -318,7 +319,7 @@ const templateRules = {
 // 格式化日期（只显示日期，不显示时分秒）
 const formatDate = (dateStr: string | undefined) => {
   if (!dateStr) return '-'
-  return dateStr.split('T')[0]
+  return dayjs(dateStr).format('YYYY-MM-DD')
 }
 
 // 格式化日期时间（显示日期和时间）

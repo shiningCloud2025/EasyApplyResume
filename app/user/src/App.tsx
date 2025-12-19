@@ -13,8 +13,10 @@ const LoginPage = React.lazy(() => import('@views/auth/LoginPage'))
 const RegisterPage = React.lazy(() => import('@views/auth/RegisterPage'))
 const ProfilePage = React.lazy(() => import('@views/user/ProfilePage'))
 const ResumeTemplates = React.lazy(() => import('@views/resume/ResumeTemplates'))
+const TemplateDetail = React.lazy(() => import('@views/resume/TemplateDetail'))
 const MyResumes = React.lazy(() => import('@views/resume/MyResumes'))
 const ResumeEditor = React.lazy(() => import('@views/resume/ResumeEditor'))
+const RecycleBin = React.lazy(() => import('@views/resume/RecycleBin'))
 const JobList = React.lazy(() => import('@views/job/JobList'))
 const JobDetail = React.lazy(() => import('@views/job/JobDetail'))
 const AdviceList = React.lazy(() => import('@views/advice/AdviceList'))
@@ -59,11 +61,11 @@ function App() {
       }>
         <Route path="home" element={<HomePage />} />
         <Route path="profile" element={<ProfilePage />} />
-        <Route path="resume" element={<Navigate to="/resume/templates" replace />}>
-          <Route path="templates" element={<ResumeTemplates />} />
-          <Route path="my-resumes" element={<MyResumes />} />
-          <Route path="edit/:sortedNum" element={<ResumeEditor />} />
-        </Route>
+        <Route path="resume/templates" element={<ResumeTemplates />} />
+        <Route path="resume/template/:templateId" element={<TemplateDetail />} />
+        <Route path="resume/my-resumes" element={<MyResumes />} />
+        <Route path="resume/edit/:sortedNum" element={<ResumeEditor />} />
+                <Route path="resume/recycle-bin" element={<RecycleBin />} />
         <Route path="jobs" element={<JobList />} />
         <Route path="job/:id" element={<JobDetail />} />
         <Route path="advice" element={<AdviceList />} />

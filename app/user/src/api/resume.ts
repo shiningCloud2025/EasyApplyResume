@@ -5,12 +5,11 @@ import type { PaginationParams } from '@types/index'
 export const resumeAPI = {
   // 分页查询简历模板
   getTemplates: (params: PaginationParams & { query?: any }) => {
-    return request.get('/user/resumeTemplate/findResumeTemplateByPage', {
+    return request.post('/user/resumeTemplate/findResumeTemplateByPage', params.query || {}, {
       params: {
         pageNum: params.pageNum,
-        pageSize: params.pageSize,
-      },
-      data: params.query
+        pageSize: params.pageSize
+      }
     })
   },
 
@@ -35,10 +34,17 @@ export const resumeAPI = {
     })
   },
 
-  // 通过模板创建简历
-  createResumeFromTemplate: (userId: number, templateData: any) => {
-    return request.post('/user/saveResume/saveUserSaveResumeInfoFirst', templateData, {
+  // 获取用户收藏的模板列表
+  getUserCollections: (userId: number) => {
+    return request.get('/user/userCollections/findUserCollectionsByUserId', {
       params: { userId }
+    })
+  },
+
+  // 通过模板创建简历
+  createResumeFromTemplate: (userId: number, templateData: any, resumeName?: string) => {
+    return request.post('/user/saveResume/saveUserSaveResumeInfoFirst', templateData, {
+      params: { userId, resumeName }
     })
   },
 

@@ -11,6 +11,7 @@ import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.EmploymentInformationMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.IndustryMapMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.ProvinceMapMapper;
+import com.zyh.easyapplyresume.mapper.mysql.admin.RecruitPositionMapper;
 import com.zyh.easyapplyresume.model.form.admin.EmploymentInformationForm;
 import com.zyh.easyapplyresume.model.pojo.admin.EmploymentInformation;
 import com.zyh.easyapplyresume.model.query.admin.EmploymentInformationQuery;
@@ -41,6 +42,9 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
     private ProvinceMapMapper provinceMapMapper;
     @Autowired
     private IndustryMapMapper industryMapMapper;
+    @Autowired
+    private RecruitPositionMapper recruitPositionMapper;
+
     @Override
     public Integer addEmploymentInformation(EmploymentInformationForm employmentInformationForm) {
         EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
@@ -84,8 +88,15 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
     private Integer addEmploymentInformationForUpdate(EmploymentInformationForm employmentInformationForm,Date startTime) {
         EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
         EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
-        Integer employmentInformationId = employmentInformationMapper.selectList(null).get(0).getEmploymentInformationId();
-        employmentInformation.setEmploymentInformationCode(employmentInformationId+1);
+        LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.orderByDesc(EmploymentInformation::getEmploymentInformationId);
+        // TODO:有一定的并发问题，因为是先删除，后新增，那么在删除的时候如果别的增加且你已经完成了查询 那就回有并发问题，但是概率比较低！
+        if(employmentInformationMapper.selectList(lambdaQueryWrapper)==null){
+            employmentInformation.setEmploymentInformationCode(1);
+        }else{
+            Integer employmentInformationId = employmentInformationMapper.selectList(lambdaQueryWrapper).getFirst().getEmploymentInformationId();
+            employmentInformation.setEmploymentInformationCode(employmentInformationId+1);
+        }
         List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirstList();
         List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecondList();
         // 校验长度一致
@@ -198,6 +209,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         employmentInformationInfoVO.setEmploymentInformationRecruitLocationSecondName(cities);
         employmentInformationInfoVO.setEmploymentInformationRecruitLocationDetail(details);
         employmentInformationInfoVO.setEmploymentInformationIndustryCategoriesName(industryMapMapper.selectById(employmentInformations.getFirst().getEmploymentInformationIndustryCategories()).getIndustryMapIndustryName());
+        employmentInformationInfoVO.setEmploymentInformationRecruitPositionName(recruitPositionMapper.selectById(employmentInformations.getFirst().getEmploymentInformationRecruitPosition()).getRecruitPositionName());
         return employmentInformationInfoVO;
     }
     /**
@@ -296,6 +308,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
                     // 复制同名字段（要求：VO与数据库实体字段名一致、数据类型一致）
                     BeanUtils.copyProperties(employmentInformationInfo, pageVO);
                     pageVO.setEmploymentInformationIndustryCategoriesName(industryMapMapper.selectById(info.getEmploymentInformationIndustryCategories()).getIndustryMapIndustryName());
+                    pageVO.setEmploymentInformationRecruitPositionName(recruitPositionMapper.selectById(info.getEmploymentInformationRecruitPosition()).getRecruitPositionName());
                     // 字段差异补充映射（根据实际VO结构调整，以下为常见场景示例）
                     // 示例1：日期字段格式化（如截止时间转字符串，需导入日期工具类，如Hutool的DateUtil）
                     // if (info.getEmploymentInformationStopTime() != null) {

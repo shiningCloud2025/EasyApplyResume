@@ -23,7 +23,8 @@ public class UserResumeTemplateController {
     @Autowired
     private ResumeTemplateService resumeTemplateService;
 
-    @GetMapping("/findResumeTemplateByPage")
+    // TODO : @ModelAttribute 不想要JSON,想用URL 和GET非常适配
+    @PostMapping("/findResumeTemplateByPage")
     @Operation(summary = "分页查询简历模板信息")
     public BaseResult<Page<ResumeTemplatePageVO>> findResumeTemplateByPage(@RequestParam(required = true, defaultValue = "10") Integer pageNum,
                                                                            @RequestParam(required = true, defaultValue = "1") Integer pageSize,

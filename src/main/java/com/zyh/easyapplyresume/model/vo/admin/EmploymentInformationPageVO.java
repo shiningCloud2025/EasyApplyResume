@@ -30,6 +30,9 @@ public class EmploymentInformationPageVO {
     @Schema(description = "招聘岗位")
     private Integer employmentInformationRecruitPosition;
 
+    @Schema(description = "招聘岗位名称")
+    private String employmentInformationRecruitPositionName;
+
     @Schema(description = "招聘对象")
     private Integer employmentInformationRecruitObject;
 

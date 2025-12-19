@@ -50,8 +50,9 @@ public class UserSaveResumeController {
     @PostMapping("/saveUserSaveResumeInfoFirst")
     @Operation(summary = "保存用户的简历(第一次添加，通过简历模版)")
     public BaseResult<String> saveUserSaveResumeInfoFirst(@RequestBody ResumeTemplateInfoVO resumeTemplateInfoVO,
-                                                         @RequestParam(required = true,value ="userId") Integer userId){
-        userSaveResumeService.saveUserSaveResumeInfoFirst(resumeTemplateInfoVO,userId);
+                                                         @RequestParam(required = true,value ="userId") Integer userId,
+                                                          @RequestParam(required = false,value ="resumeName") String resumeName){
+        userSaveResumeService.saveUserSaveResumeInfoFirst(resumeTemplateInfoVO,userId,resumeName);
         return BaseResult.ok();
     }
 
