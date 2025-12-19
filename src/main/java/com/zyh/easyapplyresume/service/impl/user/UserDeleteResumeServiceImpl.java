@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.mapper.mysql.user.UserSaveResumeMapper;
 import com.zyh.easyapplyresume.model.pojo.admin.IndustryMap;
 import com.zyh.easyapplyresume.model.pojo.user.UserDeleteResume;
 import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
+import com.zyh.easyapplyresume.model.query.user.CPortUserDeleteResumeQuery;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
 import com.zyh.easyapplyresume.service.user.UserDeleteResumeBySystemService;
@@ -45,12 +46,21 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
     private UserDeleteResumeBySystemService userDeleteResumeBySystemService;
 
     @Override
-    public List<UserDeleteResumeInfoVO> getUserDeleteResumeInfoByUserId(Integer userDeleteResumeId) {
+    public List<UserDeleteResumeInfoVO> getUserDeleteResumeInfoByUserId(Integer userDeleteResumeId, CPortUserDeleteResumeQuery cPortUserDeleteResumeQuery) {
         try{
             log.info("根据用户id查询用户删除简历信息开始");
             LambdaQueryWrapper<UserDeleteResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(UserDeleteResume::getUserDeleteResumeUserId, userDeleteResumeId);
             lambdaQueryWrapper.orderByDesc(UserDeleteResume::getUserDeleteResumeSortedNum);
+            if (cPortUserDeleteResumeQuery != null){
+                if (cPortUserDeleteResumeQuery.getUserSaveResumeResumeName() != null&& !cPortUserDeleteResumeQuery.getUserSaveResumeResumeName().isEmpty()){
+                    lambdaQueryWrapper.like(UserDeleteResume::getUserDeleteResumeResumeName, cPortUserDeleteResumeQuery.getUserSaveResumeResumeName());
+                }
+                if (cPortUserDeleteResumeQuery.getUserSaveResumeIndustry() != null){
+                    lambdaQueryWrapper.eq(UserDeleteResume::getUserDeleteResumeIndustry, cPortUserDeleteResumeQuery.getUserSaveResumeIndustry());
+                }
+            }
+
             List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(lambdaQueryWrapper);
             if (userDeleteResumes != null){
                 return BeanUtil.copyToList(userDeleteResumes, UserDeleteResumeInfoVO.class);
