@@ -15,6 +15,7 @@ import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
 import com.zyh.easyapplyresume.service.user.UserDeleteResumeService;
 import com.zyh.easyapplyresume.service.user.UserSaveResumeService;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,7 +56,11 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
 
             List<UserSaveResume> userSaveResumeList = userSaveResumeMapper.selectList(lambdaQueryWrapper);
             if (userSaveResumeList != null){
-                return BeanUtil.copyToList(userSaveResumeList, UserSaveResumeInfoVO.class);
+                List<UserSaveResumeInfoVO> userSaveResumeInfoVOS = BeanUtil.copyToList(userSaveResumeList, UserSaveResumeInfoVO.class);
+                userSaveResumeInfoVOS.forEach(userSaveResumeInfoVO -> {
+                    userSaveResumeInfoVO.setUserSaveResumeIndustryName(industryMapMapper.selectById(userSaveResumeInfoVO.getUserSaveResumeIndustry()).getIndustryMapIndustryName());
+                });
+                return userSaveResumeInfoVOS;
             }
             log.info("获取用户保存的简历信息成功");
         }catch (Exception e){
@@ -73,8 +78,11 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
             lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
             lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeSortedNum, userSaveResumeSortedNum);
             UserSaveResume userSaveResume = userSaveResumeMapper.selectOne(lambdaQueryWrapper);
+
             if (userSaveResume != null){
-                return BeanUtil.copyProperties(userSaveResume, UserSaveResumeInfoVO.class);
+                UserSaveResumeInfoVO userSaveResumeInfoVO = BeanUtil.copyProperties(userSaveResume, UserSaveResumeInfoVO.class);
+                userSaveResumeInfoVO.setUserSaveResumeIndustryName(industryMapMapper.selectById(userSaveResumeInfoVO.getUserSaveResumeIndustry()).getIndustryMapIndustryName());
+                return userSaveResumeInfoVO;
             }
             log.info("获取用户保存的简历信息成功");
         }catch (Exception e){

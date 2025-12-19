@@ -145,8 +145,11 @@ const MyResumes: React.FC = () => {
 
   const handleSearch = (value: string) => {
     setSearchKeyword(value)
-    // 更新搜索参数，触发后端查询
-    setSearchQuery(value ? { userSaveResumeResumeName: value } : {})
+    // 更新搜索参数
+    const newQuery = value ? { userSaveResumeResumeName: value } : {}
+    setSearchQuery(newQuery)
+    // 强制重新获取数据
+    setTimeout(() => refetch(), 0)
   }
 
   const handleEdit = (resume: UserResume) => {
@@ -333,7 +336,7 @@ const MyResumes: React.FC = () => {
                   </h3>
                   <div className="resume-meta">
                     <Tag color={getIndustryColor(resume.userSaveResumeIndustry)}>
-                      {getIndustryName(resume.userSaveResumeIndustry)}
+                      {resume.userSaveResumeIndustryName || getIndustryName(resume.userSaveResumeIndustry)}
                     </Tag>
                   </div>
                   <div className="resume-times">
