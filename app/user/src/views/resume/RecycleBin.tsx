@@ -16,7 +16,8 @@ import {
   DeleteOutlined,
   UndoOutlined,
   ExclamationCircleOutlined,
-  SearchOutlined
+  SearchOutlined,
+  EyeOutlined
 } from '@ant-design/icons'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { resumeAPI } from '@api/resume'
@@ -80,6 +81,8 @@ const RecycleBin: React.FC = () => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
+  const [previewVisible, setPreviewVisible] = useState(false)
+  const [previewResume, setPreviewResume] = useState<any>(null)
 
   // 获取回收站简历列表
   const {
@@ -90,11 +93,17 @@ const RecycleBin: React.FC = () => {
     ['deleted-resumes', user?.userId],
     () => {
       if (!user?.userId) return Promise.resolve([])
+      console.log('调用回收站接口: userId=', user.userId)
       return resumeAPI.getDeletedResumes(user.userId)
     },
     {
       enabled: !!user?.userId,
-      select: (response) => response.data || [],
+      select: (response) => {
+        console.log('回收站接口返回:', response)
+        return response.data || []
+      },
+      staleTime: 0, // 每次都重新获取
+      cacheTime: 0, // 不缓存
       onError: () => {
         message.error('获取回收站列表失败')
       }
@@ -184,6 +193,12 @@ const RecycleBin: React.FC = () => {
   const handleSearch = (value: string) => {
     setSearchKeyword(value)
     setCurrentPage(1) // 搜索时重置到第一页
+  }
+
+  // 点击卡片预览
+  const handlePreview = (resume: any) => {
+    setPreviewResume(resume)
+    setPreviewVisible(true)
   }
 
   // 过滤后的简历列表

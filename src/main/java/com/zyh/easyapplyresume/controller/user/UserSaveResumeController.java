@@ -1,6 +1,8 @@
 package com.zyh.easyapplyresume.controller.user;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
+import com.zyh.easyapplyresume.model.query.user.UserQuery;
+import com.zyh.easyapplyresume.model.query.user.UserSaveResumeQuery;
 import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
 import com.zyh.easyapplyresume.service.user.UserSaveResumeService;
@@ -21,8 +23,9 @@ public class UserSaveResumeController {
 
     @GetMapping("/getUserSaveResumeInfoByUserId")
     @Operation(summary = "根据用户id查询用户保存的所有简历")
-    public BaseResult<List<UserSaveResumeInfoVO>> getUserSaveResumeInfoByUserId(@RequestParam(required = true,value ="userId") Integer userId){
-        return BaseResult.ok(userSaveResumeService.getUserSaveResumeInfoByUserId(userId));
+    public BaseResult<List<UserSaveResumeInfoVO>> getUserSaveResumeInfoByUserId(@RequestParam(required = true,value ="userId") Integer userId,
+                                                                                @RequestBody UserSaveResumeQuery userSaveResumeQuery){
+        return BaseResult.ok(userSaveResumeService.getUserSaveResumeInfoByUserId(userId,userSaveResumeQuery));
     }
 
     @GetMapping("/getUserSaveResumeInfoByUserIdAndResumeId")
