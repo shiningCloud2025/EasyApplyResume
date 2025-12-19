@@ -9,7 +9,8 @@ import {
   Tooltip,
   Spin,
   Input,
-  Pagination
+  Pagination,
+  Tabs
 } from 'antd'
 import { 
   ArrowLeftOutlined,
@@ -17,7 +18,8 @@ import {
   UndoOutlined,
   ExclamationCircleOutlined,
   SearchOutlined,
-  EyeOutlined
+  EyeOutlined,
+  CodeOutlined
 } from '@ant-design/icons'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { resumeAPI, ResumeSearchQuery } from '@api/resume'
@@ -194,8 +196,11 @@ const RecycleBin: React.FC = () => {
   const handleSearch = (value: string) => {
     setSearchKeyword(value)
     setCurrentPage(1) // 搜索时重置到第一页
-    // 更新搜索参数，触发后端查询
-    setSearchQuery(value ? { userSaveResumeResumeName: value } : {})
+    // 更新搜索参数
+    const newQuery = value ? { userSaveResumeResumeName: value } : {}
+    setSearchQuery(newQuery)
+    // 强制重新获取数据
+    setTimeout(() => refetch(), 0)
   }
 
   // 点击卡片预览
@@ -280,28 +285,35 @@ const RecycleBin: React.FC = () => {
           <div className="resume-grid" style={{ marginTop: 24 }}>
             {paginatedResumes.map((resume: any) => (
               <Card
-                key={resume.userDeleteResumeSortedNum || resume.userSaveResumeSortedNum}
+                key={resume.userDeleteResumeSortedNum}
                 hoverable
                 className="resume-card"
                 cover={
-                  <div className="resume-preview-container">
-                    <ReactCodePreview code={resume.userDeleteResumeResumeReactCode || resume.userSaveResumeResumeReactCode} />
+                  <div className="resume-preview-container" onClick={() => handlePreview(resume)}>
+                    <ReactCodePreview code={resume.userDeleteResumeResumeReactCode} />
                   </div>
                 }
               >
-                <div className="resume-info">
-                  <h3 className="resume-name">{resume.userDeleteResumeResumeName || resume.userSaveResumeResumeName}</h3>
+                <div className="resume-info" onClick={() => handlePreview(resume)}>
+                  <h3 className="resume-name">
+                    <span className="resume-order">#{resume.userDeleteResumeSortedNum}</span>
+                    {resume.userDeleteResumeResumeName}
+                  </h3>
                   <div className="resume-meta">
-                    <Tag color={getIndustryColor(resume.userDeleteResumeIndustry || resume.userSaveResumeIndustry)}>
-                      {getIndustryName(resume.userDeleteResumeIndustry || resume.userSaveResumeIndustry)}
+                    <Tag color={getIndustryColor(resume.userDeleteResumeIndustry)}>
+                      {resume.userDeleteResumeIndustryName || getIndustryName(resume.userDeleteResumeIndustry)}
                     </Tag>
                     <Tag color="red">已删除</Tag>
                   </div>
                   <div className="resume-times">
-                    <span>删除时间：{resume.userDeleteResumeDeletedTime || resume.deletedTime ? new Date(resume.userDeleteResumeDeletedTime || resume.deletedTime).toLocaleDateString('zh-CN') : '-'}</span>
+                    <span>创建：{resume.userDeleteResumeCreatedTime ? new Date(resume.userDeleteResumeCreatedTime).toLocaleDateString('zh-CN') : '-'}</span>
+                    <span>删除：{resume.userDeleteResumeDeleteTime ? new Date(resume.userDeleteResumeDeleteTime).toLocaleDateString('zh-CN') : '-'}</span>
                   </div>
                 </div>
                 <div className="resume-actions">
+                  <Tooltip title="预览">
+                    <Button type="text" icon={<EyeOutlined />} onClick={() => handlePreview(resume)} />
+                  </Tooltip>
                   <Tooltip title="恢复">
                     <Button 
                       type="primary" 
@@ -346,8 +358,121 @@ const RecycleBin: React.FC = () => {
           </Button>
         ]}
       >
-        <p>确定要恢复简历"{selectedResume?.userDeleteResumeResumeName || selectedResume?.userSaveResumeResumeName}"吗？</p>
+        <p>确定要恢复简历"{selectedResume?.userDeleteResumeResumeName}"吗？</p>
         <p>恢复后简历将回到"我的简历"列表中。</p>
+      </Modal>
+
+      {/* 预览弹窗 */}
+      <Modal
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span>#{previewResume?.userDeleteResumeSortedNum}</span>
+            <span>{previewResume?.userDeleteResumeResumeName}</span>
+            <Tag color="red">已删除</Tag>
+          </div>
+        }
+        open={previewVisible}
+        onCancel={() => setPreviewVisible(false)}
+        width={900}
+        footer={[
+          <Button key="close" onClick={() => setPreviewVisible(false)}>
+            关闭
+          </Button>,
+          <Button 
+            key="restore" 
+            type="primary" 
+            icon={<UndoOutlined />}
+            onClick={() => {
+              setPreviewVisible(false)
+              handleRestore(previewResume)
+            }}
+          >
+            恢复简历
+          </Button>
+        ]}
+      >
+        {previewResume && (
+          <Tabs
+            defaultActiveKey="preview"
+            items={[
+              {
+                key: 'preview',
+                label: '预览',
+                children: (
+                  <div style={{ 
+                    border: '1px solid #e8e8e8', 
+                    borderRadius: 8, 
+                    padding: 20,
+                    minHeight: 400,
+                    background: '#fafafa'
+                  }}>
+                    <LiveProvider 
+                      code={(() => {
+                        const code = previewResume.userDeleteResumeResumeReactCode || ''
+                        let processed = code
+                          .replace(/import\s+.*?from\s+['"].*?['"]\s*;?/g, '')
+                          .replace(/import\s+['"].*?['"]\s*;?/g, '')
+                          .replace(/export\s+default\s+/g, '')
+                          .replace(/export\s+/g, '')
+                          .trim()
+                        if (processed.match(/^(const|function|class)\s+\w+/)) {
+                          const match = processed.match(/^(?:const|function|class)\s+(\w+)/)
+                          if (match) {
+                            processed = `${processed}\n\nrender(<${match[1]} />)`
+                          }
+                        }
+                        return processed
+                      })()} 
+                      scope={{ React, useState: React.useState, useEffect: React.useEffect }} 
+                      noInline={true}
+                    >
+                      <LivePreview />
+                      <LiveError style={{ color: 'red', marginTop: 10 }} />
+                    </LiveProvider>
+                  </div>
+                )
+              },
+              {
+                key: 'code',
+                label: '代码',
+                children: (
+                  <div style={{ 
+                    border: '1px solid #e8e8e8', 
+                    borderRadius: 8, 
+                    padding: 16,
+                    background: '#1e1e1e',
+                    maxHeight: 500,
+                    overflow: 'auto'
+                  }}>
+                    <pre style={{ 
+                      margin: 0, 
+                      color: '#d4d4d4', 
+                      fontSize: 13,
+                      lineHeight: 1.5,
+                      whiteSpace: 'pre-wrap',
+                      wordBreak: 'break-word'
+                    }}>
+                      {previewResume.userDeleteResumeResumeReactCode}
+                    </pre>
+                  </div>
+                )
+              },
+              {
+                key: 'info',
+                label: '信息',
+                children: (
+                  <div style={{ padding: 16 }}>
+                    <p><strong>简历名称：</strong>{previewResume.userDeleteResumeResumeName}</p>
+                    <p><strong>行业：</strong>{previewResume.userDeleteResumeIndustryName || getIndustryName(previewResume.userDeleteResumeIndustry)}</p>
+                    <p><strong>创建时间：</strong>{previewResume.userDeleteResumeCreatedTime ? new Date(previewResume.userDeleteResumeCreatedTime).toLocaleDateString('zh-CN') : '-'}</p>
+                    <p><strong>更新时间：</strong>{previewResume.userDeleteResumeUpdatedTime ? new Date(previewResume.userDeleteResumeUpdatedTime).toLocaleDateString('zh-CN') : '-'}</p>
+                    <p><strong>删除时间：</strong>{previewResume.userDeleteResumeDeleteTime ? new Date(previewResume.userDeleteResumeDeleteTime).toLocaleDateString('zh-CN') : '-'}</p>
+                  </div>
+                )
+              }
+            ]}
+          />
+        )}
       </Modal>
     </div>
   )

@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.service.impl.user;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.UserCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.IndustryMapMapper;
@@ -97,13 +98,14 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
             if (userDeleteResumes==null||userDeleteResumes.isEmpty()){
                 userDeleteResumeSortedNum = 0;
             }else{
-                userDeleteResumeSortedNum = userDeleteResumes.get(0).getUserDeleteResumeSortedNum();
+                userDeleteResumeSortedNum = userDeleteResumes.getFirst().getUserDeleteResumeSortedNum();
 
             }
             UserDeleteResume userDeleteResume = new UserDeleteResume();
             userDeleteResume.setUserDeleteResumeId(userSaveResumeInfoVO.getUserSaveResumeId());
             userDeleteResume.setUserDeleteResumeResumeName(userSaveResumeInfoVO.getUserSaveResumeResumeName());
             userDeleteResume.setUserDeleteResumeIndustry(userSaveResumeInfoVO.getUserSaveResumeIndustry());
+            userDeleteResume.setUserDeleteResumeIndustryName(industryMapMapper.selectById(userSaveResumeInfoVO.getUserSaveResumeIndustry()).getIndustryMapIndustryName());
             userDeleteResume.setUserDeleteResumeResumeReactCode(userSaveResumeInfoVO.getUserSaveResumeResumeReactCode());
             userDeleteResume.setUserDeleteResumeCreatedTime(userSaveResumeInfoVO.getUserSaveResumeCreatedTime());
             userDeleteResume.setUserDeleteResumeUpdatedTime(userSaveResumeInfoVO.getUserSaveResumeUpdatedTime());
@@ -129,7 +131,12 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
             queryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
             queryWrapper.orderByDesc(UserSaveResume::getUserSaveResumeSortedNum);
             List<UserSaveResume> userSaveResumes = userSaveResumeMapper.selectList(queryWrapper);
-            Integer userSaveResumeSortedNum = userSaveResumes.get(0).getUserSaveResumeSortedNum();
+            Integer userSaveResumeSortedNum=0;
+            if (userSaveResumes==null||userSaveResumes.isEmpty()){
+                userSaveResumeSortedNum = 0;
+            }else{
+                userSaveResumeSortedNum = userSaveResumes.getFirst().getUserSaveResumeSortedNum();
+            }
             if (userSaveResumeSortedNum>=4){
                 throw new BusException(UserCodeEnum.USER_SAVE_RESUME_NOT_DAYU_FIVE);
             }
@@ -145,9 +152,17 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
             userSaveResume.setUserSaveResumeSortedNum(userSaveResumeSortedNum + 1);
             userSaveResume.setUserSaveResumeUserId(userId);
             userSaveResumeMapper.insert(userSaveResume);
+            LambdaQueryWrapper<UserDeleteResume> lambdaQueryWrapper2 = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper2.eq(UserDeleteResume::getUserDeleteResumeId, userDeleteResumeInfoVO.getUserDeleteResumeUserId());
+            lambdaQueryWrapper2.eq(UserDeleteResume::getUserDeleteResumeSortedNum, userDeleteResumeInfoVO.getUserDeleteResumeSortedNum());
+            userDeleteResumeMapper.delete(lambdaQueryWrapper2);
+            reorderResumeSortedNum(userDeleteResumeInfoVO.getUserDeleteResumeUserId(), userDeleteResumeInfoVO.getUserDeleteResumeSortedNum());
+            // TODO 添加回去以后要删掉
             log.info("将用户删除简历添加到用户保存简历成功");
         }catch (Exception e){
             log.error("添加用户删除简历失败");
+            e.printStackTrace();
+            throw new RuntimeException("添加用户删除简历失败");
         }
 
     }
@@ -159,6 +174,7 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
             LambdaQueryWrapper<UserDeleteResume> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.eq(UserDeleteResume::getUserDeleteResumeUserId, userId);
             List<UserDeleteResume> userDeleteResumes = userDeleteResumeMapper.selectList(queryWrapper);
+            // TODO 这里应该有问题
             userDeleteResumeBySystemService.addExpiredUserDeleteResume(userDeleteResumes);
             userDeleteResumeMapper.delete(queryWrapper);
             log.info("删除用户所有删除简历成功");
@@ -197,6 +213,24 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
 
         } catch (Exception e){
             log.error("系统删除简历表添加失败");
+        }
+    }
+
+    private void reorderResumeSortedNum(Integer userId, Integer deletedSortedNum) {
+        LambdaQueryWrapper<UserDeleteResume> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserDeleteResume::getUserDeleteResumeUserId, userId);
+        queryWrapper.gt(UserDeleteResume::getUserDeleteResumeSortedNum, deletedSortedNum);
+        queryWrapper.orderByAsc(UserDeleteResume::getUserDeleteResumeSortedNum);
+        List<UserDeleteResume> resumeList = userDeleteResumeMapper.selectList(queryWrapper);
+
+        if (resumeList != null && !resumeList.isEmpty()) {
+            for (UserDeleteResume resume : resumeList) {
+                LambdaUpdateWrapper<UserDeleteResume> updateWrapper = new LambdaUpdateWrapper<>();
+                updateWrapper.eq(UserDeleteResume::getUserDeleteResumeId, resume.getUserDeleteResumeId());
+                updateWrapper.eq(UserDeleteResume::getUserDeleteResumeSortedNum, resume.getUserDeleteResumeSortedNum());
+                updateWrapper.set(UserDeleteResume::getUserDeleteResumeSortedNum, resume.getUserDeleteResumeSortedNum() - 1);
+                userDeleteResumeMapper.update(null, updateWrapper);
+            }
         }
     }
 }
