@@ -1,6 +1,12 @@
 import request from '@utils/request'
 import type { PaginationParams } from '@types/index'
 
+// 简历搜索查询参数类型
+export interface ResumeSearchQuery {
+  userSaveResumeResumeName?: string
+  userSaveResumeIndustry?: number
+}
+
 // 简历相关API
 export const resumeAPI = {
   // 分页查询简历模板
@@ -48,9 +54,9 @@ export const resumeAPI = {
     })
   },
 
-  // 获取用户所有简历
-  getUserResumes: (userId: number) => {
-    return request.get('/user/saveResume/getUserSaveResumeInfoByUserId', {
+  // 获取用户所有简历（支持搜索）
+  getUserResumes: (userId: number, query?: ResumeSearchQuery) => {
+    return request.post('/user/saveResume/getUserSaveResumeInfoByUserId', query || {}, {
       params: { userId }
     })
   },
@@ -74,9 +80,9 @@ export const resumeAPI = {
     })
   },
 
-  // 获取回收站简历
-  getDeletedResumes: (userId: number) => {
-    return request.get('/user/deleteResume/getUserDeleteResumeInfoByUserId', {
+  // 获取回收站简历（支持搜索）
+  getDeletedResumes: (userId: number, query?: ResumeSearchQuery) => {
+    return request.post('/user/deleteResume/getUserDeleteResumeInfoByUserId', query || {}, {
       params: { userId }
     })
   },
@@ -93,20 +99,6 @@ export const resumeAPI = {
     return request.post('/user/deleteResume/addUserDeleteResumeToUserSaveResume', resumeData)
   },
 
-  // 清空回收站
-  clearTrash: (userId: number) => {
-    return request.delete('/user/deleteResume/clearUserAllDeleteResume', {
-      params: { userId }
-    })
-  }
-}
-  // 清空回收站
-  clearTrash: (userId: number) => {
-    return request.delete('/user/deleteResume/clearUserAllDeleteResume', {
-      params: { userId }
-    })
-  }
-}
   // 清空回收站
   clearTrash: (userId: number) => {
     return request.delete('/user/deleteResume/clearUserAllDeleteResume', {

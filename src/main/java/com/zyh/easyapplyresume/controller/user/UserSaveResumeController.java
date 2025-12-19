@@ -21,10 +21,10 @@ public class UserSaveResumeController {
     @Autowired
     private UserSaveResumeService userSaveResumeService;
 
-    @GetMapping("/getUserSaveResumeInfoByUserId")
+    @PostMapping("/getUserSaveResumeInfoByUserId")
     @Operation(summary = "根据用户id查询用户保存的所有简历")
     public BaseResult<List<UserSaveResumeInfoVO>> getUserSaveResumeInfoByUserId(@RequestParam(required = true,value ="userId") Integer userId,
-                                                                                @RequestBody UserSaveResumeQuery userSaveResumeQuery){
+                                                                                @RequestBody(required = false) UserSaveResumeQuery userSaveResumeQuery){
         return BaseResult.ok(userSaveResumeService.getUserSaveResumeInfoByUserId(userId,userSaveResumeQuery));
     }
 

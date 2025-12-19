@@ -20,7 +20,7 @@ import {
   EyeOutlined
 } from '@ant-design/icons'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { resumeAPI } from '@api/resume'
+import { resumeAPI, ResumeSearchQuery } from '@api/resume'
 import { useNavigate } from 'react-router-dom'
 import { useUserStore } from '@stores/userStore'
 import { LiveProvider, LivePreview, LiveError } from 'react-live'
@@ -79,22 +79,23 @@ const RecycleBin: React.FC = () => {
   const [restoreModalVisible, setRestoreModalVisible] = useState(false)
   const [selectedResume, setSelectedResume] = useState<any>(null)
   const [searchKeyword, setSearchKeyword] = useState('')
+  const [searchQuery, setSearchQuery] = useState<ResumeSearchQuery>({})
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [previewVisible, setPreviewVisible] = useState(false)
   const [previewResume, setPreviewResume] = useState<any>(null)
 
-  // 获取回收站简历列表
+  // 获取回收站简历列表（支持搜索）
   const {
     data: deletedResumes = [],
     isLoading,
     refetch
   } = useQuery(
-    ['deleted-resumes', user?.userId],
+    ['deleted-resumes', user?.userId, searchQuery],
     () => {
       if (!user?.userId) return Promise.resolve([])
-      console.log('调用回收站接口: userId=', user.userId)
-      return resumeAPI.getDeletedResumes(user.userId)
+      console.log('调用回收站接口: userId=', user.userId, 'query=', searchQuery)
+      return resumeAPI.getDeletedResumes(user.userId, searchQuery)
     },
     {
       enabled: !!user?.userId,
@@ -189,10 +190,12 @@ const RecycleBin: React.FC = () => {
     return colors[industryId] || 'default'
   }
 
-  // 搜索过滤
+  // 搜索过滤 - 调用后端接口
   const handleSearch = (value: string) => {
     setSearchKeyword(value)
     setCurrentPage(1) // 搜索时重置到第一页
+    // 更新搜索参数，触发后端查询
+    setSearchQuery(value ? { userSaveResumeResumeName: value } : {})
   }
 
   // 点击卡片预览
@@ -201,13 +204,8 @@ const RecycleBin: React.FC = () => {
     setPreviewVisible(true)
   }
 
-  // 过滤后的简历列表
-  const filteredResumes = searchKeyword
-    ? deletedResumes.filter((resume: any) => {
-        const name = resume.userDeleteResumeResumeName || resume.userSaveResumeResumeName || ''
-        return name.toLowerCase().includes(searchKeyword.toLowerCase())
-      })
-    : deletedResumes
+  // 后端已经处理搜索，直接使用返回数据
+  const filteredResumes = Array.isArray(deletedResumes) ? deletedResumes : []
 
   // 分页数据
   const paginatedResumes = filteredResumes.slice(
@@ -238,7 +236,7 @@ const RecycleBin: React.FC = () => {
             placeholder="搜索简历名称"
             allowClear
             onSearch={handleSearch}
-            onChange={(e) => !e.target.value && setSearchKeyword('')}
+            onChange={(e) => !e.target.value && handleSearch('')}
             style={{ width: 240 }}
             prefix={<SearchOutlined />}
           />

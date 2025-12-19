@@ -22,10 +22,10 @@ public class UserDeleteResumeController {
     @Autowired
     private UserDeleteResumeService userDeleteResumeService;
 
-    @GetMapping("/getUserDeleteResumeInfoByUserId")
+    @PostMapping("/getUserDeleteResumeInfoByUserId")
     @Operation(summary = "根据用户id查询用户删除的所有简历")
     public BaseResult<List<UserDeleteResumeInfoVO>> getUserDeleteResumeInfoByUserId(@RequestParam(required = true,value = "userId") Integer userId,
-                                                                                    @RequestBody CPortUserDeleteResumeQuery cPortUserDeleteResumeQuery){
+                                                                                    @RequestBody(required = false) CPortUserDeleteResumeQuery cPortUserDeleteResumeQuery){
         return BaseResult.ok(userDeleteResumeService.getUserDeleteResumeInfoByUserId(userId,cPortUserDeleteResumeQuery));
     }
 
