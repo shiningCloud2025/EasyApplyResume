@@ -21,7 +21,7 @@ import {
   RestOutlined
 } from '@ant-design/icons'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { resumeAPI } from '@api/resume'
+import { resumeAPI, ResumeSearchQuery } from '@api/resume'
 import { useNavigate } from 'react-router-dom'
 import type { UserResume } from '@types/index'
 import { useUserStore } from '@stores/userStore'
@@ -79,21 +79,22 @@ const MyResumes: React.FC = () => {
   const { user } = useUserStore()
   const queryClient = useQueryClient()
   const [searchKeyword, setSearchKeyword] = useState('')
+  const [searchQuery, setSearchQuery] = useState<ResumeSearchQuery>({})
   const [deleteModalVisible, setDeleteModalVisible] = useState(false)
   const [selectedResume, setSelectedResume] = useState<UserResume | null>(null)
   const [activeTab, setActiveTab] = useState('my-resumes')
 
-  // 获取用户简历列表
+  // 获取用户简历列表（支持搜索）
   const {
     data: resumesData = [],
     isLoading,
     error,
     refetch
   } = useQuery(
-    ['user-resumes', user?.userId],
+    ['user-resumes', user?.userId, searchQuery],
     () => {
       if (!user?.userId) return Promise.resolve([])
-      return resumeAPI.getUserResumes(user.userId)
+      return resumeAPI.getUserResumes(user.userId, searchQuery)
     },
     {
       enabled: !!user?.userId,
@@ -144,7 +145,8 @@ const MyResumes: React.FC = () => {
 
   const handleSearch = (value: string) => {
     setSearchKeyword(value)
-    refetch() // 重新获取数据
+    // 更新搜索参数，触发后端查询
+    setSearchQuery(value ? { userSaveResumeResumeName: value } : {})
   }
 
   const handleEdit = (resume: UserResume) => {
@@ -226,11 +228,8 @@ const MyResumes: React.FC = () => {
     return colors[industryId] || 'default'
   }
 
-  const filteredResumes = Array.isArray(resumesData) 
-    ? resumesData.filter(resume =>
-        resume.userSaveResumeResumeName?.toLowerCase().includes(searchKeyword.toLowerCase())
-      )
-    : []
+  // 后端已经处理搜索，直接使用返回数据
+  const filteredResumes = Array.isArray(resumesData) ? resumesData : []
 
   const handleOpenRecycleBin = () => {
     navigate('/resume/recycle-bin')
