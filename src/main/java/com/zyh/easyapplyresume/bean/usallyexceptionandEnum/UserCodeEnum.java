@@ -59,7 +59,16 @@ public enum UserCodeEnum {
     USER_SAVE_RESUME_NOT_DAYU_FIVE(10036, "用户保存的简历不能超过5个"),
 
     // ==================== 数据库异常 (10999) ====================
-    DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION(10999, "数据库异常转换失败")
+    DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION(10999, "数据库异常转换失败"),
+
+
+    // ===================== 用户反馈相关业务(10051-10080) ====================
+    // 用户反馈相关错误码（10051起）
+    USER_FEEDBACK_TITLE_NOT_NULL(10051, "反馈标题不能为空"),
+    USER_FEEDBACK_CONTENT_NOT_NULL(10052, "反馈内容不能为空"),
+    USER_FEEDBACK_CONTENT_EMPTY(10053, "反馈内容不能为空"),
+    USER_FEEDBACK_USER_ID_EMPTY(10054, "提交反馈的用户ID不能为空"),
+    USER_FEEDBACK_TITLE_TOO_LONG(10055, "反馈标题不能超过35个字符"),
 
     ;
 

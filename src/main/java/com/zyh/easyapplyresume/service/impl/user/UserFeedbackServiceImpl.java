@@ -26,6 +26,7 @@ import com.zyh.easyapplyresume.model.vo.user.UserFeedbackPageVO;
 import com.zyh.easyapplyresume.service.impl.admin.SendCommunicationEmailServiceImpl;
 import com.zyh.easyapplyresume.service.user.UserFeedbackService;
 import com.zyh.easyapplyresume.utils.adminvalidator.AdminFeedbackFormValidator;
+import com.zyh.easyapplyresume.utils.uservalidator.UserFeedbackFormValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -122,7 +123,7 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
             userFeedbackForm.setUserFeedbackUserId(1);
             userFeedbackForm.setUserFeedbackContent(content);
             userFeedbackForm.setUserFeedbackTitle(title);
-            AdminFeedbackFormValidator.validateForUpdate(adminFeedbackForm);
+            UserFeedbackFormValidator.validateForUpdate(userFeedbackForm);
             sendCommunicationEmailService.sendHtmlEmailUsallyDefition(userEmail,title, content);
             sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈处理完毕-用户平台","您有一条新的反馈处理完毕-用户平台");
             userFeedback.setUserFeedbackCurStep(UserBusinessEnum.USER_ALREADY_REPLY.getMessage());
