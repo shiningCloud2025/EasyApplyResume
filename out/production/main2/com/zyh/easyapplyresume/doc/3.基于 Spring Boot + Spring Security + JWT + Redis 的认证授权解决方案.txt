@@ -1,0 +1,54 @@
+文档版本：v1.0
+适用场景：后端服务认证授权模块开发
+技术栈：Spring Boot 3.x + Spring Security + JWT + Redis + MySQL + MyBatis-Plus
+一、项目整体设计
+1.1 架构概览
+客户端 <--> API网关 <--> 认证授权服务 <--> 业务服务
+                      |
+                      v
+                   数据库/缓存
+1.2项目结构
+com.example.authdemo
+├── config                # 配置类
+│   ├── SecurityConfig.java        # Spring Security核心配置
+│   └── RedisConfig.java           # Redis配置
+├── security              # 认证授权核心组件
+│   ├── authentication    # 认证相关
+│   │   ├── MultiFactorLoginFilter.java  # 多因素登录过滤器
+│   │   ├── MultiFactorToken.java        # 自定义认证Token
+│   │   └── MultiFactorProvider.java     # 自定义认证提供者
+│   ├── authorization     # 授权相关
+│   │   └── MyAccessDecisionManager.java # 自定义授权决策管理器
+│   ├── jwt               # JWT相关
+│   │   ├── JwtAuthFilter.java           # JWT认证过滤器
+│   │   └── JwtUtils.java                # JWT工具类
+│   └── user              # 用户相关
+│       └── LoginUser.java               # 自定义UserDetails实现
+├── controller            # 控制器
+│   ├── common            # 公共接口
+│   │   └── VerifyCodeController.java    # 验证码接口
+│   ├── user              # 用户接口
+│   │   └── UserController.java          # 用户相关接口
+│   └── admin             # 管理员接口
+│       └── AdminController.java         # 管理员相关接口
+├── service               # 服务层
+│   ├── UserDetailsServiceImpl.java      # Spring Security用户服务
+│   └── SysUserService.java              # 系统用户服务
+├── mapper                # 数据访问层
+│   └── SysUserMapper.java               # 用户Mapper
+├── model                 # 数据模型
+│   ├── entity            # 实体类
+│   │   └── SysUser.java                 # 用户实体
+│   └── vo                # 视图对象
+│       └── LoginResponse.java           # 登录响应VO
+├── util                  # 工具类
+│   ├── RedisUtils.java                  # Redis工具类
+│   ├── SecurityUtils.java               # 安全工具类
+│   └── ResultUtil.java                  # 响应结果工具类
+└── exception             # 异常处理
+    └── GlobalExceptionHandler.java      # 全局异常处理器
+二、核心组件实现（带详细注释）
+2.1 数据模型
+SysUser.java（用户实体）
+2.2 认证核心组件
+

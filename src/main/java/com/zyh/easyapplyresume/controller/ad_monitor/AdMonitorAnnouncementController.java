@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author shiningCloudEth
  */
 @RestController
-@RequestMapping("/admonitor/announcement")
+@RequestMapping("/admonitor/admonitor/announcement")
 @Tag(name = "公告管理控制器-监测端")
 public class AdMonitorAnnouncementController {
     @Autowired
