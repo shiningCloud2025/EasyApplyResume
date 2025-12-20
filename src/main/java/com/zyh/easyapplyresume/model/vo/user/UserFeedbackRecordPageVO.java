@@ -12,6 +12,9 @@ import java.util.Date;
 @Schema(description = "用户反馈记录分页信息")
 public class UserFeedbackRecordPageVO {
 
+    @Schema(description = "反馈ID")
+    private Integer userFeedbackRecordId;
+
     @Schema(description = "管理员反馈记录反馈人")
     private String userFeedbackRecordName;
 

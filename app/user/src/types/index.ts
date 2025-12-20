@@ -18,6 +18,7 @@ export interface User {
   userCreatedTime: string
   userLoginTime: string
   userDreamPosition: number
+  userDreamPositionName?: string
   userDreamMinMonthSalary: number
   userDreamMaxMonthSalary: number
   userDreamWeekWorkDayNum: number

@@ -18,8 +18,11 @@ const updateUserAPI = (data: any) => {
 
 const ProfileEdit: React.FC = () => {
   const navigate = useNavigate()
-  const { user, setUser } = useUserStore()
+  const { user, updateUser } = useUserStore()
   const [form] = Form.useForm()
+  
+  // 监听头像链接变化，实时预览
+  const userImageValue = Form.useWatch('userImage', form)
   
   // 省市大学选择状态
   const [provinces, setProvinces] = useState<ProvinceMap[]>([])
@@ -33,9 +36,11 @@ const ProfileEdit: React.FC = () => {
     if (user) {
       form.setFieldsValue({
         userId: user.userId,
+        userAccount: user.userAccount,
         userUsername: user.userUsername,
         userEmail: user.userEmail,
         userPhone: user.userPhone,
+        userImage: user.userImage,
         userIntroduce: user.userIntroduce,
         userDreamPosition: user.userDreamPosition,
         userDreamWeekWorkDayNum: user.userDreamWeekWorkDayNum,
@@ -46,6 +51,11 @@ const ProfileEdit: React.FC = () => {
         userRecruitLocationSecond: user.userRecruitLocationSecond,
         userUniversityCode: user.userUniversityCode,
       })
+      
+      // 初始化时加载岗位、省份、大学数据
+      loadPositions()
+      loadProvinces()
+      handleUniversitySearch('')
       
       // 如果有省份，加载对应的城市列表
       if (user.userRecruitLocationFirst) {
@@ -121,7 +131,7 @@ const ProfileEdit: React.FC = () => {
         const city = cities.find(c => c.cityMapCid === formValues.userRecruitLocationSecond)
         const uni = universities.find(u => u.universityMapId === formValues.userUniversityCode)
         
-        setUser({ 
+        updateUser({ 
           ...user, 
           ...formValues,
           userRecruitLocationFirstName: province?.provinceMapPname,
@@ -138,8 +148,11 @@ const ProfileEdit: React.FC = () => {
   })
 
   const handleSubmit = (values: any) => {
+    // 移除确认密码字段，不传给后端
+    const { confirmPassword, ...submitData } = values
+    
     updateMutation.mutate({
-      ...values,
+      ...submitData,
       userId: user?.userId
     })
   }
@@ -157,7 +170,7 @@ const ProfileEdit: React.FC = () => {
         }
       >
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
-          <Avatar src={user?.userImage} icon={<UserOutlined />} size={100} />
+          <Avatar src={userImageValue || user?.userImage} icon={<UserOutlined />} size={100} />
         </div>
 
         <Form
@@ -166,6 +179,15 @@ const ProfileEdit: React.FC = () => {
           onFinish={handleSubmit}
           style={{ maxWidth: 600, margin: '0 auto' }}
         >
+          <Form.Item
+            label="头像链接"
+            name="userImage"
+            extra="请输入头像图片的URL地址"
+            rules={[{ required: true, message: '请输入头像链接' }]}
+          >
+            <Input placeholder="https://example.com/avatar.jpg" maxLength={255} />
+          </Form.Item>
+
           <Form.Item
             label="用户名"
             name="userUsername"
@@ -182,22 +204,67 @@ const ProfileEdit: React.FC = () => {
             <Input disabled style={{ backgroundColor: '#f5f5f5' }} />
           </Form.Item>
 
-          <Form.Item label="手机号" name="userPhone">
+          <Form.Item 
+            label="密码" 
+            name="userPassword"
+            rules={[
+              { required: true, message: '请输入密码' },
+              { min: 6, message: '密码至少6位' },
+              { max: 30, message: '密码最多30位' }
+            ]}
+          >
+            <Input.Password placeholder="请输入密码" maxLength={30} />
+          </Form.Item>
+
+          <Form.Item 
+            label="确认密码" 
+            name="confirmPassword"
+            dependencies={['userPassword']}
+            rules={[
+              { required: true, message: '请确认密码' },
+              ({ getFieldValue }) => ({
+                validator(_, value) {
+                  if (!value || getFieldValue('userPassword') === value) {
+                    return Promise.resolve()
+                  }
+                  return Promise.reject(new Error('两次密码不一致'))
+                },
+              }),
+            ]}
+          >
+            <Input.Password placeholder="请再次输入密码" maxLength={30} />
+          </Form.Item>
+
+          <Form.Item 
+            label="手机号" 
+            name="userPhone"
+            rules={[
+              { required: true, message: '请输入手机号' },
+              { pattern: /^1[3-9]\d{9}$/, message: '手机号格式不正确' }
+            ]}
+          >
             <Input placeholder="请输入手机号" maxLength={11} />
           </Form.Item>
 
-          <Form.Item label="个人介绍" name="userIntroduce">
+          <Form.Item 
+            label="个人介绍" 
+            name="userIntroduce"
+            rules={[{ required: true, message: '请输入个人介绍' }]}
+          >
             <TextArea placeholder="介绍一下自己吧" rows={4} maxLength={200} showCount />
           </Form.Item>
 
           <Card title="求职意向" size="small" style={{ marginBottom: 24 }}>
-            <Form.Item label="目标岗位" name="userDreamPosition">
+            <Form.Item 
+              label="目标岗位" 
+              name="userDreamPosition"
+              rules={[{ required: true, message: '请选择目标岗位' }]}
+            >
               <Select 
                 placeholder="请选择目标岗位" 
                 allowClear
                 showSearch
                 optionFilterProp="children"
-                onDropdownVisibleChange={(open) => open && positions.length === 0 && loadPositions()}
               >
                 {positions.map(pos => (
                   <Option key={pos.recruitPositionId} value={pos.recruitPositionId}>
@@ -209,13 +276,16 @@ const ProfileEdit: React.FC = () => {
 
             <Row gutter={16}>
               <Col span={12}>
-                <Form.Item label="期望工作省份" name="userRecruitLocationFirst">
+                <Form.Item 
+                  label="期望工作省份" 
+                  name="userRecruitLocationFirst"
+                  rules={[{ required: true, message: '请选择省份' }]}
+                >
                   <Select
                     placeholder="请选择省份"
                     allowClear
                     showSearch
                     optionFilterProp="children"
-                    onDropdownVisibleChange={(open) => open && provinces.length === 0 && loadProvinces()}
                     onChange={handleProvinceChange}
                   >
                     {provinces.map(province => (
@@ -227,7 +297,11 @@ const ProfileEdit: React.FC = () => {
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item label="期望工作城市" name="userRecruitLocationSecond">
+                <Form.Item 
+                  label="期望工作城市" 
+                  name="userRecruitLocationSecond"
+                  rules={[{ required: true, message: '请选择城市' }]}
+                >
                   <Select
                     placeholder={cities.length === 0 ? "请先选择省份" : "请选择城市"}
                     allowClear
@@ -245,14 +319,17 @@ const ProfileEdit: React.FC = () => {
               </Col>
             </Row>
 
-            <Form.Item label="毕业院校" name="userUniversityCode">
+            <Form.Item 
+              label="毕业院校" 
+              name="userUniversityCode"
+              rules={[{ required: true, message: '请选择毕业院校' }]}
+            >
               <Select
                 placeholder="请输入大学名称搜索"
                 allowClear
                 showSearch
                 loading={universitySearchLoading}
                 onSearch={handleUniversitySearch}
-                onDropdownVisibleChange={(open) => open && universities.length === 0 && handleUniversitySearch('')}
                 filterOption={false}
                 notFoundContent={universitySearchLoading ? '搜索中...' : '未找到匹配的大学'}
               >
@@ -264,25 +341,41 @@ const ProfileEdit: React.FC = () => {
               </Select>
             </Form.Item>
 
-            <Form.Item label="期望工作天数（每周）" name="userDreamWeekWorkDayNum">
+            <Form.Item 
+              label="期望工作天数（每周）" 
+              name="userDreamWeekWorkDayNum"
+              rules={[{ required: true, message: '请输入每周工作天数' }]}
+            >
               <InputNumber min={1} max={7} placeholder="请输入" style={{ width: '100%' }} addonAfter="天/周" />
             </Form.Item>
 
             <Row gutter={16}>
               <Col span={12}>
-                <Form.Item label="最低月薪" name="userDreamMinMonthSalary">
-                  <InputNumber min={0} placeholder="最低" style={{ width: '100%' }} addonAfter="元" />
+                <Form.Item 
+                  label="最低月薪" 
+                  name="userDreamMinMonthSalary"
+                  rules={[{ required: true, message: '请输入最低月薪' }]}
+                >
+                  <InputNumber min={0} max={100000} placeholder="最低" style={{ width: '100%' }} addonAfter="元" />
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item label="最高月薪" name="userDreamMaxMonthSalary">
+                <Form.Item 
+                  label="最高月薪" 
+                  name="userDreamMaxMonthSalary"
+                  rules={[{ required: true, message: '请输入最高月薪' }]}
+                >
                   <InputNumber min={0} placeholder="最高" style={{ width: '100%' }} addonAfter="元" />
                 </Form.Item>
               </Col>
             </Row>
 
-            <Form.Item label="期望福利" name="userDreamGoodWelfare">
-              <Input placeholder="如：五险一金、带薪年假、餐补等" />
+            <Form.Item 
+              label="期望福利" 
+              name="userDreamGoodWelfare"
+              rules={[{ required: true, message: '请输入期望福利' }]}
+            >
+              <Input placeholder="如：五险一金、带薪年假、餐补等" maxLength={200} />
             </Form.Item>
           </Card>
 

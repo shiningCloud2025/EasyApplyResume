@@ -49,6 +49,9 @@ public class UserInfoVO {
     @Schema(description = "用户目标岗位")
     private int userDreamPosition;
 
+    @Schema(description = "用户目标岗位名称")
+    private String userDreamPositionName;
+
     @Schema(description = "用户希望的最低月薪")
     private BigDecimal userDreamMinMonthSalary;
 

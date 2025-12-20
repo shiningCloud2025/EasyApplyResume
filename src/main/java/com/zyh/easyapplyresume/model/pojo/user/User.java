@@ -95,7 +95,7 @@ public class User {
      * 用户希望的福利待遇
      */
     @TableField("user_dreamGoodWelfare")
-    private Integer userDreamGoodWelfare;
+    private String userDreamGoodWelfare;
     /**
      * 用户地址(省级)
      */

@@ -12,6 +12,7 @@ import com.zyh.easyapplyresume.mapper.mysql.admin.AdminMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserFeedbackMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserFeedbackRecordMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserMapper;
+import com.zyh.easyapplyresume.model.form.admin.AdminFeedbackForm;
 import com.zyh.easyapplyresume.model.form.user.UserFeedbackForm;
 import com.zyh.easyapplyresume.model.pojo.admin.Admin;
 import com.zyh.easyapplyresume.model.pojo.user.User;
@@ -24,6 +25,7 @@ import com.zyh.easyapplyresume.model.vo.user.UserFeedbackInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserFeedbackPageVO;
 import com.zyh.easyapplyresume.service.impl.admin.SendCommunicationEmailServiceImpl;
 import com.zyh.easyapplyresume.service.user.UserFeedbackService;
+import com.zyh.easyapplyresume.utils.adminvalidator.AdminFeedbackFormValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -116,6 +118,11 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
             userFeedback.setUserFeedbackCurStep(UserBusinessEnum.USER_ALREADY_IGNORE.getMessage());
             userFeedbackRecord.setUserFeedbackRecordNewStep(userFeedback.getUserFeedbackCurStep());
         }else if(OperationCode==2){
+            UserFeedbackForm userFeedbackForm = new UserFeedbackForm();
+            userFeedbackForm.setUserFeedbackUserId(1);
+            userFeedbackForm.setUserFeedbackContent(content);
+            userFeedbackForm.setUserFeedbackTitle(title);
+            AdminFeedbackFormValidator.validateForUpdate(adminFeedbackForm);
             sendCommunicationEmailService.sendHtmlEmailUsallyDefition(userEmail,title, content);
             sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈处理完毕-用户平台","您有一条新的反馈处理完毕-用户平台");
             userFeedback.setUserFeedbackCurStep(UserBusinessEnum.USER_ALREADY_REPLY.getMessage());
@@ -125,7 +132,9 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
             userFeedback.setUserFeedbackCurStep(UserBusinessEnum.USER_REJECT_REPLY.getMessage());
             userFeedbackRecord.setUserFeedbackRecordNewStep(userFeedback.getUserFeedbackCurStep());
         }
-
+        userFeedback.setUserFeedbackRecentTime(new Date());
+        userFeedbackMapper.updateById(userFeedback);
+        userFeedbackRecordMapper.insert(userFeedbackRecord);
     }
 
     @Override
