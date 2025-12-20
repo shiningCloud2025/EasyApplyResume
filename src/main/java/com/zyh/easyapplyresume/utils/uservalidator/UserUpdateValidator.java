@@ -162,7 +162,7 @@ public class UserUpdateValidator {
 
         if (firstEmpty || secondEmpty) {
             throw new BusException(UserCodeEnum.USER_RECRUIT_LOCATION_EMPTY);
-        }it
+        }
 
         // 14. 必填：用户大学编码（非0）→ USER_UNIVERSITY_CODE_EMPTY(10035)
         if (form.getUserUniversityCode() == 0) {

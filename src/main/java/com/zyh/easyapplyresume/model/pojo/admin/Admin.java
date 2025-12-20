@@ -75,7 +75,7 @@ public class Admin {
     /**
      * 管理员最近登录时间
      */
-    @TableField("admin_login_time")
+    @TableField("admin_loginTime")
     private Date adminLoginTime;
 
     /**

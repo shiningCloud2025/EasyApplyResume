@@ -16,14 +16,6 @@ const ProfilePage: React.FC = () => {
     }).format(salary)
   }
 
-  const getJobPositionName = (position: number) => {
-    const positions = [
-      '前端开发工程师', '后端开发工程师', '全栈开发工程师', '产品经理',
-      'UI设计师', '数据分析师', '运营专员', '其他'
-    ]
-    return positions[position - 1] || '未知'
-  }
-
   return (
     <div className="profile-page">
       <Card
@@ -77,7 +69,7 @@ const ProfilePage: React.FC = () => {
         >
           <Descriptions.Item label="目标岗位">
             <Tag color="blue">
-              {user?.userDreamPosition ? getJobPositionName(user.userDreamPosition) : '未设置'}
+              {user?.userDreamPositionName || '未设置'}
             </Tag>
           </Descriptions.Item>
           <Descriptions.Item label="期望工作天数">
@@ -89,8 +81,20 @@ const ProfilePage: React.FC = () => {
               : '未设置'
             }
           </Descriptions.Item>
-          <Descriptions.Item label="期望福利" span={2}>
+          <Descriptions.Item label="期望福利">
             {user?.userDreamGoodWelfare || '未填写'}
+          </Descriptions.Item>
+          <Descriptions.Item label="期望工作地区">
+            {user?.userRecruitLocationFirstName && user?.userRecruitLocationSecondName
+              ? `${user.userRecruitLocationFirstName} - ${user.userRecruitLocationSecondName}`
+              : user?.userRecruitLocationFirstName || '未设置'
+            }
+          </Descriptions.Item>
+          <Descriptions.Item label="详细地址">
+            {user?.userRecruitLocationDetail || '未填写'}
+          </Descriptions.Item>
+          <Descriptions.Item label="毕业院校">
+            {user?.userUniversityCodeName || '未填写'}
           </Descriptions.Item>
         </Descriptions>
 
