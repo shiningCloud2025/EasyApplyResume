@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyh.easyapplyresume.mapper.mysql.user.UserCollectionsMapper">
+    <select id="selectResumeTemplateByUserId" resultType="com.zyh.easyapplyresume.model.pojo.admin.ResumeTemplate">
+        select * from user_userCollections uuc
+        left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id
+        where uuc.uid = #{userId}
+        <if test="resumeTemplateName!=null">
+            and grt.resumeTemplate_name like concat('%',#{resumeTemplateName},'%')
+        </if>
+    </select>
+
+</mapper>

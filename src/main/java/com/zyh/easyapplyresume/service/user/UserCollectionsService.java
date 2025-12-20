@@ -21,8 +21,6 @@ public interface UserCollectionsService {
     /**
      * 查询用户收藏的简历模版
      */
-    public List<ResumeTemplateInfoVO> getUserCollectResumeTemplate(Integer userId);
-
-
+    public List<ResumeTemplateInfoVO> getUserCollectResumeTemplate(Integer userId,String resumeTemplateName);
 
 }

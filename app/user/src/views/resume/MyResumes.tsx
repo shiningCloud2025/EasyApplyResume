@@ -83,6 +83,9 @@ const MyResumes: React.FC = () => {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false)
   const [selectedResume, setSelectedResume] = useState<UserResume | null>(null)
   const [activeTab, setActiveTab] = useState('my-resumes')
+  const [editModalVisible, setEditModalVisible] = useState(false)
+  const [editingResume, setEditingResume] = useState<UserResume | null>(null)
+  const [newResumeName, setNewResumeName] = useState('')
 
   // 获取用户简历列表（支持搜索）
   const {
@@ -152,6 +155,42 @@ const MyResumes: React.FC = () => {
     setSearchQuery(newQuery)
     // 强制重新获取数据
     setTimeout(() => refetch(), 0)
+  }
+
+  // 修改简历名称mutation
+  const updateNameMutation = useMutation(
+    (params: { resumeSortedNum: number; resumeName: string }) => 
+      resumeAPI.updateResumeName(user!.userId, params.resumeSortedNum, params.resumeName),
+    {
+      onSuccess: () => {
+        message.success('简历名称已修改')
+        setEditModalVisible(false)
+        setEditingResume(null)
+        setNewResumeName('')
+        queryClient.invalidateQueries(['user-resumes', user?.userId])
+      },
+      onError: (error: any) => {
+        const errorMsg = error?.response?.data?.message || error?.message || '修改简历名称失败'
+        message.error(errorMsg)
+      }
+    }
+  )
+
+  const handleEditName = (resume: UserResume) => {
+    setEditingResume(resume)
+    setNewResumeName(resume.userSaveResumeResumeName)
+    setEditModalVisible(true)
+  }
+
+  const confirmEditName = () => {
+    if (!editingResume || !newResumeName.trim()) {
+      message.warning('请输入简历名称')
+      return
+    }
+    updateNameMutation.mutate({
+      resumeSortedNum: editingResume.userSaveResumeSortedNum,
+      resumeName: newResumeName.trim()
+    })
   }
 
   const handleEdit = (resume: UserResume) => {
@@ -348,8 +387,8 @@ const MyResumes: React.FC = () => {
                   </div>
                 </div>
                 <div className="resume-actions">
-                  <Tooltip title="编辑">
-                    <Button type="text" icon={<EditOutlined />} onClick={() => handleEdit(resume)} />
+                  <Tooltip title="编辑名称">
+                    <Button type="text" icon={<EditOutlined />} onClick={() => handleEditName(resume)} />
                   </Tooltip>
                   <Tooltip title="删除">
                     <Button type="text" danger icon={<DeleteOutlined />} onClick={() => handleDelete(resume)} />
