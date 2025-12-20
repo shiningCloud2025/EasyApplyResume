@@ -12,6 +12,7 @@ import com.zyh.easyapplyresume.model.query.user.UserFeedbackRecordQuery;
 import com.zyh.easyapplyresume.model.vo.user.UserFeedbackRecordInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserFeedbackRecordPageVO;
 import com.zyh.easyapplyresume.service.user.UserFeedbackRecordService;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import kotlin.jvm.internal.Lambda;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,8 @@ public class UserFeedbackRecordServiceImpl implements UserFeedbackRecordService 
             userFeedbackRecordInfoVO.setAdminFeedbackRecordApprovalPersonName(adminMapper.selectById(userFeedbackRecord.getUserFeedbackRecordApprovalPersonId()).getAdminUsername());
             log.info("用户反馈记录信息：{}", userFeedbackRecordInfoVO);
             return userFeedbackRecordInfoVO;
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
             log.error("用户反馈记录查询失败：{}", e.getMessage());
             return null;

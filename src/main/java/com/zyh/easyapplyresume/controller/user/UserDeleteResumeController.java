@@ -57,6 +57,15 @@ public class UserDeleteResumeController {
         return BaseResult.ok();
     }
 
+    @PostMapping("/updateUserDeleteResumeName")
+    @Operation(summary = "根据用户id和简历排序以及简历名称去修改简历名称")
+    public BaseResult<Void> updateUserDeleteResumeName(@RequestParam(required = true,value = "userId") Integer userId,
+                                                       @RequestParam(required = true,value = "resumeSortedNum") Integer resumeSortedNum,
+                                                       @RequestParam(required = true,value = "resumeName") String resumeName){
+        userDeleteResumeService.updateUserDeleteResumeNameByUserIdAndResumeSortedNumAndResumeName(userId,resumeSortedNum,resumeName);
+        return BaseResult.ok();
+    }
+
 
 
 

@@ -140,9 +140,10 @@ const ResumeEditor: React.FC = () => {
       setLastSaved(new Date().toLocaleTimeString('zh-CN'))
       setHasChanges(false)
       message.success('保存成功')
-    } catch (error) {
+    } catch (error: any) {
       console.error('保存失败:', error)
-      message.error('保存失败')
+      const errorMsg = error?.response?.data?.message || error?.message || '保存失败'
+      message.error(errorMsg)
     } finally {
       setSaving(false)
     }

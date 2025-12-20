@@ -63,11 +63,14 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
                 return userSaveResumeInfoVOS;
             }
             log.info("获取用户保存的简历信息成功");
-        }catch (Exception e){
-            log.error("获取用户保存的简历信息失败");
-        }
 
-        return null;
+            return null;
+        }catch (BusException e){
+            throw e;
+        }catch (Exception e){
+            log.error("获取用户保存的简历信息失败", e);
+            throw new RuntimeException("获取用户保存的简历信息失败");
+        }
     }
 
     @Override
@@ -85,8 +88,11 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
                 return userSaveResumeInfoVO;
             }
             log.info("获取用户保存的简历信息成功");
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-            log.error("获取用户保存的简历信息失败");
+            log.error("获取用户保存的简历信息失败", e);
+            throw new RuntimeException("获取用户保存的简历信息失败");
         }
         return null;
     }
@@ -104,8 +110,11 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
             userSaveResumeMapper.delete(lambdaQueryWrapper);
             reorderResumeSortedNum(userId, userSaveResumeSortedNum);
             log.info("删除用户保存的简历信息成功");
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-            log.error("删除用户保存的简历信息失败");
+            log.error("删除用户保存的简历信息失败", e);
+            throw new RuntimeException("删除用户保存的简历信息失败");
         }
 
     }
@@ -116,8 +125,11 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
             log.info("保存用户保存的简历信息开始");
             userSaveResumeMapper.updateById(BeanUtil.copyProperties(userSaveResumeInfoVO, UserSaveResume.class));
             log.info("保存用户保存的简历信息成功");
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-            log.error("保存用户保存的简历信息失败");
+            log.error("保存用户保存的简历信息失败", e);
+            throw new RuntimeException("保存用户保存的简历信息失败");
         }
     }
 
@@ -144,9 +156,9 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
             queryWrapper1.orderByDesc(UserSaveResume::getUserSaveResumeSortedNum);
             List<UserSaveResume> userSaveResumes = userSaveResumeMapper.selectList(queryWrapper1);
             if (userSaveResumes.isEmpty()){
-                userSaveResume.setUserSaveResumeSortedNum(1);
+                userSaveResume.setUserSaveResumeSortedNum(0);
             }else{
-                Integer userSaveResumeSortedNum = userSaveResumes.get(0).getUserSaveResumeSortedNum();
+                Integer userSaveResumeSortedNum = userSaveResumes.getFirst().getUserSaveResumeSortedNum();
                 userSaveResume.setUserSaveResumeSortedNum(userSaveResumeSortedNum+1);
                 if (userSaveResumeSortedNum>=4){
                     throw new BusException(UserCodeEnum.USER_SAVE_RESUME_NOT_DAYU_FIVE);
@@ -155,8 +167,11 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
             userSaveResume.setUserSaveResumeUserId(userId);
             userSaveResumeMapper.insert(userSaveResume);
             log.info("保存用户保存的简历信息成功");
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-            log.error("保存用户保存的简历信息失败");
+            log.error("保存用户保存的简历信息失败", e);
+            throw new RuntimeException("保存用户保存的简历信息失败");
         }
 
     }

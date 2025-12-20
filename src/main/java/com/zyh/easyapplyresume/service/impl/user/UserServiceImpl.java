@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.service.impl.user;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserMapper;
 import com.zyh.easyapplyresume.model.form.user.UserUpdateForm;
 import com.zyh.easyapplyresume.model.pojo.user.User;
@@ -29,8 +30,11 @@ public class UserServiceImpl implements UserService {
             UserUpdateValidator.validateForUpdate(userUpdateForm);
             userMapper.updateById(BeanUtil.copyProperties(userUpdateForm, User.class));
             log.info("用户更新信息成功");
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-            log.error("用户更新信息失败");
+            log.error("用户更新信息失败", e);
+            throw new RuntimeException("用户更新信息失败");
         }
     }
 
@@ -39,9 +43,11 @@ public class UserServiceImpl implements UserService {
         try{
             log.info("根据用户id查询用户信息开始");
             return BeanUtil.copyProperties(userMapper.selectById(userId), UserInfoVO.class);
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-            log.error("根据用户id查询用户信息失败");
+            log.error("根据用户id查询用户信息失败", e);
+            throw new RuntimeException("根据用户id查询用户信息失败");
         }
-        return null;
     }
 }

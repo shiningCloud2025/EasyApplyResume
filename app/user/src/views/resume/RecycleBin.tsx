@@ -19,7 +19,8 @@ import {
   ExclamationCircleOutlined,
   SearchOutlined,
   EyeOutlined,
-  CodeOutlined
+  CodeOutlined,
+  EditOutlined
 } from '@ant-design/icons'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { resumeAPI, ResumeSearchQuery } from '@api/resume'
@@ -86,6 +87,9 @@ const RecycleBin: React.FC = () => {
   const [pageSize, setPageSize] = useState(10)
   const [previewVisible, setPreviewVisible] = useState(false)
   const [previewResume, setPreviewResume] = useState<any>(null)
+  const [editModalVisible, setEditModalVisible] = useState(false)
+  const [editingResume, setEditingResume] = useState<any>(null)
+  const [newResumeName, setNewResumeName] = useState('')
 
   // 获取回收站简历列表（支持搜索）
   const {
@@ -107,8 +111,9 @@ const RecycleBin: React.FC = () => {
       },
       staleTime: 0, // 每次都重新获取
       cacheTime: 0, // 不缓存
-      onError: () => {
-        message.error('获取回收站列表失败')
+      onError: (error: any) => {
+        const errorMsg = error?.response?.data?.message || error?.message || '获取回收站列表失败'
+        message.error(errorMsg)
       }
     }
   )
@@ -124,8 +129,28 @@ const RecycleBin: React.FC = () => {
         queryClient.invalidateQueries(['deleted-resumes', user?.userId])
         queryClient.invalidateQueries(['user-resumes', user?.userId])
       },
-      onError: () => {
-        message.error('恢复简历失败')
+      onError: (error: any) => {
+        const errorMsg = error?.response?.data?.message || error?.message || '恢复简历失败'
+        message.error(errorMsg)
+      }
+    }
+  )
+
+  // 修改简历名称mutation
+  const updateNameMutation = useMutation(
+    (params: { resumeSortedNum: number; resumeName: string }) => 
+      resumeAPI.updateDeletedResumeName(user!.userId, params.resumeSortedNum, params.resumeName),
+    {
+      onSuccess: () => {
+        message.success('简历名称已修改')
+        setEditModalVisible(false)
+        setEditingResume(null)
+        setNewResumeName('')
+        queryClient.invalidateQueries(['deleted-resumes', user?.userId])
+      },
+      onError: (error: any) => {
+        const errorMsg = error?.response?.data?.message || error?.message || '修改简历名称失败'
+        message.error(errorMsg)
       }
     }
   )
@@ -138,11 +163,31 @@ const RecycleBin: React.FC = () => {
         message.success('回收站已清空')
         queryClient.invalidateQueries(['deleted-resumes', user?.userId])
       },
-      onError: () => {
-        message.error('清空回收站失败')
+      onError: (error: any) => {
+        const errorMsg = error?.response?.data?.message || error?.message || '清空回收站失败'
+        message.error(errorMsg)
       }
     }
   )
+
+  // 编辑简历名称
+  const handleEdit = (resume: any, e: React.MouseEvent) => {
+    e.stopPropagation()
+    setEditingResume(resume)
+    setNewResumeName(resume.userDeleteResumeResumeName)
+    setEditModalVisible(true)
+  }
+
+  const confirmEdit = () => {
+    if (!editingResume || !newResumeName.trim()) {
+      message.warning('请输入简历名称')
+      return
+    }
+    updateNameMutation.mutate({
+      resumeSortedNum: editingResume.userDeleteResumeSortedNum,
+      resumeName: newResumeName.trim()
+    })
+  }
 
   const handleRestore = (resume: any) => {
     setSelectedResume(resume)
@@ -311,6 +356,9 @@ const RecycleBin: React.FC = () => {
                   </div>
                 </div>
                 <div className="resume-actions">
+                  <Tooltip title="编辑名称">
+                    <Button type="text" icon={<EditOutlined />} onClick={(e) => handleEdit(resume, e)} />
+                  </Tooltip>
                   <Tooltip title="预览">
                     <Button type="text" icon={<EyeOutlined />} onClick={() => handlePreview(resume)} />
                   </Tooltip>
@@ -343,6 +391,37 @@ const RecycleBin: React.FC = () => {
           )}
         </>
       )}
+
+      {/* 编辑简历名称弹窗 */}
+      <Modal
+        title="编辑简历名称"
+        open={editModalVisible}
+        onCancel={() => {
+          setEditModalVisible(false)
+          setEditingResume(null)
+          setNewResumeName('')
+        }}
+        footer={[
+          <Button key="cancel" onClick={() => {
+            setEditModalVisible(false)
+            setEditingResume(null)
+            setNewResumeName('')
+          }}>
+            取消
+          </Button>,
+          <Button key="save" type="primary" onClick={confirmEdit} loading={updateNameMutation.isLoading}>
+            保存
+          </Button>
+        ]}
+      >
+        <Input
+          placeholder="请输入简历名称"
+          value={newResumeName}
+          onChange={(e) => setNewResumeName(e.target.value)}
+          onPressEnter={confirmEdit}
+          maxLength={50}
+        />
+      </Modal>
 
       {/* 恢复确认弹窗 */}
       <Modal

@@ -86,8 +86,9 @@ const TemplateDetail: React.FC = () => {
     {
       enabled: !!templateId,
       select: (response) => response.data,
-      onError: () => {
-        message.error('获取模板详情失败')
+      onError: (error: any) => {
+        const errorMsg = error?.response?.data?.message || error?.message || '获取模板详情失败'
+        message.error(errorMsg)
       }
     }
   )
@@ -117,8 +118,9 @@ const TemplateDetail: React.FC = () => {
       await resumeAPI.collectTemplate(user.userId, Number(templateId), !isCollected)
       message.success(isCollected ? '取消收藏成功' : '收藏成功')
       refetchCollected()
-    } catch (error) {
-      message.error('操作失败')
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || '操作失败'
+      message.error(errorMsg)
     }
   }
 
@@ -151,8 +153,9 @@ const TemplateDetail: React.FC = () => {
       // 使简历列表缓存失效，等待完成后再跳转
       await queryClient.invalidateQueries(['user-resumes', user.userId])
       navigate('/resume/my-resumes')
-    } catch (error) {
-      message.error('创建简历失败')
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || '创建简历失败'
+      message.error(errorMsg)
     } finally {
       setCreating(false)
     }
@@ -379,6 +382,10 @@ const TemplateDetail: React.FC = () => {
       </Modal>
     </div>
   )
+}
+
+export default TemplateDetail
+export default TemplateDetail
 }
 
 export default TemplateDetail

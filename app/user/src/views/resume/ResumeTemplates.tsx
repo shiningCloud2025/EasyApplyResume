@@ -104,7 +104,10 @@ const ResumeTemplates: React.FC = () => {
     {
       keepPreviousData: true,
       select: (response) => response.data,
-      onError: () => message.error('获取模板列表失败')
+      onError: (error: any) => {
+        const errorMsg = error?.response?.data?.message || error?.message || '获取模板列表失败'
+        message.error(errorMsg)
+      }
     }
   )
 
@@ -141,8 +144,9 @@ const ResumeTemplates: React.FC = () => {
       await resumeAPI.collectTemplate(user.userId, templateId, !isCollected)
       message.success(isCollected ? '取消收藏成功' : '收藏成功')
       setCollectedStatuses(prev => ({ ...prev, [templateId]: !isCollected }))
-    } catch {
-      message.error('操作失败')
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || '操作失败'
+      message.error(errorMsg)
     }
   }
 
@@ -179,8 +183,9 @@ const ResumeTemplates: React.FC = () => {
       // 使简历列表缓存失效，等待完成后再跳转
       await queryClient.invalidateQueries(['user-resumes', user.userId])
       navigate('/resume/my-resumes')
-    } catch {
-      message.error('创建失败')
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || '创建失败'
+      message.error(errorMsg)
     } finally {
       setCreating(false)
     }

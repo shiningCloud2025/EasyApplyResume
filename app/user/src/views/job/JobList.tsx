@@ -55,8 +55,9 @@ const JobList: React.FC = () => {
     {
       keepPreviousData: true,
       select: (response) => response.data,
-      onError: () => {
-        message.error('获取招聘信息失败')
+      onError: (error: any) => {
+        const errorMsg = error?.response?.data?.message || error?.message || '获取招聘信息失败'
+        message.error(errorMsg)
       }
     }
   )
