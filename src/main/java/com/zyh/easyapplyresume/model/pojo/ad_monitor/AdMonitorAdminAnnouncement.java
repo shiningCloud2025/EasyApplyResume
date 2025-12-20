@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * 管理员公告实体类-管理端
+ * 管理端实体类-监测与广告端
  * @author shiningCloud2025
  */
 @Data
@@ -22,22 +22,22 @@ public class AdMonitorAdminAnnouncement {
     /**
      * 公告id（主键，自增）
      */
-    @TableId(value = "announcement_id", type = IdType.AUTO)
+    @TableId(value = "adminAnnouncement_id", type = IdType.AUTO)
     private Integer announcementId;
     /**
      * 公告标题
      */
-    @TableField("announcement_title")
+    @TableField("adminAnnouncement_title")
     private String announcementTitle;
     /**
      * 公告内容
      */
-    @TableField("announcement_content")
+    @TableField("adminAnnouncement_content")
     private String announcementContent;
     /**
      * 修改时间
      */
-    @TableField("announcement_updatedTime")
+    @TableField("adminAnnouncement_updatedTime")
     private Date announcementUpdatedTime;
 
 }
