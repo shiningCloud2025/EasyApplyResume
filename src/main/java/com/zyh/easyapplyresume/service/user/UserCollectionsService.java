@@ -1,4 +1,9 @@
 package com.zyh.easyapplyresume.service.user;
+
+import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
+
+import java.util.List;
+
 /**
  * @author shiningCloud2025
  */
@@ -16,6 +21,7 @@ public interface UserCollectionsService {
     /**
      * 查询用户收藏的简历模版
      */
+    public List<ResumeTemplateInfoVO> getUserCollectResumeTemplate(Integer userId);
 
 
 

@@ -8,6 +8,7 @@ import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.UserCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.IndustryMapMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserSaveResumeMapper;
 import com.zyh.easyapplyresume.model.pojo.admin.IndustryMap;
+import com.zyh.easyapplyresume.model.pojo.user.UserDeleteResume;
 import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
 import com.zyh.easyapplyresume.model.query.user.UserSaveResumeQuery;
 import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
@@ -174,6 +175,15 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
             throw new RuntimeException("保存用户保存的简历信息失败");
         }
 
+    }
+    @Override
+    public void updateUserDeleteResumeNameByUserIdAndResumeSortedNumAndResumeName(Integer userId, Integer resumeSortedNum, String resumeName) {
+        LambdaQueryWrapper<UserSaveResume> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
+        queryWrapper.eq(UserSaveResume::getUserSaveResumeSortedNum, resumeSortedNum);
+        UserSaveResume userSaveResume = userSaveResumeMapper.selectOne(queryWrapper);
+        userSaveResume.setUserSaveResumeResumeName(resumeName);
+        userSaveResumeMapper.updateById(userSaveResume);
     }
 
     private void reorderResumeSortedNum(Integer userId, Integer deletedSortedNum) {
