@@ -94,7 +94,7 @@ public class UserFeedbackRecordServiceImpl implements UserFeedbackRecordService 
                 feedbackRecord -> {
                     UserFeedbackRecordPageVO userFeedbackRecordPageVO = new UserFeedbackRecordPageVO();
                     BeanUtil.copyProperties(feedbackRecord, userFeedbackRecordPageVO);
-                    userFeedbackRecordPageVO.setUserFeedbackRecordName(userMapper.selectById(feedbackRecord.getUserFeedbackRecordId()).getUserUsername());
+                    userFeedbackRecordPageVO.setUserFeedbackRecordName(userMapper.selectById(feedbackRecord.getUserFeedbackRecordApprovalPersonId()).getUserUsername());
                     userFeedbackRecordPageVO.setAdminFeedbackRecordApprovalPersonName(adminMapper.selectById(feedbackRecord.getUserFeedbackRecordApprovalPersonId()).getAdminUsername());
                     return userFeedbackRecordPageVO;
                 }
