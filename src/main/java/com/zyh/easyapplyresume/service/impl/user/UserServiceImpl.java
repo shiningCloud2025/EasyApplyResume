@@ -1,9 +1,13 @@
 package com.zyh.easyapplyresume.service.impl.user;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.zyh.easyapplyresume.bean.locationenum.CityEnum;
+import com.zyh.easyapplyresume.bean.locationenum.ProvinceEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.mapper.mysql.user.UniversityMapMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserMapper;
 import com.zyh.easyapplyresume.model.form.user.UserUpdateForm;
+import com.zyh.easyapplyresume.model.pojo.user.UniversityMap;
 import com.zyh.easyapplyresume.model.pojo.user.User;
 import com.zyh.easyapplyresume.model.vo.user.UserInfoVO;
 import com.zyh.easyapplyresume.service.user.UserService;
@@ -22,6 +26,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UniversityMapMapper universityMapMapper;
 
     @Override
     public void updateUser(UserUpdateForm userUpdateForm) {
@@ -42,7 +49,12 @@ public class UserServiceImpl implements UserService {
     public UserInfoVO getUserByUserId(String userId) {
         try{
             log.info("根据用户id查询用户信息开始");
-            return BeanUtil.copyProperties(userMapper.selectById(userId), UserInfoVO.class);
+            UserInfoVO userInfoVO = BeanUtil.copyProperties(userMapper.selectById(userId), UserInfoVO.class);
+            userInfoVO.setUserRecruitLocationFirstName(ProvinceEnum.getById(userInfoVO.getUserRecruitLocationFirst()).getName());
+            userInfoVO.setUserRecruitLocationSecondName(CityEnum.getById(userInfoVO.getUserRecruitLocationSecond()).getName());
+            userInfoVO.setUserUniversityCodeName(universityMapMapper.selectById(userInfoVO.getUserUniversityCode()).getUniversityMapName());
+            return userInfoVO;
+
         }catch (BusException e){
             throw e;
         }catch (Exception e){

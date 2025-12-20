@@ -136,8 +136,8 @@ public class UserAuthServiceImpl implements UserAuthService {
             formalRegisterForm.setUserLoginTime(new Date());
             BeanUtils.copyProperties(formalRegisterForm, user);
             user.setUserPassword(passwordEncoder.encode(formalRegisterForm.getUserPassword()));
-            user.setUserRecruitLocationDetail(ProvinceEnum.getById(Integer.parseInt(user.getUserRecruitLocationFirst())).getName()+
-                    CityEnum.getById(Integer.parseInt(user.getUserRecruitLocationSecond())).getName());
+            user.setUserRecruitLocationDetail(ProvinceEnum.getById(user.getUserRecruitLocationFirst()).getName()+
+                    CityEnum.getById(user.getUserRecruitLocationSecond()).getName());
             userMapper.insert(user);
             String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
             String redisKey = "user:token:" + user.getUserId();

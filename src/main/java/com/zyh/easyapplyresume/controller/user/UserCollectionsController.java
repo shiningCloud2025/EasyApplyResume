@@ -37,6 +37,13 @@ public class UserCollectionsController {
         return BaseResult.ok();
     }
 
+    @GetMapping("/getUserCollectResumeTemplate")
+    @Operation(summary = "查询用户收藏的简历模版")
+    public BaseResult<?> getUserCollectResumeTemplate(@RequestParam(required = true,value = "userId") Integer userId,
+                                                     @RequestParam(required = false,value = "resumeTemplateName") String resumeTemplateName) {
+        return BaseResult.ok(userCollectionsService.getUserCollectResumeTemplate(userId, resumeTemplateName));
+    }
+
 
 
 }
