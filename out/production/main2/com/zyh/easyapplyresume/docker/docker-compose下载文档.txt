@@ -1,0 +1,26 @@
+# 1. 临时禁用失效的 UCloud 仓库，安装 python3 + pip3（从阿里云仓库下载）
+yum install -y python3 python3-pip --disablerepo=UCloud-Software
+
+# 2. 升级 pip3 到最新版（避免旧版本安装 docker-compose 失败）
+pip3 install --upgrade pip -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 3. 用清华源快速安装 docker-compose（国内源，无解析问题）
+pip3 install docker-compose -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+# 4. 验证 docker-compose 是否安装成功（关键检查）
+docker-compose --version
+
+# 5. 给 docker 配置国内镜像加速器（避免后续拉取镜像失败）
+mkdir -p /etc/docker
+tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://pee6w651.mirror.aliyuncs.com"]
+}
+EOF
+systemctl daemon-reload && systemctl restart docker
+
+# 6. 启动你的服务（当前目录就是 docker-compose.yml 所在目录）
+docker-compose up -d
+
+# 7. 查看服务启动状态
+docker-compose ps

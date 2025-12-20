@@ -1,0 +1,18 @@
+1.nacos建库和表相关:
+如果库存在，它就不会处理，我们就需要自已创建库和表
+
+如果库不存在，它会帮助我们自动创建库和表
+
+2.nacos版本相关
+2.3.3这种2.3.x系列鉴权不是很稳定
+2.1.2这种2.1.x系列JRaft问题太严重了
+推荐使用2.2.3这种稳定的系列
+
+
+3.nacos的mysql网络问题
+记得要加name,version 不然它的网络会自已变
+
+https://docker.aityp.com/image/docker.io/nacos/nacos-server:v2.3.2
+
+
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' EasyApplyResume-mysql

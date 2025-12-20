@@ -8,7 +8,6 @@ import com.zyh.easyapplyresume.model.form.ad_monitor.AdMonitorAnnouncementForm;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdMonitorAnnouncement;
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdMonitorAnnouncementInfoVO;
 import com.zyh.easyapplyresume.service.ad_monitor.AdMonitorAnnouncementService;
-import com.zyh.easyapplyresume.service.admin.AdminAnnouncementService;
 import com.zyh.easyapplyresume.utils.admonitorvalidator.AdMonitorAnnouncementValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

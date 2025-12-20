@@ -1,9 +1,7 @@
 package com.zyh.easyapplyresume.service.ad_monitor;
 
 import com.zyh.easyapplyresume.model.form.ad_monitor.AdMonitorAnnouncementForm;
-import com.zyh.easyapplyresume.model.form.admin.AdminAnnouncementForm;
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdMonitorAnnouncementInfoVO;
-import com.zyh.easyapplyresume.model.vo.admin.AdminAnnouncementInfoVO;
 
 /**
  * @author shiningCloud2025

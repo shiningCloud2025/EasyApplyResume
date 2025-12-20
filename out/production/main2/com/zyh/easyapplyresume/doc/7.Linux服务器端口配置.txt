@@ -1,0 +1,18 @@
+以下是按主机占用端口从小到大顺序整理的服务映射表：
+主机占用端口	服务名称	容器内端口	用途说明
+37210	mysql	3306	MySQL 数据库服务端口
+37211	redis	6379	Redis 缓存服务端口
+37212	minio	9000	MinIO 对象存储 API 端口（应用调用）
+37213	minio	9001	MinIO Web 控制台访问端口
+37214	pgvector	5432	PostgreSQL+pgvector 向量数据库端口
+37215	nacos	8848	Nacos 控制台 / HTTP API 端口（配置中心核心）
+37216	nacos	9848	Nacos 客户端 gRPC 端口（2.x 版本必须）
+37217	nacos	9849	Nacos 服务端 gRPC 端口（2.x 版本必须）
+访问地址速查（按端口顺序）：
+服务	访问地址
+MySQL	你的服务器IP:37210
+Redis	你的服务器IP:37211
+MinIO API	http://你的服务器IP:37212
+MinIO 控制台	http://你的服务器IP:37213
+pgvector	你的服务器IP:37214
+Nacos 控制台	http://你的服务器IP:37215/nacos
