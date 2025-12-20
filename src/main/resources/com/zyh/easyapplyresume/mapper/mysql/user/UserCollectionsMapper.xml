@@ -7,7 +7,7 @@
         select * from user_userCollections uuc
         left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id
         where uuc.uid = #{userId}
-        <if test="resumeTemplateName!=null">
+        <if test="resumeTemplateName != null and resumeTemplateName != ''">
             and grt.resumeTemplate_name like concat('%',#{resumeTemplateName},'%')
         </if>
     </select>

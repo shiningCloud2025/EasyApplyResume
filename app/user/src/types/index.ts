@@ -22,6 +22,13 @@ export interface User {
   userDreamMaxMonthSalary: number
   userDreamWeekWorkDayNum: number
   userDreamGoodWelfare: string
+  userRecruitLocationFirst?: number
+  userRecruitLocationFirstName?: string
+  userRecruitLocationSecond?: number
+  userRecruitLocationSecondName?: string
+  userRecruitLocationDetail?: string
+  userUniversityCode?: number
+  userUniversityCodeName?: string
 }
 
 // 登录表单类型
@@ -54,8 +61,8 @@ export interface RegisterForm {
   userDreamMaxMonthSalary?: number
   userDreamWeekWorkDayNum?: number
   userDreamGoodWelfare?: string
-  userRecruitLocationFirst?: string
-  userRecruitLocationSecond?: string
+  userRecruitLocationFirst?: number
+  userRecruitLocationSecond?: number
   userUniversityCode?: number
   phoneMessageCode: string
   emailMessageCode: string

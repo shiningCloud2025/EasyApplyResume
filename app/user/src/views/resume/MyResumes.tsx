@@ -148,15 +148,6 @@ const MyResumes: React.FC = () => {
     }
   )
 
-  const handleSearch = (value: string) => {
-    setSearchKeyword(value)
-    // 更新搜索参数
-    const newQuery = value ? { userSaveResumeResumeName: value } : {}
-    setSearchQuery(newQuery)
-    // 强制重新获取数据
-    setTimeout(() => refetch(), 0)
-  }
-
   // 修改简历名称mutation
   const updateNameMutation = useMutation(
     (params: { resumeSortedNum: number; resumeName: string }) => 
@@ -175,6 +166,13 @@ const MyResumes: React.FC = () => {
       }
     }
   )
+
+  const handleSearch = (value: string) => {
+    setSearchKeyword(value)
+    const newQuery = value ? { userSaveResumeResumeName: value } : {}
+    setSearchQuery(newQuery)
+    setTimeout(() => refetch(), 0)
+  }
 
   const handleEditName = (resume: UserResume) => {
     setEditingResume(resume)
@@ -197,29 +195,6 @@ const MyResumes: React.FC = () => {
     navigate(`/resume/edit/${resume.userSaveResumeSortedNum}`)
   }
 
-  const handlePreview = (resume: UserResume) => {
-    Modal.info({
-      title: '简历预览',
-      width: 800,
-      content: (
-        <div style={{ padding: '20px' }}>
-          <h3>{resume.userSaveResumeResumeName}</h3>
-          <p>行业：{getIndustryName(resume.userSaveResumeIndustry)}</p>
-          <p>创建时间：{new Date(resume.userSaveResumeCreatedTime).toLocaleDateString('zh-CN')}</p>
-          <p>最后更新：{new Date(resume.userSaveResumeUpdatedTime).toLocaleDateString('zh-CN')}</p>
-          <div style={{ 
-            marginTop: 20, 
-            padding: 20, 
-            background: '#f5f5f5', 
-            borderRadius: 8 
-          }}>
-            <p>简历内容将在这里显示...</p>
-          </div>
-        </div>
-      )
-    })
-  }
-
   const handleDuplicate = async (resume: UserResume) => {
     try {
       const newResumeData = {
@@ -228,14 +203,12 @@ const MyResumes: React.FC = () => {
         userSaveResumeCreatedTime: new Date().toISOString(),
         userSaveResumeUpdatedTime: new Date().toISOString()
       }
-      
       await resumeAPI.saveResume(newResumeData)
       message.success('简历复制成功')
       refetch()
     } catch (error: any) {
       const errorMsg = error?.response?.data?.message || error?.message || '复制简历失败'
       message.error(errorMsg)
-      console.error('复制失败:', error)
     }
   }
 
@@ -251,29 +224,18 @@ const MyResumes: React.FC = () => {
 
   const getIndustryName = (industryId: number) => {
     const industries: Record<number, string> = {
-      1: '互联网',
-      2: '金融',
-      3: '教育',
-      4: '医疗',
-      5: '制造业',
-      6: '其他'
+      1: '互联网', 2: '金融', 3: '教育', 4: '医疗', 5: '制造业', 6: '其他'
     }
     return industries[industryId] || '其他'
   }
 
   const getIndustryColor = (industryId: number) => {
     const colors: Record<number, string> = {
-      1: 'blue',
-      2: 'green',
-      3: 'orange',
-      4: 'red',
-      5: 'purple',
-      6: 'default'
+      1: 'blue', 2: 'green', 3: 'orange', 4: 'red', 5: 'purple', 6: 'default'
     }
     return colors[industryId] || 'default'
   }
 
-  // 后端已经处理搜索，直接使用返回数据
   const filteredResumes = Array.isArray(resumesData) ? resumesData : []
 
   const handleOpenRecycleBin = () => {
@@ -282,7 +244,6 @@ const MyResumes: React.FC = () => {
 
   return (
     <div className="my-resumes">
-      {/* 页面标题 + Tab切换 */}
       <div className="page-header">
         <Tabs 
           activeKey={activeTab} 
@@ -294,20 +255,10 @@ const MyResumes: React.FC = () => {
         />
       </div>
 
-      {/* 筛选卡片 */}
       <Card className="filter-card" style={{ marginBottom: 24 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Search
-            placeholder="搜索简历名称"
-            onSearch={handleSearch}
-            style={{ width: 300 }}
-            allowClear
-          />
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => navigate('/resume/templates')}
-          >
+          <Search placeholder="搜索简历名称" onSearch={handleSearch} style={{ width: 300 }} allowClear />
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => navigate('/resume/templates')}>
             创建新简历
           </Button>
         </div>
@@ -315,42 +266,23 @@ const MyResumes: React.FC = () => {
 
       {!user ? (
         <div style={{ textAlign: 'center', padding: '50px' }}>
-          <Empty
-            description="请先登录"
-            image={Empty.PRESENTED_IMAGE_SIMPLE}
-          >
-            <Button type="primary" onClick={() => navigate('/auth/login')}>
-              去登录
-            </Button>
+          <Empty description="请先登录" image={Empty.PRESENTED_IMAGE_SIMPLE}>
+            <Button type="primary" onClick={() => navigate('/auth/login')}>去登录</Button>
           </Empty>
         </div>
       ) : isLoading ? (
-        <div style={{ textAlign: 'center', padding: '50px' }}>
-          <Spin size="large" />
-        </div>
+        <div style={{ textAlign: 'center', padding: '50px' }}><Spin size="large" /></div>
       ) : error ? (
         <div style={{ textAlign: 'center', padding: '50px' }}>
-          <Empty
-            description="加载失败，请重试"
-            image={Empty.PRESENTED_IMAGE_SIMPLE}
-          >
-            <Button type="primary" onClick={() => refetch()}>
-              重试
-            </Button>
+          <Empty description="加载失败，请重试" image={Empty.PRESENTED_IMAGE_SIMPLE}>
+            <Button type="primary" onClick={() => refetch()}>重试</Button>
           </Empty>
         </div>
       ) : activeTab === 'my-resumes' ? (
         filteredResumes.length === 0 ? (
-          <Empty
-            description={searchKeyword ? '未找到匹配的简历' : '暂无简历'}
-            image={Empty.PRESENTED_IMAGE_SIMPLE}
-          >
+          <Empty description={searchKeyword ? '未找到匹配的简历' : '暂无简历'} image={Empty.PRESENTED_IMAGE_SIMPLE}>
             {!searchKeyword && (
-              <Button 
-                type="primary" 
-                icon={<PlusOutlined />}
-                onClick={() => navigate('/resume/templates')}
-              >
+              <Button type="primary" icon={<PlusOutlined />} onClick={() => navigate('/resume/templates')}>
                 创建简历
               </Button>
             )}
@@ -363,10 +295,7 @@ const MyResumes: React.FC = () => {
                 hoverable
                 className="resume-card"
                 cover={
-                  <div 
-                    className="resume-preview-container"
-                    onClick={() => handleEdit(resume)}
-                  >
+                  <div className="resume-preview-container" onClick={() => handleEdit(resume)}>
                     <ReactCodePreview code={resume.userSaveResumeResumeReactCode} />
                   </div>
                 }
@@ -399,19 +328,11 @@ const MyResumes: React.FC = () => {
           </div>
         )
       ) : (
-        // 我的收藏 Tab
         collectionsLoading ? (
-          <div style={{ textAlign: 'center', padding: '50px' }}>
-            <Spin size="large" />
-          </div>
+          <div style={{ textAlign: 'center', padding: '50px' }}><Spin size="large" /></div>
         ) : collectionsData.length === 0 ? (
-          <Empty
-            description="暂无收藏"
-            image={Empty.PRESENTED_IMAGE_SIMPLE}
-          >
-            <Button type="primary" onClick={() => navigate('/resume/templates')}>
-              去收藏模板
-            </Button>
+          <Empty description="暂无收藏" image={Empty.PRESENTED_IMAGE_SIMPLE}>
+            <Button type="primary" onClick={() => navigate('/resume/templates')}>去收藏模板</Button>
           </Empty>
         ) : (
           <div className="resume-grid">
@@ -442,15 +363,44 @@ const MyResumes: React.FC = () => {
         )
       )}
 
+      {/* 编辑简历名称弹窗 */}
+      <Modal
+        title="编辑简历名称"
+        open={editModalVisible}
+        onCancel={() => {
+          setEditModalVisible(false)
+          setEditingResume(null)
+          setNewResumeName('')
+        }}
+        footer={[
+          <Button key="cancel" onClick={() => {
+            setEditModalVisible(false)
+            setEditingResume(null)
+            setNewResumeName('')
+          }}>
+            取消
+          </Button>,
+          <Button key="save" type="primary" onClick={confirmEditName} loading={updateNameMutation.isLoading}>
+            保存
+          </Button>
+        ]}
+      >
+        <Input
+          placeholder="请输入简历名称"
+          value={newResumeName}
+          onChange={(e) => setNewResumeName(e.target.value)}
+          onPressEnter={confirmEditName}
+          maxLength={50}
+        />
+      </Modal>
+
       {/* 删除确认弹窗 */}
       <Modal
         title="确认删除"
         open={deleteModalVisible}
         onCancel={() => setDeleteModalVisible(false)}
         footer={[
-          <Button key="cancel" onClick={() => setDeleteModalVisible(false)}>
-            取消
-          </Button>,
+          <Button key="cancel" onClick={() => setDeleteModalVisible(false)}>取消</Button>,
           <Button key="delete" type="primary" danger onClick={confirmDelete} loading={deleteResumeMutation.isLoading}>
             确认删除
           </Button>
