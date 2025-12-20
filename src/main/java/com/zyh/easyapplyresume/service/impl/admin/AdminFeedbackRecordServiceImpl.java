@@ -3,6 +3,7 @@ package com.zyh.easyapplyresume.service.impl.admin;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminFeedbackRecordMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminMapper;
 import com.zyh.easyapplyresume.model.pojo.admin.Admin;
@@ -40,6 +41,8 @@ public class AdminFeedbackRecordServiceImpl implements AdminFeedbackRecordServic
             adminFeedbackRecordInfoVO.setAdminFeedbackRecordApprovalPersonName(adminMapper.selectById(adminFeedbackRecord.getAdminFeedbackRecordApprovalPersonId()).getAdminUsername());
             log.info("管理员反馈记录信息：{}", adminFeedbackRecordInfoVO);
             return adminFeedbackRecordInfoVO;
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
             log.error("管理员反馈记录查询失败：{}", e.getMessage());
             return null;

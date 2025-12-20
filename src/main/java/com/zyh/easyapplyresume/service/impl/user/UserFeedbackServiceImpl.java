@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.businessEnum.AdminBusinessEnum;
 import com.zyh.easyapplyresume.bean.businessEnum.UserBusinessEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminFeedbackMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminFeedbackRecordMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminMapper;
@@ -67,9 +68,12 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
             userFeedback.setUserFeedbackCurStep(UserBusinessEnum.USER_WAIT_RECEIVED.getMessage());
             userFeedback.setUserFeedbackUserId(userFeedbackForm.getUserFeedbackUserId());
             userFeedbackMapper.insert(userFeedback);
-            sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈待接受-用户平台","您有一条新的反馈待接收-用户平台");
+            sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈待接受-用户平台","您有一条新的反馈待接受-用户平台");
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-
+            log.error("添加反馈失败", e);
+            throw new RuntimeException("添加反馈失败");
         }
 
     }

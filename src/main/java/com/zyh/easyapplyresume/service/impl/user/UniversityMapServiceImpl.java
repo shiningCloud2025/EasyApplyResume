@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.service.impl.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.mapper.mysql.user.UniversityMapMapper;
 import com.zyh.easyapplyresume.model.pojo.user.UniversityMap;
 import com.zyh.easyapplyresume.service.user.UniversityMapService;
@@ -27,11 +28,13 @@ public class UniversityMapServiceImpl implements UniversityMapService {
             log.info("获取所有大学信息成功");
             return universityMapMapper.selectList(null);
         }
-        catch (Exception e){
-            log.error("获取所有大学信息失败");
-            e.printStackTrace();
+        catch (BusException e){
+            throw e;
         }
-        return null;
+        catch (Exception e){
+            log.error("获取所有大学信息失败", e);
+            throw new RuntimeException("获取所有大学信息失败");
+        }
     }
 
     @Override
@@ -45,9 +48,11 @@ public class UniversityMapServiceImpl implements UniversityMapService {
                 queryWrapper.like(UniversityMap::getUniversityMapName, universityMapName);
             }
             return universityMapMapper.selectList(queryWrapper);
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-            log.error("根据大学名称模糊查询大学失败");
+            log.error("根据大学名称模糊查询大学失败", e);
+            throw new RuntimeException("根据大学名称模糊查询大学失败");
         }
-        return null;
     }
 }

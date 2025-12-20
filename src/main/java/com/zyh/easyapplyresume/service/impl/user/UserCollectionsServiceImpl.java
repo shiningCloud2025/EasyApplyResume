@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.service.impl.user;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserCollectionsMapper;
 import com.zyh.easyapplyresume.model.pojo.user.UserCollections;
 import com.zyh.easyapplyresume.service.user.UserCollectionsService;
@@ -31,8 +32,11 @@ public class UserCollectionsServiceImpl implements UserCollectionsService {
                 return true;
             }
             log.info("用户是否收藏简历模版结束");
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-            log.error("用户是否收藏简历模版异常");
+            log.error("用户是否收藏简历模版异常", e);
+            throw new RuntimeException("用户是否收藏简历模版异常");
         }
         return false;
     }
@@ -55,8 +59,11 @@ public class UserCollectionsServiceImpl implements UserCollectionsService {
                 userCollectionsMapper.insert(userCollections);
             }
             log.info("用户收藏/取消收藏简历模版结束");
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-            log.error("用户收藏/取消收藏简历模版异常");
+            log.error("用户收藏/取消收藏简历模版异常", e);
+            throw new RuntimeException("用户收藏/取消收藏简历模版异常");
         }
 
     }

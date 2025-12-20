@@ -104,5 +104,12 @@ export const resumeAPI = {
     return request.delete('/user/deleteResume/clearUserAllDeleteResume', {
       params: { userId }
     })
+  },
+
+  // 修改回收站简历名称
+  updateDeletedResumeName: (userId: number, resumeSortedNum: number, resumeName: string) => {
+    return request.post('/user/deleteResume/updateUserDeleteResumeName', null, {
+      params: { userId, resumeSortedNum, resumeName }
+    })
   }
 }

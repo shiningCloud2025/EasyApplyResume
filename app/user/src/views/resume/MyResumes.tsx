@@ -102,8 +102,9 @@ const MyResumes: React.FC = () => {
       onSuccess: (data) => {
         console.log('获取简历列表成功:', data)
       },
-      onError: (error) => {
-        message.error('获取简历列表失败')
+      onError: (error: any) => {
+        const errorMsg = error?.response?.data?.message || error?.message || '获取简历列表失败'
+        message.error(errorMsg)
         console.error('API错误:', error)
       }
     }
@@ -136,8 +137,9 @@ const MyResumes: React.FC = () => {
         setSelectedResume(null)
         queryClient.invalidateQueries(['user-resumes', user?.userId])
       },
-      onError: (error) => {
-        message.error('删除简历失败')
+      onError: (error: any) => {
+        const errorMsg = error?.response?.data?.message || error?.message || '删除简历失败'
+        message.error(errorMsg)
         console.error('删除失败:', error)
       }
     }
@@ -191,8 +193,9 @@ const MyResumes: React.FC = () => {
       await resumeAPI.saveResume(newResumeData)
       message.success('简历复制成功')
       refetch()
-    } catch (error) {
-      message.error('复制简历失败')
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || '复制简历失败'
+      message.error(errorMsg)
       console.error('复制失败:', error)
     }
   }

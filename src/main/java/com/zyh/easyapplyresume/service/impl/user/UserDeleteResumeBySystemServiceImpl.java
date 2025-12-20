@@ -3,6 +3,7 @@ package com.zyh.easyapplyresume.service.impl.user;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.mapper.mysql.admin.IndustryMapMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserDeleteResumeBySystemMapper;
 import com.zyh.easyapplyresume.model.pojo.user.UserDeleteResume;
@@ -50,15 +51,23 @@ public class UserDeleteResumeBySystemServiceImpl implements UserDeleteResumeBySy
                 lambdaQueryWrapper.eq(UserDeleteResumeBySystem::getUserDeleteResumeBySystemUserId, userId);
                 lambdaQueryWrapper.orderByDesc(UserDeleteResumeBySystem::getUserDeleteResumeBySystemSortedNum);
                 List<UserDeleteResumeBySystem> userDeleteResumeBySystemList = userDeleteResumeBySystemMapper.selectList(lambdaQueryWrapper);
-                Integer userDeleteResumeBySystemSortedNum = userDeleteResumeBySystemList.get(0).getUserDeleteResumeBySystemSortedNum();
+                Integer userDeleteResumeBySystemSortedNum = 0;
+                if (userDeleteResumeBySystemList == null || userDeleteResumeBySystemList.isEmpty()){
+                    userDeleteResumeBySystemSortedNum = 0;
+                }else{
+                    userDeleteResumeBySystemSortedNum = userDeleteResumeBySystemList.getFirst().getUserDeleteResumeBySystemSortedNum();
+                }
                 userDeleteResumeBySystem.setUserDeleteResumeBySystemSortedNum(userDeleteResumeBySystemSortedNum + 1);
                 userDeleteResumeBySystem.setUserDeleteResumeBySystemUserId(userId);
                 userDeleteResumeBySystem.setUserDeleteResumeBySystemRecycleTime(new Date());
                 userDeleteResumeBySystems.add(userDeleteResumeBySystem);
             }
             userDeleteResumeBySystemMapper.insert(userDeleteResumeBySystems);
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-            log.error("系统删除简历表添加失败");
+            log.error("系统删除简历表添加失败", e);
+            throw new RuntimeException("系统删除简历表添加失败");
         }
 
     }
@@ -90,8 +99,11 @@ public class UserDeleteResumeBySystemServiceImpl implements UserDeleteResumeBySy
                         .map(UserDeleteResumeBySystem::getUserDeleteResumeBySystemId)
                         .collect(Collectors.toList()));
             }
+        } catch (BusException e){
+            throw e;
         } catch (Exception e){
             log.error("系统回收站清理过期简历失败", e);
+            throw new RuntimeException("系统回收站清理过期简历失败");
         }
 
     }
@@ -107,9 +119,11 @@ public class UserDeleteResumeBySystemServiceImpl implements UserDeleteResumeBySy
             userDeleteResumeInfoVO.setUserDeleteResumeIndustryName(industryMapMapper.selectById(userDeleteResumeBySystem.getUserDeleteResumeBySystemIndustry()).getIndustryMapIndustryName());
             log.info("根据系统删除简历ID查询系统删除简历信息成功");
             return userDeleteResumeInfoVO;
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
             log.error("根据系统删除简历ID查询系统删除简历信息失败", e);
-            return null;
+            throw new RuntimeException("根据系统删除简历ID查询系统删除简历信息失败");
         }
 
     }

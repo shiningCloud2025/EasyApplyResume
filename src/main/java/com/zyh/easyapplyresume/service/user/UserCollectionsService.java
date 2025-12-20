@@ -13,4 +13,10 @@ public interface UserCollectionsService {
      */
     public void  saveResumeTemplateByUserId(Integer userId, Integer rtid,boolean isCollect);
 
+    /**
+     * 查询用户收藏的简历模版
+     */
+
+
+
 }
