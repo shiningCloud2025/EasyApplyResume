@@ -12,6 +12,8 @@ const HomePage = React.lazy(() => import('@views/home/HomePage'))
 const LoginPage = React.lazy(() => import('@views/auth/LoginPage'))
 const RegisterPage = React.lazy(() => import('@views/auth/RegisterPage'))
 const ProfilePage = React.lazy(() => import('@views/user/ProfilePage'))
+const ProfileEdit = React.lazy(() => import('@views/user/ProfileEdit'))
+const ProfileEdit = React.lazy(() => import('@views/user/ProfileEdit'))
 const ResumeTemplates = React.lazy(() => import('@views/resume/ResumeTemplates'))
 const TemplateDetail = React.lazy(() => import('@views/resume/TemplateDetail'))
 const MyResumes = React.lazy(() => import('@views/resume/MyResumes'))
@@ -61,6 +63,8 @@ function App() {
       }>
         <Route path="home" element={<HomePage />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="profile/edit" element={<ProfileEdit />} />
+        <Route path="profile/edit" element={<ProfileEdit />} />
         <Route path="resume/templates" element={<ResumeTemplates />} />
         <Route path="resume/template/:templateId" element={<TemplateDetail />} />
         <Route path="resume/my-resumes" element={<MyResumes />} />
@@ -83,5 +87,9 @@ function App() {
     </Routes>
   )
 }
+
+export default App
+
+export default App
 
 export default App

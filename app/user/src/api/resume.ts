@@ -111,5 +111,12 @@ export const resumeAPI = {
     return request.post('/user/deleteResume/updateUserDeleteResumeName', null, {
       params: { userId, resumeSortedNum, resumeName }
     })
+  },
+
+  // 修改用户简历名称
+  updateResumeName: (userId: number, resumeSortedNum: number, resumeName: string) => {
+    return request.post('/user/saveResume/updateUserDeleteResumeName', null, {
+      params: { userId, resumeSortedNum, resumeName }
+    })
   }
 }
