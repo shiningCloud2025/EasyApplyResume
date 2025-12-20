@@ -10,7 +10,8 @@ import {
   Spin,
   Input,
   Pagination,
-  Tabs
+  Tabs,
+  Drawer
 } from 'antd'
 import { 
   ArrowLeftOutlined,
@@ -19,8 +20,7 @@ import {
   ExclamationCircleOutlined,
   SearchOutlined,
   EyeOutlined,
-  CodeOutlined,
-  EditOutlined
+  CodeOutlined
 } from '@ant-design/icons'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { resumeAPI, ResumeSearchQuery } from '@api/resume'
@@ -87,9 +87,6 @@ const RecycleBin: React.FC = () => {
   const [pageSize, setPageSize] = useState(10)
   const [previewVisible, setPreviewVisible] = useState(false)
   const [previewResume, setPreviewResume] = useState<any>(null)
-  const [editModalVisible, setEditModalVisible] = useState(false)
-  const [editingResume, setEditingResume] = useState<any>(null)
-  const [newResumeName, setNewResumeName] = useState('')
 
   // 获取回收站简历列表（支持搜索）
   const {
@@ -136,25 +133,6 @@ const RecycleBin: React.FC = () => {
     }
   )
 
-  // 修改简历名称mutation
-  const updateNameMutation = useMutation(
-    (params: { resumeSortedNum: number; resumeName: string }) => 
-      resumeAPI.updateDeletedResumeName(user!.userId, params.resumeSortedNum, params.resumeName),
-    {
-      onSuccess: () => {
-        message.success('简历名称已修改')
-        setEditModalVisible(false)
-        setEditingResume(null)
-        setNewResumeName('')
-        queryClient.invalidateQueries(['deleted-resumes', user?.userId])
-      },
-      onError: (error: any) => {
-        const errorMsg = error?.response?.data?.message || error?.message || '修改简历名称失败'
-        message.error(errorMsg)
-      }
-    }
-  )
-
   // 清空回收站mutation
   const clearTrashMutation = useMutation(
     () => resumeAPI.clearTrash(user!.userId),
@@ -169,25 +147,6 @@ const RecycleBin: React.FC = () => {
       }
     }
   )
-
-  // 编辑简历名称
-  const handleEdit = (resume: any, e: React.MouseEvent) => {
-    e.stopPropagation()
-    setEditingResume(resume)
-    setNewResumeName(resume.userDeleteResumeResumeName)
-    setEditModalVisible(true)
-  }
-
-  const confirmEdit = () => {
-    if (!editingResume || !newResumeName.trim()) {
-      message.warning('请输入简历名称')
-      return
-    }
-    updateNameMutation.mutate({
-      resumeSortedNum: editingResume.userDeleteResumeSortedNum,
-      resumeName: newResumeName.trim()
-    })
-  }
 
   const handleRestore = (resume: any) => {
     setSelectedResume(resume)
@@ -348,7 +307,6 @@ const RecycleBin: React.FC = () => {
                     <Tag color={getIndustryColor(resume.userDeleteResumeIndustry)}>
                       {resume.userDeleteResumeIndustryName || getIndustryName(resume.userDeleteResumeIndustry)}
                     </Tag>
-                    <Tag color="red">已删除</Tag>
                   </div>
                   <div className="resume-times">
                     <span>创建：{resume.userDeleteResumeCreatedTime ? new Date(resume.userDeleteResumeCreatedTime).toLocaleDateString('zh-CN') : '-'}</span>
@@ -356,9 +314,6 @@ const RecycleBin: React.FC = () => {
                   </div>
                 </div>
                 <div className="resume-actions">
-                  <Tooltip title="编辑名称">
-                    <Button type="text" icon={<EditOutlined />} onClick={(e) => handleEdit(resume, e)} />
-                  </Tooltip>
                   <Tooltip title="预览">
                     <Button type="text" icon={<EyeOutlined />} onClick={() => handlePreview(resume)} />
                   </Tooltip>
@@ -392,37 +347,6 @@ const RecycleBin: React.FC = () => {
         </>
       )}
 
-      {/* 编辑简历名称弹窗 */}
-      <Modal
-        title="编辑简历名称"
-        open={editModalVisible}
-        onCancel={() => {
-          setEditModalVisible(false)
-          setEditingResume(null)
-          setNewResumeName('')
-        }}
-        footer={[
-          <Button key="cancel" onClick={() => {
-            setEditModalVisible(false)
-            setEditingResume(null)
-            setNewResumeName('')
-          }}>
-            取消
-          </Button>,
-          <Button key="save" type="primary" onClick={confirmEdit} loading={updateNameMutation.isLoading}>
-            保存
-          </Button>
-        ]}
-      >
-        <Input
-          placeholder="请输入简历名称"
-          value={newResumeName}
-          onChange={(e) => setNewResumeName(e.target.value)}
-          onPressEnter={confirmEdit}
-          maxLength={50}
-        />
-      </Modal>
-
       {/* 恢复确认弹窗 */}
       <Modal
         title="确认恢复"
@@ -441,24 +365,20 @@ const RecycleBin: React.FC = () => {
         <p>恢复后简历将回到"我的简历"列表中。</p>
       </Modal>
 
-      {/* 预览弹窗 */}
-      <Modal
+      {/* 预览抽屉 */}
+      <Drawer
         title={
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <span>#{previewResume?.userDeleteResumeSortedNum}</span>
             <span>{previewResume?.userDeleteResumeResumeName}</span>
-            <Tag color="red">已删除</Tag>
           </div>
         }
+        placement="right"
         open={previewVisible}
-        onCancel={() => setPreviewVisible(false)}
-        width={900}
-        footer={[
-          <Button key="close" onClick={() => setPreviewVisible(false)}>
-            关闭
-          </Button>,
+        onClose={() => setPreviewVisible(false)}
+        width={700}
+        extra={
           <Button 
-            key="restore" 
             type="primary" 
             icon={<UndoOutlined />}
             onClick={() => {
@@ -468,7 +388,7 @@ const RecycleBin: React.FC = () => {
           >
             恢复简历
           </Button>
-        ]}
+        }
       >
         {previewResume && (
           <Tabs
@@ -482,8 +402,9 @@ const RecycleBin: React.FC = () => {
                     border: '1px solid #e8e8e8', 
                     borderRadius: 8, 
                     padding: 20,
-                    minHeight: 400,
-                    background: '#fafafa'
+                    minHeight: 'calc(100vh - 200px)',
+                    background: '#fafafa',
+                    overflow: 'auto'
                   }}>
                     <LiveProvider 
                       code={(() => {
@@ -520,7 +441,7 @@ const RecycleBin: React.FC = () => {
                     borderRadius: 8, 
                     padding: 16,
                     background: '#1e1e1e',
-                    maxHeight: 500,
+                    maxHeight: 'calc(100vh - 200px)',
                     overflow: 'auto'
                   }}>
                     <pre style={{ 
@@ -552,7 +473,7 @@ const RecycleBin: React.FC = () => {
             ]}
           />
         )}
-      </Modal>
+      </Drawer>
     </div>
   )
 }

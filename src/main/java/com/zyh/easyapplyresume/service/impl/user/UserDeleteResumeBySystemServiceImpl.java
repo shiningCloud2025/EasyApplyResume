@@ -53,11 +53,11 @@ public class UserDeleteResumeBySystemServiceImpl implements UserDeleteResumeBySy
                 List<UserDeleteResumeBySystem> userDeleteResumeBySystemList = userDeleteResumeBySystemMapper.selectList(lambdaQueryWrapper);
                 Integer userDeleteResumeBySystemSortedNum = 0;
                 if (userDeleteResumeBySystemList == null || userDeleteResumeBySystemList.isEmpty()){
-                    userDeleteResumeBySystemSortedNum = 0;
+                    userDeleteResumeBySystem.setUserDeleteResumeBySystemSortedNum(userDeleteResumeBySystemSortedNum);
                 }else{
                     userDeleteResumeBySystemSortedNum = userDeleteResumeBySystemList.getFirst().getUserDeleteResumeBySystemSortedNum();
+                    userDeleteResumeBySystem.setUserDeleteResumeBySystemSortedNum(userDeleteResumeBySystemSortedNum + 1);
                 }
-                userDeleteResumeBySystem.setUserDeleteResumeBySystemSortedNum(userDeleteResumeBySystemSortedNum + 1);
                 userDeleteResumeBySystem.setUserDeleteResumeBySystemUserId(userId);
                 userDeleteResumeBySystem.setUserDeleteResumeBySystemRecycleTime(new Date());
                 userDeleteResumeBySystems.add(userDeleteResumeBySystem);

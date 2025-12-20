@@ -45,9 +45,5 @@ public interface UserDeleteResumeService {
     public void clearExpiredResume();
 
 
-    /**
-     * 根据用户id和简历排序以及简历名称去修改简历名称
-     */
-    public void updateUserDeleteResumeNameByUserIdAndResumeSortedNumAndResumeName(Integer userId, Integer resumeSortedNum, String resumeName);
 
 }

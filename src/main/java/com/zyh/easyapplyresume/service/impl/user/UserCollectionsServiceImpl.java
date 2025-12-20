@@ -4,11 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserCollectionsMapper;
 import com.zyh.easyapplyresume.model.pojo.user.UserCollections;
+import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
 import com.zyh.easyapplyresume.service.user.UserCollectionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author shiningCloud2025
@@ -66,5 +69,10 @@ public class UserCollectionsServiceImpl implements UserCollectionsService {
             throw new RuntimeException("用户收藏/取消收藏简历模版异常");
         }
 
+    }
+
+    @Override
+    public List<ResumeTemplateInfoVO> getUserCollectResumeTemplate(Integer userId) {
+        return List.of();
     }
 }

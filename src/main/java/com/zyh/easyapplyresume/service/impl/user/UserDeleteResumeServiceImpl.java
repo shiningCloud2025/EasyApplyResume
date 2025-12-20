@@ -227,15 +227,7 @@ public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
         }
     }
 
-    @Override
-    public void updateUserDeleteResumeNameByUserIdAndResumeSortedNumAndResumeName(Integer userId, Integer resumeSortedNum, String resumeName) {
-        LambdaQueryWrapper<UserDeleteResume> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserDeleteResume::getUserDeleteResumeUserId, userId);
-        queryWrapper.eq(UserDeleteResume::getUserDeleteResumeSortedNum, resumeSortedNum);
-        UserDeleteResume userDeleteResume = userDeleteResumeMapper.selectOne(queryWrapper);
-        userDeleteResume.setUserDeleteResumeResumeName(resumeName);
-        userDeleteResumeMapper.updateById(userDeleteResume);
-    }
+
 
     private void reorderResumeSortedNum(Integer userId, Integer deletedSortedNum) {
         LambdaQueryWrapper<UserDeleteResume> queryWrapper = new LambdaQueryWrapper<>();
