@@ -12,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * 用户保存简历控制器-用户端
+ * @author shiningCloud2025
+ */
 @RestController
 @RequestMapping("/user/saveResume")
 @Tag(name="用户保存简历控制器-用户端")
