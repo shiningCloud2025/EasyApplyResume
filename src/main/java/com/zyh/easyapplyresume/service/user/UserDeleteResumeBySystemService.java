@@ -3,6 +3,7 @@ package com.zyh.easyapplyresume.service.user;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.model.pojo.user.UserDeleteResume;
 import com.zyh.easyapplyresume.model.query.user.UserDeleteResumeQuery;
+import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeBySystemInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeBySystemPageVO;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeInfoVO;
 
@@ -20,7 +21,7 @@ public interface UserDeleteResumeBySystemService {
     public void  clearExpiredUserDeleteResumeEveryThreeMonth();
 
     // 根据id查看系统回收的、用户删除的简历
-    public UserDeleteResumeInfoVO getUserDeleteResumeInfoById(Integer userDeleteResumeId);
+    public UserDeleteResumeBySystemInfoVO getUserDeleteResumeInfoById(Integer userDeleteResumeId);
 
     // 分页查询系统回收的、用户删除的简历
     public Page<UserDeleteResumeBySystemPageVO> getUserDeleteResumeInfoPage(Integer pageNum, Integer pageSize, UserDeleteResumeQuery userDeleteResumeQuery);

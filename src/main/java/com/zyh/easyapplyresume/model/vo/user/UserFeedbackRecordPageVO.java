@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.model.vo.user;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -14,6 +15,9 @@ public class UserFeedbackRecordPageVO {
 
     @Schema(description = "反馈ID")
     private Integer userFeedbackRecordId;
+
+    @Schema(description = "反馈用户ID")
+    private Integer userFeedbackRecordUserId;
 
     @Schema(description = "管理员反馈记录反馈人")
     private String userFeedbackRecordName;

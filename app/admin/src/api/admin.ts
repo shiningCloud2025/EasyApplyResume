@@ -46,7 +46,11 @@ import type {
   IndustryMapPageVO,
   ProvinceMap,
   CityMap,
-  AreaMap
+  AreaMap,
+  UserDeleteResumeQuery,
+  UserDeleteResumeBySystemPageVO,
+  UserDeleteResumeBySystemInfoVO,
+  UserDeleteResumeInfoVO
 } from '@/types/admin'
 
 // 认证相关API
@@ -516,4 +520,19 @@ export const smsApi = {
   
   // 校验短信验证码
   checkPhoneCode: (phone: string, code: string) => api.post('/admin/sms/check', null, { params: { phone, code } })
+}
+
+// 系统删除简历相关API
+export const systemDeleteResumeApi = {
+  // 分页查询系统删除简历
+  getDeleteResumePage: (pageNum: number, pageSize: number, query: UserDeleteResumeQuery) =>
+    api.post<PageResult<UserDeleteResumeBySystemPageVO>>('/admin/userDeleteResumeBySystemService/getUserDeleteResumeInfoPage', query, {
+      params: { pageNum, pageSize }
+    }),
+  
+  // 查询系统删除简历详情
+  getDeleteResumeDetail: (userDeleteResumeId: number) =>
+    api.get<UserDeleteResumeBySystemInfoVO>('/admin/userDeleteResumeBySystemService/getUserDeleteResumeInfoById', {
+      params: { userDeleteResumeId }
+    })
 }
