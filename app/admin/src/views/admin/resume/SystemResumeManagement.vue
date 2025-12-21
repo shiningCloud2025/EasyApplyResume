@@ -4,7 +4,7 @@
     <div class="page-header">
       <div class="header-content">
         <h1 class="page-title">系统删除简历管理</h1>
-        <p class="page-description">管理系统自动删除的简历记录</p>
+        <p class="page-description">管理系统回收的用户删除简历记录</p>
       </div>
       <div class="header-actions">
         <el-button @click="refreshData" :icon="Refresh" type="default">
@@ -16,25 +16,30 @@
     <!-- 搜索和筛选 -->
     <el-card class="search-card">
       <el-form :model="searchForm" :inline="true" class="search-form">
-        <el-form-item label="用户名">
+        <el-form-item label="简历名称">
           <el-input
-            v-model="searchForm.userName"
-            placeholder="请输入用户名"
+            v-model="searchForm.userDeleteResumeResumeName"
+            placeholder="请输入简历名称"
             clearable
-            style="width: 240px"
+            style="width: 200px"
           />
         </el-form-item>
-        <el-form-item label="删除原因">
-          <el-select
-            v-model="searchForm.reason"
-            placeholder="请选择"
+        <el-form-item label="行业名称">
+          <el-input
+            v-model="searchForm.userDeleteResumeIndustryName"
+            placeholder="请输入行业名称"
             clearable
-            style="width: 180px"
-          >
-            <el-option label="用户自动删除" value="user_delete" />
-            <el-option label="系统自动清理" value="system_cleanup" />
-            <el-option label="违规内容" value="violation" />
-          </el-select>
+            style="width: 200px"
+          />
+        </el-form-item>
+        <el-form-item label="用户ID">
+          <el-input-number
+            v-model="searchForm.userDeleteResumeUserId"
+            placeholder="请输入用户ID"
+            :min="1"
+            controls-position="right"
+            style="width: 140px"
+          />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSearch">
@@ -53,6 +58,7 @@
     <el-card class="table-card">
       <div class="table-header">
         <span class="table-title">删除简历列表</span>
+        <span class="table-count">共 {{ pagination.total }} 条记录</span>
       </div>
 
       <el-table
@@ -60,18 +66,34 @@
         :data="resumeList"
         style="width: 100%"
       >
-        <el-table-column prop="id" label="ID" width="70" />
-        <el-table-column prop="userName" label="用户" width="120" />
-        <el-table-column prop="resumeTitle" label="简历标题" min-width="200" />
-        <el-table-column prop="deleteReason" label="删除原因" width="130">
+        <el-table-column prop="userDeleteResumeBySystemId" label="ID" width="70" />
+        <el-table-column prop="userDeleteResumeBySystemResumeName" label="简历名称" min-width="200" show-overflow-tooltip />
+        <el-table-column prop="userDeleteResumeBySystemIndustryName" label="行业" width="120" show-overflow-tooltip />
+        <el-table-column prop="userDeleteResumeBySystemUserId" label="用户ID" width="80" />
+        <el-table-column prop="userDeleteResumeBySystemSortedNum" label="排序" width="70" />
+        <el-table-column label="创建时间" width="120">
           <template #default="{ row }">
-            <el-tag :type="getReasonTagType(row.deleteReason)" size="small">
-              {{ getReasonText(row.deleteReason) }}
-            </el-tag>
+            {{ formatDate(row.userDeleteResumeBySystemCreatedTime) }}
           </template>
         </el-table-column>
-        <el-table-column prop="deleteTime" label="删除时间" min-width="160" />
-        <el-table-column label="操作" width="120" fixed="right">
+        <el-table-column label="更新时间" width="120">
+          <template #default="{ row }">
+            {{ formatDate(row.userDeleteResumeBySystemUpdatedTime) }}
+          </template>
+        </el-table-column>
+        <el-table-column label="回收时间" width="120">
+          <template #default="{ row }">
+            {{ formatDate(row.userDeleteResumeBySystemRecycleTime) }}
+          </template>
+        </el-table-column>
+        <el-table-column label="代码" width="100" align="center">
+          <template #default="{ row }">
+            <el-button type="primary" link @click="showCode(row)">
+              查看详情
+            </el-button>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="80" fixed="right">
           <template #default="{ row }">
             <el-button
               type="info"
@@ -97,6 +119,66 @@
         />
       </div>
     </el-card>
+
+    <!-- 简历详情对话框 -->
+    <el-dialog
+      v-model="detailDialogVisible"
+      title="简历详情"
+      width="900px"
+      :before-close="() => { detailDialogVisible = false }"
+    >
+      <div class="resume-detail" v-if="currentResume">
+        <el-descriptions :column="2" border>
+          <el-descriptions-item label="系统删除简历ID">
+            {{ currentResume.userDeleteResumeBySystemId }}
+          </el-descriptions-item>
+          <el-descriptions-item label="用户ID">
+            {{ currentResume.userDeleteResumeBySystemUserId }}
+          </el-descriptions-item>
+          <el-descriptions-item label="简历名称" :span="2">
+            <strong>{{ currentResume.userDeleteResumeBySystemResumeName }}</strong>
+          </el-descriptions-item>
+          <el-descriptions-item label="行业">
+            {{ currentResume.userDeleteResumeBySystemIndustryName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="排序序号">
+            {{ currentResume.userDeleteResumeBySystemSortedNum }}
+          </el-descriptions-item>
+          <el-descriptions-item label="创建时间">
+            {{ formatDate(currentResume.userDeleteResumeBySystemCreatedTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="更新时间">
+            {{ formatDate(currentResume.userDeleteResumeBySystemUpdatedTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="回收时间" :span="2">
+            {{ formatDate(currentResume.userDeleteResumeBySystemRecycleTime) }}
+          </el-descriptions-item>
+        </el-descriptions>
+      </div>
+      
+      <template #footer>
+        <el-button @click="detailDialogVisible = false">关闭</el-button>
+      </template>
+    </el-dialog>
+
+    <!-- 代码查看对话框 -->
+    <el-dialog
+      v-model="codeDialogVisible"
+      title="React组件代码"
+      width="900px"
+    >
+      <div class="code-content">
+        <el-input
+          type="textarea"
+          :model-value="currentCode"
+          readonly
+          :autosize="{ minRows: 15, maxRows: 30 }"
+        />
+      </div>
+      <template #footer>
+        <el-button @click="codeDialogVisible = false">关闭</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -104,68 +186,57 @@
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
+import { systemDeleteResumeApi } from '@/api/admin'
+import type { UserDeleteResumeBySystemPageVO, UserDeleteResumeBySystemInfoVO, UserDeleteResumeQuery } from '@/types/admin'
 
 // 响应式数据
 const loading = ref(false)
+const detailDialogVisible = ref(false)
+const codeDialogVisible = ref(false)
+const currentResume = ref<UserDeleteResumeBySystemInfoVO | null>(null)
+const currentCode = ref('')
 
-const searchForm = reactive({
-  userName: '',
-  reason: ''
+const searchForm = reactive<UserDeleteResumeQuery>({
+  userDeleteResumeResumeName: '',
+  userDeleteResumeIndustryName: '',
+  userDeleteResumeUserId: undefined
 })
 
 const pagination = reactive({
   current: 1,
-  size: 20,
-  total: 50
+  size: 10,
+  total: 0
 })
 
-const resumeList = ref([
-  {
-    id: 1,
-    userName: '张三',
-    resumeTitle: 'Java开发工程师简历',
-    deleteReason: 'user_delete',
-    deleteTime: '2024-03-15 10:30'
-  },
-  {
-    id: 2,
-    userName: '李四',
-    resumeTitle: '产品经理简历',
-    deleteReason: 'system_cleanup',
-    deleteTime: '2024-03-14 09:20'
-  }
-])
+const resumeList = ref<UserDeleteResumeBySystemPageVO[]>([])
 
-const getReasonText = (reason: string) => {
-  const map: Record<string, string> = {
-    'user_delete': '用户删除',
-    'system_cleanup': '系统清理',
-    'violation': '违规内容'
+// 格式化日期（只显示日期）
+const formatDate = (dateStr: string | null | undefined): string => {
+  if (!dateStr) return '-'
+  try {
+    const date = new Date(dateStr)
+    if (isNaN(date.getTime())) return '-'
+    return date.toLocaleDateString('zh-CN', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    })
+  } catch {
+    return '-'
   }
-  return map[reason] || reason
-}
-
-const getReasonTagType = (reason: string) => {
-  const map: Record<string, string> = {
-    'user_delete': 'info',
-    'system_cleanup': 'warning',
-    'violation': 'danger'
-  }
-  return map[reason] || 'info'
 }
 
 // 获取数据列表
 const getResumeList = async () => {
   loading.value = true
   try {
-    // TODO: 调用实际API
-    // const response = await resumeApi.getDeletedResumes(
-    //   pagination.current,
-    //   pagination.size,
-    //   searchForm
-    // )
-    // resumeList.value = response.data.records
-    // pagination.total = response.data.total
+    const response = await systemDeleteResumeApi.getDeleteResumePage(
+      pagination.current,
+      pagination.size,
+      searchForm
+    )
+    resumeList.value = response.data.records || []
+    pagination.total = response.data.total || 0
   } catch (error) {
     console.error('获取数据失败:', error)
     ElMessage.error('加载数据失败')
@@ -182,8 +253,9 @@ const handleSearch = () => {
 
 // 重置搜索
 const resetSearch = () => {
-  searchForm.userName = ''
-  searchForm.reason = ''
+  searchForm.userDeleteResumeResumeName = ''
+  searchForm.userDeleteResumeIndustryName = ''
+  searchForm.userDeleteResumeUserId = undefined
   pagination.current = 1
   getResumeList()
 }
@@ -204,14 +276,27 @@ const handleCurrentChange = (current: number) => {
   getResumeList()
 }
 
+// 查看代码
+const showCode = (row: UserDeleteResumeBySystemPageVO) => {
+  currentCode.value = row.userDeleteResumeBySystemResumeReactCode || ''
+  codeDialogVisible.value = true
+}
+
 // 查看详情
-const viewDetail = (row: any) => {
-  ElMessage.info('查看简历删除详情')
+const viewDetail = async (row: UserDeleteResumeBySystemPageVO) => {
+  try {
+    const response = await systemDeleteResumeApi.getDeleteResumeDetail(row.userDeleteResumeBySystemId)
+    currentResume.value = response.data
+    detailDialogVisible.value = true
+  } catch (error) {
+    console.error('获取详情失败:', error)
+    ElMessage.error('获取详情失败')
+  }
 }
 
 // 组件挂载
 onMounted(() => {
-  // getResumeList()
+  getResumeList()
 })
 </script>
 
@@ -273,12 +358,33 @@ onMounted(() => {
       font-weight: 600;
       color: #1f2937;
     }
+
+    .table-count {
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .recycle-time {
+      color: #e6a23c;
+      font-weight: 500;
+    }
   }
 
   .pagination-wrapper {
     display: flex;
     justify-content: center;
     margin-top: 24px;
+  }
+}
+
+.resume-detail {
+  .code-preview {
+    margin-top: 20px;
+    
+    h4 {
+      margin-bottom: 10px;
+      color: #303133;
+    }
   }
 }
 

@@ -9,6 +9,7 @@ import com.zyh.easyapplyresume.mapper.mysql.user.UserDeleteResumeBySystemMapper;
 import com.zyh.easyapplyresume.model.pojo.user.UserDeleteResume;
 import com.zyh.easyapplyresume.model.pojo.user.UserDeleteResumeBySystem;
 import com.zyh.easyapplyresume.model.query.user.UserDeleteResumeQuery;
+import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeBySystemInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeBySystemPageVO;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeInfoVO;
 import com.zyh.easyapplyresume.service.user.UserDeleteResumeBySystemService;
@@ -37,7 +38,6 @@ public class UserDeleteResumeBySystemServiceImpl implements UserDeleteResumeBySy
 
     @Override
     public void addExpiredUserDeleteResume(List<UserDeleteResume> userDeleteResumes) {
-        List<UserDeleteResumeBySystem> userDeleteResumeBySystems = new LinkedList<>();
         try {
             for (UserDeleteResume userDeleteResume : userDeleteResumes) {
                 UserDeleteResumeBySystem userDeleteResumeBySystem = new UserDeleteResumeBySystem();
@@ -60,9 +60,9 @@ public class UserDeleteResumeBySystemServiceImpl implements UserDeleteResumeBySy
                 }
                 userDeleteResumeBySystem.setUserDeleteResumeBySystemUserId(userId);
                 userDeleteResumeBySystem.setUserDeleteResumeBySystemRecycleTime(new Date());
-                userDeleteResumeBySystems.add(userDeleteResumeBySystem);
+                userDeleteResumeBySystemMapper.insert(userDeleteResumeBySystem);
+
             }
-            userDeleteResumeBySystemMapper.insert(userDeleteResumeBySystems);
         }catch (BusException e){
             throw e;
         }catch (Exception e){
@@ -109,16 +109,16 @@ public class UserDeleteResumeBySystemServiceImpl implements UserDeleteResumeBySy
     }
 
     @Override
-    public UserDeleteResumeInfoVO getUserDeleteResumeInfoById(Integer userDeleteResumeId) {
+    public UserDeleteResumeBySystemInfoVO getUserDeleteResumeInfoById(Integer userDeleteResumeId) {
         try{
             log.info("根据系统删除简历ID查询系统删除简历信息开始");
             LambdaQueryWrapper<UserDeleteResumeBySystem> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(UserDeleteResumeBySystem::getUserDeleteResumeBySystemId, userDeleteResumeId);
             UserDeleteResumeBySystem userDeleteResumeBySystem = userDeleteResumeBySystemMapper.selectOne(lambdaQueryWrapper);
-            UserDeleteResumeInfoVO userDeleteResumeInfoVO = BeanUtil.copyProperties(userDeleteResumeBySystem, UserDeleteResumeInfoVO.class);
-            userDeleteResumeInfoVO.setUserDeleteResumeIndustryName(industryMapMapper.selectById(userDeleteResumeBySystem.getUserDeleteResumeBySystemIndustry()).getIndustryMapIndustryName());
+            UserDeleteResumeBySystemInfoVO userDeleteResumeBySystemInfoVO = BeanUtil.copyProperties(userDeleteResumeBySystem, UserDeleteResumeBySystemInfoVO.class);
+            userDeleteResumeBySystemInfoVO.setUserDeleteResumeBySystemIndustryName(industryMapMapper.selectById(userDeleteResumeBySystem.getUserDeleteResumeBySystemIndustry()).getIndustryMapIndustryName());
             log.info("根据系统删除简历ID查询系统删除简历信息成功");
-            return userDeleteResumeInfoVO;
+            return userDeleteResumeBySystemInfoVO;
         }catch (BusException e){
             throw e;
         }catch (Exception e){

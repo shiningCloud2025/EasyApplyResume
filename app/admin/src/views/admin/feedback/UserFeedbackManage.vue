@@ -163,13 +163,11 @@
       </template>
       <div class="feedback-detail" v-if="currentFeedback">
         <el-descriptions :column="1" border>
+          <el-descriptions-item label="反馈ID">
+            {{ currentFeedback.userFeedbackId }}
+          </el-descriptions-item>
           <el-descriptions-item label="反馈标题">
             {{ currentFeedback.userFeedbackTitle }}
-          </el-descriptions-item>
-          <el-descriptions-item label="反馈内容">
-            <div class="detail-content">
-              {{ currentFeedback.userFeedbackContent }}
-            </div>
           </el-descriptions-item>
           <el-descriptions-item label="反馈时间">
             {{ formatDateTime(currentFeedback.userFeedbackTime) }}
@@ -181,6 +179,12 @@
             <el-tag :type="getStatusType(currentFeedback.userFeedbackCurStep)">
               {{ currentFeedback.userFeedbackCurStep }}
             </el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="提交人ID">
+            {{ currentFeedback.userFeedbackUserId }}
+          </el-descriptions-item>
+          <el-descriptions-item label="提交人姓名">
+            {{ currentFeedback.userFeedbackUserName }}
           </el-descriptions-item>
         </el-descriptions>
       </div>
@@ -299,6 +303,7 @@ import { useAuthStore } from '@/store/auth'
 const loading = ref(false)
 const submitting = ref(false)
 const showDetailDialog = ref(false)
+const showProcessDialog = ref(false)
 const contentDialogVisible = ref(false)
 const detailDialogVisible = ref(false)
 const currentFeedback = ref<UserFeedbackInfoVO | null>(null)

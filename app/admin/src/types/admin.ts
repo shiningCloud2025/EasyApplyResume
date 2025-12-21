@@ -495,6 +495,7 @@ export interface UserFeedbackRecordQuery {
 // 用户反馈记录分页VO
 export interface UserFeedbackRecordPageVO {
   userFeedbackRecordId: number             // 反馈记录ID
+  userFeedbackRecordUserId: number         // 反馈的用户ID
   userFeedbackRecordName: string           // 反馈人
   userFeedbackRecordTitle: string          // 标题
   userFeedbackRecordContent: string        // 内容
@@ -509,6 +510,7 @@ export interface UserFeedbackRecordPageVO {
 // 用户反馈记录详情VO
 export interface UserFeedbackRecordInfoVO {
   userFeedbackRecordId: number             // 反馈记录ID
+  userFeedbackRecordUserId: number         // 反馈的用户ID
   userFeedbackRecordName: string           // 反馈人
   userFeedbackRecordTitle: string          // 标题
   userFeedbackRecordContent: string        // 内容
@@ -518,4 +520,51 @@ export interface UserFeedbackRecordInfoVO {
   userFeedbackRecordNewStep: string        // 现阶段
   userFeedbackRecordApprovalPersonId: number    // 处理人ID
   adminFeedbackRecordApprovalPersonName: string  // 处理人姓名
+}
+
+// ============= 系统删除简历（UserDeleteResumeBySystem）=============
+
+// 系统删除简历查询条件
+export interface UserDeleteResumeQuery {
+  userDeleteResumeResumeName?: string      // 简历名称
+  userDeleteResumeIndustryName?: string    // 行业名称
+  userDeleteResumeUserId?: number          // 用户ID
+}
+
+// 系统删除简历分页VO
+export interface UserDeleteResumeBySystemPageVO {
+  userDeleteResumeBySystemId: number       // 系统删除简历ID
+  userDeleteResumeBySystemResumeName: string  // 简历名称
+  userDeleteResumeBySystemIndustryName: string  // 行业
+  userDeleteResumeBySystemResumeReactCode: string  // React组件代码
+  userDeleteResumeBySystemCreatedTime: string  // 创建时间
+  userDeleteResumeBySystemUpdatedTime: string  // 更新时间
+  userDeleteResumeBySystemSortedNum: number  // 排序序号
+  userDeleteResumeBySystemUserId: number   // 所属用户ID
+  userDeleteResumeBySystemRecycleTime: string  // 回收时间
+}
+
+// 系统删除简历详情VO
+export interface UserDeleteResumeBySystemInfoVO {
+  userDeleteResumeBySystemId: number       // 系统删除简历ID
+  userDeleteResumeBySystemResumeName: string  // 简历名称
+  userDeleteResumeBySystemIndustryName: string  // 行业
+  userDeleteResumeBySystemResumeReactCode: string  // React组件代码
+  userDeleteResumeBySystemCreatedTime: string  // 创建时间
+  userDeleteResumeBySystemUpdatedTime: string  // 更新时间
+  userDeleteResumeBySystemSortedNum: number  // 排序序号
+  userDeleteResumeBySystemUserId: number   // 所属用户ID
+  userDeleteResumeBySystemRecycleTime: string  // 回收时间
+}
+
+// 系统删除简历详情VO（旧版本，保持兼容）
+export interface UserDeleteResumeInfoVO {
+  userDeleteResumeResumeName: string       // 简历名称
+  userDeleteResumeIndustryName: string     // 行业
+  userDeleteResumeResumeReactCode: string  // React组件代码
+  userDeleteResumeCreatedTime: string      // 创建时间
+  userDeleteResumeUpdatedTime: string      // 更新时间
+  userDeleteResumeSortedNum: number        // 排序序号
+  userDeleteResumeUserId: number           // 所属用户ID
+  userDeleteResumeDeleteTime: string       // 删除时间
 }

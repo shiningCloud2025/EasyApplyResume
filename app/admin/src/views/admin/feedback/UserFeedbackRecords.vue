@@ -63,6 +63,7 @@
         style="width: 100%"
       >
         <el-table-column prop="userFeedbackRecordId" label="记录ID" width="80" />
+        <el-table-column prop="userFeedbackRecordUserId" label="用户ID" width="80" />
         <el-table-column prop="userFeedbackRecordName" label="反馈人" width="120" />
         <el-table-column prop="userFeedbackRecordTitle" label="反馈标题" min-width="200" show-overflow-tooltip />
         <el-table-column label="反馈内容" min-width="150">
@@ -150,7 +151,10 @@
         <el-descriptions-item label="记录ID">
           {{ currentRecord.userFeedbackRecordId }}
         </el-descriptions-item>
-        <el-descriptions-item label="反馈人姓名">
+        <el-descriptions-item label="用户ID">
+          {{ currentRecord.userFeedbackRecordUserId }}
+        </el-descriptions-item>
+        <el-descriptions-item label="反馈人姓名" :span="2">
           <strong>{{ currentRecord.userFeedbackRecordName }}</strong>
         </el-descriptions-item>
         <el-descriptions-item label="处理人ID">
@@ -165,7 +169,6 @@
         <el-descriptions-item label="反馈标题" :span="2">
           <strong>{{ currentRecord.userFeedbackRecordTitle }}</strong>
         </el-descriptions-item>
-        
         <el-descriptions-item label="原阶段">
           <el-tag type="info" size="small">{{ currentRecord.userFeedbackRecordOldStep }}</el-tag>
         </el-descriptions-item>

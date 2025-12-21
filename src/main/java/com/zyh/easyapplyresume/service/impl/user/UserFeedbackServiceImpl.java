@@ -92,6 +92,7 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
         queryWrapper1.eq(User::getUserId,userFeedbackUserId);
         User user = userMapper.selectOne(queryWrapper1);
         String userEmail = user.getUserEmail();
+        userFeedbackRecord.setUserFeedbackRecordUserId(user.getUserId());
         userFeedbackRecord.setUserFeedbackRecordTitle(userFeedback.getUserFeedbackTitle());
         userFeedbackRecord.setUserFeedbackRecordContent(userFeedback.getUserFeedbackContent());
         userFeedbackRecord.setUserFeedbackRecordTime(userFeedback.getUserFeedbackTime());
