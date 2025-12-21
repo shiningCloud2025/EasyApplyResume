@@ -21,12 +21,16 @@ public class BusException extends RuntimeException{
         this.code = codeEnum.getCode();
         this.msg = codeEnum.getMessage();
     }
-    public BusException(IndustryMapEnum industryMapEnum){
-        this.code = industryMapEnum.getCode();
-        this.msg = industryMapEnum.getMessage();
-    }
     public BusException(UserCodeEnum codeEnum){
         this.code = codeEnum.getCode();
         this.msg = codeEnum.getMessage();
+    }
+    public BusException(AdMonitorCodeEnum codeEnum){
+        this.code = codeEnum.getCode();
+        this.msg = codeEnum.getMessage();
+    }
+    public BusException(IndustryMapEnum industryMapEnum){
+        this.code = industryMapEnum.getCode();
+        this.msg = industryMapEnum.getMessage();
     }
 }

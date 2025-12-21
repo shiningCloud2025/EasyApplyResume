@@ -1,0 +1,92 @@
+
+org.springframework.jdbc.UncategorizedSQLException:
+### Error updating database.  Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x93\x8C \xE7...' for column 'chatMessage_content' at row 1
+### The error may exist in com/zyh/easyapplyresume/mapper/user/ChatMessageContentTextMapper.java (best guess)
+### The error may involve com.zyh.easyapplyresume.mapper.user.ChatMessageContentTextMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO user_chatMessageContentText  ( chatMessage_conversationId, chatMessage_content, chatMessage_createdTime, chatMessage_messageType )  VALUES (  ?, ?, ?, ?  )
+### Cause: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x93\x8C \xE7...' for column 'chatMessage_content' at row 1
+; uncategorized SQLException; SQL state [HY000]; error code [1366]; Incorrect string value: '\xF0\x9F\x93\x8C \xE7...' for column 'chatMessage_content' at row 1
+
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:93)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:439)
+	at jdk.proxy2/jdk.proxy2.$Proxy95.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:272)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:59)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:152)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:89)
+	at jdk.proxy2/jdk.proxy2.$Proxy101.insert(Unknown Source)
+	at com.zyh.easyapplyresume.demo.chatmemory.MySQLBasedChatMemory.add(MySQLBasedChatMemory.java:134)
+	at com.zyh.easyapplyresume.demo.chatmemory.InMemoryDbHybridChatMemory.add(InMemoryDbHybridChatMemory.java:30)
+	at org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor.observeAfter(MessageChatMemoryAdvisor.java:111)
+	at org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor.aroundCall(MessageChatMemoryAdvisor.java:66)
+	at org.springframework.ai.chat.client.advisor.DefaultAroundAdvisorChain.lambda$nextAroundCall$1(DefaultAroundAdvisorChain.java:98)
+	at io.micrometer.observation.Observation.observe(Observation.java:565)
+	at org.springframework.ai.chat.client.advisor.DefaultAroundAdvisorChain.nextAroundCall(DefaultAroundAdvisorChain.java:98)
+	at com.zyh.easyapplyresume.demo.advisor.SensitiveWordsAdvisor.aroundCall(SensitiveWordsAdvisor.java:53)
+	at org.springframework.ai.chat.client.advisor.DefaultAroundAdvisorChain.lambda$nextAroundCall$1(DefaultAroundAdvisorChain.java:98)
+	at io.micrometer.observation.Observation.observe(Observation.java:565)
+	at org.springframework.ai.chat.client.advisor.DefaultAroundAdvisorChain.nextAroundCall(DefaultAroundAdvisorChain.java:98)
+	at org.springframework.ai.chat.client.DefaultChatClient$DefaultCallResponseSpec.doGetChatResponse(DefaultChatClient.java:493)
+	at org.springframework.ai.chat.client.DefaultChatClient$DefaultCallResponseSpec.lambda$doGetObservableChatResponse$1(DefaultChatClient.java:482)
+	at io.micrometer.observation.Observation.observe(Observation.java:565)
+	at org.springframework.ai.chat.client.DefaultChatClient$DefaultCallResponseSpec.doGetObservableChatResponse(DefaultChatClient.java:482)
+	at org.springframework.ai.chat.client.DefaultChatClient$DefaultCallResponseSpec.doGetChatResponse(DefaultChatClient.java:466)
+	at org.springframework.ai.chat.client.DefaultChatClient$DefaultCallResponseSpec.chatResponse(DefaultChatClient.java:510)
+	at com.zyh.easyapplyresume.demo.app.AiResumeAssistant.doChatWithRag(AiResumeAssistant.java:119)
+	at com.zyh.easyapplyresume.demo.app.AiResumeAssistantTest.doChatWithRag(AiResumeAssistantTest.java:47)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: java.sql.SQLException: Incorrect string value: '\xF0\x9F\x93\x8C \xE7...' for column 'chatMessage_content' at row 1
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:130)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:58)
+	at jdk.proxy3/jdk.proxy3.$Proxy181.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:48)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:75)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)
+	at jdk.proxy2/jdk.proxy2.$Proxy179.update(Unknown Source)
+	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:50)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.apache.ibatis.plugin.Invocation.proceed(Invocation.java:61)
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:106)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:59)
+	at jdk.proxy2/jdk.proxy2.$Proxy178.update(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:425)
+	... 28 more
+这个错误的核心原因是：你要插入的 chatMessage_content 字段包含了 Emoji 表情（或其他 4 字节的 UTF-8 字符），但 MySQL 数据库 / 表 / 字段的字符集不支持该字符，导致插入失败。
+一、先看懂错误关键信息
+错误核心：Incorrect string value: '\xF0\x9F\x93\x8C \xE7...'
+其中 \xF0\x9F\x93\x8C 是 4 字节的 UTF-8 编码（对应某个 Emoji 表情，比如 📌 或类似图标）。
+根本原因：MySQL 中默认的 utf8 字符集其实是 3 字节 UTF-8，只能存储普通中文 / 英文，无法存储 Emoji（4 字节 UTF-8）；只有 utf8mb4 字符集才支持 4 字节 UTF-8 字符（包括所有 Emoji 和特殊符号）。
+二、为什么会出现这个问题？
+你的 AI 助手返回的回答中包含了 Emoji 表情（比如 📌、✅ 等），当程序试图把这些内容插入到 chatMessage_content 字段时：
+若字段 / 表 / 数据库的字符集是 utf8（3 字节）：MySQL 无法解析 4 字节的 Emoji 编码，直接抛出 “字符串值不正确” 的错误；
+若字符集是 utf8mb4（4 字节）：可以正常存储 Emoji。
+三、解决步骤（按优先级排序，必做 + 可选）
+1. 必做：修改 chatMessage_content 字段的字符集（最直接）
+先针对性解决报错字段，执行以下 SQL（连接你的 MySQL 数据库，替换 数据库名 和 表名）：
+2. 建议：修改表的字符集（避免后续新增字段踩坑）
+3.关键：修改 Spring Boot 的数据库连接 URL（必须配置）
+  即使数据库 / 表 / 字段改了 utf8mb4，如果连接 URL 没指定字符集，程序仍可能用默认的 utf8 连接，导致依然报错。
+  打开 application.yml，修改 MySQL 的数据源 URL，添加 characterEncoding=utf8mb4&allowMultiQueries=true（替换原有 URL 中的 characterEncoding=UTF-8）：
+改成:utf8mb4_unicode_ci
+ 数据库、表、字段都要满足才行 有一个不满足都不行
+
+我直接重新建的库和表
