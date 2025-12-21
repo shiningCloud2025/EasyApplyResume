@@ -1,0 +1,28 @@
+日志依赖txt
+1.用到的依赖:
+ <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+ </parent>
+ <dependency>
+       <groupId>com.github.xiaoymin</groupId>
+       <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+       <version>4.4.0</version>
+ </dependency>
+ 2.日志查看位置:
+ http://localhost:对应的端口/api/doc.html
+ http://localhost:对应的端口/api/swagger-ui/index.html
+3.相关注解(OpenAPI3.0规范)
+@Tag---- @Api : 描述类的
+@Operation ----@ApiOperation: 描述方法的
+@Schema -----   @ApiModel:描述模型的
+@Schema -----   @ApiModelProperty:描述属性的
+@Parameter ---- @ApiParam :描述请求参数
+@ApiResponses ---@ApiResponses:描述响应的
+@RequestBody---@RequestBody:描述请求体的
+4.大坑!
+如果想要修改文档的内容:OpenApiConfig
+如果想要修改文档的图标:在resources/static/放一个xx.ico就可以了
+一定要用4.4.0!!!!!!!!! 4.5.0我使用了过滤器、拦截器都没有成果拿到,4.4.0不用任何配置就可以生效非常爽！

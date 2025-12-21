@@ -1,0 +1,444 @@
+docker使用文档
+1.目录结构
+    -docker使用文档
+    -cokerfile使用文档
+2.docker核心设计原则
+Docker 最佳实践是 「单服务单容器」，绝对不能把后端、MySQL、Redis 塞进一个容器里！原因：
+隔离性：一个服务挂了不影响其他（比如 MySQL 崩溃不会导致后端也挂）；
+维护性：单独升级、重启某个服务（比如 Redis 需要扩容，直接替换容器即可）；
+扩展性：未来加前端、Nginx、MinIO 时，直接新增容器，无需重构现有架构；
+数据安全：数据库、缓存的数据需要持久化（容器删除后数据不丢失），单容器无法灵活做数据卷挂载。
+因此，我的部署架构核心是：
+3 个核心容器：后端应用容器 + MySQL 容器 + Redis 容器；
+1 个自定义网络：让 3 个容器在同一网络内通信（无需暴露公网端口，更安全）；
+数据卷挂载：MySQL、Redis 的数据持久化到宿主机（防止容器删除数据丢失）；
+Docker Compose：编排所有容器（一键启动 / 停止 / 重启，无需手动敲多个 docker 命令）。
+3.docker最终目录结构（清晰易维护）
+/EasyApplyResume/
+    ├── backend/                # 后端应用目录
+    │   ├── your-backend.jar    # 后端打包产物（比如Java的jar，其他语言对应产物）
+    │   └── Dockerfile          # 后端应用的Dockerfile
+    ├── docker-compose.yml      # 核心编排文件（管理所有容器）
+    ├── mysql/                  # MySQL数据持久化目录
+    │   └── data/               # 自动生成，存储MySQL数据
+    └── redis/                  # Redis数据持久化目录
+        └── data/               # 自动生成，存储Redis数据
+4.文件编写（直接复制使用，需替换占位符）
+    1). 后端应用的 Dockerfile（以 Java 为例，其他语言可调整）
+    假设你的后端是 Java/Spring Boot（如果是 Node.js/Python/Go，只需修改基础镜像和启动命令）：
+     Code:   # backend/Dockerfile
+             # 基础镜像（选择对应Java版本，比如17、8）
+             FROM openjdk:17-jdk-slim
+
+             # 维护者信息（可选）
+             LABEL maintainer="your-name <your-email>"
+
+             # 暴露后端服务端口（需和后端配置的端口一致，比如8080）
+             EXPOSE 8080
+
+             # 将后端jar包复制到容器内（替换为你的jar包名称）
+             COPY your-backend.jar /app/backend.jar
+
+             # 容器启动时执行的命令（启动后端应用）
+             ENTRYPOINT ["java", "-jar", "/app/backend.jar"]
+    若后端是 Node.js：基础镜像换 node:18-alpine，COPY 源码，启动命令 CMD ["node", "app.js"]；
+    若后端是 Python：基础镜像换 python:3.11-alpine，COPY 源码和 requirements.txt，先执行 RUN pip install -r requirements.txt，再 CMD ["python", "app.py"]。
+    2). 核心编排文件：docker-compose.yml
+    这是最关键的文件，一键启动后端、MySQL、Redis：
+        文件内容:
+                # docker-compose.yml
+                version: '3.8'  # Compose版本（兼容Docker 19.03+）
+
+                # 自定义网络：让所有服务在同一网络内通信，名称可自定义
+                networks:
+                  app-network:
+                    driver: bridge
+
+                # 数据卷：持久化MySQL和Redis数据
+                volumes:
+                  mysql-data:  # 存储MySQL数据
+                    driver: local
+                    driver_opts:
+                      type: none
+                      device: ${PWD}/mysql/data  # 宿主机目录（当前项目下的mysql/data）
+                      o: bind
+                  redis-data:  # 存储Redis数据
+                    driver: local
+                    driver_opts:
+                      type: none
+                      device: ${PWD}/mysql/data  # 宿主机目录（当前项目下的redis/data）
+                      o: bind
+
+                # 所有服务定义
+                services:
+                  # 1. MySQL服务
+                  mysql:
+                    image: mysql:8.0  # MySQL官方镜像（指定版本，避免自动升级）
+                    container_name: app-mysql  # 容器名称（方便管理）
+                    restart: always  # 容器崩溃后自动重启
+                    networks:
+                      - app-network  # 加入自定义网络
+                    volumes:
+                      - mysql-data:/var/lib/mysql  # 数据卷挂载（容器内数据目录→宿主机）
+                      # 可选：初始化SQL脚本（如果需要启动时自动创建表/插入数据，取消下面注释）
+                      # - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql
+                    environment:
+                      - MYSQL_ROOT_PASSWORD=your-mysql-root-pwd  # MySQL root密码（替换为你的密码）
+                      - MYSQL_DATABASE=app-db  # 自动创建的数据库名称（后端连接时用这个库名）
+                      - MYSQL_USER=app-user  # 可选：创建普通用户（避免用root连接）
+                      - MYSQL_PASSWORD=your-app-user-pwd  # 普通用户密码
+                    ports:
+                      - "3306:3306"  # 端口映射（宿主机3306→容器3306，本地可连接数据库）
+                    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci  # 字符集配置
+
+                  # 2. Redis服务
+                  redis:
+                    image: redis:7.2  # Redis官方镜像（指定版本）
+                    container_name: app-redis  # 容器名称
+                    restart: always
+                    networks:
+                      - app-network
+                    volumes:
+                      - redis-data:/data  # 数据卷挂载（Redis数据存储在/data）
+                    environment:
+                      - REDIS_PASSWORD=your-redis-pwd  # Redis密码（替换为你的密码）
+                    ports:
+                      - "6379:6379"  # 端口映射（本地可连接Redis）
+                    command: redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes  # 开启持久化（appendonly模式）
+
+                  # 3. 后端应用服务
+                  backend:
+                    build: ./backend  # 构建后端镜像（读取backend目录下的Dockerfile）
+                    container_name: app-backend
+                    restart: always
+                    networks:
+                      - app-network
+                    ports:
+                      - "8080:8080"  # 后端服务端口映射（宿主机8080→容器8080）
+                    depends_on:
+                      - mysql  # 确保MySQL启动后再启动后端
+                      - redis  # 确保Redis启动后再启动后端
+                    environment:
+                      # 后端连接MySQL的配置（需和后端应用配置文件一致）
+                      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/app-db?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+                      - SPRING_DATASOURCE_USERNAME=app-user
+                      - SPRING_DATASOURCE_PASSWORD=your-app-user-pwd
+                      # 后端连接Redis的配置
+                      - SPRING_REDIS_HOST=redis
+                      - SPRING_REDIS_PORT=6379
+                      - SPRING_REDIS_PASSWORD=your-redis-pwd
+                    # 可选：如果后端需要读取宿主机文件（比如配置文件），添加数据卷挂载
+                    # volumes:
+                    #   - ./backend/config:/app/config
+        关键配置说明：
+        网络：app-network 让三个容器可以通过「容器名」通信（比如后端连接 MySQL 不用写 IP，直接写 mysql:3306）；
+        数据卷：mysql-data 和 redis-data 挂载到宿主机，容器删除后数据依然存在；
+        依赖关系：depends_on 确保 MySQL/Redis 先启动，避免后端启动时连接失败；
+        环境变量：后端连接数据库 / 缓存的配置通过环境变量注入，无需硬编码配置文件（灵活切换环境）。
+
+5、操作步骤（一键部署）
+    1). 准备工作
+        安装 Docker 和 Docker Compose（参考官网：https://docs.docker.com/compose/install/）；
+        后端应用打包（比如 Java 用 mvn package 生成 jar 包，放到 backend/ 目录下）；
+        替换配置文件中的占位符：
+        your-backend.jar：替换为你的后端产物名称（比如 demo-0.0.1-SNAPSHOT.jar）；
+        your-mysql-root-pwd、your-app-user-pwd、your-redis-pwd：替换为你的实际密码；
+        app-db：替换为你想要的数据库名称；
+        后端端口（8080）：如果后端用其他端口，需同步修改 EXPOSE 和 ports 中的端口。
+    2). 启动所有服务
+    在 your-project/ 目录下执行（终端命令）：
+            # 构建后端镜像并启动所有容器（第一次启动用这个）
+            docker-compose up -d
+
+            # 查看启动状态（确认所有容器都是up状态）
+            docker-compose ps
+
+            # 查看后端日志（排查启动错误）
+            docker-compose logs -f backend
+
+            坑1：
+            Docker 自 20.10 版本及以上 开始默认集成 docker compose 插件，无需额外安装。这一版本将 Compose V2 深度整合到 Docker CLI 中，
+            直接通过 docker compose 命令即可管理多容器应用，完全替代了旧版的 docker-compose 工具。
+            注意：要在yml的父级启动 就是ll能看到yml
+             # 1. 后台启动服务（用Docker自带的compose，和你的docker-compose.yml完全兼容）
+                docker compose up -d
+             # 2. 查看启动状态（确认服务是否跑起来）
+                docker compose ps
+            坑2:
+            [root@10-60-158-30 EasyApplyResume]#   docker compose up -d
+            WARN[0000] The "REDIS_PASSWORD" variable is not set. Defaulting to a blank string.
+            WARN[0000] /EasyApplyResume/docker-compose.yml: `version` is obsolete
+            [+] Running 9/9
+             ✔ redis Pulled                                                                                                                                                      24.4s
+               ✔ 1adabd6b0d6b Pull complete                                                                                                                                      11.3s
+               ✔ 40447d375dee Pull complete                                                                                                                                      11.4s
+               ✔ f3e78717def7 Pull complete                                                                                                                                      11.5s
+               ✔ 2def6fc890ac Pull complete                                                                                                                                      11.5s
+               ✔ f2e26d93946d Pull complete                                                                                                                                      20.1s
+               ✔ 03489f78820a Pull complete                                                                                                                                      20.1s
+               ✔ 4f4fb700ef54 Pull complete                                                                                                                                      20.1s
+               ✔ 0c99056510e5 Pull complete                                                                                                                                      20.1s
+            [+] Running 3/5
+             ✔ Network easyapplyresume_app-network  Created                                                                                                                       0.1s
+             ✔ Volume "easyapplyresume_mysql-data"  Created                                                                                                                       0.0s
+             ✔ Volume "easyapplyresume_redis-data"  Created                                                                                                                       0.0s
+             ⠋ Container EasyApplyResume-redis      Creating                                                                                                                      0.0s
+             ⠋ Container EasyApplyResume-mysql      Creating                                                                                                                      0.0s
+            Error response from daemon: failed to populate volume: error while mounting volume '/var/lib/docker/volumes/easyapplyresume_redis-data/_data': failed to mount local volume: mount /EasyApplyResume/redis/data:/var/lib/docker/volumes/easyapplyresume_redis-data/_data, flags: 0x1000: no such file or directory
+            解决办法:
+            报错原因很明确：docker-compose.yml 中配置了 Redis 数据卷挂载，但本地对应的 /EasyApplyResume/redis/data 目录不存在，导致挂载失败。
+            第一步：创建缺失的挂载目录（核心）
+            bash
+            # 1. 在当前目录（EasyApplyResume）下，创建 redis 和 mysql 的数据挂载目录
+            mkdir -p redis/data mysql/data
+            # 2. 给目录赋予读写权限（避免容器启动时权限不足）
+            chmod -R 777 redis/ mysql/
+            第二步：重新启动服务
+            # 先停止之前未启动成功的服务（清理残留）
+            docker compose down
+
+            # 重新后台启动（此时目录已存在，挂载成功）
+            docker compose up -d
+
+            # 查看启动状态
+            docker compose ps
+            坑3:redis启动失败
+            # 查看Redis的错误日志（重点看最后几行报错）
+            docker compose logs redis --tail=50
+            WARN[0000] The "REDIS_PASSWORD" variable is not set. Defaulting to a blank string.
+            WARN[0000] /EasyApplyResume/docker-compose.yml: `version` is obsolete
+            EasyApplyResume-redis  |
+            EasyApplyResume-redis  | *** FATAL CONFIG FILE ERROR (Redis 7.2.12) ***
+            EasyApplyResume-redis  | Reading the configuration file, at line 2
+            EasyApplyResume-redis  | >>> 'requirepass "--appendonly" "yes"'
+            EasyApplyResume-redis  | wrong number of arguments
+            EasyApplyResume-redis  |
+            EasyApplyResume-redis  | *** FATAL CONFIG FILE ERROR (Redis 7.2.12) ***
+            EasyApplyResume-redis  | Reading the configuration file, at line 2
+            EasyApplyResume-redis  | >>> 'requirepass "--appendonly" "yes"'
+            EasyApplyResume-redis  | wrong number of arguments
+            EasyApplyResume-redis  |
+            EasyApplyResume-redis  | *** FATAL CONFIG FILE ERROR (Redis 7.2.12) ***
+            EasyApplyResume-redis  | Reading the configuration file, at line 2
+            EasyApplyResume-redis  | >>> 'requirepass "--appendonly" "yes"'
+            EasyApplyResume-redis  | wrong number of arguments
+            EasyApplyResume-redis  |
+            EasyApplyResume-redis  | *** FATAL CONFIG FILE ERROR (Redis 7.2.12) ***
+            EasyApplyResume-redis  | Reading the configuration file, at line 2
+            EasyApplyResume-redis  | >>> 'requirepass "--appendonly" "yes"'
+            EasyApplyResume-redis  | wrong number of arguments
+            EasyApplyResume-redis  |
+            EasyApplyResume-redis  | *** FATAL CONFIG FILE ERROR (Redis 7.2.12) ***
+            EasyApplyResume-redis  | Reading the configuration file, at line 2
+            EasyApplyResume-redis  | >>> 'requirepass "--appendonly" "yes"'
+            EasyApplyResume-redis  | wrong number of arguments
+            EasyApplyResume-redis  |
+            EasyApplyResume-redis  | *** FATAL CONFIG FILE ERROR (Redis 7.2.12) ***
+            EasyApplyResume-redis  | Reading the configuration file, at line 2
+            EasyApplyResume-redis  | >>> 'requirepass "--appendonly" "yes"'
+            EasyApplyResume-redis  | wrong number of arguments
+            EasyApplyResume-redis  |
+            EasyApplyResume-redis  | *** FATAL CONFIG FILE ERROR (Redis 7.2.12) ***
+            EasyApplyResume-redis  | Reading the configuration file, at line 2
+            EasyApplyResume-redis  | >>> 'requirepass "--appendonly" "yes"'
+            EasyApplyResume-redis  | wrong number of arguments
+            EasyApplyResume-redis  |
+            EasyApplyResume-redis  | *** FATAL CONFIG FILE ERROR (Redis 7.2.12) ***
+            EasyApplyResume-redis  | Reading the configuration file, at line 2
+            EasyApplyResume-redis  | >>> 'requirepass "--appendonly" "yes"'
+            EasyApplyResume-redis  | wrong number of arguments
+            EasyApplyResume-redis  |
+            EasyApplyResume-redis  | *** FATAL CONFIG FILE ERROR (Redis 7.2.12) ***
+            EasyApplyResume-redis  | Reading the configuration file, at line 2
+            EasyApplyResume-redis  | >>> 'requirepass "--appendonly" "yes"'
+            EasyApplyResume-redis  | wrong number of arguments
+            EasyApplyResume-redis  |
+            EasyApplyResume-redis  | *** FATAL CONFIG FILE ERROR (Redis 7.2.12) ***
+            EasyApplyResume-redis  | Reading the configuration file, at line 2
+            EasyApplyResume-redis  | >>> 'requirepass "--appendonly" "yes"'
+            EasyApplyResume-redis  | wrong number of arguments
+            报错原因太明确了！Redis 配置文件语法错误 —— 把「设置密码」和「开启持久化」两个完全不同的配置混在一行，导致 Redis 启动失败（一直重启），端口映射自然看不到。
+            错误根源：
+             Redis 配置里写了 requirepass "--appendonly" "yes"，这是完全错误的：
+            requirepass 是 Redis 用来设置密码的指令，后面只能跟「密码值」（比如 requirepass 123456）；
+            --appendonly yes 是 Redis 的「启动参数」（开启 AOF 持久化），不能写在 requirepass 后面，两者完全独立。
+
+            修复步骤（1 分钟搞定，直接改 yml 文件）
+            第一步：编辑 docker-compose.yml，修正 Redis 配置
+            找到 Redis 服务的配置段，按下面的正确格式修改（二选一即可，推荐方案 1，更简单）：
+            方案 1：用「启动参数」配置（推荐，不用额外改配置文件）
+            services:
+              redis:
+                image: redis:7.2.12  # 你的镜像版本
+                ports:
+                  - "37211:6379"  # 你原来的端口映射，保留不变
+                volumes:
+                  - ./redis/data:/data  # 你原来的挂载目录，保留不变
+                # 关键修正：用 command 传启动参数，分开配置密码和持久化
+                command: redis-server --requirepass "你的密码" --appendonly yes
+                # 说明：
+                # --requirepass "你的密码"：设置 Redis 密码（可以写死，比如 "123456"，也可以用环境变量）
+                # --appendonly yes：开启 AOF 持久化（就是你原来想加的功能）
+                environment:
+                  - TZ=Asia/Shanghai  # 可选：设置时区，避免时间错乱
+
+                # 关键修正：给 ${REDIS_PASSWORD} 加双引号，特殊字符不被 Shell 解析
+                 command: redis-server --requirepass "${REDIS_PASSWORD}" --appendonly yes
+            坑4:redis用不用加用户名:
+                情况 1：不用加用户名（默认，推荐你当前用）
+                Redis 6.0+ 有个 默认用户名 default，你不用额外配置，只要设置了密码，连接时用「默认用户名 + 密码」就能登录 —— 本质上和你现在的配置一致，只是用户名默认是 default，不用显式声明。
+                情况 2：想加用户名（增强安全，配置如下）
+                如果想自定义用户名（比如 redis_admin），需要在 command 里用 --user 声明用户名，同时绑定密码，配置如下：
+                redis:
+                  image: redis:7.2
+                  container_name: EasyApplyResume-redis
+                  restart: always
+                  networks:
+                    - app-network
+                  volumes:
+                    - redis-data:/data
+                  environment:
+                    - REDIS_USER=xxx  # 自定义用户名
+                    - REDIS_PASSWORD=xxx  # 密码
+                  ports:
+                    - "37211:6379"
+                  # 关键配置：创建用户名+密码，同时设为默认登录用户
+                  command: >
+                    redis-server
+                    --requirepass "${REDIS_PASSWORD}"  # 密码（全局默认密码，也可以给用户单独设密码）
+                    --user "${REDIS_USER}" on >${REDIS_PASSWORD} ~* +@all  # 自定义用户配置
+                    --appendonly yes
+
+                 修改完 docker-compose.yml 后，必须重启 Redis 服务，新配置（加引号的密码、数据卷 / 网络声明）才能生效～
+                 直接执行以下 3 条命令，一步到位：
+                 # 1. 先停止并清理之前的错误容器/网络（避免残留配置干扰）
+                 docker compose down
+
+                 # 2. 重新启动所有服务（Redis 会加载新配置）
+                 docker compose up -d
+
+                 # 3. 验证结果（关键！确认 Redis 正常运行+端口映射生效）
+                 docker compose ps
+            坑5:我在yml里改密码了啊为什么我用老密码还是能登录
+            核心原因：Redis 的密码被持久化到了数据卷（redis-data:/data）里，你改 yml 里的启动参数，不会覆盖已经存在的旧密码配置！
+            详细解释：
+            你第一次启动 Redis 时，--requirepass 老密码 的配置会被写入数据卷里的「持久化文件」（appendonly.aof 或 dump.rdb）。之后你改了 yml 里的密码，重启 Redis 时，Redis 会优先加载数据卷里的旧配置（包括旧密码），而不是新的启动参数 —— 所以老密码还能用，新密码反而无效。
+            方案 1：保留 Redis 数据（推荐，比如已经有项目数据了）
+            手动进入容器，用 Redis 命令重置密码（覆盖旧配置），步骤如下：
+           # 1. 先启动服务（容器跑起来才能进去操作）
+           docker compose up -d
+
+           # 2. 改 Redis 密码（用老密码登，改新密码）
+         # 第一步：用 Redis 老密码登录容器（密码用单引号，避免特殊字符被 Shell 解析）
+         docker exec -it EasyApplyResume-redis redis-cli -a 'Redis老密码'
+
+         # 第二步：修改 Redis 全局默认密码（新密码与 yml 配置保持一致，单引号包裹特殊字符）
+         127.0.0.1:6379> config set requirepass 'aaa'
+
+         # 第三步：修改自定义 root 用户密码（同时保留全权限，确保改完后能正常操作）
+         127.0.0.1:6379> config set user:root ">redis~aa@all"
+
+         # 第四步：保存配置到数据卷（持久化，避免重启后新密码失效）
+         127.0.0.1:6379> config rewrite
+
+         # 第五步：退出 Redis 命令行
+         127.0.0.1:6379> exit
+         坑6:redis建议使用简单密码 不要带特殊字符，如果带特殊字符建议使用写死的方式配置
+         坑7:mysql、redis有环境的话 docker compose down -v 会彻底删除这些数据卷，导致数据永久丢失。不要用
+
+           # 3. 改 MySQL 密码（用老密码登，改新密码）
+           docker exec -it EasyApplyResume-mysql mysql -uroot -p"MySQL老密码"  # 先用老密码进
+           mysql> ALTER USER 'root'@'%' IDENTIFIED BY 'aaa';  # 改root新密码
+           mysql> ALTER USER 'app-user'@'%' IDENTIFIED BY 'qwertyuiop[]\';  # 改app-user新密码
+           mysql> FLUSH PRIVILEGES;  # 刷新生效
+           mysql> exit
+            如果出现bash错误 把双引号改成单引号
+
+
+    3). 验证服务
+        本地连接 MySQL：用 Navicat 等工具，主机填 localhost，端口 3306，用户 app-user，密码 your-app-user-pwd，数据库 app-db；
+        本地连接 Redis：用 Redis Desktop Manager，主机 localhost，端口 6379，密码 your-redis-pwd；
+        访问后端服务：浏览器或 Postman 访问 http://localhost:8080（如果后端有健康检查接口，比如 /actuator/health，可访问验证）。
+    4). 常用命令
+        # 停止所有容器（数据不会丢失）
+        docker-compose down
+
+        # 停止并删除容器+镜像（谨慎使用，数据卷不会删）
+        docker-compose down --rmi all
+
+        # 重启某个服务（比如重启后端）
+        docker-compose restart backend
+
+        # 查看MySQL日志（排查数据库问题）
+        docker-compose logs -f mysql
+    5)、未来扩展（加前端、Nginx、MinIO）
+    等后续需要部署三个前端和 Nginx、MinIO 时，直接在 docker-compose.yml 中新增服务即可，无需重构现有架构：
+    示例：新增 Nginx 和一个前端服务
+        services:
+          # 新增 Nginx 服务（反向代理）
+          nginx:
+            image: nginx:1.25
+            container_name: app-nginx
+            restart: always
+            networks:
+              - app-network
+            ports:
+              - "80:80"  # 暴露80端口（前端访问用）
+            volumes:
+              - ./nginx/conf.d:/etc/nginx/conf.d  # Nginx配置文件挂载
+              - ./frontend1/dist:/usr/share/nginx/html/frontend1  # 前端1静态文件
+              - ./frontend2/dist:/usr/share/nginx/html/frontend2  # 前端2静态文件
+              - ./frontend3/dist:/usr/share/nginx/html/frontend3  # 前端3静态文件
+            depends_on:
+              - backend  # 依赖后端服务
+
+          # 新增 MinIO 服务（对象存储）
+          minio:
+            image: minio/minio
+            container_name: app-minio
+            restart: always
+            networks:
+              - app-network
+            volumes:
+              - ./minio/data:/data
+            ports:
+              - "9000:9000"  # API端口
+              - "9001:9001"  # 控制台端口
+            environment:
+              - MINIO_ROOT_USER=minio-admin
+              - MINIO_ROOT_PASSWORD=minio-admin-pwd
+            command: server /data --console-address ":9001"
+         Nginx 配置文件（./nginx/conf.d/default.conf）示例（反向代理前端和后端）：
+            server {
+                listen 80;
+                server_name localhost;
+
+                # 前端1访问：http://localhost/frontend1
+                location /frontend1 {
+                    root /usr/share/nginx/html;
+                    index index.html;
+                    try_files $uri $uri/ /frontend1/index.html;  # 解决SPA路由问题
+                }
+
+                # 前端2访问：http://localhost/frontend2
+                location /frontend2 {
+                    root /usr/share/nginx/html;
+                    index index.html;
+                    try_files $uri $uri/ /frontend2/index.html;
+                }
+
+                # 前端3访问：http://localhost/frontend3
+                location /frontend3 {
+                    root /usr/share/nginx/html;
+                    index index.html;
+                    try_files $uri $uri/ /frontend3/index.html;
+                }
+
+                # 后端API访问：http://localhost/api
+                location /api {
+                    proxy_pass http://backend:8080;  # 转发到后端容器（用容器名）
+                    proxy_set_header Host $host;
+                    proxy_set_header X-Real-IP $remote_addr;
+                }
+            }
+

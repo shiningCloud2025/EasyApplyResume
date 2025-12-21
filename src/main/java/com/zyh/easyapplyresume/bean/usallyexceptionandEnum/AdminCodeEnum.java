@@ -164,13 +164,22 @@ public enum AdminCodeEnum {
     ADMIN_ADD_ACCOUNT_EMPTY(788, "请输入管理员账号"),
     ADMIN_ACCOUNT_LENGTH_ERROR(789, "管理员账号长度要在7-10位之间"),
 
+    // ===================== 新增：公告（从800开始）=====================
+    ADMIN_ALREADY_ADD_ANNOUNCEMENT(800, "管理员已添加过该公告"),
+    ADMIN_ADD_ANNOUNCEMENT_FAIL(801, "管理员添加公告失败"),
+    ANNOUNCEMENT_TITLE_EMPTY(802, "公告标题不能为空"),
+    ANNOUNCEMENT_TITLE_TOO_LONG(803, "公告标题不能超过35个字符"),
+    ANNOUNCEMENT_CONTENT_EMPTY(804, "修改公告时内容不能为空"),
+    ADMIN_UPDATE_ANNOUNCEMENT_FAIL(805, "管理员修改公告失败"),
+    ADMIN_GET_ANNOUNCEMENT_INFO_FAIL(806, "管理员获取公告信息失败"),
 
     // ===================== 新增：反馈业务（从810开始）=====================
     ADMIN_FEEDBACK_TITLE_NOT_NULL(810, "反馈标题不能为空"),
     ADMIN_FEEDBACK_CONTENT_NOT_NULL(811, "反馈内容不能为空"),
     ADMIN_FEEDBACK_CONTENT_EMPTY(812, "反馈内容不能为空"),
     ADMIN_FEEDBACK_ADMIN_ID_EMPTY(813, "提交反馈的管理员ID不能为空"),
-    ADMIN_FEEDBACK_TITLE_TOO_LONG(814, "反馈标题不能超过35个字符")
+    ADMIN_FEEDBACK_TITLE_TOO_LONG(814, "反馈标题不能超过35个字符"),
+
 
 
 

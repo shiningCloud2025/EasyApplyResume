@@ -69,7 +69,6 @@ public enum UserCodeEnum {
     USER_FEEDBACK_TITLE_TOO_LONG(10055, "反馈标题不能超过35个字符"),
 
     // ===================== 用户发送简历给HR相关业务(10081-10099) ====================
-
     // 简历发送给HR专用枚举（从10081开始连续分配）
     USER_RESUME_EMAIL_EMPTY(10081, "目标邮箱不能为空"),
     USER_RESUME_EMAIL_FORMAT_ERROR(10082, "邮箱格式不正确"),
@@ -80,6 +79,14 @@ public enum UserCodeEnum {
     USER_RESUME_FILE_TOO_LARGE(10087, "简历文件大小不能超过3MB"),// 原10086改为10087，删除文件空枚举
     USER_RESUME_SEND_FAIL(10088, "简历发送失败"),
 
+    // ==================== 公告业务相关 (10100-10120) ====================
+    USER_ANNOUNCEMENT_TITLE_EMPTY(10100, "用户公告标题不能为空"),
+    USER_ANNOUNCEMENT_TITLE_TOO_LONG(10101, "用户公告标题不能超过35个字符"),
+    USER_ANNOUNCEMENT_CONTENT_EMPTY(10102, "修改用户公告时内容不能为空"),
+    USER_ALREADY_ADD_ANNOUNCEMENT(10103, "用户已添加过公告"),
+    USER_ADD_ANNOUNCEMENT_FAIL(10104, "用户添加公告失败"),
+    USER_UPDATE_ANNOUNCEMENT_FAIL(10105, "用户修改公告失败"),
+    USER_GET_ANNOUNCEMENT_INFO_FAIL(10106, "用户获取公告信息失败"),
 
     // ==================== 数据库异常 (10999) ====================
     DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION(10999, "数据库异常转换失败"),
