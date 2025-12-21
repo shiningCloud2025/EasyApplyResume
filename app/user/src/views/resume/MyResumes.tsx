@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { 
   Card, 
   Button, 
@@ -9,7 +9,9 @@ import {
   Tag,
   Tooltip,
   Spin,
-  Tabs
+  Tabs,
+  Form,
+  Select
 } from 'antd'
 import { 
   PlusOutlined, 
@@ -18,7 +20,8 @@ import {
   CopyOutlined, 
   EyeOutlined,
   HeartOutlined,
-  RestOutlined
+  RestOutlined,
+  SendOutlined
 } from '@ant-design/icons'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { resumeAPI, ResumeSearchQuery } from '@api/resume'
@@ -26,6 +29,11 @@ import { useNavigate } from 'react-router-dom'
 import type { UserResume } from '@types/index'
 import { useUserStore } from '@stores/userStore'
 import { LiveProvider, LivePreview, LiveError } from 'react-live'
+import { Editor, Toolbar } from '@wangeditor/editor-for-react'
+import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
+import '@wangeditor/editor/dist/css/style.css'
 import './MyResumes.scss'
 
 const { Search } = Input
@@ -86,6 +94,42 @@ const MyResumes: React.FC = () => {
   const [editModalVisible, setEditModalVisible] = useState(false)
   const [editingResume, setEditingResume] = useState<UserResume | null>(null)
   const [newResumeName, setNewResumeName] = useState('')
+  
+  // 发送给HR相关状态
+  const [sendModalVisible, setSendModalVisible] = useState(false)
+  const [sendingResume, setSendingResume] = useState<UserResume | null>(null)
+  const [sendForm, setSendForm] = useState({
+    targetEmail: '',
+    title: '',
+    content: ''
+  })
+  const [sending, setSending] = useState(false)
+  const [editor, setEditor] = useState<IDomEditor | null>(null)
+  const [attachmentFormat, setAttachmentFormat] = useState<'png' | 'word' | 'pdf'>('pdf')
+  const hiddenPreviewRef = useRef<HTMLDivElement>(null)
+
+  // wangEditor 配置
+  const toolbarConfig: Partial<IToolbarConfig> = {
+    toolbarKeys: [
+      'bold', 'italic', 'underline', 'color', 'bgColor', '|',
+      'bulletedList', 'numberedList', '|',
+      'insertLink', 'emotion', '|',
+      'undo', 'redo'
+    ]
+  }
+  const editorConfig: Partial<IEditorConfig> = {
+    placeholder: '请输入邮件内容...'
+  }
+
+  // 组件卸载时销毁编辑器
+  useEffect(() => {
+    return () => {
+      if (editor) {
+        editor.destroy()
+        setEditor(null)
+      }
+    }
+  }, [editor])
 
   // 获取用户简历列表（支持搜索）
   const {
@@ -260,6 +304,134 @@ const MyResumes: React.FC = () => {
     navigate('/resume/recycle-bin')
   }
 
+  // 打开发送给HR弹窗
+  const handleSendToHr = (resume: UserResume) => {
+    setSendingResume(resume)
+    setSendForm({
+      targetEmail: '',
+      title: '',
+      content: ''
+    })
+    setSendModalVisible(true)
+  }
+
+  // 将简历转换为指定格式的文件
+  const generateResumeFile = async (resume: UserResume, format: 'png' | 'word' | 'pdf'): Promise<File> => {
+    const resumeName = resume.userSaveResumeResumeName || '简历'
+    
+    if (format === 'png') {
+      // PNG格式
+      if (!hiddenPreviewRef.current) {
+        throw new Error('预览区域未加载')
+      }
+      const canvas = await html2canvas(hiddenPreviewRef.current, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true
+      })
+      const blob = await new Promise<Blob>((resolve) => {
+        canvas.toBlob((b) => resolve(b!), 'image/png')
+      })
+      return new File([blob], `${resumeName}.png`, { type: 'image/png' })
+    }
+    
+    if (format === 'word') {
+      // Word格式 - 使用隐藏预览区域的HTML
+      if (!hiddenPreviewRef.current) {
+        throw new Error('预览区域未加载')
+      }
+      const htmlContent = hiddenPreviewRef.current.innerHTML
+      const wordContent = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'>
+        <head><meta charset='utf-8'><title>${resumeName}</title></head>
+        <body>${htmlContent}</body>
+        </html>
+      `
+      const blob = new Blob([wordContent], { type: 'application/msword' })
+      return new File([blob], `${resumeName}.doc`, { type: 'application/msword' })
+    }
+    
+    if (format === 'pdf') {
+      // PDF格式 - 使用html2canvas和jsPDF
+      if (!hiddenPreviewRef.current) {
+        throw new Error('预览区域未加载')
+      }
+      const canvas = await html2canvas(hiddenPreviewRef.current, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true
+      })
+      const imgData = canvas.toDataURL('image/png')
+      const pdf = new jsPDF('p', 'mm', 'a4')
+      const pdfWidth = pdf.internal.pageSize.getWidth()
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight)
+      const pdfBlob = pdf.output('blob')
+      return new File([pdfBlob], `${resumeName}.pdf`, { type: 'application/pdf' })
+    }
+    
+    throw new Error('不支持的格式')
+  }
+
+  // 确认发送
+  const confirmSend = async () => {
+    if (!sendingResume) return
+    
+    // 邮箱校验
+    const email = sendForm.targetEmail.trim()
+    if (!email) {
+      message.warning('请输入目标邮箱')
+      return
+    }
+    if (email.length > 25) {
+      message.warning('邮箱长度不能超过25个字符')
+      return
+    }
+    const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
+    if (!emailRegex.test(email)) {
+      message.warning('邮箱格式不正确')
+      return
+    }
+    
+    // 标题校验
+    const title = sendForm.title.trim()
+    if (!title) {
+      message.warning('请输入邮件标题')
+      return
+    }
+    if (title.length > 35) {
+      message.warning('标题长度不能超过35个字符')
+      return
+    }
+    
+    // 内容校验
+    const content = sendForm.content.replace(/<[^>]+>/g, '').trim()
+    if (!content) {
+      message.warning('请输入邮件内容')
+      return
+    }
+    
+    setSending(true)
+    try {
+      // 根据选择的格式生成文件
+      const resumeFile = await generateResumeFile(sendingResume, attachmentFormat)
+      await resumeAPI.sendResumeToHr({
+        targetEmail: email,
+        title: title,
+        content: sendForm.content,
+        resumeFile
+      })
+      message.success('简历发送成功！')
+      setSendModalVisible(false)
+      setSendingResume(null)
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || '发送失败'
+      message.error(errorMsg)
+    } finally {
+      setSending(false)
+    }
+  }
+
   return (
     <div className="my-resumes">
       <div className="page-header">
@@ -334,6 +506,9 @@ const MyResumes: React.FC = () => {
                   </div>
                 </div>
                 <div className="resume-actions">
+                  <Tooltip title="发送给HR">
+                    <Button type="text" icon={<SendOutlined />} onClick={() => handleSendToHr(resume)} />
+                  </Tooltip>
                   <Tooltip title="编辑名称">
                     <Button type="text" icon={<EditOutlined />} onClick={() => handleEditName(resume)} />
                   </Tooltip>
@@ -423,6 +598,115 @@ const MyResumes: React.FC = () => {
       >
         <p>确定要删除简历"{selectedResume?.userSaveResumeResumeName}"吗？</p>
         <p>删除后简历将移入回收站，仍可在30天内恢复。</p>
+      </Modal>
+
+      {/* 发送给HR弹窗 */}
+      <Modal
+        title={`发送简历给HR - ${sendingResume?.userSaveResumeResumeName || ''}`}
+        open={sendModalVisible}
+        width={700}
+        onCancel={() => {
+          setSendModalVisible(false)
+          setSendingResume(null)
+        }}
+        footer={[
+          <Button key="cancel" onClick={() => {
+            setSendModalVisible(false)
+            setSendingResume(null)
+          }}>
+            取消
+          </Button>,
+          <Button key="send" type="primary" icon={<SendOutlined />} onClick={confirmSend} loading={sending}>
+            发送
+          </Button>
+        ]}
+      >
+        <Form layout="vertical">
+          <Form.Item label="目标邮箱" required>
+            <Input
+              placeholder="请输入HR邮箱"
+              value={sendForm.targetEmail}
+              onChange={(e) => setSendForm({ ...sendForm, targetEmail: e.target.value })}
+              maxLength={25}
+              showCount
+            />
+          </Form.Item>
+          <Form.Item label="邮件标题" required>
+            <Input
+              placeholder="请输入邮件标题"
+              value={sendForm.title}
+              onChange={(e) => setSendForm({ ...sendForm, title: e.target.value })}
+              maxLength={35}
+              showCount
+            />
+          </Form.Item>
+          <Form.Item label="邮件内容" required>
+            <div style={{ border: '1px solid #d9d9d9', borderRadius: 6 }}>
+              <Toolbar
+                editor={editor}
+                defaultConfig={toolbarConfig}
+                mode="default"
+                style={{ borderBottom: '1px solid #d9d9d9' }}
+              />
+              <Editor
+                defaultConfig={editorConfig}
+                value={sendForm.content}
+                onCreated={setEditor}
+                onChange={(editorInstance) => setSendForm(prev => ({ ...prev, content: editorInstance.getHtml() }))}
+                mode="default"
+                style={{ height: 200, overflowY: 'hidden' }}
+              />
+            </div>
+          </Form.Item>
+          <Form.Item label="附件格式" required>
+            <Select
+              value={attachmentFormat}
+              onChange={setAttachmentFormat}
+              options={[
+                { value: 'pdf', label: 'PDF格式（推荐）' },
+                { value: 'word', label: 'Word格式' },
+                { value: 'png', label: 'PNG图片' }
+              ]}
+              style={{ width: 200 }}
+            />
+            <div style={{ fontSize: 12, color: '#999', marginTop: 4 }}>
+              简历将以选择的格式作为附件发送
+            </div>
+          </Form.Item>
+        </Form>
+        {/* 隐藏的简历预览区域，用于生成PDF/Word/PNG */}
+        {sendingResume && (
+          <div 
+            ref={hiddenPreviewRef}
+            style={{ 
+              position: 'absolute', 
+              left: '-9999px', 
+              top: 0,
+              width: '794px',
+              background: '#fff'
+            }}
+          >
+            <LiveProvider 
+              code={(() => {
+                let processed = (sendingResume.userSaveResumeResumeReactCode || '')
+                  .replace(/import\s+.*?from\s+['"].*?['"]\s*;?/g, '')
+                  .replace(/import\s+['"].*?['"]\s*;?/g, '')
+                  .replace(/export\s+default\s+/g, '')
+                  .replace(/export\s+/g, '')
+                  .trim()
+                if (processed.match(/^(const|function|class)\s+\w+/)) {
+                  const match = processed.match(/^(?:const|function|class)\s+(\w+)/)
+                  if (match) processed = `${processed}\n\nrender(<${match[1]} />)`
+                }
+                return processed
+              })()}
+              scope={{ React, useState: React.useState, useEffect: React.useEffect }}
+              noInline={true}
+            >
+              <LivePreview />
+            </LiveProvider>
+          </div>
+        )}
       </Modal>
 
       {/* 回收站入口 */}

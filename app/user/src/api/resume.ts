@@ -118,5 +118,26 @@ export const resumeAPI = {
     return request.post('/user/saveResume/updateUserDeleteResumeName', null, {
       params: { userId, resumeSortedNum, resumeName }
     })
+  },
+
+  // 发送简历给HR（使用FormData上传文件）
+  sendResumeToHr: (data: {
+    targetEmail: string
+    title: string
+    content: string
+    resumeFile?: File
+  }) => {
+    const formData = new FormData()
+    formData.append('targetEmail', data.targetEmail)
+    formData.append('title', data.title)
+    formData.append('content', data.content)
+    if (data.resumeFile) {
+      formData.append('resumeFile', data.resumeFile)
+    }
+    return request.post('/user/sendResumeToHr/sendResumeToHr', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
   }
 }

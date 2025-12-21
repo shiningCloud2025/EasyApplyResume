@@ -13,6 +13,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.0.0",
     "@monaco-editor/react": "^4.7.0",
+    "@tinymce/tinymce-react": "^6.3.0",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-react": "^1.0.6",
     "antd": "^5.0.0",
@@ -26,6 +27,7 @@
     "react-live": "^4.1.8",
     "react-query": "^3.39.0",
     "react-router-dom": "^6.8.0",
+    "tinymce": "^8.3.1",
     "zustand": "^4.4.0"
   },
   "devDependencies": {
