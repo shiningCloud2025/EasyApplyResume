@@ -9,9 +9,6 @@
         <el-button @click="refreshData" :icon="Refresh" type="default">
           刷新
         </el-button>
-        <el-button type="primary" @click="openCreateDialog" :icon="Plus">
-          新增反馈
-        </el-button>
       </div>
     </div>
 
@@ -59,17 +56,34 @@
         style="width: 100%"
         empty-text="暂无数据"
       >
-        <el-table-column prop="adminFeedbackId" label="ID" width="70" />
-        <el-table-column prop="adminFeedbackTitle" label="标题" min-width="200" />
-        <el-table-column prop="adminFeedbackAdminName" label="提交人" min-width="120" />
-        <el-table-column prop="adminFeedbackCurStep" label="当前状态" width="100">
+        <el-table-column prop="adminFeedbackId" label="反馈ID" width="80" />
+        <el-table-column prop="adminFeedbackTitle" label="反馈标题" min-width="200" />
+        <el-table-column label="反馈内容" min-width="150">
+          <template #default="{ row }">
+            <el-button type="primary" size="small" @click="viewFeedbackContent(row)">
+              详情
+            </el-button>
+          </template>
+        </el-table-column>
+        <el-table-column label="提交时间" width="120">
+          <template #default="{ row }">
+            {{ row.adminFeedbackTime ? formatDate(row.adminFeedbackTime) : '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="最近处理时间" width="120">
+          <template #default="{ row }">
+            {{ row.adminFeedbackRecentTime ? formatDate(row.adminFeedbackRecentTime) : '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="adminFeedbackCurStep" label="当前状态" width="100" align="center">
           <template #default="{ row }">
             <el-tag :type="getStatusType(row.adminFeedbackCurStep)">
               {{ row.adminFeedbackCurStep }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="adminFeedbackRecentTime" label="最近处理时间" min-width="160" />
+        <el-table-column prop="adminFeedbackAdminId" label="提交人ID" width="100" />
+        <el-table-column prop="adminFeedbackAdminName" label="提交人姓名" width="120" />
         <el-table-column label="操作" width="280" fixed="right">
           <template #default="{ row }">
             <el-button
@@ -77,22 +91,43 @@
               size="default"
               @click="handleDetail(row)"
             >
-              详情
+              查看
             </el-button>
-            <el-button
-              type="primary"
-              size="default"
-              @click="handleUpdate(row)"
-            >
-              更新状态
-            </el-button>
-            <el-button
-              type="danger"
-              size="default"
-              @click="handleDelete(row)"
-            >
-              删除
-            </el-button>
+            <!-- 待接受状态：显示接受和忽视按钮 -->
+            <template v-if="row.adminFeedbackCurStep === '待接受' || row.adminFeedbackCurStep === '待接收'">
+              <el-button
+                type="success"
+                size="default"
+                @click="handleProcess(row, 0, '接受')"
+              >
+                接受
+              </el-button>
+              <el-button
+                type="warning"
+                size="default"
+                @click="handleProcess(row, 1, '忽视')"
+              >
+                忽视
+              </el-button>
+            </template>
+            <!-- 待回复状态：显示回复和拒回复按钮 -->
+            <template v-else-if="row.adminFeedbackCurStep === '待回复'">
+              <el-button
+                type="primary"
+                size="default"
+                @click="handleProcess(row, 2, '回复')"
+              >
+                回复
+              </el-button>
+              <el-button
+                type="danger"
+                size="default"
+                @click="handleProcess(row, 3, '拒回复')"
+              >
+                拒回复
+              </el-button>
+            </template>
+            <!-- 已回复、忽视、拒回复状态：不显示处理按钮 -->
           </template>
         </el-table-column>
       </el-table>
@@ -111,43 +146,6 @@
       </div>
     </el-card>
 
-    <!-- 新增反馈对话框 -->
-    <el-dialog
-      v-model="showCreateDialog"
-      title="新增反馈"
-      width="600px"
-      @close="resetCreateForm"
-    >
-      <el-form
-        ref="feedbackFormRef"
-        :model="feedbackForm"
-        :rules="feedbackRules"
-        label-width="100px"
-      >
-        <el-form-item label="反馈标题" prop="adminFeedbackTitle">
-          <el-input v-model="feedbackForm.adminFeedbackTitle" placeholder="请输入反馈标题" />
-        </el-form-item>
-        
-        <el-form-item label="反馈内容" prop="adminFeedbackContent">
-          <el-input
-            v-model="feedbackForm.adminFeedbackContent"
-            type="textarea"
-            :rows="6"
-            placeholder="请输入反馈内容"
-          />
-        </el-form-item>
-      </el-form>
-      
-      <template #footer>
-        <div class="dialog-footer">
-          <el-button @click="showCreateDialog = false">取消</el-button>
-          <el-button type="primary" @click="handleCreateSubmit" :loading="submitting">
-            提交
-          </el-button>
-        </div>
-      </template>
-    </el-dialog>
-
     <!-- 查看详情对话框 -->
     <el-dialog
       v-model="showDetailDialog"
@@ -156,99 +154,212 @@
     >
       <div class="feedback-detail" v-if="currentDetail">
         <el-descriptions :column="1" border>
+          <el-descriptions-item label="管理员反馈ID">
+            {{ currentDetail.adminFeedbackId }}
+          </el-descriptions-item>
           <el-descriptions-item label="反馈标题">
             {{ currentDetail.adminFeedbackTitle }}
           </el-descriptions-item>
-          <el-descriptions-item label="提交人">
-            {{ currentDetail.adminFeedbackAdminName }}
+          <el-descriptions-item label="反馈提交时间">
+            {{ formatDate(currentDetail.adminFeedbackTime) }}
           </el-descriptions-item>
-          <el-descriptions-item label="当前状态">
+          <el-descriptions-item label="最近一次处理时间">
+            {{ formatDate(currentDetail.adminFeedbackRecentTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="反馈现阶段">
             <el-tag :type="getStatusType(currentDetail.adminFeedbackCurStep)">
               {{ currentDetail.adminFeedbackCurStep }}
             </el-tag>
           </el-descriptions-item>
-          <el-descriptions-item label="提交时间">
-            {{ formatDateTime(currentDetail.adminFeedbackTime) }}
+          <el-descriptions-item label="提交反馈的管理员ID">
+            {{ currentDetail.adminFeedbackAdminId }}
           </el-descriptions-item>
-          <el-descriptions-item label="最近处理时间">
-            {{ formatDateTime(currentDetail.adminFeedbackRecentTime) }}
-          </el-descriptions-item>
-          <el-descriptions-item label="反馈内容">
-            <div class="detail-content">{{ currentDetail.adminFeedbackContent }}</div>
+          <el-descriptions-item label="提交反馈的管理员姓名">
+            {{ currentDetail.adminFeedbackAdminName }}
           </el-descriptions-item>
         </el-descriptions>
       </div>
     </el-dialog>
 
-    <!-- 更新状态对话框 -->
+    <!-- 查看反馈内容对话框 -->
     <el-dialog
-      v-model="showUpdateDialog"
-      title="更新反馈状态"
+      v-model="contentDialogVisible"
+      title="反馈内容"
+      width="800px"
+      :before-close="() => { contentDialogVisible = false }"
+    >
+      <template #header>
+        <div class="dialog-header">
+          <span class="el-dialog__title">反馈内容</span>
+          <button class="el-dialog__headerbtn" @click="contentDialogVisible = false">
+            <i class="el-dialog__close el-icon el-icon-close"></i>
+          </button>
+        </div>
+      </template>
+      <div class="feedback-content">
+        <div class="content-display">{{ currentContent?.adminFeedbackContent }}</div>
+      </div>
+      
+      <template #footer>
+        <el-button @click="contentDialogVisible = false">关闭</el-button>
+      </template>
+    </el-dialog>
+
+    <!-- 处理反馈对话框 -->
+    <el-dialog
+      v-model="showProcessDialog"
+      :title="`${processAction} - ${currentFeedback?.adminFeedbackTitle || ''}`"
       width="600px"
-      @close="resetUpdateForm"
+      @close="resetProcessForm"
     >
       <el-form
-        ref="updateFormRef"
-        :model="updateForm"
-        :rules="updateRules"
+        ref="processFormRef"
+        :model="processForm"
+        :rules="processRules"
         label-width="100px"
       >
-        <el-form-item label="操作类型" prop="operationType">
-          <el-select v-model="updateForm.operationType" placeholder="请选择操作类型">
-            <el-option label="处理反馈" :value="1" />
-            <el-option label="回复反馈" :value="2" />
-            <el-option label="关闭反馈" :value="3" />
-          </el-select>
-        </el-form-item>
-        
-        <el-form-item label="更新标题" prop="title">
-          <el-input v-model="updateForm.title" placeholder="请输入更新后的标题" />
-        </el-form-item>
-        
-        <el-form-item label="更新内容" prop="content">
-          <el-input
-            v-model="updateForm.content"
-            type="textarea"
-            :rows="4"
-            placeholder="请输入更新内容"
+        <el-form-item 
+          label="回复标题" 
+          prop="title"
+        >
+          <el-input 
+            v-model="processForm.title" 
+            placeholder="请输入回复标题"
           />
         </el-form-item>
+        
+        <el-form-item 
+          label="回复内容" 
+          prop="content"
+        >
+          <div style="border: 1px solid #dcdfe6; border-radius: 4px;">
+            <Toolbar
+              :editor="editorRef"
+              :defaultConfig="toolbarConfig"
+              mode="default"
+              style="border-bottom: 1px solid #dcdfe6"
+            />
+            <Editor
+              v-model="processForm.content"
+              :defaultConfig="editorConfig"
+              mode="default"
+              style="height: 300px; overflow-y: hidden;"
+              @onCreated="handleEditorCreated"
+            />
+          </div>
+          <div style="font-size: 12px; color: #909399; margin-top: 4px;">
+            支持富文本格式，内容将以HTML格式发送
+          </div>
+        </el-form-item>
+
+        <el-alert
+          type="info"
+          :closable="false"
+          show-icon
+        >
+          <template #title>
+            <span>{{ getOperationDesc(processForm.operationCode) }}</span>
+          </template>
+        </el-alert>
       </el-form>
       
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="showUpdateDialog = false">取消</el-button>
-          <el-button type="primary" @click="handleUpdateSubmit" :loading="submitting">
-            确定
+          <el-button @click="showProcessDialog = false">取消</el-button>
+          <el-button type="primary" @click="handleProcessSubmit" :loading="submitting">
+            确定{{ processAction }}
           </el-button>
         </div>
+      </template>
+    </el-dialog>
+
+    <!-- 反馈详情对话框 -->
+    <el-dialog
+      v-model="detailDialogVisible"
+      title="反馈详情"
+      width="600px"
+      :before-close="() => { detailDialogVisible = false }"
+    >
+      <template #header>
+        <div class="dialog-header">
+          <span class="el-dialog__title">反馈详情</span>
+          <button class="el-dialog__headerbtn" @click="detailDialogVisible = false">
+            <i class="el-dialog__close el-icon el-icon-close"></i>
+          </button>
+        </div>
+      </template>
+      <div class="feedback-detail" v-if="currentFeedback">
+        <el-descriptions :column="1" border>
+          <el-descriptions-item label="反馈标题">
+            {{ currentFeedback.adminFeedbackTitle }}
+          </el-descriptions-item>
+          <el-descriptions-item label="反馈内容">
+            <div class="detail-content">
+              {{ currentFeedback.adminFeedbackContent }}
+            </div>
+          </el-descriptions-item>
+          <el-descriptions-item label="反馈时间">
+            {{ formatDateTime(currentFeedback.adminFeedbackTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="最近更新时间">
+            {{ formatDateTime(currentFeedback.adminFeedbackRecentTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="当前状态">
+            <el-tag :type="getStatusType(currentFeedback.adminFeedbackCurStep)">
+              {{ currentFeedback.adminFeedbackCurStep }}
+            </el-tag>
+          </el-descriptions-item>
+        </el-descriptions>
+      </div>
+      
+      <template #footer>
+        <el-button @click="detailDialogVisible = false">关闭</el-button>
       </template>
     </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, onBeforeUnmount, shallowRef } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Refresh, Plus, Search, RefreshRight } from '@element-plus/icons-vue'
+import { Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
 import { feedbackApi } from '@/api/admin'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import { IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
+import '@wangeditor/editor/dist/css/style.css'
+
+// 格式化日期（只显示日期，不显示时间）
+const formatDate = (dateStr: string | Date) => {
+  if (!dateStr) return '-'
+  const date = new Date(dateStr)
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
 import type {
   AdminFeedbackPageVO,
   AdminFeedbackQuery,
-  AdminFeedbackForm,
   AdminFeedbackInfoVO,
   AdminUpdateFeedbackForm
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
+import { useAuthStore } from '@/store/auth'
+
+const authStore = useAuthStore()
 
 // 响应式数据
 const loading = ref(false)
 const submitting = ref(false)
-const showCreateDialog = ref(false)
 const showDetailDialog = ref(false)
-const showUpdateDialog = ref(false)
+const showProcessDialog = ref(false)
+const detailDialogVisible = ref(false)
+const contentDialogVisible = ref(false)
 const currentDetail = ref<AdminFeedbackInfoVO | null>(null)
+const currentFeedback = ref<AdminFeedbackPageVO | null>(null)
+const currentContent = ref<AdminFeedbackPageVO | null>(null)
+const processAction = ref('')
 
 // 搜索表单
 const searchForm = reactive<AdminFeedbackQuery>({
@@ -266,45 +377,64 @@ const pagination = reactive({
 // 表格数据
 const tableData = ref<AdminFeedbackPageVO[]>([])
 
-// 反馈表单
-const feedbackFormRef = ref<FormInstance>()
-const feedbackForm = reactive<AdminFeedbackForm>({
-  adminFeedbackTitle: '',
-  adminFeedbackContent: '',
-  adminFeedbackAdminId: 0 // 需要从用户信息中获取
-})
-
-// 更新表单
-const updateFormRef = ref<FormInstance>()
-const updateForm = reactive<AdminUpdateFeedbackForm>({
-  operationCode: 1,
+// 处理表单
+const processFormRef = ref<FormInstance>()
+const processForm = reactive<AdminUpdateFeedbackForm>({
+  operationCode: 0,
   title: '',
   content: ''
 })
 
-// 表单校验规则
-const feedbackRules = {
-  adminFeedbackTitle: [
-    { required: true, message: '请输入反馈标题', trigger: 'blur' },
-    { min: 5, max: 100, message: '长度在 5 到 100 个字符', trigger: 'blur' }
+// 表单校验规则（动态计算）
+const processRules = reactive({
+  title: [
+    { required: false, message: '请输入处理后的标题', trigger: 'blur' }
   ],
-  adminFeedbackContent: [
-    { required: true, message: '请输入反馈内容', trigger: 'blur' },
-    { min: 10, message: '反馈内容至少10个字符', trigger: 'blur' }
+  content: [
+    { required: false, message: '请输入处理内容', trigger: 'blur' }
+  ]
+})
+
+// 富文本编辑器配置
+const editorRef = shallowRef()
+const editorConfig: Partial<IEditorConfig> = {
+  placeholder: '请输入回复内容，支持富文本格式...',
+  MENU_CONF: {}
+}
+const toolbarConfig: Partial<IToolbarConfig> = {
+  toolbarKeys: [
+    'headerSelect',
+    'bold',
+    'italic',
+    'underline',
+    'color',
+    'bgColor',
+    '|',
+    'fontSize',
+    'fontFamily',
+    '|',
+    'bulletedList',
+    'numberedList',
+    '|',
+    'justifyLeft',
+    'justifyCenter',
+    'justifyRight',
+    '|',
+    'emotion',
+    'insertLink',
+    '|',
+    'undo',
+    'redo'
   ]
 }
 
-const updateRules = {
-  operationType: [
-    { required: true, message: '请选择操作类型', trigger: 'change' }
-  ],
-  title: [
-    { required: true, message: '请输入更新后的标题', trigger: 'blur' }
-  ],
-  content: [
-    { required: true, message: '请输入更新内容', trigger: 'blur' }
-  ]
+// 富文本编辑器创建回调
+const handleEditorCreated = (editor: any) => {
+  editorRef.value = editor
+  console.log('📝 富文本编辑器创建成功')
 }
+
+// 富文本编辑器内容变化（自动绑定到v-model）
 
 // 获取反馈列表
 const getFeedbackList = async () => {
@@ -324,12 +454,6 @@ const getFeedbackList = async () => {
   } finally {
     loading.value = false
   }
-}
-
-// 新增反馈
-const openCreateDialog = () => {
-  resetCreateForm()
-  showCreateDialog.value = true
 }
 
 // 搜索
@@ -374,120 +498,201 @@ const handleDetail = async (row: AdminFeedbackPageVO) => {
   }
 }
 
-// 更新状态
-const handleUpdate = (row: AdminFeedbackPageVO) => {
-  currentFeedback.value = row
-  updateForm.title = row.adminFeedbackTitle
-  showUpdateDialog.value = true
+// 查看反馈内容
+const viewFeedbackContent = (row: AdminFeedbackPageVO) => {
+  currentContent.value = row
+  contentDialogVisible.value = true
 }
 
-const currentFeedback = ref<AdminFeedbackPageVO | null>(null)
-
-// 删除反馈
-const handleDelete = (row: AdminFeedbackPageVO) => {
-  ElMessageBox.confirm(`确定要删除反馈"${row.adminFeedbackTitle}"吗？`, '确认删除', {
-    type: 'warning'
-  }).then(async () => {
-    try {
-      // 这里可能需要确认删除的API，暂时使用更新状态的方式
-      ElMessage.success('删除成功')
+// 处理反馈
+const handleProcess = async (row: AdminFeedbackPageVO, operationCode: number, actionName: string) => {
+  try {
+    // 操作码2（回复）需要弹出对话框填写内容
+    if (operationCode === 2) {
+      const response = await feedbackApi.getFeedbackDetail(row.adminFeedbackId)
+      currentFeedback.value = row
+      processAction.value = actionName
+      processForm.operationCode = operationCode
+      processForm.title = response.data.adminFeedbackTitle
+      processForm.content = ''
+      
+      // 设置为必填
+      processRules.title[0].required = true
+      processRules.content[0].required = true
+      
+      showProcessDialog.value = true
+      
+      // 等待对话框打开后，清空富文本编辑器
+      setTimeout(() => {
+        if (editorRef.value) {
+          editorRef.value.clear()
+        }
+      }, 100)
+    } else {
+      // 其他操作（接受0、忽视1、拒回复3）直接确认后执行
+      await ElMessageBox.confirm(
+        `确定要${actionName}这条反馈吗？`,
+        '确认操作',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      )
+      
+      // 获取当前登录管理员ID
+      const currentUser = authStore.user
+      if (!currentUser?.adminId && !currentUser?.userId) {
+        ElMessage.error('未获取到当前用户信息，请重新登录')
+        return
+      }
+      
+      const operationPersonId = currentUser.adminId || currentUser.userId
+      
+      console.log('📤 [反馈处理] 直接提交参数:', {
+        feedbackId: row.adminFeedbackId,
+        operationCode: operationCode,
+        operationName: actionName,
+        title: '',
+        content: '',
+        operationPersonId
+      })
+      
+      // 直接调用API
+      console.log('🚀 [反馈处理] 准备调用 updateFeedbackStep 接口...')
+      const result = await feedbackApi.updateFeedbackStep(
+        row.adminFeedbackId,
+        operationCode,
+        '',  // title为空
+        '',  // content为空
+        operationPersonId
+      )
+      console.log('✅ [反馈处理] 接口调用成功，返回结果:', result)
+      
+      ElMessage.success(`${actionName}成功`)
+      console.log('🔄 [反馈处理] 刷新列表...')
       getFeedbackList()
-    } catch (error) {
-      console.error('删除失败:', error)
-      ElMessage.error('删除失败')
     }
-  })
+  } catch (error: any) {
+    if (error === 'cancel') {
+      // 用户取消操作
+      return
+    }
+    console.error('❌ [反馈处理] 处理失败:', error)
+    ElMessage.error(error?.message || '操作失败，请重试')
+  }
+}
+
+// 获取操作说明
+const getOperationDesc = (code: number) => {
+  const descMap: Record<number, string> = {
+    0: '接受反馈后，状态将变为"待回复"，并会发送短信通知',
+    1: '忽视反馈后，状态将变为"忽视"',
+    2: '回复反馈后，状态将变为"已回复"，并会发送短信通知',
+    3: '拒绝回复后，状态将变为"拒回复"'
+  }
+  return descMap[code] || ''
 }
 
 // 获取状态类型
 const getStatusType = (status: string) => {
   const typeMap: Record<string, string> = {
-    '待处理': 'warning',
-    '处理中': 'primary',
-    '待回复': 'info',
-    '已完成': 'success',
-    '已关闭': 'danger'
+    '待接收': 'warning',
+    '待接受': 'warning',  // 兼容两种写法
+    '待回复': 'primary',
+    '已回复': 'success',
+    '忽视': 'info',
+    '拒回复': 'danger'
   }
   return typeMap[status] || 'info'
 }
 
-// 提交新增反馈
-const handleCreateSubmit = async () => {
-  if (!feedbackFormRef.value) return
+// 提交处理
+const handleProcessSubmit = async () => {
+  if (!processFormRef.value || !currentFeedback.value) return
   
   try {
-    await feedbackFormRef.value.validate()
+    // 只有操作码2（回复）需要验证
+    if (processForm.operationCode === 2) {
+    await processFormRef.value.validate()
+    }
+    
+    // 获取当前登录管理员ID
+    const currentUser = authStore.user
+    if (!currentUser?.adminId && !currentUser?.userId) {
+      ElMessage.error('未获取到当前用户信息，请重新登录')
+      return
+    }
+    
+    const operationPersonId = currentUser.adminId || currentUser.userId
+    
     submitting.value = true
     
-    await feedbackApi.addFeedback(feedbackForm)
-    ElMessage.success('提交成功')
-    showCreateDialog.value = false
-    getFeedbackList()
-  } catch (error) {
-    console.error('提交失败:', error)
-    ElMessage.error('提交失败')
-  } finally {
-    submitting.value = false
-  }
-}
-
-// 提交更新状态
-const handleUpdateSubmit = async () => {
-  if (!updateFormRef.value || !currentFeedback.value) return
-  
-  try {
-    await updateFormRef.value.validate()
-    submitting.value = true
+    console.log('📤 [反馈处理] 提交参数:', {
+      feedbackId: currentFeedback.value.adminFeedbackId,
+      operationCode: processForm.operationCode,
+      operationName: processAction.value,
+      title: processForm.title || '',
+      content: processForm.content || '',
+      operationPersonId
+    })
     
     await feedbackApi.updateFeedbackStep(
       currentFeedback.value.adminFeedbackId,
-      updateForm.operationCode,
-      updateForm.title,
-      updateForm.content,
-      currentFeedback.value.adminFeedbackAdminId
+      processForm.operationCode,
+      processForm.title || '',
+      processForm.content || '',
+      operationPersonId
     )
     
-    ElMessage.success('更新成功')
-    showUpdateDialog.value = false
+    ElMessage.success(`${processAction.value}成功`)
+    showProcessDialog.value = false
     getFeedbackList()
-  } catch (error) {
-    console.error('更新失败:', error)
-    ElMessage.error('更新失败')
+  } catch (error: any) {
+    console.error('❌ [反馈处理] 处理失败:', error)
+    if (error?.errors) {
+      // 表单验证失败
+      return
+    }
+    ElMessage.error(error?.message || '处理失败，请检查网络或重试')
   } finally {
     submitting.value = false
   }
 }
 
-// 重置创建表单
-const resetCreateForm = () => {
-  if (feedbackFormRef.value) {
-    feedbackFormRef.value.resetFields()
+// 重置处理表单
+const resetProcessForm = () => {
+  if (processFormRef.value) {
+    processFormRef.value.resetFields()
   }
   
-  Object.assign(feedbackForm, {
-    adminFeedbackTitle: '',
-    adminFeedbackContent: '',
-    adminFeedbackAdminId: 0
-  })
-}
-
-// 重置更新表单
-const resetUpdateForm = () => {
-  if (updateFormRef.value) {
-    updateFormRef.value.resetFields()
+  // 清空富文本编辑器内容
+  if (editorRef.value) {
+    editorRef.value.clear()
   }
   
   currentFeedback.value = null
-  Object.assign(updateForm, {
-    operationCode: 1,
+  processAction.value = ''
+  Object.assign(processForm, {
+    operationCode: 0,
     title: '',
     content: ''
   })
 }
 
+
+
 // 组件挂载
 onMounted(() => {
   getFeedbackList()
+})
+
+// 组件卸载时销毁编辑器
+onBeforeUnmount(() => {
+  const editor = editorRef.value
+  if (editor) {
+    editor.destroy()
+  }
 })
 </script>
 
@@ -570,6 +775,128 @@ onMounted(() => {
       white-space: pre-wrap;
     }
   }
+
+  .feedback-content {
+    .content-display {
+      line-height: 1.6;
+      color: #374151;
+      white-space: pre-wrap;
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 12px;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+    }
+  }
+
+  .content-title {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+  }
+
+  .content-display {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 12px;
+    background: #f9fafb;
+    border-radius: 6px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .el-dialog__headerbtn {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+  }
+
+  .el-dialog__headerbtn:hover {
+    background-color: #f0f0f0;
+  }
+
+  .el-dialog__close {
+    font-size: 16px;
+    color: #909399;
+  }
+
+  .el-dialog__close:hover {
+    color: #409eff;
+  }
+
+  .dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .el-dialog__headerbtn {
+    background: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+  }
+
+  .el-dialog__headerbtn:hover {
+    background-color: #f0f0f0;
+  }
+
+  .el-dialog__close {
+    font-size: 16px;
+    color: #909399;
+  }
+
+  .el-dialog__close:hover {
+    color: #409eff;
+  }
+
+  .content-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: help;
+  }
+}
+
+// 富文本编辑器样式
+:deep(.w-e-text-container) {
+  background-color: #fff;
+}
+
+:deep(.w-e-toolbar) {
+  background-color: #f8f9fa !important;
+  border-radius: 4px 4px 0 0;
+}
+
+:deep(.w-e-text-placeholder) {
+  font-style: normal;
+  color: #c0c4cc;
 }
 
 // 响应式设计

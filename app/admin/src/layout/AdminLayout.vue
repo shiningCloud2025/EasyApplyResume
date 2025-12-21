@@ -90,15 +90,6 @@
           <el-menu-item index="/admin/ai/agent">AI智能体助手</el-menu-item>
         </el-sub-menu>
 
-        <!-- 内部系统 -->
-        <el-sub-menu index="/admin/system">
-          <template #title>
-            <el-icon><Monitor /></el-icon>
-            <span>内部系统</span>
-          </template>
-          <el-menu-item index="/admin/system/links">系统链接</el-menu-item>
-        </el-sub-menu>
-
         <!-- 反馈管理 -->
         <el-sub-menu index="/admin/feedback">
           <template #title>
@@ -109,6 +100,46 @@
           <el-menu-item index="/admin/feedback/management">管理端反馈管理</el-menu-item>
           <el-menu-item index="/admin/feedback/user-records">用户端反馈记录</el-menu-item>
           <el-menu-item index="/admin/feedback/records">管理端反馈记录</el-menu-item>
+        </el-sub-menu>
+
+        <!-- 内部系统 -->
+        <el-sub-menu index="/admin/system">
+          <template #title>
+            <el-icon><Monitor /></el-icon>
+            <span>内部系统</span>
+          </template>
+          <el-menu-item index="/admin/system/user-portal">
+            <el-icon><User /></el-icon>
+            <span>易投简历用户端</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/system/observation-portal">
+            <el-icon><DataAnalysis /></el-icon>
+            <span>易投简历观测与广告端</span>
+          </el-menu-item>
+        </el-sub-menu>
+
+        <!-- 外部API -->
+        <el-sub-menu index="external-api">
+          <template #title>
+            <el-icon><Connection /></el-icon>
+            <span>外部API</span>
+          </template>
+          <el-menu-item index="/admin/external-api/bailian">
+            <el-icon><MagicStick /></el-icon>
+            <span>阿里云百炼平台</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/external-api/sms">
+            <el-icon><Message /></el-icon>
+            <span>阿里云短信平台</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/external-api/searchapi">
+            <el-icon><Search /></el-icon>
+            <span>SearchAPI平台</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/external-api/amap">
+            <el-icon><Location /></el-icon>
+            <span>高德开放平台</span>
+          </el-menu-item>
         </el-sub-menu>
 
         <!-- API文档中心 -->
@@ -167,6 +198,15 @@
             text 
             class="header-button"
             @click="toggleFullScreen"
+          />
+
+          <!-- 发送邮件 -->
+          <el-button 
+            :icon="Promotion" 
+            text 
+            class="header-button"
+            @click="showSendResumeDialog"
+            title="发送邮件"
           />
 
           <!-- 用户菜单 -->
@@ -234,10 +274,79 @@
       </el-footer>
     </el-container>
   </el-container>
+    <!-- 发送邮件对话框 -->
+    <el-dialog
+      v-model="sendResumeDialogVisible"
+      title="发送邮件"
+      width="800px"
+      :close-on-click-modal="false"
+      @open="resetSendResumeFormValidation"
+    >
+      <el-form
+        ref="sendResumeFormRef"
+        :model="sendResumeForm"
+        :rules="sendResumeRules"
+        label-width="100px"
+        validate-on-rule-change="false"
+      >
+        <el-form-item label="收件人" prop="toEmail">
+          <el-input
+            v-model="sendResumeForm.toEmail"
+            placeholder="请输入收件人邮箱"
+            maxlength="25"
+            show-word-limit
+          >
+            <template #prepend>
+              <el-icon><User /></el-icon>
+            </template>
+          </el-input>
+        </el-form-item>
+        
+        <el-form-item label="邮件主题" prop="subject">
+          <el-input
+            v-model="sendResumeForm.subject"
+            placeholder="请输入邮件主题"
+            maxlength="35"
+            show-word-limit
+          />
+        </el-form-item>
+        
+        <el-form-item label="邮件内容" prop="htmlContent">
+          <div style="border: 1px solid #dcdfe6; border-radius: 4px;">
+            <Toolbar
+              :editor="editorRef"
+              :defaultConfig="toolbarConfig"
+              mode="default"
+              style="border-bottom: 1px solid #dcdfe6"
+            />
+            <Editor
+              v-model="sendResumeForm.htmlContent"
+              :defaultConfig="editorConfig"
+              mode="default"
+              style="height: 300px; overflow-y: hidden;"
+              @onCreated="handleEditorCreated"
+            />
+          </div>
+          <div style="font-size: 12px; color: #909399; margin-top: 4px;">
+            支持富文本格式，内容将以HTML格式发送
+          </div>
+        </el-form-item>
+      </el-form>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="sendResumeDialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="handleSendResumeSubmit" :loading="sendingResume">
+            <el-icon><Promotion /></el-icon>
+            发送邮件
+          </el-button>
+        </div>
+      </template>
+    </el-dialog>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch, shallowRef, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
 import {
@@ -258,8 +367,18 @@ import {
   ArrowDown,
   SwitchButton,
   Link,
-  Lock
+  Lock,
+  DataAnalysis,
+  Connection,
+  MagicStick,
+  Message,
+  Promotion
 } from '@element-plus/icons-vue'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import { IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
+import '@wangeditor/editor/dist/css/style.css'
+import { emailApi } from '@/api/admin'
+import type { FormInstance } from 'element-plus'
 
 const route = useRoute()
 const router = useRouter()
@@ -308,7 +427,7 @@ const handleUserCommand = (command: string) => {
       router.push('/admin/profile')
       break
     case 'feedback':
-      router.push('/admin/feedback/management')
+      router.push('/admin/feedback/submit')
       break
     case 'logout':
       handleLogout()
@@ -363,14 +482,21 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/ai/chat': 'AI智能问答助手',
     '/admin/ai/agent': 'AI智能体助手',
     '/admin/system': '内部系统',
-    '/admin/system/links': '系统链接',
+    '/admin/system/user-portal': '易投简历用户端',
+    '/admin/system/observation-portal': '易投简历观测与广告端',
     '/admin/feedback': '反馈管理',
+    '/admin/feedback/submit': '意见反馈',
     '/admin/feedback/user-management': '用户端反馈管理',
     '/admin/feedback/management': '管理端反馈管理',
     '/admin/feedback/user-records': '用户端反馈记录',
     '/admin/feedback/records': '管理端反馈记录',
     '/admin/api-docs': 'API对外文档中心',
-    'internal-api-docs': 'API对内文档中心'
+    'internal-api-docs': 'API对内文档中心',
+    '/admin/external-api': '外部API',
+    '/admin/external-api/bailian': '阿里云百炼平台',
+    '/admin/external-api/sms': '阿里云短信平台',
+    '/admin/external-api/searchapi': 'SearchAPI平台',
+    '/admin/external-api/amap': '高德开放平台'
   }
 
   const breadcrumbs = []
@@ -400,10 +526,229 @@ watch(
   { immediate: true }
 )
 
-// 组件挂载时检查登录状态
-onMounted(() => {
+// 定时器ID
+let userInfoTimer: NodeJS.Timeout | null = null
+
+// 获取用户信息的函数
+const fetchUserInfo = async (silent: boolean = false) => {
+  if (!authStore.isLoggedIn) {
+    console.log('⚠️ AdminLayout: 用户未登录，停止获取用户信息')
+    if (userInfoTimer) {
+      clearInterval(userInfoTimer)
+      userInfoTimer = null
+    }
+    router.push('/login')
+    return
+  }
+
+  // 如果已经有用户信息，清除定时器
+  if (authStore.user) {
+    console.log('✅ AdminLayout: 用户信息已存在，停止定时获取')
+    if (userInfoTimer) {
+      clearInterval(userInfoTimer)
+      userInfoTimer = null
+    }
+    return
+  }
+
+  // 尝试获取用户信息
+  if (!silent) {
+    console.log('🔄 AdminLayout: 尝试获取用户信息...')
+  }
+  try {
+    await authStore.getUserInfo(silent)
+    if (authStore.user) {
+      console.log('✅ AdminLayout: 用户信息获取成功', authStore.user)
+      // 获取成功后清除定时器
+      if (userInfoTimer) {
+        clearInterval(userInfoTimer)
+        userInfoTimer = null
+      }
+    }
+  } catch (error) {
+    if (!silent) {
+      console.error('❌ AdminLayout: 获取用户信息失败，15秒后重试', error)
+    }
+  }
+}
+
+// 发送邮件相关
+const sendResumeDialogVisible = ref(false)
+const sendResumeFormRef = ref<FormInstance>()
+const sendingResume = ref(false)
+
+// 富文本编辑器相关
+const editorRef = shallowRef()
+const editorConfig: Partial<IEditorConfig> = {
+  placeholder: '请输入邮件内容，支持富文本格式...',
+  MENU_CONF: {}
+}
+const toolbarConfig: Partial<IToolbarConfig> = {
+  toolbarKeys: [
+    'headerSelect',
+    'bold',
+    'italic',
+    'underline',
+    'color',
+    'bgColor',
+    '|',
+    'fontSize',
+    'fontFamily',
+    '|',
+    'bulletedList',
+    'numberedList',
+    '|',
+    'justifyLeft',
+    'justifyCenter',
+    'justifyRight',
+    '|',
+    'emotion',
+    'insertLink',
+    '|',
+    'undo',
+    'redo'
+  ]
+}
+
+const sendResumeForm = reactive({
+  toEmail: '',
+  subject: '',
+  htmlContent: ''
+})
+
+// 邮箱格式验证规则
+const validateEmail = (rule: any, value: string, callback: any) => {
+  if (!value) {
+    callback(new Error('请输入收件人邮箱'))
+  } else {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(value)) {
+      callback(new Error('请输入正确的邮箱格式'))
+    } else if (value.length > 25) {
+      callback(new Error('邮箱长度不能超过25个字符'))
+    } else {
+      callback()
+    }
+  }
+}
+
+const sendResumeRules = {
+  toEmail: [
+    { required: true, validator: validateEmail, trigger: ['blur', 'change'] }
+  ],
+  subject: [
+    { required: true, message: '请输入邮件主题', trigger: ['blur', 'change'] },
+    { min: 1, max: 35, message: '主题长度在 1 到 35 个字符', trigger: ['blur', 'change'] }
+  ],
+  htmlContent: [
+    { required: true, message: '请输入邮件内容', trigger: ['blur', 'change'] }
+  ]
+}
+
+// 显示发送邮件对话框
+const showSendResumeDialog = () => {
+  sendResumeDialogVisible.value = true
+  // 初始化表单数据
+  sendResumeForm.toEmail = ''
+  sendResumeForm.subject = ''
+  sendResumeForm.htmlContent = ''
+}
+
+// 重置表单验证状态
+const resetSendResumeFormValidation = () => {
+  // 延迟清除验证状态，确保在DOM更新后执行
+  setTimeout(() => {
+    if (sendResumeFormRef.value) {
+      sendResumeFormRef.value.clearValidate()
+    }
+  }, 100)
+}
+
+// 发送邮件
+const handleSendResumeSubmit = async () => {
+  if (!sendResumeFormRef.value) return
+  
+  try {
+    await sendResumeFormRef.value.validate()
+    
+    // 获取当前用户信息
+    const currentUserEmail = authStore.user?.adminEmail
+    if (!currentUserEmail) {
+      ElMessage.error('无法获取当前用户邮箱，请重新登录')
+      return
+    }
+    
+    ElMessageBox.confirm(
+      `确定要向 ${sendResumeForm.toEmail} 发送邮件吗？`,
+      '确认发送',
+      {
+        type: 'warning',
+        confirmButtonText: '确定发送',
+        cancelButtonText: '取消'
+      }
+    ).then(async () => {
+      try {
+        sendingResume.value = true
+        
+        // 调用邮件发送API
+        await emailApi.sendHtmlEmailSelfDef(
+          currentUserEmail,
+          sendResumeForm.toEmail,
+          sendResumeForm.subject,
+          sendResumeForm.htmlContent
+        )
+        
+        ElMessage.success('发送成功')
+        sendResumeDialogVisible.value = false
+      } catch (error: any) {
+        console.error('❌ [发送邮件] 发送失败:', error)
+        ElMessage.error('发送失败')
+      } finally {
+        sendingResume.value = false
+      }
+    }).catch(() => {
+      // 用户取消
+    })
+  } catch (error) {
+    console.log('表单验证失败')
+  }
+}
+
+// 组件挂载时检查登录状态并获取用户信息
+onMounted(async () => {
   if (!authStore.isLoggedIn) {
     router.push('/login')
+    return
+  }
+  
+  // 首次尝试获取用户信息（不静默，显示错误）
+  await fetchUserInfo(false)
+  
+  // 如果首次获取失败，启动定时器每15秒重试一次（静默模式）
+  if (!authStore.user && authStore.isLoggedIn) {
+    console.log('⏰ AdminLayout: 启动定时器，每15秒静默重试获取用户信息')
+    userInfoTimer = setInterval(() => fetchUserInfo(true), 15000)
+  }
+})
+
+// 富文本编辑器创建回调
+const handleEditorCreated = (editor: any) => {
+  editorRef.value = editor
+  console.log('📝 富文本编辑器创建成功')
+}
+
+// 组件卸载时清除定时器
+onUnmounted(() => {
+  if (userInfoTimer) {
+    console.log('🧹 AdminLayout: 清除用户信息获取定时器')
+    clearInterval(userInfoTimer)
+    userInfoTimer = null
+  }
+  
+  // 组件卸载时销毁编辑器
+  const editor = editorRef.value
+  if (editor) {
+    editor.destroy()
   }
 })
 </script>

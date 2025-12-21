@@ -1,4 +1,5 @@
 import { api } from '@/utils/request'
+import request from '@/utils/request'
 import type { AdminUser, LoginForm, PhoneLoginForm, EmailLoginForm } from '@/store/auth'
 import type { 
   PageQuery, 
@@ -11,6 +12,13 @@ import type {
   AdminFeedbackQuery,
   AdminFeedbackPageVO,
   AdminFeedbackInfoVO,
+  AdminFeedbackRecordQuery,
+  AdminFeedbackRecordPageVO,
+  AdminFeedbackRecordInfoVO,
+  UserFeedbackQuery,
+  UserFeedbackPageVO,
+  UserFeedbackInfoVO,
+  UserUpdateFeedbackForm,
   RoleForm,
   RolePageQuery,
   RolePageVO,
@@ -35,7 +43,14 @@ import type {
   EmploymentInformationInfoVO,
   IndustryMapForm,
   IndustryMapQuery,
-  IndustryMapPageVO
+  IndustryMapPageVO,
+  ProvinceMap,
+  CityMap,
+  AreaMap,
+  UserDeleteResumeQuery,
+  UserDeleteResumeBySystemPageVO,
+  UserDeleteResumeBySystemInfoVO,
+  UserDeleteResumeInfoVO
 } from '@/types/admin'
 
 // 认证相关API
@@ -73,6 +88,9 @@ export const adminApi = {
   // 查询管理员详情
   getAdminInfo: (adminId: number) => api.get<AdminInfoVO>(`/admin/admin/findById?adminId=${adminId}`),
   
+  // 获取当前登录管理员信息（通过 JWT）
+  getCurrentAdminInfo: () => api.post<{userId: number, userEmail: string, username: string, authorities: string[]}>('/admin/auth/getAdminInfo'),
+  
   // 分页查询管理员
   getAdminPage: (pageNum: number, pageSize: number, query: AdminPageQuery) => 
     api.post<PageResult<AdminPageVO>>('/admin/admin/findByPage', query, { 
@@ -97,10 +115,7 @@ export const adminApi = {
   },
   
   // 生成随机账号
-  generateRandomAccount: () => api.get<string>('/admin/admin/generateRandomAccount'),
-  
-  // 获取当前管理员信息
-  getCurrentAdminInfo: () => api.post<any>('/admin/admin/getAdminInfo')
+  generateRandomAccount: () => api.get<string>('/admin/admin/generateRandomAccount')
 }
 
 // 角色相关API
@@ -269,8 +284,8 @@ export const industryMapApi = {
   updateIndustryMap: (data: IndustryMapForm) => api.post<number>('/admin/industryMap/updateIndustryMap', data),
   
   // 查询行业详情
-  getIndustryMapInfo: (industryMapId: number) => 
-    api.get<any>('/admin/industryMap/findIndustryMapById', { params: { industryMapId } }),
+  getIndustryMapInfo: (industryMapIndustryCode: number) => 
+    api.get<IndustryMapInfoVO>('/admin/industryMap/findIndustryMapById', { params: { industryMapId: industryMapIndustryCode } }),
   
   // 分页查询行业
   getIndustryMapPage: (pageNum: number, pageSize: number, query: IndustryMapQuery) => 
@@ -279,64 +294,151 @@ export const industryMapApi = {
     }),
   
   // 查询所有行业
-  findAllIndustryMap: () => api.get<any[]>('/admin/industryMap/findAllIndustryMap')
+  findAllIndustryMap: () => api.get<IndustryMapInfoVO[]>('/admin/industryMap/findAllIndustryMap')
 }
 
-// 地区相关API
+// 地区相关API（注意：这些接口直接返回数据，没有BaseResult包装）
 export const provinceMapApi = {
   // 查询所有省份
-  getAllProvince: () => api.get<any[]>('/admin/provinceMap/getAllProvince'),
+  getAllProvince: async () => {
+    console.log('🔥 API层：开始调用 getAllProvince')
+    try {
+      const response = await request.get<ProvinceMap[]>('/admin/provinceMap/getAllProvince')
+      console.log('🔥 API层：getAllProvince axios响应:', response)
+      console.log('🔥 API层：getAllProvince 数据:', response.data)
+      // 响应拦截器已处理数组包装，直接返回
+      return response as any
+    } catch (error) {
+      console.error('🔥 API层：getAllProvince 失败:', error)
+      throw error
+    }
+  },
   
   // 根据省份查询城市
-  getCityByProvinceId: (provinceMapId: number) => 
-    api.get<any[]>('/admin/provinceMap/getCityByProvinceId', { params: { provinceMapId } })
+  getCityByProvinceId: async (provinceMapId: number) => {
+    console.log('🔥 API层：开始调用 getCityByProvinceId, 省份ID:', provinceMapId)
+    try {
+      const response = await request.get<CityMap[]>('/admin/provinceMap/getCityByProvinceId', { 
+        params: { provinceMapId } 
+      })
+      console.log('🔥 API层：getCityByProvinceId axios响应:', response)
+      console.log('🔥 API层：getCityByProvinceId 数据:', response.data)
+      // 响应拦截器已处理数组包装，直接返回
+      return response as any
+    } catch (error) {
+      console.error('🔥 API层：getCityByProvinceId 失败:', error)
+      throw error
+    }
+  }
+}
+
+// 城市相关API（注意：这些接口直接返回数据，没有BaseResult包装）
+export const cityMapApi = {
+  // 查询所有城市
+  getAllCity: async () => {
+    const response = await request.get<CityMap[]>('/admin/cityMap/getAllCity')
+    // 响应拦截器已处理数组包装，直接返回
+    return response as any
+  },
+  
+  // 根据城市查询区县
+  getAllAreaByCityId: async (cityId: number) => {
+    const response = await request.get<AreaMap[]>('/admin/cityMap/getAllAreaByCityId', { 
+      params: { cityId } 
+    })
+    // 响应拦截器已处理数组包装，直接返回
+    return response as any
+  }
 }
 
 // 邮件发送相关API
 export const emailApi = {
-  // 发送纯文本邮件（指定发送者）
-  sendTextEmailSpecifySelf: (fromEmail: string, toEmail: string, subject: string, content: string) =>
-    api.post<void>('/admin/email/communication/selfde/sendText', null, {
-      params: { fromEmail, toEmail, subject, content }
-    }),
-  
-  // 发送纯文本邮件（使用默认发送者）
-  sendTextEmail: (toEmail: string, subject: string, content: string) =>
-    api.post<void>('/admin/email/communication/usallyde/sendText', null, {
-      params: { toEmail, subject, content }
-    }),
-  
   // 发送HTML邮件（指定发送者）
-  sendHtmlEmailSpecifySelf: (fromEmail: string, toEmail: string, subject: string, htmlContent: string) =>
-    api.post<void>('/admin/email/communication/selfde/sendHtml', null, {
+  sendHtmlEmailSelfDef: (fromEmail: string, toEmail: string, subject: string, htmlContent: string) =>
+    request.post('/admin/email/communication/selfde/sendHtml', null, {
       params: { fromEmail, toEmail, subject, htmlContent }
     }),
   
   // 发送HTML邮件（使用默认发送者）
-  sendHtmlEmail: (toEmail: string, subject: string, htmlContent: string) =>
-    api.post<void>('/admin/email/communication/usallyde/sendHtml', null, {
+  sendHtmlEmailUsuallyDef: (toEmail: string, subject: string, htmlContent: string) =>
+    request.post('/admin/email/communication/usallyde/sendHtml', null, {
       params: { toEmail, subject, htmlContent }
+    }),
+  
+  // 发送纯文本邮件（指定发送者）
+  sendTextEmailSelfDef: (fromEmail: string, toEmail: string, subject: string, content: string) =>
+    request.post('/admin/email/communication/selfde/sendText', null, {
+      params: { fromEmail, toEmail, subject, content }
+    }),
+  
+  // 发送纯文本邮件（使用默认发送者）
+  sendTextEmailUsuallyDef: (toEmail: string, subject: string, content: string) =>
+    request.post('/admin/email/communication/usallyde/sendText', null, {
+      params: { toEmail, subject, content }
     })
 }
 
 // AI助手相关API
 export const aiApi = {
-  // AI系统管理助手 - 应用对话（流式）
-  aiSystemManagerApplicationChat: (message: string, chatId?: string) => {
-    const params = chatId ? { chatId } : {}
-    return api.post('/admin/aiSystemManagerAssistant/application/chat', message, { 
-      params,
-      responseType: 'text/event-stream',
+  // AI系统管理助手 - 应用对话（流式）- 直接返回fetch响应，不经过拦截器
+  aiSystemManagerApplicationChat: async (message: string, chatId?: string) => {
+    const baseURL = import.meta.env.VITE_API_BASE_URL || '/api'
+    const token = localStorage.getItem('admin_token')
+    let url = `${baseURL}/admin/aiSystemManagerAssistant/application/chat`
+    
+    if (chatId) {
+      url += `?chatId=${encodeURIComponent(chatId)}`
+    }
+    
+    return fetch(url, {
+      method: 'POST',
       headers: {
-        'Content-Type': 'text/plain'
-      }
+        'Content-Type': 'text/plain',
+        'Admin-Authorization': `Admin ${token}`,
+        'Accept': 'text/event-stream'
+      },
+      body: message
     })
   },
   
   // AI系统管理助手 - Agent对话（流式）
-  aiSystemManagerAgentChat: (message: string, chatId?: string) => {
-    const params = chatId ? { chatId } : {}
-    return api.post<any>('/admin/aiSystemManagerAssistant/agent/chat', message, { params })
+  // 注意：需要后端修改才能正常工作
+  // 
+  // 后端需要修改（修改后此接口可正常使用）：
+  // 1. 添加 produces = MediaType.TEXT_EVENT_STREAM_VALUE
+  // 2. 直接返回 SseEmitter（不用 BaseResult 包装）
+  // 
+  // 修改前：
+  // @PostMapping(value = "/agent/chat")
+  // public BaseResult<SseEmitter> agentChat(...) { return BaseResult.ok(emitter); }
+  // 
+  // 修改后：
+  // @PostMapping(value = "/agent/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+  // public SseEmitter agentChat(...) { return emitter; }
+  aiSystemManagerAgentChat: async (message: string, chatId?: string) => {
+    const baseURL = import.meta.env.VITE_API_BASE_URL || '/api'
+    const token = localStorage.getItem('admin_token')
+    
+    if (!chatId) {
+      chatId = 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
+    }
+    
+    let url = `${baseURL}/admin/aiSystemManagerAssistant/agent/chat?chatId=${encodeURIComponent(chatId)}`
+    
+    console.log('📤 [API] 调用 Agent Chat 接口')
+    console.log('   URL:', url)
+    console.log('   ChatId:', chatId)
+    
+    // 发送 SSE 请求
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain',
+        'Admin-Authorization': `Admin ${token}`,
+        'Accept': 'text/event-stream'  // 明确要求 SSE 响应
+      },
+      body: message
+    })
   }
 }
 
@@ -352,12 +454,62 @@ export const feedbackApi = {
     }),
   
   // 查询反馈详情
-  getFeedbackDetail: (feedbackId: number) => api.get<AdminFeedbackInfoVO>('/admin/feedback/findFeedbackById', { params: { feedbackId } }),
+  getFeedbackDetail: (feedbackId: number) => 
+    api.get<AdminFeedbackInfoVO>(`/admin/feedback/findFeedbackById?feedbackId=${feedbackId}`),
   
   // 分页查询反馈
   getFeedbackPage: (pageNum: number, pageSize: number, query: AdminFeedbackQuery) =>
     api.post<PageResult<AdminFeedbackPageVO>>('/admin/feedback/getFeedbackPage', query, {
       params: { pageNum, pageSize }
+    })
+}
+
+// 反馈记录相关API
+export const feedbackRecordApi = {
+  // 分页查询反馈记录
+  getRecordPage: (pageNum: number, pageSize: number, query: AdminFeedbackRecordQuery) =>
+    api.post<PageResult<AdminFeedbackRecordPageVO>>('/admin/adminFeedbackRecord/findAdminFeedbackRecordPage', query, {
+      params: { pageNum, pageSize }
+    }),
+  
+  // 查询反馈记录详情
+  getRecordDetail: (feedbackRecordId: number) =>
+    api.get<AdminFeedbackRecordInfoVO>('/admin/adminFeedbackRecord/findAdminFeedbackRecordByFeedbackRecordId', {
+      params: { feedbackRecordId }
+    })
+}
+
+// 用户反馈相关API
+export const userFeedbackApi = {
+  // 分页查询用户反馈
+  getUserFeedbackPage: (size: number, page: number, query: UserFeedbackQuery) =>
+    api.post<PageResult<UserFeedbackPageVO>>('/admin/userFeedback/getFeedbackPage', query, {
+      params: { size, page }
+    }),
+  
+  // 查询用户反馈详情
+  getUserFeedbackDetail: (feedbackId: number) => 
+    api.get<UserFeedbackInfoVO>(`/admin/userFeedback/findFeedbackById?feedbackId=${feedbackId}`),
+  
+  // 更新用户反馈阶段
+  updateUserFeedbackStep: (feedbackId: number, operationCode: number, title: string, content: string, operationPersonId: number) =>
+    api.post('/admin/userFeedback/updateFeedbackStep', { title, content }, {
+      params: { feedbackId, OperationCode: operationCode, operationPersonId }
+    })
+}
+
+// 用户反馈记录相关API
+export const userFeedbackRecordApi = {
+  // 分页查询用户反馈记录
+  getUserFeedbackRecordPage: (pageNum: number, pageSize: number, query: UserFeedbackRecordQuery) =>
+    api.post<PageResult<UserFeedbackRecordPageVO>>('/admin/userfeedbackRecord/findUserFeedbackRecordPage', query, {
+      params: { pageNum, pageSize }
+    }),
+  
+  // 查询用户反馈记录详情
+  getUserFeedbackRecordDetail: (feedbackRecordId: number) =>
+    api.get<UserFeedbackRecordInfoVO>('/admin/userfeedbackRecord/findUserFeedbackRecordByFeedbackRecordId', {
+      params: { feedbackRecordId }
     })
 }
 
@@ -368,4 +520,19 @@ export const smsApi = {
   
   // 校验短信验证码
   checkPhoneCode: (phone: string, code: string) => api.post('/admin/sms/check', null, { params: { phone, code } })
+}
+
+// 系统删除简历相关API
+export const systemDeleteResumeApi = {
+  // 分页查询系统删除简历
+  getDeleteResumePage: (pageNum: number, pageSize: number, query: UserDeleteResumeQuery) =>
+    api.post<PageResult<UserDeleteResumeBySystemPageVO>>('/admin/userDeleteResumeBySystemService/getUserDeleteResumeInfoPage', query, {
+      params: { pageNum, pageSize }
+    }),
+  
+  // 查询系统删除简历详情
+  getDeleteResumeDetail: (userDeleteResumeId: number) =>
+    api.get<UserDeleteResumeBySystemInfoVO>('/admin/userDeleteResumeBySystemService/getUserDeleteResumeInfoById', {
+      params: { userDeleteResumeId }
+    })
 }

@@ -5,12 +5,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.businessEnum.AdminBusinessEnum;
 import com.zyh.easyapplyresume.bean.businessEnum.UserBusinessEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminFeedbackMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminFeedbackRecordMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserFeedbackMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserFeedbackRecordMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserMapper;
+import com.zyh.easyapplyresume.model.form.admin.AdminFeedbackForm;
 import com.zyh.easyapplyresume.model.form.user.UserFeedbackForm;
 import com.zyh.easyapplyresume.model.pojo.admin.Admin;
 import com.zyh.easyapplyresume.model.pojo.user.User;
@@ -23,6 +25,8 @@ import com.zyh.easyapplyresume.model.vo.user.UserFeedbackInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserFeedbackPageVO;
 import com.zyh.easyapplyresume.service.impl.admin.SendCommunicationEmailServiceImpl;
 import com.zyh.easyapplyresume.service.user.UserFeedbackService;
+import com.zyh.easyapplyresume.utils.adminvalidator.AdminFeedbackFormValidator;
+import com.zyh.easyapplyresume.utils.uservalidator.UserFeedbackFormValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,15 +62,23 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
     private AdminMapper adminMapper;
     @Override
     public void addFeedback(UserFeedbackForm userFeedbackForm) {
-        UserFeedback userFeedback = new UserFeedback();
-        userFeedback.setUserFeedbackTitle(userFeedbackForm.getUserFeedbackTitle());
-        userFeedback.setUserFeedbackContent(userFeedbackForm.getUserFeedbackContent());
-        userFeedback.setUserFeedbackTime(new Date());
-        userFeedback.setUserFeedbackRecentTime(new Date());
-        userFeedback.setUserFeedbackCurStep(UserBusinessEnum.USER_WAIT_RECEIVED.getMessage());
-        userFeedback.setUserFeedbackUserId(userFeedbackForm.getUserFeedbackUserId());
-        userFeedbackMapper.insert(userFeedback);
-        sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈待接受-用户平台","您有一条新的反馈待接收-用户平台");
+        try {
+            UserFeedback userFeedback = new UserFeedback();
+            userFeedback.setUserFeedbackTitle(userFeedbackForm.getUserFeedbackTitle());
+            userFeedback.setUserFeedbackContent(userFeedbackForm.getUserFeedbackContent());
+            userFeedback.setUserFeedbackTime(new Date());
+            userFeedback.setUserFeedbackRecentTime(new Date());
+            userFeedback.setUserFeedbackCurStep(UserBusinessEnum.USER_WAIT_RECEIVED.getMessage());
+            userFeedback.setUserFeedbackUserId(userFeedbackForm.getUserFeedbackUserId());
+            userFeedbackMapper.insert(userFeedback);
+            sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈待接受-用户平台","您有一条新的反馈待接受-用户平台");
+        }catch (BusException e){
+            throw e;
+        }catch (Exception e){
+            log.error("添加反馈失败", e);
+            throw new RuntimeException("添加反馈失败");
+        }
+
     }
 
     @Override
@@ -80,6 +92,7 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
         queryWrapper1.eq(User::getUserId,userFeedbackUserId);
         User user = userMapper.selectOne(queryWrapper1);
         String userEmail = user.getUserEmail();
+        userFeedbackRecord.setUserFeedbackRecordUserId(user.getUserId());
         userFeedbackRecord.setUserFeedbackRecordTitle(userFeedback.getUserFeedbackTitle());
         userFeedbackRecord.setUserFeedbackRecordContent(userFeedback.getUserFeedbackContent());
         userFeedbackRecord.setUserFeedbackRecordTime(userFeedback.getUserFeedbackTime());
@@ -89,7 +102,6 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
         LambdaQueryWrapper<Admin> queryWrapper2 = new LambdaQueryWrapper<>();
         queryWrapper2.eq(Admin::getAdminId, operationPersonId);
         Admin admin1 = adminMapper.selectOne(queryWrapper2);
-        userFeedbackRecord.setUserFeedbackRecordApprovalPersonName(admin1.getAdminUsername());
         /**
          * TODO
          *                                              ->回复(操作码2)-发送短信，变成已回复
@@ -108,6 +120,11 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
             userFeedback.setUserFeedbackCurStep(UserBusinessEnum.USER_ALREADY_IGNORE.getMessage());
             userFeedbackRecord.setUserFeedbackRecordNewStep(userFeedback.getUserFeedbackCurStep());
         }else if(OperationCode==2){
+            UserFeedbackForm userFeedbackForm = new UserFeedbackForm();
+            userFeedbackForm.setUserFeedbackUserId(1);
+            userFeedbackForm.setUserFeedbackContent(content);
+            userFeedbackForm.setUserFeedbackTitle(title);
+            UserFeedbackFormValidator.validateForUpdate(userFeedbackForm);
             sendCommunicationEmailService.sendHtmlEmailUsallyDefition(userEmail,title, content);
             sendCommunicationEmailService.sendTextEmailUsallyDefition(defaultFromEmail,"您有一条新的反馈处理完毕-用户平台","您有一条新的反馈处理完毕-用户平台");
             userFeedback.setUserFeedbackCurStep(UserBusinessEnum.USER_ALREADY_REPLY.getMessage());
@@ -117,7 +134,9 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
             userFeedback.setUserFeedbackCurStep(UserBusinessEnum.USER_REJECT_REPLY.getMessage());
             userFeedbackRecord.setUserFeedbackRecordNewStep(userFeedback.getUserFeedbackCurStep());
         }
-
+        userFeedback.setUserFeedbackRecentTime(new Date());
+        userFeedbackMapper.updateById(userFeedback);
+        userFeedbackRecordMapper.insert(userFeedbackRecord);
     }
 
     @Override
@@ -153,6 +172,8 @@ public class UserFeedbackServiceImpl implements UserFeedbackService {
                 lambdaQueryWrapper.like(UserFeedback::getUserFeedbackContent, userFeedbackQuery.getUserFeedbackContent().trim());
             }
         }
+
+        lambdaQueryWrapper.orderByDesc(UserFeedback::getUserFeedbackId);
 
         Page<UserFeedback> feedbackPage = userFeedbackMapper.selectPage(
                 new Page<>(page, size),

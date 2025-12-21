@@ -24,5 +24,4 @@ public interface AdminAuthService {
     public String emailLogin(EmailLoginForm emailLoginForm);
 
 
-;
 }

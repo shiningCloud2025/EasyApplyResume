@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 /**
  * @author shiningCloud2025
@@ -28,9 +29,9 @@ public class ResumeTemplateInfoVO {
     private Integer isEnable;
 
     @Schema(description = "简历创建时间")
-    private DateTime createTime;
+    private Date createTime;
 
     @Schema(description = "简历更新时间")
-    private DateTime updateTime;
+    private Date updateTime;
 
 }

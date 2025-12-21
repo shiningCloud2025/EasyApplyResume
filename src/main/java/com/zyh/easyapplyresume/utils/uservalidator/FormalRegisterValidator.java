@@ -173,14 +173,15 @@ public class FormalRegisterValidator {
         }
 
         // 13. 选填：用户地址（省份和城市要么同时为空要么同时不为空，都为空则设置默认值）→ USER_LOCATION_INCOMPLETE(10027)
-        String locationFirst = form.getUserRecruitLocationFirst();
-        String locationSecond = form.getUserRecruitLocationSecond();
-        boolean firstEmpty = locationFirst == null || locationFirst.trim().isEmpty();
-        boolean secondEmpty = locationSecond == null || locationSecond.trim().isEmpty();
-        
+        // 13. 选填：用户地址（省份和城市要么同时为空要么同时不为空，都为空则设置默认值）→ USER_LOCATION_INCOMPLETE(10027)
+        Integer locationFirst = form.getUserRecruitLocationFirst();
+        Integer locationSecond = form.getUserRecruitLocationSecond();
+        boolean firstEmpty = locationFirst == null;
+        boolean secondEmpty = locationSecond == null;
+
         if (firstEmpty && secondEmpty) {
-            form.setUserRecruitLocationFirst("33");
-            form.setUserRecruitLocationSecond("99999");
+            form.setUserRecruitLocationFirst(33);      // Integer 类型
+            form.setUserRecruitLocationSecond(99999);  // Integer 类型
         } else if (firstEmpty || secondEmpty) {
             throw new BusException(UserCodeEnum.USER_LOCATION_INCOMPLETE);
         }

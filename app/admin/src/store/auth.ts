@@ -3,6 +3,7 @@ import { api } from '@/utils/request'
 
 export interface AdminUser {
   adminId: number
+  userId?: number  // SecurityUser中的userId，与adminId相同
   adminAccount: string
   adminUsername: string
   adminEmail: string
@@ -11,8 +12,10 @@ export interface AdminUser {
   adminIntroduce: string
   adminState: number
   adminLoginTime: string
-  adminCreatedTime: string
+  adminCreatedTime?: string
+  roleInfoVOS?: any[]
   roles?: any[]
+  authorities?: any[]
 }
 
 export interface LoginForm {
@@ -39,10 +42,11 @@ export const useAuthStore = defineStore('auth', {
 
   getters: {
     isLoggedIn: (state) => !!state.token,
-    userRoles: (state) => state.user?.roles || [],
+    userRoles: (state) => state.user?.roleInfoVOS || state.user?.roles || [],
     userPermissions: (state) => {
       const permissions = []
-      state.user?.roles?.forEach((role: any) => {
+      const roles = state.user?.roleInfoVOS || state.user?.roles || []
+      roles.forEach((role: any) => {
         if (role.permissions) {
           permissions.push(...role.permissions.map((p: any) => p.permissionUrl))
         }
@@ -125,15 +129,41 @@ export const useAuthStore = defineStore('auth', {
     },
 
     // 获取用户信息
-    async getUserInfo() {
+    async getUserInfo(silent: boolean = false) {
       try {
-        console.log('开始获取用户信息...')
-        const response = await api.post<AdminUser>('/admin/auth/getAdminInfo')
-        console.log('用户信息响应:', response)
-        this.user = response.data
-        return response.data
+        console.log('开始获取用户信息...', silent ? '(静默模式)' : '')
+        // 先获取基本的SecurityUser信息（包含userId）
+        const response = await api.post<any>('/admin/auth/getAdminInfo', {}, { silent })
+        console.log('SecurityUser信息:', response)
+        
+        if (response.data?.userId) {
+          // 使用userId获取完整的管理员信息
+          console.log('获取完整管理员信息，adminId:', response.data.userId)
+          const adminResponse = await api.get<AdminUser>(`/admin/admin/findById?adminId=${response.data.userId}`, { 
+            silent 
+          })
+          console.log('完整管理员信息:', adminResponse)
+          
+          // 合并SecurityUser和AdminUser信息
+          this.user = {
+            ...adminResponse.data,
+            // 确保userId和adminId都存在（有些地方使用userId，有些使用adminId）
+            userId: response.data.userId,
+            // 保留SecurityUser中的权限信息
+            authorities: response.data.authorities
+          } as AdminUser
+          
+          console.log('✅ 用户信息已设置:', this.user)
+          return this.user
+        } else {
+          console.warn('SecurityUser中没有userId')
+          this.user = response.data
+          return response.data
+        }
       } catch (error: any) {
-        console.error('获取用户信息失败:', error)
+        if (!silent) {
+          console.error('获取用户信息失败:', error)
+        }
         // 获取用户信息失败不影响登录，只是没有用户详情
         return null
       }

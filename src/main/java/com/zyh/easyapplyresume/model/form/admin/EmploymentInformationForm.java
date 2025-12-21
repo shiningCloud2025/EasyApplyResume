@@ -48,11 +48,11 @@ public class  EmploymentInformationForm {
 
     @NotNull(message = "招聘地址(省级)不能为空")
     @Schema(description = "招聘地址(省级)")
-    private List<Integer> employmentInformationRecruitLocationFirst;
+    private List<Integer> employmentInformationRecruitLocationFirstList;
 
     @NotNull(message = "招聘地址(市级)不能为空")
     @Schema(description = "招聘地址(市级)")
-    private List<Integer> employmentInformationRecruitLocationSecond;
+    private List<Integer> employmentInformationRecruitLocationSecondList;
 
     @Schema(description = "详细招聘地址")
     private String employmentInformationRecruitLocationDetail;

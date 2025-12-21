@@ -1,5 +1,7 @@
 package com.zyh.easyapplyresume.service.impl.user;
 
+import com.zyh.easyapplyresume.bean.locationenum.CityEnum;
+import com.zyh.easyapplyresume.bean.locationenum.ProvinceEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.UserCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserMapper;
@@ -130,16 +132,19 @@ public class UserAuthServiceImpl implements UserAuthService {
         FormalRegisterValidator.validateForRegister(formalRegisterForm);
         try {
             User user = new User();
-            formalRegisterForm.setUserCreateTime(new Date());
+            formalRegisterForm.setUserCreatedTime(new Date());
             formalRegisterForm.setUserLoginTime(new Date());
             BeanUtils.copyProperties(formalRegisterForm, user);
             user.setUserPassword(passwordEncoder.encode(formalRegisterForm.getUserPassword()));
+            user.setUserRecruitLocationDetail(ProvinceEnum.getById(user.getUserRecruitLocationFirst()).getName()+
+                    CityEnum.getById(user.getUserRecruitLocationSecond()).getName());
             userMapper.insert(user);
             String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
             String redisKey = "user:token:" + user.getUserId();
             stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
             return token;
         } catch (DataAccessException e) {
+            log.error("数据库异常", e);
             throw resolveDbException(e);
         }
     }

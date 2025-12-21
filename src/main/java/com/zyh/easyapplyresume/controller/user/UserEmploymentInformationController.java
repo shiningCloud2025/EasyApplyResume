@@ -23,7 +23,7 @@ public class UserEmploymentInformationController {
     @Autowired
     private EmploymentInformationService employmentInformationService;
 
-    @GetMapping("/getEmploymentInformationPage")
+    @PostMapping("/getEmploymentInformationPage")
     @Operation(summary = "分页查询招聘信息信息")
     public BaseResult<Page<EmploymentInformationPageVO>> getEmploymentInformationPage(@RequestParam(required = false, defaultValue = "10") int size,
                                                                                       @RequestParam(required = false, defaultValue = "1") int page,

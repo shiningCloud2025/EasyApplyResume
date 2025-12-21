@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,13 @@ public class UserFeedbackRecord {
      */
     @TableId(value = "userFeedbackRecord_id", type = IdType.AUTO)
     private Integer userFeedbackRecordId;
-    
+
+    /**
+     * 反馈的用户id
+     */
+    @TableField("userFeedbackRecord_userId")
+    private Integer userFeedbackRecordUserId;
+
     /**
      * 反馈记录标题（最多35字符）
      */
@@ -66,10 +73,5 @@ public class UserFeedbackRecord {
      */
     @TableField("userFeedbackRecord_approvalPersonId")
     private Integer userFeedbackRecordApprovalPersonId;
-    
-    /**
-     * 反馈处理人姓名
-     */
-    @TableField("userFeedbackRecord_approvalPersonName")
-    private String userFeedbackRecordApprovalPersonName;
-}
+
+    }

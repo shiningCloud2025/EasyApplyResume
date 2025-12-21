@@ -155,11 +155,11 @@ public class UserUpdateValidator {
         form.setUserDreamGoodWelfare(welfare);
 
         // 13. 必填：用户地址（省份和城市都必须不为空）→ USER_RECRUIT_LOCATION_EMPTY(10034) / USER_LOCATION_INCOMPLETE(10027)
-        String locationFirst = form.getUserRecruitLocationFirst();
-        String locationSecond = form.getUserRecruitLocationSecond();
-        boolean firstEmpty = locationFirst == null || locationFirst.trim().isEmpty();
-        boolean secondEmpty = locationSecond == null || locationSecond.trim().isEmpty();
-        
+        Integer locationFirst = form.getUserRecruitLocationFirst();
+        Integer locationSecond = form.getUserRecruitLocationSecond();
+        boolean firstEmpty = locationFirst == null;
+        boolean secondEmpty = locationSecond == null;
+
         if (firstEmpty || secondEmpty) {
             throw new BusException(UserCodeEnum.USER_RECRUIT_LOCATION_EMPTY);
         }

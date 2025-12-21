@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Row, Col, Card, Menu, Dropdown, Modal, Form, Input, message, Divider, Tabs } from 'antd'
 import { UserOutlined, LockOutlined, PhoneOutlined, MailOutlined, DownOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
@@ -14,7 +14,14 @@ const WelcomePage: React.FC = () => {
   const [loginModalVisible, setLoginModalVisible] = useState(false)
   const [loading, setLoading] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string>('home')
-  const { login } = useUserStore()
+  const { login, isLoggedIn } = useUserStore()
+
+  // 已登录用户自动跳转到首页
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/home', { replace: true })
+    }
+  }, [isLoggedIn, navigate])
 
   const handleGetStarted = () => {
     navigate('/auth/login')

@@ -55,10 +55,10 @@ public class UserUpdateForm {
     private String userDreamGoodWelfare;
 
     @Schema(description = "用户地址(省级)")
-    private String userRecruitLocationFirst;
+    private Integer userRecruitLocationFirst;
 
     @Schema(description = "用户地址(市级)")
-    private String userRecruitLocationSecond;
+    private Integer userRecruitLocationSecond;
 
     @Schema(description = "用户大学编码")
     private int userUniversityCode;

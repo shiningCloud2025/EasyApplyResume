@@ -18,31 +18,26 @@
       <el-form :model="searchForm" :inline="true" class="search-form">
         <el-form-item label="反馈标题">
           <el-input
-            v-model="searchForm.title"
-            placeholder="请输入标题"
+            v-model="searchForm.userFeedbackTitle"
+            placeholder="请输入反馈标题"
             clearable
             style="width: 240px"
           />
         </el-form-item>
-        <el-form-item label="处理状态">
-          <el-select
-            v-model="searchForm.status"
-            placeholder="请选择"
+        <el-form-item label="反馈内容">
+          <el-input
+            v-model="searchForm.userFeedbackContent"
+            placeholder="请输入反馈内容"
             clearable
-            style="width: 180px"
-          >
-            <el-option label="待处理" value="pending" />
-            <el-option label="待回复" value="waiting_reply" />
-            <el-option label="已回复" value="replied" />
-            <el-option label="已忽视" value="ignored" />
-          </el-select>
+            style="width: 240px"
+          />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSearch">
             <el-icon><Search /></el-icon>
             搜索
           </el-button>
-          <el-button @click="resetSearch">
+          <el-button @click="handleReset">
             <el-icon><RefreshRight /></el-icon>
             重置
           </el-button>
@@ -61,17 +56,34 @@
         :data="feedbackList"
         style="width: 100%"
       >
-        <el-table-column prop="id" label="ID" width="70" />
-        <el-table-column prop="title" label="标题" min-width="200" />
-        <el-table-column prop="userName" label="用户" min-width="120" />
-        <el-table-column prop="status" label="状态" width="100">
+        <el-table-column prop="userFeedbackId" label="反馈ID" width="80" />
+        <el-table-column prop="userFeedbackTitle" label="反馈标题" min-width="200" />
+        <el-table-column label="反馈内容" min-width="150">
           <template #default="{ row }">
-            <el-tag :type="getStatusType(row.status)" size="small">
-              {{ getStatusText(row.status) }}
+            <el-button type="primary" size="small" @click="handleShowContent(row)">
+              详情
+            </el-button>
+          </template>
+        </el-table-column>
+        <el-table-column label="提交时间" width="120">
+          <template #default="{ row }">
+            {{ row.userFeedbackTime ? formatDate(row.userFeedbackTime) : '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="最近处理时间" width="120">
+          <template #default="{ row }">
+            {{ row.userFeedbackRecentTime ? formatDate(row.userFeedbackRecentTime) : '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="userFeedbackCurStep" label="当前状态" width="100" align="center">
+          <template #default="{ row }">
+            <el-tag :type="getStatusType(row.userFeedbackCurStep)">
+              {{ row.userFeedbackCurStep }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="提交时间" min-width="160" />
+        <el-table-column prop="userFeedbackUserId" label="提交人ID" width="100" />
+        <el-table-column prop="userFeedbackUserName" label="提交人姓名" width="120" />
         <el-table-column label="操作" width="280" fixed="right">
           <template #default="{ row }">
             <el-button
@@ -79,24 +91,43 @@
               size="default"
               @click="handleDetail(row)"
             >
-              详情
+              查看
             </el-button>
-            <el-button
-              v-if="row.status === 'pending'"
-              type="primary"
-              size="default"
-              @click="handleProcess(row)"
-            >
-              处理
-            </el-button>
-            <el-button
-              v-if="row.status === 'waiting_reply'"
-              type="success"
-              size="default"
-              @click="handleReply(row)"
-            >
-              回复
-            </el-button>
+            <!-- 待接受状态：显示接受和忽视按钮 -->
+            <template v-if="row.userFeedbackCurStep === '待接受' || row.userFeedbackCurStep === '待接收'">
+              <el-button
+                type="success"
+                size="default"
+                @click="handleProcess(row, 0, '接受')"
+              >
+                接受
+              </el-button>
+              <el-button
+                type="warning"
+                size="default"
+                @click="handleProcess(row, 1, '忽视')"
+              >
+                忽视
+              </el-button>
+            </template>
+            <!-- 待回复状态：显示回复和拒回复按钮 -->
+            <template v-else-if="row.userFeedbackCurStep === '待回复'">
+              <el-button
+                type="primary"
+                size="default"
+                @click="handleProcess(row, 2, '回复')"
+              >
+                回复
+              </el-button>
+              <el-button
+                type="danger"
+                size="default"
+                @click="handleProcess(row, 3, '拒回复')"
+              >
+                拒回复
+              </el-button>
+            </template>
+            <!-- 已回复、忽视、拒回复状态：不显示处理按钮 -->
           </template>
         </el-table-column>
       </el-table>
@@ -114,72 +145,277 @@
         />
       </div>
     </el-card>
+
+    <!-- 反馈详情对话框 -->
+    <el-dialog
+      v-model="detailDialogVisible"
+      title="反馈详情"
+      width="600px"
+      :before-close="() => { detailDialogVisible = false }"
+    >
+      <template #header>
+        <div class="dialog-header">
+          <span class="el-dialog__title">反馈详情</span>
+          <button class="el-dialog__headerbtn" @click="detailDialogVisible = false">
+            <i class="el-dialog__close el-icon el-icon-close"></i>
+          </button>
+        </div>
+      </template>
+      <div class="feedback-detail" v-if="currentFeedback">
+        <el-descriptions :column="1" border>
+          <el-descriptions-item label="反馈ID">
+            {{ currentFeedback.userFeedbackId }}
+          </el-descriptions-item>
+          <el-descriptions-item label="反馈标题">
+            {{ currentFeedback.userFeedbackTitle }}
+          </el-descriptions-item>
+          <el-descriptions-item label="反馈时间">
+            {{ formatDateTime(currentFeedback.userFeedbackTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="最近更新时间">
+            {{ formatDateTime(currentFeedback.userFeedbackRecentTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="当前状态">
+            <el-tag :type="getStatusType(currentFeedback.userFeedbackCurStep)">
+              {{ currentFeedback.userFeedbackCurStep }}
+            </el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="提交人ID">
+            {{ currentFeedback.userFeedbackUserId }}
+          </el-descriptions-item>
+          <el-descriptions-item label="提交人姓名">
+            {{ currentFeedback.userFeedbackUserName }}
+          </el-descriptions-item>
+        </el-descriptions>
+      </div>
+      
+      <template #footer>
+        <el-button @click="detailDialogVisible = false">关闭</el-button>
+      </template>
+    </el-dialog>
+
+    <!-- 查看反馈内容对话框 -->
+    <el-dialog
+      v-model="contentDialogVisible"
+      title="反馈内容"
+      width="800px"
+      :before-close="() => { contentDialogVisible = false }"
+    >
+      <div class="feedback-content">
+        <div class="content-title" v-if="currentContent && currentContent.userFeedbackTitle">
+          <h3>{{ currentContent.userFeedbackTitle }}</h3>
+        </div>
+        <div class="content-body" v-if="currentContent">
+          <div v-html="currentContent.userFeedbackContent"></div>
+        </div>
+      </div>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="contentDialogVisible = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+    <!-- 处理反馈对话框 -->
+    <el-dialog
+      v-model="showProcessDialog"
+      :title="`${processAction} - ${currentFeedback?.userFeedbackTitle || ''}`"
+      width="600px"
+      @close="resetProcessForm"
+    >
+      <el-form
+        ref="processFormRef"
+        :model="processForm"
+        :rules="processRules"
+        label-width="100px"
+      >
+        <el-form-item 
+          label="回复标题" 
+          prop="title"
+        >
+          <el-input 
+            v-model="processForm.title" 
+            placeholder="请输入回复标题"
+          />
+        </el-form-item>
+        
+        <el-form-item 
+          label="回复内容" 
+          prop="content"
+        >
+          <div style="border: 1px solid #dcdfe6; border-radius: 4px;">
+            <Toolbar
+              :editor="editorRef"
+              :defaultConfig="toolbarConfig"
+              mode="default"
+              style="border-bottom: 1px solid #dcdfe6"
+            />
+            <Editor
+              v-model="processForm.content"
+              :defaultConfig="editorConfig"
+              mode="default"
+              style="height: 300px; overflow-y: hidden;"
+              @onCreated="handleEditorCreated"
+            />
+          </div>
+          <div style="font-size: 12px; color: #909399; margin-top: 4px;">
+            支持富文本格式，内容将以HTML格式发送
+          </div>
+        </el-form-item>
+
+        <el-alert
+          type="info"
+          :closable="false"
+          show-icon
+        >
+          <template #title>
+            <span>{{ getOperationDesc(processForm.operationCode) }}</span>
+          </template>
+        </el-alert>
+      </el-form>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="showProcessDialog = false">取消</el-button>
+          <el-button type="primary" @click="handleProcessSubmit" :loading="submitting">
+            确定{{ processAction }}
+          </el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
-import { ElMessage } from 'element-plus'
+import { ref, reactive, onMounted, onBeforeUnmount, shallowRef } from 'vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
+import { formatDateTime } from '@/utils'
+import { userFeedbackApi } from '@/api/admin'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import { IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
+import '@wangeditor/editor/dist/css/style.css'
+import type { UserFeedbackPageVO, UserFeedbackInfoVO, UserFeedbackQuery, UserUpdateFeedbackForm } from '@/types/admin'
+import type { FormInstance } from 'element-plus'
+import { useAuthStore } from '@/store/auth'
 
 // 响应式数据
 const loading = ref(false)
+const submitting = ref(false)
+const showDetailDialog = ref(false)
+const showProcessDialog = ref(false)
+const contentDialogVisible = ref(false)
+const detailDialogVisible = ref(false)
+const currentFeedback = ref<UserFeedbackInfoVO | null>(null)
+const currentContent = ref<UserFeedbackInfoVO | null>(null)
+const processAction = ref('')
 
-const searchForm = reactive({
-  title: '',
-  status: ''
+const searchForm = reactive<UserFeedbackQuery>({
+  userFeedbackTitle: '',
+  userFeedbackContent: ''
 })
 
 const pagination = reactive({
   current: 1,
   size: 10,
-  total: 1
+  total: 0
 })
 
-const feedbackList = ref([
-  {
-    id: 1,
-    title: '简历模板建议',
-    userName: '张三',
-    status: 'pending',
-    createTime: '2024-03-15 10:30'
-  }
-])
+const feedbackList = ref<UserFeedbackPageVO[]>([])
 
-const getStatusType = (status: string) => {
-  const map: Record<string, string> = {
-    'pending': 'warning',
-    'waiting_reply': 'primary',
-    'replied': 'success',
-    'ignored': 'info'
-  }
-  return map[status] || 'info'
+// 处理表单
+const processFormRef = ref<FormInstance>()
+const processForm = reactive<UserUpdateFeedbackForm>({
+  operationCode: 0,
+  title: '',
+  content: ''
+})
+
+// 表单校验规则（动态计算）
+const processRules = reactive({
+  title: [
+    { required: false, message: '请输入处理后的标题', trigger: 'blur' }
+  ],
+  content: [
+    { required: false, message: '请输入处理内容', trigger: 'blur' }
+  ]
+})
+
+// 富文本编辑器配置
+const editorRef = shallowRef()
+const editorConfig: Partial<IEditorConfig> = {
+  placeholder: '请输入回复内容，支持富文本格式...',
+  MENU_CONF: {}
+}
+const toolbarConfig: Partial<IToolbarConfig> = {
+  toolbarKeys: [
+    'headerSelect',
+    'bold',
+    'italic',
+    'underline',
+    'color',
+    'bgColor',
+    '|',
+    'fontSize',
+    'fontFamily',
+    '|',
+    'bulletedList',
+    'numberedList',
+    '|',
+    'justifyLeft',
+    'justifyCenter',
+    'justifyRight',
+    '|',
+    'emotion',
+    'insertLink',
+    '|',
+    'undo',
+    'redo'
+  ]
 }
 
-const getStatusText = (status: string) => {
-  const map: Record<string, string> = {
-    'pending': '待处理',
-    'waiting_reply': '待回复',
-    'replied': '已回复',
-    'ignored': '已忽视'
+// 富文本编辑器创建回调
+const handleEditorCreated = (editor: any) => {
+  editorRef.value = editor
+  console.log('📝 富文本编辑器创建成功')
+}
+
+// 获取状态标签类型
+const getStatusType = (status: string) => {
+  const typeMap: Record<string, string> = {
+    '待接收': 'warning',
+    '待接受': 'warning',  // 兼容两种写法
+    '待回复': 'primary',
+    '已回复': 'success',
+    '忽视': 'info',
+    '拒回复': 'danger'
   }
-  return map[status] || status
+  return typeMap[status] || 'info'
+}
+
+// 格式化日期（只显示日期，不显示时间）
+const formatDate = (dateStr: string | Date) => {
+  if (!dateStr) return '-'
+  const date = new Date(dateStr)
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
 }
 
 // 获取反馈列表
 const getFeedbackList = async () => {
   loading.value = true
   try {
-    // TODO: 调用实际API
-    // const response = await feedbackApi.getUserFeedbackPage(
-    //   pagination.current,
-    //   pagination.size,
-    //   searchForm
-    // )
-    // feedbackList.value = response.data.records
-    // pagination.total = response.data.total
+    const response = await userFeedbackApi.getUserFeedbackPage(
+      pagination.size,
+      pagination.current,
+      searchForm
+    )
+    feedbackList.value = response.data.records
+    pagination.total = response.data.total
   } catch (error) {
-    console.error('获取反馈列表失败:', error)
+    console.error('获取用户反馈列表失败:', error)
     ElMessage.error('加载数据失败')
   } finally {
     loading.value = false
@@ -193,9 +429,9 @@ const handleSearch = () => {
 }
 
 // 重置搜索
-const resetSearch = () => {
-  searchForm.title = ''
-  searchForm.status = ''
+const handleReset = () => {
+  searchForm.userFeedbackTitle = ''
+  searchForm.userFeedbackContent = ''
   pagination.current = 1
   getFeedbackList()
 }
@@ -217,23 +453,205 @@ const handleCurrentChange = (current: number) => {
 }
 
 // 查看详情
-const handleDetail = (row: any) => {
-  ElMessage.info('查看用户反馈详情')
+const handleDetail = async (row: UserFeedbackPageVO) => {
+  try {
+    const response = await userFeedbackApi.getUserFeedbackDetail(row.userFeedbackId)
+    currentFeedback.value = response.data
+    detailDialogVisible.value = true
+  } catch (error) {
+    console.error('获取反馈详情失败:', error)
+    ElMessage.error('获取详情失败')
+  }
+}
+
+// 查看反馈内容
+const handleShowContent = async (row: UserFeedbackPageVO) => {
+  try {
+    const response = await userFeedbackApi.getUserFeedbackDetail(row.userFeedbackId)
+    currentContent.value = response.data
+    contentDialogVisible.value = true
+  } catch (error) {
+    console.error('获取反馈内容失败:', error)
+    ElMessage.error('获取内容失败')
+  }
 }
 
 // 处理反馈
-const handleProcess = (row: any) => {
-  ElMessage.success('处理反馈')
+const handleProcess = async (row: UserFeedbackPageVO, operationCode: number, actionName: string) => {
+  try {
+    // 操作码2（回复）需要弹出对话框填写内容
+    if (operationCode === 2) {
+      const response = await userFeedbackApi.getUserFeedbackDetail(row.userFeedbackId)
+      currentFeedback.value = row
+      processAction.value = actionName
+      processForm.operationCode = operationCode
+      processForm.title = response.data.userFeedbackTitle
+      processForm.content = ''
+      
+      // 设置为必填
+      processRules.title[0].required = true
+      processRules.content[0].required = true
+      
+      showProcessDialog.value = true
+      
+      // 等待对话框打开后，清空富文本编辑器
+      setTimeout(() => {
+        if (editorRef.value) {
+          editorRef.value.clear()
+        }
+      }, 100)
+    } else {
+      // 其他操作（接受0、忽视1、拒回复3）直接确认后执行
+      await ElMessageBox.confirm(
+        `确定要${actionName}这条反馈吗？`,
+        '确认操作',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      )
+      
+      // 获取当前登录管理员ID
+      const authStore = useAuthStore()
+      const currentUser = authStore.user
+      if (!currentUser?.adminId && !currentUser?.userId) {
+        ElMessage.error('未获取到当前用户信息，请重新登录')
+        return
+      }
+      
+      const operationPersonId = currentUser.adminId || currentUser.userId
+      
+      console.log('📤 [反馈处理] 直接提交参数:', {
+        feedbackId: row.userFeedbackId,
+        operationCode: operationCode,
+        operationName: actionName,
+        title: '',
+        content: '',
+        operationPersonId
+      })
+      
+      // 直接调用API
+      console.log('🚀 [反馈处理] 准备调用 updateUserFeedbackStep 接口...')
+      const result = await userFeedbackApi.updateUserFeedbackStep(
+        row.userFeedbackId,
+        operationCode,
+        '',  // title为空
+        '',  // content为空
+        operationPersonId
+      )
+      console.log('✅ [反馈处理] 接口调用成功，返回结果:', result)
+      
+      ElMessage.success(`${actionName}成功`)
+      console.log('🔄 [反馈处理] 刷新列表...')
+      getFeedbackList()
+    }
+  } catch (error: any) {
+    if (error === 'cancel') {
+      // 用户取消操作
+      return
+    }
+    console.error('❌ [反馈处理] 处理失败:', error)
+    ElMessage.error(error?.message || '操作失败，请重试')
+  }
 }
 
-// 回复反馈
-const handleReply = (row: any) => {
-  ElMessage.success('回复反馈')
+// 获取操作说明
+const getOperationDesc = (code: number) => {
+  const descMap: Record<number, string> = {
+    0: '接受反馈后，状态将变为"待回复"，并会发送短信通知',
+    1: '忽视反馈后，状态将变为"忽视"',
+    2: '回复反馈后，状态将变为"已回复"，并会发送短信通知',
+    3: '拒绝回复后，状态将变为"拒回复"'
+  }
+  return descMap[code] || ''
+}
+
+// 提交处理
+const handleProcessSubmit = async () => {
+  if (!processFormRef.value || !currentFeedback.value) return
+  
+  try {
+    // 只有操作码2（回复）需要验证
+    if (processForm.operationCode === 2) {
+      await processFormRef.value.validate()
+    }
+    
+    // 获取当前登录管理员ID
+    const authStore = useAuthStore()
+    const currentUser = authStore.user
+    if (!currentUser?.adminId && !currentUser?.userId) {
+      ElMessage.error('未获取到当前用户信息，请重新登录')
+      return
+    }
+    
+    const operationPersonId = currentUser.adminId || currentUser.userId
+    
+    submitting.value = true
+    
+    console.log('📤 [反馈处理] 提交参数:', {
+      feedbackId: currentFeedback.value.userFeedbackId,
+      operationCode: processForm.operationCode,
+      operationName: processAction.value,
+      title: processForm.title || '',
+      content: processForm.content || '',
+      operationPersonId
+    })
+    
+    await userFeedbackApi.updateUserFeedbackStep(
+      currentFeedback.value.userFeedbackId,
+      processForm.operationCode,
+      processForm.title || '',
+      processForm.content || '',
+      operationPersonId
+    )
+    
+    ElMessage.success(`${processAction.value}成功`)
+    showProcessDialog.value = false
+    getFeedbackList()
+  } catch (error: any) {
+    console.error('❌ [反馈处理] 处理失败:', error)
+    if (error?.errors) {
+      // 表单验证失败
+      return
+    }
+    ElMessage.error(error?.message || '处理失败，请检查网络或重试')
+  } finally {
+    submitting.value = false
+  }
+}
+
+// 重置处理表单
+const resetProcessForm = () => {
+  if (processFormRef.value) {
+    processFormRef.value.resetFields()
+  }
+  
+  // 清空富文本编辑器内容
+  if (editorRef.value) {
+    editorRef.value.clear()
+  }
+  
+  currentFeedback.value = null
+  processAction.value = ''
+  Object.assign(processForm, {
+    operationCode: 0,
+    title: '',
+    content: ''
+  })
 }
 
 // 组件挂载
 onMounted(() => {
-  // getFeedbackList()
+  getFeedbackList()
+})
+
+// 组件卸载时销毁编辑器
+onBeforeUnmount(() => {
+  const editor = editorRef.value
+  if (editor) {
+    editor.destroy()
+  }
 })
 </script>
 
@@ -297,30 +715,31 @@ onMounted(() => {
     }
   }
 
-  .pagination-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-top: 24px;
-  }
-}
-
-// 响应式设计
-@media (max-width: 768px) {
-  .user-feedback-manage {
-    .page-header {
-      flex-direction: column;
-      gap: 16px;
+  .feedback-content {
+    padding: 20px;
+    
+    .content-title {
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+      
+      h3 {
+        margin: 0;
+        font-size: 20px;
+        color: #333;
+      }
     }
-
-    .header-actions {
-      width: 100%;
-      justify-content: flex-start;
-    }
-
-    .search-form {
-      .el-form-item {
-        width: 100%;
-        margin-bottom: 16px;
+    
+    .content-body {
+      line-height: 1.6;
+      
+      :deep(img) {
+        max-width: 100%;
+        height: auto;
+      }
+      
+      :deep(p) {
+        margin: 10px 0;
       }
     }
   }

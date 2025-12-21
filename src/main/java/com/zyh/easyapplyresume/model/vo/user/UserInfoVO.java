@@ -49,6 +49,9 @@ public class UserInfoVO {
     @Schema(description = "用户目标岗位")
     private int userDreamPosition;
 
+    @Schema(description = "用户目标岗位名称")
+    private String userDreamPositionName;
+
     @Schema(description = "用户希望的最低月薪")
     private BigDecimal userDreamMinMonthSalary;
 
@@ -60,5 +63,27 @@ public class UserInfoVO {
 
     @Schema(description = "用户希望的福利待遇")
     private String userDreamGoodWelfare;
+
+
+    @Schema(description = "用户地址(省级)")
+    private Integer userRecruitLocationFirst;
+
+    @Schema(description = "用户地址(省级)名称")
+    private String userRecruitLocationFirstName;
+
+    @Schema(description = "用户地址(市级)")
+    private Integer userRecruitLocationSecond;
+
+    @Schema(description = "用户地址(市级)名称")
+    private String userRecruitLocationSecondName;
+
+    @Schema(description = "用户详细地址")
+    private String userRecruitLocationDetail;
+
+    @Schema(description = "用户大学编码")
+    private int userUniversityCode;
+
+    @Schema(description = "用户大学编码名称")
+    private String userUniversityCodeName;
 
 }

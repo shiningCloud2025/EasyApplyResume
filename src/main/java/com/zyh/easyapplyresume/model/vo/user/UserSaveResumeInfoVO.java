@@ -19,6 +19,9 @@ public class UserSaveResumeInfoVO {
     @Schema(description = "简历行业")
     private Integer userSaveResumeIndustry;
 
+    @Schema(description = "简历行业名称")
+    private String userSaveResumeIndustryName;
+
     @Schema(description = "简历React组件代码")
     private String userSaveResumeResumeReactCode;
 

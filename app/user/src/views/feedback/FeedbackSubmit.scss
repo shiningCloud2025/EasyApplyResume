@@ -1,0 +1,173 @@
+.feedback-submit {
+  min-height: calc(100vh - 200px);
+  padding: 40px 24px;
+  background: linear-gradient(to bottom, #f9fafb, #ffffff);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  .feedback-card {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    overflow: visible;
+    padding: 40px;
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid #f3f4f6;
+
+      .header-icon {
+        width: 72px;
+        height: 72px;
+        background: linear-gradient(135deg, #1890ff 0%, #69c0ff 100%);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 24px rgba(24, 144, 255, 0.3);
+
+        .anticon {
+          color: white !important;
+        }
+      }
+
+      .header-text {
+        h1 {
+          font-size: 28px;
+          font-weight: 700;
+          color: #1f2937;
+          margin: 0 0 8px 0;
+        }
+
+        p {
+          font-size: 15px;
+          color: #6b7280;
+          margin: 0;
+        }
+      }
+    }
+
+    .tip-alert {
+      margin-bottom: 32px;
+      border-radius: 12px;
+    }
+
+    .feedback-form {
+      .ant-form-item-label > label {
+        font-size: 15px;
+        font-weight: 600;
+        color: #374151;
+      }
+
+      .ant-input,
+      .ant-input-textarea textarea {
+        border-radius: 8px;
+        font-size: 14px;
+
+        &:focus,
+        &:hover {
+          border-color: #1890ff;
+        }
+      }
+
+      .ant-input-lg {
+        padding: 12px 16px;
+      }
+
+      .ant-input-textarea textarea {
+        padding: 16px;
+      }
+    }
+
+    .features-section {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid #f3f4f6;
+
+      .feature-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 16px;
+        background: #f9fafb;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: #f0f7ff;
+          transform: translateY(-2px);
+        }
+
+        .feature-icon {
+          font-size: 24px;
+        }
+
+        .feature-text {
+          h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0 0 4px 0;
+          }
+
+          p {
+            font-size: 12px;
+            color: #6b7280;
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    .login-required {
+      text-align: center;
+      padding: 60px 20px;
+
+      h2 {
+        font-size: 20px;
+        color: #1f2937;
+        margin: 20px 0 8px;
+      }
+
+      p {
+        color: #6b7280;
+        margin-bottom: 24px;
+      }
+    }
+  }
+}
+
+// 响应式适配
+@media (max-width: 768px) {
+  .feedback-submit {
+    padding: 20px 16px;
+
+    .feedback-card {
+      padding: 24px;
+
+      .page-header {
+        flex-direction: column;
+        text-align: center;
+
+        .header-text {
+          h1 {
+            font-size: 22px;
+          }
+        }
+      }
+
+      .features-section {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}

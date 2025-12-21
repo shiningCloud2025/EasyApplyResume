@@ -58,8 +58,33 @@ public enum UserCodeEnum {
     // ==================== 用户简历相关异常 (10036-10050) ====================
     USER_SAVE_RESUME_NOT_DAYU_FIVE(10036, "用户保存的简历不能超过5个"),
 
+
+
+    // ===================== 用户反馈相关业务(10051-10080) ====================
+    // 用户反馈相关错误码（10051起）
+    USER_FEEDBACK_TITLE_NOT_NULL(10051, "反馈标题不能为空"),
+    USER_FEEDBACK_CONTENT_NOT_NULL(10052, "反馈内容不能为空"),
+    USER_FEEDBACK_CONTENT_EMPTY(10053, "反馈内容不能为空"),
+    USER_FEEDBACK_USER_ID_EMPTY(10054, "提交反馈的用户ID不能为空"),
+    USER_FEEDBACK_TITLE_TOO_LONG(10055, "反馈标题不能超过35个字符"),
+
+    // ===================== 用户发送简历给HR相关业务(10081-10099) ====================
+
+    // 简历发送给HR专用枚举（从10081开始连续分配）
+    USER_RESUME_EMAIL_EMPTY(10081, "目标邮箱不能为空"),
+    USER_RESUME_EMAIL_FORMAT_ERROR(10082, "邮箱格式不正确"),
+    USER_RESUME_EMAIL_TOO_LONG(10083, "邮箱长度不能超过25个字符"),
+    USER_RESUME_TITLE_EMPTY(10084, "标题不能为空"),
+    USER_RESUME_TITLE_TOO_LONG(10085, "标题长度不能超过35个字符"),
+    USER_RESUME_CONTENT_EMPTY(10086, "内容不能为空"),
+    USER_RESUME_FILE_TOO_LARGE(10087, "简历文件大小不能超过3MB"),// 原10086改为10087，删除文件空枚举
+    USER_RESUME_SEND_FAIL(10088, "简历发送失败"),
+
+
     // ==================== 数据库异常 (10999) ====================
-    DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION(10999, "数据库异常转换失败")
+    DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION(10999, "数据库异常转换失败"),
+    // ==================== 通用参数异常  ====================
+    COMMON_PARAM_EMPTY(11999, "参数不能为空");
 
     ;
 

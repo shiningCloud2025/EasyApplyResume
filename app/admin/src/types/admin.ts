@@ -53,8 +53,8 @@ export interface AdminInfoVO {
   adminIntroduce: string
   adminState: number
   adminLoginTime: string
-  adminCreatedTime: string
-  roles?: RoleInfoVO[]
+  adminCreatedTime?: string
+  roleInfoVOS?: RoleInfoVO[]
 }
 
 // 管理员表单
@@ -197,125 +197,149 @@ export interface JobAdviceArticleQuery {
 export interface RecruitPositionInfoVO {
   recruitPositionId: number
   recruitPositionName: string
-  recruitPositionSalary: string
-  recruitPositionIntroduce: string
-  recruitPositionRequirement: string
-  recruitPositionState: number
-  recruitPositionCreatedTime: string
-  recruitPositionUpdatedTime: string
+  recruitPositionIndustryCode: number
+  recruitPositionIndustryName?: string
+  minMonthSalary: number
+  maxMonthSalary: number
+  weekWorkDayNum: number
+  goodWelfare?: string
+  createdTime?: string
+  updatedTime?: string
 }
 
 // 招聘岗位表单
 export interface RecruitPositionForm {
   recruitPositionId?: number
   recruitPositionName: string
-  recruitPositionSalary: string
-  recruitPositionIntroduce: string
-  recruitPositionRequirement: string
-  recruitPositionState?: number
+  recruitPositionIndustryCode: number
+  minMonthSalary: number
+  maxMonthSalary: number
+  weekWorkDayNum: number
+  goodWelfare?: string
 }
 
 // 招聘岗位查询
 export interface RecruitPositionQuery {
   recruitPositionName?: string
-  recruitPositionSalary?: string
-  recruitPositionState?: number
+  recruitPositionIndustryCode?: number
+  minMonthSalary?: number
+  maxMonthSalary?: number
+  weekWorkDayNum?: number
 }
 
 // 招聘岗位分页VO
 export interface RecruitPositionPageVO {
   recruitPositionId: number
   recruitPositionName: string
-  recruitPositionSalary: string
-  recruitPositionIntroduce: string
-  recruitPositionState: number
-  recruitPositionCreatedTime: string
+  recruitPositionIndustryCode: number
+  recruitPositionIndustryName?: string
+  minMonthSalary: number
+  maxMonthSalary: number
+  weekWorkDayNum: number
+  goodWelfare?: string
+  createdTime?: string
 }
 
-// 招聘信息信息VO
+// 招聘信息详情VO
 export interface EmploymentInformationInfoVO {
   employmentInformationId: number
-  employmentInformationTitle: string
-  employmentInformationCompany: string
-  employmentInformationSalary: string
-  employmentInformationCity: string
-  employmentInformationExperience: string
-  employmentInformationEducation: string
-  employmentInformationSkill: string
-  employmentInformationIntroduce: string
-  employmentInformationWelfare: string
-  employmentInformationState: number
-  employmentInformationCreatedTime: string
+  employmentInformationCode?: number
+  employmentInformationCompanyName: string
+  employmentInformationIndustryCategoriesName?: string
+  employmentInformationCompanyType: number
+  employmentInformationBatch: number
+  employmentInformationRecruitPosition: number
+  employmentInformationRecruitObject: number
+  employmentInformationRecruitLocationFirstName?: string[]
+  employmentInformationRecruitLocationSecondName?: string[]
+  employmentInformationRecruitLocationDetail?: string[]
+  employmentInformationStartTime?: string
+  employmentInformationStopTime: string
+  employmentInformationUpdatedTime?: string
+  employmentInformationOnlineApplicationStatus: string
+  employmentInformationOfficialAnnouncement?: string
+  employmentInformationSubmissionWay: string
+  employmentInformationEmployeeReferralCode?: string
 }
 
 // 招聘信息表单
 export interface EmploymentInformationForm {
   employmentInformationId?: number
-  employmentInformationTitle: string
-  employmentInformationCompany: string
-  employmentInformationSalary: string
-  employmentInformationCity: string
-  employmentInformationExperience: string
-  employmentInformationEducation: string
-  employmentInformationSkill: string
-  employmentInformationIntroduce: string
-  employmentInformationWelfare: string
-  employmentInformationState?: number
+  employmentInformationCode?: number
+  employmentInformationCompanyName: string
+  employmentInformationIndustryCategories: number
+  employmentInformationCompanyType: number
+  employmentInformationBatch: number
+  employmentInformationRecruitPosition: number
+  employmentInformationRecruitObject: number
+  employmentInformationRecruitLocationFirstList: number[]
+  employmentInformationRecruitLocationSecondList: number[]
+  employmentInformationRecruitLocationDetail?: string
+  employmentInformationStopTime: string
+  employmentInformationOnlineApplicationStatus: string
+  employmentInformationOfficialAnnouncement?: string
+  employmentInformationSubmissionWay: string
+  employmentInformationEmployeeReferralCode?: string
 }
 
 // 招聘信息查询
 export interface EmploymentInformationQuery {
-  employmentInformationTitle?: string
-  employmentInformationCompany?: string
-  employmentInformationCity?: string
-  employmentInformationState?: number
+  employmentInformationCompanyName?: string
+  employmentInformationIndustryCategories?: number
+  employmentInformationCompanyType?: number
+  employmentInformationBatch?: number
+  employmentInformationRecruitPosition?: number
+  employmentInformationRecruitObject?: number
+  employmentInformationOnlineApplicationStatus?: string
 }
 
 // 招聘信息分页VO
 export interface EmploymentInformationPageVO {
   employmentInformationId: number
-  employmentInformationTitle: string
-  employmentInformationCompany: string
-  employmentInformationSalary: string
-  employmentInformationCity: string
-  employmentInformationState: number
-  employmentInformationCreatedTime: string
+  employmentInformationCompanyName: string
+  employmentInformationIndustryCategoriesName?: string
+  employmentInformationCompanyType: number
+  employmentInformationBatch: number
+  employmentInformationRecruitPosition: number
+  employmentInformationRecruitObject: number
+  employmentInformationRecruitLocationFirstName?: string[]
+  employmentInformationRecruitLocationSecondName?: string[]
+  employmentInformationRecruitLocationDetail?: string[]
+  employmentInformationStartTime?: string
+  employmentInformationStopTime: string
+  employmentInformationUpdatedTime?: string
+  employmentInformationOnlineApplicationStatus: string
+  employmentInformationOfficialAnnouncement?: string
+  employmentInformationSubmissionWay: string
+  employmentInformationEmployeeReferralCode?: string
 }
 
 // 行业Map信息VO
 export interface IndustryMapInfoVO {
-  industryMapId: number
-  industryMapName: string
-  industryMapIntroduce: string
-  industryMapParentId: number
-  industryMapLevel: number
-  industryMapCreatedTime: string
+  industryMapIndustryCode: number
+  industryMapIndustryName: string
+  createdTime: string
+  updatedTime: string
 }
 
 // 行业Map表单
 export interface IndustryMapForm {
-  industryMapId?: number
-  industryMapName: string
-  industryMapIntroduce: string
-  industryMapParentId?: number
-  industryMapLevel?: number
+  industryMapIndustryCode?: number
+  industryMapIndustryName: string
 }
 
 // 行业Map查询
 export interface IndustryMapQuery {
-  industryMapName?: string
-  industryMapParentId?: number
-  industryMapLevel?: number
+  industryMapIndustryCode?: number
+  industryMapIndustryName?: string
 }
 
 // 行业Map分页VO
 export interface IndustryMapPageVO {
-  industryMapId: number
-  industryMapName: string
-  industryMapIntroduce: string
-  industryMapParentId: number
-  industryMapLevel: number
-  industryMapCreatedTime: string
+  industryMapIndustryCode: number
+  industryMapIndustryName: string
+  createdTime: string
+  updatedTime: string
 }
 
 // 管理员反馈查询
@@ -357,6 +381,190 @@ export interface AdminFeedbackForm {
 
 // 管理员反馈更新表单
 export interface AdminUpdateFeedbackForm {
+  operationCode: number
   title: string
   content: string
+}
+
+// ============= 管理员反馈记录（FeedbackRecord）=============
+
+// 管理员反馈记录查询条件
+export interface AdminFeedbackRecordQuery {
+  adminFeedbackRecordName?: string          // 反馈人姓名
+  adminFeedbackRecordTitle?: string         // 反馈标题
+  adminFeedbackRecordApprovalPersonName?: string  // 处理人姓名
+}
+
+// 管理员反馈记录分页VO
+export interface AdminFeedbackRecordPageVO {
+  adminFeedbackRecordId: number             // 反馈记录ID
+  adminFeedbackRecordAdminId: number        // 反馈管理员ID
+  adminFeedbackRecordName: string           // 反馈人
+  adminFeedbackRecordTitle: string          // 标题
+  adminFeedbackRecordContent: string        // 内容
+  adminFeedbackRecordTime: Date             // 创建时间
+  adminFeedbackRecordCurrentStepSolveTime: Date  // 处理时间
+  adminFeedbackRecordOldStep: string        // 原节点
+  adminFeedbackRecordNewStep: string        // 现阶段
+  adminFeedbackRecordApprovalPersonId: number    // 处理人ID
+  adminFeedbackRecordApprovalPersonName: string  // 处理人姓名
+}
+
+// 管理员反馈记录详情VO
+export interface AdminFeedbackRecordInfoVO {
+  adminFeedbackRecordId: number             // 反馈记录ID
+  adminFeedbackRecordAdminId: number        // 反馈管理员ID
+  adminFeedbackRecordName: string           // 反馈人
+  adminFeedbackRecordTitle: string          // 标题
+  adminFeedbackRecordContent: string        // 内容
+  adminFeedbackRecordTime: Date             // 创建时间
+  adminFeedbackRecordCurrentStepSolveTime: Date  // 处理时间
+  adminFeedbackRecordOldStep: string        // 原节点
+  adminFeedbackRecordNewStep: string        // 现阶段
+  adminFeedbackRecordApprovalPersonId: number    // 处理人ID
+  adminFeedbackRecordApprovalPersonName: string  // 处理人姓名
+}
+
+// 省份Map
+export interface ProvinceMap {
+  provinceMapPid: number
+  provinceMapPname: string
+}
+
+// 城市Map
+export interface CityMap {
+  cityMapCid: number
+  cityMapCname: string
+  cityMapPid: number
+}
+
+// 区县Map
+export interface AreaMap {
+  areaMapAid: number
+  areaMapAname: string
+  areaMapCid: number
+}
+
+// ============= 用户反馈（UserFeedback）=============
+// 用户反馈查询
+export interface UserFeedbackQuery {
+  userFeedbackTitle?: string
+  userFeedbackContent?: string
+}
+
+// 用户反馈分页VO
+export interface UserFeedbackPageVO {
+  userFeedbackId: number
+  userFeedbackTitle: string
+  userFeedbackContent: string
+  userFeedbackTime: string
+  userFeedbackRecentTime: string
+  userFeedbackCurStep: string
+  userFeedbackUserId: number
+  userFeedbackUserName: string
+}
+
+// 用户反馈详情VO
+export interface UserFeedbackInfoVO {
+  userFeedbackId: number
+  userFeedbackTitle: string
+  userFeedbackContent: string
+  userFeedbackTime: string
+  userFeedbackRecentTime: string
+  userFeedbackCurStep: string
+  userFeedbackUserId: number
+  userFeedbackUserName: string
+}
+
+// 用户反馈更新表单
+export interface UserUpdateFeedbackForm {
+  operationCode: number
+  title: string
+  content: string
+}
+
+// ============= 用户反馈记录（UserFeedbackRecord）=============
+
+// 用户反馈记录查询条件
+export interface UserFeedbackRecordQuery {
+  userFeedbackRecordName?: string          // 反馈人姓名
+  userFeedbackRecordTitle?: string         // 反馈标题
+  userFeedbackRecordApprovalPersonName?: string  // 处理人姓名
+}
+
+// 用户反馈记录分页VO
+export interface UserFeedbackRecordPageVO {
+  userFeedbackRecordId: number             // 反馈记录ID
+  userFeedbackRecordUserId: number         // 反馈的用户ID
+  userFeedbackRecordName: string           // 反馈人
+  userFeedbackRecordTitle: string          // 标题
+  userFeedbackRecordContent: string        // 内容
+  userFeedbackRecordTime: string           // 创建时间
+  userFeedbackRecordCurrentStepSolveTime: string  // 处理时间
+  userFeedbackRecordOldStep: string        // 原节点
+  userFeedbackRecordNewStep: string        // 现阶段
+  userFeedbackRecordApprovalPersonId: number    // 处理人ID
+  adminFeedbackRecordApprovalPersonName: string  // 处理人姓名
+}
+
+// 用户反馈记录详情VO
+export interface UserFeedbackRecordInfoVO {
+  userFeedbackRecordId: number             // 反馈记录ID
+  userFeedbackRecordUserId: number         // 反馈的用户ID
+  userFeedbackRecordName: string           // 反馈人
+  userFeedbackRecordTitle: string          // 标题
+  userFeedbackRecordContent: string        // 内容
+  userFeedbackRecordTime: string           // 创建时间
+  userFeedbackRecordCurrentStepSolveTime: string  // 处理时间
+  userFeedbackRecordOldStep: string        // 原节点
+  userFeedbackRecordNewStep: string        // 现阶段
+  userFeedbackRecordApprovalPersonId: number    // 处理人ID
+  adminFeedbackRecordApprovalPersonName: string  // 处理人姓名
+}
+
+// ============= 系统删除简历（UserDeleteResumeBySystem）=============
+
+// 系统删除简历查询条件
+export interface UserDeleteResumeQuery {
+  userDeleteResumeResumeName?: string      // 简历名称
+  userDeleteResumeIndustryName?: string    // 行业名称
+  userDeleteResumeUserId?: number          // 用户ID
+}
+
+// 系统删除简历分页VO
+export interface UserDeleteResumeBySystemPageVO {
+  userDeleteResumeBySystemId: number       // 系统删除简历ID
+  userDeleteResumeBySystemResumeName: string  // 简历名称
+  userDeleteResumeBySystemIndustryName: string  // 行业
+  userDeleteResumeBySystemResumeReactCode: string  // React组件代码
+  userDeleteResumeBySystemCreatedTime: string  // 创建时间
+  userDeleteResumeBySystemUpdatedTime: string  // 更新时间
+  userDeleteResumeBySystemSortedNum: number  // 排序序号
+  userDeleteResumeBySystemUserId: number   // 所属用户ID
+  userDeleteResumeBySystemRecycleTime: string  // 回收时间
+}
+
+// 系统删除简历详情VO
+export interface UserDeleteResumeBySystemInfoVO {
+  userDeleteResumeBySystemId: number       // 系统删除简历ID
+  userDeleteResumeBySystemResumeName: string  // 简历名称
+  userDeleteResumeBySystemIndustryName: string  // 行业
+  userDeleteResumeBySystemResumeReactCode: string  // React组件代码
+  userDeleteResumeBySystemCreatedTime: string  // 创建时间
+  userDeleteResumeBySystemUpdatedTime: string  // 更新时间
+  userDeleteResumeBySystemSortedNum: number  // 排序序号
+  userDeleteResumeBySystemUserId: number   // 所属用户ID
+  userDeleteResumeBySystemRecycleTime: string  // 回收时间
+}
+
+// 系统删除简历详情VO（旧版本，保持兼容）
+export interface UserDeleteResumeInfoVO {
+  userDeleteResumeResumeName: string       // 简历名称
+  userDeleteResumeIndustryName: string     // 行业
+  userDeleteResumeResumeReactCode: string  // React组件代码
+  userDeleteResumeCreatedTime: string      // 创建时间
+  userDeleteResumeUpdatedTime: string      // 更新时间
+  userDeleteResumeSortedNum: number        // 排序序号
+  userDeleteResumeUserId: number           // 所属用户ID
+  userDeleteResumeDeleteTime: string       // 删除时间
 }

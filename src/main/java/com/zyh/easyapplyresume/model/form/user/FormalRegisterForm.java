@@ -43,7 +43,7 @@ public class FormalRegisterForm {
     private String userIntroduce;
 
     @Schema(description = "用户创建时间")
-    private Date userCreateTime;
+    private Date userCreatedTime;
 
     @Schema(description = "用户最后登录时间")
     private Date userLoginTime;
@@ -64,10 +64,10 @@ public class FormalRegisterForm {
     private String userDreamGoodWelfare;
 
     @Schema(description = "用户地址(省级)")
-    private String userRecruitLocationFirst;
+    private Integer userRecruitLocationFirst;
 
     @Schema(description = "用户地址(市级)")
-    private String userRecruitLocationSecond;
+    private Integer userRecruitLocationSecond;
 
     @Schema(description = "用户大学编码")
     private int userUniversityCode;

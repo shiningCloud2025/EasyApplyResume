@@ -8,6 +8,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Date;
+
 /**
  * 简历模板实体类-通用
  * @author shiningCloud2025
@@ -46,12 +49,12 @@ public class ResumeTemplate {
      * 简历创建时间
      */
     @TableField("resumeTemplate_createdTime")
-    private DateTime resumeTemplateCreatedTime;
+    private Date resumeTemplateCreatedTime;
     /**
      * 简历修改时间
      */
     @TableField("resumeTemplate_updatedTime")
-    private DateTime resumeTemplateUpdatedTime;
+    private Date resumeTemplateUpdatedTime;
     /**
      * 逻辑删除标识
      */

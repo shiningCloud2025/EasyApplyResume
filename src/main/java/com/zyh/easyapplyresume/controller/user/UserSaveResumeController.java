@@ -1,6 +1,8 @@
 package com.zyh.easyapplyresume.controller.user;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
+import com.zyh.easyapplyresume.model.query.user.UserQuery;
+import com.zyh.easyapplyresume.model.query.user.UserSaveResumeQuery;
 import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
 import com.zyh.easyapplyresume.service.user.UserSaveResumeService;
@@ -10,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * 用户保存简历控制器-用户端
+ * @author shiningCloud2025
+ */
 @RestController
 @RequestMapping("/user/saveResume")
 @Tag(name="用户保存简历控制器-用户端")
@@ -19,10 +24,11 @@ public class UserSaveResumeController {
     @Autowired
     private UserSaveResumeService userSaveResumeService;
 
-    @GetMapping("/getUserSaveResumeInfoByUserId")
+    @PostMapping("/getUserSaveResumeInfoByUserId")
     @Operation(summary = "根据用户id查询用户保存的所有简历")
-    public BaseResult<List<UserSaveResumeInfoVO>> getUserSaveResumeInfoByUserId(@RequestParam(required = true,value ="userId") Integer userId){
-        return BaseResult.ok(userSaveResumeService.getUserSaveResumeInfoByUserId(userId));
+    public BaseResult<List<UserSaveResumeInfoVO>> getUserSaveResumeInfoByUserId(@RequestParam(required = true,value ="userId") Integer userId,
+                                                                                @RequestBody(required = false) UserSaveResumeQuery userSaveResumeQuery){
+        return BaseResult.ok(userSaveResumeService.getUserSaveResumeInfoByUserId(userId,userSaveResumeQuery));
     }
 
     @GetMapping("/getUserSaveResumeInfoByUserIdAndResumeId")
@@ -50,8 +56,18 @@ public class UserSaveResumeController {
     @PostMapping("/saveUserSaveResumeInfoFirst")
     @Operation(summary = "保存用户的简历(第一次添加，通过简历模版)")
     public BaseResult<String> saveUserSaveResumeInfoFirst(@RequestBody ResumeTemplateInfoVO resumeTemplateInfoVO,
-                                                         @RequestParam(required = true,value ="userId") Integer userId){
-        userSaveResumeService.saveUserSaveResumeInfoFirst(resumeTemplateInfoVO,userId);
+                                                         @RequestParam(required = true,value ="userId") Integer userId,
+                                                          @RequestParam(required = false,value ="resumeName") String resumeName){
+        userSaveResumeService.saveUserSaveResumeInfoFirst(resumeTemplateInfoVO,userId,resumeName);
+        return BaseResult.ok();
+    }
+
+    @PostMapping("/updateUserDeleteResumeName")
+    @Operation(summary = "根据用户id和简历排序以及简历名称去修改简历名称")
+    public BaseResult<Void> updateUserDeleteResumeName(@RequestParam(required = true,value = "userId") Integer userId,
+                                                       @RequestParam(required = true,value = "resumeSortedNum") Integer resumeSortedNum,
+                                                       @RequestParam(required = true,value = "resumeName") String resumeName){
+        userSaveResumeService.updateUserDeleteResumeNameByUserIdAndResumeSortedNumAndResumeName(userId,resumeSortedNum,resumeName);
         return BaseResult.ok();
     }
 

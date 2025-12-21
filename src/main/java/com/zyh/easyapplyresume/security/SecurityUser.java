@@ -14,6 +14,8 @@ import java.util.Collection;
 public class SecurityUser implements UserDetails {
     private Integer userId;
 
+    private String userEmail;
+
     private String username;
 
     private String password;

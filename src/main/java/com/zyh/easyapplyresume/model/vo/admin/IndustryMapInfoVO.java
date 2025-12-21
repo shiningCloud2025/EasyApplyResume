@@ -3,6 +3,9 @@ package com.zyh.easyapplyresume.model.vo.admin;
 import cn.hutool.core.date.DateTime;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+
+import java.util.Date;
+
 /**
  * @author shiningCloud2025
  */
@@ -16,8 +19,8 @@ public class IndustryMapInfoVO {
     private String industryMapIndustryName;
 
     @Schema(description = "创建时间")
-    private DateTime createdTime;
+    private Date createdTime;
 
     @Schema(description = "修改时间")
-    private DateTime updatedTime;
+    private Date updatedTime;
 }

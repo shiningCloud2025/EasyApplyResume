@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.demo.app;
 
+import com.zyh.easyapplyresume.demo.advisor.AdminSensitiveWordsAdvisor;
 import com.zyh.easyapplyresume.demo.advisor.MyLoggerAdvisor;
 import com.zyh.easyapplyresume.demo.advisor.ReReadingAdvisor;
 import com.zyh.easyapplyresume.demo.advisor.SensitiveWordsAdvisor;
@@ -80,7 +81,7 @@ public class AiSystemManagerAssistant {
                     "## 核心目标\n" +
                     "通过专业的引导式对话，确保每个系统问题都能得到准确诊断和有效解决，帮助管理员提升系统稳定性和用户体验。";
 
-    public AiSystemManagerAssistant(ChatModel dashscopeChatModel, AdminMySQLBasedChatMemory adminMySQLBasedChatMemory, SensitiveWordsAdvisor sensitiveWordsAdvisor){
+    public AiSystemManagerAssistant(ChatModel dashscopeChatModel, AdminMySQLBasedChatMemory adminMySQLBasedChatMemory, AdminSensitiveWordsAdvisor adminSensitiveWordsAdvisor){
         // 初始化基于混合持久化(内存+数据库)的对话记忆
         ChatMemory chatMemory = new AdminInMemoryDbHybridChatMemory(adminMySQLBasedChatMemory);
         chatClient = ChatClient.builder(dashscopeChatModel)
@@ -92,7 +93,7 @@ public class AiSystemManagerAssistant {
                         // 自定义Re2Advisor,可按需开启
                         new ReReadingAdvisor(),
                         // 自定义敏感词过滤Advisor，可按需开启
-                        sensitiveWordsAdvisor
+                        adminSensitiveWordsAdvisor
                 )
                 .build();
     }

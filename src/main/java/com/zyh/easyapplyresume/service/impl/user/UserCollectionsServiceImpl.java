@@ -1,13 +1,19 @@
 package com.zyh.easyapplyresume.service.impl.user;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserCollectionsMapper;
+import com.zyh.easyapplyresume.model.pojo.admin.ResumeTemplate;
 import com.zyh.easyapplyresume.model.pojo.user.UserCollections;
+import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
 import com.zyh.easyapplyresume.service.user.UserCollectionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author shiningCloud2025
@@ -31,8 +37,11 @@ public class UserCollectionsServiceImpl implements UserCollectionsService {
                 return true;
             }
             log.info("用户是否收藏简历模版结束");
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-            log.error("用户是否收藏简历模版异常");
+            log.error("用户是否收藏简历模版异常", e);
+            throw new RuntimeException("用户是否收藏简历模版异常");
         }
         return false;
     }
@@ -55,9 +64,34 @@ public class UserCollectionsServiceImpl implements UserCollectionsService {
                 userCollectionsMapper.insert(userCollections);
             }
             log.info("用户收藏/取消收藏简历模版结束");
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-            log.error("用户收藏/取消收藏简历模版异常");
+            log.error("用户收藏/取消收藏简历模版异常", e);
+            throw new RuntimeException("用户收藏/取消收藏简历模版异常");
         }
+
+    }
+
+    @Override
+    public List<ResumeTemplateInfoVO> getUserCollectResumeTemplate(Integer userId,String resumeTemplateName) {
+        try{
+            log.info("查询用户收藏的简历模版开始");
+            List<ResumeTemplate> resumeTemplates = null;
+            if (resumeTemplateName == null||resumeTemplateName.isEmpty()){
+                resumeTemplates  = userCollectionsMapper.selectResumeTemplateByUserId(userId, resumeTemplateName);
+            }else {
+                resumeTemplates = userCollectionsMapper.selectResumeTemplateByUserId(userId, null);
+            }
+            return BeanUtil.copyToList(resumeTemplates,ResumeTemplateInfoVO.class);
+
+        }catch (BusException e){
+            throw e;
+        }catch (Exception e){
+            log.error("查询用户收藏的简历模版异常", e);
+            throw new RuntimeException("查询用户收藏的简历模版异常");
+        }
+
 
     }
 }

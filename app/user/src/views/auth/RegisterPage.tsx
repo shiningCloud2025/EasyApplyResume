@@ -4,7 +4,8 @@ import { UserOutlined, LockOutlined, PhoneOutlined, MailOutlined, HomeOutlined }
 import { Link, useNavigate } from 'react-router-dom'
 import { authAPI } from '@api/auth'
 import { sendSmsCode, sendEmailCode } from '@api/verify'
-import type { RegisterForm } from '@types/index'
+import { provinceAPI, universityAPI, recruitPositionAPI } from '@api/system'
+import type { RegisterForm, ProvinceMap, CityMap, UniversityMap, RecruitPosition } from '@types/index'
 import '@styles/auth.scss'
 import '@styles/auth-override.scss'
 
@@ -29,7 +30,80 @@ const RegisterPage: React.FC = () => {
   const [emailCountdown, setEmailCountdown] = useState(0)
   const [agreeTerms, setAgreeTerms] = useState(false)
 
+  // 省份、城市、大学、岗位数据
+  const [provinces, setProvinces] = useState<ProvinceMap[]>([])
+  const [cities, setCities] = useState<CityMap[]>([])
+  const [universities, setUniversities] = useState<UniversityMap[]>([])
+  const [positions, setPositions] = useState<RecruitPosition[]>([])
+  const [universitySearchLoading, setUniversitySearchLoading] = useState(false)
+  const [positionLoaded, setPositionLoaded] = useState(false) // 标记岗位数据是否已加载
+  const [provinceLoaded, setProvinceLoaded] = useState(false) // 标记省份数据是否已加载
+
   const navigate = useNavigate()
+
+  // 点击省份下拉框时加载省份数据
+  const handleProvinceDropdownOpen = async (open: boolean) => {
+    if (open && !provinceLoaded) {
+      try {
+        const provinceRes = await provinceAPI.getAllProvince()
+        if (Array.isArray(provinceRes)) {
+          setProvinces(provinceRes)
+          setProvinceLoaded(true)
+        }
+      } catch (error) {
+        console.error('加载省份失败:', error)
+      }
+    }
+  }
+
+  // 点击岗位下拉框时加载岗位数据
+  const handlePositionDropdownOpen = async (open: boolean) => {
+    if (open && !positionLoaded) {
+      try {
+        const positionRes = await recruitPositionAPI.getAllRecruitPosition()
+        if (positionRes.code === 200 && Array.isArray(positionRes.data)) {
+          setPositions(positionRes.data)
+          setPositionLoaded(true)
+        }
+      } catch (error) {
+        console.error('加载岗位失败:', error)
+      }
+    }
+  }
+
+  // 省份选择变化时加载城市
+  const handleProvinceChange = async (provinceId: number) => {
+    form.setFieldsValue({ userRecruitLocationSecond: undefined })
+    setCities([])
+    if (provinceId) {
+      try {
+        // 直接返回数组
+        const res = await provinceAPI.getCityByProvinceId(provinceId)
+        if (Array.isArray(res)) {
+          setCities(res)
+        }
+      } catch (error) {
+        console.error('加载城市失败:', error)
+      }
+    }
+  }
+
+  // 大学搜索（输入时调用模糊查询接口）
+  const handleUniversitySearch = async (value: string) => {
+    setUniversitySearchLoading(true)
+    try {
+      // 传递用户输入的值（包括空字符串）给后端
+      const searchValue = value ? value.trim() : ''
+      const res = await universityAPI.searchUniversities(searchValue)
+      if (res.code === 200 && Array.isArray(res.data)) {
+        setUniversities(res.data)
+      }
+    } catch (error) {
+      console.error('搜索大学失败:', error)
+    } finally {
+      setUniversitySearchLoading(false)
+    }
+  }
 
   const steps = [
     {
@@ -109,9 +183,22 @@ const RegisterPage: React.FC = () => {
           'userAccount', 'userUsername', 'userEmail', 'userPhone', 'userPassword'
         ])
       } else if (current === 1) {
-        await form.validateFields([
-          'userDreamPosition', 'userDreamMinMonthSalary', 'userDreamMaxMonthSalary'
-        ])
+        // 第二步所有字段都是选填，不需要强制验证
+        // 仅验证已填写的字段格式是否正确
+        const minSalary = form.getFieldValue('userDreamMinMonthSalary')
+        const maxSalary = form.getFieldValue('userDreamMaxMonthSalary')
+        if (minSalary !== undefined && minSalary !== null && minSalary !== '') {
+          if (Number(minSalary) < 0 || Number(minSalary) > 100000) {
+            message.error('最低月薪范围为0-100000')
+            return
+          }
+        }
+        if (maxSalary !== undefined && maxSalary !== null && maxSalary !== '') {
+          if (minSalary !== undefined && minSalary !== null && minSalary !== '' && Number(maxSalary) < Number(minSalary)) {
+            message.error('最高月薪不能低于最低月薪')
+            return
+          }
+        }
       } else if (current === 2) {
         // 最后一步，检查协议并提交注册
         if (!agreeTerms) {
@@ -119,7 +206,7 @@ const RegisterPage: React.FC = () => {
           return
         }
         await form.validateFields()
-        const values = form.getFieldsValue() as RegisterForm
+        const values = form.getFieldsValue(true) as RegisterForm
         await handleRegister(values)
         return
       }
@@ -158,11 +245,11 @@ const RegisterPage: React.FC = () => {
               label="用户账号"
               rules={[
                 { required: true, message: '请输入用户账号' },
-                { min: 3, max: 20, message: '账号长度为3-20位' },
-                { pattern: /^[a-zA-Z0-9_]+$/, message: '账号只能包含字母、数字和下划线' }
+                { min: 7, max: 10, message: '账号长度为7-10位' },
+                { pattern: /^[1-9]\d{6,9}$/, message: '账号必须为数字，且首位不能为0' }
               ]}
             >
-              <Input prefix={<UserOutlined />} placeholder="请输入用户账号" />
+              <Input prefix={<UserOutlined />} placeholder="请输入7-10位数字账号，首位不能为0" />
             </Form.Item>
 
             <Form.Item
@@ -170,10 +257,10 @@ const RegisterPage: React.FC = () => {
               label="用户名"
               rules={[
                 { required: true, message: '请输入用户名' },
-                { min: 2, max: 10, message: '用户名长度为2-10位' }
+                { min: 1, max: 20, message: '用户名长度为1-20位' }
               ]}
             >
-              <Input prefix={<UserOutlined />} placeholder="请输入用户名" />
+              <Input prefix={<UserOutlined />} placeholder="请输入用户名（1-20位）" />
             </Form.Item>
 
             <Form.Item
@@ -181,10 +268,11 @@ const RegisterPage: React.FC = () => {
               label="邮箱"
               rules={[
                 { required: true, message: '请输入邮箱' },
-                { type: 'email', message: '请输入正确的邮箱格式' }
+                { type: 'email', message: '请输入正确的邮箱格式' },
+                { max: 25, message: '邮箱长度不能超过25位' }
               ]}
             >
-              <Input prefix={<MailOutlined />} placeholder="请输入邮箱" />
+              <Input prefix={<MailOutlined />} placeholder="请输入邮箱（不超过25位）" />
             </Form.Item>
 
             <Form.Item
@@ -203,17 +291,20 @@ const RegisterPage: React.FC = () => {
               label="密码"
               rules={[
                 { required: true, message: '请输入密码' },
-                { min: 6, max: 20, message: '密码长度为6-20位' }
+                { min: 6, max: 30, message: '密码长度为6-30位' }
               ]}
             >
-              <Input.Password prefix={<LockOutlined />} placeholder="请输入密码" />
+              <Input.Password prefix={<LockOutlined />} placeholder="请输入密码（6-30位）" />
             </Form.Item>
 
             <Form.Item
               name="userIntroduce"
               label="个人介绍"
+              rules={[
+                { max: 200, message: '个人介绍不能超过200字' }
+              ]}
             >
-              <TextArea rows={3} placeholder="请输入个人介绍（选填）" />
+              <TextArea rows={3} placeholder="请输入个人介绍（选填，不超过200字）" maxLength={200} showCount />
             </Form.Item>
           </>
         )
@@ -224,17 +315,98 @@ const RegisterPage: React.FC = () => {
             <Form.Item
               name="userDreamPosition"
               label="目标岗位"
-              rules={[{ required: true, message: '请选择目标岗位' }]}
             >
-              <Select placeholder="请选择目标岗位">
-                <Option value={1}>前端开发工程师</Option>
-                <Option value={2}>后端开发工程师</Option>
-                <Option value={3}>全栈开发工程师</Option>
-                <Option value={4}>产品经理</Option>
-                <Option value={5}>UI设计师</Option>
-                <Option value={6}>数据分析师</Option>
-                <Option value={7}>运营专员</Option>
-                <Option value={8}>其他</Option>
+              <Select 
+                placeholder="请选择目标岗位（选填）" 
+                allowClear
+                showSearch
+                optionFilterProp="children"
+                onDropdownVisibleChange={handlePositionDropdownOpen}
+                filterOption={(input, option) =>
+                  (option?.children as unknown as string)?.toLowerCase().includes(input.toLowerCase())
+                }
+              >
+                {positions.map(pos => (
+                  <Option key={pos.recruitPositionId} value={pos.recruitPositionId}>
+                    {pos.recruitPositionName}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+
+            <Row gutter={16}>
+              <Col span={12}>
+                <Form.Item
+                  name="userRecruitLocationFirst"
+                  label="期望工作省份"
+                >
+                  <Select
+                    placeholder="请选择省份（选填）"
+                    allowClear
+                    showSearch
+                    optionFilterProp="children"
+                    onDropdownVisibleChange={handleProvinceDropdownOpen}
+                    onChange={handleProvinceChange}
+                    filterOption={(input, option) =>
+                      (option?.children as unknown as string)?.toLowerCase().includes(input.toLowerCase())
+                    }
+                  >
+                    {provinces.map(province => (
+                      <Option key={province.provinceMapPid} value={province.provinceMapPid}>
+                        {province.provinceMapPname}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item
+                  name="userRecruitLocationSecond"
+                  label="期望工作城市"
+                >
+                  <Select
+                    placeholder="请先选择省份"
+                    allowClear
+                    showSearch
+                    optionFilterProp="children"
+                    disabled={cities.length === 0}
+                    filterOption={(input, option) =>
+                      (option?.children as unknown as string)?.toLowerCase().includes(input.toLowerCase())
+                    }
+                  >
+                    {cities.map(city => (
+                      <Option key={city.cityMapCid} value={city.cityMapCid}>
+                        {city.cityMapCname}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Form.Item
+              name="userUniversityCode"
+              label="毕业院校"
+            >
+              <Select
+                placeholder="请输入大学名称搜索（选填）"
+                allowClear
+                showSearch
+                loading={universitySearchLoading}
+                onSearch={handleUniversitySearch}
+                onDropdownVisibleChange={(open) => {
+                  if (open && universities.length === 0) {
+                    handleUniversitySearch('')
+                  }
+                }}
+                filterOption={false}
+                notFoundContent={universitySearchLoading ? '搜索中...' : '未找到匹配的大学'}
+              >
+                {universities.map(uni => (
+                  <Option key={uni.universityMapId} value={uni.universityMapId}>
+                    {uni.universityMapName}
+                  </Option>
+                ))}
               </Select>
             </Form.Item>
 
@@ -243,18 +415,40 @@ const RegisterPage: React.FC = () => {
                 <Form.Item
                   name="userDreamMinMonthSalary"
                   label="最低月薪"
-                  rules={[{ required: true, message: '请输入最低月薪' }]}
+                  rules={[
+                    {
+                      validator: (_, value) => {
+                        if (value === undefined || value === null || value === '') return Promise.resolve()
+                        const num = Number(value)
+                        if (isNaN(num) || num < 0) return Promise.reject('月薪不能为负数')
+                        if (num > 100000) return Promise.reject('月薪不能超过100000')
+                        return Promise.resolve()
+                      }
+                    }
+                  ]}
                 >
-                  <Input type="number" placeholder="例如：8000" />
+                  <Input type="number" placeholder="选填，范围0-100000" />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item
                   name="userDreamMaxMonthSalary"
                   label="最高月薪"
-                  rules={[{ required: true, message: '请输入最高月薪' }]}
+                  dependencies={['userDreamMinMonthSalary']}
+                  rules={[
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (value === undefined || value === null || value === '') return Promise.resolve()
+                        const minSalary = getFieldValue('userDreamMinMonthSalary')
+                        if (minSalary !== undefined && minSalary !== null && minSalary !== '' && Number(value) < Number(minSalary)) {
+                          return Promise.reject('最高月薪不能低于最低月薪')
+                        }
+                        return Promise.resolve()
+                      }
+                    })
+                  ]}
                 >
-                  <Input type="number" placeholder="例如：15000" />
+                  <Input type="number" placeholder="选填，需≥最低月薪" />
                 </Form.Item>
               </Col>
             </Row>
@@ -262,9 +456,12 @@ const RegisterPage: React.FC = () => {
             <Form.Item
               name="userDreamWeekWorkDayNum"
               label="期望工作天数"
-              rules={[{ required: true, message: '请选择期望工作天数' }]}
             >
-              <Select placeholder="请选择每周工作天数">
+              <Select placeholder="请选择每周工作天数（选填，默认5天）" allowClear>
+                <Option value={1}>1天</Option>
+                <Option value={2}>2天</Option>
+                <Option value={3}>3天</Option>
+                <Option value={4}>4天</Option>
                 <Option value={5}>5天</Option>
                 <Option value={6}>6天</Option>
                 <Option value={7}>7天</Option>
@@ -274,8 +471,11 @@ const RegisterPage: React.FC = () => {
             <Form.Item
               name="userDreamGoodWelfare"
               label="期望福利待遇"
+              rules={[
+                { max: 200, message: '福利待遇描述不能超过200字' }
+              ]}
             >
-              <TextArea rows={3} placeholder="例如：五险一金、带薪年假、餐补等（选填）" />
+              <TextArea rows={3} placeholder="例如：五险一金、带薪年假、餐补等（选填，不超过200字）" maxLength={200} showCount />
             </Form.Item>
           </>
         )
@@ -284,18 +484,23 @@ const RegisterPage: React.FC = () => {
         return (
           <>
             <Form.Item
-              name="phoneMessageCode"
               label="手机验证码"
-              rules={[
-                { required: true, message: '请输入手机验证码' },
-                { len: 6, message: '验证码为6位数字' }
-              ]}
+              required
             >
-              <Input.Group compact>
-                <Input
-                  style={{ width: 'calc(100% - 120px)' }}
-                  placeholder="请输入手机验证码"
-                />
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <Form.Item
+                  name="phoneMessageCode"
+                  noStyle
+                  rules={[
+                    { required: true, message: '请输入手机验证码' },
+                    { len: 6, message: '验证码为6位' }
+                  ]}
+                >
+                  <Input
+                    style={{ flex: 1 }}
+                    placeholder="请输入手机验证码"
+                  />
+                </Form.Item>
                 <Button
                   onClick={handleSendSmsCode}
                   loading={smsSending}
@@ -304,22 +509,27 @@ const RegisterPage: React.FC = () => {
                 >
                   {phoneCountdown > 0 ? `${phoneCountdown}s` : '获取验证码'}
                 </Button>
-              </Input.Group>
+              </div>
             </Form.Item>
 
             <Form.Item
-              name="emailMessageCode"
               label="邮箱验证码"
-              rules={[
-                { required: true, message: '请输入邮箱验证码' },
-                { len: 6, message: '验证码为6位数字' }
-              ]}
+              required
             >
-              <Input.Group compact>
-                <Input
-                  style={{ width: 'calc(100% - 120px)' }}
-                  placeholder="请输入邮箱验证码"
-                />
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <Form.Item
+                  name="emailMessageCode"
+                  noStyle
+                  rules={[
+                    { required: true, message: '请输入邮箱验证码' },
+                    { len: 6, message: '验证码为6位' }
+                  ]}
+                >
+                  <Input
+                    style={{ flex: 1 }}
+                    placeholder="请输入邮箱验证码"
+                  />
+                </Form.Item>
                 <Button
                   onClick={handleSendEmailCode}
                   loading={emailCodeSending}
@@ -328,7 +538,7 @@ const RegisterPage: React.FC = () => {
                 >
                   {emailCountdown > 0 ? `${emailCountdown}s` : '获取验证码'}
                 </Button>
-              </Input.Group>
+              </div>
             </Form.Item>
           </>
         )
@@ -376,6 +586,7 @@ const RegisterPage: React.FC = () => {
               layout="vertical"
               size="large"
               className="register-form"
+              preserve={true}
             >
               {renderStepContent()}
             </Form>

@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { 
   Card, 
-  List, 
   Button, 
   Input, 
   Empty, 
   Modal, 
-  Popconfirm, 
   message,
   Tag,
   Tooltip,
-  Avatar,
-  Spin
+  Spin,
+  Tabs,
+  Form,
+  Select
 } from 'antd'
 import { 
   PlusOutlined, 
@@ -19,36 +19,129 @@ import {
   DeleteOutlined, 
   CopyOutlined, 
   EyeOutlined,
-  MoreOutlined
+  HeartOutlined,
+  RestOutlined,
+  SendOutlined
 } from '@ant-design/icons'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
-import { resumeAPI } from '@api/resume'
+import { resumeAPI, ResumeSearchQuery } from '@api/resume'
 import { useNavigate } from 'react-router-dom'
 import type { UserResume } from '@types/index'
 import { useUserStore } from '@stores/userStore'
+import { LiveProvider, LivePreview, LiveError } from 'react-live'
+import { Editor, Toolbar } from '@wangeditor/editor-for-react'
+import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
+import html2canvas from 'html2canvas'
+import jsPDF from 'jspdf'
+import '@wangeditor/editor/dist/css/style.css'
+import './MyResumes.scss'
 
 const { Search } = Input
-const { TextArea, Text } = Input
+
+// React代码预览组件（小尺寸）
+const ReactCodePreview: React.FC<{ code: string }> = ({ code }) => {
+  if (!code) {
+    return (
+      <div className="preview-placeholder">
+        <span>暂无预览</span>
+      </div>
+    )
+  }
+
+  const processCode = (rawCode: string): string => {
+    let processed = rawCode
+      .replace(/import\s+.*?from\s+['"].*?['"]\s*;?/g, '')
+      .replace(/import\s+['"].*?['"]\s*;?/g, '')
+      .replace(/export\s+default\s+/g, '')
+      .replace(/export\s+/g, '')
+      .trim()
+
+    if (processed.match(/^(const|function|class)\s+\w+/)) {
+      const componentMatch = processed.match(/^(?:const|function|class)\s+(\w+)/)
+      if (componentMatch) {
+        const componentName = componentMatch[1]
+        processed = `${processed}\n\nrender(<${componentName} />)`
+      }
+    }
+    return processed
+  }
+
+  const scope = {
+    React,
+    useState: React.useState,
+    useEffect: React.useEffect,
+  }
+
+  return (
+    <LiveProvider code={processCode(code)} scope={scope} noInline={true}>
+      <div className="mini-preview">
+        <LivePreview />
+      </div>
+      <LiveError className="preview-error" />
+    </LiveProvider>
+  )
+}
 
 const MyResumes: React.FC = () => {
   const navigate = useNavigate()
   const { user } = useUserStore()
   const queryClient = useQueryClient()
   const [searchKeyword, setSearchKeyword] = useState('')
+  const [searchQuery, setSearchQuery] = useState<ResumeSearchQuery>({})
   const [deleteModalVisible, setDeleteModalVisible] = useState(false)
   const [selectedResume, setSelectedResume] = useState<UserResume | null>(null)
+  const [activeTab, setActiveTab] = useState('my-resumes')
+  const [editModalVisible, setEditModalVisible] = useState(false)
+  const [editingResume, setEditingResume] = useState<UserResume | null>(null)
+  const [newResumeName, setNewResumeName] = useState('')
+  
+  // 发送给HR相关状态
+  const [sendModalVisible, setSendModalVisible] = useState(false)
+  const [sendingResume, setSendingResume] = useState<UserResume | null>(null)
+  const [sendForm, setSendForm] = useState({
+    targetEmail: '',
+    title: '',
+    content: ''
+  })
+  const [sending, setSending] = useState(false)
+  const [editor, setEditor] = useState<IDomEditor | null>(null)
+  const [attachmentFormat, setAttachmentFormat] = useState<'png' | 'word' | 'pdf'>('pdf')
+  const hiddenPreviewRef = useRef<HTMLDivElement>(null)
 
-  // 获取用户简历列表
+  // wangEditor 配置
+  const toolbarConfig: Partial<IToolbarConfig> = {
+    toolbarKeys: [
+      'bold', 'italic', 'underline', 'color', 'bgColor', '|',
+      'bulletedList', 'numberedList', '|',
+      'insertLink', 'emotion', '|',
+      'undo', 'redo'
+    ]
+  }
+  const editorConfig: Partial<IEditorConfig> = {
+    placeholder: '请输入邮件内容...'
+  }
+
+  // 组件卸载时销毁编辑器
+  useEffect(() => {
+    return () => {
+      if (editor) {
+        editor.destroy()
+        setEditor(null)
+      }
+    }
+  }, [editor])
+
+  // 获取用户简历列表（支持搜索）
   const {
     data: resumesData = [],
     isLoading,
     error,
     refetch
   } = useQuery(
-    ['user-resumes', user?.userId],
+    ['user-resumes', user?.userId, searchQuery],
     () => {
       if (!user?.userId) return Promise.resolve([])
-      return resumeAPI.getUserResumes(user.userId)
+      return resumeAPI.getUserResumes(user.userId, searchQuery)
     },
     {
       enabled: !!user?.userId,
@@ -56,12 +149,42 @@ const MyResumes: React.FC = () => {
       onSuccess: (data) => {
         console.log('获取简历列表成功:', data)
       },
-      onError: (error) => {
-        message.error('获取简历列表失败')
+      onError: (error: any) => {
+        const errorMsg = error?.response?.data?.message || error?.message || '获取简历列表失败'
+        message.error(errorMsg)
         console.error('API错误:', error)
       }
     }
   )
+
+  // 获取用户收藏的模板
+  const {
+    data: collectionsData = [],
+    isLoading: collectionsLoading,
+    refetch: refetchCollections
+  } = useQuery(
+    ['user-collections', user?.userId, searchKeyword],
+    () => {
+      if (!user?.userId) return Promise.resolve([])
+      console.log('调用收藏接口, userId:', user.userId, ', 搜索:', searchKeyword)
+      // 传递搜索关键词作为 resumeTemplateName 参数（空字符串也传）
+      return resumeAPI.getUserCollections(user.userId, searchKeyword)
+    },
+    {
+      enabled: !!user?.userId && activeTab === 'my-collections',
+      select: (response) => {
+        console.log('收藏接口返回:', response)
+        return response.data || []
+      }
+    }
+  )
+
+  // 切换到"我的收藏"时重新获取数据
+  useEffect(() => {
+    if (activeTab === 'my-collections' && user?.userId) {
+      refetchCollections()
+    }
+  }, [activeTab, user?.userId])
 
   // 删除简历mutation
   const deleteResumeMutation = useMutation(
@@ -73,42 +196,65 @@ const MyResumes: React.FC = () => {
         setSelectedResume(null)
         queryClient.invalidateQueries(['user-resumes', user?.userId])
       },
-      onError: (error) => {
-        message.error('删除简历失败')
+      onError: (error: any) => {
+        const errorMsg = error?.response?.data?.message || error?.message || '删除简历失败'
+        message.error(errorMsg)
         console.error('删除失败:', error)
+      }
+    }
+  )
+
+  // 修改简历名称mutation
+  const updateNameMutation = useMutation(
+    (params: { resumeSortedNum: number; resumeName: string }) => 
+      resumeAPI.updateResumeName(user!.userId, params.resumeSortedNum, params.resumeName),
+    {
+      onSuccess: () => {
+        message.success('简历名称已修改')
+        setEditModalVisible(false)
+        setEditingResume(null)
+        setNewResumeName('')
+        queryClient.invalidateQueries(['user-resumes', user?.userId])
+      },
+      onError: (error: any) => {
+        const errorMsg = error?.response?.data?.message || error?.message || '修改简历名称失败'
+        message.error(errorMsg)
       }
     }
   )
 
   const handleSearch = (value: string) => {
     setSearchKeyword(value)
+    if (activeTab === 'my-resumes') {
+      // 搜索我的简历
+      const newQuery = value ? { userSaveResumeResumeName: value } : {}
+      setSearchQuery(newQuery)
+      setTimeout(() => refetch(), 0)
+    } else {
+      // 搜索我的收藏 - 手动触发重新查询
+      setTimeout(() => refetchCollections(), 0)
+    }
+  }
+
+  const handleEditName = (resume: UserResume) => {
+    setEditingResume(resume)
+    setNewResumeName(resume.userSaveResumeResumeName)
+    setEditModalVisible(true)
+  }
+
+  const confirmEditName = () => {
+    if (!editingResume || !newResumeName.trim()) {
+      message.warning('请输入简历名称')
+      return
+    }
+    updateNameMutation.mutate({
+      resumeSortedNum: editingResume.userSaveResumeSortedNum,
+      resumeName: newResumeName.trim()
+    })
   }
 
   const handleEdit = (resume: UserResume) => {
     navigate(`/resume/edit/${resume.userSaveResumeSortedNum}`)
-  }
-
-  const handlePreview = (resume: UserResume) => {
-    Modal.info({
-      title: '简历预览',
-      width: 800,
-      content: (
-        <div style={{ padding: '20px' }}>
-          <h3>{resume.userSaveResumeResumeName}</h3>
-          <p>行业：{getIndustryName(resume.userSaveResumeIndustry)}</p>
-          <p>创建时间：{new Date(resume.userSaveResumeCreatedTime).toLocaleDateString('zh-CN')}</p>
-          <p>最后更新：{new Date(resume.userSaveResumeUpdatedTime).toLocaleDateString('zh-CN')}</p>
-          <div style={{ 
-            marginTop: 20, 
-            padding: 20, 
-            background: '#f5f5f5', 
-            borderRadius: 8 
-          }}>
-            <p>简历内容将在这里显示...</p>
-          </div>
-        </div>
-      )
-    })
   }
 
   const handleDuplicate = async (resume: UserResume) => {
@@ -119,13 +265,12 @@ const MyResumes: React.FC = () => {
         userSaveResumeCreatedTime: new Date().toISOString(),
         userSaveResumeUpdatedTime: new Date().toISOString()
       }
-      
       await resumeAPI.saveResume(newResumeData)
       message.success('简历复制成功')
       refetch()
-    } catch (error) {
-      message.error('复制简历失败')
-      console.error('复制失败:', error)
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || '复制简历失败'
+      message.error(errorMsg)
     }
   }
 
@@ -141,175 +286,303 @@ const MyResumes: React.FC = () => {
 
   const getIndustryName = (industryId: number) => {
     const industries: Record<number, string> = {
-      1: '互联网',
-      2: '金融',
-      3: '教育',
-      4: '医疗',
-      5: '制造业',
-      6: '其他'
+      1: '互联网', 2: '金融', 3: '教育', 4: '医疗', 5: '制造业', 6: '其他'
     }
     return industries[industryId] || '其他'
   }
 
   const getIndustryColor = (industryId: number) => {
     const colors: Record<number, string> = {
-      1: 'blue',
-      2: 'green',
-      3: 'orange',
-      4: 'red',
-      5: 'purple',
-      6: 'default'
+      1: 'blue', 2: 'green', 3: 'orange', 4: 'red', 5: 'purple', 6: 'default'
     }
     return colors[industryId] || 'default'
   }
 
-  const filteredResumes = resumesData.filter(resume =>
-    resume.userSaveResumeResumeName.toLowerCase().includes(searchKeyword.toLowerCase())
-  )
+  const filteredResumes = Array.isArray(resumesData) ? resumesData : []
+
+  const handleOpenRecycleBin = () => {
+    navigate('/resume/recycle-bin')
+  }
+
+  // 打开发送给HR弹窗
+  const handleSendToHr = (resume: UserResume) => {
+    setSendingResume(resume)
+    setSendForm({
+      targetEmail: '',
+      title: '',
+      content: ''
+    })
+    setSendModalVisible(true)
+  }
+
+  // 将简历转换为指定格式的文件
+  const generateResumeFile = async (resume: UserResume, format: 'png' | 'word' | 'pdf'): Promise<File> => {
+    const resumeName = resume.userSaveResumeResumeName || '简历'
+    
+    if (format === 'png') {
+      // PNG格式
+      if (!hiddenPreviewRef.current) {
+        throw new Error('预览区域未加载')
+      }
+      const canvas = await html2canvas(hiddenPreviewRef.current, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true
+      })
+      const blob = await new Promise<Blob>((resolve) => {
+        canvas.toBlob((b) => resolve(b!), 'image/png')
+      })
+      return new File([blob], `${resumeName}.png`, { type: 'image/png' })
+    }
+    
+    if (format === 'word') {
+      // Word格式 - 使用隐藏预览区域的HTML
+      if (!hiddenPreviewRef.current) {
+        throw new Error('预览区域未加载')
+      }
+      const htmlContent = hiddenPreviewRef.current.innerHTML
+      const wordContent = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word'>
+        <head><meta charset='utf-8'><title>${resumeName}</title></head>
+        <body>${htmlContent}</body>
+        </html>
+      `
+      const blob = new Blob([wordContent], { type: 'application/msword' })
+      return new File([blob], `${resumeName}.doc`, { type: 'application/msword' })
+    }
+    
+    if (format === 'pdf') {
+      // PDF格式 - 使用html2canvas和jsPDF
+      if (!hiddenPreviewRef.current) {
+        throw new Error('预览区域未加载')
+      }
+      const canvas = await html2canvas(hiddenPreviewRef.current, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true
+      })
+      const imgData = canvas.toDataURL('image/png')
+      const pdf = new jsPDF('p', 'mm', 'a4')
+      const pdfWidth = pdf.internal.pageSize.getWidth()
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight)
+      const pdfBlob = pdf.output('blob')
+      return new File([pdfBlob], `${resumeName}.pdf`, { type: 'application/pdf' })
+    }
+    
+    throw new Error('不支持的格式')
+  }
+
+  // 确认发送
+  const confirmSend = async () => {
+    if (!sendingResume) return
+    
+    // 邮箱校验
+    const email = sendForm.targetEmail.trim()
+    if (!email) {
+      message.warning('请输入目标邮箱')
+      return
+    }
+    if (email.length > 25) {
+      message.warning('邮箱长度不能超过25个字符')
+      return
+    }
+    const emailRegex = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/
+    if (!emailRegex.test(email)) {
+      message.warning('邮箱格式不正确')
+      return
+    }
+    
+    // 标题校验
+    const title = sendForm.title.trim()
+    if (!title) {
+      message.warning('请输入邮件标题')
+      return
+    }
+    if (title.length > 35) {
+      message.warning('标题长度不能超过35个字符')
+      return
+    }
+    
+    // 内容校验
+    const content = sendForm.content.replace(/<[^>]+>/g, '').trim()
+    if (!content) {
+      message.warning('请输入邮件内容')
+      return
+    }
+    
+    setSending(true)
+    try {
+      // 根据选择的格式生成文件
+      const resumeFile = await generateResumeFile(sendingResume, attachmentFormat)
+      await resumeAPI.sendResumeToHr({
+        targetEmail: email,
+        title: title,
+        content: sendForm.content,
+        resumeFile
+      })
+      message.success('简历发送成功！')
+      setSendModalVisible(false)
+      setSendingResume(null)
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || '发送失败'
+      message.error(errorMsg)
+    } finally {
+      setSending(false)
+    }
+  }
 
   return (
     <div className="my-resumes">
       <div className="page-header">
-        <div className="header-content">
-          <h2>我的简历</h2>
-          <Button
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => navigate('/resume/templates')}
-          >
+        <Tabs 
+          activeKey={activeTab} 
+          onChange={setActiveTab}
+          items={[
+            { key: 'my-resumes', label: '我的简历' },
+            { key: 'my-collections', label: '我的收藏' }
+          ]}
+        />
+      </div>
+
+      <Card className="filter-card" style={{ marginBottom: 24 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Search placeholder="搜索简历名称" onSearch={handleSearch} style={{ width: 300 }} allowClear />
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => navigate('/resume/templates')}>
             创建新简历
           </Button>
         </div>
-        <div className="header-actions">
-          <Search
-            placeholder="搜索简历名称"
-            onSearch={handleSearch}
-            style={{ width: 300 }}
-            allowClear
-          />
-        </div>
-      </div>
+      </Card>
 
       {!user ? (
         <div style={{ textAlign: 'center', padding: '50px' }}>
-          <Empty
-            description="请先登录"
-            image={Empty.PRESENTED_IMAGE_SIMPLE}
-          >
-            <Button type="primary" onClick={() => navigate('/auth/login')}>
-              去登录
-            </Button>
+          <Empty description="请先登录" image={Empty.PRESENTED_IMAGE_SIMPLE}>
+            <Button type="primary" onClick={() => navigate('/auth/login')}>去登录</Button>
           </Empty>
         </div>
       ) : isLoading ? (
-        <div style={{ textAlign: 'center', padding: '50px' }}>
-          <Spin size="large" />
-        </div>
+        <div style={{ textAlign: 'center', padding: '50px' }}><Spin size="large" /></div>
       ) : error ? (
         <div style={{ textAlign: 'center', padding: '50px' }}>
-          <Empty
-            description="加载失败，请重试"
-            image={Empty.PRESENTED_IMAGE_SIMPLE}
-          >
-            <Button type="primary" onClick={() => refetch()}>
-              重试
-            </Button>
+          <Empty description="加载失败，请重试" image={Empty.PRESENTED_IMAGE_SIMPLE}>
+            <Button type="primary" onClick={() => refetch()}>重试</Button>
           </Empty>
         </div>
+      ) : activeTab === 'my-resumes' ? (
+        filteredResumes.length === 0 ? (
+          <Empty description={searchKeyword ? '未找到匹配的简历' : '暂无简历'} image={Empty.PRESENTED_IMAGE_SIMPLE}>
+            {!searchKeyword && (
+              <Button type="primary" icon={<PlusOutlined />} onClick={() => navigate('/resume/templates')}>
+                创建简历
+              </Button>
+            )}
+          </Empty>
+        ) : (
+          <div className="resume-grid">
+            {filteredResumes.map((resume) => (
+              <Card
+                key={resume.userSaveResumeSortedNum}
+                hoverable
+                className="resume-card"
+                cover={
+                  <div className="resume-preview-container" onClick={() => handleEdit(resume)}>
+                    <ReactCodePreview code={resume.userSaveResumeResumeReactCode} />
+                  </div>
+                }
+              >
+                <div className="resume-info" onClick={() => handleEdit(resume)}>
+                  <h3 className="resume-name">
+                    <span className="resume-order">#{resume.userSaveResumeSortedNum}</span>
+                    {resume.userSaveResumeResumeName}
+                  </h3>
+                  <div className="resume-meta">
+                    <Tag color={getIndustryColor(resume.userSaveResumeIndustry)}>
+                      {resume.userSaveResumeIndustryName || getIndustryName(resume.userSaveResumeIndustry)}
+                    </Tag>
+                  </div>
+                  <div className="resume-times">
+                    <span>创建：{new Date(resume.userSaveResumeCreatedTime).toLocaleDateString('zh-CN')}</span>
+                    <span>更新：{new Date(resume.userSaveResumeUpdatedTime).toLocaleDateString('zh-CN')}</span>
+                  </div>
+                </div>
+                <div className="resume-actions">
+                  <Tooltip title="发送给HR">
+                    <Button type="text" icon={<SendOutlined />} onClick={() => handleSendToHr(resume)} />
+                  </Tooltip>
+                  <Tooltip title="编辑名称">
+                    <Button type="text" icon={<EditOutlined />} onClick={() => handleEditName(resume)} />
+                  </Tooltip>
+                  <Tooltip title="删除">
+                    <Button type="text" danger icon={<DeleteOutlined />} onClick={() => handleDelete(resume)} />
+                  </Tooltip>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )
       ) : (
-        <>
-          <List
-            grid={{ gutter: [24, 24], xs: 1, sm: 2, md: 2, lg: 3, xl: 3, xxl: 4 }}
-            loading={isLoading}
-            dataSource={filteredResumes}
-            renderItem={(resume) => (
-          <List.Item>
-            <Card
-              hoverable
-              className="resume-card"
-              actions={[
-                <Tooltip title="预览">
-                  <Button
-                    type="text"
-                    icon={<EyeOutlined />}
-                    onClick={() => handlePreview(resume)}
-                  />
-                </Tooltip>,
-                <Tooltip title="编辑">
-                  <Button
-                    type="text"
-                    icon={<EditOutlined />}
-                    onClick={() => handleEdit(resume)}
-                  />
-                </Tooltip>,
-                <Tooltip title="复制">
-                  <Button
-                    type="text"
-                    icon={<CopyOutlined />}
-                    onClick={() => handleDuplicate(resume)}
-                  />
-                </Tooltip>,
-                <Tooltip title="删除">
-                  <Button
-                    type="text"
-                    danger
-                    icon={<DeleteOutlined />}
-                    onClick={() => handleDelete(resume)}
-                  />
-                </Tooltip>,
-              ]}
-            >
-              <Card.Meta
-                avatar={
-                  <Avatar 
-                    style={{ backgroundColor: '#1890ff' }}
-                    size="large"
-                  >
-                    {resume.userSaveResumeResumeName.substring(0, 2)}
-                  </Avatar>
-                }
-                title={
-                  <div className="resume-card-title">
-                    <Text strong>{resume.userSaveResumeResumeName}</Text>
+        collectionsLoading ? (
+          <div style={{ textAlign: 'center', padding: '50px' }}><Spin size="large" /></div>
+        ) : collectionsData.length === 0 ? (
+          <Empty description="暂无收藏" image={Empty.PRESENTED_IMAGE_SIMPLE}>
+            <Button type="primary" onClick={() => navigate('/resume/templates')}>去收藏模板</Button>
+          </Empty>
+        ) : (
+          <div className="resume-grid">
+            {collectionsData.map((collection: any) => (
+              <Card
+                key={collection.resumeTemplateId}
+                hoverable
+                className="resume-card"
+                cover={
+                  <div className="resume-preview-container">
+                    <ReactCodePreview code={collection.resumeTemplateReactCode} />
                   </div>
                 }
-                description={
-                  <div className="resume-card-desc">
-                    <div className="resume-tags">
-                      <Tag color={getIndustryColor(resume.userSaveResumeIndustry)}>
-                        {getIndustryName(resume.userSaveResumeIndustry)}
-                      </Tag>
-                    </div>
-                    <div className="resume-times">
-                      <p>创建：{new Date(resume.userSaveResumeCreatedTime).toLocaleDateString('zh-CN')}</p>
-                      <p>更新：{new Date(resume.userSaveResumeUpdatedTime).toLocaleDateString('zh-CN')}</p>
-                    </div>
+                onClick={() => navigate(`/resume/template/${collection.resumeTemplateId}`)}
+              >
+                <div className="resume-info">
+                  <h3 className="resume-name">{collection.resumeTemplateName || '收藏模板'}</h3>
+                  <div className="resume-meta">
+                    <Tag color="purple"><HeartOutlined /> 已收藏</Tag>
                   </div>
-                }
-              />
-            </Card>
-          </List.Item>
-        )}
-      />
-          </>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )
       )}
 
-      {user && !isLoading && !error && filteredResumes.length === 0 && (
-        <Empty
-          description={searchKeyword ? '未找到匹配的简历' : '暂无简历'}
-          image={Empty.PRESENTED_IMAGE_SIMPLE}
-        >
-          {!searchKeyword && (
-            <Button 
-              type="primary" 
-              icon={<PlusOutlined />}
-              onClick={() => navigate('/resume/templates')}
-            >
-              创建简历
-            </Button>
-          )}
-        </Empty>
-      )}
+      {/* 编辑简历名称弹窗 */}
+      <Modal
+        title="编辑简历名称"
+        open={editModalVisible}
+        onCancel={() => {
+          setEditModalVisible(false)
+          setEditingResume(null)
+          setNewResumeName('')
+        }}
+        footer={[
+          <Button key="cancel" onClick={() => {
+            setEditModalVisible(false)
+            setEditingResume(null)
+            setNewResumeName('')
+          }}>
+            取消
+          </Button>,
+          <Button key="save" type="primary" onClick={confirmEditName} loading={updateNameMutation.isLoading}>
+            保存
+          </Button>
+        ]}
+      >
+        <Input
+          placeholder="请输入简历名称"
+          value={newResumeName}
+          onChange={(e) => setNewResumeName(e.target.value)}
+          onPressEnter={confirmEditName}
+          maxLength={50}
+        />
+      </Modal>
 
       {/* 删除确认弹窗 */}
       <Modal
@@ -317,9 +590,7 @@ const MyResumes: React.FC = () => {
         open={deleteModalVisible}
         onCancel={() => setDeleteModalVisible(false)}
         footer={[
-          <Button key="cancel" onClick={() => setDeleteModalVisible(false)}>
-            取消
-          </Button>,
+          <Button key="cancel" onClick={() => setDeleteModalVisible(false)}>取消</Button>,
           <Button key="delete" type="primary" danger onClick={confirmDelete} loading={deleteResumeMutation.isLoading}>
             确认删除
           </Button>
@@ -328,6 +599,139 @@ const MyResumes: React.FC = () => {
         <p>确定要删除简历"{selectedResume?.userSaveResumeResumeName}"吗？</p>
         <p>删除后简历将移入回收站，仍可在30天内恢复。</p>
       </Modal>
+
+      {/* 发送给HR弹窗 */}
+      <Modal
+        title={`发送简历给HR - ${sendingResume?.userSaveResumeResumeName || ''}`}
+        open={sendModalVisible}
+        width={700}
+        onCancel={() => {
+          setSendModalVisible(false)
+          setSendingResume(null)
+        }}
+        footer={[
+          <Button key="cancel" onClick={() => {
+            setSendModalVisible(false)
+            setSendingResume(null)
+          }}>
+            取消
+          </Button>,
+          <Button key="send" type="primary" icon={<SendOutlined />} onClick={confirmSend} loading={sending}>
+            发送
+          </Button>
+        ]}
+      >
+        <Form layout="vertical">
+          <Form.Item label="目标邮箱" required>
+            <Input
+              placeholder="请输入HR邮箱"
+              value={sendForm.targetEmail}
+              onChange={(e) => setSendForm({ ...sendForm, targetEmail: e.target.value })}
+              maxLength={25}
+              showCount
+            />
+          </Form.Item>
+          <Form.Item label="邮件标题" required>
+            <Input
+              placeholder="请输入邮件标题"
+              value={sendForm.title}
+              onChange={(e) => setSendForm({ ...sendForm, title: e.target.value })}
+              maxLength={35}
+              showCount
+            />
+          </Form.Item>
+          <Form.Item label="邮件内容" required>
+            <div style={{ border: '1px solid #d9d9d9', borderRadius: 6 }}>
+              <Toolbar
+                editor={editor}
+                defaultConfig={toolbarConfig}
+                mode="default"
+                style={{ borderBottom: '1px solid #d9d9d9' }}
+              />
+              <Editor
+                defaultConfig={editorConfig}
+                value={sendForm.content}
+                onCreated={setEditor}
+                onChange={(editorInstance) => setSendForm(prev => ({ ...prev, content: editorInstance.getHtml() }))}
+                mode="default"
+                style={{ height: 200, overflowY: 'hidden' }}
+              />
+            </div>
+          </Form.Item>
+          <Form.Item label="附件格式" required>
+            <Select
+              value={attachmentFormat}
+              onChange={setAttachmentFormat}
+              options={[
+                { value: 'pdf', label: 'PDF格式（推荐）' },
+                { value: 'word', label: 'Word格式' },
+                { value: 'png', label: 'PNG图片' }
+              ]}
+              style={{ width: 200 }}
+            />
+            <div style={{ fontSize: 12, color: '#999', marginTop: 4 }}>
+              简历将以选择的格式作为附件发送
+            </div>
+          </Form.Item>
+        </Form>
+        {/* 隐藏的简历预览区域，用于生成PDF/Word/PNG */}
+        {sendingResume && (
+          <div 
+            ref={hiddenPreviewRef}
+            style={{ 
+              position: 'absolute', 
+              left: '-9999px', 
+              top: 0,
+              width: '794px',
+              background: '#fff'
+            }}
+          >
+            <LiveProvider 
+              code={(() => {
+                let processed = (sendingResume.userSaveResumeResumeReactCode || '')
+                  .replace(/import\s+.*?from\s+['"].*?['"]\s*;?/g, '')
+                  .replace(/import\s+['"].*?['"]\s*;?/g, '')
+                  .replace(/export\s+default\s+/g, '')
+                  .replace(/export\s+/g, '')
+                  .trim()
+                if (processed.match(/^(const|function|class)\s+\w+/)) {
+                  const match = processed.match(/^(?:const|function|class)\s+(\w+)/)
+                  if (match) processed = `${processed}\n\nrender(<${match[1]} />)`
+                }
+                return processed
+              })()}
+              scope={{ React, useState: React.useState, useEffect: React.useEffect }}
+              noInline={true}
+            >
+              <LivePreview />
+            </LiveProvider>
+          </div>
+        )}
+      </Modal>
+
+      {/* 回收站入口 */}
+      <div 
+        className="recycle-bin-entry"
+        onClick={handleOpenRecycleBin}
+        style={{
+          position: 'fixed',
+          right: 32,
+          bottom: 100,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '16px 20px',
+          background: '#fff',
+          borderRadius: 12,
+          boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+          cursor: 'pointer',
+          transition: 'all 0.3s',
+          zIndex: 999
+        }}
+      >
+        <RestOutlined style={{ fontSize: 28, color: '#666' }} />
+        <span style={{ fontSize: 13, color: '#666', marginTop: 6, fontWeight: 500 }}>回收站</span>
+      </div>
     </div>
   )
 }

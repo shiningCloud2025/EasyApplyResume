@@ -11,9 +11,14 @@ import java.util.Date;
 @Data
 @Schema(description = "用户反馈记录信息")
 public class UserFeedbackRecordInfoVO {
-    
-    @Schema(description = "反馈记录ID")
+    @Schema(description = "用户反馈记录ID")
     private Integer userFeedbackRecordId;
+
+    @Schema(description = "反馈记录所属用户id")
+    private Integer userFeedbackRecordUserId;
+    
+    @Schema(description = "用户反馈记录反馈人")
+    private String userFeedbackRecordName;
     
     @Schema(description = "反馈记录标题")
     private String userFeedbackRecordTitle;
@@ -32,10 +37,10 @@ public class UserFeedbackRecordInfoVO {
     
     @Schema(description = "反馈现阶段")
     private String userFeedbackRecordNewStep;
-    
+
     @Schema(description = "反馈处理人ID")
     private Integer userFeedbackRecordApprovalPersonId;
-    
+
     @Schema(description = "反馈处理人姓名")
-    private String userFeedbackRecordApprovalPersonName;
+    private String adminFeedbackRecordApprovalPersonName;
 }
