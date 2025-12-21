@@ -4833,3 +4833,882 @@ This generated password is for development use only. Your security configuration
 2025-12-21 13:24:29.154 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
 2025-12-21 13:24:29.158 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
 2025-12-21 13:24:29.167 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-12-21 14:09:31.968 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-21 14:09:31.972 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-21 14:09:31.973 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-21 14:09:31.982 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-21 14:09:31.997 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-21 14:09:32.141 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 33256 (C:\Users\shini\IdeaProjects\EasyApplyResume\target\classes started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-21 14:09:32.141 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-21 14:09:32.142 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-21 14:09:34.019 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-12-21 14:09:34.023 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-12-21 14:09:34.073 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 35 ms. Found 0 Redis repository interfaces.
+2025-12-21 14:09:34.231 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.232 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.232 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.233 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.233 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.235 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.235 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.235 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.236 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.236 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.237 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.237 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.238 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.238 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.238 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.239 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.239 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.239 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.240 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.240 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.241 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.241 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.242 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.242 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.242 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.243 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:09:34.245 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-12-21 14:09:34.561 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-12-21 14:09:34.570 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-21 14:09:34.711 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-12-21 14:09:34.711 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-12-21 14:09:34.714 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-21 14:09:35.310 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-21 14:09:35.324 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-21 14:09:35.328 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-21 14:09:35.328 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-12-21 14:09:35.441 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-12-21 14:09:35.441 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3222 ms
+2025-12-21 14:09:36.385 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserCollections".
+2025-12-21 14:09:36.385 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserCollections ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2025-12-21 14:09:36.546 [main] DEBUG c.z.e.filter.UserJwtAuthFilter - Filter 'userJwtAuthFilter' configured for use
+2025-12-21 14:09:36.547 [main] DEBUG c.z.e.filter.AdminJwtAuthFilter - Filter 'adminJwtAuthFilter' configured for use
+2025-12-21 14:09:36.733 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-21 14:09:37.142 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-21 14:09:38.222 [main] INFO  c.z.e.d.a.AdminSensitiveWordsAdvisor - 管理端敏感词初始化完成，共加载 137 个敏感词
+2025-12-21 14:09:39.815 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 2404 (C:\Users\shini\IdeaProjects\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-21 14:09:39.817 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-12-21 14:09:40.930 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-12-21 14:09:40.989 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-12-21 14:09:41.022 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.668 seconds (process running for 2.379)
+2025-12-21 14:09:43.933 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-12-21 14:09:43.944 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-12-21 14:09:43.979 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 用户端敏感词初始化完成，共加载 137 个敏感词
+2025-12-21 14:09:44.294 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:09:44.298 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:09:44.301 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:09:52.261 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 6099feeb-28e7-4dae-94a0-a4cf709659fe
+2025-12-21 14:09:52.559 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 67f5456c-5c68-45d6-b435-1d17467151c4
+2025-12-21 14:09:52.825 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 036d5033-08b7-423b-a9df-e6e8b99ae52d
+2025-12-21 14:09:53.164 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-21 14:09:53.179 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-21 14:09:53.404 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-12-21 14:09:53.503 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-12-21 14:09:53.509 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-12-21 14:09:53.509 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-12-21 14:09:53.515 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-21 14:09:54.318 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6bb87f93
+2025-12-21 14:09:54.320 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-21 14:09:55.138 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 64f5a764-270c-42d1-adb4-b111bdc2edd4
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-12-21 14:09:55.150 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-12-21 14:09:56.195 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-21 14:09:56.212 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-12-21 14:09:56.229 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 24.813 seconds (process running for 25.689)
+2025-12-21 14:10:02.344 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-21 14:10:02.345 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-21 14:10:02.358 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 13 ms
+2025-12-21 14:10:03.556 [http-nio-8080-exec-3] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-12-21 14:10:04.945 [http-nio-8080-exec-3] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3cdf16cb
+2025-12-21 14:10:04.945 [http-nio-8080-exec-3] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-12-21 14:10:04.955 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 14:10:05.110 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:05.368 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 14:10:05.693 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 14:10:05.696 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:05.915 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 14:10:05.917 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:10:05.918 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:05.932 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 14:10:05.936 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:06.075 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:10:06.075 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 14:10:06.075 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 14:10:06.075 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:06.132 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 14:10:06.801 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:10:06.801 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:06.872 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:10:06.963 [http-nio-8080-exec-4] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 14:10:06.965 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:10:06.966 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 14:10:07.016 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:10:07.086 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 14:10:07.087 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:07.092 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 14:10:07.092 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 14:10:07.131 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 14:10:07.131 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 14:10:07.132 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:07.132 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 14:10:07.132 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:07.132 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 14:10:07.133 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 14:10:07.133 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:07.198 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 14:10:07.199 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 14:10:07.199 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 14:10:07.199 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 14:10:07.201 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:07.313 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 14:10:07.313 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:07.313 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 14:10:07.433 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 14:10:07.433 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:07.434 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 14:10:07.470 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 14:10:08.681 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:10:08.682 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:08.717 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:10:08.749 [http-nio-8080-exec-6] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 14:10:08.750 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:10:08.751 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 14:10:08.787 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:10:08.788 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 14:10:08.790 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 14:10:08.823 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 14:10:08.824 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 14:10:08.824 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:10:08.860 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 14:11:25.244 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-12-21 14:11:25.244 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-21 14:11:25.244 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-21 14:11:25.244 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-12-21 14:11:25.302 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-21 14:11:25.305 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-21 14:11:25.307 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 14:11:25.310 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 14:11:25.311 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 14:11:25.311 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 14:11:25.315 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-21 14:11:25.325 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-12-21 14:11:29.125 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-21 14:11:29.127 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-21 14:11:29.127 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-21 14:11:29.134 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-21 14:11:29.145 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-21 14:11:29.250 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 36684 (C:\Users\shini\IdeaProjects\EasyApplyResume\target\classes started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-21 14:11:29.250 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-21 14:11:29.251 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-21 14:11:30.876 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-12-21 14:11:30.879 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-12-21 14:11:30.934 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 0 Redis repository interfaces.
+2025-12-21 14:11:31.090 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.091 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.092 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.092 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.092 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.093 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.093 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.094 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.094 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.095 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.095 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.096 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.097 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.097 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.097 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.099 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.099 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.100 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.100 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.101 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.101 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.102 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.102 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.102 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.103 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.103 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:11:31.105 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-12-21 14:11:31.466 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-12-21 14:11:31.478 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-21 14:11:31.615 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-12-21 14:11:31.615 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-12-21 14:11:31.620 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-21 14:11:32.272 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-21 14:11:32.288 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-21 14:11:32.293 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-21 14:11:32.293 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-12-21 14:11:32.397 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-12-21 14:11:32.397 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3084 ms
+2025-12-21 14:11:33.272 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserCollections".
+2025-12-21 14:11:33.272 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserCollections ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2025-12-21 14:11:33.425 [main] DEBUG c.z.e.filter.UserJwtAuthFilter - Filter 'userJwtAuthFilter' configured for use
+2025-12-21 14:11:33.425 [main] DEBUG c.z.e.filter.AdminJwtAuthFilter - Filter 'adminJwtAuthFilter' configured for use
+2025-12-21 14:11:33.613 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-21 14:11:33.898 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-21 14:11:35.031 [main] INFO  c.z.e.d.a.AdminSensitiveWordsAdvisor - 管理端敏感词初始化完成，共加载 137 个敏感词
+2025-12-21 14:11:36.608 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 37152 (C:\Users\shini\IdeaProjects\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-21 14:11:36.610 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-12-21 14:11:37.625 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-12-21 14:11:37.684 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-12-21 14:11:37.717 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.507 seconds (process running for 2.182)
+2025-12-21 14:11:40.039 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-12-21 14:11:40.057 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-12-21 14:11:40.102 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 用户端敏感词初始化完成，共加载 137 个敏感词
+2025-12-21 14:11:40.442 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:11:40.448 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:11:40.454 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:11:45.347 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 704bab0c-3865-4144-b668-ef5140103779
+2025-12-21 14:11:45.686 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 6b942a25-ed53-43d2-82bd-f28b8011172d
+2025-12-21 14:11:45.899 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 6214590b-71eb-4bbb-a55f-710d9de09fa2
+2025-12-21 14:11:46.262 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-21 14:11:46.284 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-21 14:11:46.551 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-12-21 14:11:46.655 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-12-21 14:11:46.657 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-12-21 14:11:46.658 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-12-21 14:11:46.663 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-21 14:11:47.049 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@46c4cc15
+2025-12-21 14:11:47.050 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-21 14:11:47.478 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 0ad70d99-2c29-4a9b-b5af-1a7df48e2c51
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-12-21 14:11:47.490 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-12-21 14:11:48.649 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-21 14:11:48.665 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-12-21 14:11:48.683 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 20.102 seconds (process running for 20.832)
+2025-12-21 14:14:11.280 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-21 14:14:11.280 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-12-21 14:14:11.281 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-21 14:14:11.281 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-12-21 14:14:11.319 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-21 14:14:11.323 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-21 14:14:11.324 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 14:14:11.327 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 14:14:11.328 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 14:14:11.328 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 14:14:56.071 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-21 14:14:56.081 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-21 14:14:56.084 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-21 14:14:56.124 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-21 14:14:56.158 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-21 14:14:57.087 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 32084 (C:\Users\shini\IdeaProjects\EasyApplyResume\target\classes started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-21 14:14:57.088 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-21 14:14:57.095 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-21 14:15:05.509 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-12-21 14:15:05.518 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-12-21 14:15:05.762 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 194 ms. Found 0 Redis repository interfaces.
+2025-12-21 14:15:06.384 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.386 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.389 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.399 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.401 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.405 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.406 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.408 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.409 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.413 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.414 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.417 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.421 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.424 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.426 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.430 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.431 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.433 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.436 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.440 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.442 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.444 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.446 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.448 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.450 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.454 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:15:06.460 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-12-21 14:15:08.281 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-12-21 14:15:08.394 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-21 14:15:09.273 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-12-21 14:15:09.274 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-12-21 14:15:09.292 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-21 14:15:13.592 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-21 14:15:13.731 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-21 14:15:13.769 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-21 14:15:13.769 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-12-21 14:15:15.035 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-12-21 14:15:15.039 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 17158 ms
+2025-12-21 14:15:19.166 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserCollections".
+2025-12-21 14:15:19.167 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserCollections ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2025-12-21 14:15:20.362 [main] DEBUG c.z.e.filter.UserJwtAuthFilter - Filter 'userJwtAuthFilter' configured for use
+2025-12-21 14:15:20.366 [main] DEBUG c.z.e.filter.AdminJwtAuthFilter - Filter 'adminJwtAuthFilter' configured for use
+2025-12-21 14:15:23.075 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-21 14:15:24.141 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-21 14:15:28.963 [main] INFO  c.z.e.d.a.AdminSensitiveWordsAdvisor - 管理端敏感词初始化完成，共加载 137 个敏感词
+2025-12-21 14:15:35.762 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 32516 (C:\Users\shini\IdeaProjects\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-21 14:15:35.767 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-12-21 14:15:40.420 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-12-21 14:15:41.069 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 7.519 seconds (process running for 10.524)
+2025-12-21 14:15:40.888 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-12-21 14:15:46.267 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-12-21 14:15:46.324 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-12-21 14:15:46.564 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 用户端敏感词初始化完成，共加载 137 个敏感词
+2025-12-21 14:15:47.752 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:15:47.775 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:15:47.786 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:15:54.958 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = b54701a5-3603-4602-b0c1-f276ad336bd0
+2025-12-21 14:15:55.276 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = f3167eb6-58fd-49a2-ac0f-ad6e987488ec
+2025-12-21 14:15:55.562 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 43ae6f82-b15f-4927-b2af-4778aecafca4
+2025-12-21 14:15:55.901 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-21 14:15:55.972 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-21 14:15:57.069 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-12-21 14:15:57.616 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-12-21 14:15:57.630 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-12-21 14:15:57.630 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-12-21 14:15:57.648 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-21 14:15:58.873 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@61f4e84f
+2025-12-21 14:15:58.899 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-21 14:16:00.643 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: fab3b322-0702-45ad-8633-a873f3d8365f
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-12-21 14:16:00.698 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-12-21 14:16:06.032 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-21 14:16:06.083 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-12-21 14:16:06.174 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 72.405 seconds (process running for 76.355)
+2025-12-21 14:20:14.986 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-21 14:20:14.987 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-21 14:20:15.012 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 24 ms
+2025-12-21 14:20:17.862 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-12-21 14:20:20.795 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6489b035
+2025-12-21 14:20:20.796 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-12-21 14:20:20.884 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 14:20:21.263 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 14:20:21.310 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:20:21.310 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:20:21.686 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 14:20:21.696 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 14:20:21.742 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 14:20:21.743 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 14:20:21.744 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 14:20:21.744 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 14:20:21.895 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 14:20:21.895 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 14:20:22.705 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.I.selectList - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap
+2025-12-21 14:20:22.706 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.I.selectList - ==> Parameters: 
+2025-12-21 14:20:22.750 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.I.selectList - <==      Total: 2
+2025-12-21 14:20:22.755 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 14:20:22.755 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:20:22.797 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 14:20:22.797 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 14:20:22.798 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 14:20:22.837 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 14:20:22.931 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 14:20:22.932 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 14:20:22.984 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 14:20:23.566 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 14:20:23.567 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:20:23.624 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 14:20:23.625 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 14:20:23.626 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 14:20:23.662 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 14:20:23.940 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT resumeTemplate_id,resumeTemplate_name,resumeTemplate_reactCode,resumeTemplate_industry,resumeTemplate_isActive,resumeTemplate_createdTime,resumeTemplate_updatedTime,deleted FROM general_resumeTemplate WHERE deleted=0 AND (deleted = ?)
+2025-12-21 14:20:23.946 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 0(Integer)
+2025-12-21 14:20:23.994 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-21 14:20:24.010 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 14:20:24.012 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:20:24.051 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 14:20:42.435 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 14:20:42.436 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:20:42.480 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 14:20:42.483 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 14:20:42.484 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 14:20:42.521 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 14:20:42.619 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminFeedback_id,adminFeedback_title,adminFeedback_content,adminFeedback_time,adminFeedback_recentTime,adminFeedback_curStep,adminFeedback_adminId FROM admin_adminFeedback ORDER BY adminFeedback_id DESC
+2025-12-21 14:20:42.620 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2025-12-21 14:20:42.660 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 7
+2025-12-21 14:20:42.677 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 14:20:42.678 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:20:42.716 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 14:29:10.196 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:29:10.196 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:29:10.198 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:29:10.198 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:29:10.265 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:29:10.265 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:29:10.330 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 14:29:10.335 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 14:29:10.335 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 14:29:10.478 [http-nio-8080-exec-6] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 14:29:10.479 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:29:10.482 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 14:29:10.492 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 14:29:10.503 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 14:29:10.504 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:29:10.595 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:29:10.679 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 14:29:10.681 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 14:29:10.738 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 14:29:10.740 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 14:29:10.741 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:29:10.811 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 14:29:10.836 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 14:29:11.137 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:29:11.138 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:29:11.177 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:29:11.211 [http-nio-8080-exec-7] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 14:29:11.212 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:29:11.213 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 14:29:11.253 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:29:11.263 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 14:29:11.264 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 14:29:11.303 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 14:29:11.303 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 14:29:11.304 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:29:11.339 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 14:32:43.027 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:32:43.027 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:32:43.028 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:32:43.028 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:32:43.140 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:32:43.141 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:32:43.252 [http-nio-8080-exec-10] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 14:32:43.252 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 14:32:43.252 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:32:43.254 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 14:32:43.255 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 14:32:43.256 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 14:32:43.367 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:32:43.367 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 14:32:43.368 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 14:32:43.368 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:32:43.368 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 14:32:43.368 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 14:32:43.478 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 14:32:43.478 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 14:32:43.479 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 14:32:43.479 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:32:43.592 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 14:32:43.861 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:32:43.863 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:32:43.907 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:32:43.946 [http-nio-8080-exec-2] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 14:32:43.947 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:32:43.948 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 14:32:43.986 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:32:43.990 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 14:32:43.990 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 14:32:44.026 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 14:32:44.027 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 14:32:44.027 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:32:44.065 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 14:36:51.928 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:36:51.928 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:36:51.929 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:36:51.929 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:36:52.089 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:36:52.089 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:36:52.183 [http-nio-8080-exec-1] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 14:36:52.183 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 14:36:52.183 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:36:52.183 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 14:36:52.183 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 14:36:52.184 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 14:36:52.298 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:36:52.298 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 14:36:52.299 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 14:36:52.299 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 14:36:52.300 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 14:36:52.300 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:36:52.417 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 14:36:52.417 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 14:36:52.418 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 14:36:52.418 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:36:52.521 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 14:36:52.859 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:36:52.859 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:36:52.913 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:36:52.971 [http-nio-8080-exec-3] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 14:36:52.971 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:36:52.971 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 14:36:53.085 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:36:53.088 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 14:36:53.090 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 14:36:53.143 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 14:36:53.144 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 14:36:53.145 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:36:53.182 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 14:43:26.510 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:43:26.511 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:43:26.574 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:43:26.975 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:43:26.976 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:43:27.043 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:44:29.987 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:44:29.988 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:44:30.030 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:44:30.176 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 14:44:30.177 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 14:44:30.178 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 14:44:30.224 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 14:44:30.225 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 14:44:30.226 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:44:30.281 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 14:46:03.508 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:46:03.509 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:46:03.659 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:54:00.520 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-21 14:54:00.520 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-12-21 14:54:00.521 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-21 14:54:00.523 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-12-21 14:54:00.601 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-21 14:54:00.605 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-21 14:54:00.606 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 14:54:00.611 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 14:54:00.612 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 14:54:00.613 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 14:54:00.616 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-21 14:54:00.619 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-12-21 14:54:12.510 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-21 14:54:12.513 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-21 14:54:12.514 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-21 14:54:12.522 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-21 14:54:12.535 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-21 14:54:12.649 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 5160 (C:\Users\shini\IdeaProjects\EasyApplyResume\target\classes started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-21 14:54:12.649 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-21 14:54:12.650 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-21 14:54:14.616 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-12-21 14:54:14.621 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-12-21 14:54:14.677 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 40 ms. Found 0 Redis repository interfaces.
+2025-12-21 14:54:14.830 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.831 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.831 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.832 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.832 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.833 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.833 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.834 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.834 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.835 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.835 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.835 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.836 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.836 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.838 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.838 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.839 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.839 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.840 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.840 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.840 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.841 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.841 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.842 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.842 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.843 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:54:14.845 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-12-21 14:54:15.186 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-12-21 14:54:15.196 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-21 14:54:15.339 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-12-21 14:54:15.339 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-12-21 14:54:15.343 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-21 14:54:15.966 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-21 14:54:15.985 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-21 14:54:15.989 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-21 14:54:15.990 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-12-21 14:54:16.116 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-12-21 14:54:16.117 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3405 ms
+2025-12-21 14:54:17.226 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserCollections".
+2025-12-21 14:54:17.226 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserCollections ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2025-12-21 14:54:17.416 [main] DEBUG c.z.e.filter.UserJwtAuthFilter - Filter 'userJwtAuthFilter' configured for use
+2025-12-21 14:54:17.417 [main] DEBUG c.z.e.filter.AdminJwtAuthFilter - Filter 'adminJwtAuthFilter' configured for use
+2025-12-21 14:54:17.656 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-21 14:54:17.934 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-21 14:54:19.066 [main] INFO  c.z.e.d.a.AdminSensitiveWordsAdvisor - 管理端敏感词初始化完成，共加载 137 个敏感词
+2025-12-21 14:54:20.801 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 33964 (C:\Users\shini\IdeaProjects\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-21 14:54:20.805 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-12-21 14:54:22.018 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-12-21 14:54:22.082 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-12-21 14:54:22.120 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.818 seconds (process running for 2.599)
+2025-12-21 14:54:25.248 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-12-21 14:54:25.258 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-12-21 14:54:25.292 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 用户端敏感词初始化完成，共加载 137 个敏感词
+2025-12-21 14:54:25.574 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:54:25.579 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:54:25.582 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:54:30.348 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 69516662-655e-4935-b9ef-aaaf8b23849a
+2025-12-21 14:54:30.603 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = bef7a0c4-24d3-4371-adee-899049cfc205
+2025-12-21 14:54:30.829 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 7cb0a315-e741-4c4a-85fb-1356c6900d3c
+2025-12-21 14:54:31.084 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-21 14:54:31.106 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-21 14:54:31.387 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-12-21 14:54:31.484 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-12-21 14:54:31.487 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-12-21 14:54:31.487 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-12-21 14:54:31.492 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-21 14:54:31.972 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6d3b3d1b
+2025-12-21 14:54:31.975 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-21 14:54:32.505 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: c5bb9a95-62b8-48d0-a4a6-b7e92c24d399
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-12-21 14:54:32.518 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-12-21 14:54:33.633 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-21 14:54:33.648 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-12-21 14:54:33.667 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 21.838 seconds (process running for 22.766)
+2025-12-21 14:55:39.839 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-21 14:55:39.839 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-21 14:55:39.846 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2025-12-21 14:55:40.607 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-12-21 14:55:42.517 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2af92b9f
+2025-12-21 14:55:42.519 [http-nio-8080-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-12-21 14:55:42.522 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:55:42.651 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:55:42.824 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:55:43.716 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 开始发送简历，目标邮箱：1812463057@qq.com
+2025-12-21 14:55:55.178 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 简历发送成功，目标邮箱：1812463057@qq.com
+2025-12-21 14:58:45.721 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-12-21 14:58:45.721 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-21 14:58:45.722 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-12-21 14:58:45.722 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-21 14:58:45.758 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-21 14:58:45.761 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-21 14:58:45.762 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 14:58:45.765 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 14:58:45.765 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 14:58:45.766 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 14:58:45.771 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-21 14:58:45.777 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-12-21 14:58:49.756 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-21 14:58:49.759 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-21 14:58:49.759 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-21 14:58:49.767 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-21 14:58:49.776 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-21 14:58:49.880 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 36024 (C:\Users\shini\IdeaProjects\EasyApplyResume\target\classes started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-21 14:58:49.881 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-21 14:58:49.882 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-21 14:58:51.551 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-12-21 14:58:51.554 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-12-21 14:58:51.612 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 41 ms. Found 0 Redis repository interfaces.
+2025-12-21 14:58:51.766 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.767 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.767 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.768 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.768 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.769 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.769 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.769 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.770 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.770 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.771 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.771 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.771 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.771 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.771 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.772 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.772 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.773 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.773 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.774 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.774 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.775 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.775 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.775 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.776 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.776 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 14:58:51.778 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-12-21 14:58:52.112 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-12-21 14:58:52.123 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-21 14:58:52.246 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-12-21 14:58:52.246 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-12-21 14:58:52.250 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-21 14:58:52.968 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-21 14:58:52.987 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-21 14:58:52.993 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-21 14:58:52.993 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-12-21 14:58:53.114 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-12-21 14:58:53.114 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3174 ms
+2025-12-21 14:58:54.016 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserCollections".
+2025-12-21 14:58:54.017 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserCollections ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2025-12-21 14:58:54.169 [main] DEBUG c.z.e.filter.UserJwtAuthFilter - Filter 'userJwtAuthFilter' configured for use
+2025-12-21 14:58:54.170 [main] DEBUG c.z.e.filter.AdminJwtAuthFilter - Filter 'adminJwtAuthFilter' configured for use
+2025-12-21 14:58:54.381 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-21 14:58:54.631 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-21 14:58:55.754 [main] INFO  c.z.e.d.a.AdminSensitiveWordsAdvisor - 管理端敏感词初始化完成，共加载 137 个敏感词
+2025-12-21 14:58:57.440 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 9840 (C:\Users\shini\IdeaProjects\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-21 14:58:57.442 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-12-21 14:58:58.538 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-12-21 14:58:58.605 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-12-21 14:58:58.638 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.656 seconds (process running for 2.418)
+2025-12-21 14:59:01.095 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-12-21 14:59:01.104 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-12-21 14:59:01.141 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 用户端敏感词初始化完成，共加载 137 个敏感词
+2025-12-21 14:59:01.459 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:59:01.464 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:59:01.469 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 14:59:06.781 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 02d3b50f-bc3a-48f2-a429-2b7f2773d5c3
+2025-12-21 14:59:06.997 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = c807fe06-463c-4a94-b373-afdafdc7374a
+2025-12-21 14:59:07.275 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 09cd919c-2c23-44c9-bd58-0b700c9002bc
+2025-12-21 14:59:07.651 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-21 14:59:07.666 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-21 14:59:07.915 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-12-21 14:59:08.014 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-12-21 14:59:08.017 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-12-21 14:59:08.017 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-12-21 14:59:08.024 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-21 14:59:08.422 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@61f4e84f
+2025-12-21 14:59:08.425 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-21 14:59:08.915 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: fd04642e-93c0-4106-98f7-010e57aa0413
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-12-21 14:59:08.927 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-12-21 14:59:10.102 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-21 14:59:10.121 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-12-21 14:59:10.143 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 20.99 seconds (process running for 21.767)
+2025-12-21 14:59:41.475 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-21 14:59:41.475 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-21 14:59:41.481 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2025-12-21 14:59:42.468 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-12-21 14:59:44.344 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7d36b9af
+2025-12-21 14:59:44.345 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-12-21 14:59:44.374 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 14:59:44.514 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 14:59:44.675 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 14:59:45.514 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 开始发送简历，目标邮箱：1613905809@qq.com
+2025-12-21 14:59:57.601 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 简历发送成功，目标邮箱：1613905809@qq.com
+2025-12-21 15:00:15.934 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:00:15.935 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:00:16.006 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:00:16.115 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 开始发送简历，目标邮箱：1613905809@qq.com
+2025-12-21 15:00:17.423 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 简历发送成功，目标邮箱：1613905809@qq.com
+2025-12-21 15:00:31.494 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:00:31.495 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:00:31.552 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:00:31.659 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 开始发送简历，目标邮箱：1613905809@qq.com
+2025-12-21 15:00:35.605 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 简历发送成功，目标邮箱：1613905809@qq.com
+2025-12-21 15:09:01.358 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:09:01.359 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:09:01.416 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:09:01.872 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 开始发送简历，目标邮箱：chenjiahe0814@163.com
+2025-12-21 15:09:16.126 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 简历发送成功，目标邮箱：chenjiahe0814@163.com
+2025-12-21 15:09:39.978 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:09:39.979 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:09:40.018 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:09:40.087 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 开始发送简历，目标邮箱：chenjiahe0814@163.com
+2025-12-21 15:09:41.061 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 简历发送成功，目标邮箱：chenjiahe0814@163.com
+2025-12-21 15:10:09.391 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:10:09.391 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:10:09.497 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:10:09.637 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 开始发送简历，目标邮箱：chenjiahe0814@163.com
+2025-12-21 15:10:15.127 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 简历发送成功，目标邮箱：chenjiahe0814@163.com
+2025-12-21 15:27:26.760 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:27:26.761 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:26.763 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:27:26.763 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:26.801 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:27:26.804 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:27:26.847 [http-nio-8080-exec-7] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 15:27:26.849 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:27:26.851 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 15:27:26.852 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 15:27:26.898 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:27:26.957 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 15:27:26.958 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 15:27:26.999 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 15:27:27.005 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 15:27:27.007 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:27.033 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 15:27:27.033 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 15:27:27.050 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 15:27:27.078 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 15:27:27.078 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 15:27:27.079 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:27.126 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 15:27:27.424 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:27:27.425 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:27.478 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:27:27.515 [http-nio-8080-exec-9] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 15:27:27.515 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:27:27.516 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 15:27:27.554 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:27:27.556 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 15:27:27.557 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 15:27:27.602 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 15:27:27.602 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 15:27:27.603 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:27.641 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 15:27:29.934 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 15:27:29.934 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:30.027 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 15:27:30.027 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 15:27:30.028 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:30.156 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 15:27:30.379 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 15:27:30.380 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:30.436 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 15:27:30.437 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 15:27:30.437 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:30.492 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 15:27:30.603 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 15:27:30.603 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:30.718 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 15:27:32.477 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m53s508ms777µs400ns).
+2025-12-21 15:27:32.799 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:27:32.799 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:27:32.800 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:32.800 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:32.857 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:27:32.870 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:27:32.909 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectList - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap
+2025-12-21 15:27:32.909 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectList - ==> Parameters: 
+2025-12-21 15:27:32.971 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectList - <==      Total: 2
+2025-12-21 15:27:32.994 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT resumeTemplate_id,resumeTemplate_name,resumeTemplate_reactCode,resumeTemplate_industry,resumeTemplate_isActive,resumeTemplate_createdTime,resumeTemplate_updatedTime,deleted FROM general_resumeTemplate WHERE deleted=0 AND (deleted = ?)
+2025-12-21 15:27:32.995 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 0(Integer)
+2025-12-21 15:27:33.085 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-21 15:27:33.094 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 15:27:33.095 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:33.203 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 15:27:35.663 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:27:35.664 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:35.707 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:27:35.746 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 15:27:35.754 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ? AND userSaveResume_sortedNum = ?)
+2025-12-21 15:27:35.755 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer), 1(Integer)
+2025-12-21 15:27:35.801 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 1
+2025-12-21 15:27:35.802 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 15:27:35.802 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:27:35.839 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 15:27:38.465 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=1m53s510ms325µs400ns).
+2025-12-21 15:28:27.516 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 15:28:27.517 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 15:28:27.557 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 15:28:27.612 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 开始发送简历，目标邮箱：1812463057@qq.com
+2025-12-21 15:28:31.316 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UserSendResumeToHrServiceImpl - 简历发送成功，目标邮箱：1812463057@qq.com
+2025-12-21 16:22:21.399 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-21 16:22:21.399 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-12-21 16:22:21.407 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-21 16:22:21.422 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-12-21 16:22:21.701 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-21 16:22:21.707 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-21 16:22:21.709 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 16:22:21.721 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 16:22:21.722 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 16:22:21.724 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 16:22:21.728 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-21 16:22:21.730 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.

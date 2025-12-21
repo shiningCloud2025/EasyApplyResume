@@ -23,8 +23,8 @@ public class UserSendResumeToHrFormValidator {
     private static final int EMAIL_MAX_LENGTH = 25;
     // 标题最大长度限制（35个字符）
     private static final int TITLE_MAX_LENGTH = 35;
-    // 简历文件最大大小（3MB，1MB=1024*1024字节）
-    private static final long RESUME_FILE_MAX_SIZE = 3 * 1024 * 1024;
+    // 简历文件最大大小（150MB，1MB=1024*1024字节）
+    private static final long RESUME_FILE_MAX_SIZE = 150 * 1024 * 1024;
     // 邮箱正则（兜底校验，兼容javax.mail校验）
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}$";
 
