@@ -41,9 +41,9 @@ export const resumeAPI = {
   },
 
   // 获取用户收藏的模板列表
-  getUserCollections: (userId: number) => {
-    return request.get('/user/userCollections/findUserCollectionsByUserId', {
-      params: { userId }
+  getUserCollections: (userId: number, resumeTemplateName?: string) => {
+    return request.get('/user/userCollections/getUserCollectResumeTemplate', {
+      params: { userId, resumeTemplateName }
     })
   },
 

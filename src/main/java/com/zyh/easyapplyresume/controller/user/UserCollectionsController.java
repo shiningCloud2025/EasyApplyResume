@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.controller.user;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
+import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
 import com.zyh.easyapplyresume.service.user.UserCollectionsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  *  用户收藏控制器-用户端
@@ -39,8 +42,8 @@ public class UserCollectionsController {
 
     @GetMapping("/getUserCollectResumeTemplate")
     @Operation(summary = "查询用户收藏的简历模版")
-    public BaseResult<?> getUserCollectResumeTemplate(@RequestParam(required = true,value = "userId") Integer userId,
-                                                     @RequestParam(required = false,value = "resumeTemplateName") String resumeTemplateName) {
+    public BaseResult<List<ResumeTemplateInfoVO>> getUserCollectResumeTemplate(@RequestParam(required = true,value = "userId") Integer userId,
+                                                                               @RequestParam(required = false,value = "resumeTemplateName") String resumeTemplateName) {
         return BaseResult.ok(userCollectionsService.getUserCollectResumeTemplate(userId, resumeTemplateName));
     }
 

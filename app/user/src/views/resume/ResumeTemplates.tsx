@@ -128,7 +128,9 @@ const ResumeTemplates: React.FC = () => {
     setCollectedStatuses(prev => ({ ...prev, [templateId]: 'loading' }))
     try {
       const res = await resumeAPI.checkTemplateCollected(user.userId, templateId)
-      setCollectedStatuses(prev => ({ ...prev, [templateId]: res.data?.data || false }))
+      console.log('收藏状态接口返回:', res)
+      // res 已经是 { code, message, data } 结构，直接取 data
+      setCollectedStatuses(prev => ({ ...prev, [templateId]: res.data === true }))
     } catch {
       setCollectedStatuses(prev => ({ ...prev, [templateId]: false }))
     }
