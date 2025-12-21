@@ -23,37 +23,37 @@ public class AdmonitorUserAdvertisement {
      * 广告id（主键自增）
      */
     @TableId(value = "userAdvertisement_id", type = IdType.AUTO)
-    private Integer userAdvertisementId;
+    private Integer advertisementId;
 
     /**
      * 广告名称
      */
     @TableField("userAdvertisement_name")
-    private String userAdvertisementName;
+    private String advertisementName;
 
     /**
      * 广告URL（存储广告内容/图片等地址）
      */
     @TableField("userAdvertisement_url")
-    private String userAdvertisementUrl;
+    private String advertisementUrl;
 
     /**
      * 广告图标超链接（跳转地址）
      */
     @TableField("userAdvertisement_link")
-    private String userAdvertisementLink;
+    private String advertisementLink;
 
     /**
      * 广告开始时间
      */
     @TableField("userAdvertisement_startedTime")
-    private Date userAdvertisementStartedTime;
+    private Date advertisementStartedTime;
 
     /**
      * 广告结束时间
      */
     @TableField("userAdvertisement_endTime")
-    private Date userAdvertisementEndTime;
+    private Date advertisementEndTime;
 
     /**
      * 逻辑删除：0-未删除，1-已删除
