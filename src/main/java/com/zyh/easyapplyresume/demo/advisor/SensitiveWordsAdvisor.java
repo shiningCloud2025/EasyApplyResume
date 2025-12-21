@@ -36,7 +36,7 @@ public class SensitiveWordsAdvisor implements CallAroundAdvisor, StreamAroundAdv
         // 处理空配置：如果没配置敏感词，初始化空列表
         if (sensitiveWordsStr == null || sensitiveWordsStr.trim().isEmpty()) {
             sensitiveWordList = List.of();
-            log.info("未配置用户敏感词，敏感词过滤功能不启用");
+            log.info("未配置用户端敏感词，敏感词过滤功能不启用");
             return;
         }
 
@@ -47,7 +47,7 @@ public class SensitiveWordsAdvisor implements CallAroundAdvisor, StreamAroundAdv
                 .distinct() // 去重，避免重复过滤
                 .collect(Collectors.toList());
 
-        log.info("敏感词初始化完成，共加载 {} 个敏感词", sensitiveWordList.size());
+        log.info("用户端敏感词初始化完成，共加载 {} 个敏感词", sensitiveWordList.size());
     }
     @Override
     public AdvisedResponse aroundCall(AdvisedRequest advisedRequest, CallAroundAdvisorChain chain) {

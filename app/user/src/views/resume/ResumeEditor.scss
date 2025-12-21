@@ -1,0 +1,233 @@
+.resume-editor {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+
+  &.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+  }
+
+  .editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .divider {
+        width: 1px;
+        height: 20px;
+        background: #d9d9d9;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .save-status {
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 4px;
+
+        &.unsaved {
+          color: #ff4d4f;
+          background: #fff2f0;
+        }
+
+        &.saved {
+          color: #52c41a;
+          background: #f6ffed;
+        }
+      }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .editor-body {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+
+    &.preview-only {
+      .editor-right {
+        .preview-container {
+          justify-content: center;
+        }
+      }
+    }
+
+    .editor-left {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      background: #1e1e1e;
+      border-right: 1px solid #333;
+
+      .code-header {
+        padding: 12px 20px;
+        background: #252526;
+        border-bottom: 1px solid #333;
+        font-weight: 500;
+        color: #ccc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .code-tip {
+          font-size: 12px;
+          color: #888;
+          font-weight: normal;
+        }
+      }
+
+      .code-editor {
+        flex: 1;
+        overflow: hidden;
+      }
+    }
+
+    .editor-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #f0f2f5;
+      overflow: hidden;
+
+      .preview-header {
+        padding: 8px 12px;
+        background: #2a2a2a;
+        border-bottom: 1px solid #3a3a3a;
+        display: flex;
+        align-items: center;
+        min-height: 48px;
+
+        .edit-toolbar-pro {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          flex-wrap: wrap;
+          width: 100%;
+
+          .ant-btn {
+            height: 32px;
+            border: 1px solid #444;
+            background: #3a3a3a;
+            color: #fff;
+            
+            &:hover {
+              background: #4a4a4a;
+              border-color: #555;
+            }
+          }
+
+          .toolbar-divider {
+            width: 1px;
+            height: 24px;
+            background: #444;
+            margin: 0 6px;
+          }
+        }
+
+        .preview-header-simple {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          color: #fff;
+          font-weight: 500;
+        }
+
+        .edit-tip {
+          font-size: 12px;
+          color: #999;
+          font-weight: normal;
+          margin-left: 8px;
+        }
+      }
+
+      .preview-container {
+        flex: 1;
+        overflow: auto;
+        padding: 24px;
+        display: flex;
+        justify-content: center;
+
+        .preview-content {
+          background: #fff;
+          box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+          min-height: 800px;
+          width: 100%;
+          max-width: 800px;
+          outline: none;
+
+          &[contenteditable="true"] {
+            cursor: text;
+            
+            &:focus {
+              outline: 2px solid #1890ff;
+              outline-offset: 2px;
+            }
+          }
+
+          > div {
+            min-height: 100%;
+          }
+        }
+
+        .preview-error {
+          color: #ff4d4f;
+          background: #fff2f0;
+          padding: 12px;
+          border-radius: 4px;
+          margin-top: 12px;
+          font-size: 12px;
+        }
+
+        .preview-placeholder {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 16px;
+          width: 100%;
+          max-width: 800px;
+          min-height: 400px;
+          background: #fff;
+          box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+          border-radius: 4px;
+
+          p {
+            margin: 0;
+            color: #999;
+          }
+        }
+      }
+    }
+  }
+}
+
+.resume-editor-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

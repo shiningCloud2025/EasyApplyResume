@@ -80,6 +80,13 @@ public class AdminController {
     }
 
 
+    @Operation(summary = "退出登录")
+    @PostMapping("/logout")
+    public BaseResult<String> logout(@AuthenticationPrincipal SecurityUser securityUser){
+        adminService.logout(securityUser.getUserId());
+        return BaseResult.ok("退出登录成功");
+    }
+
 
 
 }

@@ -1,16 +1,21 @@
 import request from '@utils/request'
 import type { PaginationParams } from '@types/index'
 
+// 简历搜索查询参数类型
+export interface ResumeSearchQuery {
+  userSaveResumeResumeName?: string
+  userSaveResumeIndustry?: number
+}
+
 // 简历相关API
 export const resumeAPI = {
   // 分页查询简历模板
   getTemplates: (params: PaginationParams & { query?: any }) => {
-    return request.get('/user/resumeTemplate/findResumeTemplateByPage', {
+    return request.post('/user/resumeTemplate/findResumeTemplateByPage', params.query || {}, {
       params: {
         pageNum: params.pageNum,
-        pageSize: params.pageSize,
-      },
-      data: params.query
+        pageSize: params.pageSize
+      }
     })
   },
 
@@ -35,16 +40,23 @@ export const resumeAPI = {
     })
   },
 
-  // 通过模板创建简历
-  createResumeFromTemplate: (userId: number, templateData: any) => {
-    return request.post('/user/saveResume/saveUserSaveResumeInfoFirst', templateData, {
-      params: { userId }
+  // 获取用户收藏的模板列表
+  getUserCollections: (userId: number, resumeTemplateName?: string) => {
+    return request.get('/user/userCollections/getUserCollectResumeTemplate', {
+      params: { userId, resumeTemplateName }
     })
   },
 
-  // 获取用户所有简历
-  getUserResumes: (userId: number) => {
-    return request.get('/user/saveResume/getUserSaveResumeInfoByUserId', {
+  // 通过模板创建简历
+  createResumeFromTemplate: (userId: number, templateData: any, resumeName?: string) => {
+    return request.post('/user/saveResume/saveUserSaveResumeInfoFirst', templateData, {
+      params: { userId, resumeName }
+    })
+  },
+
+  // 获取用户所有简历（支持搜索）
+  getUserResumes: (userId: number, query?: ResumeSearchQuery) => {
+    return request.post('/user/saveResume/getUserSaveResumeInfoByUserId', query || {}, {
       params: { userId }
     })
   },
@@ -68,10 +80,17 @@ export const resumeAPI = {
     })
   },
 
-  // 获取回收站简历
-  getDeletedResumes: (userId: number) => {
-    return request.get('/user/deleteResume/getUserDeleteResumeInfoByUserId', {
+  // 获取回收站简历（支持搜索）
+  getDeletedResumes: (userId: number, query?: ResumeSearchQuery) => {
+    return request.post('/user/deleteResume/getUserDeleteResumeInfoByUserId', query || {}, {
       params: { userId }
+    })
+  },
+
+  // 获取回收站单个简历详情
+  getDeletedResume: (userId: number, resumeSortedNum: number) => {
+    return request.get('/user/deleteResume/getUserDeleteResumeInfoByUserIdAndResumeSortedNum', {
+      params: { userId, resumeSortedNum }
     })
   },
 
@@ -84,6 +103,41 @@ export const resumeAPI = {
   clearTrash: (userId: number) => {
     return request.delete('/user/deleteResume/clearUserAllDeleteResume', {
       params: { userId }
+    })
+  },
+
+  // 修改回收站简历名称
+  updateDeletedResumeName: (userId: number, resumeSortedNum: number, resumeName: string) => {
+    return request.post('/user/deleteResume/updateUserDeleteResumeName', null, {
+      params: { userId, resumeSortedNum, resumeName }
+    })
+  },
+
+  // 修改用户简历名称
+  updateResumeName: (userId: number, resumeSortedNum: number, resumeName: string) => {
+    return request.post('/user/saveResume/updateUserDeleteResumeName', null, {
+      params: { userId, resumeSortedNum, resumeName }
+    })
+  },
+
+  // 发送简历给HR（使用FormData上传文件）
+  sendResumeToHr: (data: {
+    targetEmail: string
+    title: string
+    content: string
+    resumeFile?: File
+  }) => {
+    const formData = new FormData()
+    formData.append('targetEmail', data.targetEmail)
+    formData.append('title', data.title)
+    formData.append('content', data.content)
+    if (data.resumeFile) {
+      formData.append('resumeFile', data.resumeFile)
+    }
+    return request.post('/user/sendResumeToHr/sendResumeToHr', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     })
   }
 }

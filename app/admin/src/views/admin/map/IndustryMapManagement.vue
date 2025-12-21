@@ -2,7 +2,7 @@
   <div class="industry-map-management">
     <div class="page-header">
       <div class="header-content">
-        <h1 class="page-title">行业Map管理</h1>
+        <h1 class="page-title">行业管理</h1>
         <p class="page-description">管理系统行业分类配置</p>
       </div>
       <div class="header-actions">
@@ -20,20 +20,21 @@
     <!-- 搜索和筛选 -->
     <el-card class="search-card">
       <el-form :model="searchForm" :inline="true" class="search-form">
+        <el-form-item label="行业代码">
+          <el-input-number
+            v-model="searchForm.industryMapIndustryCode"
+            placeholder="请输入行业代码"
+            :controls="false"
+            style="width: 180px"
+          />
+        </el-form-item>
         <el-form-item label="行业名称">
           <el-input
-            v-model="searchForm.industryMapName"
+            v-model="searchForm.industryMapIndustryName"
             placeholder="请输入行业名称"
             clearable
             style="width: 240px"
           />
-        </el-form-item>
-        <el-form-item label="行业等级">
-          <el-select v-model="searchForm.industryMapLevel" placeholder="请选择" clearable style="width: 180px">
-            <el-option label="一级" :value="1" />
-            <el-option label="二级" :value="2" />
-            <el-option label="三级" :value="3" />
-          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSearch">
@@ -55,45 +56,26 @@
         :data="tableData"
         style="width: 100%"
         empty-text="暂无数据"
-        :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-        row-key="industryMapId"
       >
-        <el-table-column prop="industryMapId" label="ID" width="70" />
-        <el-table-column prop="industryMapName" label="行业名称" min-width="200" />
-        <el-table-column label="描述" width="100" align="center">
+        <el-table-column prop="industryMapIndustryCode" label="行业代码" width="120" align="center" />
+        <el-table-column prop="industryMapIndustryName" label="行业名称" min-width="200" />
+        <el-table-column prop="createdTime" label="创建时间" width="120">
           <template #default="{ row }">
-            <el-button
-              type="primary"
-              size="default"
-              @click="handleViewIntroduce(row)"
-            >
-              详情
-            </el-button>
+            {{ formatDate(row.createdTime) }}
           </template>
         </el-table-column>
-        <el-table-column prop="industryMapParentId" label="父级ID" width="100" />
-        <el-table-column prop="industryMapLevel" label="等级" width="80" align="center">
+        <el-table-column prop="updatedTime" label="修改时间" width="120">
           <template #default="{ row }">
-            <el-tag :type="getLevelTagType(row.industryMapLevel)">
-              {{ getLevelText(row.industryMapLevel) }}
-            </el-tag>
+            {{ formatDate(row.updatedTime) }}
           </template>
         </el-table-column>
-        <el-table-column prop="industryMapCreatedTime" label="创建时间" width="160">
+        <el-table-column label="操作" width="200" fixed="right">
           <template #default="{ row }">
-            {{ formatDateTime(row.industryMapCreatedTime) }}
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="320" fixed="right">
-          <template #default="{ row }">
-            <el-button type="success" size="default" @click="handleAddChild(row)">
-              添加子行业
+            <el-button type="info" size="default" @click="handleView(row)">
+              查看
             </el-button>
             <el-button type="primary" size="default" @click="handleEdit(row)">
               编辑
-            </el-button>
-            <el-button type="danger" size="default" @click="handleDelete(row)">
-              删除
             </el-button>
           </template>
         </el-table-column>
@@ -115,7 +97,7 @@
     <!-- 创建/编辑行业对话框 -->
     <el-dialog
       v-model="showCreateDialog"
-      :title="dialogTitle"
+      :title="editingIndustry ? '编辑行业' : '新增行业'"
       width="600px"
       @close="resetForm"
     >
@@ -125,45 +107,25 @@
         :rules="industryRules"
         label-width="100px"
       >
-        <el-form-item label="行业名称" prop="industryMapName">
-          <el-input v-model="industryForm.industryMapName" placeholder="请输入行业名称" />
+        <el-form-item label="行业代码" v-if="editingIndustry">
+          <el-input 
+            v-model="industryForm.industryMapIndustryCode" 
+            disabled
+            placeholder="系统自动生成"
+          />
+          <div style="font-size: 12px; color: #909399; margin-top: 4px;">
+            行业代码不可修改
+          </div>
         </el-form-item>
         
-        <el-form-item label="行业描述" prop="industryMapIntroduce">
-          <el-input v-model="industryForm.industryMapIntroduce" type="textarea" :rows="3" placeholder="请输入行业描述" />
+        <el-form-item label="行业名称" prop="industryMapIndustryName">
+          <el-input 
+            v-model="industryForm.industryMapIndustryName" 
+            placeholder="请输入行业名称，如：互联网、金融、教育等" 
+            maxlength="50"
+            show-word-limit
+          />
         </el-form-item>
-        
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <el-form-item label="父级行业" prop="industryMapParentId">
-              <el-select 
-                v-model="industryForm.industryMapParentId" 
-                placeholder="请选择父级行业"
-                clearable
-                filterable
-              >
-                <el-option label="无父级行业" :value="0" />
-                <el-option
-                  v-for="parent in parentIndustries"
-                  :key="parent.industryMapId"
-                  :label="parent.industryMapName"
-                  :value="parent.industryMapId"
-                />
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="行业等级" prop="industryMapLevel">
-              <el-input-number
-                v-model="industryForm.industryMapLevel"
-                :min="1"
-                :max="3"
-                placeholder="请选择等级"
-                style="width: 100%"
-              />
-            </el-form-item>
-          </el-col>
-        </el-row>
       </el-form>
       
       <template #footer>
@@ -176,24 +138,32 @@
       </template>
     </el-dialog>
 
-    <!-- 描述详情弹窗 -->
+    <!-- 查看行业详情对话框 -->
     <el-dialog
-      v-model="introduceDialogVisible"
-      title="行业描述"
+      v-model="showViewDialog"
+      title="行业详情"
       width="600px"
     >
-      <el-card v-if="currentIntroduceIndustry">
-        <template #header>
-          <div style="font-weight: 600; font-size: 16px;">{{ currentIntroduceIndustry.industryMapName }}</div>
-        </template>
-        <div style="padding: 16px; min-height: 100px; white-space: pre-wrap; word-break: break-all; line-height: 1.8;">
-          {{ currentIntroduceIndustry.industryMapIntroduce || '该行业暂无描述' }}
-        </div>
-      </el-card>
+      <div class="industry-detail" v-if="currentViewIndustry">
+        <el-descriptions :column="1" border>
+          <el-descriptions-item label="行业代码">
+            <el-tag type="primary">{{ currentViewIndustry.industryMapIndustryCode }}</el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="行业名称">
+            {{ currentViewIndustry.industryMapIndustryName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="创建时间">
+            {{ formatDate(currentViewIndustry.createdTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="修改时间">
+            {{ formatDate(currentViewIndustry.updatedTime) }}
+          </el-descriptions-item>
+        </el-descriptions>
+      </div>
       
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="introduceDialogVisible = false">关闭</el-button>
+          <el-button @click="showViewDialog = false">关闭</el-button>
         </div>
       </template>
     </el-dialog>
@@ -201,9 +171,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted } from 'vue'
-import { ElMessage, ElMessageBox } from 'element-plus'
-import { formatDateTime } from '@/utils'
+import { ref, reactive, onMounted } from 'vue'
+import { ElMessage } from 'element-plus'
+import { formatDate } from '@/utils'
 import { industryMapApi } from '@/api/admin'
 import type {
   IndustryMapPageVO,
@@ -217,14 +187,14 @@ import type { FormInstance } from 'element-plus'
 const loading = ref(false)
 const submitting = ref(false)
 const showCreateDialog = ref(false)
+const showViewDialog = ref(false)
 const editingIndustry = ref<IndustryMapPageVO | null>(null)
-const parentIndustries = ref<IndustryMapPageVO[]>([])
+const currentViewIndustry = ref<IndustryMapInfoVO | null>(null)
 
 // 搜索表单
 const searchForm = reactive<IndustryMapQuery>({
-  industryMapName: '',
-  industryMapParentId: undefined,
-  industryMapLevel: undefined
+  industryMapIndustryCode: undefined,
+  industryMapIndustryName: ''
 })
 
 // 分页
@@ -240,37 +210,17 @@ const tableData = ref<IndustryMapPageVO[]>([])
 // 行业表单
 const industryFormRef = ref<FormInstance>()
 const industryForm = reactive<IndustryMapForm>({
-  industryMapId: undefined,
-  industryMapName: '',
-  industryMapIntroduce: '',
-  industryMapParentId: 0,
-  industryMapLevel: 1
+  industryMapIndustryCode: undefined,
+  industryMapIndustryName: ''
 })
 
 // 表单校验规则
 const industryRules = {
-  industryMapName: [
+  industryMapIndustryName: [
     { required: true, message: '请输入行业名称', trigger: 'blur' },
     { min: 2, max: 50, message: '长度在 2 到 50 个字符', trigger: 'blur' }
-  ],
-  industryMapIntroduce: [
-    { required: true, message: '请输入行业描述', trigger: 'blur' },
-    { min: 5, max: 200, message: '长度在 5 到 200 个字符', trigger: 'blur' }
-  ],
-  industryMapLevel: [
-    { required: true, message: '请输入行业等级', trigger: 'change' }
   ]
 }
-
-// 弹窗标题
-const dialogTitle = computed(() => {
-  if (isAddingChild.value) return '添加子行业'
-  return editingIndustry.value ? '编辑行业' : '新增行业'
-})
-
-// 是否添加子行业
-const isAddingChild = ref(false)
-const currentParent = ref<IndustryMapPageVO | null>(null)
 
 // 获取行业列表
 const getIndustryList = async () => {
@@ -292,33 +242,10 @@ const getIndustryList = async () => {
   }
 }
 
-// 获取所有父级行业
-const getParentIndustries = async () => {
-  try {
-    const response = await industryMapApi.findAllIndustryMap()
-    parentIndustries.value = response.data
-  } catch (error) {
-    console.error('获取父级行业列表失败:', error)
-  }
-}
-
 // 新增行业
 const openCreateDialog = () => {
   editingIndustry.value = null
-  isAddingChild.value = false
-  currentParent.value = null
   resetForm()
-  showCreateDialog.value = true
-}
-
-// 添加子行业
-const handleAddChild = (row: IndustryMapPageVO) => {
-  editingIndustry.value = null
-  isAddingChild.value = true
-  currentParent.value = row
-  resetForm()
-  industryForm.industryMapParentId = row.industryMapId
-  industryForm.industryMapLevel = row.industryMapLevel + 1
   showCreateDialog.value = true
 }
 
@@ -330,9 +257,8 @@ const handleSearch = () => {
 
 // 重置搜索
 const handleReset = () => {
-  searchForm.industryMapName = ''
-  searchForm.industryMapParentId = undefined
-  searchForm.industryMapLevel = undefined
+  searchForm.industryMapIndustryCode = undefined
+  searchForm.industryMapIndustryName = ''
   pagination.current = 1
   getIndustryList()
 }
@@ -353,78 +279,34 @@ const handleCurrentChange = (current: number) => {
   getIndustryList()
 }
 
-// 查看描述详情
-const introduceDialogVisible = ref(false)
-const currentIntroduceIndustry = ref<IndustryMapPageVO | null>(null)
-
-const handleViewIntroduce = (row: IndustryMapPageVO) => {
-  currentIntroduceIndustry.value = row
-  introduceDialogVisible.value = true
-}
-
-// 编辑行业
-const handleEdit = async (row: IndustryMapPageVO) => {
+// 查看行业详情
+const handleView = async (row: IndustryMapPageVO) => {
   try {
-    const response = await industryMapApi.getIndustryMapInfo(row.industryMapId)
-    const detail = response.data
-    
-    editingIndustry.value = row
-    isAddingChild.value = false
-    currentParent.value = null
-    Object.assign(industryForm, {
-      industryMapId: detail.industryMapId,
-      industryMapName: detail.industryMapName,
-      industryMapIntroduce: detail.industryMapIntroduce,
-      industryMapParentId: detail.industryMapParentId,
-      industryMapLevel: detail.industryMapLevel
-    })
-    showCreateDialog.value = true
+    const response = await industryMapApi.getIndustryMapInfo(row.industryMapIndustryCode)
+    currentViewIndustry.value = response.data
+    showViewDialog.value = true
   } catch (error) {
     console.error('获取行业详情失败:', error)
     ElMessage.error('获取行业详情失败')
   }
 }
 
-// 删除行业
-const handleDelete = (row: IndustryMapPageVO) => {
-  ElMessageBox.confirm(`确定要删除行业"${row.industryMapName}"吗？这可能会影响相关的子行业。`, '确认删除', {
-    type: 'warning'
-  }).then(async () => {
-    try {
-      await industryMapApi.updateIndustryMap({
-        industryMapId: row.industryMapId,
-        industryMapName: row.industryMapName,
-        industryMapIntroduce: row.industryMapIntroduce,
-        industryMapParentId: row.industryMapParentId,
-        industryMapLevel: row.industryMapLevel
-      })
-      ElMessage.success('删除成功')
-      getIndustryList()
-    } catch (error) {
-      console.error('删除失败:', error)
-      ElMessage.error('删除失败')
-    }
-  })
-}
-
-// 获取等级标签类型
-const getLevelTagType = (level: number) => {
-  const typeMap: Record<number, string> = {
-    1: 'primary',
-    2: 'success',
-    3: 'info'
+// 编辑行业
+const handleEdit = async (row: IndustryMapPageVO) => {
+  try {
+    const response = await industryMapApi.getIndustryMapInfo(row.industryMapIndustryCode)
+    const detail = response.data
+    
+    editingIndustry.value = row
+    Object.assign(industryForm, {
+      industryMapIndustryCode: detail.industryMapIndustryCode,
+      industryMapIndustryName: detail.industryMapIndustryName
+    })
+    showCreateDialog.value = true
+  } catch (error) {
+    console.error('获取行业详情失败:', error)
+    ElMessage.error('获取行业详情失败')
   }
-  return typeMap[level] || 'info'
-}
-
-// 获取等级文本
-const getLevelText = (level: number) => {
-  const levelMap: Record<number, string> = {
-    1: '一级',
-    2: '二级',
-    3: '三级'
-  }
-  return levelMap[level] || '未知'
 }
 
 // 提交表单
@@ -435,9 +317,9 @@ const handleSubmit = async () => {
     await industryFormRef.value.validate()
     submitting.value = true
     
-    if (isAddingChild.value || editingIndustry.value) {
+    if (editingIndustry.value) {
       await industryMapApi.updateIndustryMap(industryForm)
-      ElMessage.success(isAddingChild.value ? '添加子行业成功' : '更新成功')
+      ElMessage.success('更新成功')
     } else {
       await industryMapApi.addIndustryMap(industryForm)
       ElMessage.success('创建成功')
@@ -460,21 +342,15 @@ const resetForm = () => {
   }
   
   editingIndustry.value = null
-  isAddingChild.value = false
-  currentParent.value = null
   Object.assign(industryForm, {
-    industryMapId: undefined,
-    industryMapName: '',
-    industryMapIntroduce: '',
-    industryMapParentId: 0,
-    industryMapLevel: 1
+    industryMapIndustryCode: undefined,
+    industryMapIndustryName: ''
   })
 }
 
 // 组件挂载
 onMounted(() => {
   getIndustryList()
-  getParentIndustries()
 })
 </script>
 
@@ -539,12 +415,8 @@ onMounted(() => {
     gap: 12px;
   }
 
-  .danger {
-    color: #ef4444;
-    
-    &:hover {
-      color: #dc2626;
-    }
+  .industry-detail {
+    padding: 8px 0;
   }
 }
 
@@ -571,7 +443,8 @@ onMounted(() => {
         }
         
         .el-input,
-        .el-select {
+        .el-select,
+        .el-input-number {
           width: 100%;
         }
       }

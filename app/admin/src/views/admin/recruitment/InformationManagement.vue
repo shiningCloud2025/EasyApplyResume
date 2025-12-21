@@ -3,15 +3,15 @@
     <div class="page-header">
       <div class="header-content">
         <h1 class="page-title">招聘信息管理</h1>
-        <p class="page-description">管理招聘信息内容，维护企业招聘资讯</p>
+        <p class="page-description">管理企业招聘信息发布</p>
       </div>
       <div class="header-actions">
         <el-button type="primary" @click="openCreateDialog">
-          <el-icon><Plus /></el-icon>
-          新增信息
+          <i class="el-icon-plus"></i>
+          新增招聘信息
         </el-button>
         <el-button @click="refreshData">
-          <el-icon><Refresh /></el-icon>
+          <i class="el-icon-refresh"></i>
           刷新
         </el-button>
       </div>
@@ -25,39 +25,107 @@
             v-model="searchForm.employmentInformationCompanyName"
             placeholder="请输入公司名称"
             clearable
-            style="width: 200px"
+            style="width: 160px"
           />
+        </el-form-item>
+        <el-form-item label="行业大类">
+          <el-select 
+            v-model="searchForm.employmentInformationIndustryCategories" 
+            placeholder="请选择行业" 
+            clearable 
+            style="width: 130px"
+          >
+            <el-option
+              v-for="industry in industryList"
+              :key="industry.industryMapIndustryCode"
+              :label="industry.industryMapIndustryName"
+              :value="industry.industryMapIndustryCode"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="企业性质">
+          <el-select 
+            v-model="searchForm.employmentInformationCompanyType"
+            placeholder="请选择" 
+            clearable 
+            style="width: 120px"
+          >
+            <el-option label="央企" :value="1" />
+            <el-option label="国企" :value="2" />
+            <el-option label="国企控股" :value="3" />
+            <el-option label="私企" :value="4" />
+            <el-option label="外企" :value="5" />
+            <el-option label="合资" :value="6" />
+            <el-option label="公务员" :value="7" />
+            <el-option label="事业编" :value="8" />
+          </el-select>
         </el-form-item>
         <el-form-item label="招聘批次">
-          <el-input-number
+          <el-select 
             v-model="searchForm.employmentInformationBatch"
-            :controls="false"
-            placeholder="年份"
-            style="width: 120px"
-          />
+            placeholder="请选择" 
+            clearable 
+            style="width: 130px"
+          >
+            <el-option label="春招" :value="1" />
+            <el-option label="暑期实习" :value="2" />
+            <el-option label="秋招" :value="3" />
+            <el-option label="寒假实习" :value="4" />
+            <el-option label="日常实习" :value="5" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="招聘岗位">
+          <el-select 
+            v-model="searchForm.employmentInformationRecruitPosition" 
+            placeholder="请选择岗位" 
+            clearable 
+            style="width: 130px"
+          >
+            <el-option
+              v-for="position in positionList"
+              :key="position.recruitPositionId"
+              :label="position.recruitPositionName"
+              :value="position.recruitPositionId"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="招聘对象">
+          <el-select 
+            v-model="searchForm.employmentInformationRecruitObject" 
+            placeholder="请选择" 
+            clearable 
+            style="width: 110px"
+          >
+            <el-option label="应届生" :value="1" />
+            <el-option label="社会招聘" :value="2" />
+            <el-option label="实习生" :value="3" />
+          </el-select>
         </el-form-item>
         <el-form-item label="网申状态">
-          <el-input
+          <el-select
             v-model="searchForm.employmentInformationOnlineApplicationStatus"
-            placeholder="请输入网申状态"
+            placeholder="请选择状态"
             clearable
-            style="width: 150px"
-          />
+            style="width: 110px"
+          >
+            <el-option label="进行中" value="进行中" />
+            <el-option label="已结束" value="已结束" />
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSearch">
-            <el-icon><Search /></el-icon>
+            <i class="el-icon-search"></i>
             搜索
           </el-button>
           <el-button @click="handleReset">
-            <el-icon><RefreshRight /></el-icon>
+            <i class="el-icon-refresh"></i>
             重置
           </el-button>
         </el-form-item>
       </el-form>
     </el-card>
 
-    <!-- 信息列表 -->
+    <!-- 数据列表 - 完整字段 -->
     <el-card class="table-card">
       <el-table
         v-loading="loading"
@@ -66,35 +134,122 @@
         empty-text="暂无数据"
       >
         <el-table-column prop="employmentInformationId" label="ID" width="70" />
-        <el-table-column prop="employmentInformationCompanyName" label="公司名称" min-width="150" />
-        <el-table-column prop="employmentInformationIndustryCategoriesName" label="行业" width="120" />
-        <el-table-column prop="employmentInformationBatch" label="招聘批次" width="100" />
-        <el-table-column label="招聘地点" min-width="150">
+        <el-table-column label="公司名称" min-width="160">
           <template #default="{ row }">
-            <div v-if="row.employmentInformationRecruitLocationFirstName && row.employmentInformationRecruitLocationFirstName.length > 0">
-              <el-tag
-                v-for="(city, index) in row.employmentInformationRecruitLocationFirstName"
-                :key="index"
-                size="small"
-                style="margin-right: 4px; margin-bottom: 4px;"
-              >
-                {{ city }}
-              </el-tag>
-            </div>
+            {{ row.employmentInformationCompanyName || '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="行业" width="100">
+          <template #default="{ row }">
+            {{ row.employmentInformationIndustryCategoriesName || '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="企业性质" width="100" align="center">
+          <template #default="{ row }">
+            {{ getCompanyTypeName(row.employmentInformationCompanyType) }}
+          </template>
+        </el-table-column>
+        <el-table-column label="招聘批次" width="100" align="center">
+          <template #default="{ row }">
+            {{ getBatchName(row.employmentInformationBatch) }}
+          </template>
+        </el-table-column>
+        <el-table-column label="招聘岗位" width="120">
+          <template #default="{ row }">
+            {{ getPositionName(row.employmentInformationRecruitPosition) }}
+          </template>
+        </el-table-column>
+        <el-table-column label="招聘对象" width="100" align="center">
+          <template #default="{ row }">
+            {{ getRecruitObjectName(row.employmentInformationRecruitObject) }}
+          </template>
+        </el-table-column>
+        <el-table-column label="招聘省份" width="150">
+          <template #default="{ row }">
+            <el-tag
+              v-for="(province, index) in row.employmentInformationRecruitLocationFirstName?.slice(0, 2)" 
+              :key="index"
+              size="small"
+              style="margin-right: 4px; margin-bottom: 4px"
+            >
+              {{ province }}
+            </el-tag>
+            <span v-if="row.employmentInformationRecruitLocationFirstName && row.employmentInformationRecruitLocationFirstName.length > 2">
+              +{{ row.employmentInformationRecruitLocationFirstName.length - 2 }}
+            </span>
+            <span v-if="!row.employmentInformationRecruitLocationFirstName || row.employmentInformationRecruitLocationFirstName.length === 0">-</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="招聘城市" width="180">
+          <template #default="{ row }">
+            <el-tag
+              v-for="(city, index) in row.employmentInformationRecruitLocationSecondName?.slice(0, 2)" 
+              :key="index"
+              size="small"
+              style="margin-right: 4px; margin-bottom: 4px"
+            >
+              {{ city }}
+            </el-tag>
+            <span v-if="row.employmentInformationRecruitLocationSecondName && row.employmentInformationRecruitLocationSecondName.length > 2">
+              +{{ row.employmentInformationRecruitLocationSecondName.length - 2 }}
+            </span>
+            <span v-if="!row.employmentInformationRecruitLocationSecondName || row.employmentInformationRecruitLocationSecondName.length === 0">-</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="创建时间" width="120">
+          <template #default="{ row }">
+            {{ row.employmentInformationStartTime ? formatDate(row.employmentInformationStartTime) : '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="截止时间" width="120">
+          <template #default="{ row }">
+            {{ row.employmentInformationStopTime ? formatDate(row.employmentInformationStopTime) : '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="更新时间" width="120">
+          <template #default="{ row }">
+            {{ row.employmentInformationUpdatedTime ? formatDate(row.employmentInformationUpdatedTime) : '-' }}
+          </template>
+        </el-table-column>
+        <el-table-column label="网申状态" width="100" align="center">
+          <template #default="{ row }">
+            <el-tag :type="row.employmentInformationOnlineApplicationStatus === '进行中' ? 'success' : 'info'">
+              {{ row.employmentInformationOnlineApplicationStatus || '-' }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column label="投递方式" min-width="200">
+          <template #default="{ row }">
+            <el-tooltip :content="row.employmentInformationSubmissionWay || '暂无'" placement="top">
+              <div class="text-ellipsis">
+                {{ row.employmentInformationSubmissionWay || '-' }}
+              </div>
+            </el-tooltip>
+          </template>
+        </el-table-column>
+        <el-table-column label="内推码" width="120" align="center">
+          <template #default="{ row }">
+            <el-tag v-if="row.employmentInformationEmployeeReferralCode" type="success" size="small">
+              {{ row.employmentInformationEmployeeReferralCode }}
+            </el-tag>
             <span v-else>-</span>
           </template>
         </el-table-column>
-        <el-table-column prop="employmentInformationOnlineApplicationStatus" label="网申状态" width="120">
+        <el-table-column label="官方公告" width="120" align="center">
           <template #default="{ row }">
-            <el-tag>{{ row.employmentInformationOnlineApplicationStatus }}</el-tag>
+            <el-button 
+              v-if="row.employmentInformationOfficialAnnouncement" 
+              type="primary" 
+              size="small" 
+              link
+              @click="showAnnouncement(row)"
+            >
+              查看公告
+            </el-button>
+            <span v-else>-</span>
           </template>
         </el-table-column>
-        <el-table-column prop="employmentInformationStopTime" label="截止时间" width="180">
-          <template #default="{ row }">
-            {{ formatDateTime(row.employmentInformationStopTime) }}
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="260" fixed="right">
+        <el-table-column label="操作" width="200" fixed="right">
           <template #default="{ row }">
             <el-button type="info" size="default" @click="handleView(row)">
               查看
@@ -122,34 +277,138 @@
       />
     </el-card>
 
-    <!-- 创建/编辑信息对话框 -->
+    <!-- 查看详情对话框 - 完整字段 -->
     <el-dialog
-      v-model="showCreateDialog"
-      :title="editingInformation ? '编辑招聘信息' : '新增招聘信息'"
+      v-model="showViewDialog"
+      title="招聘信息详情"
+      width="900px"
+    >
+      <div class="info-detail" v-if="currentViewInfo">
+        <el-descriptions :column="2" border>
+          <el-descriptions-item label="招聘信息ID">
+            {{ currentViewInfo.employmentInformationId }}
+          </el-descriptions-item>
+          <el-descriptions-item label="招聘编号" v-if="currentViewInfo.employmentInformationCode">
+            {{ currentViewInfo.employmentInformationCode }}
+          </el-descriptions-item>
+          <el-descriptions-item label="公司名称" :span="2">
+            {{ currentViewInfo.employmentInformationCompanyName }}
+          </el-descriptions-item>
+          <el-descriptions-item label="行业大类">
+            {{ currentViewInfo.employmentInformationIndustryCategoriesName || '-' }}
+          </el-descriptions-item>
+          <el-descriptions-item label="企业性质">
+            {{ getCompanyTypeName(currentViewInfo.employmentInformationCompanyType) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="招聘批次">
+            {{ getBatchName(currentViewInfo.employmentInformationBatch) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="招聘对象">
+            {{ getRecruitObjectName(currentViewInfo.employmentInformationRecruitObject) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="招聘省份" :span="2">
+            <el-tag 
+              v-for="(province, index) in currentViewInfo.employmentInformationRecruitLocationFirstName" 
+              :key="index"
+              style="margin-right: 8px"
+            >
+              {{ province }}
+            </el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="招聘城市" :span="2">
+            <el-tag 
+              v-for="(city, index) in currentViewInfo.employmentInformationRecruitLocationSecondName" 
+              :key="index"
+              style="margin-right: 8px"
+            >
+              {{ city }}
+            </el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="创建时间">
+            {{ currentViewInfo.employmentInformationStartTime ? formatDate(currentViewInfo.employmentInformationStartTime) : '-' }}
+          </el-descriptions-item>
+          <el-descriptions-item label="截止时间">
+            {{ formatDate(currentViewInfo.employmentInformationStopTime) }}
+          </el-descriptions-item>
+          <el-descriptions-item label="更新时间" :span="2">
+            {{ currentViewInfo.employmentInformationUpdatedTime ? formatDate(currentViewInfo.employmentInformationUpdatedTime) : '-' }}
+          </el-descriptions-item>
+          <el-descriptions-item label="网申状态">
+            <el-tag :type="currentViewInfo.employmentInformationOnlineApplicationStatus === '进行中' ? 'success' : 'info'">
+              {{ currentViewInfo.employmentInformationOnlineApplicationStatus }}
+            </el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="投递方式">
+            {{ currentViewInfo.employmentInformationSubmissionWay }}
+          </el-descriptions-item>
+          <el-descriptions-item label="内推码" :span="2" v-if="currentViewInfo.employmentInformationEmployeeReferralCode">
+            <el-tag type="success">{{ currentViewInfo.employmentInformationEmployeeReferralCode }}</el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="官方公告" :span="2" v-if="currentViewInfo.employmentInformationOfficialAnnouncement">
+            <div class="detail-content">{{ currentViewInfo.employmentInformationOfficialAnnouncement }}</div>
+          </el-descriptions-item>
+        </el-descriptions>
+      </div>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="showViewDialog = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+    <!-- 新增/编辑对话框 - 完整字段 -->
+    <el-dialog
+      v-model="showEditDialog"
+      :title="editingInfo ? '编辑招聘信息' : '新增招聘信息'"
       width="900px"
       @close="resetForm"
     >
       <el-form
-        ref="informationFormRef"
-        :model="informationForm"
-        :rules="informationRules"
+        ref="infoFormRef"
+        :model="infoForm"
+        :rules="infoRules"
         label-width="120px"
       >
+        <el-row :gutter="20">
+          <el-col :span="12">
         <el-form-item label="公司名称" prop="employmentInformationCompanyName">
-          <el-input v-model="informationForm.employmentInformationCompanyName" placeholder="请输入公司名称" />
+              <el-input 
+                v-model="infoForm.employmentInformationCompanyName" 
+                placeholder="请输入公司名称"
+                maxlength="30"
+                show-word-limit
+              />
         </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="招聘批次" prop="employmentInformationBatch">
+              <el-select 
+                v-model="infoForm.employmentInformationBatch" 
+                placeholder="请选择招聘批次" 
+                style="width: 100%"
+              >
+                <el-option label="春招" :value="1" />
+                <el-option label="暑期实习" :value="2" />
+                <el-option label="秋招" :value="3" />
+                <el-option label="寒假实习" :value="4" />
+                <el-option label="日常实习" :value="5" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
         
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="行业大类" prop="employmentInformationIndustryCategories">
               <el-select 
-                v-model="informationForm.employmentInformationIndustryCategories" 
+                v-model="infoForm.employmentInformationIndustryCategories" 
                 placeholder="请选择行业" 
                 style="width: 100%"
                 filterable
               >
                 <el-option
-                  v-for="industry in industries"
+                  v-for="industry in industryList"
                   :key="industry.industryMapIndustryCode"
                   :label="industry.industryMapIndustryName"
                   :value="industry.industryMapIndustryCode"
@@ -160,43 +419,34 @@
           <el-col :span="12">
             <el-form-item label="企业性质" prop="employmentInformationCompanyType">
               <el-select 
-                v-model="informationForm.employmentInformationCompanyType" 
+                v-model="infoForm.employmentInformationCompanyType" 
                 placeholder="请选择企业性质"
                 style="width: 100%"
               >
-                <el-option label="国有企业" :value="1" />
-                <el-option label="民营企业" :value="2" />
-                <el-option label="外资企业" :value="3" />
-                <el-option label="合资企业" :value="4" />
-                <el-option label="其他" :value="5" />
+                <el-option label="央企" :value="1" />
+                <el-option label="国企" :value="2" />
+                <el-option label="国企控股" :value="3" />
+                <el-option label="私企" :value="4" />
+                <el-option label="外企" :value="5" />
+                <el-option label="合资" :value="6" />
+                <el-option label="公务员" :value="7" />
+                <el-option label="事业编" :value="8" />
               </el-select>
             </el-form-item>
           </el-col>
         </el-row>
         
         <el-row :gutter="20">
-          <el-col :span="8">
-            <el-form-item label="招聘批次" prop="employmentInformationBatch">
-              <el-input-number 
-                v-model="informationForm.employmentInformationBatch" 
-                :min="2000" 
-                :max="2100" 
-                :controls="false"
-                placeholder="年份"
-                style="width: 100%"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="8">
+          <el-col :span="12">
             <el-form-item label="招聘岗位" prop="employmentInformationRecruitPosition">
               <el-select 
-                v-model="informationForm.employmentInformationRecruitPosition" 
+                v-model="infoForm.employmentInformationRecruitPosition" 
                 placeholder="请选择岗位"
                 style="width: 100%"
                 filterable
               >
                 <el-option
-                  v-for="position in positions"
+                  v-for="position in positionList"
                   :key="position.recruitPositionId"
                   :label="position.recruitPositionName"
                   :value="position.recruitPositionId"
@@ -204,10 +454,10 @@
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="12">
             <el-form-item label="招聘对象" prop="employmentInformationRecruitObject">
               <el-select 
-                v-model="informationForm.employmentInformationRecruitObject" 
+                v-model="infoForm.employmentInformationRecruitObject" 
                 placeholder="请选择招聘对象"
                 style="width: 100%"
               >
@@ -221,188 +471,119 @@
         
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="招聘省份" prop="employmentInformationRecruitLocationFirst">
+            <el-form-item label="招聘省份" prop="employmentInformationRecruitLocationFirstList">
               <el-select 
-                v-model="informationForm.employmentInformationRecruitLocationFirst" 
+                v-model="infoForm.employmentInformationRecruitLocationFirstList" 
+                placeholder="请选择省份（可多选）" 
                 multiple
-                placeholder="请选择省份"
+                collapse-tags
                 style="width: 100%"
-                @change="handleProvinceChange"
+                @focus="handleProvinceFocus"
               >
                 <el-option
-                  v-for="province in provinces"
-                  :key="province.provinceMapId"
-                  :label="province.provinceMapName"
-                  :value="province.provinceMapId"
+                  v-for="province in provinceList"
+                  :key="province.provinceMapPid"
+                  :label="province.provinceMapPname"
+                  :value="province.provinceMapPid"
                 />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="招聘城市" prop="employmentInformationRecruitLocationSecond">
+            <el-form-item label="招聘城市" prop="employmentInformationRecruitLocationSecondList">
               <el-select 
-                v-model="informationForm.employmentInformationRecruitLocationSecond" 
+                v-model="infoForm.employmentInformationRecruitLocationSecondList" 
+                placeholder="请先选择省份" 
                 multiple
-                placeholder="请先选择省份"
+                collapse-tags
                 style="width: 100%"
-                :disabled="!informationForm.employmentInformationRecruitLocationFirst || informationForm.employmentInformationRecruitLocationFirst.length === 0"
+                :disabled="!infoForm.employmentInformationRecruitLocationFirstList || infoForm.employmentInformationRecruitLocationFirstList.length === 0"
+                @focus="handleCityFocus"
               >
                 <el-option
-                  v-for="city in availableCities"
-                  :key="city.cityMapId"
-                  :label="city.cityMapName"
-                  :value="city.cityMapId"
+                  v-for="city in cityList"
+                  :key="city.cityMapCid"
+                  :label="city.cityMapCname"
+                  :value="city.cityMapCid"
                 />
               </el-select>
             </el-form-item>
           </el-col>
         </el-row>
         
-        <el-form-item label="详细地址" prop="employmentInformationRecruitLocationDetail">
-          <el-input
-            v-model="informationForm.employmentInformationRecruitLocationDetail"
-            placeholder="请输入详细地址（可选）"
-          />
-        </el-form-item>
-        
+        <el-row :gutter="20">
+          <el-col :span="12">
         <el-form-item label="截止时间" prop="employmentInformationStopTime">
           <el-date-picker
-            v-model="informationForm.employmentInformationStopTime"
-            type="datetime"
-            placeholder="选择截止时间"
-            format="YYYY-MM-DD HH:mm:ss"
-            value-format="YYYY-MM-DD HH:mm:ss"
+                v-model="infoForm.employmentInformationStopTime"
+                type="date"
+                placeholder="选择截止日期"
             style="width: 100%"
+                format="YYYY-MM-DD"
+                value-format="YYYY-MM-DD"
           />
         </el-form-item>
-        
+          </el-col>
+          <el-col :span="12">
         <el-form-item label="网申状态" prop="employmentInformationOnlineApplicationStatus">
-          <el-input
-            v-model="informationForm.employmentInformationOnlineApplicationStatus"
-            placeholder="如：开放中、已结束"
-          />
-        </el-form-item>
-        
+              <el-select 
+                v-model="infoForm.employmentInformationOnlineApplicationStatus" 
+                placeholder="请选择网申状态" 
+                style="width: 100%"
+              >
+                <el-option label="进行中" value="进行中" />
+                <el-option label="已结束" value="已结束" />
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
         <el-form-item label="投递方式" prop="employmentInformationSubmissionWay">
           <el-input
-            v-model="informationForm.employmentInformationSubmissionWay"
-            type="textarea"
-            :rows="3"
-            placeholder="请输入投递方式"
-          />
-        </el-form-item>
-        
-        <el-form-item label="官方公告" prop="employmentInformationOfficialAnnouncement">
-          <el-input
-            v-model="informationForm.employmentInformationOfficialAnnouncement"
-            type="textarea"
-            :rows="4"
-            placeholder="请输入官方公告（可选）"
+            v-model="infoForm.employmentInformationSubmissionWay" 
+            placeholder="提供招聘网址"
+            maxlength="1024"
+            show-word-limit
           />
         </el-form-item>
         
         <el-form-item label="内推码" prop="employmentInformationEmployeeReferralCode">
           <el-input
-            v-model="informationForm.employmentInformationEmployeeReferralCode"
-            placeholder="请输入内推码（可选）"
+            v-model="infoForm.employmentInformationEmployeeReferralCode" 
+            placeholder="请输入内推码（选填）"
+            maxlength="255"
+          />
+        </el-form-item>
+        
+        <el-form-item label="官方公告" prop="employmentInformationOfficialAnnouncement">
+          <el-input
+            v-model="infoForm.employmentInformationOfficialAnnouncement"
+            type="textarea"
+            :rows="4"
+            placeholder="请输入官方公告（选填）"
+            maxlength="1024"
+            show-word-limit
           />
         </el-form-item>
       </el-form>
       
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="showCreateDialog = false">取消</el-button>
+          <el-button @click="showEditDialog = false">取消</el-button>
           <el-button type="primary" @click="handleSubmit" :loading="submitting">
             确定
           </el-button>
         </div>
       </template>
     </el-dialog>
-
-    <!-- 查看信息详情对话框 -->
-    <el-dialog
-      v-model="showViewDialog"
-      title="招聘信息详情"
-      width="800px"
-    >
-      <div class="information-detail" v-if="currentViewInformation">
-        <el-descriptions :column="2" border>
-          <el-descriptions-item label="招聘编号">
-            {{ currentViewInformation.employmentInformationCode }}
-          </el-descriptions-item>
-          <el-descriptions-item label="公司名称">
-            {{ currentViewInformation.employmentInformationCompanyName }}
-          </el-descriptions-item>
-          <el-descriptions-item label="行业大类">
-            {{ currentViewInformation.employmentInformationIndustryCategoriesName }}
-          </el-descriptions-item>
-          <el-descriptions-item label="企业性质">
-            {{ getCompanyTypeName(currentViewInformation.employmentInformationCompanyType) }}
-          </el-descriptions-item>
-          <el-descriptions-item label="招聘批次">
-            {{ currentViewInformation.employmentInformationBatch }}
-          </el-descriptions-item>
-          <el-descriptions-item label="招聘对象">
-            {{ getRecruitObjectName(currentViewInformation.employmentInformationRecruitObject) }}
-          </el-descriptions-item>
-          <el-descriptions-item label="招聘省份" :span="2">
-            <el-tag
-              v-for="(name, index) in currentViewInformation.employmentInformationRecruitLocationFirstName"
-              :key="index"
-              style="margin-right: 6px;"
-            >
-              {{ name }}
-            </el-tag>
-          </el-descriptions-item>
-          <el-descriptions-item label="招聘城市" :span="2">
-            <el-tag
-              v-for="(name, index) in currentViewInformation.employmentInformationRecruitLocationSecondName"
-              :key="index"
-              type="success"
-              style="margin-right: 6px;"
-            >
-              {{ name }}
-            </el-tag>
-          </el-descriptions-item>
-          <el-descriptions-item label="详细地址" :span="2">
-            <div v-if="currentViewInformation.employmentInformationRecruitLocationDetail && currentViewInformation.employmentInformationRecruitLocationDetail.length > 0">
-              {{ currentViewInformation.employmentInformationRecruitLocationDetail.join('、') }}
-            </div>
-            <span v-else>-</span>
-          </el-descriptions-item>
-          <el-descriptions-item label="网申状态">
-            <el-tag>{{ currentViewInformation.employmentInformationOnlineApplicationStatus }}</el-tag>
-          </el-descriptions-item>
-          <el-descriptions-item label="截止时间">
-            {{ formatDateTime(currentViewInformation.employmentInformationStopTime) }}
-          </el-descriptions-item>
-          <el-descriptions-item label="投递方式" :span="2">
-            <div class="detail-content">{{ currentViewInformation.employmentInformationSubmissionWay }}</div>
-          </el-descriptions-item>
-          <el-descriptions-item label="官方公告" :span="2">
-            <div class="detail-content">{{ currentViewInformation.employmentInformationOfficialAnnouncement || '-' }}</div>
-          </el-descriptions-item>
-          <el-descriptions-item label="内推码" :span="2">
-            {{ currentViewInformation.employmentInformationEmployeeReferralCode || '-' }}
-          </el-descriptions-item>
-          <el-descriptions-item label="创建时间">
-            {{ formatDateTime(currentViewInformation.employmentInformationStartTime) }}
-          </el-descriptions-item>
-          <el-descriptions-item label="更新时间">
-            {{ formatDateTime(currentViewInformation.employmentInformationUpdatedTime) }}
-          </el-descriptions-item>
-        </el-descriptions>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed } from 'vue'
+import { ref, reactive, watch, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Plus, Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
-import { formatDateTime } from '@/utils'
-import { employmentInformationApi, industryMapApi, provinceMapApi, recruitPositionApi } from '@/api/admin'
+import { formatDate } from '@/utils'
+import { employmentInformationApi, industryMapApi, recruitPositionApi, provinceMapApi } from '@/api/admin'
 import type {
   EmploymentInformationPageVO,
   EmploymentInformationForm,
@@ -414,16 +595,26 @@ import type { FormInstance } from 'element-plus'
 // 响应式数据
 const loading = ref(false)
 const submitting = ref(false)
-const showCreateDialog = ref(false)
 const showViewDialog = ref(false)
-const editingInformation = ref<EmploymentInformationPageVO | null>(null)
-const currentViewInformation = ref<EmploymentInformationInfoVO | null>(null)
+const showEditDialog = ref(false)
+const editingInfo = ref<EmploymentInformationPageVO | null>(null)
+const currentViewInfo = ref<EmploymentInformationInfoVO | null>(null)
+
+// 下拉选择数据
+const industryList = ref<any[]>([])
+const positionList = ref<any[]>([])
+const provinceList = ref<any[]>([])
+const cityList = ref<any[]>([])
 
 // 搜索表单
 const searchForm = reactive<EmploymentInformationQuery>({
   employmentInformationCompanyName: '',
+  employmentInformationIndustryCategories: undefined,
+  employmentInformationCompanyType: undefined,
   employmentInformationBatch: undefined,
-  employmentInformationOnlineApplicationStatus: ''
+  employmentInformationRecruitPosition: undefined,
+  employmentInformationRecruitObject: undefined,
+  employmentInformationOnlineApplicationStatus: undefined
 })
 
 // 分页
@@ -436,24 +627,19 @@ const pagination = reactive({
 // 表格数据
 const tableData = ref<EmploymentInformationPageVO[]>([])
 
-// 下拉选项数据
-const industries = ref<any[]>([])
-const provinces = ref<any[]>([])
-const allCities = ref<any[]>([])
-const positions = ref<any[]>([])
-
-// 信息表单
-const informationFormRef = ref<FormInstance>()
-const informationForm = reactive<EmploymentInformationForm>({
+// 表单 - 完整字段
+const infoFormRef = ref<FormInstance>()
+const infoForm = reactive<EmploymentInformationForm>({
   employmentInformationId: undefined,
+  employmentInformationCode: undefined,
   employmentInformationCompanyName: '',
-  employmentInformationIndustryCategories: 0,
-  employmentInformationCompanyType: 1,
-  employmentInformationBatch: new Date().getFullYear(),
-  employmentInformationRecruitPosition: 0,
-  employmentInformationRecruitObject: 1,
-  employmentInformationRecruitLocationFirst: [],
-  employmentInformationRecruitLocationSecond: [],
+  employmentInformationIndustryCategories: undefined as any,
+  employmentInformationCompanyType: undefined as any,
+  employmentInformationBatch: undefined as any,
+  employmentInformationRecruitPosition: undefined as any,
+  employmentInformationRecruitObject: undefined as any,
+  employmentInformationRecruitLocationFirstList: [],
+  employmentInformationRecruitLocationSecondList: [],
   employmentInformationRecruitLocationDetail: '',
   employmentInformationStopTime: '',
   employmentInformationOnlineApplicationStatus: '',
@@ -462,10 +648,11 @@ const informationForm = reactive<EmploymentInformationForm>({
   employmentInformationEmployeeReferralCode: ''
 })
 
-// 表单校验规则
-const informationRules = {
+// 表单校验规则 - 完整必填字段
+const infoRules = {
   employmentInformationCompanyName: [
-    { required: true, message: '请输入公司名称', trigger: 'blur' }
+    { required: true, message: '请输入公司名称', trigger: 'blur' },
+    { min: 2, max: 30, message: '长度在 2 到 30 个字符', trigger: 'blur' }
   ],
   employmentInformationIndustryCategories: [
     { required: true, message: '请选择行业大类', trigger: 'change' }
@@ -474,7 +661,7 @@ const informationRules = {
     { required: true, message: '请选择企业性质', trigger: 'change' }
   ],
   employmentInformationBatch: [
-    { required: true, message: '请输入招聘批次', trigger: 'blur' }
+    { required: true, message: '请选择招聘批次', trigger: 'change' }
   ],
   employmentInformationRecruitPosition: [
     { required: true, message: '请选择招聘岗位', trigger: 'change' }
@@ -482,109 +669,207 @@ const informationRules = {
   employmentInformationRecruitObject: [
     { required: true, message: '请选择招聘对象', trigger: 'change' }
   ],
-  employmentInformationRecruitLocationFirst: [
+  employmentInformationRecruitLocationFirstList: [
     { required: true, message: '请选择招聘省份', trigger: 'change' }
   ],
-  employmentInformationRecruitLocationSecond: [
+  employmentInformationRecruitLocationSecondList: [
     { required: true, message: '请选择招聘城市', trigger: 'change' }
   ],
   employmentInformationStopTime: [
     { required: true, message: '请选择截止时间', trigger: 'change' }
   ],
   employmentInformationOnlineApplicationStatus: [
-    { required: true, message: '请输入网申状态', trigger: 'blur' }
+    { required: true, message: '请选择网申状态', trigger: 'change' }
   ],
   employmentInformationSubmissionWay: [
-    { required: true, message: '请输入投递方式', trigger: 'blur' }
+    { required: true, message: '请输入投递方式', trigger: 'blur' },
+    { max: 1024, message: '最多1024个字符', trigger: 'blur' }
   ]
 }
 
-// 根据选中的省份动态计算可用的城市
-const availableCities = computed(() => {
-  if (!informationForm.employmentInformationRecruitLocationFirst || informationForm.employmentInformationRecruitLocationFirst.length === 0) {
-    return []
-  }
-  return allCities.value.filter(city => 
-    informationForm.employmentInformationRecruitLocationFirst.includes(city.cityMapProvinceId)
-  )
-})
-
-// 企业性质名称映射
+// 获取企业性质名称
 const getCompanyTypeName = (type: number) => {
-  const map: Record<number, string> = {
-    1: '国有企业',
-    2: '民营企业',
-    3: '外资企业',
-    4: '合资企业',
-    5: '其他'
+  const typeMap: Record<number, string> = {
+    1: '央企',
+    2: '国企',
+    3: '国企控股',
+    4: '私企',
+    5: '外企',
+    6: '合资',
+    7: '公务员',
+    8: '事业编'
   }
-  return map[type] || '-'
+  return typeMap[type] || '-'
 }
 
-// 招聘对象名称映射
-const getRecruitObjectName = (type: number) => {
-  const map: Record<number, string> = {
+// 获取招聘批次名称
+const getBatchName = (batch: number) => {
+  const batchMap: Record<number, string> = {
+    1: '春招',
+    2: '暑期实习',
+    3: '秋招',
+    4: '寒假实习',
+    5: '日常实习'
+  }
+  return batchMap[batch] || '-'
+}
+
+// 获取招聘对象名称
+const getRecruitObjectName = (obj: number) => {
+  const objMap: Record<number, string> = {
     1: '应届生',
     2: '社会招聘',
     3: '实习生'
   }
-  return map[type] || '-'
+  return objMap[obj] || '-'
 }
 
-// 加载行业数据
-const loadIndustries = async () => {
-  try {
-    const response = await industryMapApi.findAllIndustryMap()
-    industries.value = response.data
-  } catch (error) {
-    console.error('加载行业数据失败:', error)
-  }
+// 获取岗位名称
+const getPositionName = (positionId: number) => {
+  const position = positionList.value.find(p => p.recruitPositionId === positionId)
+  return position?.recruitPositionName || '-'
 }
 
-// 加载省份数据
-const loadProvinces = async () => {
-  try {
-    const response = await provinceMapApi.getAllProvince()
-    provinces.value = response.data
-  } catch (error) {
-    console.error('加载省份数据失败:', error)
-  }
-}
-
-// 加载所有城市数据
-const loadAllCities = async () => {
-  try {
-    // 加载所有省份的城市
-    for (const province of provinces.value) {
-      const response = await provinceMapApi.getCityByProvinceId(province.provinceMapId)
-      allCities.value.push(...response.data)
-    }
-  } catch (error) {
-    console.error('加载城市数据失败:', error)
-  }
-}
-
-// 加载岗位数据
-const loadPositions = async () => {
-  try {
-    const response = await recruitPositionApi.getAllRecruitPositions()
-    positions.value = response.data
-  } catch (error) {
-    console.error('加载岗位数据失败:', error)
-  }
-}
-
-// 省份变更时清空城市选择
-const handleProvinceChange = () => {
-  // 清空已选城市中不在当前省份的城市
-  informationForm.employmentInformationRecruitLocationSecond = informationForm.employmentInformationRecruitLocationSecond.filter(cityId => {
-    const city = allCities.value.find(c => c.cityMapId === cityId)
-    return city && informationForm.employmentInformationRecruitLocationFirst.includes(city.cityMapProvinceId)
+// 显示官方公告
+const showAnnouncement = (row: EmploymentInformationPageVO) => {
+  ElMessageBox.alert(row.employmentInformationOfficialAnnouncement, '官方公告', {
+    confirmButtonText: '关闭',
+    dangerouslyUseHTMLString: false
   })
 }
 
-// 获取信息列表
-const getInformationList = async () => {
+// 获取行业列表
+const getIndustryList = async () => {
+  console.log('🏢 [行业] 开始获取行业列表...')
+  try {
+    const response = await industryMapApi.findAllIndustryMap()
+    console.log('🏢 [行业] API响应:', response)
+    console.log('🏢 [行业] 数据:', response.data)
+    industryList.value = response.data || []
+    console.log('✅ [行业] 加载成功，共', industryList.value.length, '个行业')
+  } catch (error) {
+    console.error('❌ [行业] 获取失败:', error)
+    ElMessage.error('获取行业列表失败')
+  }
+}
+
+// 获取岗位列表
+const getPositionList = async () => {
+  console.log('💼 [岗位] 开始获取岗位列表...')
+  try {
+    const response = await recruitPositionApi.getAllRecruitPositions()
+    console.log('💼 [岗位] API响应:', response)
+    console.log('💼 [岗位] 数据:', response.data)
+    positionList.value = response.data || []
+    console.log('✅ [岗位] 加载成功，共', positionList.value.length, '个岗位')
+  } catch (error) {
+    console.error('❌ [岗位] 获取失败:', error)
+    ElMessage.error('获取岗位列表失败')
+  }
+}
+
+// 获取省份列表
+const getProvinceList = async () => {
+  // 如果已经加载过，不重复加载
+  if (provinceList.value.length > 0) {
+    console.log('✅ 省份列表已缓存，共', provinceList.value.length, '个省份')
+    return
+  }
+  
+  console.log('🌍 [省份] 开始获取省份列表...')
+  try {
+    const response = await provinceMapApi.getAllProvince()
+    console.log('🌍 [省份] API响应:', response)
+    console.log('🌍 [省份] 数据类型:', typeof response.data, Array.isArray(response.data))
+    console.log('🌍 [省份] 数据内容:', response.data)
+    
+    if (response && response.data) {
+      provinceList.value = response.data
+      console.log('✅ [省份] 赋值成功！provinceList.value =', provinceList.value)
+      console.log('✅ [省份] 共', provinceList.value.length, '个省份')
+      console.log('✅ [省份] 第一个省份:', provinceList.value[0])
+    } else {
+      console.error('❌ [省份] 响应数据为空')
+      provinceList.value = []
+    }
+  } catch (error) {
+    console.error('❌ [省份] 获取失败:', error)
+    ElMessage.error('获取省份列表失败')
+  }
+}
+
+// 省份选择框获得焦点时加载数据
+const handleProvinceFocus = () => {
+  console.log('👆 [省份] 用户点击了省份选择框')
+  getProvinceList()
+}
+
+// 记录最后一个被选择的省份ID
+const lastSelectedProvinceId = ref<number | null>(null)
+
+// 监听省份选择，记录最后选择的省份
+watch(() => infoForm.employmentInformationRecruitLocationFirstList, (newProvinces, oldProvinces) => {
+  console.log('👀 [省份变化] 新选择的省份:', newProvinces)
+  console.log('👀 [省份变化] 旧的省份:', oldProvinces)
+  
+  if (newProvinces && newProvinces.length > 0) {
+    // 找出新增的省份（最后一个选择的）
+    const newProvince = newProvinces.find(id => !oldProvinces?.includes(id))
+    if (newProvince) {
+      lastSelectedProvinceId.value = newProvince
+      console.log('📍 [省份变化] 最后选择的省份ID:', newProvince)
+      // 清空城市下拉列表，等待用户点击时重新加载
+      cityList.value = []
+    }
+  } else {
+    console.log('🗑️ [省份变化] 清空所有省份')
+    lastSelectedProvinceId.value = null
+    cityList.value = []
+    infoForm.employmentInformationRecruitLocationSecondList = []
+  }
+}, { deep: true })
+
+// 城市选择框获得焦点时，加载最后选择的省份对应的城市
+const handleCityFocus = async () => {
+  console.log('👆 [城市] 用户点击了城市选择框')
+  console.log('👆 [城市] 已选省份:', infoForm.employmentInformationRecruitLocationFirstList)
+  console.log('👆 [城市] 最后选择的省份ID:', lastSelectedProvinceId.value)
+  
+  // 如果没有选择省份，提示用户
+  if (!infoForm.employmentInformationRecruitLocationFirstList || infoForm.employmentInformationRecruitLocationFirstList.length === 0) {
+    ElMessage.warning('请先选择省份')
+    return
+  }
+  
+  // 如果有最后选择的省份，加载该省份的城市
+  if (lastSelectedProvinceId.value) {
+    try {
+      console.log(`🏙️ [城市加载] 正在加载省份ID ${lastSelectedProvinceId.value} 的城市...`)
+      const response = await provinceMapApi.getCityByProvinceId(lastSelectedProvinceId.value)
+      cityList.value = response.data || []
+      console.log(`✅ [城市加载] 加载了 ${cityList.value.length} 个城市`)
+    } catch (error) {
+      console.error('❌ [城市加载] 获取城市列表失败:', error)
+      ElMessage.error('获取城市列表失败')
+    }
+  } else if (infoForm.employmentInformationRecruitLocationFirstList.length > 0) {
+    // 如果没有记录最后选择的省份，但是有省份被选中，使用第一个省份
+    const firstProvinceId = infoForm.employmentInformationRecruitLocationFirstList[0]
+    lastSelectedProvinceId.value = firstProvinceId
+    console.log(`🏙️ [城市加载] 使用第一个省份ID ${firstProvinceId}`)
+    try {
+      const response = await provinceMapApi.getCityByProvinceId(firstProvinceId)
+      cityList.value = response.data || []
+      console.log(`✅ [城市加载] 加载了 ${cityList.value.length} 个城市`)
+    } catch (error) {
+      console.error('❌ [城市加载] 获取城市列表失败:', error)
+      ElMessage.error('获取城市列表失败')
+    }
+  }
+}
+
+// 获取列表
+const getInfoList = async () => {
   loading.value = true
   try {
     const response = await employmentInformationApi.getEmploymentInformationPage(
@@ -593,125 +878,172 @@ const getInformationList = async () => {
       searchForm
     )
     
+    console.log('📊 招聘信息分页数据:', response.data)
+    console.log('📋 记录列表:', response.data.records)
+    if (response.data.records && response.data.records.length > 0) {
+      console.log('🔍 第一条数据详情:', response.data.records[0])
+    }
+    
     tableData.value = response.data.records
     pagination.total = response.data.total
   } catch (error) {
-    console.error('获取信息列表失败:', error)
+    console.error('获取列表失败:', error)
     ElMessage.error('加载数据失败')
   } finally {
     loading.value = false
   }
 }
 
-// 新增信息
+// 新增
 const openCreateDialog = () => {
-  editingInformation.value = null
+  editingInfo.value = null
   resetForm()
-  showCreateDialog.value = true
+  showEditDialog.value = true
 }
 
 // 搜索
 const handleSearch = () => {
   pagination.current = 1
-  getInformationList()
+  getInfoList()
 }
 
 // 重置搜索
 const handleReset = () => {
   searchForm.employmentInformationCompanyName = ''
+  searchForm.employmentInformationIndustryCategories = undefined
+  searchForm.employmentInformationCompanyType = undefined
   searchForm.employmentInformationBatch = undefined
-  searchForm.employmentInformationOnlineApplicationStatus = ''
+  searchForm.employmentInformationRecruitPosition = undefined
+  searchForm.employmentInformationRecruitObject = undefined
+  searchForm.employmentInformationOnlineApplicationStatus = undefined
   pagination.current = 1
-  getInformationList()
+  getInfoList()
 }
 
 // 刷新数据
 const refreshData = () => {
-  getInformationList()
+  getInfoList()
 }
 
 // 分页变更
 const handleSizeChange = (size: number) => {
   pagination.size = size
-  getInformationList()
+  getInfoList()
 }
 
 const handleCurrentChange = (current: number) => {
   pagination.current = current
-  getInformationList()
+  getInfoList()
 }
 
-// 查看信息详情
+// 查看详情
 const handleView = async (row: EmploymentInformationPageVO) => {
   try {
     const response = await employmentInformationApi.getEmploymentInformationInfo(row.employmentInformationId)
-    currentViewInformation.value = response.data
+    console.log('🔍 招聘信息详情数据:', response.data)
+    currentViewInfo.value = response.data
     showViewDialog.value = true
   } catch (error) {
-    console.error('获取信息详情失败:', error)
-    ElMessage.error('获取信息详情失败')
+    console.error('获取详情失败:', error)
+    ElMessage.error('获取详情失败')
   }
 }
 
-// 编辑信息
+// 编辑
 const handleEdit = async (row: EmploymentInformationPageVO) => {
   try {
     const response = await employmentInformationApi.getEmploymentInformationInfo(row.employmentInformationId)
     const detail = response.data
     
-    editingInformation.value = row
+    console.log('✏️ 编辑数据:', detail)
     
-    // 从详情数据中提取省份和城市的ID（需要从名称反查）
-    const provinceIds: number[] = []
-    const cityIds: number[] = []
+    editingInfo.value = row
     
-    // 根据省份名称找到省份ID
-    if (detail.employmentInformationRecruitLocationFirstName) {
-      detail.employmentInformationRecruitLocationFirstName.forEach(provinceName => {
-        const province = provinces.value.find(p => p.provinceMapName === provinceName)
-        if (province) {
-          provinceIds.push(province.provinceMapId)
-        }
-      })
+    // 注意：详细地址如果是数组，需要转换为字符串
+    const detailAddress = Array.isArray(detail.employmentInformationRecruitLocationDetail) 
+      ? detail.employmentInformationRecruitLocationDetail.join(', ') 
+      : (detail.employmentInformationRecruitLocationDetail || '')
+    
+    // 确保行业列表已加载
+    if (industryList.value.length === 0) {
+      await getIndustryList()
     }
     
-    // 根据城市名称找到城市ID
-    if (detail.employmentInformationRecruitLocationSecondName) {
-      detail.employmentInformationRecruitLocationSecondName.forEach(cityName => {
-        const city = allCities.value.find(c => c.cityMapName === cityName)
-        if (city) {
-          cityIds.push(city.cityMapId)
-        }
-      })
+    // 根据行业名称反查行业 ID
+    let industryId: number | undefined = undefined
+    if (detail.employmentInformationIndustryCategoriesName) {
+      const foundIndustry = industryList.value.find(
+        (ind: any) => ind.industryMapIndustryName === detail.employmentInformationIndustryCategoriesName
+      )
+      if (foundIndustry) {
+        industryId = foundIndustry.industryMapIndustryCode
+      }
     }
     
-    Object.assign(informationForm, {
+    // 加载省份列表
+    if (provinceList.value.length === 0) {
+      await getProvinceList()
+    }
+    
+    // 根据省份名称反查省份 ID
+    let provinceIds: number[] = []
+    if (detail.employmentInformationRecruitLocationFirstName && Array.isArray(detail.employmentInformationRecruitLocationFirstName)) {
+      for (const provinceName of detail.employmentInformationRecruitLocationFirstName) {
+        const foundProvince = provinceList.value.find(
+          (p: any) => p.provinceMapProvinceName === provinceName
+        )
+        if (foundProvince) {
+          provinceIds.push(foundProvince.provinceMapProvinceCode)
+        }
+      }
+    }
+    
+    // 加载城市列表并反查城市 ID
+    let cityIds: number[] = []
+    if (provinceIds.length > 0 && detail.employmentInformationRecruitLocationSecondName && Array.isArray(detail.employmentInformationRecruitLocationSecondName)) {
+      // 加载第一个省份的城市
+      lastSelectedProvinceId.value = provinceIds[0]
+      const cityResponse = await provinceMapApi.getCityByProvinceId(provinceIds[0])
+      cityList.value = cityResponse.data || []
+      
+      for (const cityName of detail.employmentInformationRecruitLocationSecondName) {
+        const foundCity = cityList.value.find(
+          (c: any) => c.provinceMapCityName === cityName
+        )
+        if (foundCity) {
+          cityIds.push(foundCity.provinceMapCityCode)
+        }
+      }
+    }
+    
+    Object.assign(infoForm, {
       employmentInformationId: detail.employmentInformationId,
+      employmentInformationCode: detail.employmentInformationCode,
       employmentInformationCompanyName: detail.employmentInformationCompanyName,
-      employmentInformationIndustryCategories: 101, // 需要从名称反查，这里先用默认值
+      employmentInformationIndustryCategories: industryId,
       employmentInformationCompanyType: detail.employmentInformationCompanyType,
       employmentInformationBatch: detail.employmentInformationBatch,
       employmentInformationRecruitPosition: detail.employmentInformationRecruitPosition,
       employmentInformationRecruitObject: detail.employmentInformationRecruitObject,
-      employmentInformationRecruitLocationFirst: provinceIds,
-      employmentInformationRecruitLocationSecond: cityIds,
-      employmentInformationRecruitLocationDetail: detail.employmentInformationRecruitLocationDetail ? detail.employmentInformationRecruitLocationDetail.join(',') : '',
+      employmentInformationRecruitLocationFirstList: provinceIds,
+      employmentInformationRecruitLocationSecondList: cityIds,
+      employmentInformationRecruitLocationDetail: detailAddress,
       employmentInformationStopTime: detail.employmentInformationStopTime,
       employmentInformationOnlineApplicationStatus: detail.employmentInformationOnlineApplicationStatus,
-      employmentInformationOfficialAnnouncement: detail.employmentInformationOfficialAnnouncement,
+      employmentInformationOfficialAnnouncement: detail.employmentInformationOfficialAnnouncement || '',
       employmentInformationSubmissionWay: detail.employmentInformationSubmissionWay,
-      employmentInformationEmployeeReferralCode: detail.employmentInformationEmployeeReferralCode
+      employmentInformationEmployeeReferralCode: detail.employmentInformationEmployeeReferralCode || ''
     })
-    showCreateDialog.value = true
+    showEditDialog.value = true
   } catch (error) {
-    console.error('获取信息详情失败:', error)
-    ElMessage.error('获取信息详情失败')
+    console.error('获取详情失败:', error)
+    ElMessage.error('获取详情失败')
   }
 }
 
-// 删除信息
+// 删除
 const handleDelete = (row: EmploymentInformationPageVO) => {
-  ElMessageBox.confirm(`确定要删除公司"${row.employmentInformationCompanyName}"的招聘信息吗？`, '确认删除', {
+  ElMessageBox.confirm(`确定要删除"${row.employmentInformationCompanyName}"的招聘信息吗？`, '确认删除', {
     type: 'warning'
   }).then(async () => {
     try {
@@ -719,7 +1051,7 @@ const handleDelete = (row: EmploymentInformationPageVO) => {
         employmentInformationId: row.employmentInformationId
       } as any)
       ElMessage.success('删除成功')
-      getInformationList()
+      getInfoList()
     } catch (error) {
       console.error('删除失败:', error)
       ElMessage.error('删除失败')
@@ -729,21 +1061,24 @@ const handleDelete = (row: EmploymentInformationPageVO) => {
 
 // 提交表单
 const handleSubmit = async () => {
-  if (!informationFormRef.value) return
+  if (!infoFormRef.value) return
   
   try {
-    await informationFormRef.value.validate()
+    await infoFormRef.value.validate()
     submitting.value = true
     
-    if (editingInformation.value) {
-      await employmentInformationApi.updateEmploymentInformation(informationForm)
+    console.log('📤 提交的表单数据:', infoForm)
+    
+    if (editingInfo.value) {
+      await employmentInformationApi.updateEmploymentInformation(infoForm)
+      ElMessage.success('更新成功')
     } else {
-      await employmentInformationApi.addEmploymentInformation(informationForm)
+      await employmentInformationApi.addEmploymentInformation(infoForm)
+      ElMessage.success('创建成功')
     }
     
-    ElMessage.success(editingInformation.value ? '更新成功' : '创建成功')
-    showCreateDialog.value = false
-    getInformationList()
+    showEditDialog.value = false
+    getInfoList()
   } catch (error) {
     console.error('操作失败:', error)
     ElMessage.error('操作失败')
@@ -754,21 +1089,22 @@ const handleSubmit = async () => {
 
 // 重置表单
 const resetForm = () => {
-  if (informationFormRef.value) {
-    informationFormRef.value.resetFields()
+  if (infoFormRef.value) {
+    infoFormRef.value.resetFields()
   }
   
-  editingInformation.value = null
-  Object.assign(informationForm, {
+  editingInfo.value = null
+  Object.assign(infoForm, {
     employmentInformationId: undefined,
+    employmentInformationCode: undefined,
     employmentInformationCompanyName: '',
-    employmentInformationIndustryCategories: 0,
-    employmentInformationCompanyType: 1,
-    employmentInformationBatch: new Date().getFullYear(),
-    employmentInformationRecruitPosition: 0,
-    employmentInformationRecruitObject: 1,
-    employmentInformationRecruitLocationFirst: [],
-    employmentInformationRecruitLocationSecond: [],
+    employmentInformationIndustryCategories: undefined,
+    employmentInformationCompanyType: undefined,
+    employmentInformationBatch: undefined,
+    employmentInformationRecruitPosition: undefined,
+    employmentInformationRecruitObject: undefined,
+    employmentInformationRecruitLocationFirstList: [],
+    employmentInformationRecruitLocationSecondList: [],
     employmentInformationRecruitLocationDetail: '',
     employmentInformationStopTime: '',
     employmentInformationOnlineApplicationStatus: '',
@@ -779,12 +1115,11 @@ const resetForm = () => {
 }
 
 // 组件挂载
-onMounted(async () => {
-  await loadIndustries()
-  await loadProvinces()
-  await loadAllCities()
-  await loadPositions()
-  getInformationList()
+onMounted(() => {
+  getIndustryList()
+  getPositionList()
+  // 省份列表在点击时才加载，提高性能
+  getInfoList()
 })
 </script>
 
@@ -849,7 +1184,7 @@ onMounted(async () => {
     gap: 12px;
   }
 
-  .information-detail {
+  .info-detail {
     .detail-content {
       line-height: 1.6;
       color: #374151;
@@ -857,12 +1192,11 @@ onMounted(async () => {
     }
   }
 
-  .danger {
-    color: #ef4444;
-    
-    &:hover {
-      color: #dc2626;
-    }
+  .text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
   }
 }
 

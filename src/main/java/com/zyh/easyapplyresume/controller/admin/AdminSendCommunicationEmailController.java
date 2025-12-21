@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.controller.admin;
 
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
 import com.zyh.easyapplyresume.service.admin.SendCommunicationEmailService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,36 +24,43 @@ public class AdminSendCommunicationEmailController {
 
     @Operation(summary = "发送纯文本沟通邮件-要指定发送者")
     @PostMapping("/selfde/sendText")
-    public void sendTextEmailSelfDefition(@RequestParam(required = false,value = "fromEmail") String fromEmail,
-                                          @RequestParam(required = true,value = "toEmail") String toEmail,
-                                          @RequestParam(required = true,value = "subject") String subject,
-                                          @RequestParam(required = true,value = "content") String content) {
+    public BaseResult<?> sendTextEmailSelfDefition(@RequestParam(required = true,value = "fromEmail") String fromEmail,
+                                                @RequestParam(required = true,value = "toEmail") String toEmail,
+                                                @RequestParam(required = true,value = "subject") String subject,
+                                                @RequestParam(required = true,value = "content") String content) {
         sendCommunicationEmailService.sendTextEmailSelfDefition(fromEmail, toEmail, subject, content);
+        return BaseResult.ok();
     }
 
     @Operation(summary = "发送纯文本沟通邮件-使用配置文件中的默认发送者")
     @PostMapping("/usallyde/sendText")
-    public void sendTextEmailUsallyDefition(@RequestParam(required = true,value = "toEmail") String toEmail,
+    public BaseResult<?> sendTextEmailUsallyDefition(@RequestParam(required = true,value = "toEmail") String toEmail,
                                             @RequestParam(required = true,value = "subject") String subject,
                                             @RequestParam(required = true,value = "content") String content) {
         sendCommunicationEmailService.sendTextEmailUsallyDefition(toEmail, subject, content);
+        return BaseResult.ok();
+
     }
 
     @Operation(summary = "发送HTML格式的沟通邮件-要指定发送者")
     @PostMapping("/selfde/sendHtml")
-    public void sendHtmlEmailSelfDefition(@RequestParam(required = false,value = "fromEmail") String fromEmail,
+    public BaseResult<?> sendHtmlEmailSelfDefition(@RequestParam(required = true,value = "fromEmail") String fromEmail,
                                           @RequestParam(required = true,value = "toEmail") String toEmail,
                                           @RequestParam(required = true,value = "subject") String subject,
                                           @RequestParam(required = true,value = "htmlContent") String htmlContent) {
         sendCommunicationEmailService.sendHtmlEmailSelfDefition(fromEmail, toEmail, subject, htmlContent);
+        return BaseResult.ok();
+
     }
 
     @Operation(summary = "发送HTML格式的沟通邮件-使用配置文件中的默认发送者")
     @PostMapping("/usallyde/sendHtml")
-    public void sendHtmlEmailUsallyDefition(@RequestParam(required = true,value = "toEmail") String toEmail,
+    public BaseResult<?> sendHtmlEmailUsallyDefition(@RequestParam(required = true,value = "toEmail") String toEmail,
                                             @RequestParam(required = true,value = "subject") String subject,
                                             @RequestParam(required = true,value = "htmlContent") String htmlContent) {
         sendCommunicationEmailService.sendHtmlEmailUsallyDefition(toEmail, subject, htmlContent);
+        return BaseResult.ok();
+
     }
 
 

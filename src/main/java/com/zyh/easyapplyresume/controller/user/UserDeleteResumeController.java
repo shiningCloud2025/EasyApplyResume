@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.controller.user;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
+import com.zyh.easyapplyresume.model.query.user.CPortUserDeleteResumeQuery;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeInfoVO;
 import com.zyh.easyapplyresume.service.user.UserDeleteResumeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,10 +22,11 @@ public class UserDeleteResumeController {
     @Autowired
     private UserDeleteResumeService userDeleteResumeService;
 
-    @GetMapping("/getUserDeleteResumeInfoByUserId")
+    @PostMapping("/getUserDeleteResumeInfoByUserId")
     @Operation(summary = "根据用户id查询用户删除的所有简历")
-    public BaseResult<List<UserDeleteResumeInfoVO>> getUserDeleteResumeInfoByUserId(@RequestParam(required = true,value = "userId") Integer userId){
-        return BaseResult.ok(userDeleteResumeService.getUserDeleteResumeInfoByUserId(userId));
+    public BaseResult<List<UserDeleteResumeInfoVO>> getUserDeleteResumeInfoByUserId(@RequestParam(required = true,value = "userId") Integer userId,
+                                                                                    @RequestBody(required = false) CPortUserDeleteResumeQuery cPortUserDeleteResumeQuery){
+        return BaseResult.ok(userDeleteResumeService.getUserDeleteResumeInfoByUserId(userId,cPortUserDeleteResumeQuery));
     }
 
     @GetMapping("/getUserDeleteResumeInfoByUserIdAndResumeSortedNum")
@@ -54,6 +56,8 @@ public class UserDeleteResumeController {
         userDeleteResumeService.clearExpiredResume();
         return BaseResult.ok();
     }
+
+
 
 
 

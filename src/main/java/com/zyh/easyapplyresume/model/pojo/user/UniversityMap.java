@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("user_universityMap")
+@TableName("general_universityMap")
 public class UniversityMap {
     /**
      * 大学id

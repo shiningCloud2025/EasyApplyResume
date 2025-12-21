@@ -49,10 +49,10 @@ public class AdminFeedbackController {
 
     @Operation(summary = "分页查询反馈信息")
     @PostMapping("/getFeedbackPage")
-    public BaseResult<Page<AdminFeedbackPageVO>> getFeedbackPage(@RequestParam(required = true,value = "size") Integer size,
-                                                                 @RequestParam(required = true,value = "page") Integer page,
+    public BaseResult<Page<AdminFeedbackPageVO>> getFeedbackPage(@RequestParam(required = false,value = "pageNum",defaultValue = "1") Integer pageNum,
+                                                                 @RequestParam(required = false,value = "pageSize",defaultValue = "10") Integer pageSize,
                                                                  @RequestBody AdminFeedbackQuery adminFeedbackQuery) {
-        return BaseResult.ok(adminFeedbackService.getFeedbackPage(size, page, adminFeedbackQuery));
+        return BaseResult.ok(adminFeedbackService.getFeedbackPage(pageNum, pageSize, adminFeedbackQuery));
     }
 
 

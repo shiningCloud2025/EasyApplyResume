@@ -31,7 +31,7 @@ public class RecruitPositionInfoVO {
     private Integer recruitPositionIndustryCode;
 
     @Schema(description = "招聘岗位所属行业名称")
-    private Integer recruitPositionIndustryName;
+    private String recruitPositionIndustryName;
 
     @Schema(description = "招聘岗位最低月薪(单位元)")
     private BigDecimal minMonthSalary;

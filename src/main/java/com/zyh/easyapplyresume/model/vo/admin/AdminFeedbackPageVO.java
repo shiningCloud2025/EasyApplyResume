@@ -11,6 +11,7 @@ import java.util.Date;
 @Data
 @Schema(description = "管理员反馈分页信息")
 public class AdminFeedbackPageVO {
+
     @Schema(description = "管理员反馈ID")
     private Integer adminFeedbackId;
 

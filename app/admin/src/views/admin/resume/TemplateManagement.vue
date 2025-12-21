@@ -68,6 +68,13 @@
         <el-table-column prop="resumeTemplateId" label="ID" width="70" />
         <el-table-column prop="resumeTemplateName" label="模板名称" min-width="200" />
         <el-table-column prop="industryMapIndustryName" label="所属行业" width="120" />
+        <el-table-column label="模板代码" width="100" align="center">
+          <template #default="{ row }">
+            <el-button type="primary" size="small" link @click="handleViewCode(row)">
+              查看详情
+            </el-button>
+          </template>
+        </el-table-column>
         <el-table-column label="是否启用" width="100" align="center">
           <template #default="{ row }">
             <el-tag :type="row.resumeTemplateIsActive === 1 ? 'success' : 'danger'">
@@ -75,14 +82,14 @@
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="resumeTemplateCreatedTime" label="创建时间" width="180">
+        <el-table-column prop="resumeTemplateCreatedTime" label="创建时间" width="120">
           <template #default="{ row }">
-            {{ formatDateTime(row.resumeTemplateCreatedTime) }}
+            {{ formatDate(row.resumeTemplateCreatedTime) }}
           </template>
         </el-table-column>
-        <el-table-column prop="resumeTemplateUpdatedTime" label="更新时间" width="180">
+        <el-table-column prop="resumeTemplateUpdatedTime" label="更新时间" width="120">
           <template #default="{ row }">
-            {{ formatDateTime(row.resumeTemplateUpdatedTime) }}
+            {{ formatDate(row.resumeTemplateUpdatedTime) }}
           </template>
         </el-table-column>
         <el-table-column label="操作" width="260" fixed="right">
@@ -183,7 +190,7 @@
     <el-dialog
       v-model="showViewDialog"
       title="模板详情"
-      width="900px"
+      width="700px"
     >
       <div class="template-detail" v-if="currentViewTemplate">
         <el-descriptions :column="2" border>
@@ -202,15 +209,10 @@
             </el-tag>
           </el-descriptions-item>
           <el-descriptions-item label="创建时间">
-            {{ formatDateTime(currentViewTemplate.createTime) }}
+            {{ formatDate(currentViewTemplate.createTime) }}
           </el-descriptions-item>
           <el-descriptions-item label="更新时间">
-            {{ formatDateTime(currentViewTemplate.updateTime) }}
-          </el-descriptions-item>
-          <el-descriptions-item label="React代码" :span="2">
-            <div class="code-preview">
-              <pre><code>{{ currentViewTemplate.resumeTemplateReactCode }}</code></pre>
-            </div>
+            {{ formatDate(currentViewTemplate.updateTime) }}
           </el-descriptions-item>
         </el-descriptions>
       </div>
@@ -221,6 +223,29 @@
         </div>
       </template>
     </el-dialog>
+
+    <!-- 查看代码详情对话框 -->
+    <el-dialog
+      v-model="showCodeDialog"
+      title="模板代码详情"
+      width="900px"
+    >
+      <div class="code-detail" v-if="currentCodeTemplate">
+        <div class="code-header">
+          <span class="code-title">{{ currentCodeTemplate.resumeTemplateName }}</span>
+          <el-tag size="small" type="info">{{ currentCodeTemplate.industryMapIndustryName }}</el-tag>
+        </div>
+        <div class="code-preview">
+          <pre><code>{{ currentCodeTemplate.resumeTemplateReactCode || '暂无代码' }}</code></pre>
+        </div>
+      </div>
+      
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button @click="showCodeDialog = false">关闭</el-button>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -228,8 +253,8 @@
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
-import { formatDateTime } from '@/utils'
 import { resumeTemplateApi, industryMapApi } from '@/api/admin'
+import dayjs from 'dayjs'
 import type {
   ResumeTemplatePageVO,
   ResumeTemplateForm,
@@ -243,8 +268,10 @@ const loading = ref(false)
 const submitting = ref(false)
 const showCreateDialog = ref(false)
 const showViewDialog = ref(false)
+const showCodeDialog = ref(false)
 const editingTemplate = ref<ResumeTemplatePageVO | null>(null)
 const currentViewTemplate = ref<ResumeTemplateInfoVO | null>(null)
+const currentCodeTemplate = ref<ResumeTemplateInfoVO | null>(null)
 
 // 搜索表单
 const searchForm = reactive<ResumeTemplateQuery>({
@@ -271,7 +298,7 @@ const templateForm = reactive<ResumeTemplateForm>({
   resumeTemplateId: undefined,
   resumeTemplateName: '',
   resumeTemplateReactCode: '',
-  resumeTemplateIndustry: 0,
+  resumeTemplateIndustry: undefined,
   resumeTemplateIsActive: 1
 })
 
@@ -287,6 +314,18 @@ const templateRules = {
   resumeTemplateReactCode: [
     { required: true, message: '请输入React模板代码', trigger: 'blur' }
   ]
+}
+
+// 格式化日期（只显示日期，不显示时分秒）
+const formatDate = (dateStr: string | undefined) => {
+  if (!dateStr) return '-'
+  return dayjs(dateStr).format('YYYY-MM-DD')
+}
+
+// 格式化日期时间（显示日期和时间）
+const formatDateTime = (dateStr: string | undefined) => {
+  if (!dateStr) return '-'
+  return dateStr.replace('T', ' ').substring(0, 16)
 }
 
 // 加载行业数据
@@ -356,7 +395,7 @@ const handleCurrentChange = (current: number) => {
   getTemplateList()
 }
 
-// 查看模板详情
+// 查看模板详情（不含代码）
 const handleView = async (row: ResumeTemplatePageVO) => {
   try {
     const response = await resumeTemplateApi.getResumeTemplateInfo(row.resumeTemplateId)
@@ -365,6 +404,18 @@ const handleView = async (row: ResumeTemplatePageVO) => {
   } catch (error) {
     console.error('获取模板详情失败:', error)
     ElMessage.error('获取模板详情失败')
+  }
+}
+
+// 查看代码详情
+const handleViewCode = async (row: ResumeTemplatePageVO) => {
+  try {
+    const response = await resumeTemplateApi.getResumeTemplateInfo(row.resumeTemplateId)
+    currentCodeTemplate.value = response.data
+    showCodeDialog.value = true
+  } catch (error) {
+    console.error('获取模板代码失败:', error)
+    ElMessage.error('获取模板代码失败')
   }
 }
 
@@ -383,7 +434,7 @@ const handleEdit = async (row: ResumeTemplatePageVO) => {
       resumeTemplateId: detail.resumeTemplateId,
       resumeTemplateName: detail.resumeTemplateName,
       resumeTemplateReactCode: detail.resumeTemplateReactCode,
-      resumeTemplateIndustry: industry ? industry.industryMapIndustryCode : 0,
+      resumeTemplateIndustry: industry ? industry.industryMapIndustryCode : undefined,
       resumeTemplateIsActive: detail.isEnable
     })
     showCreateDialog.value = true
@@ -445,7 +496,7 @@ const resetForm = () => {
     resumeTemplateId: undefined,
     resumeTemplateName: '',
     resumeTemplateReactCode: '',
-    resumeTemplateIndustry: 0,
+    resumeTemplateIndustry: undefined,
     resumeTemplateIsActive: 1
   })
 }
@@ -504,6 +555,19 @@ onMounted(async () => {
     }
   }
 
+  .code-preview-cell {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    color: #555;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: help;
+    background: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+
   .pagination {
     display: flex;
     justify-content: flex-end;
@@ -519,12 +583,31 @@ onMounted(async () => {
   }
 
   .template-detail {
+    // 模板详情样式
+  }
+
+  .code-detail {
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e5e7eb;
+      
+      .code-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1f2937;
+      }
+    }
+    
     .code-preview {
-      max-height: 400px;
+      max-height: 500px;
       overflow-y: auto;
-      background: #f5f5f5;
-      border-radius: 4px;
-      padding: 16px;
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 20px;
       
       pre {
         margin: 0;
@@ -535,7 +618,7 @@ onMounted(async () => {
           font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
           font-size: 13px;
           line-height: 1.6;
-          color: #333;
+          color: #d4d4d4;
         }
       }
     }

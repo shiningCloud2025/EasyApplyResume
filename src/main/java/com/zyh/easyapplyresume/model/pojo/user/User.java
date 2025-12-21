@@ -100,12 +100,12 @@ public class User {
      * 用户地址(省级)
      */
     @TableField("user_recruitLocationFirst")
-    private String userRecruitLocationFirst;
+    private Integer userRecruitLocationFirst;
     /**
      * 用户地址(市级)
      */
     @TableField("user_recruitLocationSecond")
-    private String userRecruitLocationSecond;
+    private Integer userRecruitLocationSecond;
     /**
      * 用户详细地址
      */

@@ -34,6 +34,12 @@ public class UserDeleteResume {
      */
     @TableField("userDeleteResume_industry")
     private Integer userDeleteResumeIndustry;
+
+    /**
+     * 删除简历行业名称
+     */
+    @TableField("userDeleteResume_industryName")
+    private String userDeleteResumeIndustryName;
     /**
      * 删除简历React组件代码
      */
