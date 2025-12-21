@@ -41,7 +41,9 @@ public class AdMonitorAdminAnnouncementServiceImpl implements AdMonitorAdminAnno
             adminAnnouncement.setAnnouncementUpdatedTime(new Date());
             log.info("管理员添加公告成功");
             return adminAnnouncementMapper.insert(adminAnnouncement);
-        }catch (Exception e){
+        }catch (BusException e){
+            throw e;
+        } catch (Exception e){
             log.error("管理员添加公告失败");
             throw new BusException(AdminCodeEnum.ADMIN_ADD_ANNOUNCEMENT_FAIL);
         }
@@ -57,7 +59,9 @@ public class AdMonitorAdminAnnouncementServiceImpl implements AdMonitorAdminAnno
             adminAnnouncement.setAnnouncementUpdatedTime(new Date());
             log.info("管理员修改公告成功");
             return adminAnnouncementMapper.updateById(adminAnnouncement);
-        }catch (Exception e){
+        }catch (BusException e){
+            throw e;
+        } catch (Exception e){
             log.error("管理员修改公告失败");
             throw new BusException(AdminCodeEnum.ADMIN_UPDATE_ANNOUNCEMENT_FAIL);
         }
@@ -72,7 +76,9 @@ public class AdMonitorAdminAnnouncementServiceImpl implements AdMonitorAdminAnno
             BeanUtil.copyProperties(adminAnnouncement, adminAnnouncementInfoVO);
             log.info("管理员获取公告信息成功");
             return adminAnnouncementInfoVO;
-        }catch (Exception e){
+        }catch (BusException e){
+            throw e;
+        } catch (Exception e){
             log.error("管理员获取公告信息失败");
             throw new BusException(AdminCodeEnum.ADMIN_GET_ANNOUNCEMENT_INFO_FAIL);
         }

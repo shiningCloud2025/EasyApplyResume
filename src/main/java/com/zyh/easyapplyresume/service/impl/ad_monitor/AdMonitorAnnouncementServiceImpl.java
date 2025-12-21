@@ -41,7 +41,9 @@ public class AdMonitorAnnouncementServiceImpl implements AdMonitorAnnouncementSe
             adMonitorAnnouncement.setAnnouncementUpdatedTime(new Date());
             log.info("检测端添加成功");
             return adMonitorAnnouncementMapper.insert(adMonitorAnnouncement);
-        }catch (Exception  e){
+        }catch (BusException e){
+            throw e;
+        } catch (Exception  e){
             log.error("监测端添加公告失败");
             throw new BusException(AdMonitorCodeEnum.ADMONITOR_ADD_ANNOUNCEMENT_FAILED);
         }
@@ -57,7 +59,9 @@ public class AdMonitorAnnouncementServiceImpl implements AdMonitorAnnouncementSe
             adMonitorAnnouncement.setAnnouncementUpdatedTime(new Date());
             log.info("监测端修改公告成功");
             return adMonitorAnnouncementMapper.updateById(adMonitorAnnouncement);
-        }catch (Exception e){
+        }catch (BusException e){
+            throw e;
+        } catch (Exception e){
             log.error("监测端修改公告失败");
             throw new BusException(AdMonitorCodeEnum.ADMONITOR_UPDATE_ANNOUNCEMENT_FAILED);
         }
@@ -73,7 +77,9 @@ public class AdMonitorAnnouncementServiceImpl implements AdMonitorAnnouncementSe
             BeanUtil.copyProperties(adMonitorAnnouncement, adMonitorAnnouncementInfoVO);
             log.info("监测端获取公告信息成功");
             return adMonitorAnnouncementInfoVO;
-        }catch (Exception e){
+        }catch (BusException e){
+            throw e;
+        } catch (Exception e){
             log.error("监测端获取公告信息失败");
             throw new BusException(AdMonitorCodeEnum.ADMONITOR_GET_ANNOUNCEMENT_INFO_FAILED);
         }
