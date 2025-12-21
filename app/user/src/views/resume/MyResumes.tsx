@@ -119,16 +119,28 @@ const MyResumes: React.FC = () => {
     isLoading: collectionsLoading,
     refetch: refetchCollections
   } = useQuery(
-    ['user-collections', user?.userId],
+    ['user-collections', user?.userId, searchKeyword],
     () => {
       if (!user?.userId) return Promise.resolve([])
-      return resumeAPI.getUserCollections(user.userId)
+      console.log('调用收藏接口, userId:', user.userId, ', 搜索:', searchKeyword)
+      // 传递搜索关键词作为 resumeTemplateName 参数（空字符串也传）
+      return resumeAPI.getUserCollections(user.userId, searchKeyword)
     },
     {
       enabled: !!user?.userId && activeTab === 'my-collections',
-      select: (response) => response.data || []
+      select: (response) => {
+        console.log('收藏接口返回:', response)
+        return response.data || []
+      }
     }
   )
+
+  // 切换到"我的收藏"时重新获取数据
+  useEffect(() => {
+    if (activeTab === 'my-collections' && user?.userId) {
+      refetchCollections()
+    }
+  }, [activeTab, user?.userId])
 
   // 删除简历mutation
   const deleteResumeMutation = useMutation(
@@ -169,9 +181,15 @@ const MyResumes: React.FC = () => {
 
   const handleSearch = (value: string) => {
     setSearchKeyword(value)
-    const newQuery = value ? { userSaveResumeResumeName: value } : {}
-    setSearchQuery(newQuery)
-    setTimeout(() => refetch(), 0)
+    if (activeTab === 'my-resumes') {
+      // 搜索我的简历
+      const newQuery = value ? { userSaveResumeResumeName: value } : {}
+      setSearchQuery(newQuery)
+      setTimeout(() => refetch(), 0)
+    } else {
+      // 搜索我的收藏 - 手动触发重新查询
+      setTimeout(() => refetchCollections(), 0)
+    }
   }
 
   const handleEditName = (resume: UserResume) => {
@@ -338,7 +356,7 @@ const MyResumes: React.FC = () => {
           <div className="resume-grid">
             {collectionsData.map((collection: any) => (
               <Card
-                key={collection.userCollectionsSortedNum}
+                key={collection.resumeTemplateId}
                 hoverable
                 className="resume-card"
                 cover={
@@ -352,9 +370,6 @@ const MyResumes: React.FC = () => {
                   <h3 className="resume-name">{collection.resumeTemplateName || '收藏模板'}</h3>
                   <div className="resume-meta">
                     <Tag color="purple"><HeartOutlined /> 已收藏</Tag>
-                  </div>
-                  <div className="resume-times">
-                    <span>收藏时间：{new Date(collection.createdTime).toLocaleDateString('zh-CN')}</span>
                   </div>
                 </div>
               </Card>

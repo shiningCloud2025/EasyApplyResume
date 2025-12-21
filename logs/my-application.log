@@ -4017,3 +4017,819 @@ This generated password is for development use only. Your security configuration
 2025-12-21 12:39:32.294 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
 2025-12-21 12:39:32.339 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
 2025-12-21 12:39:32.339 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UserDeleteResumeBySystemServiceImpl - 根据系统删除简历ID查询系统删除简历信息成功
+2025-12-21 12:44:33.991 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:44:33.991 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:44:34.035 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:44:34.076 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 12:44:34.078 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 12:44:34.082 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 12:44:34.120 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 12:44:34.121 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 12:44:34.122 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:44:34.165 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 12:44:34.934 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:44:34.936 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:44:34.982 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:44:36.349 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:44:36.350 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:44:36.409 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:53:38.196 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:53:38.196 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:53:38.196 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:53:38.196 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:53:38.320 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:53:38.320 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:53:38.421 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 12:53:38.422 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 12:53:38.422 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 12:53:38.536 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 12:53:38.537 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 12:53:38.537 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:53:38.658 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 12:54:09.286 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:54:09.287 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:09.326 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:54:22.308 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:54:22.309 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:22.360 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:54:22.425 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 12:54:22.426 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 12:54:22.427 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 12:54:22.486 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 0
+2025-12-21 12:54:47.410 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:54:47.410 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:54:47.411 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:47.411 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:47.703 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:54:47.703 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:54:47.811 [http-nio-8080-exec-8] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 12:54:47.812 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:54:47.813 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 12:54:47.904 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:54:47.905 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 12:54:47.905 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 12:54:48.033 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 12:54:48.033 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 12:54:48.034 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 12:54:48.034 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 12:54:48.034 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 12:54:48.034 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:48.148 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 12:54:48.148 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 12:54:48.149 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 12:54:48.150 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:48.261 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 12:54:48.458 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:54:48.458 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:54:48.459 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:48.459 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:48.596 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:54:48.597 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:48.598 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:54:48.598 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:54:48.710 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.I.selectList - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap
+2025-12-21 12:54:48.711 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.I.selectList - ==> Parameters: 
+2025-12-21 12:54:48.711 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT resumeTemplate_id,resumeTemplate_name,resumeTemplate_reactCode,resumeTemplate_industry,resumeTemplate_isActive,resumeTemplate_createdTime,resumeTemplate_updatedTime,deleted FROM general_resumeTemplate WHERE deleted=0 AND (deleted = ?)
+2025-12-21 12:54:48.712 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 0(Integer)
+2025-12-21 12:54:48.712 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:54:48.837 [http-nio-8080-exec-2] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 12:54:48.837 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:54:48.838 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-21 12:54:48.838 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 12:54:48.838 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.I.selectList - <==      Total: 2
+2025-12-21 12:54:48.838 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 12:54:48.839 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:48.871 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:54:48.872 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 12:54:48.873 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 12:54:48.874 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 12:54:48.909 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 12:54:48.910 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 12:54:48.911 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:48.944 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 12:54:49.043 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:54:49.043 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:49.083 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:54:49.121 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户是否收藏简历模版开始
+2025-12-21 12:54:49.124 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT uid,rtid FROM user_userCollections WHERE (uid = ? AND rtid = ?)
+2025-12-21 12:54:49.124 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer), 1(Integer)
+2025-12-21 12:54:49.161 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-21 12:54:49.161 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户是否收藏简历模版结束
+2025-12-21 12:54:50.048 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:54:50.048 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:50.087 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:54:50.137 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版
+2025-12-21 12:54:50.141 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.delete - ==>  Preparing: DELETE FROM user_userCollections WHERE (uid = ? AND rtid = ?)
+2025-12-21 12:54:50.143 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.delete - ==> Parameters: 1(Integer), 1(Integer)
+2025-12-21 12:54:50.218 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.delete - <==    Updates: 0
+2025-12-21 12:54:50.219 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版结束
+2025-12-21 12:54:52.203 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:54:52.204 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:52.315 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:54:52.377 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 12:54:52.378 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 12:54:52.378 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 12:54:52.413 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 0
+2025-12-21 12:54:55.982 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 12:54:55.983 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:56.032 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 12:54:56.142 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 12:54:56.143 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 12:54:56.144 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 12:54:56.247 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 12:54:56.250 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 12:54:56.250 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 12:54:56.369 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 12:55:46.717 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-21 12:55:46.717 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-12-21 12:55:46.718 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-21 12:55:46.718 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-12-21 12:55:46.756 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-21 12:55:46.759 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-21 12:55:46.760 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 12:55:46.765 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 12:55:46.765 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 12:55:46.767 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 12:55:46.769 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-21 12:55:46.778 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-12-21 12:55:59.123 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2025-12-21 12:55:59.129 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2025-12-21 12:55:59.130 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2025-12-21 12:55:59.140 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2025-12-21 12:55:59.155 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2025-12-21 12:55:59.431 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 2504 (C:\Users\shini\IdeaProjects\EasyApplyResume\target\classes started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-21 12:55:59.432 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2025-12-21 12:55:59.433 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2025-12-21 12:56:01.601 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2025-12-21 12:56:01.605 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2025-12-21 12:56:01.679 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 49 ms. Found 0 Redis repository interfaces.
+2025-12-21 12:56:01.862 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.862 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.862 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.863 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.863 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.864 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.865 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.865 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.867 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.868 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.869 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.870 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.870 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.871 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.871 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.871 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.872 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.872 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.872 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.873 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.873 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.874 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.875 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.875 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.876 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.877 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2025-12-21 12:56:01.879 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2025-12-21 12:56:02.331 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-12-21 12:56:02.342 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-21 12:56:02.552 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2025-12-21 12:56:02.552 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2025-12-21 12:56:02.555 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2025-12-21 12:56:03.539 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-12-21 12:56:03.567 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-12-21 12:56:03.575 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-12-21 12:56:03.575 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2025-12-21 12:56:03.761 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2025-12-21 12:56:03.761 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4240 ms
+2025-12-21 12:56:05.103 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserCollections".
+2025-12-21 12:56:05.104 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserCollections ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2025-12-21 12:56:05.322 [main] DEBUG c.z.e.filter.UserJwtAuthFilter - Filter 'userJwtAuthFilter' configured for use
+2025-12-21 12:56:05.323 [main] DEBUG c.z.e.filter.AdminJwtAuthFilter - Filter 'adminJwtAuthFilter' configured for use
+2025-12-21 12:56:05.616 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-21 12:56:05.938 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-21 12:56:07.192 [main] INFO  c.z.e.d.a.AdminSensitiveWordsAdvisor - 管理端敏感词初始化完成，共加载 137 个敏感词
+2025-12-21 12:56:08.993 [main] INFO  c.z.i.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 29488 (C:\Users\shini\IdeaProjects\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2025-12-21 12:56:08.995 [main] INFO  c.z.i.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-12-21 12:56:10.494 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-12-21 12:56:10.585 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-12-21 12:56:10.630 [main] INFO  c.z.i.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 2.179 seconds (process running for 3.011)
+2025-12-21 12:56:13.412 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-12-21 12:56:13.426 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-12-21 12:56:13.466 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 用户端敏感词初始化完成，共加载 137 个敏感词
+2025-12-21 12:56:13.775 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 12:56:13.792 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 12:56:13.796 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-21 12:56:18.372 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 7c859366-dec6-4541-8965-869787b38599
+2025-12-21 12:56:18.724 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = a0131c9e-0a64-4a6e-bfbf-7b5058660dc8
+2025-12-21 12:56:19.034 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 80043683-fc23-40ee-9a9b-49ff1befcc84
+2025-12-21 12:56:19.410 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-21 12:56:19.426 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-21 12:56:19.646 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-12-21 12:56:19.726 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-12-21 12:56:19.730 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-12-21 12:56:19.730 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-12-21 12:56:19.734 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-21 12:56:20.193 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@419d74ca
+2025-12-21 12:56:20.196 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-21 12:56:20.676 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: ccdc4096-6733-4974-a74d-e67015c7ea2d
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-12-21 12:56:20.687 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-12-21 12:56:21.641 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-21 12:56:21.654 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-12-21 12:56:21.669 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 23.328 seconds (process running for 24.412)
+2025-12-21 13:00:09.121 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-12-21 13:00:09.121 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-12-21 13:00:09.125 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2025-12-21 13:00:09.896 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-12-21 13:00:11.335 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@38631b8e
+2025-12-21 13:00:11.336 [http-nio-8080-exec-2] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-12-21 13:00:11.339 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:00:11.435 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:11.595 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:00:11.870 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 13:00:12.092 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ? AND userSaveResume_sortedNum = ?)
+2025-12-21 13:00:12.097 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer), 0(Integer)
+2025-12-21 13:00:12.141 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 1
+2025-12-21 13:00:12.492 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:00:12.493 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:12.670 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:00:17.784 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:00:17.784 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:00:17.785 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:17.785 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:17.841 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:00:17.841 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:00:17.896 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 13:00:17.897 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ? AND userSaveResume_sortedNum = ?)
+2025-12-21 13:00:17.898 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer), 0(Integer)
+2025-12-21 13:00:17.958 [http-nio-8080-exec-1] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 13:00:17.958 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:00:17.960 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 1
+2025-12-21 13:00:17.961 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:00:17.961 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:17.967 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 13:00:18.065 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:00:18.066 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:00:18.161 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 13:00:18.162 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 13:00:18.289 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 13:00:18.289 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 13:00:18.290 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:18.330 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 13:00:18.741 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:00:18.742 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:18.808 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:00:18.966 [http-nio-8080-exec-4] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 13:00:18.967 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:00:18.967 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 13:00:19.079 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:00:19.081 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 13:00:19.081 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 13:00:19.193 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 13:00:19.194 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 13:00:19.195 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:19.312 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 13:00:21.714 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:00:21.714 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:21.755 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:00:21.819 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 13:00:21.823 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 13:00:21.825 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 13:00:21.866 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 13:00:21.871 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:00:21.873 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:21.912 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:00:33.888 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:00:33.889 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:33.949 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:00:34.053 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:00:34.054 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:00:34.055 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:00:34.095 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 0
+2025-12-21 13:00:39.859 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:00:39.861 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:39.917 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:00:40.026 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 13:00:40.029 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 13:00:40.030 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 13:00:40.094 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 13:00:40.096 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:00:40.097 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:40.270 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:00:55.856 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:00:55.857 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:00:55.912 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:00:56.024 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:00:56.025 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:00:56.026 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:00:56.137 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 0
+2025-12-21 13:01:44.359 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:01:44.359 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:01:44.396 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:01:44.434 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:01:44.435 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:01:44.435 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:01:44.474 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 0
+2025-12-21 13:02:13.707 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:02:13.707 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:02:13.748 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:02:13.802 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:02:13.802 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:02:13.802 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:02:13.844 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 0
+2025-12-21 13:02:35.349 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:02:35.350 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:02:35.391 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:02:35.435 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:02:35.436 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:02:35.437 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:02:35.480 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 0
+2025-12-21 13:02:41.505 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:02:41.505 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:02:41.506 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:02:41.506 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:02:41.587 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:02:41.587 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:02:41.678 [http-nio-8080-exec-1] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 13:02:41.678 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 13:02:41.678 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:02:41.678 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 13:02:41.679 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 13:02:41.679 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 13:02:41.794 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:02:41.795 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 13:02:41.797 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 13:02:41.797 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 13:02:41.798 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:02:41.798 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:02:41.844 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 13:02:41.844 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:02:41.845 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 13:02:41.846 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:02:41.903 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 13:02:42.238 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:02:42.239 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:02:42.304 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:02:42.466 [http-nio-8080-exec-4] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 13:02:42.467 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:02:42.467 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 13:02:42.578 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:02:42.580 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 13:02:42.581 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 13:02:42.622 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 13:02:42.623 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 13:02:42.624 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:02:42.666 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 13:02:43.409 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:02:43.410 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:02:43.593 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:02:43.705 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:02:43.706 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:02:43.707 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:02:43.817 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 0
+2025-12-21 13:02:55.628 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:02:55.629 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:02:55.669 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:02:55.709 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:02:55.710 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:02:55.711 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:02:55.751 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 0
+2025-12-21 13:03:48.286 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:03:48.286 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:03:48.358 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:03:48.466 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:03:59.787 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:03:59.788 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:03:59.851 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 0
+2025-12-21 13:05:01.248 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m1s464ms193µs400ns).
+2025-12-21 13:05:01.248 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=1m19s751ms935µs).
+2025-12-21 13:05:01.420 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:05:01.421 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:05:01.423 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:05:01.423 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:05:01.424 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:05:01.424 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:05:01.483 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:05:01.483 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:05:01.486 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:05:01.576 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:05:01.577 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectList - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap
+2025-12-21 13:05:01.577 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectList - ==> Parameters: 
+2025-12-21 13:05:01.579 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT resumeTemplate_id,resumeTemplate_name,resumeTemplate_reactCode,resumeTemplate_industry,resumeTemplate_isActive,resumeTemplate_createdTime,resumeTemplate_updatedTime,deleted FROM general_resumeTemplate WHERE deleted=0 AND (deleted = ?)
+2025-12-21 13:05:01.579 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 0(Integer)
+2025-12-21 13:05:02.225 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectList - <==      Total: 2
+2025-12-21 13:05:02.225 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-21 13:05:02.226 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:05:02.228 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:05:02.228 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:05:02.229 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:05:02.364 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 0
+2025-12-21 13:05:02.364 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:05:04.350 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:05:04.351 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:05:04.392 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:05:04.431 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户是否收藏简历模版开始
+2025-12-21 13:05:04.433 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT uid,rtid FROM user_userCollections WHERE (uid = ? AND rtid = ?)
+2025-12-21 13:05:04.433 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer), 1(Integer)
+2025-12-21 13:05:04.471 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 0
+2025-12-21 13:05:04.472 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户是否收藏简历模版结束
+2025-12-21 13:05:05.239 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:05:05.240 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:05:05.291 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:05:05.407 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版
+2025-12-21 13:05:05.413 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.delete - ==>  Preparing: DELETE FROM user_userCollections WHERE (uid = ? AND rtid = ?)
+2025-12-21 13:05:05.413 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.delete - ==> Parameters: 1(Integer), 1(Integer)
+2025-12-21 13:05:05.628 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.delete - <==    Updates: 0
+2025-12-21 13:05:05.629 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版结束
+2025-12-21 13:05:14.697 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:05:14.697 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:05:14.757 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:05:14.875 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版
+2025-12-21 13:05:14.883 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_userCollections ( uid, rtid ) VALUES ( ?, ? )
+2025-12-21 13:05:14.885 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: 1(Integer), 1(Integer)
+2025-12-21 13:05:15.090 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-12-21 13:05:15.090 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版结束
+2025-12-21 13:05:26.945 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:05:26.946 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:05:27.033 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:05:27.151 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版
+2025-12-21 13:05:27.152 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.delete - ==>  Preparing: DELETE FROM user_userCollections WHERE (uid = ? AND rtid = ?)
+2025-12-21 13:05:27.153 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.delete - ==> Parameters: 1(Integer), 1(Integer)
+2025-12-21 13:05:27.337 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.delete - <==    Updates: 1
+2025-12-21 13:05:27.338 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版结束
+2025-12-21 13:06:48.520 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:06:48.521 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:06:48.560 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:06:48.693 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版
+2025-12-21 13:07:15.227 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_userCollections ( uid, rtid ) VALUES ( ?, ? )
+2025-12-21 13:07:15.227 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: 1(Integer), 1(Integer)
+2025-12-21 13:07:15.503 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-12-21 13:07:15.503 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版结束
+2025-12-21 13:07:45.948 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:07:45.949 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:07:46.030 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:07:46.138 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版
+2025-12-21 13:08:07.169 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.delete - ==>  Preparing: DELETE FROM user_userCollections WHERE (uid = ? AND rtid = ?)
+2025-12-21 13:08:07.169 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.delete - ==> Parameters: 1(Integer), 1(Integer)
+2025-12-21 13:08:07.427 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.delete - <==    Updates: 1
+2025-12-21 13:08:07.427 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版结束
+2025-12-21 13:08:24.541 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:08:24.543 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:08:24.583 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:08:24.629 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版
+2025-12-21 13:11:48.819 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3m33s582ms257µs800ns).
+2025-12-21 13:11:48.819 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=3m33s582ms309µs200ns).
+2025-12-21 13:11:49.720 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.insert - ==>  Preparing: INSERT INTO user_userCollections ( uid, rtid ) VALUES ( ?, ? )
+2025-12-21 13:11:49.720 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.insert - ==> Parameters: 1(Integer), 1(Integer)
+2025-12-21 13:11:49.750 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:11:49.752 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:49.753 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:11:49.754 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:49.754 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:11:49.754 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:11:49.754 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:49.754 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:49.758 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:11:49.758 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:11:49.758 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:49.758 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:49.787 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:11:49.796 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.insert - <==    Updates: 1
+2025-12-21 13:11:49.797 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户收藏/取消收藏简历模版结束
+2025-12-21 13:11:49.797 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:11:49.797 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:11:49.797 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:11:49.798 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:11:49.804 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:11:49.823 [http-nio-8080-exec-8] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 13:11:49.823 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:11:49.823 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 13:11:49.833 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectList - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap
+2025-12-21 13:11:49.834 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectList - ==> Parameters: 
+2025-12-21 13:11:49.837 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT resumeTemplate_id,resumeTemplate_name,resumeTemplate_reactCode,resumeTemplate_industry,resumeTemplate_isActive,resumeTemplate_createdTime,resumeTemplate_updatedTime,deleted FROM general_resumeTemplate WHERE deleted=0 AND (deleted = ?)
+2025-12-21 13:11:49.837 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT resumeTemplate_id,resumeTemplate_name,resumeTemplate_reactCode,resumeTemplate_industry,resumeTemplate_isActive,resumeTemplate_createdTime,resumeTemplate_updatedTime,deleted FROM general_resumeTemplate WHERE deleted=0 AND (deleted = ?)
+2025-12-21 13:11:49.838 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 0(Integer)
+2025-12-21 13:11:49.838 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 0(Integer)
+2025-12-21 13:11:49.838 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT resumeTemplate_id,resumeTemplate_name,resumeTemplate_reactCode,resumeTemplate_industry,resumeTemplate_isActive,resumeTemplate_createdTime,resumeTemplate_updatedTime,deleted FROM general_resumeTemplate WHERE deleted=0 AND (deleted = ?)
+2025-12-21 13:11:49.838 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 0(Integer)
+2025-12-21 13:11:49.858 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:11:49.859 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 13:11:49.859 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 13:11:49.873 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectList - <==      Total: 2
+2025-12-21 13:11:49.874 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-21 13:11:49.875 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:11:49.875 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:49.878 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-21 13:11:49.879 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:11:49.879 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-21 13:11:49.880 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:49.881 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:11:49.881 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:49.894 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 13:11:49.895 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 13:11:49.896 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:49.911 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:11:49.921 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:11:49.923 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:11:49.934 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 13:11:50.788 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:11:50.788 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:50.828 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:11:50.866 [http-nio-8080-exec-4] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 13:11:50.867 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:11:50.868 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 13:11:50.906 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:11:50.907 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 13:11:50.907 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 13:11:50.946 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 13:11:50.947 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 13:11:50.947 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:50.984 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 13:11:51.501 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:11:51.502 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:51.541 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:11:51.579 [http-nio-8080-exec-5] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 13:11:51.579 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:11:51.579 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 13:11:51.617 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:11:51.618 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 13:11:51.618 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 13:11:51.655 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 13:11:51.655 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 13:11:51.656 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:51.693 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 13:11:52.372 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:11:52.373 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:52.411 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:11:52.449 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户是否收藏简历模版开始
+2025-12-21 13:11:52.451 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT uid,rtid FROM user_userCollections WHERE (uid = ? AND rtid = ?)
+2025-12-21 13:11:52.452 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer), 1(Integer)
+2025-12-21 13:11:52.494 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 1
+2025-12-21 13:11:58.842 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 13:11:58.843 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:58.885 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 13:11:58.886 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 13:11:58.886 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:59.019 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 13:11:59.085 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userDeleteResumeBySystem_id,userDeleteResumeBySystem_resumeName,userDeleteResumeBySystem_industry,userDeleteResumeBySystem_resumeReactCode,userDeleteResumeBySystem_createdTime,userDeleteResumeBySystem_updatedTime,userDeleteResumeBySystem_sortedNum,userDeleteResumeBySystem_userId,userDeleteResumeBySystem_recycleTime FROM user_userDeleteResumeBySystem
+2025-12-21 13:11:59.086 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 
+2025-12-21 13:11:59.143 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 13:11:59.156 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:11:59.156 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:11:59.202 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:12:00.151 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:12:00.152 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:12:00.210 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:12:00.250 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 13:12:00.251 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 13:12:00.252 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 13:12:00.293 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 13:12:00.300 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:12:00.300 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:12:00.340 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:12:01.127 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:12:01.127 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:12:01.168 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:12:01.206 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:12:03.007 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:12:03.008 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:12:03.069 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 1
+2025-12-21 13:12:16.468 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:12:16.468 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:12:16.469 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:12:16.469 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:12:16.590 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:12:16.592 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:12:16.687 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 13:12:16.687 [http-nio-8080-exec-10] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 13:12:16.688 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:12:16.688 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 13:12:16.688 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 13:12:16.689 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 13:12:16.730 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:12:16.731 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 13:12:16.732 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 13:12:16.740 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 13:12:16.766 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:12:16.771 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:12:16.789 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 13:12:16.790 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 13:12:16.791 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:12:16.893 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 13:12:16.892 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:12:17.139 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:12:17.140 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:12:17.181 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:12:17.219 [http-nio-8080-exec-8] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 13:12:17.220 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:12:17.220 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 13:12:17.254 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:12:17.255 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 13:12:17.255 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 13:12:17.288 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 13:12:17.289 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 13:12:17.289 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:12:17.324 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 13:12:17.415 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:12:17.416 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:12:17.456 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:12:17.496 [http-nio-8080-exec-2] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:12:22.681 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:12:22.681 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:12:22.722 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 1
+2025-12-21 13:13:35.330 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:13:35.330 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:13:35.331 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:13:35.331 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:13:35.335 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:13:35.335 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:13:35.369 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:13:35.372 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:13:35.374 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:13:37.039 [http-nio-8080-exec-5] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 13:13:37.040 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:13:37.040 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 13:13:37.040 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.I.selectList - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap
+2025-12-21 13:13:37.041 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.I.selectList - ==> Parameters: 
+2025-12-21 13:13:37.041 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT resumeTemplate_id,resumeTemplate_name,resumeTemplate_reactCode,resumeTemplate_industry,resumeTemplate_isActive,resumeTemplate_createdTime,resumeTemplate_updatedTime,deleted FROM general_resumeTemplate WHERE deleted=0 AND (deleted = ?)
+2025-12-21 13:13:37.041 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 0(Integer)
+2025-12-21 13:13:37.074 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.I.selectList - <==      Total: 2
+2025-12-21 13:13:37.077 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:13:37.080 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 13:13:37.081 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 13:13:37.086 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-21 13:13:37.086 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:13:37.087 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:13:37.121 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 13:13:37.123 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 13:13:37.123 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:13:37.123 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:13:37.168 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 13:13:37.380 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:13:37.380 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:13:37.424 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:13:37.468 [http-nio-8080-exec-1] INFO  c.z.e.s.impl.user.UserServiceImpl - 根据用户id查询用户信息开始
+2025-12-21 13:13:37.468 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:13:37.468 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(String)
+2025-12-21 13:13:37.511 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:13:37.513 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectById - ==>  Preparing: SELECT universityMap_id,universityMap_name,universityMap_address,universityMap_lat,universityMap_lng,universityMap_status FROM general_universityMap WHERE universityMap_id=?
+2025-12-21 13:13:37.545 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectById - ==> Parameters: 11360(Integer)
+2025-12-21 13:13:37.588 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectById - <==      Total: 1
+2025-12-21 13:13:37.590 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 13:13:37.592 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:13:37.633 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 13:13:38.013 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:13:38.014 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:13:43.149 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:13:43.283 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户是否收藏简历模版开始
+2025-12-21 13:13:43.284 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT uid,rtid FROM user_userCollections WHERE (uid = ? AND rtid = ?)
+2025-12-21 13:13:43.285 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer), 1(Integer)
+2025-12-21 13:13:43.345 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:13:43.345 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:13:43.346 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 1
+2025-12-21 13:13:43.346 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:13:43.347 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:13:43.429 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:13:43.442 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:13:43.470 [http-nio-8080-exec-3] INFO  c.z.e.s.i.u.UserSaveResumeServiceImpl - 获取用户保存的简历信息开始
+2025-12-21 13:13:43.471 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT userSaveResume_id,userSaveResume_resumeName,userSaveResume_industry,userSaveResume_resumeReactCode,userSaveResume_createdTime,userSaveResume_updatedTime,userSaveResume_sortedNum,userSaveResume_userId FROM user_userSaveResume WHERE (userSaveResume_userId = ?) ORDER BY userSaveResume_sortedNum DESC
+2025-12-21 13:13:43.472 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer)
+2025-12-21 13:13:43.480 [http-nio-8080-exec-9] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:13:43.480 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:13:43.481 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:13:43.514 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 2
+2025-12-21 13:13:43.518 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:13:43.523 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 1
+2025-12-21 13:13:43.529 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:13:43.656 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:14:17.817 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:14:17.818 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:14:17.898 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:14:18.008 [http-nio-8080-exec-10] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:14:18.008 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:14:18.009 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:14:18.051 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 1
+2025-12-21 13:15:39.101 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:15:39.101 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:15:39.144 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:15:39.180 [http-nio-8080-exec-8] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:15:39.180 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:15:39.182 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:15:39.217 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 1
+2025-12-21 13:15:40.067 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:15:40.068 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:15:40.070 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:15:40.071 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:15:40.100 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:15:40.106 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:15:40.134 [http-nio-8080-exec-6] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 用户是否收藏简历模版开始
+2025-12-21 13:15:40.136 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==>  Preparing: SELECT uid,rtid FROM user_userCollections WHERE (uid = ? AND rtid = ?)
+2025-12-21 13:15:40.136 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - ==> Parameters: 1(Integer), 1(Integer)
+2025-12-21 13:15:40.144 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT resumeTemplate_id,resumeTemplate_name,resumeTemplate_reactCode,resumeTemplate_industry,resumeTemplate_isActive,resumeTemplate_createdTime,resumeTemplate_updatedTime,deleted FROM general_resumeTemplate WHERE deleted=0 AND (resumeTemplate_id = ? AND deleted = ?)
+2025-12-21 13:15:40.145 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 1(Integer), 0(Integer)
+2025-12-21 13:15:40.171 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.u.U.selectList - <==      Total: 1
+2025-12-21 13:15:40.186 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-21 13:15:40.187 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:15:40.187 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:15:40.223 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:15:47.565 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:15:47.566 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:15:47.606 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:15:47.644 [http-nio-8080-exec-4] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:15:47.645 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:15:47.645 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:15:47.683 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 1
+2025-12-21 13:15:50.501 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:15:50.502 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:15:50.544 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:15:50.585 [http-nio-8080-exec-5] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:15:50.585 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:15:50.586 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:15:50.628 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 1
+2025-12-21 13:15:51.983 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:15:51.983 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:15:52.026 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:15:52.069 [http-nio-8080-exec-1] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:15:52.069 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:15:52.069 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:15:52.119 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 1
+2025-12-21 13:15:53.230 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:15:53.230 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:15:53.267 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:15:53.306 [http-nio-8080-exec-7] INFO  c.z.e.s.i.u.UserCollectionsServiceImpl - 查询用户收藏的简历模版开始
+2025-12-21 13:15:53.306 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==>  Preparing: select * from user_userCollections uuc left join general_resumeTemplate grt on uuc.rtid = grt.resumeTemplate_id where uuc.uid = ?
+2025-12-21 13:15:53.306 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - ==> Parameters: 1(Integer)
+2025-12-21 13:15:53.344 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.u.U.selectResumeTemplateByUserId - <==      Total: 1
+2025-12-21 13:15:58.518 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:15:58.518 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:15:58.556 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:15:58.688 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.E.selectList - ==>  Preparing: SELECT employmentInformation_id,employmentInformation_code,employmentInformation_companyName,employmentInformation_industryCategories,employmentInformation_companyType,employmentInformation_batch,employmentInformation_recruitPosition,employmentInformation_recruitObject,employmentInformation_recruitLocationFirst,employmentInformation_recruitLocationSecond,employmentInformation_recruitLocationDetail,employmentInformation_startTime,employmentInformation_stopTime,employmentInformation_updatedTime,employmentInformation_onlineApplicationStatus,employmentInformation_officialAnnouncement,employmentInformation_submissionWay,employmentInformation_employeeReferralCode,deleted FROM general_employmentInformation WHERE deleted=0 AND (deleted = ?)
+2025-12-21 13:15:58.688 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.E.selectList - ==> Parameters: 0(Integer)
+2025-12-21 13:15:58.727 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.E.selectList - <==      Total: 1
+2025-12-21 13:15:58.738 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.E.selectList - ==>  Preparing: SELECT employmentInformation_id,employmentInformation_code,employmentInformation_companyName,employmentInformation_industryCategories,employmentInformation_companyType,employmentInformation_batch,employmentInformation_recruitPosition,employmentInformation_recruitObject,employmentInformation_recruitLocationFirst,employmentInformation_recruitLocationSecond,employmentInformation_recruitLocationDetail,employmentInformation_startTime,employmentInformation_stopTime,employmentInformation_updatedTime,employmentInformation_onlineApplicationStatus,employmentInformation_officialAnnouncement,employmentInformation_submissionWay,employmentInformation_employeeReferralCode,deleted FROM general_employmentInformation WHERE deleted=0 AND (employmentInformation_code = ? AND deleted = ?)
+2025-12-21 13:15:58.738 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.E.selectList - ==> Parameters: 1(Integer), 0(Integer)
+2025-12-21 13:15:58.777 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.E.selectList - <==      Total: 1
+2025-12-21 13:15:58.810 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:15:58.811 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:15:58.853 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:15:58.853 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.R.selectById - ==>  Preparing: SELECT recruitPosition_id AS recruitPositionId,recruitPosition_name,recruitPosition_createdTime AS createdTime,recruitPosition_updatedTime AS updatedTime,recruitPosition_industryCode,recruitPosition_minMonthSalary AS minMonthSalary,recruitPosition_maxMonthSalary AS maxMonthSalary,recruitPosition_weekWorkDayNum AS weekWorkDayNum,recruitPosition_goodWelfare AS goodWelfare FROM general_recruitPosition WHERE recruitPosition_id =?
+2025-12-21 13:15:58.853 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.R.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:15:58.892 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.R.selectById - <==      Total: 1
+2025-12-21 13:15:59.335 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user WHERE user_id=?
+2025-12-21 13:15:59.335 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:15:59.375 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.user.UserMapper.selectById - <==      Total: 1
+2025-12-21 13:15:59.434 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.J.selectList - ==>  Preparing: SELECT jobAdviceArticle_id,jobAdviceArticle_title,jobAdviceArticle_content,jobAdviceArticle_category,jobAdviceArticle_tags,jobAdviceArticle_authorName,jobAdviceArticle_publishedStatus,jobAdviceArticle_publishedTime,jobAdviceArticle_updatedTime,deleted FROM general_jobAdviceArticle WHERE deleted=0 AND (deleted = ?)
+2025-12-21 13:15:59.435 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.J.selectList - ==> Parameters: 0(Integer)
+2025-12-21 13:15:59.479 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.J.selectList - <==      Total: 1
+2025-12-21 13:17:17.420 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 13:17:17.420 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:17:17.470 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 13:17:17.470 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 13:17:17.470 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 13:17:17.512 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 13:17:17.551 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectList - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap
+2025-12-21 13:17:17.551 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectList - ==> Parameters: 
+2025-12-21 13:17:17.589 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.I.selectList - <==      Total: 2
+2025-12-21 13:17:17.754 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 13:17:17.755 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:17:17.797 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 13:17:17.798 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 13:17:17.798 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 13:17:17.838 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 13:17:17.875 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.R.selectList - ==>  Preparing: SELECT resumeTemplate_id,resumeTemplate_name,resumeTemplate_reactCode,resumeTemplate_industry,resumeTemplate_isActive,resumeTemplate_createdTime,resumeTemplate_updatedTime,deleted FROM general_resumeTemplate WHERE deleted=0 AND (deleted = ?)
+2025-12-21 13:17:17.876 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.R.selectList - ==> Parameters: 0(Integer)
+2025-12-21 13:17:17.908 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.R.selectList - <==      Total: 1
+2025-12-21 13:17:17.909 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
+2025-12-21 13:17:17.910 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:17:17.942 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2025-12-21 13:21:42.792 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 13:21:42.793 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:21:42.826 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 13:21:42.826 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 13:21:42.827 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 13:21:42.860 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 13:21:42.973 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2025-12-21 13:21:42.973 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2025-12-21 13:21:43.016 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2025-12-21 13:21:43.016 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 13:21:43.017 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 13:21:43.060 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 13:21:43.108 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2025-12-21 13:21:43.109 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2025-12-21 13:21:43.151 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2025-12-21 13:24:29.071 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-12-21 13:24:29.072 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2025-12-21 13:24:29.074 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2025-12-21 13:24:29.074 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-12-21 13:24:29.142 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-12-21 13:24:29.146 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-12-21 13:24:29.147 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 13:24:29.152 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 13:24:29.152 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2025-12-21 13:24:29.154 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2025-12-21 13:24:29.158 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-12-21 13:24:29.167 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.

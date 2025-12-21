@@ -385,7 +385,3 @@ const TemplateDetail: React.FC = () => {
 }
 
 export default TemplateDetail
-export default TemplateDetail
-}
-
-export default TemplateDetail
