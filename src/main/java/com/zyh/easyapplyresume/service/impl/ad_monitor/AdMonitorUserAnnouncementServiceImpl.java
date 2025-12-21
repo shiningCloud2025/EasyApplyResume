@@ -41,7 +41,9 @@ public class AdMonitorUserAnnouncementServiceImpl implements AdMonitorUserAnnoun
             userAnnouncement.setAnnouncementUpdatedTime(new Date());
             log.info("用户添加公告成功");
             return userAnnouncementMapper.insert(userAnnouncement);
-        }catch (Exception e){
+        }catch (BusException e){
+            throw e;
+        } catch (Exception e){
             log.error("用户添加公告失败");
             throw new BusException(UserCodeEnum.USER_ADD_ANNOUNCEMENT_FAIL);
         }
@@ -57,6 +59,8 @@ public class AdMonitorUserAnnouncementServiceImpl implements AdMonitorUserAnnoun
             userAnnouncement.setAnnouncementUpdatedTime(new Date());
             log.info("用户修改公告成功");
             return userAnnouncementMapper.updateById(userAnnouncement);
+        } catch (BusException e){
+            throw e;
         } catch (Exception  e){
             log.info("用户修改公告失败");
             throw new BusException(UserCodeEnum.USER_UPDATE_ANNOUNCEMENT_FAIL);
@@ -72,7 +76,9 @@ public class AdMonitorUserAnnouncementServiceImpl implements AdMonitorUserAnnoun
             BeanUtil.copyProperties(userAnnouncement, userAnnouncementInfoVO);
             log.info("用户获取公告信息成功");
             return userAnnouncementInfoVO;
-        }catch (Exception e){
+        }catch (BusException e){
+            throw e;
+        } catch (Exception e){
             log.error("用户获取公告信息失败");
             throw new BusException(UserCodeEnum.USER_GET_ANNOUNCEMENT_INFO_FAIL);
         }
