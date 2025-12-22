@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 每天的凌晨 00:00:10去统计一波管理员数量等等
+ * 每天的晚上 23:59:30去统计一波管理员数量等等
  * 目的: 最及时、减少人流量冲击
  * @author shiningCloud2025
  */
