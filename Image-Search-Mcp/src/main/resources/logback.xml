@@ -49,14 +49,14 @@
             <appender-ref ref="FILE" />
         </root>
         <!-- 开发环境下，项目包日志级别为 DEBUG -->
-        <logger name="com.zyh.imagesearchmcp" level="DEBUG" />
+        <logger name="com.zyh.springbootadmin" level="DEBUG" />
     </springProfile>
 
     <!-- STDIO 模式 (使用异步日志避免阻塞) -->
     <springProfile name="stdio">
         <root level="OFF" />
         <!-- 项目日志使用异步 Appender -->
-        <logger name="com.zyh.imagesearchmcp" level="INFO" additivity="false">
+        <logger name="com.zyh.springbootadmin" level="INFO" additivity="false">
             <appender-ref ref="ASYNC_FILE" />
         </logger>
 
