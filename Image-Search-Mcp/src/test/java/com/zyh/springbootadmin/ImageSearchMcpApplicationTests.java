@@ -1,4 +1,4 @@
-package com.zyh.imagesearchmcp;
+package com.zyh.springbootadmin;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

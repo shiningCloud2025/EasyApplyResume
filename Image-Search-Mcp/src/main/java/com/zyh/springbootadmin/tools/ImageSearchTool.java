@@ -1,4 +1,4 @@
-package com.zyh.imagesearchmcp.tools;
+package com.zyh.springbootadmin.tools;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;

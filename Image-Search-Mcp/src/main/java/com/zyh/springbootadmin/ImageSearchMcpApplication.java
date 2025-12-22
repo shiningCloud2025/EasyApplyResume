@@ -1,9 +1,8 @@
-package com.zyh.imagesearchmcp;
+package com.zyh.springbootadmin;
 
-import com.zyh.imagesearchmcp.tools.ImageSearchTool;
+import com.zyh.springbootadmin.tools.ImageSearchTool;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.ToolCallbackProvider;
-import org.springframework.ai.tool.ToolCallbacks;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
