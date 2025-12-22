@@ -22,5 +22,16 @@ public interface AdmonitorAdminDailyVisitNumService {
      * @return
      */
     public Integer calculateAdmonitorAdminDailyVisitNum(Date time);
+    /**
+     * 获取总访问量
+     * @return
+     */
+    public Integer calculateAdmonitorAdminDailyVisitNumTotal();
+
+    /**
+     * 获取某天新增访问量
+     * @return
+     */
+    public Integer calculateDayIncreaseAdmonitorAdminDailyVisitNum();
 
 }

@@ -5,6 +5,7 @@ import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorAdminDaliyAdminNum
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author shiningCloud2025
@@ -16,5 +17,5 @@ public interface AdmonitorAdminDaliyAdminNumMapper extends BaseMapper<AdmonitorA
      * @param endDate
      * @return
      */
-    public Integer findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(@Param("fromDate") Date fromDate,@Param("endDate") Date endDate);
+    public List<Integer> findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(@Param("fromDate") Date fromDate, @Param("endDate") Date endDate);
 }
