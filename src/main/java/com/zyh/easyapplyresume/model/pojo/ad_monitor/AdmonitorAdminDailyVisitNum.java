@@ -23,7 +23,7 @@ public class AdmonitorAdminDailyVisitNum {
      * 记录id（主键，自增）
      */
     @TableId(value = "adminDailyVisitNum_id",type = IdType.AUTO)
-    private Integer adminDailyVisitNumId;
+    private Long adminDailyVisitNumId;
 
     /**
      * 访问管理员id
