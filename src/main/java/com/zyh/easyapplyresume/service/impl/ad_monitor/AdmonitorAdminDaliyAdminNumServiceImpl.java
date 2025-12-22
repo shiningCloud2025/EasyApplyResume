@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
+
 /**
  * @author shiningCloud2025
  */
@@ -30,7 +32,7 @@ public class AdmonitorAdminDaliyAdminNumServiceImpl implements AdmonitorAdminDal
     }
 
     @Override
-    public Integer findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(Date fromDate, Date endDate) {
+    public List<Integer> findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(Date fromDate, Date endDate) {
         try {
             log.info("查询开始");
             return admonitorAdminDaliyAdminNumMapper.findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(fromDate,endDate);

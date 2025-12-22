@@ -3,6 +3,7 @@ package com.zyh.easyapplyresume.service.ad_monitor;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorAdminDaliyAdminNum;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author shiningCloud2025
@@ -21,5 +22,5 @@ public interface AdmonitorAdminDaliyAdminNumService {
      * @param endDate
      * @return
      */
-    public Integer findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(Date fromDate, Date endDate);
+    public List<Integer> findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(Date fromDate, Date endDate);
 }

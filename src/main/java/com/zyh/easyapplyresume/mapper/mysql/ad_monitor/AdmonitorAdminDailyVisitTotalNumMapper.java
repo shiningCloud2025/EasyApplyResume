@@ -5,6 +5,7 @@ import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorAdminDailyVisitTot
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author shiningCloud2025
@@ -12,6 +13,6 @@ import java.util.Date;
 public interface AdmonitorAdminDailyVisitTotalNumMapper extends BaseMapper<AdmonitorAdminDailyVisitTotalNum> {
 
     // 查询规定时间内的访问量
-    public Integer findFromTimeToEndTimeAdmonitorAdminDailyVisitTotalNum(@Param("fromDate") Date fromDate, @Param("endDate") Date endDate);
+    public List<Integer> findFromTimeToEndTimeAdmonitorAdminDailyVisitTotalNum(@Param("fromDate") Date fromDate, @Param("endDate") Date endDate);
 
 }
