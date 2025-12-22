@@ -1,12 +1,15 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
+import cn.hutool.core.date.DateUtil;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminMapper;
 import com.zyh.easyapplyresume.model.form.admin.AdminFormalLoginForm;
 import com.zyh.easyapplyresume.model.form.admin.AdminPhoneLoginForm;
 import com.zyh.easyapplyresume.model.form.user.EmailLoginForm;
+import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorAdminDailyVisitNum;
 import com.zyh.easyapplyresume.model.pojo.admin.Admin;
+import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorAdminDailyVisitNumService;
 import com.zyh.easyapplyresume.service.admin.AdminAuthService;
 import com.zyh.easyapplyresume.service.admin.AdminLoginAndRegisterEmailVerifyService;
 import com.zyh.easyapplyresume.service.admin.AdminSmsService;
@@ -56,6 +59,8 @@ public class AdminAuthServiceImpl implements AdminAuthService {
     @Autowired
     private AdminLoginAndRegisterEmailVerifyService adminLoginAndRegisterEmailVerifyService;
 
+    @Autowired
+    private AdmonitorAdminDailyVisitNumService admonitorAdminDailyVisitNumService;
 
     /**
      * 普通登录(账号/手机号/邮箱号+密码)
@@ -69,15 +74,20 @@ public class AdminAuthServiceImpl implements AdminAuthService {
         if (!passwordEncoder.matches(formalLoginForm.getPassword(), admin.getAdminPassword())){
             throw new BusException(AdminCodeEnum.ACCOUNT_OR_PASSWORD_ERROR);
         }
+        if (admin.getAdminLoginTime() == null || !DateUtil.isSameDay(admin.getAdminLoginTime(),new Date())){
+            // TODO:这里不能用构造 因为构造没有自动类型转换
+            AdmonitorAdminDailyVisitNum admonitorAdminDailyVisitNum = new AdmonitorAdminDailyVisitNum();
+            admonitorAdminDailyVisitNum.setAdminDailyVisitNumAdminId(admin.getAdminId());
+            admonitorAdminDailyVisitNum.setAdminDailyVisitNumVisitTime(new Date());
+            admonitorAdminDailyVisitNumService.addAdmonitorAdminDailyVisitNum(admonitorAdminDailyVisitNum);
 
+        }
         admin.setAdminLoginTime(new Date());
         adminMapper.updateById(admin);
         String token = jwtUtil.generateToken(admin.getAdminId(),admin.getAdminUsername(),"admin",jwtSecret,jwtExpiration);
         String redisKey = "admin:token:" + admin.getAdminId();
         stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
         return token;
-
-
 
     }
 
@@ -92,6 +102,14 @@ public class AdminAuthServiceImpl implements AdminAuthService {
         Admin admin = adminMapper.findByAccountOrPhoneOrEmail(phoneLoginForm.getPhone());
         if (admin== null){
             throw new BusException(AdminCodeEnum.NO_REGISTER_ERROR);
+        }
+        if (admin.getAdminLoginTime() == null || !DateUtil.isSameDay(admin.getAdminLoginTime(),new Date())){
+            // TODO:这里不能用构造 因为构造没有自动类型转换
+            AdmonitorAdminDailyVisitNum admonitorAdminDailyVisitNum = new AdmonitorAdminDailyVisitNum();
+            admonitorAdminDailyVisitNum.setAdminDailyVisitNumAdminId(admin.getAdminId());
+            admonitorAdminDailyVisitNum.setAdminDailyVisitNumVisitTime(new Date());
+            admonitorAdminDailyVisitNumService.addAdmonitorAdminDailyVisitNum(admonitorAdminDailyVisitNum);
+
         }
         admin.setAdminLoginTime(new Date());
         adminMapper.updateById(admin);
@@ -113,6 +131,14 @@ public class AdminAuthServiceImpl implements AdminAuthService {
         if (admin== null){
             throw new BusException(AdminCodeEnum.NO_REGISTER_ERROR);
         }
+        if (admin.getAdminLoginTime() == null || !DateUtil.isSameDay(admin.getAdminLoginTime(),new Date())){
+            // TODO:这里不能用构造 因为构造没有自动类型转换
+            AdmonitorAdminDailyVisitNum admonitorAdminDailyVisitNum = new AdmonitorAdminDailyVisitNum();
+            admonitorAdminDailyVisitNum.setAdminDailyVisitNumAdminId(admin.getAdminId());
+            admonitorAdminDailyVisitNum.setAdminDailyVisitNumVisitTime(new Date());
+            admonitorAdminDailyVisitNumService.addAdmonitorAdminDailyVisitNum(admonitorAdminDailyVisitNum);
+
+        }
         admin.setAdminLoginTime(new Date());
         adminMapper.updateById(admin);
         String token = jwtUtil.generateToken(admin.getAdminId(),admin.getAdminUsername(),"admin",jwtSecret,jwtExpiration);
@@ -120,9 +146,7 @@ public class AdminAuthServiceImpl implements AdminAuthService {
         stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
         return token;
 
-
     }
-
 
 
 }
