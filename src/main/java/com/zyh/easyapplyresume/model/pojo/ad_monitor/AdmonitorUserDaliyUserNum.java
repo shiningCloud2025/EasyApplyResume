@@ -19,6 +19,7 @@ import java.util.Date;
 @NoArgsConstructor
 @TableName("admonitor_userDaliyUserNum")
 public class AdmonitorUserDaliyUserNum {
+
     @TableId(value = "userDaliyUserNum_id",type = IdType.AUTO)
     private Integer userDaliyUserNumId;
 
