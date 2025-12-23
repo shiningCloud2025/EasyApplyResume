@@ -2024,3 +2024,20 @@ This generated password is for development use only. Your security configuration
 2025-12-23 15:45:43.303 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
 2025-12-23 15:45:43.345 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 0
 2025-12-23 15:45:43.345 [http-nio-8080-exec-4] INFO  c.z.e.s.i.a.AdmonitorAdminAdvertisementServiceImpl - 分页查询广告成功
+2025-12-23 15:48:12.384 [http-nio-8080-exec-6] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录开始
+2025-12-23 15:48:12.384 [http-nio-8080-exec-9] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 开始计算今日访问增长
+2025-12-23 15:48:12.386 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum
+2025-12-23 15:48:12.386 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2025-12-23 15:48:12.388 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum WHERE (userDailyVisitNum_visitTime = ?)
+2025-12-23 15:48:12.388 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2025-12-22 15:48:12.384(Timestamp)
+2025-12-23 15:48:12.430 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2025-12-23 15:48:12.431 [http-nio-8080-exec-6] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录成功
+2025-12-23 15:48:12.457 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 0
+2025-12-23 15:48:12.460 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum WHERE (userDailyVisitNum_visitTime = ?)
+2025-12-23 15:48:12.460 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2025-12-23 15:48:12.458(Timestamp)
+2025-12-23 15:48:12.540 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 0
+2025-12-23 15:48:15.799 [http-nio-8080-exec-10] INFO  c.z.e.s.i.a.AdmonitorAdminAdvertisementServiceImpl - 分页查询广告开始
+2025-12-23 15:48:15.800 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminAdvertisement_id AS advertisementId,adminAdvertisement_name AS advertisementName,adminAdvertisement_url AS advertisementUrl,adminAdvertisement_link AS advertisementLink,adminAdvertisement_startedTime AS advertisementStartedTime,adminAdvertisement_endTime AS advertisementEndTime,deleted FROM admonitor_adminAdvertisement WHERE deleted=0
+2025-12-23 15:48:15.801 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2025-12-23 15:48:15.904 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 0
+2025-12-23 15:48:15.904 [http-nio-8080-exec-10] INFO  c.z.e.s.i.a.AdmonitorAdminAdvertisementServiceImpl - 分页查询广告成功
