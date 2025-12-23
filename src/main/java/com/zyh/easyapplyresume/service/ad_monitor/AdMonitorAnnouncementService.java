@@ -24,8 +24,7 @@ public interface AdMonitorAnnouncementService {
 
     /**
      * 获取公告信息
-     * @param announcementId
      * @return
      */
-    public AdMonitorAnnouncementInfoVO getAnnouncementInfo(Integer announcementId);
+    public AdMonitorAnnouncementInfoVO getAnnouncementInfo();
 }

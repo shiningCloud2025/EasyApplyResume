@@ -35,7 +35,7 @@ public class AdMonitorAnnouncementController {
 
     @Operation(summary = "获取公告信息")
     @RequestMapping("/getInfo")
-    public AdMonitorAnnouncementInfoVO getAnnouncementInfo(Integer announcementId) {
-        return adMonitorAnnouncementService.getAnnouncementInfo(announcementId);
+    public AdMonitorAnnouncementInfoVO getAnnouncementInfo() {
+        return adMonitorAnnouncementService.getAnnouncementInfo();
     }
 }

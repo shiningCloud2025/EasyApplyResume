@@ -1,0 +1,222 @@
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var vue = require('vue');
+var core = require('@vueuse/core');
+require('../../popper/index.js');
+var index$2 = require('../../teleport/index.js');
+var constants = require('./constants.js');
+var content = require('./content.js');
+var utils = require('./utils.js');
+var pluginVue_exportHelper = require('../../../_virtual/plugin-vue_export-helper.js');
+var index = require('../../../hooks/use-popper-container/index.js');
+var arrays = require('../../../utils/arrays.js');
+var content$1 = require('../../popper/src/content2.js');
+var index$1 = require('../../../hooks/use-namespace/index.js');
+var aria = require('../../../utils/dom/aria.js');
+var event = require('../../../utils/dom/event.js');
+
+const _sfc_main = vue.defineComponent({
+  ...{
+    name: "ElTooltipContent",
+    inheritAttrs: false
+  },
+  __name: "content",
+  props: content.useTooltipContentProps,
+  setup(__props, { expose: __expose }) {
+    const props = __props;
+    const { selector } = index.usePopperContainerId();
+    const ns = index$1.useNamespace("tooltip");
+    const contentRef = vue.ref();
+    const popperContentRef = core.computedEager(() => {
+      var _a;
+      return (_a = contentRef.value) == null ? void 0 : _a.popperContentRef;
+    });
+    let stopHandle;
+    const {
+      controlled,
+      id,
+      open,
+      trigger,
+      onClose,
+      onOpen,
+      onShow,
+      onHide,
+      onBeforeShow,
+      onBeforeHide
+    } = vue.inject(constants.TOOLTIP_INJECTION_KEY, void 0);
+    const transitionClass = vue.computed(() => {
+      return props.transition || `${ns.namespace.value}-fade-in-linear`;
+    });
+    const persistentRef = vue.computed(() => {
+      if (process.env.NODE_ENV === "test") {
+        if (!process.env.RUN_TEST_WITH_PERSISTENT) {
+          return true;
+        }
+      }
+      return props.persistent;
+    });
+    vue.onBeforeUnmount(() => {
+      stopHandle == null ? void 0 : stopHandle();
+    });
+    const shouldRender = vue.computed(() => {
+      return vue.unref(persistentRef) ? true : vue.unref(open);
+    });
+    const shouldShow = vue.computed(() => {
+      return props.disabled ? false : vue.unref(open);
+    });
+    const appendTo = vue.computed(() => {
+      return props.appendTo || selector.value;
+    });
+    const contentStyle = vue.computed(() => {
+      var _a;
+      return (_a = props.style) != null ? _a : {};
+    });
+    const ariaHidden = vue.ref(true);
+    const onTransitionLeave = () => {
+      onHide();
+      isFocusInsideContent() && aria.focusElement(document.body, { preventScroll: true });
+      ariaHidden.value = true;
+    };
+    const stopWhenControlled = () => {
+      if (vue.unref(controlled))
+        return true;
+    };
+    const onContentEnter = event.composeEventHandlers(stopWhenControlled, () => {
+      if (props.enterable && utils.isTriggerType(vue.unref(trigger), "hover")) {
+        onOpen();
+      }
+    });
+    const onContentLeave = event.composeEventHandlers(stopWhenControlled, () => {
+      if (utils.isTriggerType(vue.unref(trigger), "hover")) {
+        onClose();
+      }
+    });
+    const onBeforeEnter = () => {
+      var _a, _b;
+      (_b = (_a = contentRef.value) == null ? void 0 : _a.updatePopper) == null ? void 0 : _b.call(_a);
+      onBeforeShow == null ? void 0 : onBeforeShow();
+    };
+    const onBeforeLeave = () => {
+      onBeforeHide == null ? void 0 : onBeforeHide();
+    };
+    const onAfterShow = () => {
+      onShow();
+    };
+    const onBlur = () => {
+      if (!props.virtualTriggering) {
+        onClose();
+      }
+    };
+    const isFocusInsideContent = (event) => {
+      var _a;
+      const popperContent = (_a = contentRef.value) == null ? void 0 : _a.popperContentRef;
+      const activeElement = (event == null ? void 0 : event.relatedTarget) || document.activeElement;
+      return popperContent == null ? void 0 : popperContent.contains(activeElement);
+    };
+    vue.watch(
+      () => vue.unref(open),
+      (val) => {
+        if (!val) {
+          stopHandle == null ? void 0 : stopHandle();
+        } else {
+          ariaHidden.value = false;
+          stopHandle = core.onClickOutside(
+            popperContentRef,
+            () => {
+              if (vue.unref(controlled))
+                return;
+              const needClose = arrays.castArray(vue.unref(trigger)).every((item) => {
+                return item !== "hover" && item !== "focus";
+              });
+              if (needClose) {
+                onClose();
+              }
+            },
+            { detectIframe: true }
+          );
+        }
+      },
+      {
+        flush: "post"
+      }
+    );
+    vue.watch(
+      () => props.content,
+      () => {
+        var _a, _b;
+        (_b = (_a = contentRef.value) == null ? void 0 : _a.updatePopper) == null ? void 0 : _b.call(_a);
+      }
+    );
+    __expose({
+      contentRef,
+      isFocusInsideContent
+    });
+    return (_ctx, _cache) => {
+      return vue.openBlock(), vue.createBlock(vue.unref(index$2.ElTeleport), {
+        disabled: !_ctx.teleported,
+        to: appendTo.value
+      }, {
+        default: vue.withCtx(() => [
+          shouldRender.value || !ariaHidden.value ? (vue.openBlock(), vue.createBlock(vue.Transition, {
+            key: 0,
+            name: transitionClass.value,
+            appear: !persistentRef.value,
+            onAfterLeave: onTransitionLeave,
+            onBeforeEnter,
+            onAfterEnter: onAfterShow,
+            onBeforeLeave,
+            persisted: ""
+          }, {
+            default: vue.withCtx(() => [
+              vue.withDirectives(vue.createVNode(vue.unref(content$1["default"]), vue.mergeProps({
+                id: vue.unref(id),
+                ref_key: "contentRef",
+                ref: contentRef
+              }, _ctx.$attrs, {
+                "aria-label": _ctx.ariaLabel,
+                "aria-hidden": ariaHidden.value,
+                "boundaries-padding": _ctx.boundariesPadding,
+                "fallback-placements": _ctx.fallbackPlacements,
+                "gpu-acceleration": _ctx.gpuAcceleration,
+                offset: _ctx.offset,
+                placement: _ctx.placement,
+                "popper-options": _ctx.popperOptions,
+                "arrow-offset": _ctx.arrowOffset,
+                strategy: _ctx.strategy,
+                effect: _ctx.effect,
+                enterable: _ctx.enterable,
+                pure: _ctx.pure,
+                "popper-class": _ctx.popperClass,
+                "popper-style": [_ctx.popperStyle, contentStyle.value],
+                "reference-el": _ctx.referenceEl,
+                "trigger-target-el": _ctx.triggerTargetEl,
+                visible: shouldShow.value,
+                "z-index": _ctx.zIndex,
+                loop: _ctx.loop,
+                onMouseenter: vue.unref(onContentEnter),
+                onMouseleave: vue.unref(onContentLeave),
+                onBlur,
+                onClose: vue.unref(onClose)
+              }), {
+                default: vue.withCtx(() => [
+                  vue.renderSlot(_ctx.$slots, "default")
+                ]),
+                _: 3
+              }, 16, ["id", "aria-label", "aria-hidden", "boundaries-padding", "fallback-placements", "gpu-acceleration", "offset", "placement", "popper-options", "arrow-offset", "strategy", "effect", "enterable", "pure", "popper-class", "popper-style", "reference-el", "trigger-target-el", "visible", "z-index", "loop", "onMouseenter", "onMouseleave", "onClose"]), [
+                [vue.vShow, shouldShow.value]
+              ])
+            ]),
+            _: 3
+          }, 8, ["name", "appear"])) : vue.createCommentVNode("v-if", true)
+        ]),
+        _: 3
+      }, 8, ["disabled", "to"]);
+    };
+  }
+});
+var ElTooltipContent = /* @__PURE__ */ pluginVue_exportHelper["default"](_sfc_main, [["__file", "/home/runner/work/element-plus/element-plus/packages/components/tooltip/src/content.vue"]]);
+
+exports["default"] = ElTooltipContent;
+//# sourceMappingURL=content2.js.map
