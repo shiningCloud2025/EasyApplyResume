@@ -178,12 +178,8 @@ export const useAuthStore = defineStore('auth', {
     // 退出登录
     async logout() {
       try {
-        // 调用退出接口
-        if (this.user) {
-          await api.get('/admin/auth/logout', {
-            params: { adminId: this.user.adminId }
-          })
-        }
+        // 调用退出接口（POST，通过token获取用户）
+        await api.post('/admin/admin/logout')
       } catch (error) {
         console.error('退出登录失败:', error)
       } finally {

@@ -57,6 +57,11 @@ public class AdminSecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth-> auth
+                        // 放开邮箱登录接口
+                        .requestMatchers("/admin/email/loginandregister/**").permitAll()
+                        // 放开手机登录接口
+                        .requestMatchers("/admin/sms/**").permitAll()
+                        // 放开正常登录接口
                         .requestMatchers("/admin/auth/**").permitAll()
                         .requestMatchers("/doc.html", "/webjars/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()

@@ -65,7 +65,7 @@ export const authApi = {
   loginByEmail: (data: EmailLoginForm) => api.post<string>('/admin/auth/emailLogin', null, { params: data }),
   
   // 退出登录
-  logout: (adminId: number) => api.get('/admin/auth/logout', { params: { adminId } }),
+  logout: (adminId: number) => api.get('/admin/admin/logout', { params: { adminId } }),
   
   // 发送邮箱验证码
   sendEmailCode: (email: string) => api.post('/admin/email/loginandregister/send', null, { params: { email } }),
