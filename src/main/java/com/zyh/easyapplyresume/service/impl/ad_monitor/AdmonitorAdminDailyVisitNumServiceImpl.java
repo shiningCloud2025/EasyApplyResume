@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 /**
  * @author shiningCloud2025
@@ -40,8 +42,12 @@ public class AdmonitorAdminDailyVisitNumServiceImpl implements AdmonitorAdminDai
     public Integer calculateAdmonitorAdminDailyVisitNum(Date time) {
         try{
             log.info("计算记录开始");
+            // 把 Date 转成 LocalDate
+            LocalDate localDate = time.toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate();
             LambdaQueryWrapper<AdmonitorAdminDailyVisitNum> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-            lambdaQueryWrapper.eq(AdmonitorAdminDailyVisitNum::getAdminDailyVisitNumVisitTime,time);
+            lambdaQueryWrapper.eq(AdmonitorAdminDailyVisitNum::getAdminDailyVisitNumVisitTime,localDate);
             int size = admonitorAdminDailyVisitNumMapper.selectList(lambdaQueryWrapper).size();
             log.info("计算记录成功");
             return size;

@@ -5,6 +5,7 @@ import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorAdminDailyVisitNumSer
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,9 @@ public class AdmonitorAdminDailyVisitNumController {
 
     @Operation(summary = "计算某天的访问量")
     @GetMapping("/calculateAdmonitorAdminDailyVisitNum")
-    public BaseResult<Integer> calculateAdmonitorAdminDailyVisitNum(@RequestParam(required = true, value = "time") Date time){
+    public BaseResult<Integer> calculateAdmonitorAdminDailyVisitNum(@RequestParam(required = true, value = "time")
+                                                                    @DateTimeFormat(pattern = "yyyy-MM-dd")
+                                                                        Date time){
         return BaseResult.ok(admonitorAdminDailyVisitNumService.calculateAdmonitorAdminDailyVisitNum(time));
     }
 

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorAdminDaliyAdminNum;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface AdmonitorAdminDaliyAdminNumMapper extends BaseMapper<AdmonitorA
      * @param endDate
      * @return
      */
-    public List<Integer> findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(@Param("fromDate") Date fromDate, @Param("endDate") Date endDate);
+    public List<Integer> findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(@Param("fromDate") LocalDate fromDate, @Param("endDate") LocalDate endDate);
 }

@@ -22,13 +22,13 @@ export const useUserStore = create<UserState>()(
   persist(
     (set, get) => ({
       user: null,
-      token: getToken(),
-      isLoggedIn: !!getToken(),
+      token: null,
+      isLoggedIn: false,
       loading: false,
 
       login: (user, token) => {
         setToken(token)
-        set({ user, token, isLoggedIn: true })
+        set({ user: null, token, isLoggedIn: true }) // 登录时先清空旧用户，等待重新获取
       },
 
       logout: () => {
@@ -187,8 +187,39 @@ export const useUserStore = create<UserState>()(
       partialize: (state) => ({
         user: state.user,
         token: state.token,
-        isLoggedIn: state.isLoggedIn
-      })
+        // 注意：不再持久化 isLoggedIn，而是在 rehydrate 时根据实际 token 状态计算
+      }),
+      // 关键：在状态恢复后验证 token，确保 isLoggedIn 与实际 token 状态一致
+      onRehydrateStorage: () => (state, error) => {
+        if (error) {
+          console.error('❌ Zustand rehydrate error:', error)
+          return
+        }
+        // 延迟执行，确保 store 已经完全初始化
+        setTimeout(() => {
+          const actualToken = getToken()
+          const isActuallyLoggedIn = !!actualToken
+          const currentState = useUserStore.getState()
+          console.log('🔄 Zustand rehydrate - actualToken:', actualToken ? 'exists' : 'null')
+          console.log('🔄 Zustand rehydrate - currentState.isLoggedIn:', currentState.isLoggedIn)
+          
+          // 如果实际 token 不存在，但 isLoggedIn 为 true，强制修正
+          if (!isActuallyLoggedIn && currentState.isLoggedIn) {
+            console.log('⚠️ isLoggedIn 状态与 token 不一致，强制登出...')
+            useUserStore.setState({ 
+              isLoggedIn: false, 
+              token: null, 
+              user: null 
+            })
+          } else if (isActuallyLoggedIn && !currentState.isLoggedIn) {
+            console.log('🔓 检测到 token，恢复登录状态...')
+            useUserStore.setState({ 
+              isLoggedIn: true, 
+              token: actualToken 
+            })
+          }
+        }, 0)
+      }
     }
   )
 )

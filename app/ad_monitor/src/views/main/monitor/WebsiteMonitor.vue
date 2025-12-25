@@ -156,15 +156,56 @@ const getBarHeight = (value: number, data: Array<{ value: number }>) => {
   return Math.max((value / max) * 100, 5)
 }
 
+// 生成日期数组
+const generateDateRange = (from: string, to: string): string[] => {
+  const dates: string[] = []
+  const startDate = new Date(from)
+  const endDate = new Date(to)
+  const current = new Date(startDate)
+  
+  while (current <= endDate) {
+    dates.push(formatDate(current))
+    current.setDate(current.getDate() + 1)
+  }
+  return dates
+}
+
 const loadStats = async () => {
   try {
-    const [total, today] = await Promise.all([
-      api.value.getTotalVisitNum().catch(() => 0),
-      api.value.getTodayIncreaseVisitNum().catch(() => 0)
-    ])
+    // 今日日期
+    const today = formatDate(new Date())
+    console.log('📅 今日日期:', today)
+    
+    // 分开调用，方便调试
+    let total = 0, todayIncrease = 0, todayVisit = 0
+    
+    try {
+      console.log('🔄 调用 getTotalVisitNum...')
+      total = await api.value.getTotalVisitNum()
+      console.log('✅ 总访问量:', total)
+    } catch (e) {
+      console.error('❌ getTotalVisitNum 失败:', e)
+    }
+    
+    try {
+      console.log('🔄 调用 getTodayIncreaseVisitNum...')
+      todayIncrease = await api.value.getTodayIncreaseVisitNum()
+      console.log('✅ 今日新增:', todayIncrease)
+    } catch (e) {
+      console.error('❌ getTodayIncreaseVisitNum 失败:', e)
+    }
+    
+    try {
+      console.log('🔄 调用 calculateDailyVisitNum, 参数:', today)
+      todayVisit = await api.value.calculateDailyVisitNum(today)
+      console.log('✅ 今日访问量:', todayVisit)
+    } catch (e) {
+      console.error('❌ calculateDailyVisitNum 失败:', e)
+    }
+    
     stats.totalVisit = total || 0
-    stats.todayIncrease = today || 0
-    stats.todayVisit = today || 0
+    stats.todayIncrease = todayIncrease || 0
+    stats.todayVisit = todayVisit || 0
   } catch (e) {
     console.error('加载统计失败', e)
   }
@@ -176,25 +217,26 @@ const loadChartData = async () => {
   chartLoading.value = true
   try {
     const [from, to] = dateRange.value
+    const dateLabels = generateDateRange(from, to)
 
-    // 访问量数据
+    // 访问量数据 - 后端返回 List<Integer>
     const visitRes = await api.value.getVisitNumByDateRange(from, to).catch(() => [])
-    visitData.value = (visitRes || []).map((item: any) => ({
-      date: item.time || item.date,
-      value: item.visitNum || item.num || 0
-    })).reverse()
+    visitData.value = (visitRes || []).map((value: number, index: number) => ({
+      date: dateLabels[index] || '',
+      value: value || 0
+    }))
 
-    // 用户/管理员数量数据
+    // 用户/管理员数量数据 - 后端返回 List<Integer>
     const userNumApi = isAdmin.value ? api.value.getAdminNumByDateRange : userStatisticsApi.getUserNumByDateRange
     const userRes = await userNumApi(from, to).catch(() => [])
-    userNumData.value = (userRes || []).map((item: any) => ({
-      date: item.time || item.date,
-      value: item.adminNum || item.userNum || item.num || 0
-    })).reverse()
+    userNumData.value = (userRes || []).map((value: number, index: number) => ({
+      date: dateLabels[index] || '',
+      value: value || 0
+    }))
 
     // 获取最新用户总数
     if (userNumData.value.length > 0) {
-      stats.totalUsers = userNumData.value[0].value
+      stats.totalUsers = userNumData.value[userNumData.value.length - 1].value
     }
   } catch (e) {
     console.error('加载图表数据失败', e)
@@ -294,8 +336,8 @@ onMounted(init)
 }
 
 .charts-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 
@@ -365,7 +407,6 @@ onMounted(init)
 
 @media (max-width: 1024px) {
   .stats-cards { grid-template-columns: repeat(2, 1fr); }
-  .charts-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {

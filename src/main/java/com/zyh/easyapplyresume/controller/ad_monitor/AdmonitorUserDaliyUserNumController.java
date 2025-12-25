@@ -6,6 +6,7 @@ import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorUserDaliyUserNumServi
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,8 +29,12 @@ public class AdmonitorUserDaliyUserNumController {
 
     @GetMapping("/findFromTimeToEndTimeAdmonitorUserDaliyUserNum")
     @Operation(summary = "查询规定时间内的管理员数量")
-    public BaseResult<List<Integer>> findFromTimeToEndTimeAdmonitorUserDaliyUserNum(@RequestParam(required = true,name = "fromDate") Date fromDate,
-                                                                                      @RequestParam(required = true,name = "endDate") Date endDate){
+    public BaseResult<List<Integer>> findFromTimeToEndTimeAdmonitorUserDaliyUserNum(@RequestParam(required = true,name = "fromDate")
+                                                                                    @DateTimeFormat(pattern = "yyyy-MM-dd")
+                                                                                        Date fromDate,
+                                                                                      @RequestParam(required = true,name = "endDate")
+                                                                                      @DateTimeFormat(pattern = "yyyy-MM-dd")
+                                                                                      Date endDate){
         return BaseResult.ok(admonitorUserDaliyUserNumService.findFromTimeToEndTimeAdmonitorUserDaliyUserNum(fromDate,endDate));
     }
 

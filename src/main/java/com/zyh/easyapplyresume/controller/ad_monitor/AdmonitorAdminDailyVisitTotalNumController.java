@@ -5,6 +5,7 @@ import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorAdminDailyVisitTotalN
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,8 +29,12 @@ public class AdmonitorAdminDailyVisitTotalNumController {
 
     @GetMapping("/findFromTimeToEndTimeAdmonitorAdminDailyVisitTotalNum")
     @Operation(summary = "查询某段时间内每日访问量统计")
-    public BaseResult<List<Integer>> findFromTimeToEndTimeAdmonitorAdminDailyVisitTotalNum(@RequestParam(required = true,name = "fromDate") Date fromDate,
-                                                                                           @RequestParam(required = true,name = "endDate") Date endDate){
+    public BaseResult<List<Integer>> findFromTimeToEndTimeAdmonitorAdminDailyVisitTotalNum(@RequestParam(required = true,name = "fromDate")
+                                                                                           @DateTimeFormat(pattern = "yyyy-MM-dd")
+                                                                                               Date fromDate,
+                                                                                           @RequestParam(required = true,name = "endDate")
+                                                                                           @DateTimeFormat(pattern = "yyyy-MM-dd")
+                                                                                           Date endDate){
         return BaseResult.ok(admonitorAdminDailyVisitTotalNumService.findFromTimeToEndTimeAdmonitorAdminDailyVisitTotalNum(fromDate,endDate));
     }
 

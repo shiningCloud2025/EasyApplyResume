@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorUserDaliyUserNum;
 import io.lettuce.core.dynamic.annotation.Param;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,6 @@ public interface AdmonitorUserDaliyUserNumMapper extends BaseMapper<AdmonitorUse
      * @param endDate
      * @return
      */
-    public List<Integer> findFromTimeToEndTimeAdmonitorUserDaliyUserNum(@Param("fromDate") Date fromDate, @Param("endDate") Date endDate);
+    public List<Integer> findFromTimeToEndTimeAdmonitorUserDaliyUserNum(@Param("fromDate") LocalDate fromDate, @Param("endDate") LocalDate endDate);
 
 }
