@@ -189,6 +189,35 @@ let eventSource: EventSource | null = null
 // 页面加载时生成随机 chatId，整个会话期间保持不变
 let currentChatId = 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9)
 let currentStepNumber = 0
+let streamingTimeout: ReturnType<typeof setTimeout> | null = null
+let streamingContentCache = '' // 追踪当前流式内容
+
+// 强制重置状态
+const forceResetState = () => {
+  console.log('🔄 [强制重置] 状态')
+  // 如果有已接收的内容，先保存到消息列表
+  if (streamingContentCache || streamingSteps.value.length > 0) {
+    const finalResult = extractFinalResult(streamingSteps.value, streamingContentCache)
+    messages.value.push({
+      id: Date.now(),
+      role: 'assistant',
+      content: streamingContentCache,
+      thinkingSteps: streamingSteps.value.length > 0 ? [...streamingSteps.value] : undefined,
+      finalResult: finalResult || undefined,
+      timestamp: new Date()
+    })
+  }
+  isStreaming.value = false
+  streamingContent.value = ''
+  streamingSteps.value = []
+  currentStepNumber = 0
+  streamingContentCache = ''
+  if (streamingTimeout) {
+    clearTimeout(streamingTimeout)
+    streamingTimeout = null
+  }
+  scrollToBottom()
+}
 
 // 滚动到底部
 const scrollToBottom = () => {
@@ -228,6 +257,16 @@ const sendMessage = async () => {
   streamingContent.value = ''
   streamingSteps.value = []
   currentStepNumber = 0
+  streamingContentCache = '' // 重置缓存
+  
+  // 设置超时保护（15秒后强制重置，Agent比普通Chat时间长）
+  if (streamingTimeout) {
+    clearTimeout(streamingTimeout)
+  }
+  streamingTimeout = setTimeout(() => {
+    console.log('⚠️ [超时] 15秒后强制重置状态')
+    forceResetState()
+  }, 15000)
 
   try {
     console.log('📤 [AI Agent] 发送消息:', messageText)
@@ -340,6 +379,7 @@ const sendMessage = async () => {
             
             if (content) {
               streamingContent.value += content
+              streamingContentCache = streamingContent.value // 同步更新缓存
               scrollToBottom()
             }
           } catch (e) {
@@ -347,6 +387,7 @@ const sendMessage = async () => {
             console.log('📝 [AI Agent] 直接追加文本:', data)
             parseStepContent(data)
             streamingContent.value += data
+            streamingContentCache = streamingContent.value // 同步更新缓存
             scrollToBottom()
           }
         }
@@ -355,6 +396,7 @@ const sendMessage = async () => {
 
     // 流式传输完成，保存消息
     if (streamingContent.value || streamingSteps.value.length > 0) {
+      streamingContentCache = '' // 已保存，清空缓存防止重复保存
       // 提取最终结果（通常是最后一步或包含"结果"的步骤）
       const finalResult = extractFinalResult(streamingSteps.value, streamingContent.value)
       
@@ -390,9 +432,11 @@ const sendMessage = async () => {
   } catch (error) {
     console.error('❌ [AI Agent] 发送消息失败:', error)
     ElMessage.error('发送失败：' + (error.message || '请稍后重试'))
-    isStreaming.value = false
-    streamingContent.value = ''
   }
+  
+  // 无论如何都重置状态
+  console.log('✅ [AI Agent] 重置状态')
+  forceResetState()
 }
 
 // 清空消息
@@ -1410,4 +1454,3 @@ onUnmounted(() => {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-</style>
