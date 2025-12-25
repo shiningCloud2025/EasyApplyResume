@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -35,7 +37,9 @@ public class AdmonitorAdminDaliyAdminNumServiceImpl implements AdmonitorAdminDal
     public List<Integer> findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(Date fromDate, Date endDate) {
         try {
             log.info("查询开始");
-            return admonitorAdminDaliyAdminNumMapper.findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(fromDate,endDate);
+            LocalDate localFromDate = fromDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate localEndDate = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            return admonitorAdminDaliyAdminNumMapper.findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(localFromDate,localEndDate);
         }catch (Exception e){
             log.info("查询失败");
             throw new RuntimeException("查询失败");

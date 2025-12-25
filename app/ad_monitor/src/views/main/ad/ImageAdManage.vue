@@ -46,8 +46,9 @@
             {{ formatDate(row.advertisementEndTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="140" fixed="right">
+        <el-table-column label="操作" width="180" fixed="right">
           <template #default="{ row }">
+            <el-button type="info" link size="small" @click="handleView(row)">查看</el-button>
             <el-button type="primary" link size="small" @click="handleEdit(row)">编辑</el-button>
             <el-button type="danger" link size="small" @click="handleDelete(row)">删除</el-button>
           </template>
@@ -108,7 +109,7 @@
         </el-form-item>
         <el-form-item label="有效期" prop="timeRange">
           <el-date-picker
-            v-model="timeRange"
+            v-model="formData.timeRange"
             type="daterange"
             range-separator="至"
             start-placeholder="开始日期"
@@ -124,6 +125,35 @@
         <el-button type="primary" @click="handleSubmit" :loading="submitting">
           {{ isEdit ? '更新' : '创建' }}
         </el-button>
+      </template>
+    </el-dialog>
+
+    <!-- 查看对话框 -->
+    <el-dialog v-model="viewDialogVisible" title="查看广告" width="600px">
+      <el-descriptions :column="1" border>
+        <el-descriptions-item label="ID">{{ viewData.advertisementId }}</el-descriptions-item>
+        <el-descriptions-item label="广告名称">{{ viewData.advertisementName }}</el-descriptions-item>
+        <el-descriptions-item label="广告图片">
+          <el-image
+            v-if="viewData.advertisementUrl"
+            :src="viewData.advertisementUrl"
+            :preview-src-list="[viewData.advertisementUrl]"
+            fit="contain"
+            style="max-height: 150px;"
+          />
+          <span v-else class="text-gray">暂无</span>
+        </el-descriptions-item>
+        <el-descriptions-item label="跳转链接">
+          <el-link v-if="viewData.advertisementLink" :href="viewData.advertisementLink" target="_blank" type="primary">
+            {{ viewData.advertisementLink }}
+          </el-link>
+          <span v-else>-</span>
+        </el-descriptions-item>
+        <el-descriptions-item label="开始时间">{{ formatDate(viewData.advertisementStartedTime) }}</el-descriptions-item>
+        <el-descriptions-item label="结束时间">{{ formatDate(viewData.advertisementEndTime) }}</el-descriptions-item>
+      </el-descriptions>
+      <template #footer>
+        <el-button @click="viewDialogVisible = false">关闭</el-button>
       </template>
     </el-dialog>
   </div>
@@ -166,18 +196,26 @@ const pageSize = ref(10)
 const total = ref(0)
 
 const dialogVisible = ref(false)
+const viewDialogVisible = ref(false)
 const isEdit = ref(false)
 const submitting = ref(false)
 const formRef = ref<FormInstance>()
-const timeRange = ref<[string, string] | null>(null)
 
-const formData = reactive({
+const viewData = reactive({
   advertisementId: null as number | null,
   advertisementName: '',
   advertisementUrl: '',
   advertisementLink: '',
   advertisementStartedTime: '',
   advertisementEndTime: ''
+})
+
+const formData = reactive({
+  advertisementId: null as number | null,
+  advertisementName: '',
+  advertisementUrl: '',
+  advertisementLink: '',
+  timeRange: null as [string, string] | null
 })
 
 const rules: FormRules = {
@@ -199,7 +237,7 @@ const rules: FormRules = {
 
 const formatDate = (date: string) => {
   if (!date) return '-'
-  return date.replace('T', ' ').slice(0, 19)
+  return date.slice(0, 10)
 }
 
 const loadData = async () => {
@@ -221,9 +259,7 @@ const resetForm = () => {
   formData.advertisementName = ''
   formData.advertisementUrl = ''
   formData.advertisementLink = ''
-  formData.advertisementStartedTime = ''
-  formData.advertisementEndTime = ''
-  timeRange.value = null
+  formData.timeRange = null
 }
 
 const handleAdd = () => {
@@ -232,22 +268,30 @@ const handleAdd = () => {
   dialogVisible.value = true
 }
 
+const handleView = (row: any) => {
+  viewData.advertisementId = row.advertisementId
+  viewData.advertisementName = row.advertisementName || ''
+  viewData.advertisementUrl = row.advertisementUrl || ''
+  viewData.advertisementLink = row.advertisementLink || ''
+  viewData.advertisementStartedTime = row.advertisementStartedTime || ''
+  viewData.advertisementEndTime = row.advertisementEndTime || ''
+  viewDialogVisible.value = true
+}
+
 const handleEdit = (row: any) => {
   isEdit.value = true
   formData.advertisementId = row.advertisementId
   formData.advertisementName = row.advertisementName || ''
   formData.advertisementUrl = row.advertisementUrl || ''
   formData.advertisementLink = row.advertisementLink || ''
-  formData.advertisementStartedTime = row.advertisementStartedTime || ''
-  formData.advertisementEndTime = row.advertisementEndTime || ''
   // 设置时间范围
   if (row.advertisementStartedTime && row.advertisementEndTime) {
-    timeRange.value = [
-      formatDate(row.advertisementStartedTime),
-      formatDate(row.advertisementEndTime)
+    formData.timeRange = [
+      row.advertisementStartedTime.slice(0, 10),
+      row.advertisementEndTime.slice(0, 10)
     ]
   } else {
-    timeRange.value = null
+    formData.timeRange = null
   }
   dialogVisible.value = true
 }
@@ -268,11 +312,6 @@ const handleDelete = async (row: any) => {
 const handleSubmit = async () => {
   if (!formRef.value) return
 
-  // 校验时间范围
-  if (!timeRange.value || timeRange.value.length !== 2) {
-    return
-  }
-
   try {
     await formRef.value.validate()
     submitting.value = true
@@ -281,8 +320,8 @@ const handleSubmit = async () => {
       advertisementName: formData.advertisementName.trim(),
       advertisementUrl: formData.advertisementUrl.trim(),
       advertisementLink: formData.advertisementLink.trim(),
-      advertisementStartedTime: timeRange.value[0],
-      advertisementEndTime: timeRange.value[1]
+      advertisementStartedTime: formData.timeRange![0],
+      advertisementEndTime: formData.timeRange![1]
     }
 
     if (isEdit.value) {

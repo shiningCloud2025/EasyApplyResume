@@ -75,8 +75,10 @@ export const smsApi = {
 // 管理端数据统计API
 export const adminStatisticsApi = {
   // 计算某天访问量
-  calculateDailyVisitNum: (time: string) =>
-    request.get('/admonitor/admin/dailyVisitNum/calculateAdmonitorAdminDailyVisitNum', { params: { time } }),
+  calculateDailyVisitNum: (time: string) => {
+    console.log('📤 calculateDailyVisitNum 发送参数:', time)
+    return request.get('/admonitor/admin/dailyVisitNum/calculateAdmonitorAdminDailyVisitNum', { params: { time } })
+  },
   
   // 总访问量
   getTotalVisitNum: () =>
