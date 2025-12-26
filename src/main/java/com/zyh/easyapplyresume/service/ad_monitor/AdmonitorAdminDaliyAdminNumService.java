@@ -23,4 +23,11 @@ public interface AdmonitorAdminDaliyAdminNumService {
      * @return
      */
     public List<Integer> findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(Date fromDate, Date endDate);
+
+    /**
+     * 计算总管理员数量
+     * @return
+     */
+    public Integer calculateAdminTotalNum();
 }
+

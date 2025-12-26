@@ -24,4 +24,10 @@ public interface AdmonitorUserDaliyUserNumService {
      * @return
      */
     public List<Integer> findFromTimeToEndTimeAdmonitorUserDaliyUserNum(Date fromDate, Date endDate);
+
+    /**
+     * 计算用户总数
+     * @return
+     */
+    public Integer calculateUserTotalNum();
 }

@@ -78,13 +78,19 @@ public class AdmonitorUserDailyVisitNumServiceImpl implements AdmonitorUserDaily
     @Override
     public Integer calculateDayIncreaseAdmonitorUserDailyVisitNum() {
         Date yesterday = DateUtil.offsetDay(new Date(), -1);
+        LocalDate yesterdayDate = yesterday.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
         log.info("开始计算今日访问增长");
         LambdaQueryWrapper<AdmonitorUserDailyVisitNum> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(AdmonitorUserDailyVisitNum::getUserDailyVisitNumVisitTime,yesterday);
+        lambdaQueryWrapper.eq(AdmonitorUserDailyVisitNum::getUserDailyVisitNumVisitTime,yesterdayDate);
         int yesterdayNum = admonitorUserDailyVisitNumMapper.selectList(lambdaQueryWrapper).size();
 
+        LocalDate todayDate = new Date().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
         LambdaQueryWrapper<AdmonitorUserDailyVisitNum> lambdaQueryWrapper1 = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper1.eq(AdmonitorUserDailyVisitNum::getUserDailyVisitNumVisitTime,new Date());
+        lambdaQueryWrapper1.eq(AdmonitorUserDailyVisitNum::getUserDailyVisitNumVisitTime,todayDate);
         int todayNum = admonitorUserDailyVisitNumMapper.selectList(lambdaQueryWrapper1).size();
 
         if (todayNum-yesterdayNum>0){

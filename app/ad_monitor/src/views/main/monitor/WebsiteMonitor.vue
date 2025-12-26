@@ -64,19 +64,7 @@
             <div v-if="visitData.length === 0" class="empty-chart">
               <el-empty description="暂无数据" :image-size="80" />
             </div>
-            <div v-else class="simple-line-chart">
-              <div class="chart-area">
-                <div 
-                  v-for="(item, i) in visitData" 
-                  :key="i" 
-                  class="bar-wrapper"
-                  :title="`${item.date}: ${item.value}次`"
-                >
-                  <div class="bar" :style="{ height: getBarHeight(item.value, visitData) + '%' }"></div>
-                  <span class="bar-label">{{ item.date.slice(5) }}</span>
-                </div>
-              </div>
-            </div>
+            <div v-else ref="visitChartRef" class="echarts-container"></div>
           </div>
         </div>
 
@@ -87,19 +75,7 @@
             <div v-if="userNumData.length === 0" class="empty-chart">
               <el-empty description="暂无数据" :image-size="80" />
             </div>
-            <div v-else class="simple-line-chart">
-              <div class="chart-area user-chart">
-                <div 
-                  v-for="(item, i) in userNumData" 
-                  :key="i" 
-                  class="bar-wrapper"
-                  :title="`${item.date}: ${item.value}人`"
-                >
-                  <div class="bar user-bar" :style="{ height: getBarHeight(item.value, userNumData) + '%' }"></div>
-                  <span class="bar-label">{{ item.date.slice(5) }}</span>
-                </div>
-              </div>
-            </div>
+            <div v-else ref="userChartRef" class="echarts-container"></div>
           </div>
         </div>
       </div>
@@ -108,10 +84,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted, watch } from 'vue'
+import { ref, reactive, computed, onMounted, watch, nextTick, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { TrendCharts, DataLine, User, Top } from '@element-plus/icons-vue'
 import { adminStatisticsApi, userStatisticsApi } from '@/api'
+import * as echarts from 'echarts'
 
 const route = useRoute()
 
@@ -129,6 +106,12 @@ const chartLoading = ref(false)
 const dateRange = ref<[string, string] | null>(null)
 const visitData = ref<Array<{ date: string; value: number }>>([])
 const userNumData = ref<Array<{ date: string; value: number }>>([])
+
+// ECharts 引用
+const visitChartRef = ref<HTMLElement | null>(null)
+const userChartRef = ref<HTMLElement | null>(null)
+let visitChart: echarts.ECharts | null = null
+let userChart: echarts.ECharts | null = null
 
 const shortcuts = [
   { text: '最近7天', value: () => [getDate(-6), getDate(0)] },
@@ -151,9 +134,67 @@ const formatNum = (n: number) => {
   return n.toLocaleString()
 }
 
-const getBarHeight = (value: number, data: Array<{ value: number }>) => {
-  const max = Math.max(...data.map(d => d.value), 1)
-  return Math.max((value / max) * 100, 5)
+// ECharts 配置生成
+const getChartOption = (data: Array<{ date: string; value: number }>, color: string) => ({
+  grid: { top: 20, right: 20, bottom: 30, left: 40 },
+  xAxis: {
+    type: 'category',
+    data: data.map(d => d.date.slice(5)),
+    axisLine: { lineStyle: { color: '#e5e7eb' } },
+    axisLabel: { color: '#9ca3af', fontSize: 11 },
+    axisTick: { show: false }
+  },
+  yAxis: {
+    type: 'value',
+    splitLine: { lineStyle: { color: '#f3f4f6' } },
+    axisLabel: { color: '#9ca3af', fontSize: 11 }
+  },
+  tooltip: {
+    trigger: 'axis',
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    borderWidth: 0,
+    textStyle: { color: '#fff', fontSize: 12 },
+    formatter: (params: any) => `${params[0].name}<br/>${params[0].value}`
+  },
+  series: [{
+    type: 'line',
+    data: data.map(d => d.value),
+    smooth: true,
+    symbol: 'circle',
+    symbolSize: 6,
+    lineStyle: { color, width: 2 },
+    itemStyle: { color },
+    areaStyle: {
+      color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+        { offset: 0, color: color + '30' },
+        { offset: 1, color: color + '05' }
+      ])
+    }
+  }]
+})
+
+// 更新图表
+const updateCharts = () => {
+  nextTick(() => {
+    if (visitChartRef.value && visitData.value.length > 0) {
+      if (!visitChart) {
+        visitChart = echarts.init(visitChartRef.value)
+      }
+      visitChart.setOption(getChartOption(visitData.value, '#10b981'))
+    }
+    if (userChartRef.value && userNumData.value.length > 0) {
+      if (!userChart) {
+        userChart = echarts.init(userChartRef.value)
+      }
+      userChart.setOption(getChartOption(userNumData.value, '#8b5cf6'))
+    }
+  })
+}
+
+// 窗口大小变化时重绘
+const handleResize = () => {
+  visitChart?.resize()
+  userChart?.resize()
 }
 
 // 生成日期数组
@@ -177,7 +218,7 @@ const loadStats = async () => {
     console.log('📅 今日日期:', today)
     
     // 分开调用，方便调试
-    let total = 0, todayIncrease = 0, todayVisit = 0
+    let total = 0, todayIncrease = 0, todayVisit = 0, totalUsers = 0
     
     try {
       console.log('🔄 调用 getTotalVisitNum...')
@@ -203,9 +244,20 @@ const loadStats = async () => {
       console.error('❌ calculateDailyVisitNum 失败:', e)
     }
     
+    // 调用总用户/管理员数量接口
+    try {
+      console.log('🔄 调用总用户数量接口...')
+      const getTotalNumApi = isAdmin.value ? api.value.getTotalAdminNum : api.value.getTotalUserNum
+      totalUsers = await getTotalNumApi()
+      console.log('✅ 总用户/管理员数量:', totalUsers)
+    } catch (e) {
+      console.error('❌ 获取总用户数量失败:', e)
+    }
+    
     stats.totalVisit = total || 0
     stats.todayIncrease = todayIncrease || 0
     stats.todayVisit = todayVisit || 0
+    stats.totalUsers = totalUsers || 0
   } catch (e) {
     console.error('加载统计失败', e)
   }
@@ -233,11 +285,9 @@ const loadChartData = async () => {
       date: dateLabels[index] || '',
       value: value || 0
     }))
-
-    // 获取最新用户总数
-    if (userNumData.value.length > 0) {
-      stats.totalUsers = userNumData.value[userNumData.value.length - 1].value
-    }
+    
+    // 更新 ECharts
+    updateCharts()
   } catch (e) {
     console.error('加载图表数据失败', e)
   } finally {
@@ -253,7 +303,15 @@ const init = () => {
 }
 
 watch(() => route.path, init)
-onMounted(init)
+onMounted(() => {
+  init()
+  window.addEventListener('resize', handleResize)
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize)
+  visitChart?.dispose()
+  userChart?.dispose()
+})
 </script>
 
 <style scoped lang="scss">
@@ -365,44 +423,9 @@ onMounted(init)
   height: 200px;
 }
 
-.simple-line-chart {
-  .chart-area {
-    display: flex;
-    gap: 6px;
-    align-items: flex-end;
-    height: 180px;
-    padding-bottom: 24px;
-  }
-
-  .bar-wrapper {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    min-width: 16px;
-  }
-
-  .bar {
-    width: 100%;
-    max-width: 24px;
-    background: linear-gradient(to top, #10b981, #34d399);
-    border-radius: 3px 3px 0 0;
-    transition: height 0.3s;
-  }
-
-  .user-bar {
-    background: linear-gradient(to top, #8b5cf6, #a78bfa);
-  }
-
-  .bar-label {
-    position: absolute;
-    bottom: 0;
-    font-size: 9px;
-    color: #9ca3af;
-    transform: rotate(-45deg);
-    white-space: nowrap;
-  }
+.echarts-container {
+  width: 100%;
+  height: 220px;
 }
 
 @media (max-width: 1024px) {
