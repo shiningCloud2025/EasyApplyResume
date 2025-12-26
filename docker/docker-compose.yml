@@ -1,0 +1,133 @@
+# ================================================
+# EasyApplyResume 应用服务配置
+# 追加到服务器现有 docker-compose.yml 的 services 部分
+# ================================================
+# 
+# 端口分配规则（延续现有 37210 起始）:
+#   - 后端 Backend:     37220
+#   - 前端 Admin:       37221
+#   - 前端 User:        37222
+#   - 前端 AdMonitor:   37223
+#
+# 使用方法：将下面的服务配置复制到服务器的 docker-compose.yml 中
+# ================================================
+
+version: '3.8'
+
+services:
+  # ============================================
+  # 后端服务 - Spring Boot
+  # ============================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: easyapply-backend:latest
+    container_name: EasyApplyResume-backend
+    restart: always
+    networks:
+      - app-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - TZ=Asia/Shanghai
+      # 数据库连接（使用容器名访问）
+      - SPRING_DATASOURCE_URL=jdbc:mysql://EasyApplyResume-mysql:3306/zyh_dev_EasyApplyResume?useUnicode=true&characterEncoding=utf8mb4&serverTimezone=Asia/Shanghai
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=mysql~!@#$$%^&*()_+
+      # Redis 连接
+      - SPRING_REDIS_HOST=EasyApplyResume-redis
+      - SPRING_REDIS_PORT=6379
+      - SPRING_REDIS_PASSWORD=redis~!@#$$%^&*()_+
+      # Nacos 配置
+      - SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR=EasyApplyResume-nacos:8848
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=EasyApplyResume-nacos:8848
+    volumes:
+      - ./backend/logs:/app/logs
+      - ./backend/upload:/app/upload
+    ports:
+      - "37220:8080"
+    depends_on:
+      - mysql
+      - redis
+      - nacos
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ============================================
+  # 管理端前端 - Admin (Vue3 + Element Plus)
+  # ============================================
+  admin:
+    build:
+      context: ./app/admin
+      dockerfile: Dockerfile
+    image: easyapply-admin:latest
+    container_name: EasyApplyResume-admin
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - "37221:80"
+    depends_on:
+      - backend
+
+  # ============================================
+  # 用户端前端 - User (React + Antd)
+  # ============================================
+  user:
+    build:
+      context: ./app/user
+      dockerfile: Dockerfile
+    image: easyapply-user:latest
+    container_name: EasyApplyResume-user
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - "37222:80"
+    depends_on:
+      - backend
+
+  # ============================================
+  # 监控端前端 - AdMonitor (Vue3 + Element Plus)
+  # ============================================
+  ad_monitor:
+    build:
+      context: ./app/ad_monitor
+      dockerfile: Dockerfile
+    image: easyapply-admonitor:latest
+    container_name: EasyApplyResume-admonitor
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - "37223:80"
+    depends_on:
+      - backend
+
+networks:
+  app-network:
+    external: true  # 使用服务器现有的 app-network
+
+# ============================================
+# 以下是追加到服务器 docker-compose.yml 的 Nginx 服务
+# ============================================
+#
+#   nginx:
+#     image: nginx:alpine
+#     container_name: EasyApplyResume-nginx
+#     restart: always
+#     networks:
+#       - app-network
+#     volumes:
+#       - ${PWD}/nginx/gateway.conf:/etc/nginx/nginx.conf:ro
+#       - ${PWD}/nginx/logs:/var/log/nginx
+#     ports:
+#       - "80:80"
+#     depends_on:
+#       - backend
+#       - admin
+#       - user
+#       - ad_monitor
