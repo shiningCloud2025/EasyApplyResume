@@ -2,7 +2,9 @@ package com.zyh.easyapplyresume.service.impl.ad_monitor;
 
 import com.zyh.easyapplyresume.mapper.mysql.ad_monitor.AdmonitorAdminDaliyAdminNumMapper;
 import com.zyh.easyapplyresume.mapper.mysql.ad_monitor.AdmonitorUserDaliyUserNumMapper;
+import com.zyh.easyapplyresume.mapper.mysql.user.UserMapper;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorUserDaliyUserNum;
+import com.zyh.easyapplyresume.model.pojo.user.User;
 import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorUserDaliyUserNumService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class AdmonitorUserDaliyUserNumServiceImpl implements AdmonitorUserDaliyU
     @Autowired
     private AdmonitorUserDaliyUserNumMapper admonitorUserDaliyUserNumMapper;
 
+    @Autowired
+    private UserMapper userMapper;
     @Override
     public Integer addAdmonitorUserDaliyUserNum(AdmonitorUserDaliyUserNum admonitorUserDaliyUserNum) {
         try{
@@ -47,4 +51,19 @@ public class AdmonitorUserDaliyUserNumServiceImpl implements AdmonitorUserDaliyU
             throw new RuntimeException("查询失败");
         }
     }
+
+    @Override
+    public Integer calculateUserTotalNum() {
+        try {
+            log.info("计算用户总数开始");
+            List<User> users = userMapper.selectList(null);
+            log.info("用户总数为：{}",users.size());
+            return users.size();
+        }catch (Exception e){
+            log.info("计算用户总数失败");
+            throw new RuntimeException("计算用户总数失败");
+        }
+    }
+
+
 }

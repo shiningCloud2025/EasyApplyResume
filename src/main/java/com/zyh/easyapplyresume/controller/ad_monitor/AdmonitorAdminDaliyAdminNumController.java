@@ -37,5 +37,10 @@ public class AdmonitorAdminDaliyAdminNumController {
         return BaseResult.ok(admonitorAdminDaliyAdminNumService.findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum(fromDate,endDate));
     }
 
+    @GetMapping("/calculateAdminTotalNum")
+    @Operation(summary = "计算总管理员数量")
+    public BaseResult<Integer> calculateAdminTotalNum(){
+        return BaseResult.ok(admonitorAdminDaliyAdminNumService.calculateAdminTotalNum());
+    }
 
 }

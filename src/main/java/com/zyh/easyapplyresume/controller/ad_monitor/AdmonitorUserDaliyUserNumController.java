@@ -38,4 +38,11 @@ public class AdmonitorUserDaliyUserNumController {
         return BaseResult.ok(admonitorUserDaliyUserNumService.findFromTimeToEndTimeAdmonitorUserDaliyUserNum(fromDate,endDate));
     }
 
+
+    @GetMapping("/calculateUserTotalNum")
+    @Operation(summary = "计算总用户数量")
+    public BaseResult<Integer> calculateUserTotalNum(){
+        return BaseResult.ok(admonitorUserDaliyUserNumService.calculateUserTotalNum());
+    }
+
 }

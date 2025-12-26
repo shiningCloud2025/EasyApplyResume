@@ -96,7 +96,11 @@ export const adminStatisticsApi = {
   // 查询时间段管理员数量
   getAdminNumByDateRange: (fromDate: string, endDate: string) =>
     request.get('/admonitor/adminDaliyAdminNum/findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum', 
-      { params: { fromDate, endDate } })
+      { params: { fromDate, endDate } }),
+  
+  // 计算总管理员数量
+  getTotalAdminNum: () =>
+    request.get('/admonitor/adminDaliyAdminNum/calculateAdminTotalNum')
 }
 
 // 用户端数据统计API
@@ -121,7 +125,11 @@ export const userStatisticsApi = {
   // 查询时间段用户数量
   getUserNumByDateRange: (fromDate: string, endDate: string) =>
     request.get('/admonitor/user/daliyUserNum/findFromTimeToEndTimeAdmonitorUserDaliyUserNum', 
-      { params: { fromDate, endDate } })
+      { params: { fromDate, endDate } }),
+  
+  // 计算总用户数量
+  getTotalUserNum: () =>
+    request.get('/admonitor/user/daliyUserNum/calculateUserTotalNum')
 }
 
 // 管理端广告API
