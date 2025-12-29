@@ -152,7 +152,7 @@ public class FormalRegisterValidator {
         }
 
         // 11. 选填：用户希望的每周工作数（默认5，校验0-7之间）→ USER_WEEK_WORK_DAY_NUM_ILLEGAL(10019)
-        if (form.getUserDreamWeekWorkDayNum() == 0) {
+        if (form.getUserDreamWeekWorkDayNum() == 0||form.getUserDreamWeekWorkDayNum()==null) {
             form.setUserDreamWeekWorkDayNum(5);
         } else {
             int weekWorkDayNum = form.getUserDreamWeekWorkDayNum();
