@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { authAPI } from '@api/auth'
 import { sendSmsCode, sendEmailCode } from '@api/verify'
 import { provinceAPI, universityAPI, recruitPositionAPI } from '@api/system'
+import { useUserStore } from '@stores/userStore'
 import type { RegisterForm, ProvinceMap, CityMap, UniversityMap, RecruitPosition } from '@types/index'
 import '@styles/auth.scss'
 import '@styles/auth-override.scss'
@@ -40,6 +41,7 @@ const RegisterPage: React.FC = () => {
   const [provinceLoaded, setProvinceLoaded] = useState(false) // 标记省份数据是否已加载
 
   const navigate = useNavigate()
+  const { login } = useUserStore()
 
   // 点击省份下拉框时加载省份数据
   const handleProvinceDropdownOpen = async (open: boolean) => {
@@ -225,8 +227,11 @@ const RegisterPage: React.FC = () => {
     try {
       const response = await authAPI.register(values)
       if (response.code === 200) {
-        message.success('注册成功，请登录')
-        navigate('/auth/login')
+        // 注册成功，直接登录（后端返回的 data 是 token）
+        const token = response.data as string
+        login(null, token)  // 保存 token，用户信息后续获取
+        message.success('注册成功，已自动登录')
+        navigate('/home')  // 跳转首页
       }
     } catch (error) {
       console.error('注册失败:', error)
