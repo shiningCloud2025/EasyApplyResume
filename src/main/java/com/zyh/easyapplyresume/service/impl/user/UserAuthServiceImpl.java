@@ -171,8 +171,9 @@ public class UserAuthServiceImpl implements UserAuthService {
                     CityEnum.getById(user.getUserRecruitLocationSecond()).getName());
             userMapper.insert(user);
             String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
-            String redisKey = "user:token:" + user.getUserId();
-            stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
+            // TODO:这两行代码导致了用户注册完，点击登录发送验证码的时候要等待三分钟，去掉这个代码解决这个
+//            String redisKey = "user:token:" + user.getUserId();
+//            stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
             return token;
         } catch (DataAccessException e) {
             log.error("数据库异常", e);
