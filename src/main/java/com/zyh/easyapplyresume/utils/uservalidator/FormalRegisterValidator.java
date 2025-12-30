@@ -125,7 +125,10 @@ public class FormalRegisterValidator {
             form.setUserIntroduce(introduce);
         }
 
-        // 8. 选填：用户目标岗位（不填则为null，无需校验）
+        // 8. 选填：用户目标岗位（不填则默认为1）
+        if (form.getUserDreamPosition() == null || form.getUserDreamPosition() == 0) {
+            form.setUserDreamPosition(1);
+        }
 
         // 9. 选填：用户希望的最低月薪（默认0，校验≥0且≤100000）→ USER_MIN_SALARY_NEGATIVE(10016) / USER_MIN_SALARY_TOO_HIGH(10017)
         if (form.getUserDreamMinMonthSalary() == null) {
@@ -187,7 +190,7 @@ public class FormalRegisterValidator {
         }
 
         // 15. 选填：用户大学编码（默认4001）
-        if (form.getUserUniversityCode() == 0) {
+        if (form.getUserUniversityCode() == 0||form.getUserUniversityCode()==null) {
             form.setUserUniversityCode(4001);
         }
     }
