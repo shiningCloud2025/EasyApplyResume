@@ -53,10 +53,10 @@ import { advertisementApi, type AdvertisementInfo } from '@/api/admin'
 
 // Props
 const props = withDefaults(defineProps<{
-  idleTime?: number  // 空闲时间（毫秒），默认30秒（测试用）
+  idleTime?: number  // 空闲时间（毫秒），默认7分钟
   enabled?: boolean  // 是否启用
 }>(), {
-  idleTime: 30 * 1000,  // 30秒（测试用，正式环境改回 7 * 60 * 1000）
+  idleTime: 7 * 60 * 1000,  // 7分钟
   enabled: true
 })
 
@@ -244,7 +244,7 @@ onUnmounted(() => {
 
 .ad-carousel {
   :deep(.el-carousel__container) {
-    height: 400px;
+    height: 500px;
   }
   
   :deep(.el-carousel__indicators) {
@@ -274,7 +274,8 @@ onUnmounted(() => {
 .ad-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;  // 完整显示图片，不裁剪
+  background: #f5f5f5;  // 背景色填充空白
 }
 
 .ad-title {

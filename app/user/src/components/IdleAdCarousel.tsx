@@ -5,33 +5,30 @@ import { advertisementAPI, type AdvertisementInfo } from '@api/advertisement'
 import './IdleAdCarousel.css'
 
 interface IdleAdCarouselProps {
-  idleTime?: number  // 空闲时间（毫秒），默认30秒（测试用）
+  idleTime?: number  // 空闲时间（毫秒），默认7分钟
   enabled?: boolean  // 是否启用
 }
 
 const IdleAdCarousel: React.FC<IdleAdCarouselProps> = ({
-  idleTime = 30 * 1000,  // 30秒（测试用，正式环境改回 7 * 60 * 1000）
+  idleTime = 7 * 60 * 1000,  // 7分钟
   enabled = true
 }) => {
   const [showAd, setShowAd] = useState(false)
   const [ads, setAds] = useState<AdvertisementInfo[]>([])
   const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // 过滤有效期内的广告
-  const validAds = ads.filter(ad => {
-    const now = new Date()
-    const startTime = new Date(ad.advertisementStartedTime)
-    const endTime = new Date(ad.advertisementEndTime)
-    return now >= startTime && now <= endTime
-  })
+  // 后端已过滤有效期广告，直接使用
+  const validAds = Array.isArray(ads) ? ads : []
 
   // 获取广告列表
   const fetchAds = async () => {
     try {
-      const data = await advertisementAPI.getAllUserAdvertisements()
-      if (data) {
-        setAds(data)
-      }
+      const res = await advertisementAPI.getAllUserAdvertisements()
+      console.log('用户端广告API返回:', res)
+      // 处理可能的包装格式 { data: [...] } 或直接 [...]
+      const data = Array.isArray(res) ? res : (res as any)?.data || []
+      console.log('解析后的广告数据:', data, '数量:', data.length)
+      setAds(data)
     } catch (error) {
       console.log('获取广告失败:', error)
     }
@@ -86,10 +83,10 @@ const IdleAdCarousel: React.FC<IdleAdCarouselProps> = ({
     fetchAds()
   }, [])
 
-  // 快捷键监听: Ctrl + Shift + A
+  // 快捷键监听: Ctrl + Shift + D
   useEffect(() => {
     const handleKeyboardShortcut = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
         e.preventDefault()
         triggerAd()
       }
