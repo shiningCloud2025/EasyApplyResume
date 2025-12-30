@@ -63,10 +63,10 @@ interface AdvertisementInfo {
 
 // Props
 const props = withDefaults(defineProps<{
-  idleTime?: number  // 空闲时间（毫秒），默认30秒（测试用）
+  idleTime?: number  // 空闲时间（毫秒），默认7分钟
   enabled?: boolean  // 是否启用
 }>(), {
-  idleTime: 30 * 1000,  // 30秒（测试用，正式环境改回 7 * 60 * 1000）
+  idleTime: 7 * 60 * 1000,  // 7分钟
   enabled: true
 })
 
@@ -75,14 +75,9 @@ const showAd = ref(false)
 const ads = ref<AdvertisementInfo[]>([])
 let idleTimer: ReturnType<typeof setTimeout> | null = null
 
-// 过滤有效期内的广告
+// 后端已过滤有效期广告，直接使用
 const validAds = computed(() => {
-  const now = new Date()
-  return ads.value.filter(ad => {
-    const startTime = new Date(ad.advertisementStartedTime)
-    const endTime = new Date(ad.advertisementEndTime)
-    return now >= startTime && now <= endTime
-  })
+  return Array.isArray(ads.value) ? ads.value : []
 })
 
 // 获取广告列表
@@ -128,9 +123,9 @@ const handleAdClick = (ad: AdvertisementInfo) => {
 // 用户活动事件（只监听当前页面内的操作）
 const userEvents = ['mousedown', 'mousemove', 'keydown', 'scroll', 'touchstart', 'click']
 
-// 手动触发广告（测试用）: Ctrl + Shift + A
+// 手动触发广告（测试用）: Ctrl + Shift + D
 const handleKeyboardShortcut = (e: KeyboardEvent) => {
-  if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+  if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'd') {
     e.preventDefault()
     if (validAds.value.length > 0) {
       showAd.value = true
@@ -228,7 +223,11 @@ onUnmounted(() => {
 
 .ad-carousel {
   :deep(.el-carousel__container) {
-    height: 400px;
+    height: 500px;
+  }
+  
+  :deep(.el-carousel__indicators) {
+    padding: 12px 0;
   }
   
   :deep(.el-carousel__button) {
@@ -254,7 +253,8 @@ onUnmounted(() => {
 .ad-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  background: #f5f5f5;
 }
 
 .ad-title {
@@ -270,7 +270,7 @@ onUnmounted(() => {
 }
 
 .no-ads {
-  height: 400px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
