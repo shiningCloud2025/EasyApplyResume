@@ -46,9 +46,34 @@
     color: #6b7280 !important;
   }
   
-  /* 表单项间距 */
+  /* 表单项间距 - 注册页面更紧凑 */
   .ant-form-item {
-    margin-bottom: 20px !important;
+    margin-bottom: 16px !important;
+  }
+  
+  /* 注册表单更紧凑 */
+  .register-form .ant-form-item {
+    margin-bottom: 8px !important;
+  }
+  
+  .register-form .ant-form-item-label {
+    padding-bottom: 0 !important;
+  }
+  
+  .register-form .ant-form-item-label > label {
+    font-size: 13px !important;
+    height: 24px !important;
+  }
+  
+  /* 注册表单输入框更紧凑 */
+  .register-form .ant-input,
+  .register-form .ant-input-affix-wrapper {
+    padding: 8px 12px !important;
+    font-size: 14px !important;
+  }
+  
+  .register-form textarea.ant-input {
+    min-height: 50px !important;
   }
   
   /* 表单标签 */

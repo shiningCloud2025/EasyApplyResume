@@ -222,6 +222,42 @@ const RegisterPage: React.FC = () => {
     setCurrent(current - 1)
   }
 
+  // 点击步骤条跳转
+  const handleStepClick = async (step: number) => {
+    // 点击当前步骤，不做任何操作
+    if (step === current) return
+    
+    // 往后退：可以随意回退
+    if (step < current) {
+      setCurrent(step)
+      return
+    }
+    
+    // 往前走：需要完成前面的步骤
+    // 点击第2步，需要先完成第1步
+    if (step >= 1 && current < 1) {
+      try {
+        await form.validateFields(['userAccount', 'userUsername', 'userEmail', 'userPhone', 'userPassword'])
+      } catch {
+        message.warning('请先完成第一步，填写必填信息')
+        return
+      }
+    }
+    
+    // 点击第3步，需要先完成第1步和第2步
+    if (step >= 2 && current < 1) {
+      try {
+        await form.validateFields(['userAccount', 'userUsername', 'userEmail', 'userPhone', 'userPassword'])
+      } catch {
+        message.warning('请先完成第一步，填写必填信息')
+        return
+      }
+    }
+    
+    // 第2步是选填，不需要强制验证，可以直接跳转
+    setCurrent(step)
+  }
+
   const handleRegister = async (values: RegisterForm) => {
     setLoading(true)
     try {
@@ -579,9 +615,9 @@ const RegisterPage: React.FC = () => {
         {/* 右侧表单区域 */}
         <div className="register-card-right">
           <div className="register-body">
-          <Steps current={current} className="register-steps">
+          <Steps current={current} className="register-steps" onChange={handleStepClick}>
             {steps.map(item => (
-              <Step key={item.title} title={item.title} />
+              <Step key={item.title} title={item.title} style={{ cursor: 'pointer' }} />
             ))}
           </Steps>
 
