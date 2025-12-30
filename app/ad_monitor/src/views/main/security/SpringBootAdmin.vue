@@ -87,7 +87,7 @@
           <div class="quick-info">
             <div class="info-item">
               <el-icon><Link /></el-icon>
-              <span>http://localhost:8088</span>
+              <span>http://117.50.184.138:37224</span>
             </div>
             <div class="info-item">
               <el-icon><CircleCheck /></el-icon>
@@ -111,7 +111,7 @@ const openSBA = async () => {
   loading.value = true
   try {
     await new Promise(resolve => setTimeout(resolve, 500))
-    window.open('http://localhost:8088', '_blank')
+    window.open('http://117.50.184.138:37224', '_blank')
     ElMessage.success('正在打开 Spring Boot Admin')
   } finally {
     loading.value = false

@@ -80,6 +80,8 @@ import {
   DataAnalysis, Bell, Picture, User, UserFilled, 
   Connection, Lock, Right, Monitor, TrendCharts
 } from '@element-plus/icons-vue'
+import { ElMessageBox } from 'element-plus'
+import { monitorAnnouncementApi } from '@/api'
 
 const currentTime = ref('')
 let timer: NodeJS.Timeout
@@ -115,7 +117,36 @@ const quickLinks = ref([
 onMounted(() => {
   updateTime()
   timer = setInterval(updateTime, 1000)
+  showAnnouncement()
 })
+
+// 显示公告弹窗
+const showAnnouncement = async () => {
+  // 检查是否是本次会话第一次进入（避免刷新重复显示）
+  const announcementShown = sessionStorage.getItem('admonitor_announcement_shown')
+  if (announcementShown) return
+  
+  try {
+    const res = await monitorAnnouncementApi.getInfo() as any
+    if (res && res.announcementTitle) {
+      // 标记已显示
+      sessionStorage.setItem('admonitor_announcement_shown', 'true')
+      
+      await ElMessageBox.alert(
+        res.announcementContent || '暂无内容',
+        res.announcementTitle,
+        {
+          confirmButtonText: '我知道了',
+          type: 'info',
+          dangerouslyUseHTMLString: true,
+          customClass: 'announcement-dialog'
+        }
+      )
+    }
+  } catch (error) {
+    console.log('公告获取失败，跳过:', error)
+  }
+}
 
 onUnmounted(() => {
   clearInterval(timer)
@@ -352,5 +383,66 @@ onUnmounted(() => {
   .features-grid, .access-grid, .system-info { grid-template-columns: 1fr; }
   .welcome-section { flex-direction: column; text-align: center; }
   .welcome-illustration { margin-top: 24px; }
+}
+</style>
+
+<!-- 公告弹窗全局样式 -->
+<style>
+.announcement-dialog {
+  min-width: 450px !important;
+  max-width: 600px !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+}
+
+.announcement-dialog .el-message-box__header {
+  padding: 24px 24px 16px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.announcement-dialog .el-message-box__title {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: white !important;
+}
+
+.announcement-dialog .el-message-box__headerbtn {
+  top: 20px;
+  right: 20px;
+}
+
+.announcement-dialog .el-message-box__headerbtn .el-message-box__close {
+  color: white !important;
+}
+
+.announcement-dialog .el-message-box__content {
+  padding: 24px !important;
+  font-size: 15px !important;
+  line-height: 1.8 !important;
+  color: #374151 !important;
+  min-height: 80px;
+}
+
+.announcement-dialog .el-message-box__status {
+  display: none !important;
+}
+
+.announcement-dialog .el-message-box__btns {
+  padding: 16px 24px 24px !important;
+}
+
+.announcement-dialog .el-message-box__btns .el-button--primary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 12px 32px !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+
+.announcement-dialog .el-message-box__btns .el-button--primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
 }
 </style>

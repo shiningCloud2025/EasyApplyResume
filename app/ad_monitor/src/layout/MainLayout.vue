@@ -148,7 +148,11 @@
           <el-button :icon="FullScreen" text @click="toggleFullScreen" />
           <el-dropdown @command="handleCommand">
             <div class="user-info">
-              <el-avatar :size="32" class="avatar">
+              <el-avatar 
+                :size="32" 
+                :src="authStore.user?.adminImage || defaultAvatar"
+                class="avatar"
+              >
                 <el-icon><User /></el-icon>
               </el-avatar>
               <span class="username">{{ authStore.user?.adminUsername || '管理员' }}</span>
@@ -156,7 +160,15 @@
             </div>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item command="logout">
+                <el-dropdown-item command="profile">
+                  <el-icon><User /></el-icon>
+                  个人中心
+                </el-dropdown-item>
+                <el-dropdown-item command="feedback">
+                  <el-icon><ChatLineSquare /></el-icon>
+                  意见反馈
+                </el-dropdown-item>
+                <el-dropdown-item divided command="logout">
                   <el-icon><SwitchButton /></el-icon>
                   退出登录
                 </el-dropdown-item>
@@ -176,18 +188,22 @@
       </el-main>
     </el-container>
   </el-container>
+  
+  <!-- 空闲广告轮播 -->
+  <IdleAdCarousel :idle-time="7 * 60 * 1000" :enabled="true" />
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import {
   House, Bell, Picture, User, UserFilled, Connection, Lock, Monitor,
   TrendCharts, DataLine, DataAnalysis, Fold, Expand, FullScreen,
-  ArrowDown, SwitchButton
+  ArrowDown, SwitchButton, ChatLineSquare
 } from '@element-plus/icons-vue'
+import IdleAdCarousel from './IdleAdCarousel.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -195,6 +211,7 @@ const authStore = useAuthStore()
 
 const collapsed = ref(false)
 const activeMenu = computed(() => route.path)
+const defaultAvatar = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
 
 // 面包屑
 const breadcrumbs = computed(() => {
@@ -216,7 +233,9 @@ const breadcrumbs = computed(() => {
     '/main/middleware/minio': 'MinIO管理',
     '/main/security/spring-boot-admin': 'Spring Boot Admin',
     '/main/security/prometheus': 'Prometheus',
-    '/main/security/grafana': 'Grafana'
+    '/main/security/grafana': 'Grafana',
+    '/main/profile': '个人中心',
+    '/main/feedback/submit': '意见反馈'
   }
   
   const title = routeMap[route.path]
@@ -235,27 +254,97 @@ const toggleFullScreen = () => {
 }
 
 const handleCommand = async (cmd: string) => {
-  if (cmd === 'logout') {
-    try {
-      await ElMessageBox.confirm('确定要退出登录吗？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      })
-      authStore.clearAuth()
-      ElMessage.success('退出成功')
-      router.push('/')
-    } catch {}
+  switch (cmd) {
+    case 'profile':
+      router.push('/main/profile')
+      break
+    case 'feedback':
+      router.push('/main/feedback/submit')
+      break
+    case 'logout':
+      try {
+        await ElMessageBox.confirm('确定要退出登录吗？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        })
+        authStore.clearAuth()
+        ElMessage.success('退出成功')
+        router.push('/')
+      } catch {}
+      break
   }
 }
 
-onMounted(async () => {
-  if (!authStore.user && authStore.isLoggedIn) {
-    try {
-      await authStore.getUserInfo()
-    } catch (e) {
-      console.error('获取用户信息失败', e)
+// 定时器ID
+let userInfoTimer: NodeJS.Timeout | null = null
+
+// 获取用户信息的函数
+const fetchUserInfo = async (silent: boolean = false) => {
+  if (!authStore.isLoggedIn) {
+    console.log('⚠️ [监控端] 用户未登录，停止获取用户信息')
+    if (userInfoTimer) {
+      clearInterval(userInfoTimer)
+      userInfoTimer = null
     }
+    router.push('/')
+    return
+  }
+
+  // 如果已经有用户信息，清除定时器
+  if (authStore.user) {
+    console.log('✅ [监控端] 用户信息已存在，停止定时获取')
+    if (userInfoTimer) {
+      clearInterval(userInfoTimer)
+      userInfoTimer = null
+    }
+    return
+  }
+
+  // 尝试获取用户信息
+  if (!silent) {
+    console.log('🔄 [监控端] 尝试获取用户信息...')
+  }
+  try {
+    await authStore.getUserInfo(silent)
+    if (authStore.user) {
+      console.log('✅ [监控端] 用户信息获取成功', authStore.user)
+      // 获取成功后清除定时器
+      if (userInfoTimer) {
+        clearInterval(userInfoTimer)
+        userInfoTimer = null
+      }
+    }
+  } catch (error) {
+    if (!silent) {
+      console.error('❌ [监控端] 获取用户信息失败，15秒后重试', error)
+    }
+  }
+}
+
+// 组件挂载时检查登录状态并获取用户信息
+onMounted(async () => {
+  if (!authStore.isLoggedIn) {
+    router.push('/')
+    return
+  }
+  
+  // 首次尝试获取用户信息（不静默，显示错误）
+  await fetchUserInfo(false)
+  
+  // 如果首次获取失败，启动定时器每15秒重试一次（静默模式）
+  if (!authStore.user && authStore.isLoggedIn) {
+    console.log('⏰ [监控端] 启动定时器，每15秒静默重试获取用户信息')
+    userInfoTimer = setInterval(() => fetchUserInfo(true), 15000)
+  }
+})
+
+// 组件卸载时清除定时器
+onUnmounted(() => {
+  if (userInfoTimer) {
+    console.log('🧹 [监控端] 清除用户信息获取定时器')
+    clearInterval(userInfoTimer)
+    userInfoTimer = null
   }
 })
 </script>

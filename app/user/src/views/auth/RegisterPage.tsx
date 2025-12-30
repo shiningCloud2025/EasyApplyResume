@@ -290,7 +290,7 @@ const RegisterPage: React.FC = () => {
                 { pattern: /^[1-9]\d{6,9}$/, message: '账号必须为数字，且首位不能为0' }
               ]}
             >
-              <Input prefix={<UserOutlined />} placeholder="请输入7-10位数字账号，首位不能为0" />
+              <Input prefix={<UserOutlined />} placeholder="请输入7-10位数字账号，首位不能为0" autoComplete="off" />
             </Form.Item>
 
             <Form.Item
@@ -301,7 +301,7 @@ const RegisterPage: React.FC = () => {
                 { min: 1, max: 20, message: '用户名长度为1-20位' }
               ]}
             >
-              <Input prefix={<UserOutlined />} placeholder="请输入用户名（1-20位）" />
+              <Input prefix={<UserOutlined />} placeholder="请输入用户名（1-20位）" autoComplete="new-password" />
             </Form.Item>
 
             <Form.Item
@@ -313,7 +313,7 @@ const RegisterPage: React.FC = () => {
                 { max: 25, message: '邮箱长度不能超过25位' }
               ]}
             >
-              <Input prefix={<MailOutlined />} placeholder="请输入邮箱（不超过25位）" />
+              <Input prefix={<MailOutlined />} placeholder="请输入邮箱（不超过25位）" autoComplete="new-password" />
             </Form.Item>
 
             <Form.Item
@@ -324,7 +324,7 @@ const RegisterPage: React.FC = () => {
                 { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号' }
               ]}
             >
-              <Input prefix={<PhoneOutlined />} placeholder="请输入手机号" />
+              <Input prefix={<PhoneOutlined />} placeholder="请输入手机号" autoComplete="off" />
             </Form.Item>
 
             <Form.Item
@@ -335,7 +335,7 @@ const RegisterPage: React.FC = () => {
                 { min: 6, max: 30, message: '密码长度为6-30位' }
               ]}
             >
-              <Input.Password prefix={<LockOutlined />} placeholder="请输入密码（6-30位）" />
+              <Input.Password prefix={<LockOutlined />} placeholder="请输入密码（6-30位）" autoComplete="new-password" />
             </Form.Item>
 
             <Form.Item
@@ -628,6 +628,7 @@ const RegisterPage: React.FC = () => {
               size="large"
               className="register-form"
               preserve={true}
+              autoComplete="off"
             >
               {renderStepContent()}
             </Form>

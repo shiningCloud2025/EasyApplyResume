@@ -107,6 +107,28 @@ services:
     depends_on:
       - backend
 
+  # ============================================
+  # Spring Boot Admin Server - 应用监控
+  # ============================================
+  spring-boot-admin:
+    build:
+      context: ../Spring-Boot-Admin
+      dockerfile: Dockerfile
+    image: easyapply-spring-boot-admin:latest
+    container_name: EasyApplyResume-spring-boot-admin
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - "37224:9090"
+    environment:
+      - TZ=Asia/Shanghai
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9090/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
 networks:
   app-network:
     external: true  # 使用服务器现有的 app-network

@@ -102,6 +102,8 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
 import { formatDateTime } from '@/utils'
+import { ElMessageBox } from 'element-plus'
+import { announcementApi } from '@/api/admin'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -174,7 +176,36 @@ const navigateTo = (path: string) => {
 // 组件挂载时加载数据
 onMounted(() => {
   loadDashboardData()
+  showAnnouncement()
 })
+
+// 显示公告弹窗
+const showAnnouncement = async () => {
+  // 检查是否是本次会话第一次进入（避免刷新重复显示）
+  const announcementShown = sessionStorage.getItem('admin_announcement_shown')
+  if (announcementShown) return
+  
+  try {
+    const res = await announcementApi.getAdminAnnouncement()
+    if (res.data && res.data.announcementTitle) {
+      // 标记已显示
+      sessionStorage.setItem('admin_announcement_shown', 'true')
+      
+      await ElMessageBox.alert(
+        res.data.announcementContent || '暂无内容',
+        res.data.announcementTitle,
+        {
+          confirmButtonText: '我知道了',
+          type: 'info',
+          dangerouslyUseHTMLString: true,
+          customClass: 'announcement-dialog'
+        }
+      )
+    }
+  } catch (error) {
+    console.log('公告获取失败，跳过:', error)
+  }
+}
 
 // 加载仪表板数据
 const loadDashboardData = async () => {
@@ -509,5 +540,66 @@ const loadDashboardData = async () => {
     text-align: center;
     gap: 16px;
   }
+}
+</style>
+
+<!-- 公告弹窗全局样式 -->
+<style>
+.announcement-dialog {
+  min-width: 450px !important;
+  max-width: 600px !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+}
+
+.announcement-dialog .el-message-box__header {
+  padding: 24px 24px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.announcement-dialog .el-message-box__title {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: white !important;
+}
+
+.announcement-dialog .el-message-box__headerbtn {
+  top: 20px;
+  right: 20px;
+}
+
+.announcement-dialog .el-message-box__headerbtn .el-message-box__close {
+  color: white !important;
+}
+
+.announcement-dialog .el-message-box__content {
+  padding: 24px !important;
+  font-size: 15px !important;
+  line-height: 1.8 !important;
+  color: #374151 !important;
+  min-height: 80px;
+}
+
+.announcement-dialog .el-message-box__status {
+  display: none !important;
+}
+
+.announcement-dialog .el-message-box__btns {
+  padding: 16px 24px 24px !important;
+}
+
+.announcement-dialog .el-message-box__btns .el-button--primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 12px 32px !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+
+.announcement-dialog .el-message-box__btns .el-button--primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 </style>

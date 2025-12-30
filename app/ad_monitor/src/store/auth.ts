@@ -3,11 +3,24 @@ import { ref, computed } from 'vue'
 import { authApi, smsApi } from '@/api'
 
 export interface AdminUser {
-  adminId: number
+  adminId?: number
+  userId?: number  // SecurityUser中的userId
+  adminAccount?: string
   adminUsername: string
   adminEmail: string
   adminPhone: string
   adminImage: string
+  adminIntroduce?: string
+  adminLoginTime?: string
+  adminState?: number
+  roleInfoVOS?: Array<{
+    roleId: number
+    roleName: string
+    roleIntroduce: string
+  }>
+  authorities?: Array<{
+    authority: string
+  }>
 }
 
 export const useAuthStore = defineStore('auth', () => {
@@ -52,14 +65,39 @@ export const useAuthStore = defineStore('auth', () => {
   // 获取用户信息
   const getUserInfo = async (silent: boolean = false) => {
     try {
-      const result = await authApi.getUserInfo() as AdminUser
-      user.value = result
-      return result
-    } catch (error) {
-      if (!silent) {
-        console.error('获取用户信息失败:', error)
+      console.log('📥 [监控端] 开始获取用户信息...', silent ? '(静默模式)' : '')
+      // 先获取基本的SecurityUser信息（包含userId）
+      const response = await authApi.getUserInfo() as any
+      console.log('📥 [监控端] SecurityUser信息:', response)
+      
+      if (response?.userId) {
+        // 使用userId获取完整的管理员信息
+        console.log('📥 [监控端] 获取完整管理员信息，adminId:', response.userId)
+        const adminResponse = await authApi.getAdminById(response.userId) as any
+        console.log('📥 [监控端] 完整管理员信息:', adminResponse)
+        
+        // 合并SecurityUser和AdminUser信息
+        user.value = {
+          ...adminResponse,
+          // 确保serId和adminId都存在（有些地方使用userId，有些使用adminId）
+          userId: response.userId,
+          // 保留SecurityUser中的权限信息
+          authorities: response.authorities
+        } as AdminUser
+        
+        console.log('✅ [监控端] 用户信息已设置:', user.value)
+        return user.value
+      } else {
+        console.warn('⚠️ [监控端] SecurityUser中没有userId')
+        user.value = response
+        return response
       }
-      throw error
+    } catch (error: any) {
+      if (!silent) {
+        console.error('❌ [监控端] 获取用户信息失败:', error)
+      }
+      // 获取用户信息失败不影响登录，只是没有用户详情
+      return null
     }
   }
 
@@ -68,6 +106,8 @@ export const useAuthStore = defineStore('auth', () => {
     token.value = null
     user.value = null
     localStorage.removeItem('monitor_token')
+    // 清除公告显示标记，下次登录再次显示
+    sessionStorage.removeItem('admonitor_announcement_shown')
   }
 
   // 清除认证状态

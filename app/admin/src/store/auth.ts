@@ -187,6 +187,8 @@ export const useAuthStore = defineStore('auth', {
         this.token = ''
         this.user = null
         localStorage.removeItem('admin_token')
+        // 清除公告显示标记，下次登录再次显示
+        sessionStorage.removeItem('admin_announcement_shown')
       }
     },
 
@@ -195,6 +197,8 @@ export const useAuthStore = defineStore('auth', {
       this.token = ''
       this.user = null
       localStorage.removeItem('admin_token')
+      // 清除公告显示标记，下次登录再次显示
+      sessionStorage.removeItem('admin_announcement_shown')
     },
 
     // 检查权限
