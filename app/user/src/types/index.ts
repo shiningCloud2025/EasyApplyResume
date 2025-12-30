@@ -40,12 +40,12 @@ export interface LoginForm {
 
 export interface PhoneLoginForm {
   phone: string
-  verifyCode: string
+  messageCode: string  // 后端字段名是 messageCode
 }
 
 export interface EmailLoginForm {
   email: string
-  verifyCode: string
+  messageCode: string  // 后端字段名是 messageCode
 }
 
 // 注册表单类型

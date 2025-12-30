@@ -172,6 +172,7 @@ public class UserAuthServiceImpl implements UserAuthService {
             userMapper.insert(user);
             String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
             // TODO:这两行代码导致了用户注册完，点击登录发送验证码的时候要等待三分钟，去掉这个代码解决这个
+            // TODO:由于我改成了注册即登录，也就不需要去掉了，直接留着就可以
             String redisKey = "user:token:" + user.getUserId();
             stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
             return token;

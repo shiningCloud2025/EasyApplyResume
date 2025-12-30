@@ -325,7 +325,7 @@ const LoginPage: React.FC = () => {
             <Form.Item>
               <div className="code-input-group">
                 <Form.Item
-                  name="verifyCode"
+                  name="messageCode"
                   noStyle
                   rules={[
                     { required: true, message: '请输入验证码' },
@@ -387,7 +387,7 @@ const LoginPage: React.FC = () => {
             <Form.Item>
               <div className="code-input-group">
                 <Form.Item
-                  name="verifyCode"
+                  name="messageCode"
                   noStyle
                   rules={[
                     { required: true, message: '请输入验证码' },
