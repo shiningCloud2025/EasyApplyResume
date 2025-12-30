@@ -87,7 +87,7 @@
           <div class="quick-info">
             <div class="info-item">
               <el-icon><Link /></el-icon>
-              <span>http://localhost:9001</span>
+              <span>http://117.50.184.138:37214</span>
             </div>
             <div class="info-item">
               <el-icon><CircleCheck /></el-icon>
@@ -111,7 +111,7 @@ const openMinio = async () => {
   loading.value = true
   try {
     await new Promise(resolve => setTimeout(resolve, 500))
-    window.open('http://localhost:9001', '_blank')
+    window.open('http://117.50.184.138:37214', '_blank')
     ElMessage.success('正在打开 MinIO 控制台')
   } finally {
     loading.value = false

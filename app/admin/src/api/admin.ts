@@ -536,3 +536,31 @@ export const systemDeleteResumeApi = {
       params: { userDeleteResumeId }
     })
 }
+
+// 公告相关API
+export interface AnnouncementInfo {
+  announcementId: number
+  announcementTitle: string
+  announcementContent: string
+  announcementUpdatedTime: string
+}
+
+export const announcementApi = {
+  // 获取管理端公告信息
+  getAdminAnnouncement: () => api.get<AnnouncementInfo>('/admonitor/admin/announcement/getInfo')
+}
+
+// 广告相关API
+export interface AdvertisementInfo {
+  advertisementId: number
+  advertisementName: string
+  advertisementUrl: string      // 广告图片URL
+  advertisementLink: string     // 点击跳转链接
+  advertisementStartedTime: string
+  advertisementEndTime: string
+}
+
+export const advertisementApi = {
+  // 获取管理端所有广告
+  getAllAdminAdvertisements: () => api.get<AdvertisementInfo[]>('/admonitor/admin/advertisement/findAllAdmonitorAdminAdvertisement')
+}

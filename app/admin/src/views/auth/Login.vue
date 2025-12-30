@@ -174,9 +174,9 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 import { useAuthStore } from '@/store/auth'
-import { authApi, smsApi } from '@/api/admin'
+import { authApi, smsApi, announcementApi } from '@/api/admin'
 import { isValidPhone, isValidEmail } from '@/utils'
 import type { FormInstance, FormRules } from 'element-plus'
 
@@ -380,6 +380,7 @@ const handleLogin = async () => {
 
     if (result) {
       ElMessage.success('登录成功')
+      
       // 使用 replace 替换当前历史记录，防止用户返回到登录页
       await router.replace('/admin/dashboard')
     }
@@ -758,5 +759,66 @@ onBeforeUnmount(() => {
   50% {
     transform: translateY(-20px) rotate(180deg);
   }
+}
+</style>
+
+<!-- 公告弹窗全局样式 -->
+<style>
+.announcement-dialog {
+  min-width: 450px !important;
+  max-width: 600px !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+}
+
+.announcement-dialog .el-message-box__header {
+  padding: 24px 24px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.announcement-dialog .el-message-box__title {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: white !important;
+}
+
+.announcement-dialog .el-message-box__headerbtn {
+  top: 20px;
+  right: 20px;
+}
+
+.announcement-dialog .el-message-box__headerbtn .el-message-box__close {
+  color: white !important;
+}
+
+.announcement-dialog .el-message-box__content {
+  padding: 24px !important;
+  font-size: 15px !important;
+  line-height: 1.8 !important;
+  color: #374151 !important;
+  min-height: 80px;
+}
+
+.announcement-dialog .el-message-box__status {
+  display: none !important;
+}
+
+.announcement-dialog .el-message-box__btns {
+  padding: 16px 24px 24px !important;
+}
+
+.announcement-dialog .el-message-box__btns .el-button--primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 12px 32px !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+
+.announcement-dialog .el-message-box__btns .el-button--primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 </style>

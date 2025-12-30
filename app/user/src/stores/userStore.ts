@@ -34,6 +34,8 @@ export const useUserStore = create<UserState>()(
       logout: () => {
         removeToken()
         set({ user: null, token: null, isLoggedIn: false, loading: false })
+        // 清除公告显示标记，下次登录再次显示
+        sessionStorage.removeItem('user_announcement_shown')
       },
 
       updateUser: (userData) => {

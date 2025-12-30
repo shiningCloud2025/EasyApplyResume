@@ -143,6 +143,20 @@ const router = createRouter({
           name: 'Grafana',
           component: () => import('@/views/main/security/Grafana.vue'),
           meta: { title: 'Grafana' }
+        },
+        // 个人中心
+        {
+          path: 'profile',
+          name: 'Profile',
+          component: () => import('@/views/main/Profile.vue'),
+          meta: { title: '个人中心' }
+        },
+        // 意见反馈
+        {
+          path: 'feedback/submit',
+          name: 'FeedbackSubmit',
+          component: () => import('@/views/main/FeedbackSubmit.vue'),
+          meta: { title: '意见反馈' }
         }
       ]
     },

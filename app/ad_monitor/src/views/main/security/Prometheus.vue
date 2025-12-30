@@ -87,7 +87,7 @@
           <div class="quick-info">
             <div class="info-item">
               <el-icon><Link /></el-icon>
-              <span>http://localhost:9090</span>
+              <span>http://117.50.184.138:37218</span>
             </div>
             <div class="info-item">
               <el-icon><CircleCheck /></el-icon>
@@ -111,7 +111,7 @@ const openPrometheus = async () => {
   loading.value = true
   try {
     await new Promise(resolve => setTimeout(resolve, 500))
-    window.open('http://localhost:9090', '_blank')
+    window.open('http://117.50.184.138:37218', '_blank')
     ElMessage.success('正在打开 Prometheus')
   } finally {
     loading.value = false

@@ -12,7 +12,8 @@ request.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('monitor_token')
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      // 使用与管理端相同的认证头格式
+      config.headers['Admin-Authorization'] = `Admin ${token}`
     }
     return config
   },
@@ -63,7 +64,11 @@ export const authApi = {
     request.get('/admin/email/sendEmailCode', { params: { email } }),
   
   // 获取用户信息
-  getUserInfo: () => request.post('/admin/auth/getAdminInfo', {})
+  getUserInfo: () => request.post('/admin/auth/getAdminInfo', {}),
+  
+  // 根据adminId获取管理员详情
+  getAdminById: (adminId: number) => 
+    request.get('/admin/admin/findById', { params: { adminId } })
 }
 
 // 短信API
@@ -246,7 +251,7 @@ export const userAnnouncementApi = {
     request.get('/admonitor/user/announcement/getInfo')
 }
 
-// 监测端公告API
+// 监控端公告API
 export const monitorAnnouncementApi = {
   // 添加公告
   add: (data: any) =>
@@ -259,6 +264,24 @@ export const monitorAnnouncementApi = {
   // 获取公告信息
   getInfo: () =>
     request.get('/admonitor/admonitor/announcement/getInfo')
+}
+
+// 管理员相关API
+export const adminApi = {
+  // 获取管理员详情
+  getAdminInfo: (adminId: number) =>
+    request.get('/admin/admin/findById', { params: { adminId } }),
+  
+  // 更新管理员信息
+  updateAdmin: (data: any) =>
+    request.put('/admin/admin/updateAdmin', data)
+}
+
+// 反馈相关API
+export const feedbackApi = {
+  // 添加反馈
+  addFeedback: (data: any) =>
+    request.post('/admin/feedback/addFeedback', data)
 }
 
 export default request

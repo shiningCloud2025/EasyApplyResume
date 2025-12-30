@@ -114,7 +114,7 @@
           </el-menu-item>
           <el-menu-item index="/admin/system/observation-portal">
             <el-icon><DataAnalysis /></el-icon>
-            <span>易投简历观测与广告端</span>
+            <span>易投简历监测与广告端</span>
           </el-menu-item>
         </el-sub-menu>
 
@@ -343,6 +343,9 @@
         </div>
       </template>
     </el-dialog>
+    
+    <!-- 空闲广告轮播 -->
+    <IdleAdCarousel :idle-time="7 * 60 * 1000" :enabled="true" />
 </template>
 
 <script setup lang="ts">
@@ -379,6 +382,7 @@ import { IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 import '@wangeditor/editor/dist/css/style.css'
 import { emailApi } from '@/api/admin'
 import type { FormInstance } from 'element-plus'
+import IdleAdCarousel from './IdleAdCarousel.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -483,7 +487,7 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/ai/agent': 'AI智能体助手',
     '/admin/system': '内部系统',
     '/admin/system/user-portal': '易投简历用户端',
-    '/admin/system/observation-portal': '易投简历观测与广告端',
+    '/admin/system/observation-portal': '易投简历监测与广告端',
     '/admin/feedback': '反馈管理',
     '/admin/feedback/submit': '意见反馈',
     '/admin/feedback/user-management': '用户端反馈管理',
