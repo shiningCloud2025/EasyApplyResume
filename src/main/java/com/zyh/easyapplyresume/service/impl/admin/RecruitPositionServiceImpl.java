@@ -50,6 +50,9 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
     @Override
     public Integer deleteRecruitPosition(Integer recruitPositionId) {
         try {
+            if (recruitPositionId == 1){
+                throw new BusException(AdminCodeEnum.NOT_DELETE_RECRUIT_POSITION);
+            }
            return recruitPositionMapper.deleteById(recruitPositionId);
         } catch (Exception e) {
             throw new BusException(AdminCodeEnum.NOT_DELETE_RECRUIT_POSITION);
