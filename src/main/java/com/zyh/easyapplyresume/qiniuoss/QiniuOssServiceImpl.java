@@ -74,6 +74,9 @@ public class QiniuOssServiceImpl implements OssService{
         LocalDate now = LocalDate.now();
         String uuid = UUID.randomUUID().toString().replace("-", "");
 
+        // 如果 ownerId 为 0，表示公共资源，key 中用 "public" 代替
+        String ownerPath = (ownerId == 0) ? "public" : String.valueOf(ownerId);
+
         return String.format("%s/%s/%s/%d/%d/%02d/%02d/%s%s",
                 env.toLowerCase(),
                 systemType.getDir(),
