@@ -1942,3 +1942,61 @@ java.nio.channels.ClosedChannelException: null
 2025-12-31 09:50:19.097 [main] INFO  c.z.e.d.a.AdminSensitiveWordsAdvisor - 管理端敏感词初始化完成，共加载 137 个敏感词
 2025-12-31 09:50:20.963 [main] INFO  c.z.s.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 39644 (C:\Users\shini\IdeaProjects\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
 2025-12-31 09:50:20.966 [main] INFO  c.z.s.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2025-12-31 09:50:22.203 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2025-12-31 09:50:22.280 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2025-12-31 09:50:22.333 [main] INFO  c.z.s.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.826 seconds (process running for 2.653)
+2025-12-31 09:50:25.712 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2025-12-31 09:50:25.720 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2025-12-31 09:50:26.013 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 用户端敏感词初始化完成，共加载 137 个敏感词
+2025-12-31 09:50:26.336 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-31 09:50:26.338 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-31 09:50:26.341 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2025-12-31 09:51:00.683 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = b2a0c03f-a77d-4639-ab93-c5a98f58f700
+2025-12-31 09:51:00.878 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 86c40c15-deee-4d01-8107-1517a343173d
+2025-12-31 09:51:01.057 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = e789e1a7-622d-43f1-a957-9439bb6eb4d8
+2025-12-31 09:51:01.272 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 18c6d84e-2216-4489-aa60-1aa81e77df60
+2025-12-31 09:51:01.478 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = fa773c1c-1de7-43b4-958f-78ca73772f1f
+2025-12-31 09:51:01.685 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 8156f73c-34c7-4b0a-9008-8c707995fbac
+2025-12-31 09:51:01.897 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 4ce3e070-3c20-4f9b-9dae-a7b94428c79a
+2025-12-31 09:51:02.060 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 3bad25a0-bb97-4892-88fc-ad335c124282
+2025-12-31 09:51:02.296 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = c6bfea60-4f5b-4ed3-bf91-2df23f9a7102
+2025-12-31 09:51:02.459 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = be8e2cec-5857-4024-8ac1-0371d25c8b19
+2025-12-31 09:51:02.620 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = b33727fb-fd41-4339-ad96-690fdbceea40
+2025-12-31 09:51:02.784 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 6a334e85-7574-42e5-a59d-a8a4d2f01da6
+2025-12-31 09:51:02.956 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 67db58d4-a923-44e0-a62d-c51ecd22eaa4
+2025-12-31 09:51:03.113 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 08ebb76a-7a64-4c32-af8a-9c577bbce8ee
+2025-12-31 09:51:03.274 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = c60cf1cc-4037-4811-a297-652d2f7f9235
+2025-12-31 09:51:03.439 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 308faabb-b1bd-4352-945a-a050ddf8e1ac
+2025-12-31 09:51:03.600 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 2a38908c-3ff8-42e0-9c63-30888ce329c3
+2025-12-31 09:51:03.756 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 03ac9900-da38-493f-952d-aab975072ff1
+2025-12-31 09:51:03.906 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 63b8b0a8-a43c-4052-b162-e93f5500979b
+2025-12-31 09:51:04.065 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 65c757d0-9308-402e-996f-b884eadf1aa7
+2025-12-31 09:51:04.214 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = f936baad-cc56-4f80-85be-f90d7c046aa8
+2025-12-31 09:51:04.403 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = fac4e8e2-f547-4bbe-98ec-6359240861c3
+2025-12-31 09:51:04.556 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = e57e7cea-fb5c-4f88-afff-ae51140aa78e
+2025-12-31 09:51:04.718 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = a040acda-c9c3-4376-ba89-301e311aa7f1
+2025-12-31 09:51:04.911 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 77d3c12e-c223-4dac-9e4f-0d39fa3531f7
+2025-12-31 09:51:05.054 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = e346790a-83b1-4937-aa1e-205d3a61daf4
+2025-12-31 09:51:05.256 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 63e17edb-6640-44c8-b018-50e5c0c2b309
+2025-12-31 09:51:05.534 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 8397cf1d-2b07-4ed5-884b-529cc1270520
+2025-12-31 09:51:05.753 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2025-12-31 09:51:05.761 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2025-12-31 09:51:05.985 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2025-12-31 09:51:06.100 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2025-12-31 09:51:06.106 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2025-12-31 09:51:06.106 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2025-12-31 09:51:06.114 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-12-31 09:51:06.542 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@e092289
+2025-12-31 09:51:06.544 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-12-31 09:51:07.028 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: b5a27568-693c-4844-974e-2039621203a6
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2025-12-31 09:51:07.042 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2025-12-31 09:51:07.576 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 16 endpoints beneath base path '/actuator'
+2025-12-31 09:51:08.447 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-12-31 09:51:08.463 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2025-12-31 09:51:08.485 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 58.375 seconds (process running for 60.116)
+2025-12-31 09:51:11.180 [registrationTask1] WARN  d.c.b.a.c.r.ApplicationRegistrator - Failed to register application as Application(name=EasyApplyResume, managementUrl=http://backend-1:8080/actuator, healthUrl=http://backend-1:8080/actuator/health, serviceUrl=http://backend-1:8080) at spring-boot-admin ([http://EasyApplyResume-spring-boot-admin:9090/instances]): I/O error on POST request for "http://EasyApplyResume-spring-boot-admin:9090/instances": 不知道这样的主机。 (easyapplyresume-spring-boot-admin). Further attempts are logged on DEBUG level
