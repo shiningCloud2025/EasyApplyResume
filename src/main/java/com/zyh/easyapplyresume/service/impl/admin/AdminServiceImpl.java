@@ -11,6 +11,9 @@ import com.zyh.easyapplyresume.model.query.admin.AdminPageQuery;
 import com.zyh.easyapplyresume.model.vo.admin.AdminInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminPageVO;
 import com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO;
+import com.zyh.easyapplyresume.qiniuoss.OssAdminBusinessTypeEnum;
+import com.zyh.easyapplyresume.qiniuoss.OssService;
+import com.zyh.easyapplyresume.qiniuoss.OssSystemTypeEnum;
 import com.zyh.easyapplyresume.service.admin.AdminService;
 import com.zyh.easyapplyresume.utils.adminvalidator.AdminFormValidator;
 import jakarta.annotation.Resource;
@@ -44,39 +47,70 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
+    @Autowired
+    private OssService ossService;
+
     @Override
     public Integer addAdmin(AdminForm adminForm) {
-        if(adminForm==null) {
-            return 0;
-        }
-        AdminFormValidator.validateForAdd(adminForm);
-        Admin admin = new Admin();
-        admin.setAdminLoginTime(new Date());
-        BeanUtils.copyProperties(adminForm, admin);
-        admin.setAdminPassword(passwordEncoder.encode(admin.getAdminPassword()));
         try{
+            if(adminForm==null) {
+                return 0;
+            }
+            // 因为是新增，就是为空或者不为空，无法手动输入了，只能上传
+            // 为了去解决事务问题，因为我是先上传，后保存。保存失败，上传但是成功了,新增没有id!!所以在修改处理
+            AdminFormValidator.validateForAdd(adminForm);
+            Admin admin = new Admin();
+            admin.setAdminLoginTime(new Date());
+            BeanUtils.copyProperties(adminForm, admin);
+            admin.setAdminPassword(passwordEncoder.encode(admin.getAdminPassword()));
+
             return adminMapper.insert(admin);
         }catch (DataAccessException e){
             throw resolveDbException(e);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("添加管理员失败");
         }
 
     }
 
     @Override
     public Integer updateAdmin(AdminForm adminForm) {
-        if(adminForm==null) {
-            return 0;
-        }
-        if (adminForm.getAdminId()==1){
-            throw new BusException(AdminCodeEnum.NO_UPDATE_SUPER_ADMIN);
-        }
-        AdminFormValidator.validateForUpdate(adminForm);
-        Admin admin = new Admin();
-        BeanUtils.copyProperties(adminForm, admin);
         try{
+            if(adminForm==null) {
+                return 0;
+            }
+            if (adminForm.getAdminId()==1){
+                throw new BusException(AdminCodeEnum.NO_UPDATE_SUPER_ADMIN);
+            }
+
+            if (adminForm.getAdminImage().equals("https://ts1.tc.mm.bing.net/th/id/R-C.928ef8908b5eb3666b2a27a1f6cfbe17?rik=h2FXLv1HNaxbTg&riu=http%3a%2f%2fp0.so.qhmsg.com%2ft018b5eb3666b2a27a1.jpg&ehk=QnGPPvZKq3cPW6%2bdkG%2b3zIRvAGXRsgYVTirfbvOBTaU%3d&risl=&pid=ImgRaw&r=0")){
+                // 说明用户修改的时候还是传的原始图片，不需要处理
+            }else {
+                // 说明用户传了新的
+                List<String> strings = ossService.listFilesByOwner(OssSystemTypeEnum.ADMIN, OssAdminBusinessTypeEnum.ADMIN_HEAD_IMG, adminForm.getAdminId(), false);
+                if (strings.isEmpty()){
+                    // 说明是第一次传新的，不用处理
+                }else{
+                    // 说明不是第一次传新的，要处理不等于当前的
+                    for (String string : strings){
+                        if (!string.equals(adminForm.getAdminImage())){
+                            ossService.deleteByUrl(string, false);
+                        }
+                    }
+                }
+
+            }
+
+            AdminFormValidator.validateForUpdate(adminForm);
+            Admin admin = new Admin();
+            BeanUtils.copyProperties(adminForm, admin);
             return adminMapper.updateById(admin);
         }catch (DataAccessException e){
             throw resolveDbException(e);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("更新管理员失败");
         }
     }
     private BusException resolveDbException(Exception e) {
@@ -99,18 +133,35 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Integer deleteAdmin(Integer adminId) {
-        if (adminId==1){
-            throw new BusException(AdminCodeEnum.NO_DELETE_SUPER_ADMIN);
+        try{
+            if (adminId==1){
+                throw new BusException(AdminCodeEnum.NO_DELETE_SUPER_ADMIN);
+            }
+            Admin admin = adminMapper.selectById(adminId);
+            admin.setDeleted(1);
+            List<String> strings = ossService.listFilesByOwner(OssSystemTypeEnum.ADMIN, OssAdminBusinessTypeEnum.ADMIN_HEAD_IMG, adminId, false);
+            if (!strings.isEmpty()){
+                for (String string : strings) {
+                    ossService.deleteByUrl(string, false);
+                }
+            }
+            adminMapper.updateById(admin);
+            return adminMapper.deleteRoleByAdminId(adminId);
+        }catch (Exception  e){
+            e.printStackTrace();
+            throw new RuntimeException("删除管理员失败");
         }
-        Admin admin = adminMapper.selectById(adminId);
-        admin.setDeleted(1);
-        adminMapper.updateById(admin);
-        return adminMapper.deleteRoleByAdminId(adminId);
+
     }
 
     @Override
     public AdminInfoVO findAdminById(Integer adminId) {
-        return adminMapper.findAdminInfoById(adminId);
+        try{
+            return adminMapper.findAdminInfoById(adminId);
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("查询管理员失败");
+        }
     }
 
     @Override
