@@ -9,6 +9,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum OssAdMonitorBusinessTypeEnum implements OssBusinessType{
+    ADMONITOR_AD_IMG("admonitoradimg")
 
     ;
     private final String dir;

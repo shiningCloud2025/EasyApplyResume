@@ -10,6 +10,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum OssAdminBusinessTypeEnum implements OssBusinessType{
     ADMIN_HEAD_IMG("adminheadimg"),
+    ADMIN_AD_IMG("adminadimg"),
     ;
     private final String dir;
 

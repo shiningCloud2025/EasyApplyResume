@@ -33,10 +33,17 @@ public class AdminFileController {
         return BaseResult.ok(url);
     }
 
-    @Operation(summary = "删除文件")
+    @Operation(summary = "删除文件(非私有)")
     @DeleteMapping("/deleteFile")
     public BaseResult<?> deleteFile(@RequestParam(required = true,value = "fileUrl") String fileUrl){
         ossService.deleteByUrl(fileUrl,false);
+        return BaseResult.ok();
+    }
+
+    @Operation(summary = "删除文件(私有)")
+    @DeleteMapping("/deleteFilePrivate")
+    public BaseResult<?> deleteFilePrivate(@RequestParam(required = true,value = "fileUrl") String fileUrl){
+        ossService.deleteByUrl(fileUrl,true);
         return BaseResult.ok();
     }
 
@@ -47,19 +54,32 @@ public class AdminFileController {
         return BaseResult.ok(urls);
     }
 
-    @Operation(summary = "获取文件预览地址")
+    @Operation(summary = "获取文件预览地址(非私有)")
     @GetMapping("/getPreviewUrl")
     public BaseResult<String> getPreviewUrl(@RequestParam(required = true,value = "fileUrl") String fileUrl){
         String url = ossService.getPreviewUrl(fileUrl, false);
         return BaseResult.ok(url);
     }
 
-    @Operation(summary = "获取文件下载地址")
+    @Operation(summary = "获取文件预览地址(私有)")
+    @GetMapping("/getPreviewUrlPrivate")
+    public BaseResult<String> getPreviewUrlPrivate(@RequestParam(required = true,value = "fileUrl") String fileUrl){
+        String url = ossService.getPreviewUrl(fileUrl, true);
+        return BaseResult.ok(url);
+    }
+
+    @Operation(summary = "获取文件下载地址(非私有)")
     @GetMapping("/getDownloadUrl")
     public BaseResult<String> getDownloadUrl(@RequestParam(required = true,value = "fileUrl") String fileUrl){
         String url = ossService.generateDownloadUrl(fileUrl, false,0);
         return BaseResult.ok(url);
     }
 
+    @Operation(summary = "获取文件下载地址(私有)")
+    @GetMapping("/getDownloadUrlPrivate")
+    public BaseResult<String> getDownloadUrlPrivate(@RequestParam(required = true,value = "fileUrl") String fileUrl){
+        String url = ossService.generateDownloadUrl(fileUrl, true,3600);
+        return BaseResult.ok(url);
+    }
 
 }
