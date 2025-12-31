@@ -110,6 +110,30 @@ const messages = ref<Message[]>([
 
 // 页面加载时生成随机 chatId，整个会话期间保持不变
 const currentChatId = ref<string>('chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9))
+let streamingTimeout: ReturnType<typeof setTimeout> | null = null
+let streamingContentCache = '' // 追踪当前流式内容
+
+// 强制重置状态
+const forceResetState = () => {
+  console.log('🔄 [强制重置] 状态')
+  // 如果有已接收的内容，先保存到消息列表
+  if (streamingContentCache) {
+    messages.value.push({
+      id: Date.now(),
+      role: 'assistant',
+      content: streamingContentCache,
+      timestamp: new Date()
+    })
+  }
+  isStreaming.value = false
+  streamingContent.value = ''
+  streamingContentCache = ''
+  if (streamingTimeout) {
+    clearTimeout(streamingTimeout)
+    streamingTimeout = null
+  }
+  scrollToBottom()
+}
 
 // 滚动到底部
 const scrollToBottom = () => {
@@ -147,6 +171,16 @@ const sendMessage = async () => {
   // 开始流式接收
   isStreaming.value = true
   streamingContent.value = ''
+  streamingContentCache = '' // 重置缓存
+  
+  // 设置超时保护（10秒后强制重置，允许用户重新输入）
+  if (streamingTimeout) {
+    clearTimeout(streamingTimeout)
+  }
+  streamingTimeout = setTimeout(() => {
+    console.log('⚠️ [超时] 10秒后强制重置状态')
+    forceResetState()
+  }, 10000)
   
   try {
     console.log('📤 [AI Chat] 发送消息:', messageText)
@@ -240,12 +274,14 @@ const sendMessage = async () => {
             }
             
             if (content) {
-              streamingContent.value += content
+                streamingContent.value += content
+                streamingContentCache = streamingContent.value // 同步更新缓存
           scrollToBottom()
             }
           } catch (e) {
             // 如果不是JSON，直接追加文本
             streamingContent.value += data
+            streamingContentCache = streamingContent.value // 同步更新缓存
             scrollToBottom()
           }
         }
@@ -254,6 +290,7 @@ const sendMessage = async () => {
 
     // 流式传输完成，保存消息
     if (streamingContent.value) {
+      streamingContentCache = '' // 已保存，清空缓存防止重复保存
       messages.value.push({
         id: Date.now(),
         role: 'assistant',
@@ -273,9 +310,11 @@ const sendMessage = async () => {
   } catch (error: any) {
     console.error('❌ [AI Chat] 发送消息失败:', error)
     ElMessage.error('发送失败：' + (error.message || '请稍后重试'))
-    isStreaming.value = false
-    streamingContent.value = ''
   }
+  
+  // 无论如何都重置状态
+  console.log('✅ [AI Chat] 重置状态')
+  forceResetState()
 }
 
 // 清空消息

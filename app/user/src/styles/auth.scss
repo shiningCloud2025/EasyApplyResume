@@ -1,6 +1,5 @@
 /* 认证页面通用样式 */
-.login-container,
-.register-container {
+.login-container {
   min-height: 100vh;
   width: 100%;
   display: flex;
@@ -10,6 +9,24 @@
   background-size: 400% 400%;
   animation: gradientFlow 15s ease infinite;
   padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 注册页面 - 紧凑布局，一屏显示所有内容 */
+.register-container {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;  /* 垂直居中 */
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
+  padding: 15px;  /* 减少外边距 */
   position: fixed;
   top: 0;
   left: 0;
@@ -104,8 +121,7 @@
 }
 
 /* 左侧装饰区域 */
-.login-card-left,
-.register-card-left {
+.login-card-left {
   flex: 0 0 35%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 50px 40px;
@@ -115,9 +131,18 @@
   align-items: center;
 }
 
+.register-card-left {
+  flex: 0 0 28%;  /* 缩小左侧区域 */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 30px 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /* 右侧表单区域 */
-.login-card-right,
-.register-card-right {
+.login-card-right {
   flex: 1;
   padding: 50px 60px;
   overflow-y: auto;
@@ -127,6 +152,16 @@
   justify-content: center;
 }
 
+.register-card-right {
+  flex: 1;
+  padding: 15px 35px;  /* 进一步减少内边距 */
+  overflow-y: auto;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;  /* 从顶部开始 */
+}
+
 .login-card {
   min-height: 550px;
   max-height: 650px;
@@ -134,13 +169,19 @@
 
 .register-card {
   max-width: 1200px;
-  min-height: 650px;
+  min-height: auto;  /* 不设置最小高度，让内容决定 */
+  max-height: 95vh;  /* 最大高度限制在视口内 */
 }
 
 /* Header & Logo */
-.logo-section, .register-header {
+.logo-section {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;  /* 减少间距 */
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .logo {
@@ -310,7 +351,7 @@
   justify-content: center;
   align-items: center;
   gap: 12px;
-  margin-top: 25px;
+  margin-top: 12px;  /* 减少间距 */
 }
 
 .link-button {
@@ -410,7 +451,7 @@
 }
 
 .register-steps {
-  margin-bottom: 40px;
+  margin-bottom: 12px;  /* 进一步减少步骤条下方间距 */
   
   .ant-steps-item-title {
     font-size: 14px !important;
@@ -436,16 +477,16 @@
 }
 
 .steps-content {
-  min-height: 350px;
-  margin-bottom: 30px;
+  min-height: auto;  /* 不设置最小高度 */
+  margin-bottom: 10px;  /* 进一步减少间距 */
 }
 
 .steps-action {
-  margin-top: 24px;
+  margin-top: 12px;
   text-align: center;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 10px;
   
   .ant-btn {
     margin: 0;

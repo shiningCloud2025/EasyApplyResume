@@ -16,7 +16,7 @@
               </div>
             </div>
             
-            <h2>易投简历观测与广告端</h2>
+            <h2>易投简历监测与广告端</h2>
             <p class="subtitle">系统监控、数据分析与广告管理平台，提供全面的运营支持</p>
             
             <div class="features">
@@ -76,7 +76,7 @@
                 :loading="loading"
               >
                 <i class="el-icon-top-right"></i>
-                打开观测与广告端
+                打开监测与广告端
               </el-button>
             </div>
             
@@ -102,7 +102,7 @@ import { ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 
 const loading = ref(false)
-const portalURL = 'http://localhost:3002'
+const portalURL = 'http://117.50.184.138:37223'
 
 const statusIcon = computed(() => 'el-icon-success')
 const statusColor = computed(() => '#ef4444')
@@ -113,7 +113,7 @@ const openPortal = async () => {
   try {
     await new Promise(resolve => setTimeout(resolve, 500))
     window.open(portalURL, '_blank')
-    ElMessage.success('正在打开易投简历观测与广告端')
+    ElMessage.success('正在打开易投简历监测与广告端')
   } catch (error) {
     ElMessage.error('打开失败，请检查服务是否启动')
   } finally {

@@ -1,0 +1,160 @@
+# ================================================
+# 追加到服务器 /EasyApplyResume/docker-compose.yml
+# ================================================
+# 
+# 架构：
+#   user:37222    ─┐
+#   admin:37221   ─┼─ /api/ → nginx-gateway → backend-1, backend-2
+#   monitor:37223 ─┘
+#
+# ================================================
+
+  # ============================================
+  # Nginx API 网关（只负责后端负载均衡）
+  # ============================================
+  nginx-gateway:
+    image: nginx:alpine
+    container_name: EasyApplyResume-nginx-gateway
+    restart: always
+    networks:
+      - app-network
+    volumes:
+      - ${PWD}/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ${PWD}/nginx/logs:/var/log/nginx
+    # 内部服务，不暴露外部端口
+    # ports:
+    #   - "8000:80"
+    depends_on:
+      - backend-1
+      - backend-2
+
+  # ============================================
+  # 后端服务实例 1
+  # ============================================
+  backend-1:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: easyapply-backend:latest
+    container_name: EasyApplyResume-backend-1
+    restart: always
+    networks:
+      - app-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - TZ=Asia/Shanghai
+      - SERVER_PORT=8080
+      # 数据库连接
+      - SPRING_DATASOURCE_URL=jdbc:mysql://EasyApplyResume-mysql:3306/zyh_dev_EasyApplyResume?useUnicode=true&characterEncoding=utf8mb4&serverTimezone=Asia/Shanghai
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=mysql~!@#$$%^&*()_+
+      # Redis 连接
+      - SPRING_REDIS_HOST=EasyApplyResume-redis
+      - SPRING_REDIS_PORT=6379
+      - SPRING_REDIS_PASSWORD=redis~!@#$$%^&*()_+
+      # Nacos 配置
+      - SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR=EasyApplyResume-nacos:8848
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=EasyApplyResume-nacos:8848
+    volumes:
+      - ./backend/logs/instance-1:/app/logs
+      - ./backend/upload:/app/upload
+    depends_on:
+      - mysql
+      - redis
+      - nacos
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ============================================
+  # 后端服务实例 2
+  # ============================================
+  backend-2:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: easyapply-backend:latest
+    container_name: EasyApplyResume-backend-2
+    restart: always
+    networks:
+      - app-network
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - TZ=Asia/Shanghai
+      - SERVER_PORT=8080
+      # 数据库连接
+      - SPRING_DATASOURCE_URL=jdbc:mysql://EasyApplyResume-mysql:3306/zyh_dev_EasyApplyResume?useUnicode=true&characterEncoding=utf8mb4&serverTimezone=Asia/Shanghai
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=mysql~!@#$$%^&*()_+
+      # Redis 连接
+      - SPRING_REDIS_HOST=EasyApplyResume-redis
+      - SPRING_REDIS_PORT=6379
+      - SPRING_REDIS_PASSWORD=redis~!@#$$%^&*()_+
+      # Nacos 配置
+      - SPRING_CLOUD_NACOS_DISCOVERY_SERVER_ADDR=EasyApplyResume-nacos:8848
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=EasyApplyResume-nacos:8848
+    volumes:
+      - ./backend/logs/instance-2:/app/logs
+      - ./backend/upload:/app/upload
+    depends_on:
+      - mysql
+      - redis
+      - nacos
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ============================================
+  # 管理端前端 - Admin (端口 37221)
+  # ============================================
+  admin:
+    build:
+      context: ./app/admin
+      dockerfile: Dockerfile
+    image: easyapply-admin:latest
+    container_name: EasyApplyResume-admin
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - "37221:80"
+    depends_on:
+      - nginx-gateway
+
+  # ============================================
+  # 用户端前端 - User (端口 37222)
+  # ============================================
+  user:
+    build:
+      context: ./app/user
+      dockerfile: Dockerfile
+    image: easyapply-user:latest
+    container_name: EasyApplyResume-user
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - "37222:80"
+    depends_on:
+      - nginx-gateway
+
+  # ============================================
+  # 监控端前端 - AdMonitor (端口 37223)
+  # ============================================
+  ad_monitor:
+    build:
+      context: ./app/ad_monitor
+      dockerfile: Dockerfile
+    image: easyapply-admonitor:latest
+    container_name: EasyApplyResume-admonitor
+    restart: always
+    networks:
+      - app-network
+    ports:
+      - "37223:80"
+    depends_on:
+      - nginx-gateway

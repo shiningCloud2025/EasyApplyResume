@@ -69,10 +69,10 @@ public class AdMonitorAnnouncementServiceImpl implements AdMonitorAnnouncementSe
     }
 
     @Override
-    public AdMonitorAnnouncementInfoVO getAnnouncementInfo(Integer announcementId) {
+    public AdMonitorAnnouncementInfoVO getAnnouncementInfo() {
         try{
             log.info("监测端获取公告信息");
-            AdMonitorAnnouncement adMonitorAnnouncement = adMonitorAnnouncementMapper.selectById(announcementId);
+            AdMonitorAnnouncement adMonitorAnnouncement = adMonitorAnnouncementMapper.selectById(1);
             AdMonitorAnnouncementInfoVO adMonitorAnnouncementInfoVO = new AdMonitorAnnouncementInfoVO();
             BeanUtil.copyProperties(adMonitorAnnouncement, adMonitorAnnouncementInfoVO);
             log.info("监测端获取公告信息成功");

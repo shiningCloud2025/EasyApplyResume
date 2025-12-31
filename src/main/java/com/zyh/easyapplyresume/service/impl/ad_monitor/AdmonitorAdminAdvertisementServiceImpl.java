@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -142,7 +143,15 @@ public class AdmonitorAdminAdvertisementServiceImpl implements AdmonitorAdminAdv
     public List<AdmonitorAdminAdvertisementInfoVO> findAllAdmonitorAdminAdvertisement() {
        try{
            log.info("查询所有广告开始");
-           List<AdmonitorAdminAdvertisement> admonitorAdminAdvertisements = admonitorAdminAdvertisementMapper.selectList(null);
+           Date today = new Date();
+           LambdaQueryWrapper<AdmonitorAdminAdvertisement> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+           lambdaQueryWrapper.eq(AdmonitorAdminAdvertisement::getDeleted, 0);
+           // 开始时间 ≤ 今天（今天或之前创建）
+           lambdaQueryWrapper.le(AdmonitorAdminAdvertisement::getAdvertisementStartedTime, today);
+           // 结束时间 > 今天（明天或以后结束）
+           lambdaQueryWrapper.gt(AdmonitorAdminAdvertisement::getAdvertisementEndTime, today);
+           List<AdmonitorAdminAdvertisement> admonitorAdminAdvertisements = admonitorAdminAdvertisementMapper.selectList(lambdaQueryWrapper);
+
            log.info("查询所有广告成功");
            return BeanUtil.copyToList(admonitorAdminAdvertisements, AdmonitorAdminAdvertisementInfoVO.class);
        }catch (Exception e){

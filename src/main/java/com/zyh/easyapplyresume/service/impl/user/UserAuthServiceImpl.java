@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.service.impl.user;
 
+import cn.hutool.core.date.DateUtil;
 import com.zyh.easyapplyresume.bean.locationenum.CityEnum;
 import com.zyh.easyapplyresume.bean.locationenum.ProvinceEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
@@ -9,7 +10,10 @@ import com.zyh.easyapplyresume.model.form.user.EmailLoginForm;
 import com.zyh.easyapplyresume.model.form.user.FormalLoginForm;
 import com.zyh.easyapplyresume.model.form.user.FormalRegisterForm;
 import com.zyh.easyapplyresume.model.form.user.PhoneLoginForm;
+import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorAdminDailyVisitNum;
+import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorUserDailyVisitNum;
 import com.zyh.easyapplyresume.model.pojo.user.User;
+import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorUserDailyVisitNumService;
 import com.zyh.easyapplyresume.service.user.UserAuthService;
 import com.zyh.easyapplyresume.service.user.UserLoginAndRegisterEmailVerifyService;
 import com.zyh.easyapplyresume.service.user.UserSmsService;
@@ -59,6 +63,9 @@ public class UserAuthServiceImpl implements UserAuthService {
     @Autowired
     private UserLoginAndRegisterEmailVerifyService userLoginAndRegisterEmailVerifyService;
 
+    @Autowired
+    private AdmonitorUserDailyVisitNumService admonitorUserDailyVisitNumService;
+
     /**
      * 普通登录(账号/手机号/邮箱号)
      * @param formalLoginForm
@@ -72,6 +79,14 @@ public class UserAuthServiceImpl implements UserAuthService {
         }
         if (!passwordEncoder.matches(formalLoginForm.getPassword(), user.getUserPassword())){
             throw new BusException(UserCodeEnum.ACCOUNT_OR_PASSWORD_ERROR);
+        }
+        if (user.getUserLoginTime() == null || !DateUtil.isSameDay(user.getUserLoginTime(),new Date())){
+            // TODO:这里不能用构造 因为构造没有自动类型转换
+            AdmonitorUserDailyVisitNum admonitorUserDailyVisitNum = new AdmonitorUserDailyVisitNum();
+            admonitorUserDailyVisitNum.setUserDailyVisitNumAdminId(user.getUserId());
+            admonitorUserDailyVisitNum.setUserDailyVisitNumVisitTime(new Date());
+            admonitorUserDailyVisitNumService.addAdmonitorUserDailyVisitNum(admonitorUserDailyVisitNum);
+
         }
         user.setUserLoginTime(new Date());
         userMapper.updateById(user);
@@ -93,6 +108,14 @@ public class UserAuthServiceImpl implements UserAuthService {
         if (user== null){
             throw new BusException(UserCodeEnum.NO_REGISTER_ERROR);
         }
+        if (user.getUserLoginTime() == null || !DateUtil.isSameDay(user.getUserLoginTime(),new Date())){
+            // TODO:这里不能用构造 因为构造没有自动类型转换
+            AdmonitorUserDailyVisitNum admonitorUserDailyVisitNum = new AdmonitorUserDailyVisitNum();
+            admonitorUserDailyVisitNum.setUserDailyVisitNumAdminId(user.getUserId());
+            admonitorUserDailyVisitNum.setUserDailyVisitNumVisitTime(new Date());
+            admonitorUserDailyVisitNumService.addAdmonitorUserDailyVisitNum(admonitorUserDailyVisitNum);
+
+        }
         user.setUserLoginTime(new Date());
         userMapper.updateById(user);
         String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
@@ -112,6 +135,14 @@ public class UserAuthServiceImpl implements UserAuthService {
         User user = userMapper.findByAccountOrPhoneOrEmail(emailLoginForm.getEmail());
         if (user== null){
             throw new BusException(UserCodeEnum.NO_REGISTER_ERROR);
+        }
+        if (user.getUserLoginTime() == null || !DateUtil.isSameDay(user.getUserLoginTime(),new Date())){
+            // TODO:这里不能用构造 因为构造没有自动类型转换
+            AdmonitorUserDailyVisitNum admonitorUserDailyVisitNum = new AdmonitorUserDailyVisitNum();
+            admonitorUserDailyVisitNum.setUserDailyVisitNumAdminId(user.getUserId());
+            admonitorUserDailyVisitNum.setUserDailyVisitNumVisitTime(new Date());
+            admonitorUserDailyVisitNumService.addAdmonitorUserDailyVisitNum(admonitorUserDailyVisitNum);
+
         }
         user.setUserLoginTime(new Date());
         userMapper.updateById(user);
@@ -140,6 +171,8 @@ public class UserAuthServiceImpl implements UserAuthService {
                     CityEnum.getById(user.getUserRecruitLocationSecond()).getName());
             userMapper.insert(user);
             String token = jwtUtil.generateToken(user.getUserId(), user.getUserUsername(), "user", jwtSecret, jwtExpiration);
+            // TODO:这两行代码导致了用户注册完，点击登录发送验证码的时候要等待三分钟，去掉这个代码解决这个
+            // TODO:由于我改成了注册即登录，也就不需要去掉了，直接留着就可以
             String redisKey = "user:token:" + user.getUserId();
             stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
             return token;

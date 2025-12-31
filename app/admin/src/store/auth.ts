@@ -178,12 +178,8 @@ export const useAuthStore = defineStore('auth', {
     // 退出登录
     async logout() {
       try {
-        // 调用退出接口
-        if (this.user) {
-          await api.get('/admin/auth/logout', {
-            params: { adminId: this.user.adminId }
-          })
-        }
+        // 调用退出接口（POST，通过token获取用户）
+        await api.post('/admin/admin/logout')
       } catch (error) {
         console.error('退出登录失败:', error)
       } finally {
@@ -191,6 +187,8 @@ export const useAuthStore = defineStore('auth', {
         this.token = ''
         this.user = null
         localStorage.removeItem('admin_token')
+        // 清除公告显示标记，下次登录再次显示
+        sessionStorage.removeItem('admin_announcement_shown')
       }
     },
 
@@ -199,6 +197,8 @@ export const useAuthStore = defineStore('auth', {
       this.token = ''
       this.user = null
       localStorage.removeItem('admin_token')
+      // 清除公告显示标记，下次登录再次显示
+      sessionStorage.removeItem('admin_announcement_shown')
     },
 
     // 检查权限

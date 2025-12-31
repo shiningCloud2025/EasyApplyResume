@@ -70,7 +70,7 @@ public class FormalRegisterForm {
     private Integer userRecruitLocationSecond;
 
     @Schema(description = "用户大学编码")
-    private int userUniversityCode;
+    private Integer userUniversityCode;
 
     @Schema(description = "手机验证码")
     private String phoneMessageCode;

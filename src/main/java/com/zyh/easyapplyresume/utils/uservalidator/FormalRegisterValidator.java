@@ -125,7 +125,10 @@ public class FormalRegisterValidator {
             form.setUserIntroduce(introduce);
         }
 
-        // 8. 选填：用户目标岗位（不填则为null，无需校验）
+        // 8. 选填：用户目标岗位（不填则默认为1）
+        if (form.getUserDreamPosition() == null || form.getUserDreamPosition() == 0) {
+            form.setUserDreamPosition(1);
+        }
 
         // 9. 选填：用户希望的最低月薪（默认0，校验≥0且≤100000）→ USER_MIN_SALARY_NEGATIVE(10016) / USER_MIN_SALARY_TOO_HIGH(10017)
         if (form.getUserDreamMinMonthSalary() == null) {
@@ -152,7 +155,7 @@ public class FormalRegisterValidator {
         }
 
         // 11. 选填：用户希望的每周工作数（默认5，校验0-7之间）→ USER_WEEK_WORK_DAY_NUM_ILLEGAL(10019)
-        if (form.getUserDreamWeekWorkDayNum() == 0) {
+        if (form.getUserDreamWeekWorkDayNum() == 0||form.getUserDreamWeekWorkDayNum()==null) {
             form.setUserDreamWeekWorkDayNum(5);
         } else {
             int weekWorkDayNum = form.getUserDreamWeekWorkDayNum();
@@ -187,7 +190,7 @@ public class FormalRegisterValidator {
         }
 
         // 15. 选填：用户大学编码（默认4001）
-        if (form.getUserUniversityCode() == 0) {
+        if (form.getUserUniversityCode() == 0||form.getUserUniversityCode()==null) {
             form.setUserUniversityCode(4001);
         }
     }

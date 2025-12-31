@@ -39,16 +39,16 @@ const systemLinks = ref([
     icon: 'el-icon-user-solid',
     color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
     status: 'online',
-    url: 'http://localhost:3000'
+    url: 'http://117.50.184.138:37222'
   },
   {
     id: 2,
-    name: '易投简历观测与广告端',
+    name: '易投简历监测与广告端',
     description: '系统监控和广告管理平台',
     icon: 'el-icon-view',
     color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
     status: 'online',
-    url: 'http://localhost:3100'
+    url: 'http://117.50.184.138:37223'
   },
   {
     id: 3,

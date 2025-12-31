@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: spring-boot-admin
+  # 可选：安全认证配置
+  security:
+    user:
+      name: zyh
+      password: zyh123
+
+server:
+  port: 9090
