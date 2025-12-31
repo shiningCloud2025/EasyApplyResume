@@ -222,7 +222,26 @@
         </el-form-item>
         
         <el-form-item label="头像" prop="adminImage">
-          <el-input v-model="form.adminImage" placeholder="请输入头像URL" />
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <el-avatar :size="60" :src="form.adminImage || 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'" />
+            <div style="flex: 1;">
+              <el-upload
+                ref="uploadRef"
+                :auto-upload="false"
+                :show-file-list="false"
+                :on-change="handleFileChange"
+                accept="image/*"
+              >
+                <el-button type="primary" :loading="uploading">
+                  <el-icon><Upload /></el-icon>
+                  选择图片
+                </el-button>
+              </el-upload>
+              <div style="font-size: 12px; color: #909399; margin-top: 8px;">
+                支持 JPG/PNG/GIF 格式，文件大小不超过 5MB
+              </div>
+            </div>
+          </div>
         </el-form-item>
         
         <el-form-item label="介绍" prop="adminIntroduce">
@@ -332,7 +351,7 @@
         </el-descriptions-item>
         
         <el-descriptions-item label="最后登录" :span="2" v-if="currentDetailAdmin.adminLoginTime">
-          {{ formatDateTime(currentDetailAdmin.adminLoginTime) }}
+          {{ formatDate(currentDetailAdmin.adminLoginTime) }}
         </el-descriptions-item>
       </el-descriptions>
       
@@ -477,9 +496,10 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, onBeforeUnmount, shallowRef, nextTick } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { Refresh, Plus, Search, RefreshRight, Message, User, Promotion } from '@element-plus/icons-vue'
+import { Refresh, Plus, Search, RefreshRight, Message, User, Promotion, Upload } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
 import { adminApi, roleApi, emailApi } from '@/api/admin'
+import { fileApi } from '@/api/file'
 import { useAuthStore } from '@/store/auth'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
@@ -495,9 +515,16 @@ import type { FormInstance } from 'element-plus'
 
 const authStore = useAuthStore()
 
+// 日期格式化函数（只显示日期）
+const formatDate = (dateStr: string) => {
+  if (!dateStr) return '-'
+  return dateStr.substring(0, 10)
+}
+
 // 响应式数据
 const loading = ref(false)
 const submitting = ref(false)
+const uploading = ref(false)
 const dialogVisible = ref(false)
 const dialogType = ref<'create' | 'edit'>('create')
 const formRef = ref<FormInstance>()
@@ -719,6 +746,44 @@ const resetForm = () => {
     adminIntroduce: '',
     adminState: 1
   })
+}
+
+const handleFileChange = async (uploadFile: any) => {
+  const file = uploadFile.raw
+  if (!file) return
+
+  if (!file.type.startsWith('image/')) {
+    ElMessage.error('只能上传图片文件')
+    return
+  }
+
+  if (file.size / 1024 / 1024 > 5) {
+    ElMessage.error('图片大小不能超过 5MB')
+    return
+  }
+
+  uploading.value = true
+  try {
+    const user = authStore.user
+    if (!user?.userId) {
+      ElMessage.error('未获取到用户信息')
+      return
+    }
+
+    console.log('📤 开始上传头像，文件:', file.name, '大小:', (file.size / 1024).toFixed(2) + 'KB')
+    
+    const adminId = dialogType.value === 'edit' ? form.adminId : user.userId
+    const response = await fileApi.uploadAdminAvatar(file, adminId!)
+    console.log('✅ 上传成功，URL:', response.data)
+    
+    form.adminImage = response.data
+    ElMessage.success('上传成功')
+  } catch (error: any) {
+    console.error('❌ 上传失败:', error)
+    ElMessage.error(error.message || '上传失败')
+  } finally {
+    uploading.value = false
+  }
 }
 
 // 提交表单
