@@ -25,6 +25,7 @@ public class UserDeleteResumeBySystemScheduledTask {
             log.info("清理过期简历任务执行完成");
         }catch (Exception e){
             log.error("清理过期简历任务执行失败", e);
+            throw new RuntimeException("清理过期简历任务执行失败");
         }
     }
 }

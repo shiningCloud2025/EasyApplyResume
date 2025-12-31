@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { authAPI } from '@api/auth'
 import { sendSmsCode, sendEmailCode } from '@api/verify'
 import { provinceAPI, universityAPI, recruitPositionAPI } from '@api/system'
+import { useUserStore } from '@stores/userStore'
 import type { RegisterForm, ProvinceMap, CityMap, UniversityMap, RecruitPosition } from '@types/index'
 import '@styles/auth.scss'
 import '@styles/auth-override.scss'
@@ -40,6 +41,7 @@ const RegisterPage: React.FC = () => {
   const [provinceLoaded, setProvinceLoaded] = useState(false) // 标记省份数据是否已加载
 
   const navigate = useNavigate()
+  const { login } = useUserStore()
 
   // 点击省份下拉框时加载省份数据
   const handleProvinceDropdownOpen = async (open: boolean) => {
@@ -220,13 +222,52 @@ const RegisterPage: React.FC = () => {
     setCurrent(current - 1)
   }
 
+  // 点击步骤条跳转
+  const handleStepClick = async (step: number) => {
+    // 点击当前步骤，不做任何操作
+    if (step === current) return
+    
+    // 往后退：可以随意回退
+    if (step < current) {
+      setCurrent(step)
+      return
+    }
+    
+    // 往前走：需要完成前面的步骤
+    // 点击第2步，需要先完成第1步
+    if (step >= 1 && current < 1) {
+      try {
+        await form.validateFields(['userAccount', 'userUsername', 'userEmail', 'userPhone', 'userPassword'])
+      } catch {
+        message.warning('请先完成第一步，填写必填信息')
+        return
+      }
+    }
+    
+    // 点击第3步，需要先完成第1步和第2步
+    if (step >= 2 && current < 1) {
+      try {
+        await form.validateFields(['userAccount', 'userUsername', 'userEmail', 'userPhone', 'userPassword'])
+      } catch {
+        message.warning('请先完成第一步，填写必填信息')
+        return
+      }
+    }
+    
+    // 第2步是选填，不需要强制验证，可以直接跳转
+    setCurrent(step)
+  }
+
   const handleRegister = async (values: RegisterForm) => {
     setLoading(true)
     try {
       const response = await authAPI.register(values)
       if (response.code === 200) {
-        message.success('注册成功，请登录')
-        navigate('/auth/login')
+        // 注册成功，直接登录（后端返回的 data 是 token）
+        const token = response.data as string
+        login(null, token)  // 保存 token，用户信息后续获取
+        message.success('注册成功，已自动登录')
+        navigate('/home')  // 跳转首页
       }
     } catch (error) {
       console.error('注册失败:', error)
@@ -249,7 +290,7 @@ const RegisterPage: React.FC = () => {
                 { pattern: /^[1-9]\d{6,9}$/, message: '账号必须为数字，且首位不能为0' }
               ]}
             >
-              <Input prefix={<UserOutlined />} placeholder="请输入7-10位数字账号，首位不能为0" />
+              <Input prefix={<UserOutlined />} placeholder="请输入7-10位数字账号，首位不能为0" autoComplete="off" />
             </Form.Item>
 
             <Form.Item
@@ -260,7 +301,7 @@ const RegisterPage: React.FC = () => {
                 { min: 1, max: 20, message: '用户名长度为1-20位' }
               ]}
             >
-              <Input prefix={<UserOutlined />} placeholder="请输入用户名（1-20位）" />
+              <Input prefix={<UserOutlined />} placeholder="请输入用户名（1-20位）" autoComplete="new-password" />
             </Form.Item>
 
             <Form.Item
@@ -272,7 +313,7 @@ const RegisterPage: React.FC = () => {
                 { max: 25, message: '邮箱长度不能超过25位' }
               ]}
             >
-              <Input prefix={<MailOutlined />} placeholder="请输入邮箱（不超过25位）" />
+              <Input prefix={<MailOutlined />} placeholder="请输入邮箱（不超过25位）" autoComplete="new-password" />
             </Form.Item>
 
             <Form.Item
@@ -283,7 +324,7 @@ const RegisterPage: React.FC = () => {
                 { pattern: /^1[3-9]\d{9}$/, message: '请输入正确的手机号' }
               ]}
             >
-              <Input prefix={<PhoneOutlined />} placeholder="请输入手机号" />
+              <Input prefix={<PhoneOutlined />} placeholder="请输入手机号" autoComplete="off" />
             </Form.Item>
 
             <Form.Item
@@ -294,7 +335,7 @@ const RegisterPage: React.FC = () => {
                 { min: 6, max: 30, message: '密码长度为6-30位' }
               ]}
             >
-              <Input.Password prefix={<LockOutlined />} placeholder="请输入密码（6-30位）" />
+              <Input.Password prefix={<LockOutlined />} placeholder="请输入密码（6-30位）" autoComplete="new-password" />
             </Form.Item>
 
             <Form.Item
@@ -574,9 +615,9 @@ const RegisterPage: React.FC = () => {
         {/* 右侧表单区域 */}
         <div className="register-card-right">
           <div className="register-body">
-          <Steps current={current} className="register-steps">
+          <Steps current={current} className="register-steps" onChange={handleStepClick}>
             {steps.map(item => (
-              <Step key={item.title} title={item.title} />
+              <Step key={item.title} title={item.title} style={{ cursor: 'pointer' }} />
             ))}
           </Steps>
 
@@ -587,6 +628,7 @@ const RegisterPage: React.FC = () => {
               size="large"
               className="register-form"
               preserve={true}
+              autoComplete="off"
             >
               {renderStepContent()}
             </Form>

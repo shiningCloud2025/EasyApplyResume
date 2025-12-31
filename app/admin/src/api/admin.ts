@@ -65,7 +65,7 @@ export const authApi = {
   loginByEmail: (data: EmailLoginForm) => api.post<string>('/admin/auth/emailLogin', null, { params: data }),
   
   // 退出登录
-  logout: (adminId: number) => api.get('/admin/auth/logout', { params: { adminId } }),
+  logout: (adminId: number) => api.get('/admin/admin/logout', { params: { adminId } }),
   
   // 发送邮箱验证码
   sendEmailCode: (email: string) => api.post('/admin/email/loginandregister/send', null, { params: { email } }),
@@ -535,4 +535,32 @@ export const systemDeleteResumeApi = {
     api.get<UserDeleteResumeBySystemInfoVO>('/admin/userDeleteResumeBySystemService/getUserDeleteResumeInfoById', {
       params: { userDeleteResumeId }
     })
+}
+
+// 公告相关API
+export interface AnnouncementInfo {
+  announcementId: number
+  announcementTitle: string
+  announcementContent: string
+  announcementUpdatedTime: string
+}
+
+export const announcementApi = {
+  // 获取管理端公告信息
+  getAdminAnnouncement: () => api.get<AnnouncementInfo>('/admonitor/admin/announcement/getInfo')
+}
+
+// 广告相关API
+export interface AdvertisementInfo {
+  advertisementId: number
+  advertisementName: string
+  advertisementUrl: string      // 广告图片URL
+  advertisementLink: string     // 点击跳转链接
+  advertisementStartedTime: string
+  advertisementEndTime: string
+}
+
+export const advertisementApi = {
+  // 获取管理端所有广告
+  getAllAdminAdvertisements: () => api.get<AdvertisementInfo[]>('/admonitor/admin/advertisement/findAllAdmonitorAdminAdvertisement')
 }

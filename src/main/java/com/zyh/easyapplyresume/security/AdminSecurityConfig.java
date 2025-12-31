@@ -57,7 +57,15 @@ public class AdminSecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth-> auth
+                        // 放开邮箱登录接口
+                        .requestMatchers("/admin/email/loginandregister/**").permitAll()
+                        // 放开手机登录接口
+                        .requestMatchers("/admin/sms/**").permitAll()
+                        // 放开正常登录接口
                         .requestMatchers("/admin/auth/**").permitAll()
+                        // 放开公告和广告,管理端是肯定会登录的,给用户端放开
+                        .requestMatchers("/admonitor/user/advertisement/**").permitAll()
+                        .requestMatchers("/admonitor/user/announcement").permitAll()
                         .requestMatchers("/doc.html", "/webjars/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )

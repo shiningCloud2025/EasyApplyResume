@@ -102,7 +102,7 @@ import { ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 
 const loading = ref(false)
-const portalURL = 'http://localhost:3001'
+const portalURL = 'http://117.50.184.138:37222'
 
 const statusIcon = computed(() => 'el-icon-success')
 const statusColor = computed(() => '#10b981')

@@ -8,6 +8,7 @@ import com.zyh.easyapplyresume.mapper.mysql.ad_monitor.AdmonitorAdminAdvertiseme
 import com.zyh.easyapplyresume.mapper.mysql.ad_monitor.AdmonitorUserAdvertisementMapper;
 import com.zyh.easyapplyresume.model.form.ad_monitor.AdmonitorUserAdvertisementForm;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorAdminAdvertisement;
+import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorAdvertisement;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorUserAdvertisement;
 import com.zyh.easyapplyresume.model.query.ad_monitor.AdmonitorUserAdvertisementQuery;
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorAdminAdvertisementInfoVO;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -145,7 +147,15 @@ public class AdmonitorUserAdvertisementServiceImpl implements AdmonitorUserAdver
     public List<AdmonitorUserAdvertisementInfoVO> findAllAdmonitorUserAdvertisement() {
         try{
             log.info("查询所有广告开始");
-            List<AdmonitorUserAdvertisement> admonitorUserAdvertisements = admonitorUserAdvertisementMapper.selectList(null);
+            Date today = new Date();
+            LambdaQueryWrapper<AdmonitorUserAdvertisement> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(AdmonitorUserAdvertisement::getDeleted, 0);
+            // 开始时间 ≤ 今天（今天或之前创建）
+            lambdaQueryWrapper.le(AdmonitorUserAdvertisement::getAdvertisementStartedTime, today);
+            // 结束时间 > 今天（明天或以后结束）
+            lambdaQueryWrapper.gt(AdmonitorUserAdvertisement::getAdvertisementEndTime, today);
+
+            List<AdmonitorUserAdvertisement> admonitorUserAdvertisements = admonitorUserAdvertisementMapper.selectList(lambdaQueryWrapper);
             log.info("查询所有广告成功");
             return BeanUtil.copyToList(admonitorUserAdvertisements, AdmonitorUserAdvertisementInfoVO.class);
         }catch (Exception e){

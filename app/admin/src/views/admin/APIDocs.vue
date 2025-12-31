@@ -134,8 +134,8 @@ const pageIcon = computed(() => {
 
 const apiURL = computed(() => {
   return pageType.value === 'external' 
-    ? 'http://localhost:8080/api/swagger-ui/index.html'
-    : 'http://localhost:8080/api/doc.html#/home'
+    ? 'http://117.50.184.138:37221/api/swagger-ui/index.html'
+    : 'http://117.50.184.138:37221/api/doc.html#/home'
 })
 
 const openAPIDocs = async () => {

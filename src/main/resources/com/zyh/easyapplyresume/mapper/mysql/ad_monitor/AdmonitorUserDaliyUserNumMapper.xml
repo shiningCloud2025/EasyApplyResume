@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyh.easyapplyresume.mapper.mysql.ad_monitor.AdmonitorUserDaliyUserNumMapper">
+    <select id="findFromTimeToEndTimeAdmonitorUserDaliyUserNum" resultType="int">
+        select userDaliyUserNum_num from admonitor_userDaliyUserNum
+        where userDaliyUserNum_date between #{fromDate} and #{endDate}
+    </select>
+</mapper>

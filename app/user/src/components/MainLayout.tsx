@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom'
 import { useUserStore } from '@stores/userStore'
 import PortalHeader from './PortalHeader'
 import PortalFooter from './PortalFooter'
+import IdleAdCarousel from './IdleAdCarousel'
 import './MainLayout.scss'
 
 const MainLayout: React.FC = () => {
@@ -100,6 +101,9 @@ const MainLayout: React.FC = () => {
 
       {/* 统一使用 PortalFooter */}
       <PortalFooter />
+      
+      {/* 空闲广告轮播 */}
+      <IdleAdCarousel idleTime={7 * 60 * 1000} enabled={true} />
     </div>
   )
 }
