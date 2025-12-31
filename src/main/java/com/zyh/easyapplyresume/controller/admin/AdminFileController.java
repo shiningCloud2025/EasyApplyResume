@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.controller.admin;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
 import com.zyh.easyapplyresume.model.form.admin.AdminFileForm;
+import com.zyh.easyapplyresume.qiniuoss.OssAdminBusinessTypeEnum;
 import com.zyh.easyapplyresume.qiniuoss.OssService;
 import com.zyh.easyapplyresume.qiniuoss.OssSystemTypeEnum;
 import com.zyh.easyapplyresume.qiniuoss.OssUserBusinessTypeEnum;
@@ -28,7 +29,7 @@ public class AdminFileController {
     @Operation(summary = "上传管理员头像")
     @PostMapping("/uploadAdminHeadImg")
     public BaseResult<String> uploadAdminHeadImg(@ModelAttribute AdminFileForm adminFileForm){
-        String url = ossService.upload(adminFileForm.getFile(), OssSystemTypeEnum.ADMIN, OssUserBusinessTypeEnum.USER_HEAD_IMG, adminFileForm.getAdminId(), false);
+        String url = ossService.upload(adminFileForm.getFile(), OssSystemTypeEnum.ADMIN, OssAdminBusinessTypeEnum.ADMIN_HEAD_IMG, adminFileForm.getAdminId(), false);
         return BaseResult.ok(url);
     }
 
@@ -42,7 +43,7 @@ public class AdminFileController {
     @Operation(summary = "查询某个管理员上传的所有头像")
     @GetMapping("/listFilesByAdminId")
     public BaseResult<List<String>> listFilesByAdminId(@RequestParam(required = true,value = "adminId") Integer adminId){
-        List<String> urls = ossService.listFilesByOwner(OssSystemTypeEnum.ADMIN, OssUserBusinessTypeEnum.USER_HEAD_IMG, adminId, false);
+        List<String> urls = ossService.listFilesByOwner(OssSystemTypeEnum.ADMIN, OssAdminBusinessTypeEnum.ADMIN_HEAD_IMG, adminId, false);
         return BaseResult.ok(urls);
     }
 
