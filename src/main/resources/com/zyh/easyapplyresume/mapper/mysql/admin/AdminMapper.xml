@@ -17,7 +17,7 @@
         <result property="adminImage" column="admin_image"/>
         <result property="adminIntroduce" column="admin_introduce"/>
         <result property="adminState" column="admin_state"/>
-        <result property="adminLoginTime" column="admin_login_time"/>
+        <result property="adminLoginTime" column="admin_loginTime"/>
         <collection property="roleInfoVOS" ofType="com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO">
             <id property="roleId" column="role_id"></id>
             <result property="roleName" column="role_name"></result>

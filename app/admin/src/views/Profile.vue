@@ -176,6 +176,8 @@ const editRules = {
 
 const formatDate = (dateStr: string | undefined) => {
   if (!dateStr) return '-'
+  // 调试：打印原始日期字符串
+  console.log('📅 [格式化日期] 原始数据:', dateStr)
   // 只显示日期部分，不显示时分秒
   return dateStr.substring(0, 10)
 }
@@ -203,6 +205,7 @@ const getAdminInfo = async () => {
     console.log('📥 [个人中心] API响应:', response)
     adminInfo.value = response.data
     console.log('✅ [个人中心] 管理员信息加载成功:', adminInfo.value)
+    console.log('📅 [个人中心] 最后登录时间:', adminInfo.value.adminLoginTime)
   } catch (error) {
     console.error('❌ [个人中心] 获取失败:', error)
     ElMessage.error('获取个人信息失败，请重新登录')
