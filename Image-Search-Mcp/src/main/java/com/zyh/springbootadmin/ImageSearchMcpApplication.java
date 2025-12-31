@@ -25,6 +25,7 @@ public class ImageSearchMcpApplication {
                 .build();
     }
 
+
     @Bean
     public ToolCallbackProvider myTools(ImageSearchTool imageSearchTool){
         List<ToolCallback> tools = Arrays.stream(MethodToolCallbackProvider.builder()
