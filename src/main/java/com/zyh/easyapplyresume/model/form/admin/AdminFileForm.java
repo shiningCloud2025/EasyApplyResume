@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @author shiningCloud2025
  */
 @Data
- @Schema(description = "管理员文件上传表单")
+@Schema(description = "管理员文件上传表单")
 public class AdminFileForm {
 
      @Schema(description = "上传的文件")
