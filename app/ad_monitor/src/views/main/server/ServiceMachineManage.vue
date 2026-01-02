@@ -37,7 +37,17 @@
             <span class="text-gray">******</span>
           </template>
         </el-table-column>
-        <el-table-column prop="serviceMachineRemark" label="备注" min-width="150" show-overflow-tooltip />
+        <el-table-column prop="serviceMachineRemark" label="备注" min-width="120" show-overflow-tooltip />
+        <el-table-column label="创建时间" width="160">
+          <template #default="{ row }">
+            {{ formatDate(row.serviceMachineCreatedTime) }}
+          </template>
+        </el-table-column>
+        <el-table-column label="更新时间" width="160">
+          <template #default="{ row }">
+            {{ formatDate(row.serviceMachineUpdatedTime) }}
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="240" fixed="right">
           <template #default="{ row }">
             <el-button type="success" link size="small" @click="handleTestConnect(row)">测试连接</el-button>
@@ -108,7 +118,7 @@
           <el-input 
             v-model="formData.serviceMachinePassword" 
             type="password"
-            :placeholder="isEdit ? '不修改请留空' : '请输入登录密码'" 
+            placeholder="请输入登录密码" 
             maxlength="60"
             show-password
           />
@@ -123,11 +133,25 @@
             show-word-limit
           />
         </el-form-item>
+        <el-form-item label="连接测试">
+          <div class="test-connect-area">
+            <el-button 
+              type="success" 
+              @click="handleFormTestConnect" 
+              :loading="testing"
+              :disabled="!canTest"
+            >
+              测试连接
+            </el-button>
+            <el-tag v-if="connectTested" type="success" style="margin-left: 12px;">连接成功</el-tag>
+            <span v-else class="test-hint">* 必须测试连接成功才能保存</span>
+          </div>
+        </el-form-item>
       </el-form>
 
       <template #footer>
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="handleSubmit" :loading="submitting">
+        <el-button type="primary" @click="handleSubmit" :loading="submitting" :disabled="!connectTested">
           {{ isEdit ? '更新' : '创建' }}
         </el-button>
       </template>
@@ -142,6 +166,8 @@
         <el-descriptions-item label="SSH端口">{{ viewData.serviceMachinePort }}</el-descriptions-item>
         <el-descriptions-item label="登录账号">{{ viewData.serviceMachineUsername }}</el-descriptions-item>
         <el-descriptions-item label="备注">{{ viewData.serviceMachineRemark || '-' }}</el-descriptions-item>
+        <el-descriptions-item label="创建时间">{{ formatDate(viewData.serviceMachineCreatedTime) }}</el-descriptions-item>
+        <el-descriptions-item label="更新时间">{{ formatDate(viewData.serviceMachineUpdatedTime) }}</el-descriptions-item>
       </el-descriptions>
       <template #footer>
         <el-button @click="viewDialogVisible = false">关闭</el-button>
@@ -151,7 +177,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
@@ -168,7 +194,17 @@ const dialogVisible = ref(false)
 const viewDialogVisible = ref(false)
 const isEdit = ref(false)
 const submitting = ref(false)
+const testing = ref(false)
+const connectTested = ref(false)
 const formRef = ref<FormInstance>()
+
+// 是否可以测试连接（必填字段都填写了）
+const canTest = computed(() => {
+  return formData.serviceMachineHost && 
+         formData.serviceMachinePort && 
+         formData.serviceMachineUsername && 
+         formData.serviceMachinePassword
+})
 
 const viewData = reactive({
   serviceMachineId: null as number | null,
@@ -176,7 +212,9 @@ const viewData = reactive({
   serviceMachineHost: '',
   serviceMachinePort: 22,
   serviceMachineUsername: '',
-  serviceMachineRemark: ''
+  serviceMachineRemark: '',
+  serviceMachineCreatedTime: '',
+  serviceMachineUpdatedTime: ''
 })
 
 const formData = reactive({
@@ -206,11 +244,17 @@ const rules: FormRules = {
     { max: 60, message: '登录账号最多60个字符', trigger: 'blur' }
   ],
   serviceMachinePassword: [
+    { required: true, message: '请输入登录密码', trigger: 'blur' },
     { max: 60, message: '登录密码最多60个字符', trigger: 'blur' }
   ],
   serviceMachineRemark: [
     { max: 200, message: '备注最多200个字符', trigger: 'blur' }
   ]
+}
+
+const formatDate = (date: string) => {
+  if (!date) return '-'
+  return date.slice(0, 10)
 }
 
 const loadData = async () => {
@@ -242,12 +286,33 @@ const resetForm = () => {
   formData.serviceMachineUsername = ''
   formData.serviceMachinePassword = ''
   formData.serviceMachineRemark = ''
+  connectTested.value = false
 }
 
 const handleAdd = () => {
   isEdit.value = false
   resetForm()
   dialogVisible.value = true
+}
+
+// 表单内测试连接
+const handleFormTestConnect = async () => {
+  testing.value = true
+  try {
+    await serviceMachineManageApi.testConnect({
+      serviceMachineHost: formData.serviceMachineHost,
+      serviceMachinePort: formData.serviceMachinePort,
+      serviceMachineUsername: formData.serviceMachineUsername,
+      serviceMachinePassword: formData.serviceMachinePassword
+    })
+    connectTested.value = true
+    ElMessage.success('连接成功！')
+  } catch (e) {
+    connectTested.value = false
+    ElMessage.error('连接失败，请检查配置')
+  } finally {
+    testing.value = false
+  }
 }
 
 const handleView = (row: any) => {
@@ -257,6 +322,8 @@ const handleView = (row: any) => {
   viewData.serviceMachinePort = row.serviceMachinePort || 22
   viewData.serviceMachineUsername = row.serviceMachineUsername || ''
   viewData.serviceMachineRemark = row.serviceMachineRemark || ''
+  viewData.serviceMachineCreatedTime = row.serviceMachineCreatedTime || ''
+  viewData.serviceMachineUpdatedTime = row.serviceMachineUpdatedTime || ''
   viewDialogVisible.value = true
 }
 
@@ -269,6 +336,7 @@ const handleEdit = (row: any) => {
   formData.serviceMachineUsername = row.serviceMachineUsername || ''
   formData.serviceMachinePassword = ''
   formData.serviceMachineRemark = row.serviceMachineRemark || ''
+  connectTested.value = false  // 编辑时需要重新测试连接
   dialogVisible.value = true
 }
 
@@ -312,23 +380,21 @@ const handleSubmit = async () => {
       serviceMachineHost: formData.serviceMachineHost.trim(),
       serviceMachinePort: formData.serviceMachinePort,
       serviceMachineUsername: formData.serviceMachineUsername.trim(),
-      serviceMachineRemark: formData.serviceMachineRemark?.trim() || ''
+      serviceMachineRemark: formData.serviceMachineRemark?.trim() || '无'  // 后端必填，默认填"无"
     }
 
-    // 密码字段：新增必填，编辑时可选
-    if (formData.serviceMachinePassword) {
-      data.serviceMachinePassword = formData.serviceMachinePassword
+    // 密码字段：后端必填
+    if (!formData.serviceMachinePassword) {
+      ElMessage.error('请输入登录密码')
+      return
     }
+    data.serviceMachinePassword = formData.serviceMachinePassword
 
     if (isEdit.value) {
       data.serviceMachineId = formData.serviceMachineId
       await serviceMachineManageApi.update(data)
       ElMessage.success('更新成功')
     } else {
-      if (!formData.serviceMachinePassword) {
-        ElMessage.error('请输入登录密码')
-        return
-      }
       await serviceMachineManageApi.add(data)
       ElMessage.success('创建成功')
     }
@@ -398,5 +464,16 @@ onMounted(() => {
 .text-gray {
   color: #9ca3af;
   font-size: 13px;
+}
+
+.test-connect-area {
+  display: flex;
+  align-items: center;
+}
+
+.test-hint {
+  margin-left: 12px;
+  color: #f56c6c;
+  font-size: 12px;
 }
 </style>
