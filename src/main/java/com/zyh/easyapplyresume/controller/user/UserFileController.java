@@ -46,7 +46,7 @@ public class UserFileController {
         return BaseResult.ok();
     }
 
-    @Operation(summary = "查询某个管理员上传的所有头像")
+    @Operation(summary = "查询某个用户上传的所有头像")
     @GetMapping("/listFilesByUserId")
     public BaseResult<List<String>> listFilesByUserId(@RequestParam(required = true,value = "userId") Integer userId){
         List<String> urls = ossService.listFilesByOwner(OssSystemTypeEnum.USER, OssUserBusinessTypeEnum.USER_HEAD_IMG, userId, false);

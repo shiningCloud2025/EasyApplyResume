@@ -159,7 +159,7 @@ public class UserAuthServiceImpl implements UserAuthService {
         }
         userSmsService.verifyCode(formalRegisterForm.getUserPhone(), formalRegisterForm.getPhoneMessageCode());
         userLoginAndRegisterEmailVerifyService.verifyCode(formalRegisterForm.getUserEmail(), formalRegisterForm.getEmailMessageCode());
-
+        // TODO:用户端注册的头像一定是为空的，就需要用户去修改的时候改变头像，这样也简化了后端的流程
         FormalRegisterValidator.validateForRegister(formalRegisterForm);
         try {
             User user = new User();
