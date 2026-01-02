@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.controller.ad_monitor;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
+import com.zyh.easyapplyresume.model.form.ad_monitor.AdmonitorServiceMachineConnectForm;
 import com.zyh.easyapplyresume.model.form.ad_monitor.AdmonitorServiceMachineForm;
 import com.zyh.easyapplyresume.model.query.ad_monitor.AdmonitorServiceMachineQuery;
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorServiceMachineInfoVO;
@@ -50,11 +51,18 @@ public class AdmonitorServiceMachineManageController {
 
     @PostMapping("/getAdmonitorServiceMachinePage")
     @Operation(summary = "获取服务器设备分页")
-    public BaseResult<Page<AdmonitorServiceMachinePageVO>> getAdmonitorServiceMachinePage(@RequestParam(required = true, name = "pageNum") Integer pageNum,
-                                                                                          @RequestParam(required = true, name = "pageSize") Integer pageSize,
+    public BaseResult<Page<AdmonitorServiceMachinePageVO>> getAdmonitorServiceMachinePage(@RequestParam(required = false, name = "pageNum", defaultValue = "1") Integer pageNum,
+                                                                                          @RequestParam(required = false, name = "pageSize", defaultValue = "10") Integer pageSize,
                                                                                           @RequestBody AdmonitorServiceMachineQuery admonitorServiceMachineQuery) {
         return BaseResult.ok(admonitorServiceMachineService.getAdmonitorServiceMachinePage(pageNum, pageSize, admonitorServiceMachineQuery));
-                                                                                          }
+
+    }
+
+    @PostMapping("/testServiceMachineConnect")
+    @Operation(summary = "测试服务器设备连接")
+    public BaseResult<Boolean> testServiceMachineConnect(@RequestBody AdmonitorServiceMachineConnectForm admonitorServiceMachineConnectForm) {
+        return BaseResult.ok(admonitorServiceMachineService.testServiceMachineConnect(admonitorServiceMachineConnectForm));
+    }
 
 
 }

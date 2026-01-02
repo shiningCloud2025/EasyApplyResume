@@ -125,6 +125,19 @@ const router = createRouter({
           component: () => import('@/views/main/middleware/MiddlewareMonitor.vue'),
           meta: { title: 'MinIO管理' }
         },
+        // 服务器管理
+        {
+          path: 'server/manage',
+          name: 'ServerManage',
+          component: () => import('@/views/main/server/ServiceMachineManage.vue'),
+          meta: { title: '设备管理' }
+        },
+        {
+          path: 'server/monitor',
+          name: 'ServerMonitor',
+          component: () => import('@/views/main/server/ServiceMachineMonitor.vue'),
+          meta: { title: '设备监控' }
+        },
         // 网站安全管理
         {
           path: 'security/spring-boot-admin',
