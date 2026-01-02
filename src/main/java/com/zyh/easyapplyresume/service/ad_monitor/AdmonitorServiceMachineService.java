@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.model.form.ad_monitor.AdmonitorServiceMachineConnectForm;
 import com.zyh.easyapplyresume.model.form.ad_monitor.AdmonitorServiceMachineForm;
 import com.zyh.easyapplyresume.model.form.ad_monitor.AdmonitorServiceMachineJianKongForm;
+import com.zyh.easyapplyresume.model.query.ad_monitor.AdmonitorServiceMachineQuery;
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorServiceMachineInfoVO;
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorServiceMachineJianKongVO;
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorServiceMachinePageVO;
@@ -47,7 +48,7 @@ public interface AdmonitorServiceMachineService {
      * @param pageSize
      * @return
      */
-    public Page<AdmonitorServiceMachinePageVO> getAdmonitorServiceMachinePage(Integer pageNum, Integer pageSize);
+    public Page<AdmonitorServiceMachinePageVO> getAdmonitorServiceMachinePage(Integer pageNum, Integer pageSize, AdmonitorServiceMachineQuery admonitorServiceMachineQuery);
 
     /**
      * 测试服务器连接

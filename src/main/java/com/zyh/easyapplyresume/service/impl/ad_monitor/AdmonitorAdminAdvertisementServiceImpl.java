@@ -140,6 +140,7 @@ public class AdmonitorAdminAdvertisementServiceImpl implements AdmonitorAdminAdv
                     lambdaQueryWrapper.like(AdmonitorAdminAdvertisement::getAdvertisementName,admonitorAdminAdvertisementQuery.getAdvertisementName());
                 }
             }
+            lambdaQueryWrapper.eq(AdmonitorAdminAdvertisement::getDeleted,0);
             Page<AdmonitorAdminAdvertisement> admonitorAdminAdvertisementPage = admonitorAdminAdvertisementMapper.selectPage(page, lambdaQueryWrapper);
             List<AdmonitorAdminAdvertisementPageVO> voList = admonitorAdminAdvertisementPage.getRecords().stream()
                     .map(vo -> {
