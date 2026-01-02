@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Form, Input, Button, InputNumber, Select, message, Avatar, Row, Col } from 'antd'
-import { ArrowLeftOutlined, UserOutlined } from '@ant-design/icons'
+import { Card, Form, Input, Button, InputNumber, Select, message, Avatar, Row, Col, Upload } from 'antd'
+import { ArrowLeftOutlined, UserOutlined, UploadOutlined } from '@ant-design/icons'
+import type { UploadFile, UploadProps } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { useMutation, useQuery } from 'react-query'
 import { useUserStore } from '@stores/userStore'
@@ -20,6 +21,7 @@ const ProfileEdit: React.FC = () => {
   const navigate = useNavigate()
   const { user, updateUser } = useUserStore()
   const [form] = Form.useForm()
+  const [uploading, setUploading] = useState(false)
   
   // 监听头像链接变化，实时预览
   const userImageValue = Form.useWatch('userImage', form)
@@ -111,6 +113,59 @@ const ProfileEdit: React.FC = () => {
     }
   }
 
+  // 处理头像上传
+  const handleAvatarUpload: UploadProps['customRequest'] = async (options) => {
+    const { file, onSuccess, onError } = options
+    
+    if (!user?.userId) {
+      message.error('未获取到用户信息')
+      return
+    }
+
+    const uploadFile = file as File
+    
+    // 验证文件类型
+    if (!uploadFile.type.startsWith('image/')) {
+      message.error('只能上传图片文件')
+      return
+    }
+
+    // 验证文件大小（5MB）
+    if (uploadFile.size / 1024 / 1024 > 5) {
+      message.error('图片大小不能超过 5MB')
+      return
+    }
+
+    setUploading(true)
+    try {
+      const formData = new FormData()
+      formData.append('file', uploadFile)
+      formData.append('userId', user.userId.toString())
+
+      console.log('📤 开始上传头像，文件:', uploadFile.name)
+      
+      const response = await request.post('/user/file/uploadUserHeadImg', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      
+      console.log('✅ 上传成功，URL:', response.data)
+      
+      // 自动填充到表单
+      form.setFieldValue('userImage', response.data)
+      message.success('上传成功')
+      
+      onSuccess?.(response.data)
+    } catch (error: any) {
+      console.error('❌ 上传失败:', error)
+      message.error(error.message || '上传失败')
+      onError?.(error)
+    } finally {
+      setUploading(false)
+    }
+  }
+
   // 省份变化时加载城市
   const handleProvinceChange = (provinceId: number) => {
     form.setFieldValue('userRecruitLocationSecond', undefined)
@@ -180,12 +235,24 @@ const ProfileEdit: React.FC = () => {
           style={{ maxWidth: 600, margin: '0 auto' }}
         >
           <Form.Item
-            label="头像链接"
+            label="头像"
             name="userImage"
-            extra="请输入头像图片的URL地址"
-            rules={[{ required: true, message: '请输入头像链接' }]}
+            rules={[{ required: true, message: '请上传头像' }]}
           >
-            <Input placeholder="https://example.com/avatar.jpg" maxLength={255} />
+            <div>
+              <Upload
+                customRequest={handleAvatarUpload}
+                showUploadList={false}
+                accept="image/*"
+              >
+                <Button icon={<UploadOutlined />} loading={uploading}>
+                  选择图片
+                </Button>
+              </Upload>
+              <div style={{ fontSize: 12, color: '#999', marginTop: 8 }}>
+                支持 JPG/PNG/GIF 格式，文件大小不超过 5MB
+              </div>
+            </div>
           </Form.Item>
 
           <Form.Item

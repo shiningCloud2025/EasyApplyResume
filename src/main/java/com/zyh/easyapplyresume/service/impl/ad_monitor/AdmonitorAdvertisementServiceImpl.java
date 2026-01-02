@@ -13,6 +13,9 @@ import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorAdminAdvertisementIn
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorAdminAdvertisementPageVO;
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorAdvertisementInfoVO;
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorAdvertisementPageVO;
+import com.zyh.easyapplyresume.qiniuoss.OssAdMonitorBusinessTypeEnum;
+import com.zyh.easyapplyresume.qiniuoss.OssService;
+import com.zyh.easyapplyresume.qiniuoss.OssSystemTypeEnum;
 import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorAdvertisementService;
 import com.zyh.easyapplyresume.utils.admonitorvalidator.AdmonitorAdvertisementValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +38,10 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
 
     @Autowired
     private AdmonitorAdvertisementMapper admonitorAdvertisementMapper;
+
+    @Autowired
+    private OssService ossService;
+
     @Override
     public Integer addAdmonitorAdvertisement(AdmonitorAdvertisementForm admonitorAdvertisementForm) {
         try{
@@ -57,6 +64,24 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
         try{
             log.info("修改广告开始");
             AdmonitorAdvertisementValidator.validateForUpdate(admonitorAdvertisementForm);
+            // TODO:这个和用户、管理员的头像逻辑还不一样，这个是公有库，要去数据库查正在用的，把不用的干掉
+            List<String> strings = ossService.listFilesByOwner(OssSystemTypeEnum.AD_MONITOR, OssAdMonitorBusinessTypeEnum.ADMONITOR_ADMONITOR_AD_IMG, 0, false);
+            if (strings.isEmpty()){
+                // 如果为空，说明这是第一个广告，直接扔里面就可以
+            }else{
+                // 不为空，除了当前的URL，其他的URL如果数据库中没有，那就干掉
+                List<String> admonitorAdvertisementUrls = admonitorAdvertisementMapper.selectList(null).stream()
+                        .map(admonitorAdvertisement -> admonitorAdvertisement.getAdvertisementUrl())
+                        .toList();
+                for (String str:strings){
+                    if (!str.equals(admonitorAdvertisementForm.getAdvertisementUrl())){
+                        // 也就是说 除了当前的这个以外，其他的 都要在数据库里能找到不然就干掉
+                        if (!admonitorAdvertisementUrls.contains(str)){
+                            ossService.deleteByUrl(str,false);
+                        }
+                    }
+                }
+            }
             AdmonitorAdvertisement admonitorAdvertisement = new AdmonitorAdvertisement();
             BeanUtil.copyProperties(admonitorAdvertisementForm,admonitorAdvertisement);
             log.info("修改广告成功");
@@ -78,6 +103,7 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
             lambdaQueryWrapper.eq(AdmonitorAdvertisement::getAdvertisementId,id);
             AdmonitorAdvertisement admonitorAdvertisement = admonitorAdvertisementMapper.selectOne(lambdaQueryWrapper);
             admonitorAdvertisement.setDeleted(1);
+            ossService.deleteByUrl(admonitorAdvertisement.getAdvertisementUrl(),false);
             log.info("删除广告成功");
             return admonitorAdvertisementMapper.updateById(admonitorAdvertisement);
         }catch (BusException e){
@@ -115,6 +141,7 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
                     lambdaQueryWrapper.like(AdmonitorAdvertisement::getAdvertisementName,admonitorAdvertisementQuery.getAdvertisementName());
                 }
             }
+            lambdaQueryWrapper.eq(AdmonitorAdvertisement::getDeleted, 0);
             Page<AdmonitorAdvertisement> admonitorAdvertisementPage = admonitorAdvertisementMapper.selectPage(page, lambdaQueryWrapper);
             List<AdmonitorAdvertisementPageVO> voList = admonitorAdvertisementPage.getRecords().stream()
                     .map(vo -> {

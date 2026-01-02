@@ -11,6 +11,9 @@ import com.zyh.easyapplyresume.model.form.user.UserUpdateForm;
 import com.zyh.easyapplyresume.model.pojo.user.UniversityMap;
 import com.zyh.easyapplyresume.model.pojo.user.User;
 import com.zyh.easyapplyresume.model.vo.user.UserInfoVO;
+import com.zyh.easyapplyresume.qiniuoss.OssService;
+import com.zyh.easyapplyresume.qiniuoss.OssSystemTypeEnum;
+import com.zyh.easyapplyresume.qiniuoss.OssUserBusinessTypeEnum;
 import com.zyh.easyapplyresume.service.user.UserService;
 import com.zyh.easyapplyresume.utils.uservalidator.UserUpdateValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author shiningCloud2025
@@ -38,10 +43,33 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private OssService ossService;
+
     @Override
     public void updateUser(UserUpdateForm userUpdateForm) {
         try{
             log.info("用户更新信息开始");
+
+            if (userUpdateForm.getUserImage().equals("https://ts4.tc.mm.bing.net/th/id/OIP-C.sPOk8TwPGgwtB2SU6ngYUgAAAA?rs=1&pid=ImgDetMain&o=7&rm=3")){
+                // 如果用户的头像地址等于默认，那么不用任何处理直接保存就可以了
+            }else{
+                // 说明用户传了新的
+                List<String> strings = ossService.listFilesByOwner(OssSystemTypeEnum.USER, OssUserBusinessTypeEnum.USER_HEAD_IMG, userUpdateForm.getUserId(), false);
+                if (strings.isEmpty()){
+                    // 说明是第一次传新的，不用处理
+                }else {
+                    // 说明不是第一次传新的，要处理不等于当前的
+                    for (String string : strings){
+                        if (!string.equals(userUpdateForm.getUserImage())){
+                            ossService.deleteByUrl(string, false);
+                        }
+                    }
+                }
+
+            }
+
+
             UserUpdateValidator.validateForUpdate(userUpdateForm);
             User user = BeanUtil.copyProperties(userUpdateForm, User.class);
             user.setUserRecruitLocationDetail(ProvinceEnum.getById(user.getUserRecruitLocationFirst()).getName()+

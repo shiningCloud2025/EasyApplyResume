@@ -89,13 +89,31 @@
             show-word-limit 
           />
         </el-form-item>
-        <el-form-item label="图片地址" prop="advertisementUrl">
-          <el-input v-model="formData.advertisementUrl" placeholder="请输入图片URL" />
-          <el-image 
-            v-if="formData.advertisementUrl" 
-            :src="formData.advertisementUrl" 
-            fit="contain" 
-            style="max-height: 80px; margin-top: 8px;" 
+        <el-form-item label="广告图片" prop="advertisementUrl">
+          <el-upload
+            class="ad-uploader"
+            :show-file-list="false"
+            :before-upload="beforeUpload"
+            :http-request="handleUpload"
+            accept="image/*"
+          >
+            <el-image 
+              v-if="formData.advertisementUrl" 
+              :src="formData.advertisementUrl" 
+              fit="contain" 
+              style="width: 200px; height: 120px; border-radius: 4px;" 
+            />
+            <div v-else class="upload-placeholder">
+              <el-icon :size="28"><Plus /></el-icon>
+              <span>点击上传广告图片</span>
+            </div>
+          </el-upload>
+          <el-progress 
+            v-if="uploading" 
+            :percentage="100" 
+            status="success" 
+            :indeterminate="true" 
+            style="margin-top: 8px; width: 200px;" 
           />
         </el-form-item>
         <el-form-item label="跳转链接" prop="advertisementLink">
@@ -165,7 +183,7 @@ import { useRoute } from 'vue-router'
 import { Plus } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
-import { adminAdvertisementApi, userAdvertisementApi, monitorAdvertisementApi } from '@/api'
+import { adminAdvertisementApi, userAdvertisementApi, monitorAdvertisementApi, fileApi } from '@/api'
 
 const route = useRoute()
 
@@ -199,6 +217,7 @@ const dialogVisible = ref(false)
 const viewDialogVisible = ref(false)
 const isEdit = ref(false)
 const submitting = ref(false)
+const uploading = ref(false)
 const formRef = ref<FormInstance>()
 
 const viewData = reactive({
@@ -218,13 +237,47 @@ const formData = reactive({
   timeRange: null as [string, string] | null
 })
 
+// 根据端点选择上传API
+const getUploadApi = () => {
+  if (endpoint.value === '管理端') return fileApi.uploadAdminAdImg
+  if (endpoint.value === '用户端') return fileApi.uploadUserAdImg
+  return fileApi.uploadAdmonitorAdImg
+}
+
+const beforeUpload = (file: File) => {
+  const isImage = file.type.startsWith('image/')
+  const isLt5M = file.size / 1024 / 1024 < 5
+  if (!isImage) {
+    ElMessage.error('只能上传图片文件!')
+    return false
+  }
+  if (!isLt5M) {
+    ElMessage.error('图片大小不能超过 5MB!')
+    return false
+  }
+  return true
+}
+
+const handleUpload = async (options: any) => {
+  uploading.value = true
+  try {
+    const url = await getUploadApi()(options.file)
+    formData.advertisementUrl = url
+    ElMessage.success('上传成功')
+  } catch (e) {
+    ElMessage.error('上传失败')
+  } finally {
+    uploading.value = false
+  }
+}
+
 const rules: FormRules = {
   advertisementName: [
     { required: true, message: '请输入广告名称', trigger: 'blur' },
     { max: 25, message: '广告名称最多25个字符', trigger: 'blur' }
   ],
   advertisementUrl: [
-    { required: true, message: '请输入图片地址', trigger: 'blur' }
+    { required: true, message: '请上传广告图片', trigger: 'change' }
   ],
   advertisementLink: [
     { required: true, message: '请输入跳转链接', trigger: 'blur' },
@@ -396,5 +449,34 @@ onMounted(() => {
 .text-gray {
   color: #9ca3af;
   font-size: 13px;
+}
+
+.ad-uploader {
+  :deep(.el-upload) {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.3s;
+    
+    &:hover {
+      border-color: #409eff;
+    }
+  }
+}
+
+.upload-placeholder {
+  width: 200px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #8c939d;
+  gap: 8px;
+  
+  span {
+    font-size: 12px;
+  }
 }
 </style>

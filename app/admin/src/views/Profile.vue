@@ -109,8 +109,27 @@
         <el-form-item label="手机号" prop="adminPhone">
           <el-input v-model="editForm.adminPhone" maxlength="11" />
             </el-form-item>
-        <el-form-item label="头像URL" prop="adminImage">
-          <el-input v-model="editForm.adminImage" type="textarea" :rows="2" />
+        <el-form-item label="头像" prop="adminImage">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <el-avatar :size="60" :src="editForm.adminImage || defaultAvatar" />
+            <div style="flex: 1;">
+              <el-upload
+                ref="uploadRef"
+                :auto-upload="false"
+                :show-file-list="false"
+                :on-change="handleFileChange"
+                accept="image/*"
+              >
+                <el-button type="primary" :loading="uploading">
+                  <el-icon><Upload /></el-icon>
+                  选择图片
+                </el-button>
+              </el-upload>
+              <div style="font-size: 12px; color: #909399; margin-top: 8px;">
+                支持 JPG/PNG/GIF 格式，文件大小不超过 5MB
+              </div>
+            </div>
+          </div>
         </el-form-item>
         <el-form-item label="个人简介" prop="adminIntroduce">
           <el-input v-model="editForm.adminIntroduce" type="textarea" :rows="3" maxlength="200" show-word-limit />
@@ -133,8 +152,9 @@
 import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { FormInstance } from 'element-plus'
-import { Edit, Refresh, Star } from '@element-plus/icons-vue'
+import { Edit, Refresh, Star, Upload } from '@element-plus/icons-vue'
 import { adminApi } from '@/api/admin'
+import { fileApi } from '@/api/file'
 import type { AdminInfoVO, AdminForm } from '@/types/admin'
 import { useAuthStore } from '@/store/auth'
 
@@ -142,6 +162,7 @@ const authStore = useAuthStore()
 const loading = ref(false)
 const showEditDialog = ref(false)
 const submitting = ref(false)
+const uploading = ref(false)
 const editFormRef = ref<FormInstance>()
 
 const defaultAvatar = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
@@ -176,6 +197,8 @@ const editRules = {
 
 const formatDate = (dateStr: string | undefined) => {
   if (!dateStr) return '-'
+  // 调试：打印原始日期字符串
+  console.log('📅 [格式化日期] 原始数据:', dateStr)
   // 只显示日期部分，不显示时分秒
   return dateStr.substring(0, 10)
 }
@@ -203,6 +226,7 @@ const getAdminInfo = async () => {
     console.log('📥 [个人中心] API响应:', response)
     adminInfo.value = response.data
     console.log('✅ [个人中心] 管理员信息加载成功:', adminInfo.value)
+    console.log('📅 [个人中心] 最后登录时间:', adminInfo.value.adminLoginTime)
   } catch (error) {
     console.error('❌ [个人中心] 获取失败:', error)
     ElMessage.error('获取个人信息失败，请重新登录')
@@ -227,6 +251,42 @@ const openEditDialog = () => {
   })
   
   showEditDialog.value = true
+}
+
+const handleFileChange = async (uploadFile: any) => {
+  const file = uploadFile.raw
+  if (!file) return
+
+  if (!file.type.startsWith('image/')) {
+    ElMessage.error('只能上传图片文件')
+    return
+  }
+
+  if (file.size / 1024 / 1024 > 5) {
+    ElMessage.error('图片大小不能超过 5MB')
+    return
+  }
+
+  uploading.value = true
+  try {
+    const user = authStore.user
+    if (!user?.userId) {
+      ElMessage.error('未获取到用户信息')
+      return
+    }
+
+    console.log('📤 开始上传头像，文件:', file.name, '大小:', (file.size / 1024).toFixed(2) + 'KB')
+    const response = await fileApi.uploadAdminAvatar(file, user.userId)
+    console.log('✅ 上传成功，URL:', response.data)
+    
+    editForm.adminImage = response.data
+    ElMessage.success('上传成功')
+  } catch (error: any) {
+    console.error('❌ 上传失败:', error)
+    ElMessage.error(error.message || '上传失败')
+  } finally {
+    uploading.value = false
+  }
 }
 
 const handleSubmit = async () => {

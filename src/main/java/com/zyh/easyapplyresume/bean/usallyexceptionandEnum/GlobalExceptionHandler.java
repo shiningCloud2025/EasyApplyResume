@@ -16,6 +16,15 @@ public class GlobalExceptionHandler {
         BaseResult baseResult = new BaseResult(e.getCode(),e.getMsg(),null);
         return  baseResult;
     }
+
+    // 处理运行时异常
+    @ExceptionHandler(RuntimeException.class)
+    public BaseResult handlerRuntimeException(RuntimeException e){
+        e.printStackTrace();
+        BaseResult baseResult = new BaseResult(99999,e.getMessage(),null);
+        return baseResult;
+    }
+
     // 处理系统异常
     @ExceptionHandler(Exception.class)
     public BaseResult defaultExceptionHandler(Exception e){
