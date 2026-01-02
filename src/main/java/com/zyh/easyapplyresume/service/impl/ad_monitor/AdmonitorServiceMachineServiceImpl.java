@@ -3,6 +3,9 @@ package com.zyh.easyapplyresume.service.impl.ad_monitor;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.mapper.mysql.ad_monitor.AdmonitorServiceMachineMapper;
 import com.zyh.easyapplyresume.model.form.ad_monitor.AdmonitorServiceMachineConnectForm;
@@ -20,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -151,11 +155,126 @@ public class AdmonitorServiceMachineServiceImpl implements AdmonitorServiceMachi
 
     @Override
     public boolean testServiceMachineConnect(AdmonitorServiceMachineConnectForm admonitorServiceMachineConnectForm) {
-        return false;
+        Session session = null;
+        try{
+            JSch jSch = new JSch();
+            session = jSch.getSession(admonitorServiceMachineConnectForm.getServiceMachineUsername(),admonitorServiceMachineConnectForm.getServiceMachineHost(),admonitorServiceMachineConnectForm.getServiceMachinePort());
+            session.setPassword(admonitorServiceMachineConnectForm.getServiceMachinePassword());
+            // 跳过主机密钥检查
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.setTimeout(60000); // 1分钟超时
+            session.connect();
+            return  true;
+        }catch (Exception e){
+            log.error("测试服务器连接失败");
+            e.printStackTrace();
+            throw new RuntimeException("测试服务器连接失败");
+        }finally {
+            if (session != null && session.isConnected()) {
+                session.disconnect();
+            }
+        }
     }
 
     @Override
     public AdmonitorServiceMachineJianKongVO getAdmonitorServiceMachineJianKongInfo(AdmonitorServiceMachineJianKongForm admonitorServiceMachineJianKongForm) {
-        return null;
+        Session session = null;
+        try{
+            JSch jSch = new JSch();
+            session = jSch.getSession(admonitorServiceMachineJianKongForm.getServiceMachineUsername(),admonitorServiceMachineJianKongForm.getServiceMachineHost(),admonitorServiceMachineJianKongForm.getServiceMachinePort());
+            session.setPassword(admonitorServiceMachineJianKongForm.getServiceMachinePassword());
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.setTimeout(60000);
+            session.connect();
+            AdmonitorServiceMachineJianKongVO admonitorServiceMachineJianKongVO = new AdmonitorServiceMachineJianKongVO();
+            admonitorServiceMachineJianKongVO.setServiceMachineId(admonitorServiceMachineJianKongForm.getServiceMachineId());
+            admonitorServiceMachineJianKongVO.setServiceMachineName(admonitorServiceMachineJianKongForm.getServiceMachineName());
+
+
+            // 获取CPU使用率
+            String cpuResult = executeCommand(session, "top -bn1 | grep 'Cpu(s)' | awk '{print $2}'");
+            admonitorServiceMachineJianKongVO.setCpuUsage(parseDouble(cpuResult));
+
+            // 获取内存信息
+            String memResult = executeCommand(session, "free -m | grep Mem");
+            String[] memParts = memResult.trim().split("\\s+");
+            if (memParts.length >= 3) {
+                admonitorServiceMachineJianKongVO.setMemoryTotal(parseLong(memParts[1]));
+                admonitorServiceMachineJianKongVO.setMemoryUsed(parseLong(memParts[2]));
+                if (admonitorServiceMachineJianKongVO.getMemoryTotal() > 0) {
+                    admonitorServiceMachineJianKongVO.setMemoryUsage((double) admonitorServiceMachineJianKongVO.getMemoryUsed() / admonitorServiceMachineJianKongVO.getMemoryTotal() * 100);
+                }
+            }
+
+            // 获取硬盘信息（根分区）
+            String diskResult = executeCommand(session, "df -BG / | tail -1");
+            String[] diskParts = diskResult.trim().split("\\s+");
+            if (diskParts.length >= 5) {
+                admonitorServiceMachineJianKongVO.setDiskTotal(parseLong(diskParts[1].replace("G", "")));
+                admonitorServiceMachineJianKongVO.setDiskUsed(parseLong(diskParts[2].replace("G", "")));
+                admonitorServiceMachineJianKongVO.setDiskUsage(parseDouble(diskParts[4].replace("%", "")));
+            }
+
+            // 获取系统负载
+            String loadResult = executeCommand(session, "uptime | awk -F'load average:' '{print $2}' | awk -F',' '{print $1}'");
+            admonitorServiceMachineJianKongVO.setLoadAverage(parseDouble(loadResult));
+
+            return admonitorServiceMachineJianKongVO;
+        } catch (Exception e) {
+            log.error("获取服务器监控信息失败", e);
+            throw new RuntimeException("获取服务器监控信息失败");
+        } finally {
+            if (session != null && session.isConnected()) {
+                session.disconnect();
+            }
+        }
     }
+
+    /**
+     * 执行SSH命令
+     */
+    private String executeCommand(Session session, String command) {
+        ChannelExec channel = null;
+        try {
+            channel = (ChannelExec) session.openChannel("exec");
+            channel.setCommand(command);
+            channel.setInputStream(null);
+            channel.setErrStream(System.err);
+
+            InputStream in = channel.getInputStream();
+            channel.connect();
+
+            StringBuilder result = new StringBuilder();
+            byte[] buffer = new byte[1024];
+            int len;
+            while ((len = in.read(buffer)) != -1) {
+                result.append(new String(buffer, 0, len));
+            }
+            return result.toString().trim();
+        } catch (Exception e) {
+            log.error("执行命令失败: {}", command, e);
+            throw new RuntimeException("执行命令失败");
+        } finally {
+            if (channel != null && channel.isConnected()) {
+                channel.disconnect();
+            }
+        }
+    }
+
+    private Double parseDouble(String str) {
+        try {
+            return Double.parseDouble(str.trim());
+        } catch (Exception e) {
+            return 0.0;
+        }
+    }
+
+    private Long parseLong(String str) {
+        try {
+            return Long.parseLong(str.trim());
+        } catch (Exception e) {
+            return 0L;
+        }
+    }
+
 }
