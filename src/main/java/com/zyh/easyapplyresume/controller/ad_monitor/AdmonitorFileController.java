@@ -1,15 +1,12 @@
 package com.zyh.easyapplyresume.controller.ad_monitor;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.model.form.admin.AdminFileForm;
 import com.zyh.easyapplyresume.qiniuoss.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 /**
  * 文件控制器-监测端
@@ -40,7 +37,7 @@ public class AdmonitorFileController {
     @Operation(summary = "上传监控端广告图片")
     @PostMapping("/uploadAdmonitorAdImg")
     public BaseResult<String> uploadAdmonitorAdImg(MultipartFile file){
-        String url = ossService.upload(file, OssSystemTypeEnum.AD_MONITOR, OssAdMonitorBusinessTypeEnum.ADMONITOR_AD_IMG, 0, false);
+        String url = ossService.upload(file, OssSystemTypeEnum.AD_MONITOR, OssAdMonitorBusinessTypeEnum.ADMONITOR_ADMIN_AD_IMG, 0, false);
         return BaseResult.ok(url);
     }
 
