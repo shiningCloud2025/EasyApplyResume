@@ -25,35 +25,83 @@ OSS核心技术:KODO、MinIO<br>
 部署为:centos7+docker+docker-compose<br>
 常见问题：OSS孤儿数据、Redis数据同步、业务流转、基于Coze搭建智能体、Agent-flow、SpringAI、大模型相关业务、双Token、KODO配置与使用
 ## 核心功能
-用户端:<br>
+(1).用户端:<br>
 1.门户页:
-![img.png](img.png)
+![img.png](ReadMeImages/SystemPicture/img.png)
 2.我的简历
-![img_1.png](img_1.png)
+![img_1.png](ReadMeImages/SystemPicture/img_1.png)
 3.简历模版
-![img_2.png](img_2.png)
+![img_2.png](ReadMeImages/SystemPicture/img_2.png)
 4.招聘信息
-![img_3.png](img_3.png)
+![img_3.png](ReadMeImages/SystemPicture/img_3.png)
 5.求职攻略
-![img_4.png](img_4.png)
+![img_4.png](ReadMeImages/SystemPicture/img_4.png)
 6.AI简历助手<br>
 6.1 AI智能问答助手
-![img_5.png](img_5.png)
+![img_5.png](ReadMeImages/SystemPicture/img_5.png)
 6.2 AI智能体助手
-![img_6.png](img_6.png)
+![img_6.png](ReadMeImages/SystemPicture/img_6.png)
 7.用户反馈
-![img_7.png](img_7.png)
-8.用户基础功能
-![img_8.png](img_8.png)
+![img_7.png](ReadMeImages/SystemPicture/img_7.png)
+8.用户基础功能<br>
+![img_8.png](ReadMeImages/SystemPicture/img_8.png)
 
-管理端:<br>
-1.操作管理者<br>
-2.操作管理者角色<br>
-3.操作管理者权限<br>
-4.操作简历模板<br>
-5.操作招聘公司和岗位<br>
-6.操作用户投递记录<br>
-7.咨询AI助手<br>
+(2).管理端:<br>
+1.门户页
+![img.png](ReadMeImages/SystemPicture/img_9.png)
+2.首页
+![img.png](ReadMeImages/SystemPicture/img_10.png)
+3.网站管理<br>
+3.1 管理员管理
+![img_1.png](ReadMeImages/SystemPicture/img_11.png)
+3.2 角色管理
+![img_2.png](ReadMeImages/SystemPicture/img_12.png)
+3.3 权限管理
+![img_3.png](ReadMeImages/SystemPicture/img_13.png)
+4.文章管理<br>
+4.1 求职攻略文章管理
+![img_4.png](ReadMeImages/SystemPicture/img_14.png)
+5.招聘管理<br>
+5.1 招聘岗位管理
+![img.png](ReadMeImages/SystemPicture/img_15.png)
+5.2 招聘信息管理
+![img_1.png](ReadMeImages/SystemPicture/img_16.png)
+6.简历管理<br>
+6.1 简历模版管理
+![img_2.png](ReadMeImages/SystemPicture/img_31.png)
+6.2 系统删除简历管理
+![img_3.png](ReadMeImages/SystemPicture/img_32.png)
+7.Map管理
+7.1 行业Map管理
+![img_4.png](ReadMeImages/SystemPicture/img_19.png)
+8.AI助手<br>
+8.1 AI智能问答助手
+![img_5.png](ReadMeImages/SystemPicture/img_20.png)
+8.2 AI智能体助手
+![img_6.png](ReadMeImages/SystemPicture/img_21.png)
+9.反馈管理<br>
+9.1 用户端反馈管理
+![img_7.png](ReadMeImages/SystemPicture/img_22.png)
+9.2 管理端反馈管理
+![img_8.png](ReadMeImages/SystemPicture/img_23.png)
+9.3 用户端反馈记录
+![img_9.png](ReadMeImages/SystemPicture/img_24.png)
+9.4 管理端反馈记录
+![img_10.png](ReadMeImages/SystemPicture/img_25.png)
+10.内部系统<br>
+10.1 易投简历用户端
+![img_11.png](ReadMeImages/SystemPicture/img_26.png)
+10.2 易投简历监测与广告端
+![img_12.png](ReadMeImages/SystemPicture/img_27.png)
+11. 外部API(以高德为代表)
+![img_13.png](ReadMeImages/SystemPicture/img_28.png)
+12.API文档中心
+12.1 API对外文档中心
+![img_14.png](ReadMeImages/SystemPicture/img_29.png)
+12.2 API对内文档中心
+![img_15.png](ReadMeImages/SystemPicture/img_30.png)
+
+
 广告端:<br>
 1.操作广告<br>
 2.操作各种监控<br>
