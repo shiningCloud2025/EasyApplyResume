@@ -29,6 +29,7 @@ public class UserFileController {
     @PostMapping("/uploadUserHeadImg")
     public BaseResult<String> uploadUserHeadImg(@ModelAttribute UserFileForm userFileForm){
         String url = ossService.upload(userFileForm.getFile(), OssSystemTypeEnum.USER, OssUserBusinessTypeEnum.USER_HEAD_IMG, userFileForm.getUserId(), false);
+        System.out.println("🔗 上传成功，返回URL: " + url);  // ← 加日志
         return BaseResult.ok(url);
     }
 

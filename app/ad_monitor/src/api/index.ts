@@ -284,4 +284,32 @@ export const feedbackApi = {
     request.post('/admin/feedback/addFeedback', data)
 }
 
+// 文件上传API
+export const fileApi = {
+  // 上传管理端广告图片
+  uploadAdminAdImg: (file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return request.post('/admonitor/file/uploadAdminAdImg', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+  },
+  // 上传用户端广告图片
+  uploadUserAdImg: (file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return request.post('/admonitor/file/uploadUserAdImg', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+  },
+  // 上传监控端广告图片
+  uploadAdmonitorAdImg: (file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    return request.post('/admonitor/file/uploadAdmonitorAdImg', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+  }
+}
+
 export default request
