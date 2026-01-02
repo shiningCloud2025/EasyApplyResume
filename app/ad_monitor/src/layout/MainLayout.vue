@@ -102,6 +102,16 @@
             <el-menu-item index="/main/middleware/minio">MinIO管理</el-menu-item>
           </el-sub-menu>
 
+          <!-- 服务器管理 -->
+          <el-sub-menu index="server">
+            <template #title>
+              <el-icon><Monitor /></el-icon>
+              <span>服务器管理</span>
+            </template>
+            <el-menu-item index="/main/server/manage">设备管理</el-menu-item>
+            <el-menu-item index="/main/server/monitor">设备监控</el-menu-item>
+          </el-sub-menu>
+
           <!-- 网站安全管理 -->
           <el-sub-menu index="security">
             <template #title>
@@ -234,6 +244,8 @@ const breadcrumbs = computed(() => {
     '/main/security/spring-boot-admin': 'Spring Boot Admin',
     '/main/security/prometheus': 'Prometheus',
     '/main/security/grafana': 'Grafana',
+    '/main/server/manage': '设备管理',
+    '/main/server/monitor': '设备监控',
     '/main/profile': '个人中心',
     '/main/feedback/submit': '意见反馈'
   }

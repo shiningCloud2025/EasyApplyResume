@@ -312,4 +312,48 @@ export const fileApi = {
   }
 }
 
+// 服务器管理API - 设备管理
+export const serviceMachineManageApi = {
+  // 添加服务器
+  add: (data: any) =>
+    request.post('/admonitor/servicemachine/manage/addAdmonitorServiceMachine', data),
+  
+  // 更新服务器
+  update: (data: any) =>
+    request.put('/admonitor/servicemachine/manage/updateAdmonitorServiceMachine', data),
+  
+  // 删除服务器
+  delete: (id: number) =>
+    request.delete('/admonitor/servicemachine/manage/deleteAdmonitorServiceMachine', { params: { id } }),
+  
+  // 获取服务器详情
+  getInfo: (id: number) =>
+    request.get('/admonitor/servicemachine/manage/getAdmonitorServiceMachineInfo', { params: { id } }),
+  
+  // 分页查询服务器
+  getByPage: (pageNum: number, pageSize: number, query?: any) =>
+    request.post('/admonitor/servicemachine/manage/getAdmonitorServiceMachinePage', query || {}, 
+      { params: { pageNum, pageSize } }),
+  
+  // 测试服务器连接
+  testConnect: (data: any) =>
+    request.post('/admonitor/servicemachine/manage/testServiceMachineConnect', data)
+}
+
+// 服务器管理API - 设备监控
+export const serviceMachineMonitorApi = {
+  // 分页查询服务器
+  getByPage: (pageNum: number, pageSize: number, query?: any) =>
+    request.post('/admonitor/servicemachine/jiankong/getAdmonitorServiceMachinePage', query || {}, 
+      { params: { pageNum, pageSize } }),
+  
+  // 获取服务器监控信息
+  getMonitorInfo: (data: any) =>
+    request.post('/admonitor/servicemachine/jiankong/getAdmonitorServiceMachineJianKongInfo', data),
+  
+  // 测试服务器连接
+  testConnect: (data: any) =>
+    request.post('/admonitor/servicemachine/jiankong/testServiceMachineConnect', data)
+}
+
 export default request
