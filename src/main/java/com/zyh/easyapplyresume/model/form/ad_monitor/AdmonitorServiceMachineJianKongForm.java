@@ -1,19 +1,15 @@
 package com.zyh.easyapplyresume.model.form.ad_monitor;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
-import java.util.Date;
 
 /**
  * @author shiningCloud2025
  */
 @Data
-@Schema(description = "监测端服务器信息提交表单")
-public class AdmonitorServiceMachineForm {
+@Schema(description = "监测端服务器信息监控表单")
+public class AdmonitorServiceMachineJianKongForm {
+
     @Schema(description = "主键ID")
     private Integer serviceMachineId;
 
@@ -34,6 +30,5 @@ public class AdmonitorServiceMachineForm {
 
     @Schema(description = "备注")
     private String serviceMachineRemark;
-
 
 }
