@@ -57,6 +57,7 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
         try{
             log.info("修改广告开始");
             AdmonitorAdvertisementValidator.validateForUpdate(admonitorAdvertisementForm);
+
             AdmonitorAdvertisement admonitorAdvertisement = new AdmonitorAdvertisement();
             BeanUtil.copyProperties(admonitorAdvertisementForm,admonitorAdvertisement);
             log.info("修改广告成功");
