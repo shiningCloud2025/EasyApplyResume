@@ -104,14 +104,14 @@ OSS核心技术:KODO、MinIO<br>
 
 监测与广告端:<br>
 1.门户页
-![img.png](../img.png)
+![img.png](../img_33.png)
 2.首页
-![img_1.png](../img_1.png)
+![img_1.png](../img_34.png)
 3.公告管理(以管理的公告管理为代表)
-![img_2.png](../img_2.png)
+![img_2.png](../img_35.png)
 4.广告管理<br>
 4.1 图片广告管理(以管理端广告管理为代表)<br>
-![img_3.png](../img_3.png)
+![img_3.png](../img_36.png)
 4.2 视频广告管理(暂未开发)<br>
 5.用户监测管理<br>
 5.1 网站管理
