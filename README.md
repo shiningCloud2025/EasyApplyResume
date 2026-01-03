@@ -102,10 +102,40 @@ OSS核心技术:KODO、MinIO<br>
 ![img_15.png](ReadMeImages/SystemPicture/img_30.png)
 
 
-广告端:<br>
-1.操作广告<br>
-2.操作各种监控<br>
-3.咨询AI助手<br>
+监测与广告端:<br>
+1.门户页
+![img.png](img.png)
+2.首页
+![img_1.png](img_1.png)
+3.公告管理(以管理的公告管理为代表)
+![img_2.png](img_2.png)
+4.广告管理<br>
+4.1 图片广告管理(以管理端广告管理为代表)<br>
+![img_3.png](img_3.png)
+4.2 视频广告管理(暂未开发)<br>
+5.用户监测管理<br>
+5.1 网站管理
+![img_4.png](img_4.png)
+5.2 日志管理<br>
+6.管理监测管理<br>
+6.1网站管理(和用户端基本一样)<br>
+6.2日志管理<br>
+7.中间件监测管理<br>
+7.1 MySQL管理(未开发)<br>
+7.2 Redis管理(未开发)<br>
+7.3 MinIO管理(参考文档中心)<br>
+8.服务器管理<br>
+8.1 设备管理
+![img_5.png](img_5.png)
+8.2 设备监控
+![img_6.png](img_6.png)
+9.网站安全管理
+9.1 SpringBootAdmin
+![img_7.png](img_7.png)
+9.2 Prometheus
+![img_8.png](img_8.png)
+9.3 Grafana
+![img_9.png](img_9.png)
 ## 项目适用人群
 **本项目适用于:想学习SpringBoot全家桶的编程小白,想学习SpringAI框架的程序员、编程小白,对Java感兴趣的其他行业从业者等等**
 ## 项目使用和二开

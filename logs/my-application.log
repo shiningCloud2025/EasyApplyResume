@@ -680,3 +680,595 @@ This generated password is for development use only. Your security configuration
 2026-01-02 23:34:06.573 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
 2026-01-02 23:34:06.573 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
 2026-01-02 23:34:06.609 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-02 23:59:20.264 [scheduling-1] INFO  c.z.e.t.a.AdmonitorUserDaliyUserNumScheduledTask - 开始执行统计今日管理员数量任务
+2026-01-02 23:59:20.439 [scheduling-1] DEBUG c.z.e.m.m.user.UserMapper.selectList - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user
+2026-01-02 23:59:20.439 [scheduling-1] DEBUG c.z.e.m.m.user.UserMapper.selectList - ==> Parameters: 
+2026-01-02 23:59:20.557 [scheduling-1] DEBUG c.z.e.m.m.user.UserMapper.selectList - <==      Total: 8
+2026-01-02 23:59:20.664 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDaliyUserNumServiceImpl - 新增记录开始
+2026-01-02 23:59:20.669 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==>  Preparing: INSERT INTO admonitor_userDaliyUserNum ( userDaliyUserNum_date, userDaliyUserNum_num ) VALUES ( ?, ? )
+2026-01-02 23:59:20.670 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==> Parameters: 2026-01-02 23:59:20.558(Timestamp), 8(Integer)
+2026-01-02 23:59:21.077 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDaliyUserNumServiceImpl - 新增记录失败
+2026-01-02 23:59:21.170 [scheduling-1] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+java.lang.RuntimeException: 新增记录失败
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorUserDaliyUserNumServiceImpl.addAdmonitorUserDaliyUserNum(AdmonitorUserDaliyUserNumServiceImpl.java:38)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorUserDaliyUserNumServiceImpl$$SpringCGLIB$$0.addAdmonitorUserDaliyUserNum(<generated>)
+	at com.zyh.easyapplyresume.task.ad_monitor.AdmonitorUserDaliyUserNumScheduledTask.calculateYesterdayAdminNumTask(AdmonitorUserDaliyUserNumScheduledTask.java:38)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124)
+	at io.micrometer.observation.Observation.observe(Observation.java:499)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:96)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-01-02 23:59:30.255 [scheduling-1] INFO  c.z.e.t.a.AdmonitorAdminDaliyAdminNumScheduledTask - 开始执行统计今日管理员数量任务
+2026-01-02 23:59:30.290 [scheduling-1] DEBUG c.z.e.m.m.a.AdminMapper.selectList - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE deleted=0
+2026-01-02 23:59:30.290 [scheduling-1] DEBUG c.z.e.m.m.a.AdminMapper.selectList - ==> Parameters: 
+2026-01-02 23:59:30.327 [scheduling-1] DEBUG c.z.e.m.m.a.AdminMapper.selectList - <==      Total: 4
+2026-01-02 23:59:30.364 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDaliyAdminNumServiceImpl - 新增记录开始
+2026-01-02 23:59:30.366 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==>  Preparing: INSERT INTO admonitor_adminDaliyAdminNum ( adminDaliyAdminNum_date, adminDaliyAdminNum_num ) VALUES ( ?, ? )
+2026-01-02 23:59:30.367 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==> Parameters: 2026-01-02 23:59:30.327(Timestamp), 4(Integer)
+2026-01-02 23:59:30.439 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDaliyAdminNumServiceImpl - 新增记录失败
+2026-01-02 23:59:30.508 [scheduling-1] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+java.lang.RuntimeException: 新增记录失败
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorAdminDaliyAdminNumServiceImpl.addAdmonitorAdminDaliyAdminNum(AdmonitorAdminDaliyAdminNumServiceImpl.java:37)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorAdminDaliyAdminNumServiceImpl$$SpringCGLIB$$0.addAdmonitorAdminDaliyAdminNum(<generated>)
+	at com.zyh.easyapplyresume.task.ad_monitor.AdmonitorAdminDaliyAdminNumScheduledTask.calculateYesterdayAdminNumTask(AdmonitorAdminDaliyAdminNumScheduledTask.java:38)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124)
+	at io.micrometer.observation.Observation.observe(Observation.java:499)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:96)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-01-03 00:00:10.265 [scheduling-1] INFO  c.z.e.t.a.AdmonitorAdminDailyVisitNumScheduledTask - 开始执行统计昨日访问量任务
+2026-01-03 00:00:10.354 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDailyVisitNumServiceImpl - 计算记录开始
+2026-01-03 00:00:10.355 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminDailyVisitNum_id,adminDailyVisitNum_adminId,adminDailyVisitNum_visitTime FROM admonitor_adminDailyVisitNum WHERE (adminDailyVisitNum_visitTime = ?)
+2026-01-03 00:00:10.358 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2026-01-02(LocalDate)
+2026-01-03 00:00:10.395 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-01-03 00:00:10.395 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDailyVisitNumServiceImpl - 计算记录成功
+2026-01-03 00:00:10.463 [scheduling-1] INFO  c.z.e.t.a.AdmonitorAdminDailyVisitNumScheduledTask - 昨日访问量统计完成
+2026-01-03 00:00:10.464 [scheduling-1] INFO  c.z.e.t.a.AdmonitorAdminDailyVisitNumScheduledTask - 开始执行新增昨日访问量任务
+2026-01-03 00:00:10.500 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDailyVisitTotalNumServiceImpl - 新增记录开始
+2026-01-03 00:00:10.501 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==>  Preparing: INSERT INTO admonitor_adminDailyVisitTotalNum ( adminDailyVisitTotalNum_date, adminDailyVisitTotalNum_num ) VALUES ( ?, ? )
+2026-01-03 00:00:10.501 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==> Parameters: 2026-01-02 00:00:10.26(Timestamp), 1(Integer)
+2026-01-03 00:00:10.575 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDailyVisitTotalNumServiceImpl - 新增记录失败
+2026-01-03 00:00:10.644 [scheduling-1] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+java.lang.RuntimeException: 新增记录失败
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorAdminDailyVisitTotalNumServiceImpl.addAdmonitorAdminDailyVisitTotalNum(AdmonitorAdminDailyVisitTotalNumServiceImpl.java:32)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorAdminDailyVisitTotalNumServiceImpl$$SpringCGLIB$$0.addAdmonitorAdminDailyVisitTotalNum(<generated>)
+	at com.zyh.easyapplyresume.task.ad_monitor.AdmonitorAdminDailyVisitNumScheduledTask.calculateYesterdayVisitTask(AdmonitorAdminDailyVisitNumScheduledTask.java:38)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124)
+	at io.micrometer.observation.Observation.observe(Observation.java:499)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:96)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-01-03 00:00:20.256 [scheduling-1] INFO  c.z.e.t.a.AdmonitorUserDailyVisitNumScheduledTask - 开始执行统计用户昨日访问量任务
+2026-01-03 00:00:20.465 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录开始
+2026-01-03 00:00:20.467 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum WHERE (userDailyVisitNum_visitTime = ?)
+2026-01-03 00:00:20.467 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2026-01-02(LocalDate)
+2026-01-03 00:00:20.566 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-01-03 00:00:20.566 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录成功
+2026-01-03 00:00:20.667 [scheduling-1] INFO  c.z.e.t.a.AdmonitorUserDailyVisitNumScheduledTask - 昨日用户访问量统计完成
+2026-01-03 00:00:20.668 [scheduling-1] INFO  c.z.e.t.a.AdmonitorUserDailyVisitNumScheduledTask - 开始执行用户新增昨日访问量任务
+2026-01-03 00:00:20.726 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitTotalNumServiceImpl - 新增记录开始
+2026-01-03 00:00:20.728 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==>  Preparing: INSERT INTO admonitor_userDailyVisitTotalNum ( userDailyVisitTotalNum_date, userDailyVisitTotalNum_num ) VALUES ( ?, ? )
+2026-01-03 00:00:20.728 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==> Parameters: 2026-01-02 00:00:20.256(Timestamp), 1(Integer)
+2026-01-03 00:00:20.872 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitTotalNumServiceImpl - 新增记录失败
+2026-01-03 00:00:20.975 [scheduling-1] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+java.lang.RuntimeException: 新增记录失败
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorUserDailyVisitTotalNumServiceImpl.addAdmonitorUserDailyVisitTotalNum(AdmonitorUserDailyVisitTotalNumServiceImpl.java:32)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorUserDailyVisitTotalNumServiceImpl$$SpringCGLIB$$0.addAdmonitorUserDailyVisitTotalNum(<generated>)
+	at com.zyh.easyapplyresume.task.ad_monitor.AdmonitorUserDailyVisitNumScheduledTask.calculateYesterdayVisitTask(AdmonitorUserDailyVisitNumScheduledTask.java:41)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124)
+	at io.micrometer.observation.Observation.observe(Observation.java:499)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:96)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-01-03 12:40:59.383 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback12.LogbackNacosLoggingAdapterBuilder
+2026-01-03 12:40:59.387 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapterBuilder
+2026-01-03 12:40:59.389 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter: com.alibaba.nacos.logger.adapter.logback14.LogbackNacosLoggingAdapter match ch.qos.logback.classic.Logger success.
+2026-01-03 12:40:59.397 [main] INFO  c.a.n.client.logging.NacosLogging - Nacos Logging Adapter Builder: com.alibaba.nacos.logger.adapter.log4j2.Log4j2NacosLoggingAdapterBuilder
+2026-01-03 12:40:59.420 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-01-03 12:40:59.676 [main] INFO  c.z.e.EasyApplyResumeApplication - Starting EasyApplyResumeApplication using Java 21.0.9 with PID 29232 (D:\EasyApplyResume\EasyApplyResume\target\classes started by zhaoyunhan1 in D:\EasyApplyResume\EasyApplyResume)
+2026-01-03 12:40:59.676 [main] DEBUG c.z.e.EasyApplyResumeApplication - Running with Spring Boot v3.3.5, Spring v6.1.14
+2026-01-03 12:40:59.677 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2026-01-03 12:41:02.303 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-01-03 12:41:02.308 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-01-03 12:41:02.460 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 126 ms. Found 0 Redis repository interfaces.
+2026-01-03 12:41:02.695 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.695 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.695 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.696 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.696 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.697 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.697 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.698 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.698 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.699 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.699 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.700 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.701 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.701 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.701 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.701 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.701 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.702 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.704 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.705 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.705 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.706 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.706 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.706 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.707 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.707 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.707 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.708 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.708 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.709 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.709 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.709 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.710 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.711 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.711 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.712 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.712 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.713 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.713 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-01-03 12:41:02.758 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2026-01-03 12:41:03.147 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'com.alibaba.cloud.nacos.NacosConfigAutoConfiguration' of type [com.alibaba.cloud.nacos.NacosConfigAutoConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [nacosAnnotationProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2026-01-03 12:41:03.158 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigProperties' of type [com.alibaba.cloud.nacos.NacosConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2026-01-03 12:41:03.400 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-01-03 12:41:03.401 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-01-03 12:41:03.403 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'nacosConfigManager' of type [com.alibaba.cloud.nacos.NacosConfigManager] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected/applied to a currently created BeanPostProcessor [nacosAnnotationProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies/advisors. If this bean does not have to be post-processed, declare it with ROLE_INFRASTRUCTURE.
+2026-01-03 12:41:04.167 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-01-03 12:41:04.182 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-01-03 12:41:04.188 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-01-03 12:41:04.188 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-01-03 12:41:04.317 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-01-03 12:41:04.318 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4579 ms
+2026-01-03 12:41:05.378 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserCollections".
+2026-01-03 12:41:05.378 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserCollections ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-01-03 12:41:05.502 [main] DEBUG c.z.e.filter.UserJwtAuthFilter - Filter 'userJwtAuthFilter' configured for use
+2026-01-03 12:41:05.504 [main] DEBUG c.z.e.filter.AdminJwtAuthFilter - Filter 'adminJwtAuthFilter' configured for use
+2026-01-03 12:41:05.675 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 开始初始化阿里云短信客户端...
+2026-01-03 12:41:05.976 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端初始化完成
+2026-01-03 12:41:07.239 [main] INFO  c.z.e.d.a.AdminSensitiveWordsAdvisor - 管理端敏感词初始化完成，共加载 137 个敏感词
+2026-01-03 12:41:09.484 [main] INFO  c.z.s.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 8012 (D:\EasyApplyResume\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by zhaoyunhan1 in D:\EasyApplyResume\EasyApplyResume)
+2026-01-03 12:41:09.486 [main] INFO  c.z.s.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2026-01-03 12:41:11.331 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2026-01-03 12:41:11.430 [pool-4-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2026-01-03 12:41:11.469 [main] INFO  c.z.s.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 2.681 seconds (process running for 3.731)
+2026-01-03 12:41:17.011 [pool-9-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2026-01-03 12:41:17.030 [pool-7-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2026-01-03 12:41:17.600 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 用户端敏感词初始化完成，共加载 137 个敏感词
+2026-01-03 12:41:18.295 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2026-01-03 12:41:18.301 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2026-01-03 12:41:18.305 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2026-01-03 12:41:23.043 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = c11d0c86-9755-4d6c-a0a3-ee4f56aa9ebd
+2026-01-03 12:41:23.721 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 7df8334b-a8d2-4f15-99aa-3e37969fac2b
+2026-01-03 12:41:23.913 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 84363236-8718-4a95-8db0-609a5e442e4a
+2026-01-03 12:41:24.143 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2026-01-03 12:41:24.164 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2026-01-03 12:41:24.370 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2026-01-03 12:41:24.517 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2026-01-03 12:41:24.519 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2026-01-03 12:41:24.519 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2026-01-03 12:41:24.524 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-01-03 12:41:26.239 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4c80223e
+2026-01-03 12:41:26.242 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-01-03 12:41:26.883 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: a51fae5b-a500-4603-b982-d5f40e7ea8fa
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-01-03 12:41:26.899 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-01-03 12:41:27.602 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 16 endpoints beneath base path '/actuator'
+2026-01-03 12:41:29.128 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-01-03 12:41:29.144 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2026-01-03 12:41:31.640 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 33.067 seconds (process running for 35.52)
+2026-01-03 12:41:33.881 [RMI TCP Connection(7)-10.127.192.30] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-01-03 12:41:33.886 [RMI TCP Connection(8)-10.127.192.30] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-01-03 12:41:33.886 [RMI TCP Connection(8)-10.127.192.30] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-01-03 12:41:33.889 [RMI TCP Connection(8)-10.127.192.30] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2026-01-03 12:41:34.293 [registrationTask1] WARN  d.c.b.a.c.r.ApplicationRegistrator - Failed to register application as Application(name=EasyApplyResume, managementUrl=http://backend-1:8080/actuator, healthUrl=http://backend-1:8080/actuator/health, serviceUrl=http://backend-1:8080) at spring-boot-admin ([http://EasyApplyResume-spring-boot-admin:9090/instances]): I/O error on POST request for "http://EasyApplyResume-spring-boot-admin:9090/instances": 不知道这样的主机。 (easyapplyresume-spring-boot-admin). Further attempts are logged on DEBUG level
+2026-01-03 12:41:34.542 [RMI TCP Connection(7)-10.127.192.30] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@521faa93
+2026-01-03 12:41:34.543 [RMI TCP Connection(7)-10.127.192.30] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-01-03 13:05:12.425 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==>  Preparing: select * from admin_admin where admin_account = ? or admin_phone = ? or admin_email = ?
+2026-01-03 13:05:12.449 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==> Parameters: 18242991090(String), 18242991090(String), 18242991090(String)
+2026-01-03 13:05:12.508 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - <==      Total: 1
+2026-01-03 13:05:12.582 [http-nio-8080-exec-1] INFO  c.z.e.s.i.a.AdmonitorAdminDailyVisitNumServiceImpl - 新增记录开始
+2026-01-03 13:05:12.600 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.insert - ==>  Preparing: INSERT INTO admonitor_adminDailyVisitNum ( adminDailyVisitNum_adminId, adminDailyVisitNum_visitTime ) VALUES ( ?, ? )
+2026-01-03 13:05:12.602 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.insert - ==> Parameters: 1(Integer), 2026-01-03 13:05:12.582(Timestamp)
+2026-01-03 13:05:12.675 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.insert - <==    Updates: 1
+2026-01-03 13:05:12.696 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==>  Preparing: UPDATE admin_admin SET admin_account=?, admin_username=?, admin_email=?, admin_phone=?, admin_password=?, admin_image=?, admin_introduce=?, admin_state=?, admin_loginTime=? WHERE admin_id=? AND deleted=0
+2026-01-03 13:05:12.697 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==> Parameters: 1812463057(String), 超级管理员(String), 1812463057@qq.com(String), 18242991090(String), $2a$10$Wz8s6hYf0UGOCCZ6Ff5QW.QgfqIQSJijiFXIqqplg3eGqw3HNxSeu(String), https://ts1.tc.mm.bing.net/th/id/R-C.928ef8908b5eb3666b2a27a1f6cfbe17?rik=h2FXLv1HNaxbTg&riu=http%3a%2f%2fp0.so.qhmsg.com%2ft018b5eb3666b2a27a1.jpg&ehk=QnGPPvZKq3cPW6%2bdkG%2b3zIRvAGXRsgYVTirfbvOBTaU%3d&risl=&pid=ImgRaw&r=0(String), 至高无上的超级管理员(String), 1(Integer), 2026-01-03 13:05:12.678(Timestamp), 1(Integer)
+2026-01-03 13:05:12.767 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.updateById - <==    Updates: 1
+2026-01-03 13:05:13.707 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 13:05:13.707 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 13:05:13.707 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 13:05:13.707 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 13:05:13.707 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 13:05:13.707 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 13:05:13.748 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 13:05:13.748 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 13:05:13.748 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 13:05:13.749 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 13:05:13.749 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 13:05:13.749 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 13:05:13.750 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 13:05:13.750 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 13:05:13.750 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 13:05:13.787 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 13:05:13.787 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 13:05:13.787 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 13:05:13.828 [http-nio-8080-exec-4] INFO  c.z.e.s.i.a.AdmonitorAdvertisementServiceImpl - 查询所有广告开始
+2026-01-03 13:05:13.830 [http-nio-8080-exec-3] INFO  c.z.e.s.i.a.AdMonitorAnnouncementServiceImpl - 监测端获取公告信息
+2026-01-03 13:05:13.830 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectById - ==>  Preparing: SELECT announcement_id,announcement_title,announcement_content,announcement_updatedTime FROM admonitor_announcement WHERE announcement_id=?
+2026-01-03 13:05:13.831 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectById - ==> Parameters: 1(Integer)
+2026-01-03 13:05:13.837 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 13:05:13.838 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 13:05:13.843 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT advertisement_id,advertisement_name,advertisement_url,advertisement_link,advertisement_startedTime,advertisement_endTime,deleted FROM admonitor_advertisement WHERE deleted=0 AND (deleted = ? AND advertisement_startedTime <= ? AND advertisement_endTime > ?)
+2026-01-03 13:05:13.843 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 0(Integer), 2026-01-03 13:05:13.828(Timestamp), 2026-01-03 13:05:13.828(Timestamp)
+2026-01-03 13:05:13.870 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectById - <==      Total: 1
+2026-01-03 13:05:13.874 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 13:05:13.874 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 13:05:13.875 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 13:05:13.881 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-01-03 13:05:13.881 [http-nio-8080-exec-4] INFO  c.z.e.s.i.a.AdmonitorAdvertisementServiceImpl - 查询所有广告成功
+2026-01-03 13:05:13.911 [http-nio-8080-exec-3] INFO  c.z.e.s.i.a.AdMonitorAnnouncementServiceImpl - 监测端获取公告信息成功
+2026-01-03 13:05:13.911 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 13:05:13.951 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 13:05:13.951 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 13:05:13.988 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:34:41.742 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:34:41.742 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:34:41.743 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:34:41.743 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:34:41.778 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:34:41.779 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:34:41.779 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:34:41.793 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:34:41.793 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:34:41.793 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:34:41.815 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:34:41.829 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:34:41.857 [http-nio-8080-exec-8] INFO  c.z.e.s.i.a.AdmonitorAdvertisementServiceImpl - 查询所有广告开始
+2026-01-03 14:34:41.858 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT advertisement_id,advertisement_name,advertisement_url,advertisement_link,advertisement_startedTime,advertisement_endTime,deleted FROM admonitor_advertisement WHERE deleted=0 AND (deleted = ? AND advertisement_startedTime <= ? AND advertisement_endTime > ?)
+2026-01-03 14:34:41.858 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 0(Integer), 2026-01-03 14:34:41.857(Timestamp), 2026-01-03 14:34:41.857(Timestamp)
+2026-01-03 14:34:41.877 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:34:41.877 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:34:41.894 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-01-03 14:34:41.894 [http-nio-8080-exec-8] INFO  c.z.e.s.i.a.AdmonitorAdvertisementServiceImpl - 查询所有广告成功
+2026-01-03 14:34:41.912 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:34:41.912 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:34:41.912 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:34:41.948 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:34:41.987 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:34:41.988 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:34:42.022 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:35:34.905 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==>  Preparing: select * from admin_admin where admin_account = ? or admin_phone = ? or admin_email = ?
+2026-01-03 14:35:34.905 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==> Parameters: 18242991090(String), 18242991090(String), 18242991090(String)
+2026-01-03 14:35:34.941 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - <==      Total: 1
+2026-01-03 14:35:35.005 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==>  Preparing: UPDATE admin_admin SET admin_account=?, admin_username=?, admin_email=?, admin_phone=?, admin_password=?, admin_image=?, admin_introduce=?, admin_state=?, admin_loginTime=? WHERE admin_id=? AND deleted=0
+2026-01-03 14:35:35.006 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==> Parameters: 1812463057(String), 超级管理员(String), 1812463057@qq.com(String), 18242991090(String), $2a$10$Wz8s6hYf0UGOCCZ6Ff5QW.QgfqIQSJijiFXIqqplg3eGqw3HNxSeu(String), https://ts1.tc.mm.bing.net/th/id/R-C.928ef8908b5eb3666b2a27a1f6cfbe17?rik=h2FXLv1HNaxbTg&riu=http%3a%2f%2fp0.so.qhmsg.com%2ft018b5eb3666b2a27a1.jpg&ehk=QnGPPvZKq3cPW6%2bdkG%2b3zIRvAGXRsgYVTirfbvOBTaU%3d&risl=&pid=ImgRaw&r=0(String), 至高无上的超级管理员(String), 1(Integer), 2026-01-03 14:35:35.005(Timestamp), 1(Integer)
+2026-01-03 14:35:35.076 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.updateById - <==    Updates: 1
+2026-01-03 14:35:35.282 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:35:35.282 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:35:35.316 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:35:35.316 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:35:35.317 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:35:35.317 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:35:35.317 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:35:35.318 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:35:35.318 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:35:35.352 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:35:35.352 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:35:35.353 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:35:35.353 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:35:35.353 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:35:35.353 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:35:35.354 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:35:35.389 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:35:35.390 [http-nio-8080-exec-1] INFO  c.z.e.s.i.a.AdMonitorAnnouncementServiceImpl - 监测端获取公告信息
+2026-01-03 14:35:35.390 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:35:35.391 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectById - ==>  Preparing: SELECT announcement_id,announcement_title,announcement_content,announcement_updatedTime FROM admonitor_announcement WHERE announcement_id=?
+2026-01-03 14:35:35.391 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:35:35.427 [http-nio-8080-exec-2] INFO  c.z.e.s.i.a.AdmonitorAdvertisementServiceImpl - 查询所有广告开始
+2026-01-03 14:35:35.428 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT advertisement_id,advertisement_name,advertisement_url,advertisement_link,advertisement_startedTime,advertisement_endTime,deleted FROM admonitor_advertisement WHERE deleted=0 AND (deleted = ? AND advertisement_startedTime <= ? AND advertisement_endTime > ?)
+2026-01-03 14:35:35.428 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 0(Integer), 2026-01-03 14:35:35.427(Timestamp), 2026-01-03 14:35:35.427(Timestamp)
+2026-01-03 14:35:35.431 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectById - <==      Total: 1
+2026-01-03 14:35:35.431 [http-nio-8080-exec-1] INFO  c.z.e.s.i.a.AdMonitorAnnouncementServiceImpl - 监测端获取公告信息成功
+2026-01-03 14:35:35.438 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:35:35.439 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:35:35.464 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-01-03 14:35:35.464 [http-nio-8080-exec-2] INFO  c.z.e.s.i.a.AdmonitorAdvertisementServiceImpl - 查询所有广告成功
+2026-01-03 14:35:35.474 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:35:35.474 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:35:35.475 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:35:35.510 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:35:35.550 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:35:35.550 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:35:35.585 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:36:15.076 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:36:15.076 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:36:15.111 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:36:15.112 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:36:15.113 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:36:15.148 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:36:15.191 [http-nio-8080-exec-4] INFO  c.z.e.s.i.a.AdMonitorAdminAnnouncementServiceImpl - 管理员获取公告信息
+2026-01-03 14:36:15.191 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectById - ==>  Preparing: SELECT adminAnnouncement_id AS announcementId,adminAnnouncement_title AS announcementTitle,adminAnnouncement_content AS announcementContent,adminAnnouncement_updatedTime AS announcementUpdatedTime FROM admonitor_adminAnnouncement WHERE adminAnnouncement_id=?
+2026-01-03 14:36:15.191 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:36:15.231 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectById - <==      Total: 1
+2026-01-03 14:36:15.233 [http-nio-8080-exec-4] INFO  c.z.e.s.i.a.AdMonitorAdminAnnouncementServiceImpl - 管理员获取公告信息成功
+2026-01-03 14:37:46.087 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:37:46.087 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:37:46.124 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:37:46.124 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:37:46.125 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:37:46.161 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:37:46.204 [http-nio-8080-exec-5] INFO  c.z.e.s.i.a.AdmonitorAdminAdvertisementServiceImpl - 分页查询广告开始
+2026-01-03 14:37:46.208 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminAdvertisement_id AS advertisementId,adminAdvertisement_name AS advertisementName,adminAdvertisement_url AS advertisementUrl,adminAdvertisement_link AS advertisementLink,adminAdvertisement_startedTime AS advertisementStartedTime,adminAdvertisement_endTime AS advertisementEndTime,deleted FROM admonitor_adminAdvertisement WHERE deleted=0 AND (deleted = ?)
+2026-01-03 14:37:46.210 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 0(Integer)
+2026-01-03 14:37:46.245 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-01-03 14:37:46.246 [http-nio-8080-exec-5] INFO  c.z.e.s.i.a.AdmonitorAdminAdvertisementServiceImpl - 分页查询广告成功
+2026-01-03 14:38:56.491 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:38:56.491 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:38:56.492 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.492 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.496 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:38:56.496 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:38:56.496 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.496 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.528 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:38:56.528 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:38:56.529 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.533 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:38:56.533 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:38:56.533 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:38:56.533 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:38:56.533 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:38:56.533 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:38:56.533 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.533 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.534 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.565 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:38:56.584 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:38:56.586 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:38:56.588 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:38:56.627 [http-nio-8080-exec-10] INFO  c.z.e.s.i.a.AdmonitorAdvertisementServiceImpl - 查询所有广告开始
+2026-01-03 14:38:56.628 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT advertisement_id,advertisement_name,advertisement_url,advertisement_link,advertisement_startedTime,advertisement_endTime,deleted FROM admonitor_advertisement WHERE deleted=0 AND (deleted = ? AND advertisement_startedTime <= ? AND advertisement_endTime > ?)
+2026-01-03 14:38:56.629 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 0(Integer), 2026-01-03 14:38:56.627(Timestamp), 2026-01-03 14:38:56.627(Timestamp)
+2026-01-03 14:38:56.631 [http-nio-8080-exec-6] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录开始
+2026-01-03 14:38:56.632 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum
+2026-01-03 14:38:56.632 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2026-01-03 14:38:56.636 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:38:56.636 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.650 [http-nio-8080-exec-9] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitTotalNumServiceImpl - 查询记录开始
+2026-01-03 14:38:56.664 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-01-03 14:38:56.664 [http-nio-8080-exec-10] INFO  c.z.e.s.i.a.AdmonitorAdvertisementServiceImpl - 查询所有广告成功
+2026-01-03 14:38:56.670 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 6
+2026-01-03 14:38:56.670 [http-nio-8080-exec-6] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录成功
+2026-01-03 14:38:56.670 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findFromTimeToEndTimeAdmonitorUserDailyVisitTotalNum - ==>  Preparing: select userDailyVisitTotalNum_num from admonitor_userDailyVisitTotalNum where userDailyVisitTotalNum_date between ? and ?
+2026-01-03 14:38:56.672 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findFromTimeToEndTimeAdmonitorUserDailyVisitTotalNum - ==> Parameters: 2025-12-28(LocalDate), 2026-01-03(LocalDate)
+2026-01-03 14:38:56.673 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:38:56.673 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:38:56.674 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.708 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findFromTimeToEndTimeAdmonitorUserDailyVisitTotalNum - <==      Total: 5
+2026-01-03 14:38:56.714 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:38:56.754 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:38:56.755 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.789 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:38:56.789 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.795 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:38:56.825 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:38:56.826 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:38:56.826 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:38:56.826 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.826 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.864 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:38:56.864 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:38:56.864 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:38:56.865 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:56.901 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:38:56.906 [http-nio-8080-exec-1] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 开始计算今日访问增长
+2026-01-03 14:38:56.907 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum WHERE (userDailyVisitNum_visitTime = ?)
+2026-01-03 14:38:56.907 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2026-01-02(LocalDate)
+2026-01-03 14:38:56.939 [http-nio-8080-exec-2] INFO  c.z.e.s.i.a.AdmonitorUserDaliyUserNumServiceImpl - 查询开始
+2026-01-03 14:38:56.941 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findFromTimeToEndTimeAdmonitorUserDaliyUserNum - ==>  Preparing: select userDaliyUserNum_num from admonitor_userDaliyUserNum where userDaliyUserNum_date between ? and ?
+2026-01-03 14:38:56.941 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findFromTimeToEndTimeAdmonitorUserDaliyUserNum - ==> Parameters: 2025-12-28(LocalDate), 2026-01-03(LocalDate)
+2026-01-03 14:38:56.945 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-01-03 14:38:56.947 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum WHERE (userDailyVisitNum_visitTime = ?)
+2026-01-03 14:38:56.948 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2026-01-03(LocalDate)
+2026-01-03 14:38:56.976 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findFromTimeToEndTimeAdmonitorUserDaliyUserNum - <==      Total: 6
+2026-01-03 14:38:56.982 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 0
+2026-01-03 14:38:57.171 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:38:57.172 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:57.208 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:38:57.210 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:38:57.210 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:57.246 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:38:57.285 [http-nio-8080-exec-3] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录开始
+2026-01-03 14:38:57.286 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum WHERE (userDailyVisitNum_visitTime = ?)
+2026-01-03 14:38:57.286 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2026-01-03(LocalDate)
+2026-01-03 14:38:57.324 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 0
+2026-01-03 14:38:57.324 [http-nio-8080-exec-3] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录成功
+2026-01-03 14:38:57.439 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:38:57.441 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:57.478 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:38:57.478 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:38:57.479 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:38:57.515 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:38:57.553 [http-nio-8080-exec-4] INFO  c.z.e.s.i.a.AdmonitorUserDaliyUserNumServiceImpl - 计算用户总数开始
+2026-01-03 14:38:57.554 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectList - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user
+2026-01-03 14:38:57.554 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectList - ==> Parameters: 
+2026-01-03 14:38:57.594 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.user.UserMapper.selectList - <==      Total: 8
+2026-01-03 14:38:57.595 [http-nio-8080-exec-4] INFO  c.z.e.s.i.a.AdmonitorUserDaliyUserNumServiceImpl - 用户总数为：8
+2026-01-03 14:39:13.426 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:39:13.426 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:39:13.427 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:39:13.427 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:39:13.463 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:39:13.464 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:39:13.464 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:39:13.474 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:39:13.474 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:39:13.475 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:39:13.499 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:39:13.512 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:39:13.538 [http-nio-8080-exec-8] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitTotalNumServiceImpl - 查询记录开始
+2026-01-03 14:39:13.538 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findFromTimeToEndTimeAdmonitorUserDailyVisitTotalNum - ==>  Preparing: select userDailyVisitTotalNum_num from admonitor_userDailyVisitTotalNum where userDailyVisitTotalNum_date between ? and ?
+2026-01-03 14:39:13.539 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findFromTimeToEndTimeAdmonitorUserDailyVisitTotalNum - ==> Parameters: 2025-12-28(LocalDate), 2026-01-03(LocalDate)
+2026-01-03 14:39:13.548 [http-nio-8080-exec-5] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录开始
+2026-01-03 14:39:13.549 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum
+2026-01-03 14:39:13.549 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 
+2026-01-03 14:39:13.574 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findFromTimeToEndTimeAdmonitorUserDailyVisitTotalNum - <==      Total: 5
+2026-01-03 14:39:13.585 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 6
+2026-01-03 14:39:13.585 [http-nio-8080-exec-5] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录成功
+2026-01-03 14:39:13.710 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:39:13.711 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:39:13.736 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:39:13.737 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:39:13.765 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:39:13.765 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:39:13.766 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:39:13.801 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:39:13.839 [http-nio-8080-exec-6] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 开始计算今日访问增长
+2026-01-03 14:39:13.840 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum WHERE (userDailyVisitNum_visitTime = ?)
+2026-01-03 14:39:13.840 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2026-01-02(LocalDate)
+2026-01-03 14:39:13.876 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-01-03 14:39:13.877 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum WHERE (userDailyVisitNum_visitTime = ?)
+2026-01-03 14:39:13.877 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2026-01-03(LocalDate)
+2026-01-03 14:39:13.913 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 0
+2026-01-03 14:39:14.026 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:39:14.027 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:39:14.027 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:39:14.062 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:39:14.063 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:39:14.063 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:39:14.101 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:39:14.102 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:39:14.103 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:39:14.105 [http-nio-8080-exec-10] INFO  c.z.e.s.i.a.AdmonitorUserDaliyUserNumServiceImpl - 查询开始
+2026-01-03 14:39:14.106 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findFromTimeToEndTimeAdmonitorUserDaliyUserNum - ==>  Preparing: select userDaliyUserNum_num from admonitor_userDaliyUserNum where userDaliyUserNum_date between ? and ?
+2026-01-03 14:39:14.106 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findFromTimeToEndTimeAdmonitorUserDaliyUserNum - ==> Parameters: 2025-12-28(LocalDate), 2026-01-03(LocalDate)
+2026-01-03 14:39:14.138 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:39:14.139 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findFromTimeToEndTimeAdmonitorUserDaliyUserNum - <==      Total: 6
+2026-01-03 14:39:14.177 [http-nio-8080-exec-9] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录开始
+2026-01-03 14:39:14.177 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum WHERE (userDailyVisitNum_visitTime = ?)
+2026-01-03 14:39:14.177 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2026-01-03(LocalDate)
+2026-01-03 14:39:14.212 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 0
+2026-01-03 14:39:14.212 [http-nio-8080-exec-9] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录成功
+2026-01-03 14:39:14.369 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:39:14.369 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:39:14.417 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:39:14.417 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:39:14.417 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:39:14.716 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:39:14.752 [http-nio-8080-exec-7] INFO  c.z.e.s.i.a.AdmonitorUserDaliyUserNumServiceImpl - 计算用户总数开始
+2026-01-03 14:39:14.753 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectList - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user
+2026-01-03 14:39:14.753 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectList - ==> Parameters: 
+2026-01-03 14:39:14.797 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.user.UserMapper.selectList - <==      Total: 8
+2026-01-03 14:39:14.798 [http-nio-8080-exec-7] INFO  c.z.e.s.i.a.AdmonitorUserDaliyUserNumServiceImpl - 用户总数为：8
+2026-01-03 14:42:54.945 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:42:54.945 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:42:54.980 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:42:54.981 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:42:54.981 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:42:55.017 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:42:55.057 [http-nio-8080-exec-2] INFO  c.z.e.s.i.a.AdmonitorServiceMachineServiceImpl - 开始分页查询服务器
+2026-01-03 14:42:55.059 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT serviceMachine_id,serviceMachine_name,serviceMachine_host,serviceMachine_port,serviceMachine_username,serviceMachine_password,serviceMachine_remark,serviceMachine_createdTime,serviceMachine_updatedTime,deleted FROM admonitor_serviceMachine WHERE deleted=0 AND (deleted = ?)
+2026-01-03 14:42:55.059 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 0(Integer)
+2026-01-03 14:42:55.097 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-01-03 14:42:55.099 [http-nio-8080-exec-2] INFO  c.z.e.s.i.a.AdmonitorServiceMachineServiceImpl - 分页查询服务器成功
+2026-01-03 14:43:22.734 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-01-03 14:43:22.736 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-01-03 14:43:22.771 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-01-03 14:43:22.771 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id left join admin_role_permission on admin_role.role_id = admin_role.role_id left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-01-03 14:43:22.771 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-01-03 14:43:22.806 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-01-03 14:43:22.844 [http-nio-8080-exec-1] INFO  c.z.e.s.i.a.AdmonitorServiceMachineServiceImpl - 开始分页查询服务器
+2026-01-03 14:43:22.845 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT serviceMachine_id,serviceMachine_name,serviceMachine_host,serviceMachine_port,serviceMachine_username,serviceMachine_password,serviceMachine_remark,serviceMachine_createdTime,serviceMachine_updatedTime,deleted FROM admonitor_serviceMachine WHERE deleted=0 AND (deleted = ?)
+2026-01-03 14:43:22.845 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 0(Integer)
+2026-01-03 14:43:22.880 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-01-03 14:43:22.881 [http-nio-8080-exec-1] INFO  c.z.e.s.i.a.AdmonitorServiceMachineServiceImpl - 分页查询服务器成功
