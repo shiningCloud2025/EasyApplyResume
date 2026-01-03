@@ -104,18 +104,18 @@ OSS核心技术:KODO、MinIO<br>
 
 监测与广告端:<br>
 1.门户页
-![img.png](../img_33.png)
+![img.png](../ReadMeImages/SystemPicture/img_33.png)
 2.首页
-![img_1.png](../img_34.png)
+![img_1.png](../ReadMeImages/SystemPicture/img_34.png)
 3.公告管理(以管理的公告管理为代表)
-![img_2.png](../img_35.png)
+![img_2.png](../ReadMeImages/SystemPicture/img_35.png)
 4.广告管理<br>
 4.1 图片广告管理(以管理端广告管理为代表)<br>
-![img_3.png](../img_36.png)
+![img_3.png](../ReadMeImages/SystemPicture/img_36.png)
 4.2 视频广告管理(暂未开发)<br>
 5.用户监测管理<br>
 5.1 网站管理
-![img_4.png](../img_4.png)
+![img_4.png](../ReadMeImages/SystemPicture/img_37.png)
 5.2 日志管理<br>
 6.管理监测管理<br>
 6.1网站管理(和用户端基本一样)<br>
@@ -126,16 +126,16 @@ OSS核心技术:KODO、MinIO<br>
 7.3 MinIO管理(参考文档中心)<br>
 8.服务器管理<br>
 8.1 设备管理
-![img_5.png](../img_5.png)
+![img_5.png](../ReadMeImages/SystemPicture/img_38.png)
 8.2 设备监控
-![img_6.png](../img_6.png)
+![img_6.png](../ReadMeImages/SystemPicture/img_39.png)
 9.网站安全管理
 9.1 SpringBootAdmin
-![img_7.png](../img_7.png)
+![img_7.png](../ReadMeImages/SystemPicture/img_40.png)
 9.2 Prometheus
-![img_8.png](../img_8.png)
+![img_8.png](../ReadMeImages/SystemPicture/img_41.png)
 9.3 Grafana
-![img_9.png](../img_9.png)
+![img_9.png](../ReadMeImages/SystemPicture/img_42.png)
 ## 项目适用人群
 **本项目适用于:想学习SpringBoot全家桶的编程小白,想学习SpringAI框架的程序员、编程小白,对Java感兴趣的其他行业从业者等等**
 ## 项目使用和二开

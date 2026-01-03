@@ -155,11 +155,11 @@
 
 | 功能 | 截图 |
 |------|------|
-| 设备管理 | ![设备管理](../img_5.png) |
-| 设备监控 | ![设备监控](../img_6.png) |
-| SpringBootAdmin | ![SBA](../img_7.png) |
-| Prometheus | ![Prometheus](../img_8.png) |
-| Grafana | ![Grafana](../img_9.png) |
+| 设备管理 | ![设备管理](../ReadMeImages/SystemPicture/img_38.png) |
+| 设备监控 | ![设备监控](../ReadMeImages/SystemPicture/img_39.png) |
+| SpringBootAdmin | ![SBA](../ReadMeImages/SystemPicture/img_40.png) |
+| Prometheus | ![Prometheus](../ReadMeImages/SystemPicture/img_41.png) |
+| Grafana | ![Grafana](../ReadMeImages/SystemPicture/img_42.png) |
 
 </details>
 

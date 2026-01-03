@@ -1272,3 +1272,23 @@ This generated password is for development use only. Your security configuration
 2026-01-03 14:43:22.845 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 0(Integer)
 2026-01-03 14:43:22.880 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
 2026-01-03 14:43:22.881 [http-nio-8080-exec-1] INFO  c.z.e.s.i.a.AdmonitorServiceMachineServiceImpl - 分页查询服务器成功
+2026-01-03 20:14:06.253 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=5m32s841ms559µs500ns).
+2026-01-03 20:14:14.673 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=5m32s821ms513µs800ns).
+2026-01-03 20:48:38.166 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=1m22s905ms281µs).
+2026-01-03 20:48:59.738 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m22s905ms619µs800ns).
+2026-01-03 21:14:08.588 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=20m329ms614µs800ns).
+2026-01-03 21:14:30.099 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=20m309ms971µs).
+2026-01-03 21:50:44.382 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2026-01-03 21:50:44.382 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2026-01-03 21:50:44.384 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2026-01-03 21:50:44.392 [Thread-15] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2026-01-03 21:50:44.634 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-01-03 21:50:44.644 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-01-03 21:50:44.646 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2026-01-03 21:50:44.699 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2026-01-03 21:50:44.700 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2026-01-03 21:50:44.702 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2026-01-03 21:50:44.711 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-01-03 21:50:44.715 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-01-03 21:50:44.740 [ForkJoinPool.commonPool-worker-2] WARN  i.m.c.transport.StdioClientTransport - Process terminated with code 1
+2026-01-03 21:50:44.740 [ForkJoinPool.commonPool-worker-1] WARN  i.m.c.transport.StdioClientTransport - Process terminated with code 1

@@ -289,42 +289,42 @@
 <summary><b>点击展开监测端截图</b></summary>
 
 #### 1. 门户页
-![门户页](img_33.png)
+![门户页](ReadMeImages/SystemPicture/img_33.png)
 
 #### 2. 首页
-![首页](img_34.png)
+![首页](ReadMeImages/SystemPicture/img_34.png)
 
 #### 3. 公告管理（以管理端公告为例）
-![公告管理](img_35.png)
+![公告管理](ReadMeImages/SystemPicture/img_35.png)
 
 #### 4. 广告管理
 
 **图片广告管理（以管理端广告为例）**
-![广告管理](img_36.png)
+![广告管理](ReadMeImages/SystemPicture/img_36.png)
 
 #### 5. 用户监测管理
 
 **网站管理**
-![网站管理](img_4.png)
+![网站管理](ReadMeImages/SystemPicture/img_37.png)
 
 #### 6. 服务器管理
 
 **设备管理**
-![设备管理](img_5.png)
+![设备管理](ReadMeImages/SystemPicture/img_38.png)
 
 **设备监控**
-![设备监控](img_6.png)
+![设备监控](ReadMeImages/SystemPicture/img_39.png)
 
 #### 7. 网站安全管理
 
 **SpringBootAdmin**
-![SpringBootAdmin](img_7.png)
+![SpringBootAdmin](ReadMeImages/SystemPicture/img_40.png)
 
 **Prometheus**
-![Prometheus](img_8.png)
+![Prometheus](ReadMeImages/SystemPicture/img_41.png)
 
 **Grafana**
-![Grafana](img_9.png)
+![Grafana](ReadMeImages/SystemPicture/img_42.png)
 
 </details>
 
