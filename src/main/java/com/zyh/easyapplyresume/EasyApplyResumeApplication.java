@@ -30,4 +30,5 @@ public class EasyApplyResumeApplication {
         return interceptor;
     }
 
+
 }
