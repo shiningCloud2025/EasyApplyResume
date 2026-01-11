@@ -1,8 +1,11 @@
 package com.zyh.easyapplyresume.config;
 
+import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -67,6 +70,11 @@ public class DataSourceConfig {
         MybatisConfiguration configuration = new MybatisConfiguration();
         configuration.setMapUnderscoreToCamelCase(true); // 驼峰命名自动转换（默认开启，可根据需求调整）
         factory.setConfiguration(configuration);
+        // TODO:解决分页插件不生效问题
+        // 添加分页插件
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MARIADB));
+        factory.setPlugins(interceptor);
         // 扫描 MySQL 的 Mapper XML 文件（如果你的 Mapper 用 XML 写法，指定路径）
         factory.setMapperLocations(new PathMatchingResourcePatternResolver()
                 .getResources("classpath*:com/zyh/easyapplyresume/mapper/mysql/**/*.xml")); // 你的 MySQL Mapper XML 路径

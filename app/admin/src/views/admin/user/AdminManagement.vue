@@ -673,8 +673,12 @@ const getAdminList = async () => {
       queryForm
     )
     
+    console.log('🔍 分页数据返回:', response.data)
+    
     tableData.value = response.data.records || []
-    pagination.total = response.data.total || 0
+    pagination.total = Number(response.data.total) || 0
+    pagination.current = Number(response.data.current) || pagination.current
+    pagination.size = Number(response.data.size) || pagination.size
   } catch (error) {
     console.error('获取管理员列表失败:', error)
     ElMessage.error('加载数据失败')
