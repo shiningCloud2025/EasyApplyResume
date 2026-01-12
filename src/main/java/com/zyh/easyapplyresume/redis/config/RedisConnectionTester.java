@@ -1,4 +1,4 @@
-package com.zyh.easyapplyresume.redis;
+package com.zyh.easyapplyresume.redis.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
