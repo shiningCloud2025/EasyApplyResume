@@ -28,6 +28,7 @@ const JobList: React.FC = () => {
     current: 1,
     pageSize: 10
   })
+  const [allJobs, setAllJobs] = useState<any[]>([])
 
   // 获取行业列表
   const { data: industries } = useQuery(
@@ -39,28 +40,39 @@ const JobList: React.FC = () => {
     }
   )
 
-  // 获取招聘信息列表
+  // 获取招聘信息列表(一次性获取所有数据)
   const {
     data: jobsData,
     isLoading,
     error,
     refetch
   } = useQuery(
-    ['jobs', pagination, filters],
+    ['jobs', filters],
     () => jobAPI.getJobs({
-      pageNum: pagination.current,
-      pageSize: pagination.pageSize,
+      pageNum: 1,
+      pageSize: 10000,
       query: filters
     }),
     {
       keepPreviousData: true,
       select: (response) => response.data,
+      onSuccess: (data) => {
+        setAllJobs(data?.records || [])
+        setPagination({ ...pagination, current: 1 })
+      },
       onError: (error: any) => {
         const errorMsg = error?.response?.data?.message || error?.message || '获取招聘信息失败'
         message.error(errorMsg)
       }
     }
   )
+
+  // 前端分页:计算当前页数据
+  const paginatedJobs = React.useMemo(() => {
+    const start = (pagination.current - 1) * pagination.pageSize
+    const end = start + pagination.pageSize
+    return allJobs.slice(start, end)
+  }, [allJobs, pagination.current, pagination.pageSize])
 
   const handleFilterChange = (key: string, value: any) => {
     setFilters({ ...filters, [key]: value === undefined ? undefined : value })
@@ -196,7 +208,7 @@ const JobList: React.FC = () => {
           </Empty>
         ) : (
           <Table
-            dataSource={jobsData?.records || []}
+            dataSource={paginatedJobs}
             loading={isLoading}
             rowKey="employmentInformationId"
             scroll={{ x: 1800 }}
@@ -207,7 +219,7 @@ const JobList: React.FC = () => {
             pagination={{
               current: pagination.current,
               pageSize: pagination.pageSize,
-              total: jobsData?.total || 0,
+              total: allJobs.length,
               onChange: handlePageChange,
               showSizeChanger: true,
               showQuickJumper: true,

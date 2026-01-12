@@ -28,7 +28,7 @@ public class UserEmploymentInformationController {
     public BaseResult<Page<EmploymentInformationPageVO>> getEmploymentInformationPage(@RequestParam(required = false, defaultValue = "10") int size,
                                                                                       @RequestParam(required = false, defaultValue = "1") int page,
                                                                                       @RequestBody EmploymentInformationQuery employmentInformationQuery) {
-        return BaseResult.ok(employmentInformationService.getEmploymentInformationPage(size, page, employmentInformationQuery));
+        return BaseResult.ok(employmentInformationService.getEmploymentInformationPage(page, size, employmentInformationQuery));
     }
 
     @GetMapping("/getEmploymentInformationInfo")

@@ -626,6 +626,7 @@ const pagination = reactive({
 
 // 表格数据
 const tableData = ref<EmploymentInformationPageVO[]>([])
+const allTableData = ref<EmploymentInformationPageVO[]>([])
 
 // 表单 - 完整字段
 const infoFormRef = ref<FormInstance>()
@@ -868,13 +869,13 @@ const handleCityFocus = async () => {
   }
 }
 
-// 获取列表
+// 获取列表(一次性获取所有数据)
 const getInfoList = async () => {
   loading.value = true
   try {
     const response = await employmentInformationApi.getEmploymentInformationPage(
-      pagination.current,
-      pagination.size,
+      1,
+      10000,
       searchForm
     )
     
@@ -884,14 +885,23 @@ const getInfoList = async () => {
       console.log('🔍 第一条数据详情:', response.data.records[0])
     }
     
-    tableData.value = response.data.records
-    pagination.total = response.data.total
+    allTableData.value = response.data.records
+    pagination.total = allTableData.value.length
+    pagination.current = 1
+    updateTableData()
   } catch (error) {
     console.error('获取列表失败:', error)
     ElMessage.error('加载数据失败')
   } finally {
     loading.value = false
   }
+}
+
+// 前端分页:更新当前页数据
+const updateTableData = () => {
+  const start = (pagination.current - 1) * pagination.size
+  const end = start + pagination.size
+  tableData.value = allTableData.value.slice(start, end)
 }
 
 // 新增
@@ -928,12 +938,13 @@ const refreshData = () => {
 // 分页变更
 const handleSizeChange = (size: number) => {
   pagination.size = size
-  getInfoList()
+  pagination.current = 1
+  updateTableData()
 }
 
 const handleCurrentChange = (current: number) => {
   pagination.current = current
-  getInfoList()
+  updateTableData()
 }
 
 // 查看详情

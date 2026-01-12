@@ -42,7 +42,7 @@ public interface EmploymentInformationService {
      * @param employmentInformationQuery
      * @return
      */
-    public Page<EmploymentInformationPageVO> getEmploymentInformationPage(int size, int page, EmploymentInformationQuery employmentInformationQuery);
+    public Page<EmploymentInformationPageVO> getEmploymentInformationPage(int page, int size, EmploymentInformationQuery employmentInformationQuery);
     /**
      * 获取所有招聘信息信息
      * @return

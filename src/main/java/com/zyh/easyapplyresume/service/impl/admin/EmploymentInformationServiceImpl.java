@@ -20,6 +20,7 @@ import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationPageVO;
 import com.zyh.easyapplyresume.service.admin.EmploymentInformationService;
 import com.zyh.easyapplyresume.utils.adminvalidator.EmploymentInformationFormValidator;
 import kotlin.jvm.internal.Lambda;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.ibatis.executor.BatchResult;
 import org.springframework.beans.BeanUtils;
@@ -35,6 +36,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @Transactional
+@Slf4j
 public class EmploymentInformationServiceImpl implements EmploymentInformationService {
     @Autowired
     private EmploymentInformationMapper employmentInformationMapper;
@@ -47,84 +49,115 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
 
     @Override
     public Integer addEmploymentInformation(EmploymentInformationForm employmentInformationForm) {
-        EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
-        EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
-        LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.orderByDesc(EmploymentInformation::getEmploymentInformationId);
-        Integer employmentInformationId = employmentInformationMapper.selectList(null).get(0).getEmploymentInformationId();
-        employmentInformation.setEmploymentInformationCode(employmentInformationId+1);
-        List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirstList();
-        List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecondList();
-        // 校验长度一致
-        if (provinceIds.size() != cityIds.size()) {
-            throw new BusException(AdminCodeEnum.EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH);
-        }
-        // 获取两个集合的迭代器
-        Iterator<Integer> provinceIt = provinceIds.iterator();
-        Iterator<Integer> cityIt = cityIds.iterator();
-        List<EmploymentInformation> res = new LinkedList<>();
-        // 同步遍历：一次取一组
-        while (provinceIt.hasNext() && cityIt.hasNext()) {
-            Integer provinceId = provinceIt.next();
-            Integer cityId = cityIt.next();
-            employmentInformation.setEmploymentInformationRecruitLocationFirst(provinceId);
-            employmentInformation.setEmploymentInformationRecruitLocationSecond(cityId);
-            String provinceName = Objects.requireNonNull(ProvinceEnum.getById(provinceId)).getName();
-            String cityName = Objects.requireNonNull(CityEnum.getById(cityId)).getName();
-            employmentInformation.setEmploymentInformationStartTime(new Date());
-            employmentInformation.setEmploymentInformationUpdatedTime(new Date());
-            employmentInformation.setEmploymentInformationRecruitLocationDetail(provinceName + cityName);
-            res.add(employmentInformation);
-        }
         try{
+            log.info("开始添加招聘信息");
+            EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
+            LambdaQueryWrapper<EmploymentInformation> judgeQueryWrapper = new LambdaQueryWrapper<>();
+            judgeQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCompanyName, employmentInformationForm.getEmploymentInformationCompanyName());
+            judgeQueryWrapper.eq(EmploymentInformation::getDeleted,0);
+            List<EmploymentInformation> employmentInformations = employmentInformationMapper.selectList(judgeQueryWrapper);
+            if (employmentInformations.size() !=0||!employmentInformations.isEmpty()) {
+                throw new BusException(AdminCodeEnum.EMPLOYMENT_COMPANY_NAME_DUPLICATE);
+            }
+
+            EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
+            LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.orderByDesc(EmploymentInformation::getEmploymentInformationId);
+            if (employmentInformationMapper.selectList(lambdaQueryWrapper).isEmpty()){
+                employmentInformation.setEmploymentInformationCode(1);
+            }else {
+                Integer employmentInformationId = employmentInformationMapper.selectList(null).get(0).getEmploymentInformationId();
+                employmentInformation.setEmploymentInformationCode(employmentInformationId+1);
+            }
+            List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirstList();
+            List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecondList();
+            // 校验长度一致
+            if (provinceIds.size() != cityIds.size()) {
+                throw new BusException(AdminCodeEnum.EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH);
+            }
+            // 获取两个集合的迭代器
+            Iterator<Integer> provinceIt = provinceIds.iterator();
+            Iterator<Integer> cityIt = cityIds.iterator();
+            List<EmploymentInformation> res = new LinkedList<>();
+            // 同步遍历：一次取一组
+            while (provinceIt.hasNext() && cityIt.hasNext()) {
+                Integer provinceId = provinceIt.next();
+                Integer cityId = cityIt.next();
+                EmploymentInformation employmentInformation1 = BeanUtil.copyProperties(employmentInformation, employmentInformation.getClass());
+                employmentInformation1.setEmploymentInformationRecruitLocationFirst(provinceId);
+                employmentInformation1.setEmploymentInformationRecruitLocationSecond(cityId);
+                String provinceName = Objects.requireNonNull(ProvinceEnum.getById(provinceId)).getName();
+                String cityName = Objects.requireNonNull(CityEnum.getById(cityId)).getName();
+                employmentInformation1.setEmploymentInformationStartTime(new Date());
+                employmentInformation1.setEmploymentInformationUpdatedTime(new Date());
+                employmentInformation1.setEmploymentInformationRecruitLocationDetail(provinceName + cityName);
+                res.add(employmentInformation1);
+            }
             List<BatchResult> countList = employmentInformationMapper.insert(res);
+            log.info("结束添加招聘信息");
             return countList.size();
-        }catch (Exception e){
-            throw resolveDbException(e);
+        }catch (BusException e){
+            throw e;
+        }
+        catch (Exception e){
+            log.error(e.getMessage());
+            throw new RuntimeException("添加招聘信息有问题");
         }
 
     }
     // 为了修改重载的
     private Integer addEmploymentInformationForUpdate(EmploymentInformationForm employmentInformationForm,Date startTime) {
-        EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
-        EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
-        LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.orderByDesc(EmploymentInformation::getEmploymentInformationId);
-        // TODO:有一定的并发问题，因为是先删除，后新增，那么在删除的时候如果别的增加且你已经完成了查询 那就回有并发问题，但是概率比较低！
-        if(employmentInformationMapper.selectList(lambdaQueryWrapper)==null){
-            employmentInformation.setEmploymentInformationCode(1);
-        }else{
-            Integer employmentInformationId = employmentInformationMapper.selectList(lambdaQueryWrapper).getFirst().getEmploymentInformationId();
-            employmentInformation.setEmploymentInformationCode(employmentInformationId+1);
-        }
-        List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirstList();
-        List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecondList();
-        // 校验长度一致
-        if (provinceIds.size() != cityIds.size()) {
-            throw new BusException(AdminCodeEnum.EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH);
-        }
-        // 获取两个集合的迭代器
-        Iterator<Integer> provinceIt = provinceIds.iterator();
-        Iterator<Integer> cityIt = cityIds.iterator();
-        List<EmploymentInformation> res = new LinkedList<>();
-        // 同步遍历：一次取一组
-        while (provinceIt.hasNext() && cityIt.hasNext()) {
-            Integer provinceId = provinceIt.next();
-            Integer cityId = cityIt.next();
-            employmentInformation.setEmploymentInformationRecruitLocationFirst(provinceId);
-            employmentInformation.setEmploymentInformationRecruitLocationSecond(cityId);
-            String provinceName = Objects.requireNonNull(ProvinceEnum.getById(provinceId)).getName();
-            String cityName = Objects.requireNonNull(ProvinceEnum.getById(cityId)).getName();
-            employmentInformation.setEmploymentInformationStartTime(startTime);
-            employmentInformation.setEmploymentInformationUpdatedTime(new Date());
-            employmentInformation.setEmploymentInformationRecruitLocationDetail(provinceName + cityName);
-            res.add(employmentInformation);
-        }
         try{
+            EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
+            LambdaQueryWrapper<EmploymentInformation> judgeQueryWrapper = new LambdaQueryWrapper<>();
+            judgeQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCompanyName, employmentInformationForm.getEmploymentInformationCompanyName());
+            judgeQueryWrapper.eq(EmploymentInformation::getDeleted,0);
+            List<EmploymentInformation> employmentInformations = employmentInformationMapper.selectList(judgeQueryWrapper);
+            if (employmentInformations.size() !=0||!employmentInformations.isEmpty()) {
+                throw new BusException(AdminCodeEnum.EMPLOYMENT_COMPANY_NAME_DUPLICATE);
+            }
+            employmentInformationForm.setEmploymentInformationId(null);
+            EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
+            LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.orderByDesc(EmploymentInformation::getEmploymentInformationId);
+            // TODO:有一定的并发问题，因为是先删除，后新增，那么在删除的时候如果别的增加且你已经完成了查询 那就回有并发问题，但是概率比较低！
+            if(employmentInformationMapper.selectList(lambdaQueryWrapper).isEmpty()){
+                employmentInformation.setEmploymentInformationCode(1);
+            }else{
+                Integer employmentInformationId = employmentInformationMapper.selectList(lambdaQueryWrapper).getFirst().getEmploymentInformationId();
+                employmentInformation.setEmploymentInformationCode(employmentInformationId+1);
+            }
+            List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirstList();
+            List<Integer>  cityIds = employmentInformationForm.getEmploymentInformationRecruitLocationSecondList();
+            // 校验长度一致
+            if (provinceIds.size() != cityIds.size()) {
+                throw new BusException(AdminCodeEnum.EMPLOYMENT_LOCATION_LENGTH_NOT_MATCH);
+            }
+            // 获取两个集合的迭代器
+            Iterator<Integer> provinceIt = provinceIds.iterator();
+            Iterator<Integer> cityIt = cityIds.iterator();
+            List<EmploymentInformation> res = new LinkedList<>();
+            // 同步遍历：一次取一组
+            while (provinceIt.hasNext() && cityIt.hasNext()) {
+                Integer provinceId = provinceIt.next();
+                Integer cityId = cityIt.next();
+                EmploymentInformation employmentInformation1 = BeanUtil.copyProperties(employmentInformation, employmentInformation.getClass());
+                employmentInformation1.setEmploymentInformationRecruitLocationFirst(provinceId);
+                employmentInformation1.setEmploymentInformationRecruitLocationSecond(cityId);
+                String provinceName = Objects.requireNonNull(ProvinceEnum.getById(provinceId)).getName();
+                String cityName = Objects.requireNonNull(CityEnum.getById(cityId)).getName();
+                employmentInformation1.setEmploymentInformationStartTime(startTime);
+                employmentInformation1.setEmploymentInformationUpdatedTime(new Date());
+                employmentInformation1.setEmploymentInformationRecruitLocationDetail(provinceName + cityName);
+                res.add(employmentInformation1);
+            }
             List<BatchResult> countList = employmentInformationMapper.insert(res);
             return countList.size();
-        }catch (Exception e){
-            throw resolveDbException(e);
+        }catch (BusException e){
+            throw e;
+        }
+        catch (Exception e){
+            throw new RuntimeException("");
         }
     }
 
@@ -216,7 +249,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
      * 招聘信息分页查询实现
      */
     @Override
-    public Page<EmploymentInformationPageVO> getEmploymentInformationPage(int size, int page, EmploymentInformationQuery employmentInformationQuery) {
+    public Page<EmploymentInformationPageVO> getEmploymentInformationPage(int page, int size, EmploymentInformationQuery employmentInformationQuery) {
         // 1. 构建 LambdaQueryWrapper（指定数据库实体类 EmploymentInformation）
         LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(EmploymentInformation::getDeleted, 0);
@@ -300,25 +333,34 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
                 lambdaQueryWrapper        // 多条件组合查询（精确+模糊）
         );
 
-        // 4. 实体转换：EmploymentInformation（数据库实体）→ EmploymentInformationPageVO（前端返回VO）
-        List<EmploymentInformationPageVO> voList = employmentInfoPage.getRecords().stream()
-                .map(info -> {
-                    EmploymentInformationInfoVO employmentInformationInfo = getEmploymentInformationInfo(info.getEmploymentInformationId());
-                    EmploymentInformationPageVO pageVO = new EmploymentInformationPageVO();
-                    // 复制同名字段（要求：VO与数据库实体字段名一致、数据类型一致）
-                    BeanUtils.copyProperties(employmentInformationInfo, pageVO);
-                    pageVO.setEmploymentInformationIndustryCategoriesName(industryMapMapper.selectById(info.getEmploymentInformationIndustryCategories()).getIndustryMapIndustryName());
-                    pageVO.setEmploymentInformationRecruitPositionName(recruitPositionMapper.selectById(info.getEmploymentInformationRecruitPosition()).getRecruitPositionName());
-                    // 字段差异补充映射（根据实际VO结构调整，以下为常见场景示例）
-                    // 示例1：日期字段格式化（如截止时间转字符串，需导入日期工具类，如Hutool的DateUtil）
-                    // if (info.getEmploymentInformationStopTime() != null) {
-                    //     pageVO.setEmploymentInformationStopTimeStr(DateUtil.format(info.getEmploymentInformationStopTime(), "yyyy-MM-dd"));
-                    // }
-                    // 示例2：字典值转中文名称（如行业大类、企业性质，需结合字典服务）
-                    // pageVO.setEmploymentInformationIndustryCategoriesName(dictService.getNameByCode("industry_categories", info.getEmploymentInformationIndustryCategories()));
-                    return pageVO;
-                })
-                .collect(Collectors.toList());
+        Map<Integer,EmploymentInformationPageVO> map = new HashMap<>();
+        for(EmploymentInformation info : employmentInfoPage.getRecords()){
+            if(map.containsKey(info.getEmploymentInformationCode())){
+                EmploymentInformationPageVO pageVO = map.get(info.getEmploymentInformationCode());
+                pageVO.getEmploymentInformationRecruitLocationFirstName().add(Objects.requireNonNull(ProvinceEnum.getById(info.getEmploymentInformationRecruitLocationFirst())).getName());
+                pageVO.getEmploymentInformationRecruitLocationSecondName().add(Objects.requireNonNull(CityEnum.getById(info.getEmploymentInformationRecruitLocationSecond())).getName());
+                pageVO.getEmploymentInformationRecruitLocationDetail().add(Objects.requireNonNull(ProvinceEnum.getById(info.getEmploymentInformationRecruitLocationFirst())).getName()+
+                        Objects.requireNonNull(CityEnum.getById(info.getEmploymentInformationRecruitLocationSecond())).getName()
+                );
+            }else{
+                EmploymentInformationPageVO pageVO = BeanUtil.copyProperties(info, EmploymentInformationPageVO.class);
+                List<String> provinces = new LinkedList<>();
+                List<String> cities = new LinkedList<>();
+                List<String> details = new LinkedList<>();
+                provinces.add(Objects.requireNonNull(ProvinceEnum.getById(info.getEmploymentInformationRecruitLocationFirst())).getName());
+                cities.add(Objects.requireNonNull(CityEnum.getById(info.getEmploymentInformationRecruitLocationSecond())).getName());
+                details.add(Objects.requireNonNull(ProvinceEnum.getById(info.getEmploymentInformationRecruitLocationFirst())).getName()+
+                        Objects.requireNonNull(CityEnum.getById(info.getEmploymentInformationRecruitLocationSecond())).getName()
+                );
+                pageVO.setEmploymentInformationRecruitLocationFirstName(provinces);
+                pageVO.setEmploymentInformationRecruitLocationSecondName(cities);
+                pageVO.setEmploymentInformationRecruitLocationDetail(details);
+                pageVO.setEmploymentInformationIndustryCategoriesName(industryMapMapper.selectById(info.getEmploymentInformationIndustryCategories()).getIndustryMapIndustryName());
+                pageVO.setEmploymentInformationRecruitPositionName(recruitPositionMapper.selectById(info.getEmploymentInformationRecruitPosition()).getRecruitPositionName());
+                map.put(info.getEmploymentInformationCode(),pageVO);
+            }
+        }
+        List<EmploymentInformationPageVO> voList = new ArrayList<>(map.values());
 
         // 5. 构建返回的 Page<VO> 对象（保留分页元数据：总条数、总页数等）
         Page<EmploymentInformationPageVO> resultPage = new Page<>();
