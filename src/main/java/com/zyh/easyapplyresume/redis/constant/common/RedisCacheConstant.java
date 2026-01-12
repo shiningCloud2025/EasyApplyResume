@@ -1,4 +1,4 @@
-package com.zyh.easyapplyresume.redis.constant;
+package com.zyh.easyapplyresume.redis.constant.common;
 
 /**
  * Redis缓存基础常量

@@ -3291,3 +3291,167 @@ This generated password is for development use only. Your security configuration
 2026-01-12 16:30:48.286 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.I.selectById - ==>  Preparing: SELECT industryMap_industryCode,industryMap_industryName,industryMap_createdTime AS createdTime,industryMap_updatedTime AS updatedTime FROM general_industryMap WHERE industryMap_industryCode=?
 2026-01-12 16:30:48.287 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.I.selectById - ==> Parameters: 3(Integer)
 2026-01-12 16:30:48.388 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.I.selectById - <==      Total: 1
+2026-01-12 23:59:20.741 [scheduling-1] INFO  c.z.e.t.a.AdmonitorUserDaliyUserNumScheduledTask - 开始执行统计今日管理员数量任务
+2026-01-12 23:59:20.799 [scheduling-1] DEBUG c.z.e.m.m.user.UserMapper.selectList - ==>  Preparing: SELECT user_id,user_account,user_username,user_email,user_phone,user_password,user_image,user_introduce,user_createdTime,user_loginTime,user_dreamPosition,user_dreamMinMonthSalary,user_dreamMaxMonthSalary,user_dreamWeekWorkDayNum,user_dreamGoodWelfare,user_recruitLocationFirst,user_recruitLocationSecond,user_recruitLocationDetail,user_universityCode FROM user_user
+2026-01-12 23:59:20.802 [scheduling-1] DEBUG c.z.e.m.m.user.UserMapper.selectList - ==> Parameters: 
+2026-01-12 23:59:20.849 [scheduling-1] DEBUG c.z.e.m.m.user.UserMapper.selectList - <==      Total: 8
+2026-01-12 23:59:20.900 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDaliyUserNumServiceImpl - 新增记录开始
+2026-01-12 23:59:20.924 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==>  Preparing: INSERT INTO admonitor_userDaliyUserNum ( userDaliyUserNum_date, userDaliyUserNum_num ) VALUES ( ?, ? )
+2026-01-12 23:59:20.935 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==> Parameters: 2026-01-12 23:59:20.851(Timestamp), 8(Integer)
+2026-01-12 23:59:21.565 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDaliyUserNumServiceImpl - 新增记录失败
+2026-01-12 23:59:21.800 [scheduling-1] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+java.lang.RuntimeException: 新增记录失败
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorUserDaliyUserNumServiceImpl.addAdmonitorUserDaliyUserNum(AdmonitorUserDaliyUserNumServiceImpl.java:38)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorUserDaliyUserNumServiceImpl$$SpringCGLIB$$0.addAdmonitorUserDaliyUserNum(<generated>)
+	at com.zyh.easyapplyresume.task.ad_monitor.AdmonitorUserDaliyUserNumScheduledTask.calculateYesterdayAdminNumTask(AdmonitorUserDaliyUserNumScheduledTask.java:38)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124)
+	at io.micrometer.observation.Observation.observe(Observation.java:499)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:96)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-01-12 23:59:30.711 [scheduling-1] INFO  c.z.e.t.a.AdmonitorAdminDaliyAdminNumScheduledTask - 开始执行统计今日管理员数量任务
+2026-01-12 23:59:30.746 [scheduling-1] DEBUG c.z.e.m.m.a.AdminMapper.selectList - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE deleted=0
+2026-01-12 23:59:30.747 [scheduling-1] DEBUG c.z.e.m.m.a.AdminMapper.selectList - ==> Parameters: 
+2026-01-12 23:59:30.783 [scheduling-1] DEBUG c.z.e.m.m.a.AdminMapper.selectList - <==      Total: 4
+2026-01-12 23:59:30.821 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDaliyAdminNumServiceImpl - 新增记录开始
+2026-01-12 23:59:30.823 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==>  Preparing: INSERT INTO admonitor_adminDaliyAdminNum ( adminDaliyAdminNum_date, adminDaliyAdminNum_num ) VALUES ( ?, ? )
+2026-01-12 23:59:30.824 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==> Parameters: 2026-01-12 23:59:30.783(Timestamp), 4(Integer)
+2026-01-12 23:59:30.894 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDaliyAdminNumServiceImpl - 新增记录失败
+2026-01-12 23:59:30.965 [scheduling-1] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+java.lang.RuntimeException: 新增记录失败
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorAdminDaliyAdminNumServiceImpl.addAdmonitorAdminDaliyAdminNum(AdmonitorAdminDaliyAdminNumServiceImpl.java:37)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorAdminDaliyAdminNumServiceImpl$$SpringCGLIB$$0.addAdmonitorAdminDaliyAdminNum(<generated>)
+	at com.zyh.easyapplyresume.task.ad_monitor.AdmonitorAdminDaliyAdminNumScheduledTask.calculateYesterdayAdminNumTask(AdmonitorAdminDaliyAdminNumScheduledTask.java:38)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124)
+	at io.micrometer.observation.Observation.observe(Observation.java:499)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:96)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-01-13 00:00:10.726 [scheduling-1] INFO  c.z.e.t.a.AdmonitorAdminDailyVisitNumScheduledTask - 开始执行统计昨日访问量任务
+2026-01-13 00:00:10.826 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDailyVisitNumServiceImpl - 计算记录开始
+2026-01-13 00:00:10.829 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminDailyVisitNum_id,adminDailyVisitNum_adminId,adminDailyVisitNum_visitTime FROM admonitor_adminDailyVisitNum WHERE (adminDailyVisitNum_visitTime = ?)
+2026-01-13 00:00:10.832 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2026-01-12(LocalDate)
+2026-01-13 00:00:10.870 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-01-13 00:00:10.870 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDailyVisitNumServiceImpl - 计算记录成功
+2026-01-13 00:00:10.940 [scheduling-1] INFO  c.z.e.t.a.AdmonitorAdminDailyVisitNumScheduledTask - 昨日访问量统计完成
+2026-01-13 00:00:10.940 [scheduling-1] INFO  c.z.e.t.a.AdmonitorAdminDailyVisitNumScheduledTask - 开始执行新增昨日访问量任务
+2026-01-13 00:00:10.979 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDailyVisitTotalNumServiceImpl - 新增记录开始
+2026-01-13 00:00:10.981 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==>  Preparing: INSERT INTO admonitor_adminDailyVisitTotalNum ( adminDailyVisitTotalNum_date, adminDailyVisitTotalNum_num ) VALUES ( ?, ? )
+2026-01-13 00:00:10.982 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==> Parameters: 2026-01-12 00:00:10.717(Timestamp), 1(Integer)
+2026-01-13 00:00:11.055 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDailyVisitTotalNumServiceImpl - 新增记录失败
+2026-01-13 00:00:11.127 [scheduling-1] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+java.lang.RuntimeException: 新增记录失败
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorAdminDailyVisitTotalNumServiceImpl.addAdmonitorAdminDailyVisitTotalNum(AdmonitorAdminDailyVisitTotalNumServiceImpl.java:32)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorAdminDailyVisitTotalNumServiceImpl$$SpringCGLIB$$0.addAdmonitorAdminDailyVisitTotalNum(<generated>)
+	at com.zyh.easyapplyresume.task.ad_monitor.AdmonitorAdminDailyVisitNumScheduledTask.calculateYesterdayVisitTask(AdmonitorAdminDailyVisitNumScheduledTask.java:38)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124)
+	at io.micrometer.observation.Observation.observe(Observation.java:499)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:96)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-01-13 00:00:20.721 [scheduling-1] INFO  c.z.e.t.a.AdmonitorUserDailyVisitNumScheduledTask - 开始执行统计用户昨日访问量任务
+2026-01-13 00:00:20.794 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录开始
+2026-01-13 00:00:20.796 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum WHERE (userDailyVisitNum_visitTime = ?)
+2026-01-13 00:00:20.796 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2026-01-12(LocalDate)
+2026-01-13 00:00:20.832 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-01-13 00:00:20.834 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录成功
+2026-01-13 00:00:20.904 [scheduling-1] INFO  c.z.e.t.a.AdmonitorUserDailyVisitNumScheduledTask - 昨日用户访问量统计完成
+2026-01-13 00:00:20.904 [scheduling-1] INFO  c.z.e.t.a.AdmonitorUserDailyVisitNumScheduledTask - 开始执行用户新增昨日访问量任务
+2026-01-13 00:00:20.941 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitTotalNumServiceImpl - 新增记录开始
+2026-01-13 00:00:20.944 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==>  Preparing: INSERT INTO admonitor_userDailyVisitTotalNum ( userDailyVisitTotalNum_date, userDailyVisitTotalNum_num ) VALUES ( ?, ? )
+2026-01-13 00:00:20.945 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==> Parameters: 2026-01-12 00:00:20.721(Timestamp), 1(Integer)
+2026-01-13 00:00:21.016 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitTotalNumServiceImpl - 新增记录失败
+2026-01-13 00:00:21.087 [scheduling-1] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+java.lang.RuntimeException: 新增记录失败
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorUserDailyVisitTotalNumServiceImpl.addAdmonitorUserDailyVisitTotalNum(AdmonitorUserDailyVisitTotalNumServiceImpl.java:32)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.zyh.easyapplyresume.service.impl.ad_monitor.AdmonitorUserDailyVisitTotalNumServiceImpl$$SpringCGLIB$$0.addAdmonitorUserDailyVisitTotalNum(<generated>)
+	at com.zyh.easyapplyresume.task.ad_monitor.AdmonitorUserDailyVisitNumScheduledTask.calculateYesterdayVisitTask(AdmonitorUserDailyVisitNumScheduledTask.java:41)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124)
+	at io.micrometer.observation.Observation.observe(Observation.java:499)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:96)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:317)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:304)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
