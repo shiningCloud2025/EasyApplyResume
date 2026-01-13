@@ -14,6 +14,8 @@ import com.zyh.easyapplyresume.model.vo.user.UserInfoVO;
 import com.zyh.easyapplyresume.qiniuoss.OssService;
 import com.zyh.easyapplyresume.qiniuoss.OssSystemTypeEnum;
 import com.zyh.easyapplyresume.qiniuoss.OssUserBusinessTypeEnum;
+import com.zyh.easyapplyresume.redis.constant.common.UserCacheKey;
+import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
 import com.zyh.easyapplyresume.service.user.UserService;
 import com.zyh.easyapplyresume.utils.uservalidator.UserUpdateValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author shiningCloud2025
@@ -45,6 +48,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private OssService ossService;
+
+    @Autowired
+    private RedisCacheUtil redisCacheUtil;
 
     @Override
     public void updateUser(UserUpdateForm userUpdateForm) {
@@ -76,6 +82,9 @@ public class UserServiceImpl implements UserService {
                     CityEnum.getById(user.getUserRecruitLocationSecond()).getName());
             user.setUserPassword(passwordEncoder.encode(userUpdateForm.getUserPassword()));
             userMapper.updateById(user);
+            
+            redisCacheUtil.delete(UserCacheKey.GET_PREFIX + "_" + userUpdateForm.getUserId());
+            
             log.info("用户更新信息成功");
         }catch (BusException e){
             throw e;
@@ -88,12 +97,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfoVO getUserByUserId(String userId) {
         try{
+            String cacheKey = UserCacheKey.GET_PREFIX + "_" + userId;
+            
+            Object cached = redisCacheUtil.get(cacheKey);
+            if (cached != null) {
+                log.info("从缓存获取用户信息成功");
+                return (UserInfoVO) cached;
+            }
+            
             log.info("根据用户id查询用户信息开始");
             UserInfoVO userInfoVO = BeanUtil.copyProperties(userMapper.selectById(userId), UserInfoVO.class);
             userInfoVO.setUserRecruitLocationFirstName(ProvinceEnum.getById(userInfoVO.getUserRecruitLocationFirst()).getName());
             userInfoVO.setUserRecruitLocationSecondName(CityEnum.getById(userInfoVO.getUserRecruitLocationSecond()).getName());
             userInfoVO.setUserUniversityCodeName(universityMapMapper.selectById(userInfoVO.getUserUniversityCode()).getUniversityMapName());
             userInfoVO.setUserDreamPositionName(recruitPositionMapper.selectById(userInfoVO.getUserDreamPosition()).getRecruitPositionName());
+            
+            redisCacheUtil.set(cacheKey, userInfoVO, UserCacheKey.GET_TTL, TimeUnit.MINUTES);
+            
             return userInfoVO;
 
         }catch (BusException e){
