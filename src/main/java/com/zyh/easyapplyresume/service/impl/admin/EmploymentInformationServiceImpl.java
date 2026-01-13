@@ -31,6 +31,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -104,10 +106,18 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
             }
             List<BatchResult> countList = employmentInformationMapper.insert(res);
             
-            // 发布事件，删除分页缓存
-            cachePublisher.publishInvalidate(
-                EmploymentInformationCacheKey.PAGE_PATTERN,
-                CacheOperationType.ADD
+            // 注册事务提交后的回调，确保事务成功后才发布事件
+            TransactionSynchronizationManager.registerSynchronization(
+                new TransactionSynchronization() {
+                    @Override
+                    public void afterCommit() {
+                        // 事务提交成功后，才发布事件删除缓存
+                        cachePublisher.publishInvalidate(
+                            EmploymentInformationCacheKey.PAGE_PATTERN,
+                            CacheOperationType.ADD
+                        );
+                    }
+                }
             );
             
             log.info("结束添加招聘信息");
@@ -212,10 +222,18 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         deleteEmploymentInformation(employmentInformationForm.getEmploymentInformationId());
         Integer result = addEmploymentInformationForUpdate(employmentInformationForm,employmentInformationStartTime);
         
-        // 发布事件，删除所有缓存
-        cachePublisher.publishInvalidate(
-            EmploymentInformationCacheKey.ALL_PATTERN,
-            CacheOperationType.UPDATE
+        // 注册事务提交后的回调，确保事务成功后才发布事件
+        TransactionSynchronizationManager.registerSynchronization(
+            new TransactionSynchronization() {
+                @Override
+                public void afterCommit() {
+                    // 事务提交成功后，才发布事件删除所有缓存
+                    cachePublisher.publishInvalidate(
+                        EmploymentInformationCacheKey.ALL_PATTERN,
+                        CacheOperationType.UPDATE
+                    );
+                }
+            }
         );
         
         return result;
@@ -243,10 +261,18 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         // 4. 执行单条UPDATE语句，批量更新所有符合条件的记录
         int updateCount = employmentInformationMapper.update(null, updateWrapper);
         
-        // 发布事件，删除所有缓存
-        cachePublisher.publishInvalidate(
-            EmploymentInformationCacheKey.ALL_PATTERN,
-            CacheOperationType.DELETE
+        // 注册事务提交后的回调，确保事务成功后才发布事件
+        TransactionSynchronizationManager.registerSynchronization(
+            new TransactionSynchronization() {
+                @Override
+                public void afterCommit() {
+                    // 事务提交成功后，才发布事件删除所有缓存
+                    cachePublisher.publishInvalidate(
+                        EmploymentInformationCacheKey.ALL_PATTERN,
+                        CacheOperationType.DELETE
+                    );
+                }
+            }
         );
         
         return updateCount;
@@ -254,6 +280,16 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
 
     @Override
     public EmploymentInformationInfoVO getEmploymentInformationInfo(Integer employmentInformationId) {
+        // 1. 生成缓存Key
+        String cacheKey = EmploymentInformationCacheKey.GET_PREFIX + "_" + employmentInformationId;
+        
+        // 2. 先查缓存
+        Object cached = redisCacheUtil.get(cacheKey);
+        if (cached != null) {
+            return (EmploymentInformationInfoVO) cached;
+        }
+        
+        // 3. 缓存未命中，查数据库
         LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCode, employmentInformationId);
         lambdaQueryWrapper.eq(EmploymentInformation::getDeleted, 0);
@@ -274,6 +310,10 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         employmentInformationInfoVO.setEmploymentInformationRecruitLocationDetail(details);
         employmentInformationInfoVO.setEmploymentInformationIndustryCategoriesName(industryMapMapper.selectById(employmentInformations.getFirst().getEmploymentInformationIndustryCategories()).getIndustryMapIndustryName());
         employmentInformationInfoVO.setEmploymentInformationRecruitPositionName(recruitPositionMapper.selectById(employmentInformations.getFirst().getEmploymentInformationRecruitPosition()).getRecruitPositionName());
+        
+        // 4. 写入缓存
+        redisCacheUtil.set(cacheKey, employmentInformationInfoVO, EmploymentInformationCacheKey.GET_TTL, TimeUnit.MINUTES);
+        
         return employmentInformationInfoVO;
     }
     /**
@@ -281,7 +321,20 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
      */
     @Override
     public Page<EmploymentInformationPageVO> getEmploymentInformationPage(int page, int size, EmploymentInformationQuery employmentInformationQuery) {
-        // 1. 构建 LambdaQueryWrapper（指定数据库实体类 EmploymentInformation）
+        // 1. 生成缓存Key（带查询条件hash）
+        String cacheKey = EmploymentInformationCacheKey.PAGE_PREFIX 
+                        + "_" + page 
+                        + "_" + size 
+                        + "_" + (employmentInformationQuery != null ? employmentInformationQuery.hashCode() : 0);
+        
+        // 2. 先查缓存
+        Object cached = redisCacheUtil.get(cacheKey);
+        if (cached != null) {
+            return (Page<EmploymentInformationPageVO>) cached;
+        }
+        
+        // 3. 缓存未命中，查数据库
+        // 构建 LambdaQueryWrapper（指定数据库实体类 EmploymentInformation）
         LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(EmploymentInformation::getDeleted, 0);
 
@@ -401,6 +454,9 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         resultPage.setPages(employmentInfoPage.getPages());     // 总页数
         resultPage.setRecords(voList != null ? voList : Collections.emptyList()); // 分页数据列表
 
+        // 4. 写入缓存
+        redisCacheUtil.set(cacheKey, resultPage, EmploymentInformationCacheKey.PAGE_TTL, TimeUnit.MINUTES);
+        
         return resultPage;
     }
 
