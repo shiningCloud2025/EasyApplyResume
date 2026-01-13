@@ -11,15 +11,22 @@ import com.zyh.easyapplyresume.model.query.admin.JobAdviceArticleQuery;
 import com.zyh.easyapplyresume.model.vo.admin.JobAdviceArticleInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.JobAdviceArticlePageVO;
 import com.zyh.easyapplyresume.model.vo.admin.PermissionPageVO;
+import com.zyh.easyapplyresume.redis.constant.common.JobAdviceArticleCacheKey;
+import com.zyh.easyapplyresume.redis.enums.CacheOperationType;
+import com.zyh.easyapplyresume.redis.util.CacheInvalidatePublisher;
+import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
 import com.zyh.easyapplyresume.service.admin.JobAdviceArticleService;
 import com.zyh.easyapplyresume.utils.adminvalidator.JobAdviceArticleFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -30,6 +37,10 @@ import java.util.stream.Collectors;
 public class JobAdviceArticleServiceImpl implements JobAdviceArticleService {
     @Autowired
     private JobAdviceArticleMapper jobAdviceArticleMapper;
+    @Autowired
+    private RedisCacheUtil redisCacheUtil;
+    @Autowired
+    private CacheInvalidatePublisher cachePublisher;
 
     @Override
     public Integer addJobAdviceArticle(JobAdviceArticleForm jobAdviceArticleForm) {
@@ -39,7 +50,21 @@ public class JobAdviceArticleServiceImpl implements JobAdviceArticleService {
         jobAdviceArticle.setJobAdviceArticlePublishedStatus(1);
         jobAdviceArticle.setJobAdviceArticlePublishedTime(new DateTime());
         jobAdviceArticle.setJobAdviceArticleUpdatedTime(new DateTime());
-        return  jobAdviceArticleMapper.insert(jobAdviceArticle);
+        int result = jobAdviceArticleMapper.insert(jobAdviceArticle);
+        
+        TransactionSynchronizationManager.registerSynchronization(
+            new TransactionSynchronization() {
+                @Override
+                public void afterCommit() {
+                    cachePublisher.publishInvalidate(
+                        JobAdviceArticleCacheKey.ALL_PATTERN,
+                        CacheOperationType.ADD
+                    );
+                }
+            }
+        );
+        
+        return result;
     }
 
     @Override
@@ -48,27 +73,77 @@ public class JobAdviceArticleServiceImpl implements JobAdviceArticleService {
         JobAdviceArticle jobAdviceArticle = new JobAdviceArticle();
         BeanUtil.copyProperties(jobAdviceArticleForm, jobAdviceArticle);
         jobAdviceArticle.setJobAdviceArticleUpdatedTime(new DateTime());
-        return jobAdviceArticleMapper.updateById(jobAdviceArticle);
+        int result = jobAdviceArticleMapper.updateById(jobAdviceArticle);
+        
+        TransactionSynchronizationManager.registerSynchronization(
+            new TransactionSynchronization() {
+                @Override
+                public void afterCommit() {
+                    cachePublisher.publishInvalidate(
+                        JobAdviceArticleCacheKey.ALL_PATTERN,
+                        CacheOperationType.UPDATE
+                    );
+                }
+            }
+        );
+        
+        return result;
     }
 
     @Override
     public Integer deleteJobAdviceArticle(Integer jobAdviceArticleId) {
         JobAdviceArticle jobAdviceArticle = new JobAdviceArticle();
+        jobAdviceArticle.setJobAdviceArticleId(jobAdviceArticleId);
         jobAdviceArticle.setDeleted(1);
-        return jobAdviceArticleMapper.updateById(jobAdviceArticle);
+        int result = jobAdviceArticleMapper.updateById(jobAdviceArticle);
+        
+        TransactionSynchronizationManager.registerSynchronization(
+            new TransactionSynchronization() {
+                @Override
+                public void afterCommit() {
+                    cachePublisher.publishInvalidate(
+                        JobAdviceArticleCacheKey.ALL_PATTERN,
+                        CacheOperationType.DELETE
+                    );
+                }
+            }
+        );
+        
+        return result;
     }
 
     @Override
     public JobAdviceArticleInfoVO getJobAdviceArticleInfo(Integer jobAdviceArticleId) {
+        String cacheKey = JobAdviceArticleCacheKey.GET_PREFIX + "_" + jobAdviceArticleId;
+        
+        Object cached = redisCacheUtil.get(cacheKey);
+        if (cached != null) {
+            return (JobAdviceArticleInfoVO) cached;
+        }
+        
         LambdaQueryWrapper<JobAdviceArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(JobAdviceArticle::getJobAdviceArticleId, jobAdviceArticleId);
         lambdaQueryWrapper.eq(JobAdviceArticle::getDeleted, 0);
         JobAdviceArticle jobAdviceArticle = jobAdviceArticleMapper.selectOne(lambdaQueryWrapper);
-        return BeanUtil.copyProperties(jobAdviceArticle, JobAdviceArticleInfoVO.class);
+        JobAdviceArticleInfoVO result = BeanUtil.copyProperties(jobAdviceArticle, JobAdviceArticleInfoVO.class);
+        
+        redisCacheUtil.set(cacheKey, result, JobAdviceArticleCacheKey.GET_TTL, TimeUnit.MINUTES);
+        
+        return result;
     }
 
     @Override
     public Page<JobAdviceArticlePageVO> getJobAdviceArticlePage(int size, int page, JobAdviceArticleQuery jobAdviceArticleQuery) {
+        String cacheKey = JobAdviceArticleCacheKey.PAGE_PREFIX 
+                        + "_" + page 
+                        + "_" + size 
+                        + "_" + (jobAdviceArticleQuery != null ? jobAdviceArticleQuery.hashCode() : 0);
+        
+        Object cached = redisCacheUtil.get(cacheKey);
+        if (cached != null) {
+            return (Page<JobAdviceArticlePageVO>) cached;
+        }
+        
         // 1. 构建 LambdaQueryWrapper（指定 JobAdviceArticle 数据库实体类）
         LambdaQueryWrapper<JobAdviceArticle> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(JobAdviceArticle::getDeleted, 0);
@@ -118,6 +193,9 @@ public class JobAdviceArticleServiceImpl implements JobAdviceArticleService {
         jobAdviceArticlePageVOPage.setSize(jobAdviceArticlePage.getSize());       // 每页条数
         jobAdviceArticlePageVOPage.setTotal(jobAdviceArticlePage.getTotal());     // 总数据量（关键：计算总页数用）
         jobAdviceArticlePageVOPage.setPages(jobAdviceArticlePage.getPages());     // 总页数
+        
+        redisCacheUtil.set(cacheKey, jobAdviceArticlePageVOPage, JobAdviceArticleCacheKey.PAGE_TTL, TimeUnit.MINUTES);
+        
         return jobAdviceArticlePageVOPage;
     }
 
