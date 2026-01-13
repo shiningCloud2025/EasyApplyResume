@@ -12,6 +12,10 @@ import com.zyh.easyapplyresume.model.pojo.admin.ResumeTemplate;
 import com.zyh.easyapplyresume.model.query.admin.ResumeTemplateQuery;
 import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplatePageVO;
+import com.zyh.easyapplyresume.redis.constant.common.ResumeTemplateCacheKey;
+import com.zyh.easyapplyresume.redis.enums.CacheOperationType;
+import com.zyh.easyapplyresume.redis.util.CacheInvalidatePublisher;
+import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
 import com.zyh.easyapplyresume.service.admin.IndustryMapService;
 import com.zyh.easyapplyresume.utils.adminvalidator.ResumeTemplateFormValidator;
 import org.springframework.beans.BeanUtils;
@@ -21,8 +25,11 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.zyh.easyapplyresume.service.admin.ResumeTemplateService;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -35,6 +42,10 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
     private ResumeTemplateMapper resumeTemplateMapper;
     @Autowired
     private IndustryMapService industryMapService;
+    @Autowired
+    private RedisCacheUtil redisCacheUtil;
+    @Autowired
+    private CacheInvalidatePublisher cachePublisher;
 
     @Override
     public Integer addResumeTemplate(ResumeTemplateForm resumeTemplateForm) {
@@ -46,7 +57,21 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
         resumeTemplate.setResumeTemplateUpdatedTime(new DateTime());
         resumeTemplate.setDeleted(0);
         try{
-            return  resumeTemplateMapper.insert(resumeTemplate);
+            int result = resumeTemplateMapper.insert(resumeTemplate);
+            
+            TransactionSynchronizationManager.registerSynchronization(
+                new TransactionSynchronization() {
+                    @Override
+                    public void afterCommit() {
+                        cachePublisher.publishInvalidate(
+                            ResumeTemplateCacheKey.ALL_PATTERN,
+                            CacheOperationType.ADD
+                        );
+                    }
+                }
+            );
+            
+            return result;
         }catch (DataAccessException e){
             throw resolveResumeDbException(e);
         }
@@ -60,7 +85,21 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
         BeanUtils.copyProperties(resumeTemplateForm, resumeTemplate);
         resumeTemplate.setResumeTemplateUpdatedTime(new DateTime());
         try{
-            return resumeTemplateMapper.updateById(resumeTemplate);
+            int result = resumeTemplateMapper.updateById(resumeTemplate);
+            
+            TransactionSynchronizationManager.registerSynchronization(
+                new TransactionSynchronization() {
+                    @Override
+                    public void afterCommit() {
+                        cachePublisher.publishInvalidate(
+                            ResumeTemplateCacheKey.ALL_PATTERN,
+                            CacheOperationType.UPDATE
+                        );
+                    }
+                }
+            );
+            
+            return result;
         }catch (DataAccessException e){
             throw resolveResumeDbException(e);
         }
@@ -84,12 +123,34 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
     @Override
     public Integer deleteResumeTemplate(Integer resumeTemplateId) {
         ResumeTemplate resumeTemplate = new ResumeTemplate();
+        resumeTemplate.setResumeTemplateId(resumeTemplateId);
         resumeTemplate.setDeleted(1);
-        return resumeTemplateMapper.updateById(resumeTemplate);
+        int result = resumeTemplateMapper.updateById(resumeTemplate);
+        
+        TransactionSynchronizationManager.registerSynchronization(
+            new TransactionSynchronization() {
+                @Override
+                public void afterCommit() {
+                    cachePublisher.publishInvalidate(
+                        ResumeTemplateCacheKey.ALL_PATTERN,
+                        CacheOperationType.DELETE
+                    );
+                }
+            }
+        );
+        
+        return result;
     }
 
     @Override
     public ResumeTemplateInfoVO findResumeTemplateById(Integer resumeTemplateId) {
+        String cacheKey = ResumeTemplateCacheKey.GET_PREFIX + "_" + resumeTemplateId;
+        
+        Object cached = redisCacheUtil.get(cacheKey);
+        if (cached != null) {
+            return (ResumeTemplateInfoVO) cached;
+        }
+        
         LambdaQueryWrapper<ResumeTemplate> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ResumeTemplate::getResumeTemplateId, resumeTemplateId);
         lambdaQueryWrapper.eq(ResumeTemplate::getDeleted, 0);
@@ -99,11 +160,24 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
         resumeTemplateInfoVO.setUpdateTime(resumeTemplate.getResumeTemplateUpdatedTime());
         resumeTemplateInfoVO.setIsEnable(resumeTemplate.getResumeTemplateIsActive());
         resumeTemplateInfoVO.setIndustryMapIndustryName(industryMapService.findIndustryMapById(resumeTemplate.getResumeTemplateIndustry()).getIndustryMapIndustryName());
+        
+        redisCacheUtil.set(cacheKey, resumeTemplateInfoVO, ResumeTemplateCacheKey.GET_TTL, TimeUnit.MINUTES);
+        
         return resumeTemplateInfoVO;
     }
 
     @Override
     public Page<ResumeTemplatePageVO> findResumeTemplateByPage(Integer pageNum, Integer pageSize, ResumeTemplateQuery resumeTemplateQuery) {
+        String cacheKey = ResumeTemplateCacheKey.PAGE_PREFIX 
+                        + "_" + pageNum 
+                        + "_" + pageSize 
+                        + "_" + (resumeTemplateQuery != null ? resumeTemplateQuery.hashCode() : 0);
+        
+        Object cached = redisCacheUtil.get(cacheKey);
+        if (cached != null) {
+            return (Page<ResumeTemplatePageVO>) cached;
+        }
+        
         // 1. 构建 LambdaQueryWrapper（指定 ResumeTemplate 实体类）
         LambdaQueryWrapper<ResumeTemplate> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ResumeTemplate::getDeleted, 0);
@@ -143,6 +217,9 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
         voPage.setCurrent(resumeTemplatePage.getCurrent());
         voPage.setPages(resumeTemplatePage.getPages());
         voPage.setTotal(resumeTemplatePage.getTotal());
+        
+        redisCacheUtil.set(cacheKey, voPage, ResumeTemplateCacheKey.PAGE_TTL, TimeUnit.MINUTES);
+        
         return voPage;
     }
     @Override

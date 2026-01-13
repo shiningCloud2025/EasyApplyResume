@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.mapper.mysql.user.UniversityMapMapper;
 import com.zyh.easyapplyresume.model.pojo.user.UniversityMap;
+import com.zyh.easyapplyresume.redis.constant.common.UniversityMapCacheKey;
+import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
 import com.zyh.easyapplyresume.service.user.UniversityMapService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 /**
  * @author shiningCloud2025
  */
@@ -21,12 +24,24 @@ public class UniversityMapServiceImpl implements UniversityMapService {
 
     @Autowired
     private UniversityMapMapper universityMapMapper;
+    @Autowired
+    private RedisCacheUtil redisCacheUtil;
 
     @Override
     public List<UniversityMap> getAllUniversityMap() {
         try{
-            log.info("获取所有大学信息成功");
-            return universityMapMapper.selectList(null);
+            Object cached = redisCacheUtil.get(UniversityMapCacheKey.LIST);
+            if (cached != null) {
+                log.info("从缓存获取所有大学信息成功");
+                return (List<UniversityMap>) cached;
+            }
+            
+            log.info("从数据库获取所有大学信息");
+            List<UniversityMap> result = universityMapMapper.selectList(null);
+            
+            redisCacheUtil.set(UniversityMapCacheKey.LIST, result, UniversityMapCacheKey.LIST_TTL, TimeUnit.MINUTES);
+            
+            return result;
         }
         catch (BusException e){
             throw e;
