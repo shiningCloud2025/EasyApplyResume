@@ -20,7 +20,8 @@ public interface EmploymentInformationCacheKey {
      * getEmploymentInformationPage(page, size, query) - 分页查询招聘信息
      * 格式: common_employmentInformation_page_{page}_{size}_{queryHash}
      */
-    String PAGE_PREFIX = RedisCacheConstant.COMMON_PREFIX + RedisCacheConstant.DELIMITER + SERVICE_NAME + RedisCacheConstant.DELIMITER + "page";
+    String
+            PAGE_PREFIX = RedisCacheConstant.COMMON_PREFIX + RedisCacheConstant.DELIMITER + SERVICE_NAME + RedisCacheConstant.DELIMITER + "page";
     
     /**
      * getEmploymentInformationInfo(employmentInformationId) - 获取招聘信息详情
@@ -50,10 +51,10 @@ public interface EmploymentInformationCacheKey {
     /**
      * 分页查询TTL（10分钟，招聘信息更新相对频繁）
      */
-    int PAGE_TTL = 10;
+    int PAGE_TTL = 1440;
     
     /**
      * 详情查询TTL（30分钟，单条详情相对稳定）
      */
-    int GET_TTL = 30;
+    int GET_TTL = 1440;
 }
