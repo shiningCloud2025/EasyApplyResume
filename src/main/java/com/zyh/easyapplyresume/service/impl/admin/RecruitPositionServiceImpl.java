@@ -10,15 +10,22 @@ import com.zyh.easyapplyresume.model.pojo.admin.RecruitPosition;
 import com.zyh.easyapplyresume.model.query.admin.RecruitPositionQuery;
 import com.zyh.easyapplyresume.model.vo.admin.RecruitPositionInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.RecruitPositionPageVO;
+import com.zyh.easyapplyresume.redis.constant.common.RecruitPositionCacheKey;
+import com.zyh.easyapplyresume.redis.enums.CacheOperationType;
+import com.zyh.easyapplyresume.redis.util.CacheInvalidatePublisher;
+import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
 import com.zyh.easyapplyresume.service.admin.RecruitPositionService;
 import com.zyh.easyapplyresume.utils.adminvalidator.RecruitPositionFormValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author shiningCloud2025
@@ -28,6 +35,10 @@ import java.util.List;
 public class RecruitPositionServiceImpl implements RecruitPositionService {
     @Autowired
     private RecruitPositionMapper recruitPositionMapper;
+    @Autowired
+    private RedisCacheUtil redisCacheUtil;
+    @Autowired
+    private CacheInvalidatePublisher cachePublisher;
     @Override
     public Integer addRecruitPosition(RecruitPositionForm recruitPositionForm) {
         RecruitPositionFormValidator.validateForAdd(recruitPositionForm);
@@ -35,7 +46,21 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
         BeanUtils.copyProperties(recruitPositionForm, recruitPosition);
         recruitPosition.setCreatedTime(new Date());
         recruitPosition.setUpdatedTime(new Date());
-        return recruitPositionMapper.insert(recruitPosition);
+        int result = recruitPositionMapper.insert(recruitPosition);
+        
+        TransactionSynchronizationManager.registerSynchronization(
+            new TransactionSynchronization() {
+                @Override
+                public void afterCommit() {
+                    cachePublisher.publishInvalidate(
+                        RecruitPositionCacheKey.ALL_PATTERN,
+                        CacheOperationType.ADD
+                    );
+                }
+            }
+        );
+        
+        return result;
     }
 
     @Override
@@ -44,7 +69,21 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
         RecruitPosition recruitPosition = new RecruitPosition();
         BeanUtils.copyProperties(recruitPositionForm, recruitPosition);
         recruitPosition.setUpdatedTime(new Date());
-        return recruitPositionMapper.updateById(recruitPosition);
+        int result = recruitPositionMapper.updateById(recruitPosition);
+        
+        TransactionSynchronizationManager.registerSynchronization(
+            new TransactionSynchronization() {
+                @Override
+                public void afterCommit() {
+                    cachePublisher.publishInvalidate(
+                        RecruitPositionCacheKey.ALL_PATTERN,
+                        CacheOperationType.UPDATE
+                    );
+                }
+            }
+        );
+        
+        return result;
     }
 
     @Override
@@ -53,7 +92,21 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
             if (recruitPositionId == 1){
                 throw new BusException(AdminCodeEnum.NOT_DELETE_RECRUIT_POSITION);
             }
-           return recruitPositionMapper.deleteById(recruitPositionId);
+            int result = recruitPositionMapper.deleteById(recruitPositionId);
+            
+            TransactionSynchronizationManager.registerSynchronization(
+                new TransactionSynchronization() {
+                    @Override
+                    public void afterCommit() {
+                        cachePublisher.publishInvalidate(
+                            RecruitPositionCacheKey.ALL_PATTERN,
+                            CacheOperationType.DELETE
+                        );
+                    }
+                }
+            );
+            
+            return result;
         } catch (Exception e) {
             throw new BusException(AdminCodeEnum.NOT_DELETE_RECRUIT_POSITION);
         }
@@ -61,21 +114,52 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
 
     @Override
     public RecruitPositionInfoVO queryRecruitPosition(Integer recruitPositionId) {
-        RecruitPositionInfoVO recruitPositionInfoVO = recruitPositionMapper.findRecruitPositionInfoById(recruitPositionId);
-        return recruitPositionInfoVO;
+        String cacheKey = RecruitPositionCacheKey.GET_PREFIX + "_" + recruitPositionId;
+        
+        Object cached = redisCacheUtil.get(cacheKey);
+        if (cached != null) {
+            return (RecruitPositionInfoVO) cached;
+        }
+        
+        RecruitPositionInfoVO result = recruitPositionMapper.findRecruitPositionInfoById(recruitPositionId);
+        
+        redisCacheUtil.set(cacheKey, result, RecruitPositionCacheKey.GET_TTL, TimeUnit.MINUTES);
+        
+        return result;
     }
 
     @Override
     public Page<RecruitPositionPageVO> queryRecruitPositionPage(Integer pageNum, Integer pageSize, RecruitPositionQuery recruitPositionQuery) {
+        String cacheKey = RecruitPositionCacheKey.PAGE_PREFIX 
+                        + "_" + pageNum 
+                        + "_" + pageSize 
+                        + "_" + (recruitPositionQuery != null ? recruitPositionQuery.hashCode() : 0);
+        
+        Object cached = redisCacheUtil.get(cacheKey);
+        if (cached != null) {
+            return (Page<RecruitPositionPageVO>) cached;
+        }
+        
         Page<RecruitPositionPageVO> page = new Page<>(pageNum, pageSize);
-        Page<RecruitPositionPageVO> recruitPositionPageVO = recruitPositionMapper.queryRecruitPositionPage(page, recruitPositionQuery);
-        return recruitPositionPageVO;
+        Page<RecruitPositionPageVO> result = recruitPositionMapper.queryRecruitPositionPage(page, recruitPositionQuery);
+        
+        redisCacheUtil.set(cacheKey, result, RecruitPositionCacheKey.PAGE_TTL, TimeUnit.MINUTES);
+        
+        return result;
     }
 
     @Override
     public List<RecruitPositionInfoVO> queryAllRecruitPositionPage() {
+        Object cached = redisCacheUtil.get(RecruitPositionCacheKey.LIST);
+        if (cached != null) {
+            return (List<RecruitPositionInfoVO>) cached;
+        }
+        
         List<RecruitPosition> recruitPositions = recruitPositionMapper.selectList(null);
-        return BeanUtil.copyToList(recruitPositions, RecruitPositionInfoVO.class);
-
+        List<RecruitPositionInfoVO> result = BeanUtil.copyToList(recruitPositions, RecruitPositionInfoVO.class);
+        
+        redisCacheUtil.set(RecruitPositionCacheKey.LIST, result, RecruitPositionCacheKey.LIST_TTL, TimeUnit.MINUTES);
+        
+        return result;
     }
 }
