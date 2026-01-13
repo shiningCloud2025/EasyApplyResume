@@ -16,16 +16,23 @@ import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorAdvertisementPageVO;
 import com.zyh.easyapplyresume.qiniuoss.OssAdMonitorBusinessTypeEnum;
 import com.zyh.easyapplyresume.qiniuoss.OssService;
 import com.zyh.easyapplyresume.qiniuoss.OssSystemTypeEnum;
+import com.zyh.easyapplyresume.redis.constant.admonitor.AdmonitorAdvertisementCacheKey;
+import com.zyh.easyapplyresume.redis.enums.CacheOperationType;
+import com.zyh.easyapplyresume.redis.util.CacheInvalidatePublisher;
+import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
 import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorAdvertisementService;
 import com.zyh.easyapplyresume.utils.admonitorvalidator.AdmonitorAdvertisementValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -42,6 +49,12 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
     @Autowired
     private OssService ossService;
 
+    @Autowired
+    private RedisCacheUtil redisCacheUtil;
+
+    @Autowired
+    private CacheInvalidatePublisher cachePublisher;
+
     @Override
     public Integer addAdmonitorAdvertisement(AdmonitorAdvertisementForm admonitorAdvertisementForm) {
         try{
@@ -49,7 +62,21 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
             AdmonitorAdvertisementValidator.validateForAdd(admonitorAdvertisementForm);
             AdmonitorAdvertisement admonitorAdvertisement = new AdmonitorAdvertisement();
             BeanUtil.copyProperties(admonitorAdvertisementForm,admonitorAdvertisement);
-            return admonitorAdvertisementMapper.insert(admonitorAdvertisement);
+            int result = admonitorAdvertisementMapper.insert(admonitorAdvertisement);
+            
+            TransactionSynchronizationManager.registerSynchronization(
+                new TransactionSynchronization() {
+                    @Override
+                    public void afterCommit() {
+                        cachePublisher.publishInvalidate(
+                            AdmonitorAdvertisementCacheKey.ALL_PATTERN,
+                            CacheOperationType.ADD
+                        );
+                    }
+                }
+            );
+            
+            return result;
         }catch (BusException e){
             throw e;
         }catch (Exception e){
@@ -84,8 +111,22 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
             }
             AdmonitorAdvertisement admonitorAdvertisement = new AdmonitorAdvertisement();
             BeanUtil.copyProperties(admonitorAdvertisementForm,admonitorAdvertisement);
+            int result = admonitorAdvertisementMapper.updateById(admonitorAdvertisement);
+            
+            TransactionSynchronizationManager.registerSynchronization(
+                new TransactionSynchronization() {
+                    @Override
+                    public void afterCommit() {
+                        cachePublisher.publishInvalidate(
+                            AdmonitorAdvertisementCacheKey.ALL_PATTERN,
+                            CacheOperationType.UPDATE
+                        );
+                    }
+                }
+            );
+            
             log.info("修改广告成功");
-            return admonitorAdvertisementMapper.updateById(admonitorAdvertisement);
+            return result;
         }catch (BusException e){
             throw e;
         }catch (Exception e){
@@ -104,8 +145,22 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
             AdmonitorAdvertisement admonitorAdvertisement = admonitorAdvertisementMapper.selectOne(lambdaQueryWrapper);
             admonitorAdvertisement.setDeleted(1);
             ossService.deleteByUrl(admonitorAdvertisement.getAdvertisementUrl(),false);
+            int result = admonitorAdvertisementMapper.updateById(admonitorAdvertisement);
+            
+            TransactionSynchronizationManager.registerSynchronization(
+                new TransactionSynchronization() {
+                    @Override
+                    public void afterCommit() {
+                        cachePublisher.publishInvalidate(
+                            AdmonitorAdvertisementCacheKey.ALL_PATTERN,
+                            CacheOperationType.DELETE
+                        );
+                    }
+                }
+            );
+            
             log.info("删除广告成功");
-            return admonitorAdvertisementMapper.updateById(admonitorAdvertisement);
+            return result;
         }catch (BusException e){
             throw e;
         }catch (Exception e){
@@ -117,11 +172,23 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
     @Override
     public AdmonitorAdvertisementInfoVO findAdmonitorAdvertisementById(Integer id) {
         try{
+            String cacheKey = AdmonitorAdvertisementCacheKey.GET_PREFIX + "_" + id;
+            
+            Object cached = redisCacheUtil.get(cacheKey);
+            if (cached != null) {
+                log.info("从缓存查询广告成功");
+                return (AdmonitorAdvertisementInfoVO) cached;
+            }
+            
             log.info("查询广告开始");
             LambdaQueryWrapper<AdmonitorAdvertisement> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(AdmonitorAdvertisement::getAdvertisementId,id);
+            AdmonitorAdvertisementInfoVO result = BeanUtil.copyProperties(admonitorAdvertisementMapper.selectOne(lambdaQueryWrapper), AdmonitorAdvertisementInfoVO.class);
+            
+            redisCacheUtil.set(cacheKey, result, AdmonitorAdvertisementCacheKey.GET_TTL, TimeUnit.MINUTES);
+            
             log.info("查询广告成功");
-            return BeanUtil.copyProperties(admonitorAdvertisementMapper.selectOne(lambdaQueryWrapper), AdmonitorAdvertisementInfoVO.class);
+            return result;
         }catch (BusException e){
             throw e;
         }catch (Exception e){
@@ -133,6 +200,17 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
     @Override
     public Page<AdmonitorAdvertisementPageVO> findAdmonitorAdvertisementByPage(Integer pageNum, Integer pageSize, AdmonitorAdvertisementQuery admonitorAdvertisementQuery) {
         try{
+            String cacheKey = AdmonitorAdvertisementCacheKey.PAGE_PREFIX 
+                            + "_" + pageNum 
+                            + "_" + pageSize 
+                            + "_" + (admonitorAdvertisementQuery != null ? admonitorAdvertisementQuery.hashCode() : 0);
+            
+            Object cached = redisCacheUtil.get(cacheKey);
+            if (cached != null) {
+                log.info("从缓存分页查询广告成功");
+                return (Page<AdmonitorAdvertisementPageVO>) cached;
+            }
+            
             log.info("分页查询广告开始");
             Page<AdmonitorAdvertisement> page = new Page<>(pageNum,pageSize);
             LambdaQueryWrapper<AdmonitorAdvertisement> lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -157,6 +235,9 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
             resultPage.setTotal(admonitorAdvertisementPage.getTotal());
             resultPage.setPages(admonitorAdvertisementPage.getPages());
             resultPage.setRecords(voList != null ? voList : Collections.emptyList());
+            
+            redisCacheUtil.set(cacheKey, resultPage, AdmonitorAdvertisementCacheKey.PAGE_TTL, TimeUnit.MINUTES);
+            
             log.info("分页查询广告成功");
             return resultPage;
         }catch (BusException e){
@@ -170,6 +251,12 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
     @Override
     public List<AdmonitorAdvertisementInfoVO> findAllAdmonitorAdminAdvertisement() {
         try{
+            Object cached = redisCacheUtil.get(AdmonitorAdvertisementCacheKey.LIST);
+            if (cached != null) {
+                log.info("从缓存查询所有广告成功");
+                return (List<AdmonitorAdvertisementInfoVO>) cached;
+            }
+            
             log.info("查询所有广告开始");
             Date today = new Date();
             LambdaQueryWrapper<AdmonitorAdvertisement> lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -179,8 +266,12 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
             // 结束时间 > 今天（明天或以后结束）
             lambdaQueryWrapper.gt(AdmonitorAdvertisement::getAdvertisementEndTime, today);
             List<AdmonitorAdvertisement> admonitorAdvertisements = admonitorAdvertisementMapper.selectList(lambdaQueryWrapper);
+            List<AdmonitorAdvertisementInfoVO> result = BeanUtil.copyToList(admonitorAdvertisements, AdmonitorAdvertisementInfoVO.class);
+            
+            redisCacheUtil.set(AdmonitorAdvertisementCacheKey.LIST, result, AdmonitorAdvertisementCacheKey.LIST_TTL, TimeUnit.MINUTES);
+            
             log.info("查询所有广告成功");
-            return BeanUtil.copyToList(admonitorAdvertisements, AdmonitorAdvertisementInfoVO.class);
+            return result;
         }catch (Exception e){
             log.info("查询所有广告失败");
             throw new RuntimeException("查询所有广告失败");

@@ -7,15 +7,22 @@ import com.zyh.easyapplyresume.mapper.mysql.ad_monitor.AdMonitorUserAnnouncement
 import com.zyh.easyapplyresume.model.form.ad_monitor.AdMonitorUserAnnouncementForm;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdMonitorUserAnnouncement;
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdMonitorUserAnnouncementInfoVO;
+import com.zyh.easyapplyresume.redis.constant.admonitor.AdMonitorUserAnnouncementCacheKey;
+import com.zyh.easyapplyresume.redis.enums.CacheOperationType;
+import com.zyh.easyapplyresume.redis.util.CacheInvalidatePublisher;
+import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
 import com.zyh.easyapplyresume.service.ad_monitor.AdMonitorUserAnnouncementService;
 import com.zyh.easyapplyresume.utils.admonitorvalidator.AdMonitorUserAnnouncementValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author shiningCloud2025
@@ -26,6 +33,10 @@ import java.util.List;
 public class AdMonitorUserAnnouncementServiceImpl implements AdMonitorUserAnnouncementService {
     @Autowired
     AdMonitorUserAnnouncementMapper userAnnouncementMapper;
+    @Autowired
+    private RedisCacheUtil redisCacheUtil;
+    @Autowired
+    private CacheInvalidatePublisher cachePublisher;
     @Override
     public Integer addAnnouncement( AdMonitorUserAnnouncementForm userAnnouncementForm) {
         try{
@@ -39,8 +50,22 @@ public class AdMonitorUserAnnouncementServiceImpl implements AdMonitorUserAnnoun
             AdMonitorUserAnnouncement userAnnouncement = new  AdMonitorUserAnnouncement();
             BeanUtil.copyProperties(userAnnouncementForm, userAnnouncement);
             userAnnouncement.setAnnouncementUpdatedTime(new Date());
+            int result = userAnnouncementMapper.insert(userAnnouncement);
+            
+            TransactionSynchronizationManager.registerSynchronization(
+                new TransactionSynchronization() {
+                    @Override
+                    public void afterCommit() {
+                        cachePublisher.publishInvalidate(
+                            AdMonitorUserAnnouncementCacheKey.GET,
+                            CacheOperationType.ADD
+                        );
+                    }
+                }
+            );
+            
             log.info("用户添加公告成功");
-            return userAnnouncementMapper.insert(userAnnouncement);
+            return result;
         }catch (BusException e){
             throw e;
         } catch (Exception e){
@@ -57,8 +82,22 @@ public class AdMonitorUserAnnouncementServiceImpl implements AdMonitorUserAnnoun
             AdMonitorUserAnnouncement userAnnouncement = new  AdMonitorUserAnnouncement();
             BeanUtil.copyProperties(userAnnouncementForm, userAnnouncement);
             userAnnouncement.setAnnouncementUpdatedTime(new Date());
+            int result = userAnnouncementMapper.updateById(userAnnouncement);
+            
+            TransactionSynchronizationManager.registerSynchronization(
+                new TransactionSynchronization() {
+                    @Override
+                    public void afterCommit() {
+                        cachePublisher.publishInvalidate(
+                            AdMonitorUserAnnouncementCacheKey.GET,
+                            CacheOperationType.UPDATE
+                        );
+                    }
+                }
+            );
+            
             log.info("用户修改公告成功");
-            return userAnnouncementMapper.updateById(userAnnouncement);
+            return result;
         } catch (BusException e){
             throw e;
         } catch (Exception  e){
@@ -70,10 +109,19 @@ public class AdMonitorUserAnnouncementServiceImpl implements AdMonitorUserAnnoun
     @Override
     public AdMonitorUserAnnouncementInfoVO getAnnouncementInfo() {
         try{
+            Object cached = redisCacheUtil.get(AdMonitorUserAnnouncementCacheKey.GET);
+            if (cached != null) {
+                log.info("从缓存用户获取公告信息成功");
+                return (AdMonitorUserAnnouncementInfoVO) cached;
+            }
+            
             log.info("用户获取公告信息");
             AdMonitorUserAnnouncement userAnnouncement = userAnnouncementMapper.selectById(1);
             AdMonitorUserAnnouncementInfoVO userAnnouncementInfoVO = new  AdMonitorUserAnnouncementInfoVO();
             BeanUtil.copyProperties(userAnnouncement, userAnnouncementInfoVO);
+            
+            redisCacheUtil.set(AdMonitorUserAnnouncementCacheKey.GET, userAnnouncementInfoVO, AdMonitorUserAnnouncementCacheKey.GET_TTL, TimeUnit.MINUTES);
+            
             log.info("用户获取公告信息成功");
             return userAnnouncementInfoVO;
         }catch (BusException e){
