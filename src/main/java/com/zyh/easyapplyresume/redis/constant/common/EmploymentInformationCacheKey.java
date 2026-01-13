@@ -27,7 +27,7 @@ public interface EmploymentInformationCacheKey {
      * getEmploymentInformationInfo(employmentInformationId) - 获取招聘信息详情
      * 格式: common_employmentInformation_get_{employmentInformationId}
      */
-    String GET_PREFIX = RedisCacheConstant.COMMON_PREFIX + RedisCacheConstant.DELIMITER + SERVICE_NAME + RedisCacheConstant.DELIMITER + "get";
+    String  GET_PREFIX = RedisCacheConstant.COMMON_PREFIX + RedisCacheConstant.DELIMITER + SERVICE_NAME + RedisCacheConstant.DELIMITER + "get";
     
     // ==================== 通配符（用于批量删除） ====================
     
