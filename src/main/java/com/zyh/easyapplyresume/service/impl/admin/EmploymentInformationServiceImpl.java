@@ -17,6 +17,10 @@ import com.zyh.easyapplyresume.model.pojo.admin.EmploymentInformation;
 import com.zyh.easyapplyresume.model.query.admin.EmploymentInformationQuery;
 import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.EmploymentInformationPageVO;
+import com.zyh.easyapplyresume.redis.constant.common.EmploymentInformationCacheKey;
+import com.zyh.easyapplyresume.redis.enums.CacheOperationType;
+import com.zyh.easyapplyresume.redis.util.CacheInvalidatePublisher;
+import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
 import com.zyh.easyapplyresume.service.admin.EmploymentInformationService;
 import com.zyh.easyapplyresume.utils.adminvalidator.EmploymentInformationFormValidator;
 import kotlin.jvm.internal.Lambda;
@@ -29,6 +33,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -46,6 +51,10 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
     private IndustryMapMapper industryMapMapper;
     @Autowired
     private RecruitPositionMapper recruitPositionMapper;
+    @Autowired
+    private RedisCacheUtil redisCacheUtil;
+    @Autowired
+    private CacheInvalidatePublisher cachePublisher;
 
     @Override
     public Integer addEmploymentInformation(EmploymentInformationForm employmentInformationForm) {
@@ -94,6 +103,13 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
                 res.add(employmentInformation1);
             }
             List<BatchResult> countList = employmentInformationMapper.insert(res);
+            
+            // 发布事件，删除分页缓存
+            cachePublisher.publishInvalidate(
+                EmploymentInformationCacheKey.PAGE_PATTERN,
+                CacheOperationType.ADD
+            );
+            
             log.info("结束添加招聘信息");
             return countList.size();
         }catch (BusException e){
@@ -194,7 +210,15 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         List<EmploymentInformation> employmentInformations = employmentInformationMapper.selectList(lambdaQueryWrapper);
         Date employmentInformationStartTime = employmentInformations.get(0).getEmploymentInformationStartTime();
         deleteEmploymentInformation(employmentInformationForm.getEmploymentInformationId());
-        return addEmploymentInformationForUpdate(employmentInformationForm,employmentInformationStartTime);
+        Integer result = addEmploymentInformationForUpdate(employmentInformationForm,employmentInformationStartTime);
+        
+        // 发布事件，删除所有缓存
+        cachePublisher.publishInvalidate(
+            EmploymentInformationCacheKey.ALL_PATTERN,
+            CacheOperationType.UPDATE
+        );
+        
+        return result;
     }
 
     @Override
@@ -218,6 +242,13 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
 
         // 4. 执行单条UPDATE语句，批量更新所有符合条件的记录
         int updateCount = employmentInformationMapper.update(null, updateWrapper);
+        
+        // 发布事件，删除所有缓存
+        cachePublisher.publishInvalidate(
+            EmploymentInformationCacheKey.ALL_PATTERN,
+            CacheOperationType.DELETE
+        );
+        
         return updateCount;
     }
 
