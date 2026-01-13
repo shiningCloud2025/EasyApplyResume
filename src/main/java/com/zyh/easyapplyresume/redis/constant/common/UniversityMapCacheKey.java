@@ -1,6 +1,6 @@
-package com.zyh.easyapplyresume.redis.constant;
+package com.zyh.easyapplyresume.redis.constant.common;
 
-import com.zyh.easyapplyresume.redis.constant.common.RedisCacheConstant;
+import com.zyh.easyapplyresume.redis.constant.RedisCacheConstant;
 
 /**
  * 大学数据缓存Key常量
