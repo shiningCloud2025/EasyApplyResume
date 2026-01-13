@@ -13,6 +13,10 @@ import com.zyh.easyapplyresume.model.pojo.admin.IndustryMap;
 import com.zyh.easyapplyresume.model.query.admin.IndustryMapQuery;
 import com.zyh.easyapplyresume.model.vo.admin.IndustryMapInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.IndustryMapPageVO;
+import com.zyh.easyapplyresume.redis.constant.common.IndustryMapCacheKey;
+import com.zyh.easyapplyresume.redis.enums.CacheOperationType;
+import com.zyh.easyapplyresume.redis.util.CacheInvalidatePublisher;
+import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
 import com.zyh.easyapplyresume.service.admin.IndustryMapService;
 import com.zyh.easyapplyresume.utils.adminvalidator.IndustryMapFormValidator;
 import org.springframework.beans.BeanUtils;
@@ -20,8 +24,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import static com.baomidou.mybatisplus.core.toolkit.Wrappers.lambdaQuery;
@@ -34,6 +41,10 @@ import static com.baomidou.mybatisplus.core.toolkit.Wrappers.lambdaQuery;
 public class IndustryMapServiceImpl implements IndustryMapService {
     @Autowired
     private IndustryMapMapper industryMapMapper;
+    @Autowired
+    private RedisCacheUtil redisCacheUtil;
+    @Autowired
+    private CacheInvalidatePublisher cachePublisher;
     @Override
     public Integer addIndustryMap(IndustryMapForm industryMapForm) {
         IndustryMapFormValidator.validateForAdd(industryMapForm);
@@ -42,7 +53,22 @@ public class IndustryMapServiceImpl implements IndustryMapService {
         industryMapEntity.setCreatedTime(new DateTime());
         industryMapEntity.setUpdatedTime(new DateTime());
         try {
-            return industryMapMapper.insert(industryMapEntity);
+            int result = industryMapMapper.insert(industryMapEntity);
+            
+            // 事务提交后发布事件删除缓存
+            TransactionSynchronizationManager.registerSynchronization(
+                new TransactionSynchronization() {
+                    @Override
+                    public void afterCommit() {
+                        cachePublisher.publishInvalidate(
+                            IndustryMapCacheKey.ALL_PATTERN,
+                            CacheOperationType.ADD
+                        );
+                    }
+                }
+            );
+            
+            return result;
         }catch (DataAccessException e){
             throw resolveDbException(e);
         }
@@ -55,7 +81,22 @@ public class IndustryMapServiceImpl implements IndustryMapService {
         BeanUtils.copyProperties(industryMapForm, industryMapEntity);
         industryMapEntity.setUpdatedTime(new DateTime());
         try {
-           return industryMapMapper.updateById(industryMapEntity);
+           int result = industryMapMapper.updateById(industryMapEntity);
+           
+           // 事务提交后发布事件删除缓存
+           TransactionSynchronizationManager.registerSynchronization(
+               new TransactionSynchronization() {
+                   @Override
+                   public void afterCommit() {
+                       cachePublisher.publishInvalidate(
+                           IndustryMapCacheKey.ALL_PATTERN,
+                           CacheOperationType.UPDATE
+                       );
+                   }
+               }
+           );
+           
+           return result;
         }catch (DataAccessException e){
             throw resolveDbException(e);
         }
@@ -83,13 +124,41 @@ public class IndustryMapServiceImpl implements IndustryMapService {
 
     @Override
     public IndustryMapInfoVO findIndustryMapById(Integer industryMapId) {
+        // 1. 生成缓存Key
+        String cacheKey = IndustryMapCacheKey.GET_PREFIX + "_" + industryMapId;
+        
+        // 2. 先查缓存
+        Object cached = redisCacheUtil.get(cacheKey);
+        if (cached != null) {
+            return (IndustryMapInfoVO) cached;
+        }
+        
+        // 3. 缓存未命中，查数据库
         IndustryMap industryMapEntity = industryMapMapper.selectById(industryMapId);
-        return BeanUtil.copyProperties(industryMapEntity, IndustryMapInfoVO.class);
+        IndustryMapInfoVO result = BeanUtil.copyProperties(industryMapEntity, IndustryMapInfoVO.class);
+        
+        // 4. 写入缓存
+        redisCacheUtil.set(cacheKey, result, IndustryMapCacheKey.GET_TTL, TimeUnit.MINUTES);
+        
+        return result;
     }
 
     @Override
     public Page<IndustryMapPageVO> findIndustryMapByPage(Integer pageNum, Integer pageSize, IndustryMapQuery industryMapQuery) {
-        // 1. 构建 LambdaQueryWrapper（修正为实体类名：IndustryMap）
+        // 1. 生成缓存Key
+        String cacheKey = IndustryMapCacheKey.PAGE_PREFIX 
+                        + "_" + pageNum 
+                        + "_" + pageSize 
+                        + "_" + (industryMapQuery != null ? industryMapQuery.hashCode() : 0);
+        
+        // 2. 先查缓存
+        Object cached = redisCacheUtil.get(cacheKey);
+        if (cached != null) {
+            return (Page<IndustryMapPageVO>) cached;
+        }
+        
+        // 3. 缓存未命中，查数据库
+        // 构建 LambdaQueryWrapper（修正为实体类名：IndustryMap）
         LambdaQueryWrapper<IndustryMap> lambdaQueryWrapper = lambdaQuery(IndustryMap.class);
 
         // 2. 判空过滤：构建查询条件（行业代码精确查询，行业名称模糊查询）
@@ -128,13 +197,27 @@ public class IndustryMapServiceImpl implements IndustryMapService {
         industryMapVOPage.setTotal(industryMapPage.getTotal());     // 总数据量
         industryMapVOPage.setPages(industryMapPage.getPages());     // 总页数
 
+        // 4. 写入缓存
+        redisCacheUtil.set(cacheKey, industryMapVOPage, IndustryMapCacheKey.PAGE_TTL, TimeUnit.MINUTES);
+        
         return industryMapVOPage;
     }
 
     @Override
     public List<IndustryMapInfoVO> findAllIndustryMap() {
+        // 1. 先查缓存
+        Object cached = redisCacheUtil.get(IndustryMapCacheKey.LIST);
+        if (cached != null) {
+            return (List<IndustryMapInfoVO>) cached;
+        }
+        
+        // 2. 缓存未命中，查数据库
         List<IndustryMap> industryMaps = industryMapMapper.selectList(null);
-        List<IndustryMapInfoVO> industryMapInfoVOs = BeanUtil.copyToList(industryMaps, IndustryMapInfoVO.class);
-        return industryMapInfoVOs;
+        List<IndustryMapInfoVO> result = BeanUtil.copyToList(industryMaps, IndustryMapInfoVO.class);
+        
+        // 3. 写入缓存
+        redisCacheUtil.set(IndustryMapCacheKey.LIST, result, IndustryMapCacheKey.LIST_TTL, TimeUnit.MINUTES);
+        
+        return result;
     }
 }
