@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog;
 import com.zyh.easyapplyresume.service.admin.AdminLoginAndRegisterEmailVerifyService;
 import com.zyh.easyapplyresume.utils.email.EmailVerifyCodeUtil;
 import jakarta.annotation.Resource;
@@ -20,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author shiningCloud2025
  */
+@ServiceLog
 @Slf4j
 @Service
 @Transactional

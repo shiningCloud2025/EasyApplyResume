@@ -7,6 +7,7 @@ import com.aliyun.sdk.service.dypnsapi20170525.models.SendSmsVerifyCodeRequest;
 import com.aliyun.sdk.service.dypnsapi20170525.models.SendSmsVerifyCodeResponse;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog;
 import com.zyh.easyapplyresume.service.admin.AdminSmsService;
 import darabonba.core.client.ClientOverrideConfiguration;
 import jakarta.annotation.PostConstruct;
@@ -24,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author shiningCloud2025
  */
+@ServiceLog
 @Slf4j
 @Service
 public class AdminSmsServiceImpl implements AdminSmsService {
