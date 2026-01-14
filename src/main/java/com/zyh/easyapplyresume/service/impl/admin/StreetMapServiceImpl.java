@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.zyh.easyapplyresume.mapper.mysql.admin.StreetMapMapper;
 import com.zyh.easyapplyresume.model.pojo.admin.StreetMap;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog;
 import com.zyh.easyapplyresume.service.admin.StreetMapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import java.util.List;
 /**
  * @author shiningCloud2025
  */
+@ServiceLog
 @Service
 @Transactional
 public class StreetMapServiceImpl implements StreetMapService {

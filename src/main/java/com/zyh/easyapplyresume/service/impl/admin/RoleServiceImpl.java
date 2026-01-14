@@ -11,6 +11,7 @@ import com.zyh.easyapplyresume.model.query.admin.RolePageQuery;
 import com.zyh.easyapplyresume.model.vo.admin.PermissionInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.RolePageVO;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog;
 import com.zyh.easyapplyresume.service.admin.RoleService;
 import com.zyh.easyapplyresume.utils.adminvalidator.RoleFormValidator;
 import org.springframework.beans.BeanUtils;
@@ -26,6 +27,7 @@ import static com.baomidou.mybatisplus.core.toolkit.Wrappers.lambdaQuery;
 /**
  * @author shiningCloud2025
  */
+@ServiceLog
 @Service
 @Transactional
 public class RoleServiceImpl implements RoleService {
