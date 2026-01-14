@@ -11,9 +11,10 @@ import com.zyh.easyapplyresume.model.pojo.admin.Permission;
 import com.zyh.easyapplyresume.model.query.admin.PermissionPageQuery;
 import com.zyh.easyapplyresume.model.vo.admin.PermissionInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.PermissionPageVO;
-import com.zyh.easyapplyresume.selfannotation.service.ServiceLog;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.admin.PermissionService;
 import com.zyh.easyapplyresume.utils.adminvalidator.PermissionFormValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,10 @@ import static com.baomidou.mybatisplus.core.toolkit.Wrappers.lambdaQuery;
 /**
  * @author shiningCloud2025
  */
-@ServiceLog
-@Service
 @Transactional
+@Service
+@ServiceLog
+@Slf4j
 public class PermissionServiceImpl implements PermissionService {
     @Autowired
     private PermissionMapper permissionMapper;

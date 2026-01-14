@@ -2,7 +2,7 @@ package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
-import com.zyh.easyapplyresume.selfannotation.service.ServiceLog;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.admin.SendCommunicationEmailService;
 import jakarta.annotation.Resource;
 import jakarta.mail.internet.MimeMessage;
@@ -17,10 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author shiningCloud2025
  */
+@Transactional
+@Service
 @ServiceLog
 @Slf4j
-@Service
-@Transactional
 public class SendCommunicationEmailServiceImpl implements SendCommunicationEmailService {
 
     @Resource

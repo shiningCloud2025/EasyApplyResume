@@ -16,8 +16,10 @@ import com.zyh.easyapplyresume.redis.constant.common.ResumeTemplateCacheKey;
 import com.zyh.easyapplyresume.redis.enums.CacheOperationType;
 import com.zyh.easyapplyresume.redis.util.CacheInvalidatePublisher;
 import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.admin.IndustryMapService;
 import com.zyh.easyapplyresume.utils.adminvalidator.ResumeTemplateFormValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -35,8 +37,10 @@ import java.util.stream.Collectors;
 /**
  * @author shiningCloud2025
  */
-@Service
 @Transactional
+@Service
+@ServiceLog
+@Slf4j
 public class ResumeTemplateServiceImpl implements ResumeTemplateService {
     @Autowired
     private ResumeTemplateMapper resumeTemplateMapper;

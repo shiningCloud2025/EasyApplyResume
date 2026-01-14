@@ -14,8 +14,10 @@ import com.zyh.easyapplyresume.redis.constant.common.RecruitPositionCacheKey;
 import com.zyh.easyapplyresume.redis.enums.CacheOperationType;
 import com.zyh.easyapplyresume.redis.util.CacheInvalidatePublisher;
 import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.admin.RecruitPositionService;
 import com.zyh.easyapplyresume.utils.adminvalidator.RecruitPositionFormValidator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,8 +32,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author shiningCloud2025
  */
-@Service
 @Transactional
+@Service
+@ServiceLog
+@Slf4j
 public class RecruitPositionServiceImpl implements RecruitPositionService {
     @Autowired
     private RecruitPositionMapper recruitPositionMapper;

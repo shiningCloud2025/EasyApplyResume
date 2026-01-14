@@ -21,6 +21,7 @@ import com.zyh.easyapplyresume.redis.constant.common.EmploymentInformationCacheK
 import com.zyh.easyapplyresume.redis.enums.CacheOperationType;
 import com.zyh.easyapplyresume.redis.util.CacheInvalidatePublisher;
 import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.admin.EmploymentInformationService;
 import com.zyh.easyapplyresume.utils.adminvalidator.EmploymentInformationFormValidator;
 import kotlin.jvm.internal.Lambda;
@@ -41,8 +42,9 @@ import java.util.stream.Collectors;
 /**
  * @author shiningCloud2025
  */
-@Service
 @Transactional
+@Service
+@ServiceLog
 @Slf4j
 public class EmploymentInformationServiceImpl implements EmploymentInformationService {
     @Autowired

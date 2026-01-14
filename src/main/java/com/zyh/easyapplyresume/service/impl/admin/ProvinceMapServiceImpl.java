@@ -7,7 +7,9 @@ import com.zyh.easyapplyresume.model.pojo.admin.CityMap;
 import com.zyh.easyapplyresume.model.pojo.admin.ProvinceMap;
 import com.zyh.easyapplyresume.redis.constant.common.ProvinceMapCacheKey;
 import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.admin.ProvinceMapService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,8 +20,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author shiningCloud2025
  */
-@Service
 @Transactional
+@Service
+@ServiceLog
+@Slf4j
 public class ProvinceMapServiceImpl implements ProvinceMapService {
     @Autowired
     private ProvinceMapMapper provinceMapMapper;
