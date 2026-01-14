@@ -14,9 +14,11 @@ import com.zyh.easyapplyresume.model.vo.admin.RoleInfoVO;
 import com.zyh.easyapplyresume.qiniuoss.OssAdminBusinessTypeEnum;
 import com.zyh.easyapplyresume.qiniuoss.OssService;
 import com.zyh.easyapplyresume.qiniuoss.OssSystemTypeEnum;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.admin.AdminService;
 import com.zyh.easyapplyresume.utils.adminvalidator.AdminFormValidator;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -34,8 +36,10 @@ import static com.baomidou.mybatisplus.core.toolkit.Wrappers.lambdaQuery;
 /**
  * @author shiningCloud2025
  */
-@Service
 @Transactional
+@Service
+@ServiceLog
+@Slf4j
 public class AdminServiceImpl implements AdminService {
 
     @Autowired

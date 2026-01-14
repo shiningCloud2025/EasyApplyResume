@@ -9,6 +9,7 @@ import com.zyh.easyapplyresume.model.form.admin.AdminPhoneLoginForm;
 import com.zyh.easyapplyresume.model.form.user.EmailLoginForm;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorAdminDailyVisitNum;
 import com.zyh.easyapplyresume.model.pojo.admin.Admin;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorAdminDailyVisitNumService;
 import com.zyh.easyapplyresume.service.admin.AdminAuthService;
 import com.zyh.easyapplyresume.service.admin.AdminLoginAndRegisterEmailVerifyService;
@@ -30,9 +31,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author shiningCloud2025
  */
-@Slf4j
-@Service
 @Transactional
+@Service
+@ServiceLog
+@Slf4j
 public class AdminAuthServiceImpl implements AdminAuthService {
 
     @Autowired

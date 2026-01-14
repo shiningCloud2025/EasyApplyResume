@@ -11,7 +11,7 @@ import com.zyh.easyapplyresume.model.pojo.admin.AdminFeedbackRecord;
 import com.zyh.easyapplyresume.model.query.admin.AdminFeedbackRecordQuery;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFeedbackRecordInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFeedbackRecordPageVO;
-import com.zyh.easyapplyresume.selfannotation.service.ServiceLog;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.admin.AdminFeedbackRecordService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +23,10 @@ import java.util.List;
 /**
  * @author shiningCloud2025
  */
+@Transactional
+@Service
 @ServiceLog
 @Slf4j
-@Service
-@Transactional
 public class AdminFeedbackRecordServiceImpl implements AdminFeedbackRecordService {
     @Autowired
     private AdminFeedbackRecordMapper adminFeedbackRecordMapper;
