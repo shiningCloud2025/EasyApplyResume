@@ -23,6 +23,7 @@ import com.zyh.easyapplyresume.model.query.user.UserFeedbackQuery;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFeedbackPageVO;
 import com.zyh.easyapplyresume.model.vo.user.UserFeedbackInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserFeedbackPageVO;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.impl.admin.SendCommunicationEmailServiceImpl;
 import com.zyh.easyapplyresume.service.user.UserFeedbackService;
 import com.zyh.easyapplyresume.utils.adminvalidator.AdminFeedbackFormValidator;
@@ -38,9 +39,10 @@ import java.util.Date;
 /**
  * @author shiningCloud2025
  */
-@Slf4j
-@Service
 @Transactional
+@Service
+@ServiceLog
+@Slf4j
 public class UserFeedbackServiceImpl implements UserFeedbackService {
     @Autowired
     private UserFeedbackMapper userFeedbackMapper;

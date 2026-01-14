@@ -16,6 +16,7 @@ import com.zyh.easyapplyresume.model.pojo.admin.AdminFeedbackRecord;
 import com.zyh.easyapplyresume.model.query.admin.AdminFeedbackQuery;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFeedbackInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFeedbackPageVO;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog;
 import com.zyh.easyapplyresume.service.admin.AdminFeedbackService;
 import com.zyh.easyapplyresume.utils.adminvalidator.AdminFeedbackFormValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,7 @@ import java.util.Date;
 /**
  * @author shiningCloud2025
  */
+@ServiceLog
 @Slf4j
 @Service
 @Transactional

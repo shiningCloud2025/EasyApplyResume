@@ -7,6 +7,7 @@ import com.zyh.easyapplyresume.mapper.mysql.user.UserCollectionsMapper;
 import com.zyh.easyapplyresume.model.pojo.admin.ResumeTemplate;
 import com.zyh.easyapplyresume.model.pojo.user.UserCollections;
 import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.user.UserCollectionsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 @Transactional
 @Service
+@ServiceLog
 @Slf4j
 public class UserCollectionsServiceImpl implements UserCollectionsService {
 

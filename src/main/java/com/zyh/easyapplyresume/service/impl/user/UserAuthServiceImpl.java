@@ -13,6 +13,7 @@ import com.zyh.easyapplyresume.model.form.user.PhoneLoginForm;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorAdminDailyVisitNum;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorUserDailyVisitNum;
 import com.zyh.easyapplyresume.model.pojo.user.User;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorUserDailyVisitNumService;
 import com.zyh.easyapplyresume.service.user.UserAuthService;
 import com.zyh.easyapplyresume.service.user.UserLoginAndRegisterEmailVerifyService;
@@ -37,6 +38,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Transactional
 @Service
+@ServiceLog
 @Slf4j
 public class UserAuthServiceImpl implements UserAuthService {
     @Autowired

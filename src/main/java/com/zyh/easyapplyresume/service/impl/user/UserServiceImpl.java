@@ -14,8 +14,9 @@ import com.zyh.easyapplyresume.model.vo.user.UserInfoVO;
 import com.zyh.easyapplyresume.qiniuoss.OssService;
 import com.zyh.easyapplyresume.qiniuoss.OssSystemTypeEnum;
 import com.zyh.easyapplyresume.qiniuoss.OssUserBusinessTypeEnum;
-import com.zyh.easyapplyresume.redis.constant.common.UserCacheKey;
+import com.zyh.easyapplyresume.redis.constant.user.UserCacheKey;
 import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.user.UserService;
 import com.zyh.easyapplyresume.utils.uservalidator.UserUpdateValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +31,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author shiningCloud2025
  */
-@Slf4j
 @Transactional
 @Service
+@ServiceLog
+@Slf4j
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;

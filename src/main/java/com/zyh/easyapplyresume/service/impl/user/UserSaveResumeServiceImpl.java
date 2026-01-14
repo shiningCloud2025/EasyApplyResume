@@ -13,6 +13,7 @@ import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
 import com.zyh.easyapplyresume.model.query.user.UserSaveResumeQuery;
 import com.zyh.easyapplyresume.model.vo.admin.ResumeTemplateInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog;
 import com.zyh.easyapplyresume.service.user.UserDeleteResumeService;
 import com.zyh.easyapplyresume.service.user.UserSaveResumeService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ import java.util.List;
 /**
  * @author shiningCloud2025
  */
+@ServiceLog
 @Slf4j
 @Service
 @Transactional

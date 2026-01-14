@@ -14,6 +14,7 @@ import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
 import com.zyh.easyapplyresume.model.query.user.CPortUserDeleteResumeQuery;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserSaveResumeInfoVO;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.user.UserDeleteResumeBySystemService;
 import com.zyh.easyapplyresume.service.user.UserDeleteResumeService;
 import com.zyh.easyapplyresume.service.user.UserSaveResumeService;
@@ -30,9 +31,10 @@ import java.util.stream.Collectors;
 /**
  * @author shiningCloud2025
  */
-@Slf4j
-@Service
 @Transactional
+@Service
+@ServiceLog
+@Slf4j
 public class UserDeleteResumeServiceImpl implements UserDeleteResumeService {
     @Autowired
     private UserDeleteResumeMapper userDeleteResumeMapper;

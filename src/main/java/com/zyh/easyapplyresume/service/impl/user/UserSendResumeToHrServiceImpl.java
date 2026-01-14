@@ -3,6 +3,7 @@ package com.zyh.easyapplyresume.service.impl.user;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.UserCodeEnum;
 import com.zyh.easyapplyresume.model.form.user.UserSendResumeToHrForm;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.user.UserSendResumeToHrService;
 import com.zyh.easyapplyresume.utils.uservalidator.UserSendResumeToHrFormValidator;
 import jakarta.annotation.Resource;
@@ -18,9 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 /**
  * @author shiningCloud2025
  */
-@Slf4j
-@Service
 @Transactional
+@Service
+@ServiceLog
+@Slf4j
 public class UserSendResumeToHrServiceImpl implements UserSendResumeToHrService {
     @Resource
     private JavaMailSender javaMailSender;

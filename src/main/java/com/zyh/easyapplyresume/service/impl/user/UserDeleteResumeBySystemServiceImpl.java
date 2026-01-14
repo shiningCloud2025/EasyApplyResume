@@ -12,6 +12,7 @@ import com.zyh.easyapplyresume.model.query.user.UserDeleteResumeQuery;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeBySystemInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeBySystemPageVO;
 import com.zyh.easyapplyresume.model.vo.user.UserDeleteResumeInfoVO;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.user.UserDeleteResumeBySystemService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,10 @@ import java.util.stream.Collectors;
 /**
  * @author shiningCloud2025
  */
-@Slf4j
-@Service
 @Transactional
+@Service
+@ServiceLog
+@Slf4j
 public class UserDeleteResumeBySystemServiceImpl implements UserDeleteResumeBySystemService {
     @Autowired
     private UserDeleteResumeBySystemMapper userDeleteResumeBySystemMapper;

@@ -6,6 +6,7 @@ import com.zyh.easyapplyresume.mapper.mysql.user.UniversityMapMapper;
 import com.zyh.easyapplyresume.model.pojo.user.UniversityMap;
 import com.zyh.easyapplyresume.redis.constant.common.UniversityMapCacheKey;
 import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.user.UniversityMapService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author shiningCloud2025
  */
+
 @Transactional
 @Service
+@ServiceLog
 @Slf4j
 public class UniversityMapServiceImpl implements UniversityMapService {
 

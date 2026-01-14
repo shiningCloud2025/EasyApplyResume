@@ -11,6 +11,7 @@ import com.zyh.easyapplyresume.model.pojo.user.UserFeedbackRecord;
 import com.zyh.easyapplyresume.model.query.user.UserFeedbackRecordQuery;
 import com.zyh.easyapplyresume.model.vo.user.UserFeedbackRecordInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserFeedbackRecordPageVO;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.user.UserFeedbackRecordService;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import kotlin.jvm.internal.Lambda;
@@ -24,9 +25,10 @@ import java.util.List;
 /**
  * @author shiningCloud2025
  */
-@Slf4j
-@Service
 @Transactional
+@Service
+@ServiceLog
+@Slf4j
 public class UserFeedbackRecordServiceImpl implements UserFeedbackRecordService {
     @Autowired
     private UserFeedbackRecordMapper userFeedbackRecordMapper;
