@@ -22,6 +22,7 @@ import com.zyh.easyapplyresume.redis.constant.admonitor.AdmonitorUserAdvertiseme
 import com.zyh.easyapplyresume.redis.enums.CacheOperationType;
 import com.zyh.easyapplyresume.redis.util.CacheInvalidatePublisher;
 import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorUserAdvertisementService;
 import com.zyh.easyapplyresume.utils.admonitorvalidator.AdmonitorAdminAdvertisementValidator;
 import com.zyh.easyapplyresume.utils.admonitorvalidator.AdmonitorUserAdvertisementValidator;
@@ -43,6 +44,7 @@ import java.util.stream.Collectors;
  */
 @Transactional
 @Service
+@ServiceLog
 @Slf4j
 public class AdmonitorUserAdvertisementServiceImpl implements AdmonitorUserAdvertisementService {
 

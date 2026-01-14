@@ -5,6 +5,7 @@ import com.zyh.easyapplyresume.mapper.mysql.ad_monitor.AdmonitorUserDaliyUserNum
 import com.zyh.easyapplyresume.mapper.mysql.user.UserMapper;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorUserDaliyUserNum;
 import com.zyh.easyapplyresume.model.pojo.user.User;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorUserDaliyUserNumService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 @Transactional
 @Service
+@ServiceLog
 @Slf4j
 public class AdmonitorUserDaliyUserNumServiceImpl implements AdmonitorUserDaliyUserNumService {
 

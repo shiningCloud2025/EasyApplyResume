@@ -11,6 +11,7 @@ import com.zyh.easyapplyresume.redis.constant.admonitor.AdMonitorUserAnnouncemen
 import com.zyh.easyapplyresume.redis.enums.CacheOperationType;
 import com.zyh.easyapplyresume.redis.util.CacheInvalidatePublisher;
 import com.zyh.easyapplyresume.redis.util.RedisCacheUtil;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.ad_monitor.AdMonitorUserAnnouncementService;
 import com.zyh.easyapplyresume.utils.admonitorvalidator.AdMonitorUserAnnouncementValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Transactional
 @Service
+@ServiceLog
 @Slf4j
 public class AdMonitorUserAnnouncementServiceImpl implements AdMonitorUserAnnouncementService {
     @Autowired

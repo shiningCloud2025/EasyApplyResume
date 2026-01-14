@@ -16,6 +16,7 @@ import com.zyh.easyapplyresume.model.query.ad_monitor.AdmonitorServiceMachineQue
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorServiceMachineInfoVO;
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorServiceMachineJianKongVO;
 import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorServiceMachinePageVO;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorServiceMachineService;
 import com.zyh.easyapplyresume.utils.admonitorvalidator.AdmonitorServiceMachineFormValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,7 @@ import java.util.stream.Collectors;
  */
 @Transactional
 @Service
+@ServiceLog
 @Slf4j
 public class AdmonitorServiceMachineServiceImpl implements AdmonitorServiceMachineService {
     @Autowired

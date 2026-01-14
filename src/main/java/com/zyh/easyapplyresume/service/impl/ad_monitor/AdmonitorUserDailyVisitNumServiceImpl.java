@@ -6,6 +6,7 @@ import com.zyh.easyapplyresume.mapper.mysql.ad_monitor.AdmonitorAdminDailyVisitN
 import com.zyh.easyapplyresume.mapper.mysql.ad_monitor.AdmonitorUserDailyVisitNumMapper;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorAdminDailyVisitNum;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorUserDailyVisitNum;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorAdminDailyVisitTotalNumService;
 import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorUserDailyVisitNumService;
 import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorUserDailyVisitTotalNumService;
@@ -23,6 +24,7 @@ import java.util.Date;
  */
 @Transactional
 @Service
+@ServiceLog
 @Slf4j
 public class AdmonitorUserDailyVisitNumServiceImpl implements AdmonitorUserDailyVisitNumService {
 

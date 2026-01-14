@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.service.impl.ad_monitor;
 
 import com.zyh.easyapplyresume.mapper.mysql.ad_monitor.AdmonitorAdminDailyVisitTotalNumMapper;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorAdminDailyVisitTotalNum;
+import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorAdminDailyVisitTotalNumService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 @Transactional
 @Service
+@ServiceLog
 @Slf4j
 public class AdmonitorAdminDailyVisitTotalNumServiceImpl implements AdmonitorAdminDailyVisitTotalNumService {
     @Autowired
