@@ -1,5 +1,6 @@
 package com.zyh.easyapplyresume.config;
 
+import com.zyh.easyapplyresume.interceptor.UsallyInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -12,6 +13,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
+    @Autowired
+    private UsallyInterceptor usallyInterceptor;
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -20,7 +24,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 只拦截 Knife4j 文档页面
+        // 注册日志拦截器
+        registry.addInterceptor(usallyInterceptor)
+                .addPathPatterns("/**")  // 拦截所有路径
+                .excludePathPatterns("/error", "/static/**", "/favicon.ico");  // 排除静态资源
+
 
         /**
          * 拦截路径匹配规则
