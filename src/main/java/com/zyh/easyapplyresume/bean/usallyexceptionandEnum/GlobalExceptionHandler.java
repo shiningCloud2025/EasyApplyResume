@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.bean.usallyexceptionandEnum;
 
 
+import com.zyh.easyapplyresume.selfannotation.RateLimit.RateLimitException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
