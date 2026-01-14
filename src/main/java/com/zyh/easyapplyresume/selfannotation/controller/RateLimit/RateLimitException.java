@@ -1,4 +1,4 @@
-package com.zyh.easyapplyresume.selfannotation.RateLimit;
+package com.zyh.easyapplyresume.selfannotation.controller.RateLimit;
 
 public class RateLimitException extends RuntimeException {
     

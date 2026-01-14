@@ -1,4 +1,4 @@
-package com.zyh.easyapplyresume.selfannotation.RateLimit;
+package com.zyh.easyapplyresume.selfannotation.controller.RateLimit;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class RateLimitAspect {
 
     private static final String RATE_LIMIT_KEY_PREFIX = "rate_limit:";
 
-    @Around("@annotation(com.zyh.easyapplyresume.selfannotation.RateLimit.RateLimit)")
+    @Around("@annotation(com.zyh.easyapplyresume.selfannotation.controller.RateLimit.RateLimit)")
     public Object rateLimit(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
