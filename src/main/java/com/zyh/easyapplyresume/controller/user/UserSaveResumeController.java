@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 /**
@@ -60,6 +61,48 @@ public class UserSaveResumeController {
                                                           @RequestParam(required = false,value ="resumeName") String resumeName){
         userSaveResumeService.saveUserSaveResumeInfoFirst(resumeTemplateInfoVO,userId,resumeName);
         return BaseResult.ok();
+    }
+
+    @PostMapping("/saveUserSaveResumeInfoFirstByImport")
+    @Operation(summary = "保存用户的简历(第一次添加，通过已有简历导入)")
+    public BaseResult<String> saveUserSaveResumeInfoFirstByImport(@RequestParam(required = true,value ="file") MultipartFile file,
+                                                                  @RequestParam(required = true,value ="userId") Integer userId,
+                                                                  @RequestParam(required = false,value ="resumeName") String resumeName,
+                                                                  @RequestParam(required = true,value ="industryCode") Integer industryCode){
+        userSaveResumeService.saveUserSaveResumeInfoFirstByImport(file,userId,resumeName,industryCode);
+        return BaseResult.ok();
+    }
+
+    @PostMapping("/assistReactCodeByAI")
+    @Operation(summary = "AI辅助优化React代码")
+    public BaseResult<String> assistReactCodeByAI(@RequestParam(required = true,value ="userRequest") String userRequest,
+                                                   @RequestParam(required = true,value ="currentReactCode") String currentReactCode){
+        String optimizedCode = userSaveResumeService.assistReactCodeByAI(userRequest,currentReactCode);
+        return BaseResult.ok(optimizedCode);
+    }
+
+    @GetMapping("/extractKeywordsByAI")
+    @Operation(summary = "AI提取简历关键词")
+    public BaseResult<Object> extractKeywordsByAI(@RequestParam(required = true,value ="userId") Integer userId,
+                                                   @RequestParam(required = true,value ="resumeId") Integer resumeId){
+        Object result = userSaveResumeService.extractResumeKeywordsByAI(userId, resumeId);
+        return BaseResult.ok(result);
+    }
+
+    @GetMapping("/scoreByAI")
+    @Operation(summary = "AI智能评分简历")
+    public BaseResult<Object> scoreByAI(@RequestParam(required = true,value ="userId") Integer userId,
+                                        @RequestParam(required = true,value ="resumeId") Integer resumeId){
+        Object result = userSaveResumeService.scoreResumeByAI(userId, resumeId);
+        return BaseResult.ok(result);
+    }
+
+    @GetMapping("/getFeedbackByAI")
+    @Operation(summary = "AI生成简历反馈建议")
+    public BaseResult<Object> getFeedbackByAI(@RequestParam(required = true,value ="userId") Integer userId,
+                                               @RequestParam(required = true,value ="resumeId") Integer resumeId){
+        Object result = userSaveResumeService.getResumeFeedbackByAI(userId, resumeId);
+        return BaseResult.ok(result);
     }
 
     @PostMapping("/updateUserDeleteResumeName")
