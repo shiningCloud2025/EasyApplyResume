@@ -49,7 +49,7 @@ public class AdminFaqServiceImpl implements AdminFaqService {
             throw e;
         } catch (Exception e) {
             log.error("添加常见问题失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.FAQ_ADD_FAIL);
         }
     }
 
@@ -57,7 +57,6 @@ public class AdminFaqServiceImpl implements AdminFaqService {
     public Integer updateFaq(AdminFaqForm faqForm) {
         try {
             log.info("修改常见问题");
-            // 校验表单字段
             AdminFaqValidator.validateForUpdate(faqForm);
             AdminFaq faq = new AdminFaq();
             BeanUtils.copyProperties(faqForm, faq);
@@ -69,7 +68,7 @@ public class AdminFaqServiceImpl implements AdminFaqService {
             throw e;
         } catch (Exception e) {
             log.error("修改常见问题失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.FAQ_UPDATE_FAIL);
         }
     }
 
@@ -88,7 +87,7 @@ public class AdminFaqServiceImpl implements AdminFaqService {
             throw e;
         } catch (Exception e) {
             log.error("删除常见问题失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.FAQ_DELETE_FAIL);
         }
     }
 
@@ -99,7 +98,7 @@ public class AdminFaqServiceImpl implements AdminFaqService {
             AdminFaq faq = faqMapper.selectById(faqId);
             if (faq == null || faq.getDeleted() == 1) {
                 log.error("常见问题不存在");
-                throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+                throw new BusException(AdminCodeEnum.FAQ_NOT_FOUND);
             }
             AdminFaqInfoVO faqInfoVO = new AdminFaqInfoVO();
             BeanUtils.copyProperties(faq, faqInfoVO);
@@ -109,7 +108,7 @@ public class AdminFaqServiceImpl implements AdminFaqService {
             throw e;
         } catch (Exception e) {
             log.error("获取常见问题信息失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.FAQ_GET_INFO_FAIL);
         }
     }
 
@@ -119,7 +118,6 @@ public class AdminFaqServiceImpl implements AdminFaqService {
             log.info("分页查询常见问题");
             Page<AdminFaq> faqPage = new Page<>(page, size);
             Page<AdminFaq> result = faqMapper.selectPage(faqPage, null);
-            // 转换为Page<AdminFaqPageVO>
             Page<AdminFaqPageVO> pageVO = new Page<>(page, size);
             pageVO.setTotal(result.getTotal());
             pageVO.setRecords(result.getRecords().stream().map(faq -> {
@@ -133,7 +131,7 @@ public class AdminFaqServiceImpl implements AdminFaqService {
             throw e;
         } catch (Exception e) {
             log.error("分页查询常见问题失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.FAQ_GET_PAGE_FAIL);
         }
     }
 }

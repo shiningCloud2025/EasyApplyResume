@@ -1,11 +1,14 @@
 package com.zyh.easyapplyresume.controller.admin;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.model.pojo.admin.AdminDevelopHistory;
+import com.zyh.easyapplyresume.model.form.admin.AdminDevelopHistoryForm;
+import com.zyh.easyapplyresume.model.vo.admin.AdminDevelopHistoryInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminDevelopHistoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,20 +25,20 @@ public class AdminDevelopHistoryController {
     private AdminDevelopHistoryService developHistoryService;
 
     @Operation(summary = "添加发展历程")
-    @RequestMapping("/add")
-    public BaseResult<Integer> addDevelopHistory(@RequestBody AdminDevelopHistory developHistory) {
-        return BaseResult.ok(developHistoryService.addDevelopHistory(developHistory));
+    @PostMapping("/add")
+    public BaseResult<Integer> addDevelopHistory(@RequestBody AdminDevelopHistoryForm developHistoryForm) {
+        return BaseResult.ok(developHistoryService.addDevelopHistory(developHistoryForm));
     }
 
     @Operation(summary = "修改发展历程")
-    @RequestMapping("/update")
-    public BaseResult<Integer> updateDevelopHistory(@RequestBody AdminDevelopHistory developHistory) {
-        return BaseResult.ok(developHistoryService.updateDevelopHistory(developHistory));
+    @PostMapping("/update")
+    public BaseResult<Integer> updateDevelopHistory(@RequestBody AdminDevelopHistoryForm developHistoryForm) {
+        return BaseResult.ok(developHistoryService.updateDevelopHistory(developHistoryForm));
     }
 
     @Operation(summary = "获取发展历程信息")
-    @RequestMapping("/getInfo")
-    public BaseResult<AdminDevelopHistory> getDevelopHistoryInfo() {
+    @GetMapping("/getInfo")
+    public BaseResult<AdminDevelopHistoryInfoVO> getDevelopHistoryInfo() {
         return BaseResult.ok(developHistoryService.getDevelopHistoryInfo());
     }
 }

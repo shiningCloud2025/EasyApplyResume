@@ -34,13 +34,12 @@ public class AdminProjectIntroduceServiceImpl implements AdminProjectIntroduceSe
     public Integer addProjectIntroduce(AdminProjectIntroduceForm projectIntroduceForm) {
         try {
             log.info("添加项目介绍");
+            AdminProjectIntroduceValidator.validateForAdd(projectIntroduceForm);
             List<AdminProjectIntroduce> projectIntroduces = projectIntroduceMapper.selectList(null);
             if (projectIntroduces.size() > 0) {
                 log.error("已添加过项目介绍");
-                throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+                throw new BusException(AdminCodeEnum.PROJECT_INTRODUCE_ALREADY_ADD);
             }
-            // 校验表单字段
-            AdminProjectIntroduceValidator.validateForAdd(projectIntroduceForm);
             AdminProjectIntroduce projectIntroduce = new AdminProjectIntroduce();
             BeanUtils.copyProperties(projectIntroduceForm, projectIntroduce);
             projectIntroduce.setProjectIntroduceUpdatedTime(new Date());
@@ -51,7 +50,7 @@ public class AdminProjectIntroduceServiceImpl implements AdminProjectIntroduceSe
             throw e;
         } catch (Exception e) {
             log.error("添加项目介绍失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.PROJECT_INTRODUCE_ADD_FAIL);
         }
     }
 
@@ -59,7 +58,6 @@ public class AdminProjectIntroduceServiceImpl implements AdminProjectIntroduceSe
     public Integer updateProjectIntroduce(AdminProjectIntroduceForm projectIntroduceForm) {
         try {
             log.info("修改项目介绍");
-            // 校验表单字段
             AdminProjectIntroduceValidator.validateForUpdate(projectIntroduceForm);
             AdminProjectIntroduce projectIntroduce = new AdminProjectIntroduce();
             BeanUtils.copyProperties(projectIntroduceForm, projectIntroduce);
@@ -71,7 +69,7 @@ public class AdminProjectIntroduceServiceImpl implements AdminProjectIntroduceSe
             throw e;
         } catch (Exception e) {
             log.error("修改项目介绍失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.PROJECT_INTRODUCE_UPDATE_FAIL);
         }
     }
 
@@ -90,7 +88,7 @@ public class AdminProjectIntroduceServiceImpl implements AdminProjectIntroduceSe
             throw e;
         } catch (Exception e) {
             log.error("获取项目介绍信息失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.PROJECT_INTRODUCE_GET_INFO_FAIL);
         }
     }
 }

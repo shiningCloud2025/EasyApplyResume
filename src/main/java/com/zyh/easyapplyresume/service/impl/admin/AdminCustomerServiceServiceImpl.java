@@ -8,6 +8,7 @@ import com.zyh.easyapplyresume.model.pojo.admin.AdminCustomerService;
 import com.zyh.easyapplyresume.model.vo.admin.AdminCustomerServiceInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminCustomerServiceService;
 import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
+import com.zyh.easyapplyresume.utils.adminvalidator.AdminCustomerServiceValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,11 @@ public class AdminCustomerServiceServiceImpl implements AdminCustomerServiceServ
     public Integer addCustomerService(AdminCustomerServiceForm customerServiceForm) {
         try {
             log.info("添加人工客服");
+            AdminCustomerServiceValidator.validateForAdd(customerServiceForm);
             List<AdminCustomerService> customerServices = customerServiceMapper.selectList(null);
             if (customerServices.size() > 0) {
                 log.error("已添加过人工客服");
-                throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+                throw new BusException(AdminCodeEnum.CUSTOMER_SERVICE_ALREADY_ADD);
             }
             AdminCustomerService customerService = new AdminCustomerService();
             BeanUtils.copyProperties(customerServiceForm, customerService);
@@ -48,7 +50,7 @@ public class AdminCustomerServiceServiceImpl implements AdminCustomerServiceServ
             throw e;
         } catch (Exception e) {
             log.error("添加人工客服失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.CUSTOMER_SERVICE_ADD_FAIL);
         }
     }
 
@@ -56,6 +58,7 @@ public class AdminCustomerServiceServiceImpl implements AdminCustomerServiceServ
     public Integer updateCustomerService(AdminCustomerServiceForm customerServiceForm) {
         try {
             log.info("修改人工客服");
+            AdminCustomerServiceValidator.validateForUpdate(customerServiceForm);
             AdminCustomerService customerService = new AdminCustomerService();
             BeanUtils.copyProperties(customerServiceForm, customerService);
             customerService.setCustomerServiceUpdatedTime(new Date());
@@ -66,7 +69,7 @@ public class AdminCustomerServiceServiceImpl implements AdminCustomerServiceServ
             throw e;
         } catch (Exception e) {
             log.error("修改人工客服失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.CUSTOMER_SERVICE_UPDATE_FAIL);
         }
     }
 
@@ -85,7 +88,7 @@ public class AdminCustomerServiceServiceImpl implements AdminCustomerServiceServ
             throw e;
         } catch (Exception e) {
             log.error("获取人工客服信息失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.CUSTOMER_SERVICE_GET_INFO_FAIL);
         }
     }
 }

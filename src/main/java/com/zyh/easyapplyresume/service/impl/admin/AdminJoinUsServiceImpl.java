@@ -8,6 +8,7 @@ import com.zyh.easyapplyresume.model.pojo.admin.AdminJoinUs;
 import com.zyh.easyapplyresume.model.vo.admin.AdminJoinUsInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminJoinUsService;
 import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
+import com.zyh.easyapplyresume.utils.adminvalidator.AdminJoinUsValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,11 @@ public class AdminJoinUsServiceImpl implements AdminJoinUsService {
     public Integer addJoinUs(AdminJoinUsForm joinUsForm) {
         try {
             log.info("添加加入我们");
+            AdminJoinUsValidator.validateForAdd(joinUsForm);
             List<AdminJoinUs> joinUsList = joinUsMapper.selectList(null);
             if (joinUsList.size() > 0) {
                 log.error("已添加过加入我们");
-                throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+                throw new BusException(AdminCodeEnum.JOIN_US_ALREADY_ADD);
             }
             AdminJoinUs joinUs = new AdminJoinUs();
             BeanUtils.copyProperties(joinUsForm, joinUs);
@@ -48,7 +50,7 @@ public class AdminJoinUsServiceImpl implements AdminJoinUsService {
             throw e;
         } catch (Exception e) {
             log.error("添加加入我们失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.JOIN_US_ADD_FAIL);
         }
     }
 
@@ -56,6 +58,7 @@ public class AdminJoinUsServiceImpl implements AdminJoinUsService {
     public Integer updateJoinUs(AdminJoinUsForm joinUsForm) {
         try {
             log.info("修改加入我们");
+            AdminJoinUsValidator.validateForUpdate(joinUsForm);
             AdminJoinUs joinUs = new AdminJoinUs();
             BeanUtils.copyProperties(joinUsForm, joinUs);
             joinUs.setJoinUsUpdatedTime(new Date());
@@ -66,7 +69,7 @@ public class AdminJoinUsServiceImpl implements AdminJoinUsService {
             throw e;
         } catch (Exception e) {
             log.error("修改加入我们失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.JOIN_US_UPDATE_FAIL);
         }
     }
 
@@ -85,7 +88,7 @@ public class AdminJoinUsServiceImpl implements AdminJoinUsService {
             throw e;
         } catch (Exception e) {
             log.error("获取加入我们信息失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.JOIN_US_GET_INFO_FAIL);
         }
     }
 }

@@ -8,6 +8,7 @@ import com.zyh.easyapplyresume.model.pojo.admin.AdminMediaReport;
 import com.zyh.easyapplyresume.model.vo.admin.AdminMediaReportInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminMediaReportService;
 import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
+import com.zyh.easyapplyresume.utils.adminvalidator.AdminMediaReportValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,11 @@ public class AdminMediaReportServiceImpl implements AdminMediaReportService {
     public Integer addMediaReport(AdminMediaReportForm mediaReportForm) {
         try {
             log.info("添加媒体报道");
+            AdminMediaReportValidator.validateForAdd(mediaReportForm);
             List<AdminMediaReport> mediaReports = mediaReportMapper.selectList(null);
             if (mediaReports.size() > 0) {
                 log.error("已添加过媒体报道");
-                throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+                throw new BusException(AdminCodeEnum.MEDIA_REPORT_ALREADY_ADD);
             }
             AdminMediaReport mediaReport = new AdminMediaReport();
             BeanUtils.copyProperties(mediaReportForm, mediaReport);
@@ -48,7 +50,7 @@ public class AdminMediaReportServiceImpl implements AdminMediaReportService {
             throw e;
         } catch (Exception e) {
             log.error("添加媒体报道失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.MEDIA_REPORT_ADD_FAIL);
         }
     }
 
@@ -56,6 +58,7 @@ public class AdminMediaReportServiceImpl implements AdminMediaReportService {
     public Integer updateMediaReport(AdminMediaReportForm mediaReportForm) {
         try {
             log.info("修改媒体报道");
+            AdminMediaReportValidator.validateForUpdate(mediaReportForm);
             AdminMediaReport mediaReport = new AdminMediaReport();
             BeanUtils.copyProperties(mediaReportForm, mediaReport);
             mediaReport.setMediaReportUpdatedTime(new Date());
@@ -66,7 +69,7 @@ public class AdminMediaReportServiceImpl implements AdminMediaReportService {
             throw e;
         } catch (Exception e) {
             log.error("修改媒体报道失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.MEDIA_REPORT_UPDATE_FAIL);
         }
     }
 
@@ -85,7 +88,7 @@ public class AdminMediaReportServiceImpl implements AdminMediaReportService {
             throw e;
         } catch (Exception e) {
             log.error("获取媒体报道信息失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.MEDIA_REPORT_GET_INFO_FAIL);
         }
     }
 }

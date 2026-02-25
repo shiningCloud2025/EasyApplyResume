@@ -34,12 +34,11 @@ public class AdminTeamIntroduceServiceImpl implements AdminTeamIntroduceService 
     public Integer addTeamIntroduce(AdminTeamIntroduceForm teamIntroduceForm) {
         try {
             log.info("添加团队介绍");
-            // 校验表单字段
             AdminTeamIntroduceValidator.validateForAdd(teamIntroduceForm);
             List<AdminTeamIntroduce> teamIntroduces = teamIntroduceMapper.selectList(null);
             if (teamIntroduces.size() > 0) {
                 log.error("已添加过团队介绍");
-                throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+                throw new BusException(AdminCodeEnum.TEAM_INTRODUCE_ALREADY_ADD);
             }
             AdminTeamIntroduce teamIntroduce = new AdminTeamIntroduce();
             BeanUtils.copyProperties(teamIntroduceForm, teamIntroduce);
@@ -51,7 +50,7 @@ public class AdminTeamIntroduceServiceImpl implements AdminTeamIntroduceService 
             throw e;
         } catch (Exception e) {
             log.error("添加团队介绍失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.TEAM_INTRODUCE_ADD_FAIL);
         }
     }
 
@@ -59,8 +58,7 @@ public class AdminTeamIntroduceServiceImpl implements AdminTeamIntroduceService 
     public Integer updateTeamIntroduce(AdminTeamIntroduceForm teamIntroduceForm) {
         try {
             log.info("修改团队介绍");
-            // 校验表单字段
-            ValidationUtils.validateFormFields(teamIntroduceForm.getTeamIntroduceId(), teamIntroduceForm.getTeamIntroduceTitle(), teamIntroduceForm.getTeamIntroduceContent());
+            AdminTeamIntroduceValidator.validateForUpdate(teamIntroduceForm);
             AdminTeamIntroduce teamIntroduce = new AdminTeamIntroduce();
             BeanUtils.copyProperties(teamIntroduceForm, teamIntroduce);
             teamIntroduce.setTeamIntroduceUpdatedTime(new Date());
@@ -71,7 +69,7 @@ public class AdminTeamIntroduceServiceImpl implements AdminTeamIntroduceService 
             throw e;
         } catch (Exception e) {
             log.error("修改团队介绍失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.TEAM_INTRODUCE_UPDATE_FAIL);
         }
     }
 
@@ -90,7 +88,7 @@ public class AdminTeamIntroduceServiceImpl implements AdminTeamIntroduceService 
             throw e;
         } catch (Exception e) {
             log.error("获取团队介绍信息失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.TEAM_INTRODUCE_GET_INFO_FAIL);
         }
     }
 }

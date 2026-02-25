@@ -49,7 +49,7 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
             throw e;
         } catch (Exception e) {
             log.error("添加使用指南失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.USER_GUIDE_ADD_FAIL);
         }
     }
 
@@ -57,7 +57,6 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
     public Integer updateUserGuide(AdminUserGuideForm userGuideForm) {
         try {
             log.info("修改使用指南");
-            // 校验表单字段
             AdminUserGuideValidator.validateForUpdate(userGuideForm);
             AdminUserGuide userGuide = new AdminUserGuide();
             BeanUtils.copyProperties(userGuideForm, userGuide);
@@ -69,7 +68,7 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
             throw e;
         } catch (Exception e) {
             log.error("修改使用指南失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.USER_GUIDE_UPDATE_FAIL);
         }
     }
 
@@ -88,7 +87,7 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
             throw e;
         } catch (Exception e) {
             log.error("删除使用指南失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.USER_GUIDE_DELETE_FAIL);
         }
     }
 
@@ -99,7 +98,7 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
             AdminUserGuide userGuide = userGuideMapper.selectById(userGuideId);
             if (userGuide == null || userGuide.getDeleted() == 1) {
                 log.error("使用指南不存在");
-                throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+                throw new BusException(AdminCodeEnum.USER_GUIDE_NOT_FOUND);
             }
             AdminUserGuideInfoVO userGuideInfoVO = new AdminUserGuideInfoVO();
             BeanUtils.copyProperties(userGuide, userGuideInfoVO);
@@ -109,7 +108,7 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
             throw e;
         } catch (Exception e) {
             log.error("获取使用指南信息失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.USER_GUIDE_GET_INFO_FAIL);
         }
     }
 
@@ -119,7 +118,6 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
             log.info("分页查询使用指南");
             Page<AdminUserGuide> userGuidePage = new Page<>(page, size);
             Page<AdminUserGuide> result = userGuideMapper.selectPage(userGuidePage, null);
-            // 转换为Page<AdminUserGuidePageVO>
             Page<AdminUserGuidePageVO> pageVO = new Page<>(page, size);
             pageVO.setTotal(result.getTotal());
             pageVO.setRecords(result.getRecords().stream().map(userGuide -> {
@@ -133,7 +131,7 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
             throw e;
         } catch (Exception e) {
             log.error("分页查询使用指南失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.USER_GUIDE_GET_PAGE_FAIL);
         }
     }
 }

@@ -8,6 +8,7 @@ import com.zyh.easyapplyresume.model.pojo.admin.AdminPartnerIntroduce;
 import com.zyh.easyapplyresume.model.vo.admin.AdminPartnerIntroduceInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminPartnerIntroduceService;
 import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
+import com.zyh.easyapplyresume.utils.adminvalidator.AdminPartnerIntroduceValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,11 @@ public class AdminPartnerIntroduceServiceImpl implements AdminPartnerIntroduceSe
     public Integer addPartnerIntroduce(AdminPartnerIntroduceForm partnerIntroduceForm) {
         try {
             log.info("添加合作伙伴");
+            AdminPartnerIntroduceValidator.validateForAdd(partnerIntroduceForm);
             List<AdminPartnerIntroduce> partnerIntroduces = partnerIntroduceMapper.selectList(null);
             if (partnerIntroduces.size() > 0) {
                 log.error("已添加过合作伙伴");
-                throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+                throw new BusException(AdminCodeEnum.PARTNER_INTRODUCE_ALREADY_ADD);
             }
             AdminPartnerIntroduce partnerIntroduce = new AdminPartnerIntroduce();
             BeanUtils.copyProperties(partnerIntroduceForm, partnerIntroduce);
@@ -48,7 +50,7 @@ public class AdminPartnerIntroduceServiceImpl implements AdminPartnerIntroduceSe
             throw e;
         } catch (Exception e) {
             log.error("添加合作伙伴失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.PARTNER_INTRODUCE_ADD_FAIL);
         }
     }
 
@@ -56,6 +58,7 @@ public class AdminPartnerIntroduceServiceImpl implements AdminPartnerIntroduceSe
     public Integer updatePartnerIntroduce(AdminPartnerIntroduceForm partnerIntroduceForm) {
         try {
             log.info("修改合作伙伴");
+            AdminPartnerIntroduceValidator.validateForUpdate(partnerIntroduceForm);
             AdminPartnerIntroduce partnerIntroduce = new AdminPartnerIntroduce();
             BeanUtils.copyProperties(partnerIntroduceForm, partnerIntroduce);
             partnerIntroduce.setPartnerIntroduceUpdatedTime(new Date());
@@ -66,7 +69,7 @@ public class AdminPartnerIntroduceServiceImpl implements AdminPartnerIntroduceSe
             throw e;
         } catch (Exception e) {
             log.error("修改合作伙伴失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.PARTNER_INTRODUCE_UPDATE_FAIL);
         }
     }
 
@@ -85,7 +88,7 @@ public class AdminPartnerIntroduceServiceImpl implements AdminPartnerIntroduceSe
             throw e;
         } catch (Exception e) {
             log.error("获取合作伙伴信息失败");
-            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
+            throw new BusException(AdminCodeEnum.PARTNER_INTRODUCE_GET_INFO_FAIL);
         }
     }
 }
