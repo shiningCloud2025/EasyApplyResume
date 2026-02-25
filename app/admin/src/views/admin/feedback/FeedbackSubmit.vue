@@ -35,7 +35,7 @@
         <el-form-item label="反馈标题" prop="adminFeedbackTitle">
           <el-input
             v-model="feedbackForm.adminFeedbackTitle"
-            placeholder="请简要描述您的问题或建议（不超过35字符）"
+            placeholder="请简要描述您的问题或建议（5-35字符）"
             maxlength="35"
             show-word-limit
             clearable
@@ -48,7 +48,7 @@
             v-model="feedbackForm.adminFeedbackContent"
             type="textarea"
             :rows="10"
-            placeholder="请详细描述您遇到的问题或建议，我们会认真阅读并处理"
+            placeholder="请详细描述您遇到的问题或建议，我们会认真阅读并处理（至少10个字符）"
             show-word-limit
             resize="none"
           />
@@ -137,10 +137,11 @@ const feedbackForm = reactive<AdminFeedbackForm>({
 const feedbackRules = {
   adminFeedbackTitle: [
     { required: true, message: '请输入反馈标题', trigger: 'blur' },
-    { max: 35, message: '标题长度不能超过 35 个字符', trigger: 'blur' }
+    { min: 5, max: 35, message: '标题长度在 5 到 35 个字符', trigger: 'blur' }
   ],
   adminFeedbackContent: [
-    { required: true, message: '请输入反馈内容', trigger: 'blur' }
+    { required: true, message: '请输入反馈内容', trigger: 'blur' },
+    { min: 10, message: '内容至少 10 个字符', trigger: 'blur' }
   ]
 }
 

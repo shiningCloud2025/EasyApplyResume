@@ -1,12 +1,15 @@
 package com.zyh.easyapplyresume.utils.adminvalidator;
 
-import com.zyh.easyapplyresume.exception.BusException;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.model.form.admin.AdminMediaReportForm;
-import com.zyh.easyapplyresume.model.pojo.admin.AdminCodeEnum;
 
+/**
+ * AdminMediaReportForm检查工具类，用于验证媒体报道表单数据
+ * 核心规则：标题和内容不能为空
+ * @author shiningCloud2025
+ */
 public class AdminMediaReportValidator {
-    // 标题最大长度
-    private static final int TITLE_MAX_LENGTH = 100;
 
     /**
      * 新增媒体报道校验
@@ -31,32 +34,28 @@ public class AdminMediaReportValidator {
     private static void validateId(AdminMediaReportForm mediaReportForm) {
         Integer id = mediaReportForm.getMediaReportId();
         if (id == null || id <= 0) {
-            throw new BusException(AdminCodeEnum.PARAM_ERROR);
+            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
         }
     }
 
     /**
-     * 校验标题
+     * 校验标题：不能为空
      */
     private static void validateTitle(AdminMediaReportForm mediaReportForm) {
         String title = mediaReportForm.getMediaReportTitle();
         if (title == null || title.trim().isEmpty()) {
-            throw new BusException(AdminCodeEnum.PARAM_ERROR);
+            throw new BusException(AdminCodeEnum.MEDIA_REPORT_TITLE_EMPTY);
         }
-        String trimmedTitle = title.trim();
-        mediaReportForm.setMediaReportTitle(trimmedTitle);
-        if (trimmedTitle.length() > TITLE_MAX_LENGTH) {
-            throw new BusException(AdminCodeEnum.PARAM_ERROR);
-        }
+        mediaReportForm.setMediaReportTitle(title.trim());
     }
 
     /**
-     * 校验内容
+     * 校验内容：不能为空
      */
     private static void validateContent(AdminMediaReportForm mediaReportForm) {
         String content = mediaReportForm.getMediaReportContent();
         if (content == null || content.trim().isEmpty()) {
-            throw new BusException(AdminCodeEnum.PARAM_ERROR);
+            throw new BusException(AdminCodeEnum.MEDIA_REPORT_CONTENT_EMPTY);
         }
         mediaReportForm.setMediaReportContent(content.trim());
     }

@@ -1,12 +1,15 @@
 package com.zyh.easyapplyresume.utils.adminvalidator;
 
-import com.zyh.easyapplyresume.exception.BusException;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.model.form.admin.AdminTeamIntroduceForm;
-import com.zyh.easyapplyresume.model.pojo.admin.AdminCodeEnum;
 
+/**
+ * AdminTeamIntroduceForm检查工具类，用于验证团队介绍表单数据
+ * 核心规则：标题和内容不能为空
+ * @author shiningCloud2025
+ */
 public class AdminTeamIntroduceValidator {
-    // 标题最大长度
-    private static final int TITLE_MAX_LENGTH = 100;
 
     /**
      * 新增团队介绍校验
@@ -31,32 +34,28 @@ public class AdminTeamIntroduceValidator {
     private static void validateId(AdminTeamIntroduceForm teamIntroduceForm) {
         Integer id = teamIntroduceForm.getTeamIntroduceId();
         if (id == null || id <= 0) {
-            throw new BusException(AdminCodeEnum.PARAM_ERROR);
+            throw new BusException(AdminCodeEnum.SYSTEM_ERROR);
         }
     }
 
     /**
-     * 校验标题
+     * 校验标题：不能为空
      */
     private static void validateTitle(AdminTeamIntroduceForm teamIntroduceForm) {
         String title = teamIntroduceForm.getTeamIntroduceTitle();
         if (title == null || title.trim().isEmpty()) {
-            throw new BusException(AdminCodeEnum.PARAM_ERROR);
+            throw new BusException(AdminCodeEnum.TEAM_INTRODUCE_TITLE_EMPTY);
         }
-        String trimmedTitle = title.trim();
-        teamIntroduceForm.setTeamIntroduceTitle(trimmedTitle);
-        if (trimmedTitle.length() > TITLE_MAX_LENGTH) {
-            throw new BusException(AdminCodeEnum.PARAM_ERROR);
-        }
+        teamIntroduceForm.setTeamIntroduceTitle(title.trim());
     }
 
     /**
-     * 校验内容
+     * 校验内容：不能为空
      */
     private static void validateContent(AdminTeamIntroduceForm teamIntroduceForm) {
         String content = teamIntroduceForm.getTeamIntroduceContent();
         if (content == null || content.trim().isEmpty()) {
-            throw new BusException(AdminCodeEnum.PARAM_ERROR);
+            throw new BusException(AdminCodeEnum.TEAM_INTRODUCE_CONTENT_EMPTY);
         }
         teamIntroduceForm.setTeamIntroduceContent(content.trim());
     }

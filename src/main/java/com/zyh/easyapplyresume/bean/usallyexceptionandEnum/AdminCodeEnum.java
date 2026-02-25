@@ -180,7 +180,90 @@ public enum AdminCodeEnum {
     ADMIN_FEEDBACK_ADMIN_ID_EMPTY(813, "提交反馈的管理员ID不能为空"),
     ADMIN_FEEDBACK_TITLE_TOO_LONG(814, "反馈标题不能超过35个字符"),
 
+    // ===================== 人工客服相关（从820开始）=====================
+    CUSTOMER_SERVICE_ALREADY_ADD(820, "已添加过人工客服信息"),
+    CUSTOMER_SERVICE_ADD_FAIL(821, "添加人工客服失败"),
+    CUSTOMER_SERVICE_TITLE_EMPTY(822, "人工客服标题不能为空"),
+    CUSTOMER_SERVICE_TITLE_TOO_LONG(823, "人工客服标题不能超过35个字符"),
+    CUSTOMER_SERVICE_CONTENT_EMPTY(824, "修改人工客服时内容不能为空"),
+    CUSTOMER_SERVICE_UPDATE_FAIL(825, "修改人工客服失败"),
+    CUSTOMER_SERVICE_GET_INFO_FAIL(826, "获取人工客服信息失败"),
 
+    // ===================== 发展历程相关（从830开始）=====================
+    DEVELOP_HISTORY_ALREADY_ADD(830, "已添加过发展历程信息"),
+    DEVELOP_HISTORY_ADD_FAIL(831, "添加发展历程失败"),
+    DEVELOP_HISTORY_TITLE_EMPTY(832, "发展历程标题不能为空"),
+    DEVELOP_HISTORY_TITLE_TOO_LONG(833, "发展历程标题不能超过35个字符"),
+    DEVELOP_HISTORY_CONTENT_EMPTY(834, "修改发展历程时内容不能为空"),
+    DEVELOP_HISTORY_UPDATE_FAIL(835, "修改发展历程失败"),
+    DEVELOP_HISTORY_GET_INFO_FAIL(836, "获取发展历程信息失败"),
+
+    // ===================== 加入我们相关（从840开始）=====================
+    JOIN_US_ALREADY_ADD(840, "已添加过加入我们信息"),
+    JOIN_US_ADD_FAIL(841, "添加加入我们失败"),
+    JOIN_US_TITLE_EMPTY(842, "加入我们标题不能为空"),
+    JOIN_US_TITLE_TOO_LONG(843, "加入我们标题不能超过35个字符"),
+    JOIN_US_CONTENT_EMPTY(844, "修改加入我们时内容不能为空"),
+    JOIN_US_UPDATE_FAIL(845, "修改加入我们失败"),
+    JOIN_US_GET_INFO_FAIL(846, "获取加入我们信息失败"),
+
+    // ===================== 媒体报道相关（从850开始）=====================
+    MEDIA_REPORT_ALREADY_ADD(850, "已添加过媒体报道信息"),
+    MEDIA_REPORT_ADD_FAIL(851, "添加媒体报道失败"),
+    MEDIA_REPORT_TITLE_EMPTY(852, "媒体报道标题不能为空"),
+    MEDIA_REPORT_TITLE_TOO_LONG(853, "媒体报道标题不能超过35个字符"),
+    MEDIA_REPORT_CONTENT_EMPTY(854, "修改媒体报道时内容不能为空"),
+    MEDIA_REPORT_UPDATE_FAIL(855, "修改媒体报道失败"),
+    MEDIA_REPORT_GET_INFO_FAIL(856, "获取媒体报道信息失败"),
+
+    // ===================== 合作伙伴相关（从860开始）=====================
+    PARTNER_INTRODUCE_ALREADY_ADD(860, "已添加过合作伙伴信息"),
+    PARTNER_INTRODUCE_ADD_FAIL(861, "添加合作伙伴失败"),
+    PARTNER_INTRODUCE_TITLE_EMPTY(862, "合作伙伴标题不能为空"),
+    PARTNER_INTRODUCE_TITLE_TOO_LONG(863, "合作伙伴标题不能超过35个字符"),
+    PARTNER_INTRODUCE_CONTENT_EMPTY(864, "修改合作伙伴时内容不能为空"),
+    PARTNER_INTRODUCE_UPDATE_FAIL(865, "修改合作伙伴失败"),
+    PARTNER_INTRODUCE_GET_INFO_FAIL(866, "获取合作伙伴信息失败"),
+
+    // ===================== 项目介绍相关（从870开始）=====================
+    PROJECT_INTRODUCE_ALREADY_ADD(870, "已添加过项目介绍信息"),
+    PROJECT_INTRODUCE_ADD_FAIL(871, "添加项目介绍失败"),
+    PROJECT_INTRODUCE_TITLE_EMPTY(872, "项目介绍标题不能为空"),
+    PROJECT_INTRODUCE_TITLE_TOO_LONG(873, "项目介绍标题不能超过35个字符"),
+    PROJECT_INTRODUCE_CONTENT_EMPTY(874, "修改项目介绍时内容不能为空"),
+    PROJECT_INTRODUCE_UPDATE_FAIL(875, "修改项目介绍失败"),
+    PROJECT_INTRODUCE_GET_INFO_FAIL(876, "获取项目介绍信息失败"),
+
+    // ===================== 团队介绍相关（从880开始）=====================
+    TEAM_INTRODUCE_ALREADY_ADD(880, "已添加过团队介绍信息"),
+    TEAM_INTRODUCE_ADD_FAIL(881, "添加团队介绍失败"),
+    TEAM_INTRODUCE_TITLE_EMPTY(882, "团队介绍标题不能为空"),
+    TEAM_INTRODUCE_TITLE_TOO_LONG(883, "团队介绍标题不能超过35个字符"),
+    TEAM_INTRODUCE_CONTENT_EMPTY(884, "修改团队介绍时内容不能为空"),
+    TEAM_INTRODUCE_UPDATE_FAIL(885, "修改团队介绍失败"),
+    TEAM_INTRODUCE_GET_INFO_FAIL(886, "获取团队介绍信息失败"),
+
+    // ===================== 常见问题相关（从890开始）=====================
+    FAQ_TITLE_EMPTY(890, "常见问题标题不能为空"),
+    FAQ_TITLE_TOO_LONG(891, "常见问题标题不能超过35个字符"),
+    FAQ_CONTENT_EMPTY(892, "修改常见问题时内容不能为空"),
+    FAQ_ADD_FAIL(893, "添加常见问题失败"),
+    FAQ_UPDATE_FAIL(894, "修改常见问题失败"),
+    FAQ_DELETE_FAIL(895, "删除常见问题失败"),
+    FAQ_GET_INFO_FAIL(896, "获取常见问题信息失败"),
+    FAQ_GET_PAGE_FAIL(897, "分页查询常见问题失败"),
+    FAQ_NOT_FOUND(898, "常见问题不存在"),
+
+    // ===================== 使用指南相关（从900开始）=====================
+    USER_GUIDE_TITLE_EMPTY(900, "使用指南标题不能为空"),
+    USER_GUIDE_TITLE_TOO_LONG(901, "使用指南标题不能超过35个字符"),
+    USER_GUIDE_CONTENT_EMPTY(902, "修改使用指南时内容不能为空"),
+    USER_GUIDE_ADD_FAIL(903, "添加使用指南失败"),
+    USER_GUIDE_UPDATE_FAIL(904, "修改使用指南失败"),
+    USER_GUIDE_DELETE_FAIL(905, "删除使用指南失败"),
+    USER_GUIDE_GET_INFO_FAIL(906, "获取使用指南信息失败"),
+    USER_GUIDE_GET_PAGE_FAIL(907, "分页查询使用指南失败"),
+    USER_GUIDE_NOT_FOUND(908, "使用指南不存在"),
 
 
 

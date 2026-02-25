@@ -10,13 +10,6 @@ export interface ApiResponse<T = any> {
   data: T
 }
 
-// 扩展 AxiosRequestConfig 类型，添加 silent 选项
-declare module 'axios' {
-  export interface AxiosRequestConfig {
-    silent?: boolean  // 是否静默失败（不显示错误提示）
-  }
-}
-
 // 创建axios实例
 const request: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
@@ -29,17 +22,7 @@ const request: AxiosInstance = axios.create({
 // 响应拦截器
 request.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
-    // 特殊处理：如果后端直接返回数组（如省份、城市API），包装成统一格式
-    if (Array.isArray(response.data)) {
-      return {
-        code: 200,
-        message: 'OK',
-        data: response.data
-      }
-    }
-    
     const { code, message, data } = response.data
-    const silent = response.config.silent  // 检查是否静默模式
     
     // 请求成功
     if (code === 200) {
@@ -49,23 +32,18 @@ request.interceptors.response.use(
     // Token过期或未认证
     if (code === 401) {
       const authStore = useAuthStore()
-      if (!silent) {
-        ElMessage.error('登录已过期，请重新登录')
-      }
+      ElMessage.error('登录已过期，请重新登录')
       authStore.clearAuth()
       router.push('/login')
       return Promise.reject(new Error('登录已过期'))
     }
     
     // 业务错误
-    if (!silent) {
-      ElMessage.error(message || '请求失败')
-    }
+    ElMessage.error(message || '请求失败')
     return Promise.reject(new Error(message || '请求失败'))
   },
   (error) => {
-    const { response, config } = error
-    const silent = config?.silent  // 检查是否静默模式
+    const { response } = error
     
     if (response) {
       const { status, data } = response
@@ -73,41 +51,27 @@ request.interceptors.response.use(
       switch (status) {
         case 401:
           const authStore = useAuthStore()
-          if (!silent) {
-            ElMessage.error('登录已过期，请重新登录')
-          }
+          ElMessage.error('登录已过期，请重新登录')
           authStore.clearAuth()
           router.push('/login')
           break
         case 403:
-          if (!silent) {
-            ElMessage.error('没有权限访问')
-          }
+          ElMessage.error('没有权限访问')
           router.push('/403')
           break
         case 404:
-          if (!silent) {
-            ElMessage.error('请求的资源不存在')
-          }
+          ElMessage.error('请求的资源不存在')
           break
         case 500:
-          if (!silent) {
-            ElMessage.error('服务器内部错误')
-          }
+          ElMessage.error('服务器内部错误')
           break
         default:
-          if (!silent) {
-            ElMessage.error(data?.message || '网络错误')
-          }
+          ElMessage.error(data?.message || '网络错误')
       }
     } else if (error.code === 'ECONNABORTED') {
-      if (!silent) {
-        ElMessage.error('请求超时')
-      }
+      ElMessage.error('请求超时')
     } else {
-      if (!silent) {
-        ElMessage.error('网络错误，请检查网络连接')
-      }
+      ElMessage.error('网络错误，请检查网络连接')
     }
     
     return Promise.reject(error)
@@ -180,8 +144,8 @@ request.interceptors.request.use(
 // API请求方法封装
 export const api = {
   // GET请求
-  get<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    return request.get(url, config)
+  get<T = any>(url: string, params?: any): Promise<ApiResponse<T>> {
+    return request.get(url, { params })
   },
   
   // POST请求
@@ -195,8 +159,8 @@ export const api = {
   },
   
   // DELETE请求
-  delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
-    return request.delete(url, config)
+  delete<T = any>(url: string, params?: any): Promise<ApiResponse<T>> {
+    return request.delete(url, { params })
   },
   
   // 文件上传
