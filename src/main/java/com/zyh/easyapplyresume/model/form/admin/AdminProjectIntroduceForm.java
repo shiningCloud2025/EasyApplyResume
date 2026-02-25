@@ -15,10 +15,8 @@ public class AdminProjectIntroduceForm {
     private Integer projectIntroduceId;
 
     @Schema(description = "项目介绍标题")
-    @NotNull(message = "项目介绍标题不能为空")
     private String projectIntroduceTitle;
 
     @Schema(description = "项目介绍内容")
-    @NotNull(message = "项目介绍内容不能为空")
     private String projectIntroduceContent;
 }
