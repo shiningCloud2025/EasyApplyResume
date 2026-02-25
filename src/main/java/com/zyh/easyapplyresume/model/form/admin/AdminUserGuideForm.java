@@ -15,7 +15,6 @@ public class AdminUserGuideForm {
     private Integer userGuideId;
 
     @Schema(description = "使用指南标题")
-    @NotNull(message = "使用指南标题不能为空")
     private String userGuideTitle;
 
     @Schema(description = "使用指南内容")

@@ -26,6 +26,4 @@ public class AdminUserGuideInfoVO {
     @Schema(description = "使用指南更新时间")
     private Date userGuideUpdatedTime;
 
-    @Schema(description = "是否删除")
-    private Integer deleted;
 }

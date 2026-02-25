@@ -17,9 +17,12 @@ public class AdminUserGuidePageVO {
     @Schema(description = "使用指南标题")
     private String userGuideTitle;
 
+    @Schema(description = "使用指南内容")
+    private String userGuideContent;
+
+    @Schema(description = "使用指南创建时间")
+    private Date userGuideCreatedTime;
+
     @Schema(description = "使用指南更新时间")
     private Date userGuideUpdatedTime;
-
-    @Schema(description = "是否删除")
-    private Integer deleted;
 }
