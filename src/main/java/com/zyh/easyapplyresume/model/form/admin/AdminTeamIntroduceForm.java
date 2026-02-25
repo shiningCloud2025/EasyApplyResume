@@ -15,10 +15,8 @@ public class AdminTeamIntroduceForm {
     private Integer teamIntroduceId;
 
     @Schema(description = "团队介绍标题")
-    @NotNull(message = "团队介绍标题不能为空")
     private String teamIntroduceTitle;
 
     @Schema(description = "团队介绍内容")
-    @NotNull(message = "团队介绍内容不能为空")
     private String teamIntroduceContent;
 }

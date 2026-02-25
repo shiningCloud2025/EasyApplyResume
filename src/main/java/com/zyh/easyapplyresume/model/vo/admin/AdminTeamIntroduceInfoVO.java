@@ -20,9 +20,6 @@ public class AdminTeamIntroduceInfoVO {
     @Schema(description = "团队介绍内容")
     private String teamIntroduceContent;
 
-    @Schema(description = "团队介绍图片")
-    private String teamIntroduceImage;
-
     @Schema(description = "团队介绍更新时间")
     private Date teamIntroduceUpdatedTime;
 }
