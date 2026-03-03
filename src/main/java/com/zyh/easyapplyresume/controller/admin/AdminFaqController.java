@@ -3,6 +3,7 @@ package com.zyh.easyapplyresume.controller.admin;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
 import com.zyh.easyapplyresume.model.form.admin.AdminFaqForm;
+import com.zyh.easyapplyresume.model.query.admin.AdminFaqQuery;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFaqInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFaqPageVO;
 import com.zyh.easyapplyresume.service.admin.AdminFaqService;
@@ -47,9 +48,11 @@ public class AdminFaqController {
     }
 
     @Operation(summary = "分页查询常见问题")
-    @GetMapping("/getPage")
-    public BaseResult<Page<AdminFaqPageVO>> getFaqPage(@RequestParam(required = false, value = "size", defaultValue = "10") int size,
-                                                       @RequestParam(required = false, value = "page", defaultValue = "1") int page) {
-        return BaseResult.ok(faqService.getFaqPage(size, page));
+    @PostMapping("/getPage")
+    public BaseResult<Page<AdminFaqPageVO>> getFaqPage(
+            @RequestParam(required = false, value = "pageNum", defaultValue = "1") int pageNum,
+            @RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize,
+            @RequestBody(required = false) AdminFaqQuery faqQuery) {
+        return BaseResult.ok(faqService.getFaqPage(pageSize, pageNum, faqQuery));
     }
 }

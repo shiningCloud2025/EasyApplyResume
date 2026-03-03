@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.service.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.model.form.admin.AdminFaqForm;
+import com.zyh.easyapplyresume.model.query.admin.AdminFaqQuery;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFaqInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFaqPageVO;
 
@@ -40,10 +41,11 @@ public interface AdminFaqService {
     AdminFaqInfoVO getFaqInfo(Integer faqId);
 
     /**
-     * 分页查询常见问题
-     * @param size
-     * @param page
-     * @return
+     * 分页查询常见问题（支持按标题模糊查询）
+     * @param size 分页大小
+     * @param page 页码
+     * @param faqQuery 查询条件
+     * @return 分页结果
      */
-    Page<AdminFaqPageVO> getFaqPage(int size, int page);
+    Page<AdminFaqPageVO> getFaqPage(int size, int page, AdminFaqQuery faqQuery);
 }

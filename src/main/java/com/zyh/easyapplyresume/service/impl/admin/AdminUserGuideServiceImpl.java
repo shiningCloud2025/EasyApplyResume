@@ -1,11 +1,13 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminUserGuideMapper;
 import com.zyh.easyapplyresume.model.form.admin.AdminUserGuideForm;
 import com.zyh.easyapplyresume.model.pojo.admin.AdminUserGuide;
+import com.zyh.easyapplyresume.model.query.admin.AdminUserGuideQuery;
 import com.zyh.easyapplyresume.model.vo.admin.AdminUserGuideInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminUserGuidePageVO;
 import com.zyh.easyapplyresume.service.admin.AdminUserGuideService;
@@ -113,11 +115,18 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
     }
 
     @Override
-    public Page<AdminUserGuidePageVO> getUserGuidePage(int size, int page) {
+    public Page<AdminUserGuidePageVO> getUserGuidePage(int size, int page, AdminUserGuideQuery userGuideQuery) {
         try {
             log.info("分页查询使用指南");
             Page<AdminUserGuide> userGuidePage = new Page<>(page, size);
-            Page<AdminUserGuide> result = userGuideMapper.selectPage(userGuidePage, null);
+            LambdaQueryWrapper<AdminUserGuide> wrapper = new LambdaQueryWrapper<>();
+            // 只查询未删除的数据
+            wrapper.eq(AdminUserGuide::getDeleted, 0);
+            // 按标题模糊查询
+            if (userGuideQuery != null && userGuideQuery.getUserGuideTitle() != null && !userGuideQuery.getUserGuideTitle().trim().isEmpty()) {
+                wrapper.like(AdminUserGuide::getUserGuideTitle, userGuideQuery.getUserGuideTitle().trim());
+            }
+            Page<AdminUserGuide> result = userGuideMapper.selectPage(userGuidePage, wrapper);
             Page<AdminUserGuidePageVO> pageVO = new Page<>(page, size);
             pageVO.setTotal(result.getTotal());
             pageVO.setRecords(result.getRecords().stream().map(userGuide -> {

@@ -1,11 +1,13 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminFaqMapper;
 import com.zyh.easyapplyresume.model.form.admin.AdminFaqForm;
 import com.zyh.easyapplyresume.model.pojo.admin.AdminFaq;
+import com.zyh.easyapplyresume.model.query.admin.AdminFaqQuery;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFaqInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFaqPageVO;
 import com.zyh.easyapplyresume.service.admin.AdminFaqService;
@@ -113,11 +115,18 @@ public class AdminFaqServiceImpl implements AdminFaqService {
     }
 
     @Override
-    public Page<AdminFaqPageVO> getFaqPage(int size, int page) {
+    public Page<AdminFaqPageVO> getFaqPage(int size, int page, AdminFaqQuery faqQuery) {
         try {
             log.info("分页查询常见问题");
             Page<AdminFaq> faqPage = new Page<>(page, size);
-            Page<AdminFaq> result = faqMapper.selectPage(faqPage, null);
+            LambdaQueryWrapper<AdminFaq> wrapper = new LambdaQueryWrapper<>();
+            // 只查询未删除
+            wrapper.eq(AdminFaq::getDeleted, 0);
+            // 按标题模糊查询
+            if (faqQuery != null && faqQuery.getFaqTitle() != null && !faqQuery.getFaqTitle().trim().isEmpty()) {
+                wrapper.like(AdminFaq::getFaqTitle, faqQuery.getFaqTitle().trim());
+            }
+            Page<AdminFaq> result = faqMapper.selectPage(faqPage, wrapper);
             Page<AdminFaqPageVO> pageVO = new Page<>(page, size);
             pageVO.setTotal(result.getTotal());
             pageVO.setRecords(result.getRecords().stream().map(faq -> {

@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.service.admin;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.model.form.admin.AdminUserGuideForm;
+import com.zyh.easyapplyresume.model.query.admin.AdminUserGuideQuery;
 import com.zyh.easyapplyresume.model.vo.admin.AdminUserGuideInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminUserGuidePageVO;
 
@@ -40,10 +41,11 @@ public interface AdminUserGuideService {
     AdminUserGuideInfoVO getUserGuideInfo(Integer userGuideId);
 
     /**
-     * 分页查询使用指南
-     * @param size
-     * @param page
-     * @return
+     * 分页查询使用指南（支持按标题模糊查询）
+     * @param size 分页大小
+     * @param page 页码
+     * @param userGuideQuery 查询条件
+     * @return 分页结果
      */
-    Page<AdminUserGuidePageVO> getUserGuidePage(int size, int page);
+    Page<AdminUserGuidePageVO> getUserGuidePage(int size, int page, AdminUserGuideQuery userGuideQuery);
 }
