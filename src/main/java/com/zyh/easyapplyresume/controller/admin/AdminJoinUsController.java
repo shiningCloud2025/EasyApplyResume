@@ -1,11 +1,14 @@
 package com.zyh.easyapplyresume.controller.admin;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.model.pojo.admin.AdminJoinUs;
+import com.zyh.easyapplyresume.model.form.admin.AdminJoinUsForm;
+import com.zyh.easyapplyresume.model.vo.admin.AdminJoinUsInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminJoinUsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,20 +25,20 @@ public class AdminJoinUsController {
     private AdminJoinUsService joinUsService;
 
     @Operation(summary = "添加加入我们")
-    @RequestMapping("/add")
-    public BaseResult<Integer> addJoinUs(@RequestBody AdminJoinUs joinUs) {
-        return BaseResult.ok(joinUsService.addJoinUs(joinUs));
+    @PostMapping("/add")
+    public BaseResult<Integer> addJoinUs(@RequestBody AdminJoinUsForm joinUsForm) {
+        return BaseResult.ok(joinUsService.addJoinUs(joinUsForm));
     }
 
     @Operation(summary = "修改加入我们")
-    @RequestMapping("/update")
-    public BaseResult<Integer> updateJoinUs(@RequestBody AdminJoinUs joinUs) {
-        return BaseResult.ok(joinUsService.updateJoinUs(joinUs));
+    @PostMapping("/update")
+    public BaseResult<Integer> updateJoinUs(@RequestBody AdminJoinUsForm joinUsForm) {
+        return BaseResult.ok(joinUsService.updateJoinUs(joinUsForm));
     }
 
     @Operation(summary = "获取加入我们信息")
-    @RequestMapping("/getInfo")
-    public BaseResult<AdminJoinUs> getJoinUsInfo() {
+    @GetMapping("/getInfo")
+    public BaseResult<AdminJoinUsInfoVO> getJoinUsInfo() {
         return BaseResult.ok(joinUsService.getJoinUsInfo());
     }
 }

@@ -1,11 +1,14 @@
 package com.zyh.easyapplyresume.controller.admin;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.model.pojo.admin.AdminTeamIntroduce;
+import com.zyh.easyapplyresume.model.form.admin.AdminTeamIntroduceForm;
+import com.zyh.easyapplyresume.model.vo.admin.AdminTeamIntroduceInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminTeamIntroduceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,20 +25,20 @@ public class AdminTeamIntroduceController {
     private AdminTeamIntroduceService teamIntroduceService;
 
     @Operation(summary = "添加团队介绍")
-    @RequestMapping("/add")
-    public BaseResult<Integer> addTeamIntroduce(@RequestBody AdminTeamIntroduce teamIntroduce) {
-        return BaseResult.ok(teamIntroduceService.addTeamIntroduce(teamIntroduce));
+    @PostMapping("/add")
+    public BaseResult<Integer> addTeamIntroduce(@RequestBody AdminTeamIntroduceForm teamIntroduceForm) {
+        return BaseResult.ok(teamIntroduceService.addTeamIntroduce(teamIntroduceForm));
     }
 
     @Operation(summary = "修改团队介绍")
-    @RequestMapping("/update")
-    public BaseResult<Integer> updateTeamIntroduce(@RequestBody AdminTeamIntroduce teamIntroduce) {
-        return BaseResult.ok(teamIntroduceService.updateTeamIntroduce(teamIntroduce));
+    @PostMapping("/update")
+    public BaseResult<Integer> updateTeamIntroduce(@RequestBody AdminTeamIntroduceForm teamIntroduceForm) {
+        return BaseResult.ok(teamIntroduceService.updateTeamIntroduce(teamIntroduceForm));
     }
 
     @Operation(summary = "获取团队介绍信息")
-    @RequestMapping("/getInfo")
-    public BaseResult<AdminTeamIntroduce> getTeamIntroduceInfo() {
+    @GetMapping("/getInfo")
+    public BaseResult<AdminTeamIntroduceInfoVO> getTeamIntroduceInfo() {
         return BaseResult.ok(teamIntroduceService.getTeamIntroduceInfo());
     }
 }

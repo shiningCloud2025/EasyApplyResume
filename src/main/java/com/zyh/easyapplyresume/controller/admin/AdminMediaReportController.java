@@ -1,11 +1,14 @@
 package com.zyh.easyapplyresume.controller.admin;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.model.pojo.admin.AdminMediaReport;
+import com.zyh.easyapplyresume.model.form.admin.AdminMediaReportForm;
+import com.zyh.easyapplyresume.model.vo.admin.AdminMediaReportInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminMediaReportService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,20 +25,20 @@ public class AdminMediaReportController {
     private AdminMediaReportService mediaReportService;
 
     @Operation(summary = "添加媒体报道")
-    @RequestMapping("/add")
-    public BaseResult<Integer> addMediaReport(@RequestBody AdminMediaReport mediaReport) {
-        return BaseResult.ok(mediaReportService.addMediaReport(mediaReport));
+    @PostMapping("/add")
+    public BaseResult<Integer> addMediaReport(@RequestBody AdminMediaReportForm mediaReportForm) {
+        return BaseResult.ok(mediaReportService.addMediaReport(mediaReportForm));
     }
 
     @Operation(summary = "修改媒体报道")
-    @RequestMapping("/update")
-    public BaseResult<Integer> updateMediaReport(@RequestBody AdminMediaReport mediaReport) {
-        return BaseResult.ok(mediaReportService.updateMediaReport(mediaReport));
+    @PostMapping("/update")
+    public BaseResult<Integer> updateMediaReport(@RequestBody AdminMediaReportForm mediaReportForm) {
+        return BaseResult.ok(mediaReportService.updateMediaReport(mediaReportForm));
     }
 
     @Operation(summary = "获取媒体报道信息")
-    @RequestMapping("/getInfo")
-    public BaseResult<AdminMediaReport> getMediaReportInfo() {
+    @GetMapping("/getInfo")
+    public BaseResult<AdminMediaReportInfoVO> getMediaReportInfo() {
         return BaseResult.ok(mediaReportService.getMediaReportInfo());
     }
 }
