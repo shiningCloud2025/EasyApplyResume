@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -43,10 +44,10 @@ public class AdminUserGuide {
      * 创建时间
      */
     @TableField("userGuide_createdTime")
-    private Date userGuideCreatedTime;
+    private LocalDateTime userGuideCreatedTime;
     /**
      * 修改时间
      */
     @TableField("userGuide_updatedTime")
-    private Date userGuideUpdatedTime;
+    private LocalDateTime userGuideUpdatedTime;
 }
