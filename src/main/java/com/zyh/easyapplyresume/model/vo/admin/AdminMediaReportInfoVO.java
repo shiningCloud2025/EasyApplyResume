@@ -3,6 +3,7 @@ package com.zyh.easyapplyresume.model.vo.admin;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -21,5 +22,5 @@ public class AdminMediaReportInfoVO {
     private String mediaReportContent;
 
     @Schema(description = "媒体报道更新时间")
-    private Date mediaReportUpdatedTime;
+    private LocalDateTime mediaReportUpdatedTime;
 }
