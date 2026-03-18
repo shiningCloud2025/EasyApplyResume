@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -38,5 +39,5 @@ public class AdminMediaReport {
      * 修改时间
      */
     @TableField("mediaReport_updatedTime")
-    private Date mediaReportUpdatedTime;
+    private LocalDateTime mediaReportUpdatedTime;
 }
