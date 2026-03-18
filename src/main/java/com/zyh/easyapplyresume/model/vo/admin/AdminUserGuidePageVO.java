@@ -3,6 +3,7 @@ package com.zyh.easyapplyresume.model.vo.admin;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -21,8 +22,8 @@ public class AdminUserGuidePageVO {
     private String userGuideContent;
 
     @Schema(description = "使用指南创建时间")
-    private Date userGuideCreatedTime;
+    private LocalDateTime userGuideCreatedTime;
 
     @Schema(description = "使用指南更新时间")
-    private Date userGuideUpdatedTime;
+    private LocalDateTime userGuideUpdatedTime;
 }
