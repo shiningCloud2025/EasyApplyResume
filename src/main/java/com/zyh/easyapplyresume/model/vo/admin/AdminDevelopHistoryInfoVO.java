@@ -3,6 +3,7 @@ package com.zyh.easyapplyresume.model.vo.admin;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -21,5 +22,5 @@ public class AdminDevelopHistoryInfoVO {
     private String developHistoryContent;
 
     @Schema(description = "发展历程更新时间")
-    private Date developHistoryUpdatedTime;
+    private LocalDateTime developHistoryUpdatedTime;
 }
