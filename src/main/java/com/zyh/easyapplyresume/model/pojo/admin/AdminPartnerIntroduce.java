@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -38,5 +39,5 @@ public class AdminPartnerIntroduce {
      * 修改时间
      */
     @TableField("partnerIntroduce_updatedTime")
-    private Date partnerIntroduceUpdatedTime;
+    private LocalDateTime partnerIntroduceUpdatedTime;
 }
