@@ -484,7 +484,7 @@ onMounted(() => {
   }
 
   .detail-meta {
-    margin-bottom: 20px;
+    margin-bottom: 0;
   }
 
   .preview-container {
