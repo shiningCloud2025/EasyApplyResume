@@ -1,22 +1,5 @@
 <template>
   <div class="content-list-manager">
-    <div class="page-header">
-      <div class="header-content">
-        <h2 class="page-title">{{ moduleLabel }}</h2>
-        <p class="page-description">支持列表查询、分页、查看、新增、编辑和删除</p>
-      </div>
-      <div class="header-actions">
-        <el-button @click="refreshData">
-          <el-icon><Refresh /></el-icon>
-          刷新
-        </el-button>
-        <el-button type="primary" @click="openCreateDialog">
-          <el-icon><Plus /></el-icon>
-          新增{{ moduleLabel }}
-        </el-button>
-      </div>
-    </div>
-
     <el-card class="search-card">
       <el-form :model="searchForm" :inline="true" class="search-form">
         <el-form-item label="标题">
@@ -47,7 +30,11 @@
         style="width: 100%"
         empty-text="暂无数据"
       >
-        <el-table-column :prop="titleField" label="标题" min-width="320" show-overflow-tooltip />
+        <el-table-column label="标题" min-width="320">
+          <template #default="{ row }">
+            <div class="table-rich-title" v-html="normalizeRichTextHtml(row[titleField] || '') || '-'"></div>
+          </template>
+        </el-table-column>
         <el-table-column label="时间" width="180">
           <template #default="{ row }">
             {{ formatDateTime(getDisplayTime(row)) }}
@@ -77,22 +64,35 @@
     <el-dialog
       v-model="dialogVisible"
       :title="form.id != null ? `编辑${moduleLabel}` : `新增${moduleLabel}`"
-      width="960px"
+      width="1280px"
       @close="resetForm"
     >
       <div v-loading="detailLoading">
-        <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
-          <el-form-item label="标题" prop="title">
-            <el-input
-              v-model="form.title"
-              :placeholder="`请输入${moduleLabel}标题`"
-              maxlength="100"
-              show-word-limit
-            />
-          </el-form-item>
-          <el-form-item label="内容" prop="content">
-            <MarkdownEditor v-model="form.content" :height="editorHeight" />
-          </el-form-item>
+        <el-form ref="formRef" :model="form" :rules="rules" label-width="80px" class="content-form">
+          <div class="editor-preview-layout">
+            <div class="editor-section">
+              <el-form-item label="标题" prop="title">
+                <MarkdownEditor
+                  v-model="form.title"
+                  :height="titleEditorHeight"
+                  placeholder="请输入标题，支持富文本格式..."
+                />
+              </el-form-item>
+              <el-form-item label="内容" prop="content">
+                <MarkdownEditor v-model="form.content" :height="editorHeight" />
+              </el-form-item>
+            </div>
+
+            <div class="preview-section">
+              <div class="preview-shell" :style="{ minHeight: previewMinHeight }">
+                <div v-if="hasPreviewContent" class="preview-content">
+                  <div v-if="previewTitle" class="preview-title" v-html="previewTitle"></div>
+                  <div v-if="previewBody" class="preview-body" v-html="previewBody"></div>
+                </div>
+                <div v-else class="preview-placeholder">请输入后，这里会同步展示效果</div>
+              </div>
+            </div>
+          </div>
         </el-form>
       </div>
 
@@ -108,25 +108,24 @@
       <div v-loading="detailLoading" class="detail-wrapper">
         <template v-if="currentDetail">
           <el-descriptions :column="2" border class="detail-meta">
-            <el-descriptions-item label="标题" :span="2">
-              {{ currentDetail[titleField] || '-' }}
+            <el-descriptions-item :label="detailIdLabel">
+              {{ currentDetail[idField] ?? '-' }}
             </el-descriptions-item>
             <el-descriptions-item label="创建时间">
               {{ formatDateTime(currentDetail[createdField] || '') }}
             </el-descriptions-item>
-            <el-descriptions-item label="更新时间">
+            <el-descriptions-item label="修改时间">
               {{ formatDateTime(currentDetail[updatedField] || '') }}
             </el-descriptions-item>
+            <el-descriptions-item label="标题" :span="2">
+              <div class="detail-rich-title" v-html="normalizeRichTextHtml(currentDetail[titleField] || '') || '-'" />
+            </el-descriptions-item>
+            <el-descriptions-item label="内容" :span="2">
+              <div class="preview-container">
+                <div class="html-preview" v-html="normalizeRichTextHtml(currentDetail[contentField] || '') || '-'"></div>
+              </div>
+            </el-descriptions-item>
           </el-descriptions>
-
-          <div class="preview-container">
-            <MdPreview
-              :editor-id="previewId"
-              :model-value="currentDetail[contentField] || ''"
-              preview-theme="github"
-              code-theme="github"
-            />
-          </div>
         </template>
       </div>
 
@@ -143,10 +142,10 @@
 import { computed, onMounted, reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
-import { Plus, Refresh, RefreshRight, Search } from '@element-plus/icons-vue'
-import { MdPreview } from 'md-editor-v3'
+import { RefreshRight, Search } from '@element-plus/icons-vue'
 import MarkdownEditor from '@/components/MarkdownEditor.vue'
 import { formatDateTime } from '@/utils'
+import { extractRichTextPlainText, hasMeaningfulRichText, normalizeRichTextHtml } from '@/utils/html'
 
 interface Props {
   moduleLabel: string
@@ -162,10 +161,12 @@ interface Props {
   update: (data: Record<string, any>) => Promise<any>
   remove: (id: number) => Promise<any>
   editorHeight?: string
+  titleEditorHeight?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  editorHeight: '420px'
+  editorHeight: '420px',
+  titleEditorHeight: '220px'
 })
 
 const formRef = ref<FormInstance>()
@@ -176,7 +177,6 @@ const dialogVisible = ref(false)
 const viewDialogVisible = ref(false)
 const tableData = ref<Record<string, any>[]>([])
 const currentDetail = ref<Record<string, any> | null>(null)
-const previewId = `preview-${Math.random().toString(36).slice(2)}`
 
 const searchForm = reactive({
   title: ''
@@ -194,9 +194,26 @@ const form = reactive({
   content: ''
 })
 
+const previewTitle = computed(() => normalizeRichTextHtml(form.title))
+const previewBody = computed(() => normalizeRichTextHtml(form.content))
+const hasPreviewContent = computed(() => !!previewTitle.value || !!previewBody.value)
+const previewMinHeight = computed(() => `calc(${props.titleEditorHeight} + ${props.editorHeight} + 56px)`)
+const detailIdLabel = computed(() => `${props.moduleLabel}ID`)
+
+const validateRichTextField = (message: string) => {
+  return (_rule: any, value: string, callback: (error?: Error) => void) => {
+    if (hasMeaningfulRichText(value)) {
+      callback()
+      return
+    }
+
+    callback(new Error(message))
+  }
+}
+
 const rules: FormRules = {
-  title: [{ required: true, message: '请输入标题', trigger: 'blur' }],
-  content: [{ required: true, message: '请输入内容', trigger: 'blur' }]
+  title: [{ validator: validateRichTextField('请输入标题'), trigger: ['blur', 'change'] }],
+  content: [{ validator: validateRichTextField('请输入内容'), trigger: ['blur', 'change'] }]
 }
 
 const queryPayload = computed(() => ({
@@ -205,8 +222,8 @@ const queryPayload = computed(() => ({
 
 const buildPayload = () => {
   const payload: Record<string, any> = {
-    [props.titleField]: form.title,
-    [props.contentField]: form.content
+    [props.titleField]: normalizeRichTextHtml(form.title),
+    [props.contentField]: normalizeRichTextHtml(form.content)
   }
 
   if (form.id != null) {
@@ -303,8 +320,12 @@ const handleEdit = async (row: Record<string, any>) => {
   }
 }
 
+const getDeleteTitle = (row: Record<string, any>) => {
+  return extractRichTextPlainText(row[props.titleField] || '') || `${props.moduleLabel}内容`
+}
+
 const handleDelete = (row: Record<string, any>) => {
-  ElMessageBox.confirm(`确定要删除“${row[props.titleField]}”吗？`, '确认删除', {
+  ElMessageBox.confirm(`确定要删除“${getDeleteTitle(row)}”吗？`, '确认删除', {
     type: 'warning'
   }).then(async () => {
     try {
@@ -349,6 +370,11 @@ const handleSubmit = async () => {
   }
 }
 
+defineExpose({
+  refreshData,
+  openCreateDialog
+})
+
 onMounted(() => {
   getList()
 })
@@ -356,33 +382,6 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .content-list-manager {
-  .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 24px;
-  }
-
-  .header-content {
-    .page-title {
-      margin: 0 0 8px;
-      font-size: 22px;
-      font-weight: 700;
-      color: #1f2937;
-    }
-
-    .page-description {
-      margin: 0;
-      color: #6b7280;
-      font-size: 14px;
-    }
-  }
-
-  .header-actions {
-    display: flex;
-    gap: 12px;
-  }
-
   .search-card {
     margin-bottom: 24px;
   }
@@ -399,6 +398,79 @@ onMounted(() => {
     margin-top: 24px;
     padding-top: 16px;
     border-top: 1px solid #f3f4f6;
+  }
+
+  .content-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .editor-preview-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+
+  .preview-section {
+    min-width: 0;
+  }
+
+  .preview-shell {
+    border: 1px solid #dcdfe6;
+    border-radius: 8px;
+    padding: 20px;
+    background: #fafafa;
+    overflow: auto;
+  }
+
+  .preview-content,
+  .html-preview {
+    color: #1f2937;
+    line-height: 1.7;
+    word-break: break-word;
+
+    :deep(img) {
+      max-width: 100%;
+      height: auto;
+    }
+
+    :deep(table) {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    :deep(th),
+    :deep(td) {
+      border: 1px solid #e5e7eb;
+      padding: 8px 12px;
+    }
+
+    :deep(blockquote) {
+      margin: 16px 0;
+      padding-left: 12px;
+      color: #6b7280;
+      border-left: 4px solid #d1d5db;
+    }
+  }
+
+  .preview-title {
+    margin: 0 0 16px;
+    color: #111827;
+    line-height: 1.4;
+
+    :deep(p) {
+      margin: 0;
+    }
+  }
+
+  .preview-placeholder {
+    min-height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-size: 14px;
   }
 
   .dialog-footer {
@@ -419,20 +491,14 @@ onMounted(() => {
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     padding: 16px;
-    background: #fff;
+    background: #fafafa;
   }
 }
 
 @media (max-width: 768px) {
   .content-list-manager {
-    .page-header {
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .header-actions {
-      width: 100%;
-      justify-content: flex-start;
+    .editor-preview-layout {
+      grid-template-columns: 1fr;
     }
 
     .search-card .el-form-item {

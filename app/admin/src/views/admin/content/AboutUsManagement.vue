@@ -3,7 +3,7 @@
     <div class="page-header">
       <div class="header-content">
         <h2 class="page-title">{{ currentModule.label }}</h2>
-        <p class="page-description">统一维护关于我们模块内容，支持 Markdown 编辑与实时保存。</p>
+        <p class="page-description">统一维护关于我们模块内容，支持富文本编辑与实时保存。</p>
       </div>
     </div>
 

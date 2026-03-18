@@ -3,13 +3,24 @@
     <div class="page-header">
       <div class="header-content">
         <h2 class="page-title">{{ currentModule.label }}</h2>
-        <p class="page-description">集中维护帮助中心内容，支持 Markdown 编辑与分页管理。</p>
+        <p class="page-description">集中维护帮助中心内容，支持富文本编辑与分页管理。</p>
+      </div>
+      <div v-if="currentModule.type === 'list'" class="header-actions">
+        <el-button @click="refreshListData">
+          <el-icon><Refresh /></el-icon>
+          刷新
+        </el-button>
+        <el-button type="primary" @click="openCreateDialog">
+          <el-icon><Plus /></el-icon>
+          新增{{ currentModule.config.moduleLabel }}
+        </el-button>
       </div>
     </div>
 
     <div class="content-wrapper">
       <ContentListManager
         v-if="currentModule.type === 'list'"
+        ref="listManagerRef"
         :key="currentKey"
         v-bind="currentModule.config"
       />
@@ -23,13 +34,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { Plus, Refresh } from '@element-plus/icons-vue'
 import ContentListManager from '@/components/ContentListManager.vue'
 import SingletonContentManager from '@/components/SingletonContentManager.vue'
 import { customerServiceApi, faqApi, userGuideApi } from '@/api/admin'
 
 const route = useRoute()
+const listManagerRef = ref<InstanceType<typeof ContentListManager> | null>(null)
 
 const moduleMap = {
   faq: {
@@ -89,6 +102,14 @@ const currentKey = computed(() => route.path.split('/').pop() || 'faq')
 const currentModule = computed(() => {
   return moduleMap[currentKey.value as keyof typeof moduleMap] || moduleMap.faq
 })
+
+const refreshListData = () => {
+  listManagerRef.value?.refreshData()
+}
+
+const openCreateDialog = () => {
+  listManagerRef.value?.openCreateDialog()
+}
 </script>
 
 <style scoped lang="scss">
@@ -98,6 +119,12 @@ const currentModule = computed(() => {
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 24px;
+    gap: 16px;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 12px;
   }
 
   .page-title {
@@ -123,6 +150,15 @@ const currentModule = computed(() => {
 
 @media (max-width: 768px) {
   .help-center-management {
+    .page-header {
+      flex-direction: column;
+    }
+
+    .header-actions {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
     .content-wrapper {
       padding: 16px;
     }
