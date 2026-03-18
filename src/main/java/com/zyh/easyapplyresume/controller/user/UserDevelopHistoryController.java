@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.controller.user;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.model.pojo.admin.AdminDevelopHistory;
+import com.zyh.easyapplyresume.model.vo.admin.AdminDevelopHistoryInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminDevelopHistoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,7 +22,7 @@ public class UserDevelopHistoryController {
 
     @Operation(summary = "获取发展历程信息")
     @RequestMapping("/getInfo")
-    public BaseResult<AdminDevelopHistory> getDevelopHistoryInfo() {
+    public BaseResult<AdminDevelopHistoryInfoVO> getDevelopHistoryInfo() {
         return BaseResult.ok(developHistoryService.getDevelopHistoryInfo());
     }
 }

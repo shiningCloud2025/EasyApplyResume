@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.controller.user;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.model.pojo.admin.AdminTeamIntroduce;
+import com.zyh.easyapplyresume.model.vo.admin.AdminTeamIntroduceInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminTeamIntroduceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,7 +22,7 @@ public class UserTeamIntroduceController {
 
     @Operation(summary = "获取团队介绍信息")
     @RequestMapping("/getInfo")
-    public BaseResult<AdminTeamIntroduce> getTeamIntroduceInfo() {
+    public BaseResult<AdminTeamIntroduceInfoVO> getTeamIntroduceInfo() {
         return BaseResult.ok(teamIntroduceService.getTeamIntroduceInfo());
     }
 }

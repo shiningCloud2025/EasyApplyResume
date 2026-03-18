@@ -1,0 +1,55 @@
+{
+  "name": "@vavt/util",
+  "version": "2.1.1",
+  "license": "MIT",
+  "keywords": [
+    "js",
+    "util"
+  ],
+  "description": "JavaScript library.",
+  "scripts": {
+    "dev": "tsx ./scripts/dev.mts",
+    "build": "tsx ./scripts/build.lib.mts && npm run build:type",
+    "build:type": "tsc --declaration --emitDeclarationOnly --declarationDir ./lib/types --strict --moduleResolution Node --module ESNext --target ESNext packages/**/*.ts",
+    "lint": "eslint --ext .ts ./",
+    "lint:fix": "eslint --fix --ext .ts ./",
+    "prepare": "husky install"
+  },
+  "homepage": "https://imzbf.github.io/vavt-util/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imzbf/vavt-util.git"
+  },
+  "bugs": {
+    "url": "https://github.com/imzbf/vavt-util/issues"
+  },
+  "files": [
+    "lib"
+  ],
+  "types": "./lib/types/index.d.ts",
+  "main": "./lib/cjs/index.cjs",
+  "module": "./lib/es/index.mjs",
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser": "^7.13.1",
+    "@vavt/message": "^1.0.1",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.2",
+    "prettier": "^3.3.1",
+    "tsx": "^4.15.2",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.13"
+  },
+  "lint-staged": {
+    "**/*.{ts,md}": [
+      "prettier --write"
+    ],
+    "**/*.ts": [
+      "eslint --quiet --fix"
+    ]
+  }
+}

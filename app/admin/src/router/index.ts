@@ -256,6 +256,68 @@ const router = createRouter({
           ]
         },
         {
+          path: 'about-us',
+          redirect: '/admin/about-us/project-introduce'
+        },
+        {
+          path: 'about-us/project-introduce',
+          name: 'ProjectIntroduceManagement',
+          component: () => import('@/views/admin/content/AboutUsManagement.vue'),
+          meta: { title: '项目介绍' }
+        },
+        {
+          path: 'about-us/team-introduce',
+          name: 'TeamIntroduceManagement',
+          component: () => import('@/views/admin/content/AboutUsManagement.vue'),
+          meta: { title: '团队介绍' }
+        },
+        {
+          path: 'about-us/develop-history',
+          name: 'DevelopHistoryManagement',
+          component: () => import('@/views/admin/content/AboutUsManagement.vue'),
+          meta: { title: '发展历程' }
+        },
+        {
+          path: 'about-us/join-us',
+          name: 'JoinUsManagement',
+          component: () => import('@/views/admin/content/AboutUsManagement.vue'),
+          meta: { title: '加入我们' }
+        },
+        {
+          path: 'about-us/partner-introduce',
+          name: 'PartnerIntroduceManagement',
+          component: () => import('@/views/admin/content/AboutUsManagement.vue'),
+          meta: { title: '合作伙伴' }
+        },
+        {
+          path: 'about-us/media-report',
+          name: 'MediaReportManagement',
+          component: () => import('@/views/admin/content/AboutUsManagement.vue'),
+          meta: { title: '媒体报道' }
+        },
+        {
+          path: 'help-center',
+          redirect: '/admin/help-center/faq'
+        },
+        {
+          path: 'help-center/faq',
+          name: 'FaqManagement',
+          component: () => import('@/views/admin/content/HelpCenterManagement.vue'),
+          meta: { title: 'FAQ管理' }
+        },
+        {
+          path: 'help-center/customer-service',
+          name: 'CustomerServiceManagement',
+          component: () => import('@/views/admin/content/HelpCenterManagement.vue'),
+          meta: { title: '客服管理' }
+        },
+        {
+          path: 'help-center/user-guide',
+          name: 'UserGuideManagement',
+          component: () => import('@/views/admin/content/HelpCenterManagement.vue'),
+          meta: { title: '使用指南管理' }
+        },
+        {
           path: 'profile',
           name: 'Profile',
           component: () => import('@/views/Profile.vue'),
@@ -279,7 +341,7 @@ const router = createRouter({
 // 路由守卫
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
-  
+
   // 检查token是否过期
   const token = localStorage.getItem('admin_token')
   if (token) {
@@ -289,16 +351,16 @@ router.beforeEach((to, from, next) => {
       if (parts.length !== 3) {
         throw new Error('Invalid token format')
       }
-      
+
       // Base64 URL解码
       const payload = parts[1].replace(/-/g, '+').replace(/_/g, '/')
       const jsonPayload = decodeURIComponent(atob(payload + '='.repeat((4 - payload.length % 4) % 4)).split('').map((c) => {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
       }).join(''))
-      
+
       const parsedPayload = JSON.parse(jsonPayload)
       const currentTime = Math.floor(Date.now() / 1000)
-      
+
       if (parsedPayload.exp && parsedPayload.exp < currentTime) {
         // Token已过期，清除认证状态并跳转登录
         authStore.clearAuth()
@@ -312,24 +374,24 @@ router.beforeEach((to, from, next) => {
       return
     }
   }
-  
+
   // 如果已登录且访问登录页，跳转到首页
   if (to.path === '/login' && authStore.isLoggedIn) {
     next('/admin/dashboard')
     return
   }
-  
+
   // 需要登录的页面
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
     next('/login')
     return
   }
-  
+
   // 设置页面标题
   if (to.meta.title) {
     document.title = `${to.meta.title} - 易投简历管理平台`
   }
-  
+
   next()
 })
 

@@ -1,0 +1,25 @@
+{
+  "name": "@vavt/copy2clipboard",
+  "version": "1.0.3",
+  "license": "MIT",
+  "keywords": [
+    "javascript",
+    "typescript"
+  ],
+  "description": "Use `navigator.clipboard` to copy content, use `execCommand` when it doesn't work compatibility.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imzbf/copy2clipboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/imzbf/copy2clipboard/issues"
+  },
+  "files": [
+    "index.js",
+    "index.mjs",
+    "index.d.ts"
+  ],
+  "types": "./index.d.ts",
+  "main": "./index.js",
+  "module": "./index.mjs"
+}

@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.controller.user;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.model.pojo.admin.AdminJoinUs;
+import com.zyh.easyapplyresume.model.vo.admin.AdminJoinUsInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminJoinUsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,7 +22,7 @@ public class UserJoinUsController {
 
     @Operation(summary = "获取加入我们信息")
     @RequestMapping("/getInfo")
-    public BaseResult<AdminJoinUs> getJoinUsInfo() {
+    public BaseResult<AdminJoinUsInfoVO> getJoinUsInfo() {
         return BaseResult.ok(joinUsService.getJoinUsInfo());
     }
 }

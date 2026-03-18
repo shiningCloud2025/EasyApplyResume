@@ -568,3 +568,148 @@ export interface UserDeleteResumeInfoVO {
   userDeleteResumeUserId: number           // 所属用户ID
   userDeleteResumeDeleteTime: string       // 删除时间
 }
+
+// ============= 内容管理（Content Management）=============
+
+export interface ProjectIntroduceForm {
+  projectIntroduceId?: number
+  projectIntroduceTitle: string
+  projectIntroduceContent: string
+}
+
+export interface ProjectIntroduceInfoVO {
+  projectIntroduceId?: number
+  projectIntroduceTitle: string
+  projectIntroduceContent: string
+  projectIntroduceUpdatedTime?: string
+}
+
+export interface TeamIntroduceForm {
+  teamIntroduceId?: number
+  teamIntroduceTitle: string
+  teamIntroduceContent: string
+}
+
+export interface TeamIntroduceInfoVO {
+  teamIntroduceId?: number
+  teamIntroduceTitle: string
+  teamIntroduceContent: string
+  teamIntroduceUpdatedTime?: string
+}
+
+export interface DevelopHistoryForm {
+  developHistoryId?: number
+  developHistoryTitle: string
+  developHistoryContent: string
+}
+
+export interface DevelopHistoryInfoVO {
+  developHistoryId?: number
+  developHistoryTitle: string
+  developHistoryContent: string
+  developHistoryUpdatedTime?: string
+}
+
+export interface JoinUsForm {
+  joinUsId?: number
+  joinUsTitle: string
+  joinUsContent: string
+}
+
+export interface JoinUsInfoVO {
+  joinUsId?: number
+  joinUsTitle: string
+  joinUsContent: string
+  joinUsUpdatedTime?: string
+}
+
+export interface PartnerIntroduceForm {
+  partnerIntroduceId?: number
+  partnerIntroduceTitle: string
+  partnerIntroduceContent: string
+}
+
+export interface PartnerIntroduceInfoVO {
+  partnerIntroduceId?: number
+  partnerIntroduceTitle: string
+  partnerIntroduceContent: string
+  partnerIntroduceUpdatedTime?: string
+}
+
+export interface MediaReportForm {
+  mediaReportId?: number
+  mediaReportTitle: string
+  mediaReportContent: string
+}
+
+export interface MediaReportInfoVO {
+  mediaReportId?: number
+  mediaReportTitle: string
+  mediaReportContent: string
+  mediaReportUpdatedTime?: string
+}
+
+export interface CustomerServiceForm {
+  customerServiceId?: number
+  customerServiceTitle: string
+  customerServiceContent: string
+}
+
+export interface CustomerServiceInfoVO {
+  customerServiceId?: number
+  customerServiceTitle: string
+  customerServiceContent: string
+  customerServiceUpdatedTime?: string
+}
+
+export interface FaqForm {
+  faqId?: number
+  faqTitle: string
+  faqContent: string
+}
+
+export interface FaqQuery {
+  faqTitle?: string
+}
+
+export interface FaqPageVO {
+  faqId: number
+  faqTitle: string
+  faqContent: string
+  faqCreatedTime?: string
+  faqUpdatedTime?: string
+}
+
+export interface FaqInfoVO {
+  faqId?: number
+  faqTitle: string
+  faqContent: string
+  faqCreatedTime?: string
+  faqUpdatedTime?: string
+}
+
+export interface UserGuideForm {
+  userGuideId?: number
+  userGuideTitle: string
+  userGuideContent: string
+}
+
+export interface UserGuideQuery {
+  userGuideTitle?: string
+}
+
+export interface UserGuidePageVO {
+  userGuideId: number
+  userGuideTitle: string
+  userGuideContent: string
+  userGuideCreatedTime?: string
+  userGuideUpdatedTime?: string
+}
+
+export interface UserGuideInfoVO {
+  userGuideId?: number
+  userGuideTitle: string
+  userGuideContent: string
+  userGuideCreatedTime?: string
+  userGuideUpdatedTime?: string
+}

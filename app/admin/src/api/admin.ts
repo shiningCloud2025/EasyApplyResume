@@ -52,6 +52,30 @@ import type {
   UserDeleteResumeBySystemInfoVO,
   UserDeleteResumeInfoVO
 } from '@/types/admin'
+import type {
+  ProjectIntroduceForm,
+  ProjectIntroduceInfoVO,
+  TeamIntroduceForm,
+  TeamIntroduceInfoVO,
+  DevelopHistoryForm,
+  DevelopHistoryInfoVO,
+  JoinUsForm,
+  JoinUsInfoVO,
+  PartnerIntroduceForm,
+  PartnerIntroduceInfoVO,
+  MediaReportForm,
+  MediaReportInfoVO,
+  CustomerServiceForm,
+  CustomerServiceInfoVO,
+  FaqForm,
+  FaqQuery,
+  FaqPageVO,
+  FaqInfoVO,
+  UserGuideForm,
+  UserGuideQuery,
+  UserGuidePageVO,
+  UserGuideInfoVO
+} from '@/types/admin'
 
 // 认证相关API
 export const authApi = {
@@ -563,4 +587,65 @@ export interface AdvertisementInfo {
 export const advertisementApi = {
   // 获取管理端所有广告
   getAllAdminAdvertisements: () => api.get<AdvertisementInfo[]>('/admonitor/admin/advertisement/findAllAdmonitorAdminAdvertisement')
+}
+
+// 内容管理相关API
+export const projectIntroduceApi = {
+  add: (data: ProjectIntroduceForm) => api.post<number>('/admin/projectIntroduce/add', data),
+  update: (data: ProjectIntroduceForm) => api.post<number>('/admin/projectIntroduce/update', data),
+  getInfo: () => api.get<ProjectIntroduceInfoVO>('/admin/projectIntroduce/getInfo')
+}
+
+export const teamIntroduceApi = {
+  add: (data: TeamIntroduceForm) => api.post<number>('/admin/teamIntroduce/add', data),
+  update: (data: TeamIntroduceForm) => api.post<number>('/admin/teamIntroduce/update', data),
+  getInfo: () => api.get<TeamIntroduceInfoVO>('/admin/teamIntroduce/getInfo')
+}
+
+export const developHistoryApi = {
+  add: (data: DevelopHistoryForm) => api.post<number>('/admin/developHistory/add', data),
+  update: (data: DevelopHistoryForm) => api.post<number>('/admin/developHistory/update', data),
+  getInfo: () => api.get<DevelopHistoryInfoVO>('/admin/developHistory/getInfo')
+}
+
+export const joinUsApi = {
+  add: (data: JoinUsForm) => api.post<number>('/admin/joinUs/add', data),
+  update: (data: JoinUsForm) => api.post<number>('/admin/joinUs/update', data),
+  getInfo: () => api.get<JoinUsInfoVO>('/admin/joinUs/getInfo')
+}
+
+export const partnerIntroduceApi = {
+  add: (data: PartnerIntroduceForm) => api.post<number>('/admin/partnerIntroduce/add', data),
+  update: (data: PartnerIntroduceForm) => api.post<number>('/admin/partnerIntroduce/update', data),
+  getInfo: () => api.get<PartnerIntroduceInfoVO>('/admin/partnerIntroduce/getInfo')
+}
+
+export const mediaReportApi = {
+  add: (data: MediaReportForm) => api.post<number>('/admin/mediaReport/add', data),
+  update: (data: MediaReportForm) => api.post<number>('/admin/mediaReport/update', data),
+  getInfo: () => api.get<MediaReportInfoVO>('/admin/mediaReport/getInfo')
+}
+
+export const customerServiceApi = {
+  add: (data: CustomerServiceForm) => api.post<number>('/admin/customerService/add', data),
+  update: (data: CustomerServiceForm) => api.post<number>('/admin/customerService/update', data),
+  getInfo: () => api.get<CustomerServiceInfoVO>('/admin/customerService/getInfo')
+}
+
+export const faqApi = {
+  add: (data: FaqForm) => api.post<number>('/admin/faq/add', data),
+  update: (data: FaqForm) => api.post<number>('/admin/faq/update', data),
+  remove: (faqId: number) => api.delete<number>('/admin/faq/delete', { faqId }),
+  getInfo: (faqId: number) => api.get<FaqInfoVO>('/admin/faq/getInfo', { faqId }),
+  getPage: (pageNum: number, pageSize: number, query: FaqQuery) =>
+    api.post<PageResult<FaqPageVO>>('/admin/faq/getPage', query, { params: { pageNum, pageSize } })
+}
+
+export const userGuideApi = {
+  add: (data: UserGuideForm) => api.post<number>('/admin/userGuide/add', data),
+  update: (data: UserGuideForm) => api.post<number>('/admin/userGuide/update', data),
+  remove: (userGuideId: number) => api.delete<number>('/admin/userGuide/delete', { userGuideId }),
+  getInfo: (userGuideId: number) => api.get<UserGuideInfoVO>('/admin/userGuide/getInfo', { userGuideId }),
+  getPage: (pageNum: number, pageSize: number, query: UserGuideQuery) =>
+    api.post<PageResult<UserGuidePageVO>>('/admin/userGuide/getPage', query, { params: { pageNum, pageSize } })
 }

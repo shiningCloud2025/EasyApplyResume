@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.controller.user;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.model.pojo.admin.AdminMediaReport;
+import com.zyh.easyapplyresume.model.vo.admin.AdminMediaReportInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminMediaReportService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,7 +22,7 @@ public class UserMediaReportController {
 
     @Operation(summary = "获取媒体报道信息")
     @RequestMapping("/getInfo")
-    public BaseResult<AdminMediaReport> getMediaReportInfo() {
+    public BaseResult<AdminMediaReportInfoVO> getMediaReportInfo() {
         return BaseResult.ok(mediaReportService.getMediaReportInfo());
     }
 }

@@ -2,8 +2,8 @@ package com.zyh.easyapplyresume.controller.user;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.model.pojo.admin.AdminUserGuide;
 import com.zyh.easyapplyresume.model.query.admin.AdminUserGuideQuery;
+import com.zyh.easyapplyresume.model.vo.admin.AdminUserGuideInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminUserGuidePageVO;
 import com.zyh.easyapplyresume.service.admin.AdminUserGuideService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ public class UserUserGuideController {
 
     @Operation(summary = "获取使用指南信息")
     @GetMapping("/getInfo")
-    public BaseResult<AdminUserGuide> getUserGuideInfo(@RequestParam(required = true, value = "userGuideId") Integer userGuideId) {
+    public BaseResult<AdminUserGuideInfoVO> getUserGuideInfo(@RequestParam(required = true, value = "userGuideId") Integer userGuideId) {
         return BaseResult.ok(userGuideService.getUserGuideInfo(userGuideId));
     }
 
@@ -36,9 +36,7 @@ public class UserUserGuideController {
     public BaseResult<Page<AdminUserGuidePageVO>> getUserGuidePage(
             @RequestParam(required = false, value = "size", defaultValue = "10") int size,
             @RequestParam(required = false, value = "page", defaultValue = "1") int page,
-            @RequestParam(required = false, value = "userGuideTitle") String userGuideTitle) {
-        AdminUserGuideQuery query = new AdminUserGuideQuery();
-        query.setUserGuideTitle(userGuideTitle);
+            AdminUserGuideQuery query) {
         return BaseResult.ok(userGuideService.getUserGuidePage(size, page, query));
     }
 }

@@ -51,6 +51,7 @@
           <el-menu-item index="/admin/article/job-advice">求职攻略文章管理</el-menu-item>
         </el-sub-menu>
 
+
         <!-- 招聘管理 -->
         <el-sub-menu index="/admin/recruitment">
           <template #title>
@@ -100,6 +101,30 @@
           <el-menu-item index="/admin/feedback/management">管理端反馈管理</el-menu-item>
           <el-menu-item index="/admin/feedback/user-records">用户端反馈记录</el-menu-item>
           <el-menu-item index="/admin/feedback/records">管理端反馈记录</el-menu-item>
+        </el-sub-menu>
+
+        <!-- 关于我们管理 / 帮助中心管理（与反馈/内部系统同级，但可展开子模块） -->
+        <el-sub-menu index="/admin/about-us">
+          <template #title>
+            <el-icon><Document /></el-icon>
+            <span>关于我们管理</span>
+          </template>
+          <el-menu-item index="/admin/about-us/project-introduce">项目介绍</el-menu-item>
+          <el-menu-item index="/admin/about-us/team-introduce">团队介绍</el-menu-item>
+          <el-menu-item index="/admin/about-us/develop-history">发展历程</el-menu-item>
+          <el-menu-item index="/admin/about-us/join-us">加入我们</el-menu-item>
+          <el-menu-item index="/admin/about-us/partner-introduce">合作伙伴</el-menu-item>
+          <el-menu-item index="/admin/about-us/media-report">媒体报道</el-menu-item>
+        </el-sub-menu>
+
+        <el-sub-menu index="/admin/help-center">
+          <template #title>
+            <el-icon><Document /></el-icon>
+            <span>帮助中心管理</span>
+          </template>
+          <el-menu-item index="/admin/help-center/faq">FAQ管理</el-menu-item>
+          <el-menu-item index="/admin/help-center/customer-service">客服管理</el-menu-item>
+          <el-menu-item index="/admin/help-center/user-guide">使用指南管理</el-menu-item>
         </el-sub-menu>
 
         <!-- 内部系统 -->
@@ -474,6 +499,17 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/user/permission': '权限管理',
     '/admin/article': '文章管理',
     '/admin/article/job-advice': '求职攻略文章管理',
+    '/admin/about-us': '关于我们管理',
+    '/admin/about-us/project-introduce': '项目介绍',
+    '/admin/about-us/team-introduce': '团队介绍',
+    '/admin/about-us/develop-history': '发展历程',
+    '/admin/about-us/join-us': '加入我们',
+    '/admin/about-us/partner-introduce': '合作伙伴',
+    '/admin/about-us/media-report': '媒体报道',
+    '/admin/help-center': '帮助中心管理',
+    '/admin/help-center/faq': 'FAQ管理',
+    '/admin/help-center/customer-service': '客服管理',
+    '/admin/help-center/user-guide': '使用指南管理',
     '/admin/recruitment': '招聘管理',
     '/admin/recruitment/positions': '招聘岗位管理',
     '/admin/recruitment/information': '招聘信息管理',

@@ -1,7 +1,7 @@
 package com.zyh.easyapplyresume.controller.user;
 
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.model.pojo.admin.AdminCustomerService;
+import com.zyh.easyapplyresume.model.vo.admin.AdminCustomerServiceInfoVO;
 import com.zyh.easyapplyresume.service.admin.AdminCustomerServiceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,7 +22,7 @@ public class UserCustomerServiceController {
 
     @Operation(summary = "获取人工客服信息")
     @RequestMapping("/getInfo")
-    public BaseResult<AdminCustomerService> getCustomerServiceInfo() {
+    public BaseResult<AdminCustomerServiceInfoVO> getCustomerServiceInfo() {
         return BaseResult.ok(customerServiceService.getCustomerServiceInfo());
     }
 }

@@ -2,8 +2,8 @@ package com.zyh.easyapplyresume.controller.user;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
-import com.zyh.easyapplyresume.model.pojo.admin.AdminFaq;
 import com.zyh.easyapplyresume.model.query.admin.AdminFaqQuery;
+import com.zyh.easyapplyresume.model.vo.admin.AdminFaqInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminFaqPageVO;
 import com.zyh.easyapplyresume.service.admin.AdminFaqService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,7 +27,7 @@ public class UserFaqController {
 
     @Operation(summary = "获取常见问题信息")
     @GetMapping("/getInfo")
-    public BaseResult<AdminFaq> getFaqInfo(@RequestParam(required = true, value = "faqId") Integer faqId) {
+    public BaseResult<AdminFaqInfoVO> getFaqInfo(@RequestParam(required = true, value = "faqId") Integer faqId) {
         return BaseResult.ok(faqService.getFaqInfo(faqId));
     }
 
@@ -36,9 +36,7 @@ public class UserFaqController {
     public BaseResult<Page<AdminFaqPageVO>> getFaqPage(
             @RequestParam(required = false, value = "size", defaultValue = "10") int size,
             @RequestParam(required = false, value = "page", defaultValue = "1") int page,
-            @RequestParam(required = false, value = "faqTitle") String faqTitle) {
-        AdminFaqQuery query = new AdminFaqQuery();
-        query.setFaqTitle(faqTitle);
+            AdminFaqQuery query) {
         return BaseResult.ok(faqService.getFaqPage(size, page, query));
     }
 }
