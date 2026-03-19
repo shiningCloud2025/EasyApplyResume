@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -41,8 +42,8 @@ public class AdminFaqServiceImpl implements AdminFaqService {
             AdminFaqValidator.validateForAdd(faqForm);
             AdminFaq faq = new AdminFaq();
             BeanUtils.copyProperties(faqForm, faq);
-            faq.setFaqCreatedTime(new Date());
-            faq.setFaqUpdatedTime(new Date());
+            faq.setFaqCreatedTime(LocalDateTime.now());
+            faq.setFaqUpdatedTime(LocalDateTime.now());
             faq.setDeleted(0);
             int result = faqMapper.insert(faq);
             log.info("添加常见问题成功");
@@ -62,7 +63,7 @@ public class AdminFaqServiceImpl implements AdminFaqService {
             AdminFaqValidator.validateForUpdate(faqForm);
             AdminFaq faq = new AdminFaq();
             BeanUtils.copyProperties(faqForm, faq);
-            faq.setFaqUpdatedTime(new Date());
+            faq.setFaqUpdatedTime(LocalDateTime.now());
             int result = faqMapper.updateById(faq);
             log.info("修改常见问题成功");
             return result;
@@ -81,7 +82,7 @@ public class AdminFaqServiceImpl implements AdminFaqService {
             AdminFaq faq = new AdminFaq();
             faq.setFaqId(faqId);
             faq.setDeleted(1);
-            faq.setFaqUpdatedTime(new Date());
+            faq.setFaqUpdatedTime(LocalDateTime.now());
             int result = faqMapper.updateById(faq);
             log.info("删除常见问题成功");
             return result;
