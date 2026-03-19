@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class AdminDevelopHistoryServiceImpl implements AdminDevelopHistoryServic
             }
             AdminDevelopHistory developHistory = new AdminDevelopHistory();
             BeanUtils.copyProperties(developHistoryForm, developHistory);
-            developHistory.setDevelopHistoryUpdatedTime(new Date());
+            developHistory.setDevelopHistoryUpdatedTime(LocalDateTime.now());
             int result = developHistoryMapper.insert(developHistory);
             log.info("添加发展历程成功");
             return result;
@@ -61,7 +62,7 @@ public class AdminDevelopHistoryServiceImpl implements AdminDevelopHistoryServic
             AdminDevelopHistoryValidator.validateForUpdate(developHistoryForm);
             AdminDevelopHistory developHistory = new AdminDevelopHistory();
             BeanUtils.copyProperties(developHistoryForm, developHistory);
-            developHistory.setDevelopHistoryUpdatedTime(new Date());
+            developHistory.setDevelopHistoryUpdatedTime(LocalDateTime.now());
             int result = developHistoryMapper.updateById(developHistory);
             log.info("修改发展历程成功");
             return result;
