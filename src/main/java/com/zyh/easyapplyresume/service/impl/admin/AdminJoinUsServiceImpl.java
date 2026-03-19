@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class AdminJoinUsServiceImpl implements AdminJoinUsService {
             }
             AdminJoinUs joinUs = new AdminJoinUs();
             BeanUtils.copyProperties(joinUsForm, joinUs);
-            joinUs.setJoinUsUpdatedTime(new Date());
+            joinUs.setJoinUsUpdatedTime(LocalDateTime.now());
             int result = joinUsMapper.insert(joinUs);
             log.info("添加加入我们成功");
             return result;
@@ -61,7 +62,7 @@ public class AdminJoinUsServiceImpl implements AdminJoinUsService {
             AdminJoinUsValidator.validateForUpdate(joinUsForm);
             AdminJoinUs joinUs = new AdminJoinUs();
             BeanUtils.copyProperties(joinUsForm, joinUs);
-            joinUs.setJoinUsUpdatedTime(new Date());
+            joinUs.setJoinUsUpdatedTime(LocalDateTime.now());
             int result = joinUsMapper.updateById(joinUs);
             log.info("修改加入我们成功");
             return result;
