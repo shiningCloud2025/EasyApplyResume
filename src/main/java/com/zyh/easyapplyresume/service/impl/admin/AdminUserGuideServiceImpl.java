@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -41,8 +42,8 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
             AdminUserGuideValidator.validateForAdd(userGuideForm);
             AdminUserGuide userGuide = new AdminUserGuide();
             BeanUtils.copyProperties(userGuideForm, userGuide);
-            userGuide.setUserGuideCreatedTime(new Date());
-            userGuide.setUserGuideUpdatedTime(new Date());
+            userGuide.setUserGuideCreatedTime(LocalDateTime.now());
+            userGuide.setUserGuideUpdatedTime(LocalDateTime.now());
             userGuide.setDeleted(0);
             int result = userGuideMapper.insert(userGuide);
             log.info("添加使用指南成功");
@@ -62,7 +63,7 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
             AdminUserGuideValidator.validateForUpdate(userGuideForm);
             AdminUserGuide userGuide = new AdminUserGuide();
             BeanUtils.copyProperties(userGuideForm, userGuide);
-            userGuide.setUserGuideUpdatedTime(new Date());
+            userGuide.setUserGuideUpdatedTime(LocalDateTime.now());
             int result = userGuideMapper.updateById(userGuide);
             log.info("修改使用指南成功");
             return result;
@@ -81,7 +82,7 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
             AdminUserGuide userGuide = new AdminUserGuide();
             userGuide.setUserGuideId(userGuideId);
             userGuide.setDeleted(1);
-            userGuide.setUserGuideUpdatedTime(new Date());
+            userGuide.setUserGuideUpdatedTime(LocalDateTime.now());
             int result = userGuideMapper.updateById(userGuide);
             log.info("删除使用指南成功");
             return result;
