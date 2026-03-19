@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class AdminMediaReportServiceImpl implements AdminMediaReportService {
             }
             AdminMediaReport mediaReport = new AdminMediaReport();
             BeanUtils.copyProperties(mediaReportForm, mediaReport);
-            mediaReport.setMediaReportUpdatedTime(new Date());
+            mediaReport.setMediaReportUpdatedTime(LocalDateTime.now());
             int result = mediaReportMapper.insert(mediaReport);
             log.info("添加媒体报道成功");
             return result;
@@ -61,7 +62,7 @@ public class AdminMediaReportServiceImpl implements AdminMediaReportService {
             AdminMediaReportValidator.validateForUpdate(mediaReportForm);
             AdminMediaReport mediaReport = new AdminMediaReport();
             BeanUtils.copyProperties(mediaReportForm, mediaReport);
-            mediaReport.setMediaReportUpdatedTime(new Date());
+            mediaReport.setMediaReportUpdatedTime(LocalDateTime.now());
             int result = mediaReportMapper.updateById(mediaReport);
             log.info("修改媒体报道成功");
             return result;
