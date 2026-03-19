@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class AdminPartnerIntroduceServiceImpl implements AdminPartnerIntroduceSe
             }
             AdminPartnerIntroduce partnerIntroduce = new AdminPartnerIntroduce();
             BeanUtils.copyProperties(partnerIntroduceForm, partnerIntroduce);
-            partnerIntroduce.setPartnerIntroduceUpdatedTime(new Date());
+            partnerIntroduce.setPartnerIntroduceUpdatedTime(LocalDateTime.now());
             int result = partnerIntroduceMapper.insert(partnerIntroduce);
             log.info("添加合作伙伴成功");
             return result;
@@ -61,7 +62,7 @@ public class AdminPartnerIntroduceServiceImpl implements AdminPartnerIntroduceSe
             AdminPartnerIntroduceValidator.validateForUpdate(partnerIntroduceForm);
             AdminPartnerIntroduce partnerIntroduce = new AdminPartnerIntroduce();
             BeanUtils.copyProperties(partnerIntroduceForm, partnerIntroduce);
-            partnerIntroduce.setPartnerIntroduceUpdatedTime(new Date());
+            partnerIntroduce.setPartnerIntroduceUpdatedTime(LocalDateTime.now());
             int result = partnerIntroduceMapper.updateById(partnerIntroduce);
             log.info("修改合作伙伴成功");
             return result;
