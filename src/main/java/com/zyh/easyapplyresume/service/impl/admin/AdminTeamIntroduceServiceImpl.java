@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class AdminTeamIntroduceServiceImpl implements AdminTeamIntroduceService 
             }
             AdminTeamIntroduce teamIntroduce = new AdminTeamIntroduce();
             BeanUtils.copyProperties(teamIntroduceForm, teamIntroduce);
-            teamIntroduce.setTeamIntroduceUpdatedTime(new Date());
+            teamIntroduce.setTeamIntroduceUpdatedTime(LocalDateTime.now());
             int result = teamIntroduceMapper.insert(teamIntroduce);
             log.info("添加团队介绍成功");
             return result;
@@ -61,7 +62,7 @@ public class AdminTeamIntroduceServiceImpl implements AdminTeamIntroduceService 
             AdminTeamIntroduceValidator.validateForUpdate(teamIntroduceForm);
             AdminTeamIntroduce teamIntroduce = new AdminTeamIntroduce();
             BeanUtils.copyProperties(teamIntroduceForm, teamIntroduce);
-            teamIntroduce.setTeamIntroduceUpdatedTime(new Date());
+            teamIntroduce.setTeamIntroduceUpdatedTime(LocalDateTime.now());
             int result = teamIntroduceMapper.updateById(teamIntroduce);
             log.info("修改团队介绍成功");
             return result;
