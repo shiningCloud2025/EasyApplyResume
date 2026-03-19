@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class AdminProjectIntroduceServiceImpl implements AdminProjectIntroduceSe
             }
             AdminProjectIntroduce projectIntroduce = new AdminProjectIntroduce();
             BeanUtils.copyProperties(projectIntroduceForm, projectIntroduce);
-            projectIntroduce.setProjectIntroduceUpdatedTime(new Date());
+            projectIntroduce.setProjectIntroduceUpdatedTime(LocalDateTime.now());
             int result = projectIntroduceMapper.insert(projectIntroduce);
             log.info("添加项目介绍成功");
             return result;
@@ -61,7 +62,7 @@ public class AdminProjectIntroduceServiceImpl implements AdminProjectIntroduceSe
             AdminProjectIntroduceValidator.validateForUpdate(projectIntroduceForm);
             AdminProjectIntroduce projectIntroduce = new AdminProjectIntroduce();
             BeanUtils.copyProperties(projectIntroduceForm, projectIntroduce);
-            projectIntroduce.setProjectIntroduceUpdatedTime(new Date());
+            projectIntroduce.setProjectIntroduceUpdatedTime(LocalDateTime.now());
             int result = projectIntroduceMapper.updateById(projectIntroduce);
             log.info("修改项目介绍成功");
             return result;
