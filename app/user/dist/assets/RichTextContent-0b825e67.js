@@ -1,0 +1,1 @@
+import{j as r}from"./index-737b5eee.js";import{r as o}from"./react-vendor-fa9da516.js";import{H as n}from"./antd-vendor-bf744787.js";import{h as m}from"./contentPageConfigs-ca3ff18d.js";const l=({html:t,className:s})=>{const e=o.useMemo(()=>m(t),[t]);return e?r.jsx("div",{className:n("rich-text-content",s),dangerouslySetInnerHTML:{__html:e}}):null};export{l as R};

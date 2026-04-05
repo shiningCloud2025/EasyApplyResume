@@ -1,0 +1,1 @@
+import{j as t}from"./index-737b5eee.js";import{S as o}from"./SingletonContentPage-4777b09c.js";import{s as r}from"./contentPageConfigs-ca3ff18d.js";import"./react-vendor-fa9da516.js";import"./antd-vendor-bf744787.js";import"./useQuery-4568243f.js";import"./utils-0507c293.js";import"./RichTextContent-0b825e67.js";const c=()=>t.jsx(o,{config:r.contact});export{c as default};

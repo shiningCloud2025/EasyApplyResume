@@ -31,18 +31,18 @@ const PortalFooter: React.FC = () => {
   ]
 
   const aboutLinks = [
-    { name: '公司介绍', href: '#about', desc: '了解我们' },
-    { name: '团队介绍', href: '#team', desc: '核心团队' },
-    { name: '发展历程', href: '#history', desc: '成长足迹' },
-    { name: '加入我们', href: '#careers', desc: '招贤纳士' },
-    { name: '合作伙伴', href: '#partners', desc: '合作共赢' },
-    { name: '媒体报道', href: '#media', desc: '新闻动态' }
+    { name: '公司介绍', path: '/about/company', desc: '了解我们' },
+    { name: '团队介绍', path: '/about/team', desc: '核心团队' },
+    { name: '发展历程', path: '/about/history', desc: '成长足迹' },
+    { name: '加入我们', path: '/about/join-us', desc: '招贤纳士' },
+    { name: '合作伙伴', path: '/about/partners', desc: '合作共赢' },
+    { name: '媒体报道', path: '/about/media', desc: '新闻动态' }
   ]
 
   const helpLinks = [
-    { name: '使用指南', href: '#guide', desc: '新手入门' },
-    { name: '常见问题', href: '#faq', desc: 'FAQ解答' },
-    { name: '联系客服', href: '#service', desc: '人工客服' },
+    { name: '使用指南', path: '/help/guide', desc: '新手入门' },
+    { name: '常见问题', path: '/help/faq', desc: 'FAQ解答' },
+    { name: '联系客服', path: '/help/contact', desc: '人工客服' },
     { name: '意见反馈', href: '#feedback', desc: '问题反馈' },
     { name: 'API文档', href: '#api', desc: '开发文档' },
     { name: '服务状态', href: '#status', desc: '系统状态' }
@@ -135,10 +135,10 @@ const PortalFooter: React.FC = () => {
               <h4 className="section-title">关于我们</h4>
               <div className="link-grid">
                 {aboutLinks.map((link, index) => (
-                  <a key={index} href={link.href} className="footer-link">
+                  <Link key={index} to={link.path} className="footer-link">
                     <span className="link-name">{link.name}</span>
                     <span className="link-desc">{link.desc}</span>
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -148,10 +148,17 @@ const PortalFooter: React.FC = () => {
               <h4 className="section-title">帮助中心</h4>
               <div className="link-grid">
                 {helpLinks.map((link, index) => (
-                  <a key={index} href={link.href} className="footer-link">
-                    <span className="link-name">{link.name}</span>
-                    <span className="link-desc">{link.desc}</span>
-                  </a>
+                  'path' in link ? (
+                    <Link key={index} to={link.path} className="footer-link">
+                      <span className="link-name">{link.name}</span>
+                      <span className="link-desc">{link.desc}</span>
+                    </Link>
+                  ) : (
+                    <a key={index} href={link.href} className="footer-link">
+                      <span className="link-name">{link.name}</span>
+                      <span className="link-desc">{link.desc}</span>
+                    </a>
+                  )
                 ))}
               </div>
             </div>

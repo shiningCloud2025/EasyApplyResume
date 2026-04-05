@@ -1,0 +1,1 @@
+import{j as o}from"./index-737b5eee.js";import{S as t}from"./SingletonContentPage-4777b09c.js";import{s as r}from"./contentPageConfigs-ca3ff18d.js";import"./react-vendor-fa9da516.js";import"./antd-vendor-bf744787.js";import"./useQuery-4568243f.js";import"./utils-0507c293.js";import"./RichTextContent-0b825e67.js";const f=()=>o.jsx(t,{config:r.history});export{f as default};

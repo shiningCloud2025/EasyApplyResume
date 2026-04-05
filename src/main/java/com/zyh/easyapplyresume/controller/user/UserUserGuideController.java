@@ -9,10 +9,7 @@ import com.zyh.easyapplyresume.service.admin.AdminUserGuideService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 使用指南控制器-用户端
@@ -32,11 +29,11 @@ public class UserUserGuideController {
     }
 
     @Operation(summary = "分页查询使用指南")
-    @GetMapping("/getPage")
+    @PostMapping("/getPage")
     public BaseResult<Page<AdminUserGuidePageVO>> getUserGuidePage(
             @RequestParam(required = false, value = "size", defaultValue = "10") int size,
             @RequestParam(required = false, value = "page", defaultValue = "1") int page,
-            AdminUserGuideQuery query) {
+            @RequestBody AdminUserGuideQuery query) {
         return BaseResult.ok(userGuideService.getUserGuidePage(size, page, query));
     }
 }

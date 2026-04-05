@@ -216,3 +216,26 @@ export interface PaginatedResponse<T> {
   current: number
   pages: number
 }
+
+// 内容中心类型
+export interface ContentBase {
+  id: number
+  title: string
+  content: string
+  createdTime?: string
+  updatedTime?: string
+}
+
+export interface SingletonContent extends ContentBase {}
+
+export interface GuideListItem extends ContentBase {}
+
+export interface GuideDetail extends ContentBase {}
+
+export interface FaqListItem extends ContentBase {}
+
+export interface FaqDetail extends ContentBase {}
+
+export interface ContentPageQuery {
+  keyword?: string
+}

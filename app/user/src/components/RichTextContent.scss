@@ -1,0 +1,157 @@
+.rich-text-content {
+  color: #243b53;
+  font-size: 16px;
+  line-height: 1.9;
+  word-break: break-word;
+
+  > *:first-child {
+    margin-top: 0;
+  }
+
+  > *:last-child {
+    margin-bottom: 0;
+  }
+
+  p:empty,
+  h1:empty,
+  h2:empty,
+  h3:empty,
+  h4:empty,
+  h5:empty,
+  h6:empty {
+    display: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 1.6em 0 0.7em;
+    line-height: 1.35;
+    color: #102a43;
+    font-weight: 700;
+  }
+
+  h1 { font-size: 32px; }
+  h2 { font-size: 28px; }
+  h3 { font-size: 24px; }
+  h4 { font-size: 20px; }
+  h5 { font-size: 18px; }
+  h6 { font-size: 16px; }
+
+  p,
+  ul,
+  ol,
+  blockquote,
+  table,
+  pre,
+  .table-wrapper {
+    margin-bottom: 1.2em;
+  }
+
+  ul,
+  ol {
+    padding-left: 1.5em;
+  }
+
+  li + li {
+    margin-top: 0.35em;
+  }
+
+  a {
+    color: #1677ff;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1.2em auto;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+  }
+
+  blockquote {
+    padding: 18px 20px;
+    border-left: 4px solid #1677ff;
+    border-radius: 0 14px 14px 0;
+    background: rgba(22, 119, 255, 0.06);
+    color: #486581;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid #d9e2ec;
+    background: #fff;
+    display: block;
+    overflow-x: auto;
+  }
+
+  th,
+  td {
+    padding: 12px 16px;
+    border: 1px solid #d9e2ec;
+    text-align: left;
+    vertical-align: top;
+    min-width: 120px;
+  }
+
+  th {
+    background: #f8fbff;
+    font-weight: 600;
+  }
+
+  code {
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: #f0f4f8;
+    color: #334e68;
+    font-family: 'Consolas', 'SFMono-Regular', monospace;
+    font-size: 0.95em;
+  }
+
+  pre {
+    padding: 18px;
+    border-radius: 16px;
+    background: #0f172a;
+    color: #e2e8f0;
+    overflow-x: auto;
+
+    code {
+      padding: 0;
+      background: transparent;
+      color: inherit;
+    }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #d9e2ec;
+    margin: 2em 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .rich-text-content {
+    font-size: 15px;
+
+    h1 { font-size: 28px; }
+    h2 { font-size: 24px; }
+    h3 { font-size: 21px; }
+    h4 { font-size: 18px; }
+
+    table {
+      font-size: 14px;
+    }
+  }
+}

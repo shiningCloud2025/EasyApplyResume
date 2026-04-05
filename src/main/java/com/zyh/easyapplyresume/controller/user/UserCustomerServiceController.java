@@ -6,6 +6,7 @@ import com.zyh.easyapplyresume.service.admin.AdminCustomerServiceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class UserCustomerServiceController {
     private AdminCustomerServiceService customerServiceService;
 
     @Operation(summary = "获取人工客服信息")
-    @RequestMapping("/getInfo")
+    @GetMapping("/getInfo")
     public BaseResult<AdminCustomerServiceInfoVO> getCustomerServiceInfo() {
         return BaseResult.ok(customerServiceService.getCustomerServiceInfo());
     }

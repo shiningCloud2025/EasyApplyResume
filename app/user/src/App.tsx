@@ -9,6 +9,17 @@ import LoadingSpinner from '@components/LoadingSpinner'
 // 页面组件懒加载
 const WelcomePage = React.lazy(() => import('@views/welcome/WelcomePage'))
 const HomePage = React.lazy(() => import('@views/home/HomePage'))
+const CompanyPage = React.lazy(() => import('@views/content/CompanyPage'))
+const TeamPage = React.lazy(() => import('@views/content/TeamPage'))
+const HistoryPage = React.lazy(() => import('@views/content/HistoryPage'))
+const JoinUsPage = React.lazy(() => import('@views/content/JoinUsPage'))
+const PartnersPage = React.lazy(() => import('@views/content/PartnersPage'))
+const MediaPage = React.lazy(() => import('@views/content/MediaPage'))
+const ContactServicePage = React.lazy(() => import('@views/content/ContactServicePage'))
+const GuideListPage = React.lazy(() => import('@views/content/GuideListPage'))
+const GuideDetailPage = React.lazy(() => import('@views/content/GuideDetailPage'))
+const FaqListPage = React.lazy(() => import('@views/content/FaqListPage'))
+const FaqDetailPage = React.lazy(() => import('@views/content/FaqDetailPage'))
 const LoginPage = React.lazy(() => import('@views/auth/LoginPage'))
 const RegisterPage = React.lazy(() => import('@views/auth/RegisterPage'))
 const ProfilePage = React.lazy(() => import('@views/user/ProfilePage'))
@@ -48,6 +59,19 @@ function App() {
       {/* 欢迎页面 - 未登录用户默认页面 */}
       <Route path="/" element={<WelcomePage />} />
       
+      {/* 公开内容页 */}
+      <Route path="/about/company" element={<CompanyPage />} />
+      <Route path="/about/team" element={<TeamPage />} />
+      <Route path="/about/history" element={<HistoryPage />} />
+      <Route path="/about/join-us" element={<JoinUsPage />} />
+      <Route path="/about/partners" element={<PartnersPage />} />
+      <Route path="/about/media" element={<MediaPage />} />
+      <Route path="/help/contact" element={<ContactServicePage />} />
+      <Route path="/help/guide" element={<GuideListPage />} />
+      <Route path="/help/guide/:id" element={<GuideDetailPage />} />
+      <Route path="/help/faq" element={<FaqListPage />} />
+      <Route path="/help/faq/:id" element={<FaqDetailPage />} />
+
       {/* 认证布局 */}
       <Route path="/auth" element={<AuthLayout />}>
         <Route path="login" element={<LoginPage />} />

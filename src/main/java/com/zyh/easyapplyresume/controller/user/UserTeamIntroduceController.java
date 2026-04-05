@@ -6,6 +6,7 @@ import com.zyh.easyapplyresume.service.admin.AdminTeamIntroduceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class UserTeamIntroduceController {
     private AdminTeamIntroduceService teamIntroduceService;
 
     @Operation(summary = "获取团队介绍信息")
-    @RequestMapping("/getInfo")
+    @GetMapping("/getInfo")
     public BaseResult<AdminTeamIntroduceInfoVO> getTeamIntroduceInfo() {
         return BaseResult.ok(teamIntroduceService.getTeamIntroduceInfo());
     }

@@ -9,10 +9,7 @@ import com.zyh.easyapplyresume.service.admin.AdminFaqService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 常见问题控制器-用户端
@@ -32,11 +29,11 @@ public class UserFaqController {
     }
 
     @Operation(summary = "分页查询常见问题")
-    @GetMapping("/getPage")
+    @PostMapping("/getPage")
     public BaseResult<Page<AdminFaqPageVO>> getFaqPage(
             @RequestParam(required = false, value = "size", defaultValue = "10") int size,
             @RequestParam(required = false, value = "page", defaultValue = "1") int page,
-            AdminFaqQuery query) {
+            @RequestBody AdminFaqQuery query) {
         return BaseResult.ok(faqService.getFaqPage(size, page, query));
     }
 }

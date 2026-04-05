@@ -1,0 +1,92 @@
+.public-content-layout {
+  min-height: 100vh;
+  background: #f5f7fb;
+
+  &__main {
+    min-height: calc(100vh - 64px);
+    padding-top: 64px;
+  }
+
+  &__hero {
+    position: relative;
+    overflow: hidden;
+    padding: 48px 0 64px;
+    background:
+      radial-gradient(circle at top left, rgba(102, 126, 234, 0.24), transparent 36%),
+      radial-gradient(circle at top right, rgba(118, 75, 162, 0.18), transparent 30%),
+      linear-gradient(180deg, #ffffff 0%, #f7f9ff 100%);
+    border-bottom: 1px solid rgba(24, 144, 255, 0.08);
+  }
+
+  &__breadcrumb {
+    margin-bottom: 20px;
+
+    .ant-breadcrumb-link,
+    .ant-breadcrumb-separator {
+      color: #64748b;
+    }
+
+    a {
+      color: #1890ff;
+    }
+  }
+
+  &__hero-content {
+    max-width: 760px;
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: 40px;
+      line-height: 1.2;
+      font-weight: 700;
+      color: #102a43;
+    }
+
+    p {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #52606d;
+    }
+  }
+
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    padding: 0 14px;
+    margin-bottom: 18px;
+    border-radius: 999px;
+    background: rgba(24, 144, 255, 0.1);
+    color: #1677ff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  &__body {
+    padding: 32px 0 72px;
+  }
+}
+
+@media (max-width: 768px) {
+  .public-content-layout {
+    &__main {
+      padding-top: 56px;
+    }
+
+    &__hero {
+      padding: 36px 0 48px;
+    }
+
+    &__hero-content {
+      h1 {
+        font-size: 30px;
+      }
+    }
+
+    &__body {
+      padding: 24px 0 56px;
+    }
+  }
+}
