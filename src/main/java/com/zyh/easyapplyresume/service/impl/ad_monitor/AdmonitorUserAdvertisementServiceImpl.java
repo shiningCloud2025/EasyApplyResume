@@ -205,31 +205,45 @@ public class AdmonitorUserAdvertisementServiceImpl implements AdmonitorUserAdver
     @Override
     public Page<AdmonitorUserAdvertisementPageVO> findAdmonitorUserAdvertisementByPage(Integer pageNum, Integer pageSize, AdmonitorUserAdvertisementQuery admonitorUserAdvertisementQuery) {
         try{
-            String cacheKey = AdmonitorUserAdvertisementCacheKey.PAGE_PREFIX 
-                            + "_" + pageNum 
-                            + "_" + pageSize 
-                            + "_" + (admonitorUserAdvertisementQuery != null ? admonitorUserAdvertisementQuery.hashCode() : 0);
-            
-            Object cached = redisCacheUtil.get(cacheKey);
-            if (cached != null) {
-                log.info("从缓存分页查询广告成功");
-                return (Page<AdmonitorUserAdvertisementPageVO>) cached;
-            }
-            
-            log.info("分页查询广告开始");
-            Page<AdmonitorUserAdvertisement> page = new Page<>(pageNum,pageSize);
-            LambdaQueryWrapper<AdmonitorUserAdvertisement> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-            if (admonitorUserAdvertisementQuery != null){
-                if (admonitorUserAdvertisementQuery.getAdvertisementName() != null&& !admonitorUserAdvertisementQuery.getAdvertisementName().isEmpty()){
-                    lambdaQueryWrapper.like(AdmonitorUserAdvertisement::getAdvertisementName,admonitorUserAdvertisementQuery.getAdvertisementName());
+            boolean hasQueryCondition = admonitorUserAdvertisementQuery != null
+                    && admonitorUserAdvertisementQuery.getAdvertisementName() != null
+                    && !admonitorUserAdvertisementQuery.getAdvertisementName().trim().isEmpty();
+
+            String cacheKey = AdmonitorUserAdvertisementCacheKey.PAGE_PREFIX
+                    + "_" + pageNum
+                    + "_" + pageSize;
+
+            if (!hasQueryCondition) {
+                Object cached = redisCacheUtil.get(cacheKey);
+                if (cached != null) {
+                    log.info("从缓存分页查询广告成功");
+                    return (Page<AdmonitorUserAdvertisementPageVO>) cached;
                 }
             }
-            lambdaQueryWrapper.eq(AdmonitorUserAdvertisement::getDeleted,0);
-            Page<AdmonitorUserAdvertisement> admonitorUserAdvertisementPage = admonitorUserAdvertisementMapper.selectPage(page, lambdaQueryWrapper);
+
+            log.info("分页查询广告开始");
+            Page<AdmonitorUserAdvertisement> page = new Page<>(pageNum, pageSize);
+            LambdaQueryWrapper<AdmonitorUserAdvertisement> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+
+            if (admonitorUserAdvertisementQuery != null) {
+                if (admonitorUserAdvertisementQuery.getAdvertisementName() != null
+                        && !admonitorUserAdvertisementQuery.getAdvertisementName().trim().isEmpty()) {
+                    lambdaQueryWrapper.like(
+                            AdmonitorUserAdvertisement::getAdvertisementName,
+                            admonitorUserAdvertisementQuery.getAdvertisementName().trim()
+                    );
+                }
+            }
+
+            lambdaQueryWrapper.eq(AdmonitorUserAdvertisement::getDeleted, 0);
+
+            Page<AdmonitorUserAdvertisement> admonitorUserAdvertisementPage =
+                    admonitorUserAdvertisementMapper.selectPage(page, lambdaQueryWrapper);
+
             List<AdmonitorUserAdvertisementPageVO> voList = admonitorUserAdvertisementPage.getRecords().stream()
                     .map(vo -> {
                         AdmonitorUserAdvertisementPageVO admonitorUserAdvertisementPageVO = new AdmonitorUserAdvertisementPageVO();
-                        BeanUtil.copyProperties(vo,admonitorUserAdvertisementPageVO);
+                        BeanUtil.copyProperties(vo, admonitorUserAdvertisementPageVO);
                         return admonitorUserAdvertisementPageVO;
                     })
                     .collect(Collectors.toList());
@@ -240,9 +254,11 @@ public class AdmonitorUserAdvertisementServiceImpl implements AdmonitorUserAdver
             resultPage.setTotal(admonitorUserAdvertisementPage.getTotal());
             resultPage.setPages(admonitorUserAdvertisementPage.getPages());
             resultPage.setRecords(voList != null ? voList : Collections.emptyList());
-            
-            redisCacheUtil.set(cacheKey, resultPage, AdmonitorUserAdvertisementCacheKey.PAGE_TTL, TimeUnit.MINUTES);
-            
+
+            if (!hasQueryCondition) {
+                redisCacheUtil.set(cacheKey, resultPage, AdmonitorUserAdvertisementCacheKey.PAGE_TTL, TimeUnit.MINUTES);
+            }
+
             log.info("分页查询广告成功");
             return resultPage;
         }catch (BusException e){

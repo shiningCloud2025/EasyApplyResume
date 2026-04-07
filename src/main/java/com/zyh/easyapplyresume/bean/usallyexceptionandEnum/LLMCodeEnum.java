@@ -17,7 +17,9 @@ public enum LLMCodeEnum {
 
 
     // 大模型应用用户输入为空
-    LLM_USERINPUT_EMPTY(901,"用户输入为空")
+    LLM_USERINPUT_EMPTY(901,"用户输入为空"),
+    // 大模型调用日志参数错误
+    LLM_USEPARAM_ERROR(902,"大模型调用日志参数错误")
 
 
     ;

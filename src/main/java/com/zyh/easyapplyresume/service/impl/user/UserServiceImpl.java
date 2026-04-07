@@ -99,23 +99,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfoVO getUserByUserId(String userId) {
         try{
-            String cacheKey = UserCacheKey.GET_PREFIX + "_" + userId;
-            
-            Object cached = redisCacheUtil.get(cacheKey);
-            if (cached != null) {
-                log.info("从缓存获取用户信息成功");
-                return (UserInfoVO) cached;
-            }
-            
             log.info("根据用户id查询用户信息开始");
             UserInfoVO userInfoVO = BeanUtil.copyProperties(userMapper.selectById(userId), UserInfoVO.class);
             userInfoVO.setUserRecruitLocationFirstName(ProvinceEnum.getById(userInfoVO.getUserRecruitLocationFirst()).getName());
             userInfoVO.setUserRecruitLocationSecondName(CityEnum.getById(userInfoVO.getUserRecruitLocationSecond()).getName());
             userInfoVO.setUserUniversityCodeName(universityMapMapper.selectById(userInfoVO.getUserUniversityCode()).getUniversityMapName());
             userInfoVO.setUserDreamPositionName(recruitPositionMapper.selectById(userInfoVO.getUserDreamPosition()).getRecruitPositionName());
-            
-            redisCacheUtil.set(cacheKey, userInfoVO, UserCacheKey.GET_TTL, TimeUnit.MINUTES);
-            
+
             return userInfoVO;
 
         }catch (BusException e){

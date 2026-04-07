@@ -201,31 +201,45 @@ public class AdmonitorAdminAdvertisementServiceImpl implements AdmonitorAdminAdv
     @Override
     public Page<AdmonitorAdminAdvertisementPageVO> findAdmonitorAdminAdvertisementByPage(Integer pageNum, Integer pageSize, AdmonitorAdminAdvertisementQuery admonitorAdminAdvertisementQuery) {
         try{
-            String cacheKey = AdmonitorAdminAdvertisementCacheKey.PAGE_PREFIX 
-                            + "_" + pageNum 
-                            + "_" + pageSize 
-                            + "_" + (admonitorAdminAdvertisementQuery != null ? admonitorAdminAdvertisementQuery.hashCode() : 0);
-            
-            Object cached = redisCacheUtil.get(cacheKey);
-            if (cached != null) {
-                log.info("从缓存分页查询广告成功");
-                return (Page<AdmonitorAdminAdvertisementPageVO>) cached;
-            }
-            
-            log.info("分页查询广告开始");
-            Page<AdmonitorAdminAdvertisement> page = new Page<>(pageNum,pageSize);
-            LambdaQueryWrapper<AdmonitorAdminAdvertisement> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-            if (admonitorAdminAdvertisementQuery != null){
-                if (admonitorAdminAdvertisementQuery.getAdvertisementName() != null&& !admonitorAdminAdvertisementQuery.getAdvertisementName().isEmpty()){
-                    lambdaQueryWrapper.like(AdmonitorAdminAdvertisement::getAdvertisementName,admonitorAdminAdvertisementQuery.getAdvertisementName());
+            boolean hasQueryCondition = admonitorAdminAdvertisementQuery != null
+                    && admonitorAdminAdvertisementQuery.getAdvertisementName() != null
+                    && !admonitorAdminAdvertisementQuery.getAdvertisementName().trim().isEmpty();
+
+            String cacheKey = AdmonitorAdminAdvertisementCacheKey.PAGE_PREFIX
+                    + "_" + pageNum
+                    + "_" + pageSize;
+
+            if (!hasQueryCondition) {
+                Object cached = redisCacheUtil.get(cacheKey);
+                if (cached != null) {
+                    log.info("从缓存分页查询广告成功");
+                    return (Page<AdmonitorAdminAdvertisementPageVO>) cached;
                 }
             }
-            lambdaQueryWrapper.eq(AdmonitorAdminAdvertisement::getDeleted,0);
-            Page<AdmonitorAdminAdvertisement> admonitorAdminAdvertisementPage = admonitorAdminAdvertisementMapper.selectPage(page, lambdaQueryWrapper);
+
+            log.info("分页查询广告开始");
+            Page<AdmonitorAdminAdvertisement> page = new Page<>(pageNum, pageSize);
+            LambdaQueryWrapper<AdmonitorAdminAdvertisement> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+
+            if (admonitorAdminAdvertisementQuery != null) {
+                if (admonitorAdminAdvertisementQuery.getAdvertisementName() != null
+                        && !admonitorAdminAdvertisementQuery.getAdvertisementName().trim().isEmpty()) {
+                    lambdaQueryWrapper.like(
+                            AdmonitorAdminAdvertisement::getAdvertisementName,
+                            admonitorAdminAdvertisementQuery.getAdvertisementName().trim()
+                    );
+                }
+            }
+
+            lambdaQueryWrapper.eq(AdmonitorAdminAdvertisement::getDeleted, 0);
+
+            Page<AdmonitorAdminAdvertisement> admonitorAdminAdvertisementPage =
+                    admonitorAdminAdvertisementMapper.selectPage(page, lambdaQueryWrapper);
+
             List<AdmonitorAdminAdvertisementPageVO> voList = admonitorAdminAdvertisementPage.getRecords().stream()
                     .map(vo -> {
                         AdmonitorAdminAdvertisementPageVO admonitorAdminAdvertisementPageVO = new AdmonitorAdminAdvertisementPageVO();
-                        BeanUtil.copyProperties(vo,admonitorAdminAdvertisementPageVO);
+                        BeanUtil.copyProperties(vo, admonitorAdminAdvertisementPageVO);
                         return admonitorAdminAdvertisementPageVO;
                     })
                     .collect(Collectors.toList());
@@ -236,9 +250,11 @@ public class AdmonitorAdminAdvertisementServiceImpl implements AdmonitorAdminAdv
             resultPage.setTotal(admonitorAdminAdvertisementPage.getTotal());
             resultPage.setPages(admonitorAdminAdvertisementPage.getPages());
             resultPage.setRecords(voList != null ? voList : Collections.emptyList());
-            
-            redisCacheUtil.set(cacheKey, resultPage, AdmonitorAdminAdvertisementCacheKey.PAGE_TTL, TimeUnit.MINUTES);
-            
+
+            if (!hasQueryCondition) {
+                redisCacheUtil.set(cacheKey, resultPage, AdmonitorAdminAdvertisementCacheKey.PAGE_TTL, TimeUnit.MINUTES);
+            }
+
             log.info("分页查询广告成功");
             return resultPage;
         }catch (BusException e){
