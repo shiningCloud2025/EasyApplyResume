@@ -8344,3 +8344,9 @@ export default ResumeTemplate;, 耗时: 28722ms
 2026-04-07 15:53:30.414 [http-nio-8080-exec-10] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/user/saveResume/getUserSaveResumeInfoByUserId, Controller: UserSaveResumeController.getUserSaveResumeInfoByUserId, Status: 200, Duration: 680ms
 2026-04-07 18:14:05.310 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=2h5m52s302ms838µs600ns).
 2026-04-07 18:14:15.339 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h5m52s312ms52µs700ns).
+2026-04-07 18:51:52.084 [http-nio-8080-exec-4] ERROR c.z.e.filter.AdminJwtAuthFilter - 管理端 Token 验证失败: Redis command timed out
+2026-04-07 18:51:52.084 [http-nio-8080-exec-8] ERROR c.z.e.filter.AdminJwtAuthFilter - 管理端 Token 验证失败: Redis command timed out
+2026-04-07 18:52:08.477 [lettuce-eventExecutorLoop-1-10] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was /117.50.184.138:37211
+2026-04-07 18:52:08.677 [lettuce-nioEventLoop-6-10] INFO  i.l.c.protocol.ReconnectionHandler - Reconnected to 117.50.184.138/<unresolved>:37211
+2026-04-07 20:42:18.149 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=1h35m9s517ms560µs300ns).
+2026-04-07 20:42:28.124 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h35m9s517ms882µs500ns).

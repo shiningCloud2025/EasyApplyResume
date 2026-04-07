@@ -15,7 +15,7 @@ public interface AdminLlmUtilsInfoService {
      * 新增LLM工具类调用日志
      * @param adminLlmUtilsInfoForm
      */
-    void addAdminLlmUtilsInfo(AdminLlmUtilsInfoForm adminLlmUtilsInfoForm);
+    Integer addAdminLlmUtilsInfo(AdminLlmUtilsInfoForm adminLlmUtilsInfoForm);
 
     /**
      * 根据ID查询LLM工具类调用日志详情
