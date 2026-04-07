@@ -2,6 +2,8 @@ package com.zyh.easyapplyresume.llmutils.doubao;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zyh.easyapplyresume.model.form.admin.AdminLlmUtilsInfoForm;
+import com.zyh.easyapplyresume.service.admin.AdminLlmUtilsInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.openai.OpenAiChatModel;
@@ -23,6 +25,9 @@ public class AIResumeFeedbackGenerator {
 
     @Autowired
     private OpenAiChatModel doubaoModel;
+
+    @Autowired
+    private AdminLlmUtilsInfoService adminLlmUtilsInfoService;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -96,6 +101,14 @@ public class AIResumeFeedbackGenerator {
                     .user(prompt)
                     .call()
                     .content();
+            AdminLlmUtilsInfoForm adminLlmUtilsInfoForm = new AdminLlmUtilsInfoForm();
+            adminLlmUtilsInfoForm.setLlmUtilsInfoToolClass("AIResumeFeedbackGenerator");
+            adminLlmUtilsInfoForm.setLlmUtilsInfoToolDescription("AI简历反馈生成器-使用豆包大模型(Doubao-1.5-pro-32k)生成详细的简历修改建议");
+            adminLlmUtilsInfoForm.setLlmUtilsInfoModelProvider("火山方舟");
+            adminLlmUtilsInfoForm.setLlmUtilsInfoModelName("Doubao-1.5-pro-32k");
+            adminLlmUtilsInfoForm.setLlmUtilsInfoInputContent(prompt.toString());
+            adminLlmUtilsInfoForm.setLlmUtilsInfoOutputResult(response);
+
 
             return parseFeedbackResult(response);
         } catch (Exception e) {
