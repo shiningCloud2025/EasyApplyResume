@@ -7,7 +7,7 @@
           <div class="bg-circle bg-circle-2"></div>
           <div class="bg-circle bg-circle-3"></div>
         </div>
-        
+
         <el-card class="main-card" shadow="hover">
           <div class="welcome-content">
             <div class="icon-wrapper">
@@ -15,10 +15,10 @@
                 <i class="el-icon-search"></i>
               </div>
             </div>
-            
+
             <h2>SearchAPI平台</h2>
             <p class="subtitle">实时Google搜索API，提供便捷的SERP数据抓取服务</p>
-            
+
             <div class="features">
               <div class="feature-item">
                 <div class="feature-icon">
@@ -57,7 +57,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="action-section">
               <div class="action-content">
                 <div class="action-icon">
@@ -68,9 +68,9 @@
                   <p>点击下方按钮在新窗口中访问SearchAPI平台</p>
                 </div>
               </div>
-              <el-button 
-                size="large" 
-                type="primary" 
+              <el-button
+                size="large"
+                type="primary"
                 @click="openPlatform"
                 class="action-button"
                 :loading="loading"
@@ -79,7 +79,7 @@
                 打开SearchAPI平台
               </el-button>
             </div>
-            
+
             <div class="quick-info">
               <div class="info-item">
                 <i class="el-icon-link"></i>
@@ -150,7 +150,7 @@ const openPlatform = async () => {
   border-radius: 50%;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
   animation: float 6s ease-in-out infinite;
-  
+
   &.bg-circle-1 {
     width: 200px;
     height: 200px;
@@ -158,7 +158,7 @@ const openPlatform = async () => {
     left: 10%;
     animation-delay: 0s;
   }
-  
+
   &.bg-circle-2 {
     width: 150px;
     height: 150px;
@@ -166,7 +166,7 @@ const openPlatform = async () => {
     right: 10%;
     animation-delay: 2s;
   }
-  
+
   &.bg-circle-3 {
     width: 100px;
     height: 100px;
@@ -188,7 +188,7 @@ const openPlatform = async () => {
   overflow: hidden;
   transition: all 0.3s ease;
   height: 100%;
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 15px 35px rgba(19, 194, 194, 0.2);
@@ -207,7 +207,7 @@ const openPlatform = async () => {
 
 .icon-wrapper {
   margin-bottom: 15px;
-  
+
   .icon-bg {
     display: inline-flex;
     align-items: center;
@@ -219,7 +219,7 @@ const openPlatform = async () => {
     box-shadow: 0 10px 25px rgba(19, 194, 194, 0.3);
     position: relative;
     overflow: hidden;
-    
+
     &::before {
       content: '';
       position: absolute;
@@ -230,7 +230,7 @@ const openPlatform = async () => {
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
       animation: shine 3s infinite;
     }
-    
+
     i {
       font-size: 24px;
       color: white;
@@ -266,7 +266,7 @@ h2 {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 12px;
   margin: 20px 0;
-  
+
   .feature-item {
     display: flex;
     flex-direction: column;
@@ -276,13 +276,13 @@ h2 {
     border-radius: 12px;
     transition: all 0.3s ease;
     border: 1px solid rgba(19, 194, 194, 0.1);
-    
+
     &:hover {
       transform: translateY(-4px) scale(1.02);
       box-shadow: 0 12px 25px rgba(19, 194, 194, 0.2);
       background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
     }
-    
+
     .feature-icon {
       display: flex;
       align-items: center;
@@ -292,13 +292,13 @@ h2 {
       border-radius: 10px;
       background: linear-gradient(135deg, #13c2c2 0%, #08979c 100%);
       margin-bottom: 8px;
-      
+
       i {
         font-size: 14px;
         color: white;
       }
     }
-    
+
     .feature-content {
       .feature-title {
         display: block;
@@ -307,7 +307,7 @@ h2 {
         color: #1a202c;
         margin-bottom: 3px;
       }
-      
+
       .feature-desc {
         font-size: 10px;
         color: #718096;
@@ -324,7 +324,7 @@ h2 {
   border: 1px solid rgba(19, 194, 194, 0.2);
   position: relative;
   overflow: hidden;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -335,14 +335,14 @@ h2 {
     background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
     animation: shimmer 2s infinite;
   }
-  
+
   .action-content {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
     margin-bottom: 15px;
-    
+
     .action-icon {
       display: flex;
       align-items: center;
@@ -351,23 +351,23 @@ h2 {
       height: 30px;
       border-radius: 8px;
       background: linear-gradient(135deg, #13c2c2 0%, #08979c 100%);
-      
+
       i {
         font-size: 12px;
         color: white;
       }
     }
-    
+
     .action-text {
       text-align: left;
-      
+
       h3 {
         margin: 0 0 4px 0;
         color: #1a202c;
         font-size: 16px;
         font-weight: 600;
       }
-      
+
       p {
         margin: 0;
         color: #4a5568;
@@ -375,7 +375,7 @@ h2 {
       }
     }
   }
-  
+
   .action-button {
     font-size: 14px;
     padding: 8px 20px;
@@ -384,12 +384,12 @@ h2 {
     border: none;
     font-weight: 600;
     transition: all 0.3s ease;
-    
+
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 25px rgba(19, 194, 194, 0.4);
     }
-    
+
     i {
       margin-right: 8px;
     }
@@ -411,14 +411,14 @@ h2 {
   justify-content: center;
   gap: 20px;
   margin-top: 15px;
-  
+
   .info-item {
     display: flex;
     align-items: center;
     gap: 5px;
     color: #718096;
     font-size: 10px;
-    
+
     i {
       color: #13c2c2;
     }
@@ -429,39 +429,39 @@ h2 {
   .api-docs {
     padding: 16px;
   }
-  
+
   .welcome-content {
     padding: 25px 20px;
-    
+
     h2 {
       font-size: 20px;
     }
-    
+
     .subtitle {
       font-size: 14px;
     }
   }
-  
+
   .features {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 12px;
   }
-  
+
   .action-section {
     padding: 20px 15px;
-    
+
     .action-content {
       flex-direction: column;
       gap: 12px;
       text-align: center;
     }
   }
-  
+
   .quick-info {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .bg-circle-1 { width: 80px; height: 80px; }
   .bg-circle-2 { width: 60px; height: 60px; }
   .bg-circle-3 { width: 40px; height: 40px; }

@@ -36,6 +36,11 @@ request.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
+      console.warn('[ad_monitor] 接口返回401，准备清理登录态并跳转登录页:', {
+        url: error.config?.url,
+        method: error.config?.method,
+        message: error.response?.data?.message || error.message
+      })
       localStorage.removeItem('monitor_token')
       window.location.href = '/login'
     } else {

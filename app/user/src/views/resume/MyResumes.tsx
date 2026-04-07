@@ -1,28 +1,32 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { 
-  Card, 
-  Button, 
-  Input, 
-  Empty, 
-  Modal, 
+import {
+  Card,
+  Button,
+  Input,
+  Empty,
+  Modal,
   message,
   Tag,
   Tooltip,
   Spin,
   Tabs,
   Form,
-  Select
+  Select,
+  Upload
 } from 'antd'
-import { 
-  PlusOutlined, 
-  EditOutlined, 
-  DeleteOutlined, 
-  CopyOutlined, 
+import {
+  PlusOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  CopyOutlined,
   EyeOutlined,
   HeartOutlined,
   RestOutlined,
-  SendOutlined
+  SendOutlined,
+  ImportOutlined,
+  InboxOutlined
 } from '@ant-design/icons'
+import type { UploadFile } from 'antd/es/upload/interface'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { resumeAPI, ResumeSearchQuery } from '@api/resume'
 import { useNavigate } from 'react-router-dom'
@@ -37,6 +41,7 @@ import '@wangeditor/editor/dist/css/style.css'
 import './MyResumes.scss'
 
 const { Search } = Input
+const { Dragger } = Upload
 
 // React代码预览组件（小尺寸）
 const ReactCodePreview: React.FC<{ code: string }> = ({ code }) => {
@@ -94,7 +99,12 @@ const MyResumes: React.FC = () => {
   const [editModalVisible, setEditModalVisible] = useState(false)
   const [editingResume, setEditingResume] = useState<UserResume | null>(null)
   const [newResumeName, setNewResumeName] = useState('')
-  
+  const [importModalVisible, setImportModalVisible] = useState(false)
+  const [importResumeName, setImportResumeName] = useState('')
+  const [importIndustryCode, setImportIndustryCode] = useState<number>(1)
+  const [importFileList, setImportFileList] = useState<UploadFile[]>([])
+  const [importing, setImporting] = useState(false)
+
   // 发送给HR相关状态
   const [sendModalVisible, setSendModalVisible] = useState(false)
   const [sendingResume, setSendingResume] = useState<UserResume | null>(null)
@@ -107,6 +117,15 @@ const MyResumes: React.FC = () => {
   const [editor, setEditor] = useState<IDomEditor | null>(null)
   const [attachmentFormat, setAttachmentFormat] = useState<'png' | 'word' | 'pdf'>('pdf')
   const hiddenPreviewRef = useRef<HTMLDivElement>(null)
+
+  const industryOptions = [
+    { value: 1, label: '互联网' },
+    { value: 2, label: '金融' },
+    { value: 3, label: '教育' },
+    { value: 4, label: '医疗' },
+    { value: 5, label: '制造业' },
+    { value: 6, label: '其他' }
+  ]
 
   // wangEditor 配置
   const toolbarConfig: Partial<IToolbarConfig> = {
@@ -206,7 +225,7 @@ const MyResumes: React.FC = () => {
 
   // 修改简历名称mutation
   const updateNameMutation = useMutation(
-    (params: { resumeSortedNum: number; resumeName: string }) => 
+    (params: { resumeSortedNum: number; resumeName: string }) =>
       resumeAPI.updateResumeName(user!.userId, params.resumeSortedNum, params.resumeName),
     {
       onSuccess: () => {
@@ -233,6 +252,41 @@ const MyResumes: React.FC = () => {
     } else {
       // 搜索我的收藏 - 手动触发重新查询
       setTimeout(() => refetchCollections(), 0)
+    }
+  }
+
+  const handleImportResume = async () => {
+    if (!user?.userId) {
+      message.warning('请先登录')
+      return
+    }
+
+    const currentFile = importFileList[0]?.originFileObj
+    if (!currentFile) {
+      message.warning('请先选择要导入的简历文件')
+      return
+    }
+
+    setImporting(true)
+    try {
+      await resumeAPI.importResume({
+        userId: user.userId,
+        file: currentFile,
+        industryCode: importIndustryCode,
+        resumeName: importResumeName
+      })
+      message.success('简历导入成功')
+      setImportModalVisible(false)
+      setImportResumeName('')
+      setImportIndustryCode(1)
+      setImportFileList([])
+      queryClient.invalidateQueries(['user-resumes', user.userId])
+      refetch()
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || '导入简历失败'
+      message.error(errorMsg)
+    } finally {
+      setImporting(false)
     }
   }
 
@@ -318,7 +372,7 @@ const MyResumes: React.FC = () => {
   // 将简历转换为指定格式的文件
   const generateResumeFile = async (resume: UserResume, format: 'png' | 'word' | 'pdf'): Promise<File> => {
     const resumeName = resume.userSaveResumeResumeName || '简历'
-    
+
     if (format === 'png') {
       // PNG格式
       if (!hiddenPreviewRef.current) {
@@ -334,7 +388,7 @@ const MyResumes: React.FC = () => {
       })
       return new File([blob], `${resumeName}.png`, { type: 'image/png' })
     }
-    
+
     if (format === 'word') {
       // Word格式 - 使用隐藏预览区域的HTML
       if (!hiddenPreviewRef.current) {
@@ -350,7 +404,7 @@ const MyResumes: React.FC = () => {
       const blob = new Blob([wordContent], { type: 'application/msword' })
       return new File([blob], `${resumeName}.doc`, { type: 'application/msword' })
     }
-    
+
     if (format === 'pdf') {
       // PDF格式 - 使用html2canvas和jsPDF
       if (!hiddenPreviewRef.current) {
@@ -369,14 +423,14 @@ const MyResumes: React.FC = () => {
       const pdfBlob = pdf.output('blob')
       return new File([pdfBlob], `${resumeName}.pdf`, { type: 'application/pdf' })
     }
-    
+
     throw new Error('不支持的格式')
   }
 
   // 确认发送
   const confirmSend = async () => {
     if (!sendingResume) return
-    
+
     // 邮箱校验
     const email = sendForm.targetEmail.trim()
     if (!email) {
@@ -392,7 +446,7 @@ const MyResumes: React.FC = () => {
       message.warning('邮箱格式不正确')
       return
     }
-    
+
     // 标题校验
     const title = sendForm.title.trim()
     if (!title) {
@@ -403,14 +457,14 @@ const MyResumes: React.FC = () => {
       message.warning('标题长度不能超过35个字符')
       return
     }
-    
+
     // 内容校验
     const content = sendForm.content.replace(/<[^>]+>/g, '').trim()
     if (!content) {
       message.warning('请输入邮件内容')
       return
     }
-    
+
     setSending(true)
     try {
       // 根据选择的格式生成文件
@@ -435,8 +489,8 @@ const MyResumes: React.FC = () => {
   return (
     <div className="my-resumes">
       <div className="page-header">
-        <Tabs 
-          activeKey={activeTab} 
+        <Tabs
+          activeKey={activeTab}
           onChange={setActiveTab}
           items={[
             { key: 'my-resumes', label: '我的简历' },
@@ -446,11 +500,16 @@ const MyResumes: React.FC = () => {
       </div>
 
       <Card className="filter-card" style={{ marginBottom: 24 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="resume-filter-bar">
           <Search placeholder="搜索简历名称" onSearch={handleSearch} style={{ width: 300 }} allowClear />
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => navigate('/resume/templates')}>
-            创建新简历
-          </Button>
+          <div className="resume-page-actions">
+            <Button type="primary" size="middle" icon={<ImportOutlined />} onClick={() => setImportModalVisible(true)}>
+              导入简历
+            </Button>
+            <Button type="primary" size="middle" icon={<PlusOutlined />} onClick={() => navigate('/resume/templates')}>
+              创建新简历
+            </Button>
+          </div>
         </div>
       </Card>
 
@@ -552,6 +611,82 @@ const MyResumes: React.FC = () => {
           </div>
         )
       )}
+
+      {/* 导入简历弹窗 */}
+      <Modal
+        title="导入已有简历"
+        open={importModalVisible}
+        onCancel={() => {
+          setImportModalVisible(false)
+          setImportResumeName('')
+          setImportIndustryCode(1)
+          setImportFileList([])
+        }}
+        footer={[
+          <Button
+            key="cancel"
+            onClick={() => {
+              setImportModalVisible(false)
+              setImportResumeName('')
+              setImportIndustryCode(1)
+              setImportFileList([])
+            }}
+          >
+            取消
+          </Button>,
+          <Button key="import" type="primary" icon={<ImportOutlined />} onClick={handleImportResume} loading={importing}>
+            开始导入
+          </Button>
+        ]}
+      >
+        <Form layout="vertical">
+          <Form.Item label="简历名称">
+            <Input
+              placeholder="可选，不填则使用系统默认名称"
+              value={importResumeName}
+              onChange={(e) => setImportResumeName(e.target.value)}
+              maxLength={50}
+              showCount
+            />
+          </Form.Item>
+          <Form.Item label="所属行业" required>
+            <Select
+              value={importIndustryCode}
+              onChange={setImportIndustryCode}
+              options={industryOptions}
+            />
+          </Form.Item>
+          <Form.Item label="简历文件" required extra="支持上传已有简历文件，导入后将自动创建一份新的简历。">
+            <Dragger
+              multiple={false}
+              accept=".pdf,.doc,.docx,.txt,.md"
+              beforeUpload={(file) => {
+                setImportFileList([
+                  {
+                    uid: file.uid,
+                    name: file.name,
+                    status: 'done',
+                    size: file.size,
+                    type: file.type,
+                    originFileObj: file
+                  }
+                ])
+                return false
+              }}
+              onRemove={() => {
+                setImportFileList([])
+              }}
+              fileList={importFileList}
+            >
+              <p className="ant-upload-drag-icon">
+                <InboxOutlined />
+              </p>
+              <p className="ant-upload-text">点击或拖拽文件到此区域上传</p>
+              <p className="ant-upload-hint">建议上传 PDF / Word / TXT / Markdown 格式的简历文件</p>
+            </Dragger>
+          </Form.Item>
+        </Form>
+      </Modal>
 
       {/* 编辑简历名称弹窗 */}
       <Modal
@@ -676,17 +811,17 @@ const MyResumes: React.FC = () => {
         </Form>
         {/* 隐藏的简历预览区域，用于生成PDF/Word/PNG */}
         {sendingResume && (
-          <div 
+          <div
             ref={hiddenPreviewRef}
-            style={{ 
-              position: 'absolute', 
-              left: '-9999px', 
+            style={{
+              position: 'absolute',
+              left: '-9999px',
               top: 0,
               width: '794px',
               background: '#fff'
             }}
           >
-            <LiveProvider 
+            <LiveProvider
               code={(() => {
                 let processed = (sendingResume.userSaveResumeResumeReactCode || '')
                   .replace(/import\s+.*?from\s+['"].*?['"]\s*;?/g, '')
@@ -710,7 +845,7 @@ const MyResumes: React.FC = () => {
       </Modal>
 
       {/* 回收站入口 */}
-      <div 
+      <div
         className="recycle-bin-entry"
         onClick={handleOpenRecycleBin}
         style={{

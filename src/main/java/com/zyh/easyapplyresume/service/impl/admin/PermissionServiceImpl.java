@@ -40,12 +40,17 @@ public class PermissionServiceImpl implements PermissionService {
             return 0;
         }
         PermissionFormValidator.validateForAdd(permissionForm);
+        validatePermissionUnique(permissionForm);
         Permission permission = new Permission();
         BeanUtils.copyProperties(permissionForm, permission);
         try{
             return permissionMapper.insert(permission);
-        }catch (Exception e){
-            throw resolveDbException(e);
+        }catch (BusException e){
+             throw e;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("新增权限失败");
         }
     }
 
@@ -55,38 +60,50 @@ public class PermissionServiceImpl implements PermissionService {
             return 0;
         }
         PermissionFormValidator.validateForUpdate(permissionForm);
+        validatePermissionUnique(permissionForm);
         Permission permission = new Permission();
         BeanUtils.copyProperties(permissionForm, permission);
         try{
             return permissionMapper.updateById(permission);
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
-            throw resolveDbException(e);
+            e.printStackTrace();
+            throw new RuntimeException("修改权限失败");
         }
     }
 
-    private BusException resolveDbException(Exception e) {
-        String errorMsg = e.getMessage();
-
-        // 1. 处理唯一约束冲突（匹配MySQL唯一冲突关键字或DuplicateKeyException）
-        if (errorMsg != null && (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException)) {
-            // 匹配权限名字段或其唯一索引（如idx_permission_name）
-            if (errorMsg.contains("permission_name") || errorMsg.contains("admin_permission_pk")) {
-                return new BusException(AdminCodeEnum.PERMISSION_NAME_DUPLICATE);
-            }
-            // 匹配权限URL字段或其唯一索引（如idx_permission_url）
-            else if (errorMsg.contains("permission_url") || errorMsg.contains("admin_permission_pk_2")) {
-                return new BusException(AdminCodeEnum.PERMISSION_URL_DUPLICATE);
-            }
+    private void validatePermissionUnique(PermissionForm permissionForm) {
+        // 1. 校验权限名称是否重复
+        LambdaQueryWrapper<Permission> nameWrapper = lambdaQuery(Permission.class);
+        nameWrapper.eq(Permission::getDeleted, 0);
+        nameWrapper.eq(Permission::getPermissionName, permissionForm.getPermissionName());
+        if (permissionForm.getPermissionId() != null) {
+            nameWrapper.ne(Permission::getPermissionId, permissionForm.getPermissionId());
+        }
+        Long nameCount = permissionMapper.selectCount(nameWrapper);
+        if (nameCount != null && nameCount > 0) {
+            throw new BusException(AdminCodeEnum.PERMISSION_NAME_DUPLICATE);
         }
 
-        // 兜底：未匹配到权限唯一冲突，返回异常转换失败枚举
-        return new BusException(AdminCodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
+        // 2. 校验权限URL是否重复
+        LambdaQueryWrapper<Permission> urlWrapper = lambdaQuery(Permission.class);
+        urlWrapper.eq(Permission::getDeleted, 0);
+        urlWrapper.eq(Permission::getPermissionUrl, permissionForm.getPermissionUrl());
+        if (permissionForm.getPermissionId() != null) {
+            urlWrapper.ne(Permission::getPermissionId, permissionForm.getPermissionId());
+        }
+        Long urlCount = permissionMapper.selectCount(urlWrapper);
+        if (urlCount != null && urlCount > 0) {
+            throw new BusException(AdminCodeEnum.PERMISSION_URL_DUPLICATE);
+        }
     }
 
     @Override
     public Integer deletePermission(Integer permissionId) {
         // TODO 后续要加一个只有超级管理员才能删除
         Permission permission = new Permission();
+        permission.setPermissionId(permissionId);
         permission.setDeleted(1);
         permissionMapper.updateById(permission);
         return permissionMapper.deleteRolePermissionByPermissionId(permissionId);
@@ -152,7 +169,9 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<PermissionInfoVO> findAllPermission() {
-        List<Permission> permissions = permissionMapper.selectList(null);
+        LambdaQueryWrapper<Permission> lambdaQueryWrapper = lambdaQuery(Permission.class);
+        lambdaQueryWrapper.eq(Permission::getDeleted, 0);
+        List<Permission> permissions = permissionMapper.selectList(lambdaQueryWrapper);
         List<PermissionInfoVO> permissionInfoVOs = BeanUtil.copyToList(permissions, PermissionInfoVO.class);
         return permissionInfoVOs;
 

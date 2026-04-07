@@ -82,6 +82,11 @@ request.interceptors.response.use(
     if (data.code !== 200) {
       // 401: 未登录 或 Token失效
       if (data.code === 401) {
+        console.warn('[user] 业务码401，准备清理登录态并跳转登录页:', {
+          url: response.config?.url,
+          method: response.config?.method,
+          message: data.message
+        })
         message.error('未登录，请先登录')
         removeToken()
         setTimeout(() => {
@@ -103,13 +108,20 @@ request.interceptors.response.use(
   },
   (error) => {
     let errorMessage = '网络错误'
-    
-    if (error.response) {
+
+    if (error.code === 'ECONNABORTED' || String(error.message || '').toLowerCase().includes('timeout')) {
+      errorMessage = '请求超时，请稍后重试'
+    } else if (error.response) {
       switch (error.response.status) {
         case 400:
           errorMessage = '请求参数错误'
           break
         case 401:
+          console.warn('[user] HTTP 401，准备清理登录态并跳转登录页:', {
+            url: error.config?.url,
+            method: error.config?.method,
+            message: error.response?.data?.message || error.message
+          })
           message.error('未登录，请先登录')
           removeToken()
           setTimeout(() => {

@@ -10,6 +10,29 @@
   .filter-card {
     margin-bottom: 24px;
     border-radius: 8px;
+
+    .resume-filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .resume-page-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+
+      .ant-btn {
+        height: 32px;
+        padding: 0 14px;
+        border-radius: 6px;
+        font-weight: 500;
+        box-shadow: none;
+      }
+    }
   }
 
   .resume-grid {

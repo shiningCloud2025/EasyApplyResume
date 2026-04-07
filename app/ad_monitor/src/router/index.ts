@@ -157,6 +157,64 @@ const router = createRouter({
           component: () => import('@/views/main/security/Grafana.vue'),
           meta: { title: 'Grafana' }
         },
+        // 内部系统
+        {
+          path: 'system/user-portal',
+          name: 'SystemUserPortal',
+          component: () => import('@/views/main/security/UnifiedPortal.vue'),
+          meta: { title: '易投简历用户端' }
+        },
+        {
+          path: 'system/observation-portal',
+          name: 'SystemObservationPortal',
+          component: () => import('@/views/main/security/UnifiedPortal.vue'),
+          meta: { title: '易投简历监测与广告端' }
+        },
+        // 外部系统
+        {
+          path: 'external-platform/bailian',
+          name: 'ExternalBailianPlatform',
+          component: () => import('@/views/main/security/BailianPlatform.vue'),
+          meta: { title: '阿里云百炼平台' }
+        },
+        {
+          path: 'external-platform/sms',
+          name: 'ExternalSmsPlatform',
+          component: () => import('@/views/main/security/UnifiedPortal.vue'),
+          meta: { title: '阿里云短信平台' }
+        },
+        {
+          path: 'external-platform/searchapi',
+          name: 'ExternalSearchAPIPlatform',
+          component: () => import('@/views/main/security/SearchApiPlatform.vue'),
+          meta: { title: 'SearchAPI平台' }
+        },
+        {
+          path: 'external-platform/amap',
+          name: 'ExternalAmapPlatform',
+          component: () => import('@/views/main/security/UnifiedPortal.vue'),
+          meta: { title: '高德开放平台' }
+        },
+        // 自研平台
+        {
+          path: 'yapi/embed',
+          name: 'YApiEmbed',
+          component: () => import('@/views/main/security/UnifiedPortal.vue'),
+          meta: { title: 'YApi测试平台' }
+        },
+        // API文档中心
+        {
+          path: 'api-docs/external',
+          name: 'ExternalAPIDocs',
+          component: () => import('@/views/main/security/UnifiedPortal.vue'),
+          meta: { title: 'API对外文档中心' }
+        },
+        {
+          path: 'api-docs/internal',
+          name: 'InternalAPIDocs',
+          component: () => import('@/views/main/security/UnifiedPortal.vue'),
+          meta: { title: 'API对内文档中心' }
+        },
         // 个人中心
         {
           path: 'profile',
@@ -184,34 +242,11 @@ const router = createRouter({
 // 路由守卫
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
-
-  // 检查token
   const token = localStorage.getItem('monitor_token')
-  if (token) {
-    try {
-      const parts = token.split('.')
-      if (parts.length === 3) {
-        const payload = parts[1].replace(/-/g, '+').replace(/_/g, '/')
-        const jsonPayload = decodeURIComponent(
-          atob(payload + '='.repeat((4 - (payload.length % 4)) % 4))
-            .split('')
-            .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-            .join('')
-        )
-        const parsedPayload = JSON.parse(jsonPayload)
-        const currentTime = Math.floor(Date.now() / 1000)
 
-        if (parsedPayload.exp && parsedPayload.exp < currentTime) {
-          authStore.clearAuth()
-          next('/')
-          return
-        }
-      }
-    } catch (e) {
-      authStore.clearAuth()
-      next('/')
-      return
-    }
+  // 本地存在 token 时同步登录态，避免因前端自行解析 token 而误登出
+  if (token && !authStore.isLoggedIn) {
+    authStore.setToken(token)
   }
 
   // 已登录访问门户/登录页，跳转首页

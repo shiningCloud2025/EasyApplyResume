@@ -1,6 +1,26 @@
 import request from '@utils/request'
 import type { PaginationParams } from '@types/index'
 
+export interface AIResumeFeedbackDetail {
+  section: string
+  currentIssue: string
+  suggestion: string
+  priority: string
+}
+
+export interface AIResumeImprovementArea {
+  area: string
+  improvements: string[]
+}
+
+export interface AIResumeFeedbackResult {
+  overallFeedback: string
+  detailedFeedback: AIResumeFeedbackDetail[]
+  improvementAreas: AIResumeImprovementArea[]
+  strengths: string[]
+  quickWins: string[]
+}
+
 // 简历搜索查询参数类型
 export interface ResumeSearchQuery {
   userSaveResumeResumeName?: string
@@ -54,6 +74,28 @@ export const resumeAPI = {
     })
   },
 
+  // 导入已有简历并创建
+  importResume: (data: {
+    userId: number
+    file: File
+    industryCode: number
+    resumeName?: string
+  }) => {
+    const formData = new FormData()
+    formData.append('file', data.file)
+    formData.append('userId', String(data.userId))
+    formData.append('industryCode', String(data.industryCode))
+    if (data.resumeName?.trim()) {
+      formData.append('resumeName', data.resumeName.trim())
+    }
+
+    return request.post('/user/saveResume/saveUserSaveResumeInfoFirstByImport', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  },
+
   // 获取用户所有简历（支持搜索）
   getUserResumes: (userId: number, query?: ResumeSearchQuery) => {
     return request.post('/user/saveResume/getUserSaveResumeInfoByUserId', query || {}, {
@@ -71,6 +113,38 @@ export const resumeAPI = {
   // 保存简历
   saveResume: (resumeData: any) => {
     return request.post('/user/saveResume/saveUserSaveResumeInfo', resumeData)
+  },
+
+  // AI辅助优化React代码
+  assistReactCodeByAI: (userRequest: string, currentReactCode: string) => {
+    return request.post('/user/saveResume/assistReactCodeByAI', null, {
+      params: { userRequest, currentReactCode },
+      timeout: 120000
+    })
+  },
+
+  // AI提取关键词
+  extractKeywordsByAI: (userId: number, resumeId: number) => {
+    return request.get('/user/saveResume/extractKeywordsByAI', {
+      params: { userId, resumeId },
+      timeout: 120000
+    })
+  },
+
+  // AI简历评分
+  scoreResumeByAI: (userId: number, resumeId: number) => {
+    return request.get('/user/saveResume/scoreByAI', {
+      params: { userId, resumeId },
+      timeout: 120000
+    })
+  },
+
+  // AI简历反馈
+  getResumeFeedbackByAI: (userId: number, resumeId: number) => {
+    return request.get<AIResumeFeedbackResult>('/user/saveResume/getFeedbackByAI', {
+      params: { userId, resumeId },
+      timeout: 120000
+    })
   },
 
   // 删除简历

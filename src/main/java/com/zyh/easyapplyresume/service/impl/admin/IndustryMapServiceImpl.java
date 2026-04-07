@@ -149,61 +149,71 @@ public class IndustryMapServiceImpl implements IndustryMapService {
 
     @Override
     public Page<IndustryMapPageVO> findIndustryMapByPage(Integer pageNum, Integer pageSize, IndustryMapQuery industryMapQuery) {
-        // 1. 生成缓存Key
-        String cacheKey = IndustryMapCacheKey.PAGE_PREFIX 
-                        + "_" + pageNum 
-                        + "_" + pageSize 
-                        + "_" + (industryMapQuery != null ? industryMapQuery.hashCode() : 0);
-        
-        // 2. 先查缓存
-        Object cached = redisCacheUtil.get(cacheKey);
-        if (cached != null) {
-            return (Page<IndustryMapPageVO>) cached;
-        }
-        
-        // 3. 缓存未命中，查数据库
-        // 构建 LambdaQueryWrapper（修正为实体类名：IndustryMap）
-        LambdaQueryWrapper<IndustryMap> lambdaQueryWrapper = lambdaQuery(IndustryMap.class);
-
-        // 2. 判空过滤：构建查询条件（行业代码精确查询，行业名称模糊查询）
-        // 行业代码：非空则精确匹配（编码是唯一标识，适合精确查询）
-        if (industryMapQuery.getIndustryMapIndustryCode() != null) {
-            lambdaQueryWrapper.eq(IndustryMap::getIndustryMapIndustryCode, industryMapQuery.getIndustryMapIndustryCode());
-        }
-
-        // 行业名称：非空且非空字符串则模糊查询（like %关键词%），trim()避免纯空格查询
-        if (industryMapQuery.getIndustryMapIndustryName() != null && !industryMapQuery.getIndustryMapIndustryName().trim().isEmpty()) {
-            lambdaQueryWrapper.like(IndustryMap::getIndustryMapIndustryName, industryMapQuery.getIndustryMapIndustryName().trim());
-        }
-
-        // 3. 调用 Mapper 分页查询（修正为 IndustryMapMapper，继承 BaseMapper 即可）
-        Page<IndustryMap> industryMapPage = industryMapMapper.selectPage(
-                new Page<>(pageNum, pageSize),  // 分页参数：当前页、每页条数
-                lambdaQueryWrapper              // 构建好的查询条件
+        boolean hasQueryCondition = industryMapQuery != null && (
+                industryMapQuery.getIndustryMapIndustryCode() != null
+                        || (industryMapQuery.getIndustryMapIndustryName() != null
+                        && !industryMapQuery.getIndustryMapIndustryName().trim().isEmpty())
         );
 
-        // 4. 实体转换：IndustryMap（数据库实体）→ IndustryMapPageVO（返回给前端的 VO）
+        String cacheKey = IndustryMapCacheKey.PAGE_PREFIX
+                + "_" + pageNum
+                + "_" + pageSize;
+
+        if (!hasQueryCondition) {
+            Object cached = redisCacheUtil.get(cacheKey);
+            if (cached != null) {
+                return (Page<IndustryMapPageVO>) cached;
+            }
+        }
+
+        // 构建 LambdaQueryWrapper
+        LambdaQueryWrapper<IndustryMap> lambdaQueryWrapper = lambdaQuery(IndustryMap.class);
+
+        // 判空过滤：构建查询条件
+        if (industryMapQuery != null) {
+            if (industryMapQuery.getIndustryMapIndustryCode() != null) {
+                lambdaQueryWrapper.eq(
+                        IndustryMap::getIndustryMapIndustryCode,
+                        industryMapQuery.getIndustryMapIndustryCode()
+                );
+            }
+
+            if (industryMapQuery.getIndustryMapIndustryName() != null
+                    && !industryMapQuery.getIndustryMapIndustryName().trim().isEmpty()) {
+                lambdaQueryWrapper.like(
+                        IndustryMap::getIndustryMapIndustryName,
+                        industryMapQuery.getIndustryMapIndustryName().trim()
+                );
+            }
+        }
+
+        // 调用 Mapper 分页查询
+        Page<IndustryMap> industryMapPage = industryMapMapper.selectPage(
+                new Page<>(pageNum, pageSize),
+                lambdaQueryWrapper
+        );
+
+        // 实体转换：IndustryMap -> IndustryMapPageVO
         List<IndustryMapPageVO> voList = industryMapPage.getRecords().stream()
                 .map(industryMap -> {
                     IndustryMapPageVO pageVO = new IndustryMapPageVO();
-                    // 复制同名字段（VO 和 IndustryMap 字段名+类型一致即可，如 industryMapIndustryCode/Name）
                     BeanUtils.copyProperties(industryMap, pageVO);
-
                     return pageVO;
                 })
                 .collect(Collectors.toList());
 
-        // 5. 封装 VO 分页对象（复制原始分页参数，保证分页逻辑正确）
+        // 封装 VO 分页对象
         Page<IndustryMapPageVO> industryMapVOPage = new Page<>();
-        industryMapVOPage.setRecords(voList);         // 转换后的 VO 列表
-        industryMapVOPage.setCurrent(industryMapPage.getCurrent()); // 当前页码
-        industryMapVOPage.setSize(industryMapPage.getSize());       // 每页条数
-        industryMapVOPage.setTotal(industryMapPage.getTotal());     // 总数据量
-        industryMapVOPage.setPages(industryMapPage.getPages());     // 总页数
+        industryMapVOPage.setRecords(voList);
+        industryMapVOPage.setCurrent(industryMapPage.getCurrent());
+        industryMapVOPage.setSize(industryMapPage.getSize());
+        industryMapVOPage.setTotal(industryMapPage.getTotal());
+        industryMapVOPage.setPages(industryMapPage.getPages());
 
-        // 4. 写入缓存
-        redisCacheUtil.set(cacheKey, industryMapVOPage, IndustryMapCacheKey.PAGE_TTL, TimeUnit.MINUTES);
-        
+        if (!hasQueryCondition) {
+            redisCacheUtil.set(cacheKey, industryMapVOPage, IndustryMapCacheKey.PAGE_TTL, TimeUnit.MINUTES);
+        }
+
         return industryMapVOPage;
     }
 

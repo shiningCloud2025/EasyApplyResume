@@ -143,11 +143,11 @@
           </el-menu-item>
         </el-sub-menu>
 
-        <!-- 外部API -->
+        <!-- 外部系统 -->
         <el-sub-menu index="external-api">
           <template #title>
             <el-icon><Connection /></el-icon>
-            <span>外部API</span>
+            <span>外部系统</span>
           </template>
           <el-menu-item index="/admin/external-api/bailian">
             <el-icon><MagicStick /></el-icon>
@@ -164,6 +164,18 @@
           <el-menu-item index="/admin/external-api/amap">
             <el-icon><Location /></el-icon>
             <span>高德开放平台</span>
+          </el-menu-item>
+        </el-sub-menu>
+
+        <!-- 自研平台 -->
+        <el-sub-menu index="/admin/yapi">
+          <template #title>
+            <el-icon><Connection /></el-icon>
+            <span>自研平台</span>
+          </template>
+          <el-menu-item index="/admin/yapi/embed">
+            <el-icon><Link /></el-icon>
+            <span>YApi测试平台</span>
           </el-menu-item>
         </el-sub-menu>
 
@@ -532,11 +544,13 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/feedback/records': '管理端反馈记录',
     '/admin/api-docs': 'API对外文档中心',
     'internal-api-docs': 'API对内文档中心',
-    '/admin/external-api': '外部API',
+    '/admin/external-api': '外部系统',
     '/admin/external-api/bailian': '阿里云百炼平台',
     '/admin/external-api/sms': '阿里云短信平台',
     '/admin/external-api/searchapi': 'SearchAPI平台',
-    '/admin/external-api/amap': '高德开放平台'
+    '/admin/external-api/amap': '高德开放平台',
+    '/admin/yapi': '自研平台',
+    '/admin/yapi/embed': 'YApi测试平台'
   }
 
   const breadcrumbs = []

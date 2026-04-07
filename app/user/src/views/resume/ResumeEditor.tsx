@@ -1,15 +1,18 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react'
-import { 
-  Button, 
-  Space, 
+import {
+  Button,
+  Space,
   message,
   Tooltip,
   Spin,
   Dropdown,
-  Segmented
+  Segmented,
+  Modal,
+  Input,
+  Tag
 } from 'antd'
-import { 
-  SaveOutlined, 
+import {
+  SaveOutlined,
   DownloadOutlined,
   ArrowLeftOutlined,
   MenuFoldOutlined,
@@ -33,7 +36,11 @@ import {
   UnorderedListOutlined,
   ColumnWidthOutlined,
   LineHeightOutlined,
-  CompressOutlined
+  CompressOutlined,
+  RobotOutlined,
+  StarOutlined,
+  CommentOutlined,
+  ThunderboltOutlined
 } from '@ant-design/icons'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery } from 'react-query'
@@ -45,11 +52,19 @@ import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
 import './ResumeEditor.scss'
 
+const { TextArea } = Input
+
 const ResumeEditor: React.FC = () => {
   const { sortedNum } = useParams<{ sortedNum: string }>()
   const navigate = useNavigate()
   const { user } = useUserStore()
   const [saving, setSaving] = useState(false)
+  const [extractingKeywords, setExtractingKeywords] = useState(false)
+  const [scoringResume, setScoringResume] = useState(false)
+  const [generatingFeedback, setGeneratingFeedback] = useState(false)
+  const [assistingReactCode, setAssistingReactCode] = useState(false)
+  const [aiAssistantModalOpen, setAiAssistantModalOpen] = useState(false)
+  const [aiAssistantRequirement, setAiAssistantRequirement] = useState('请帮我优化这份 React 简历代码，保持原有内容语义不变，重点优化结构、可读性、样式一致性和可维护性。')
   const [exporting, setExporting] = useState(false)
   const [lastSaved, setLastSaved] = useState('')
   const [hasChanges, setHasChanges] = useState(false)
@@ -103,12 +118,13 @@ const ResumeEditor: React.FC = () => {
   }
 
   // 保存
-  const handleSave = async () => {
-    if (!user) return
+  const handleSave = async (options?: { showSuccessMessage?: boolean }) => {
+    if (!user) return false
+    const showSuccessMessage = options?.showSuccessMessage ?? true
     setSaving(true)
     try {
       let codeToSave = code
-      
+
       // 如果是可视化编辑模式，从预览区获取内容并转换为 React 代码
       if (editMode === 'visual' && previewRef.current) {
         const htmlContent = previewRef.current.innerHTML
@@ -117,7 +133,7 @@ const ResumeEditor: React.FC = () => {
           .replace(/\\/g, '\\\\')
           .replace(/`/g, '\\`')
           .replace(/\$\{/g, '\\${') // 只转义 ${ 组合
-        
+
         // 转换为简单的 React 组件
         codeToSave = 'const ResumeTemplate = () => {\n' +
           '  return (\n' +
@@ -126,9 +142,9 @@ const ResumeEditor: React.FC = () => {
           '}\n\n' +
           'render(<ResumeTemplate />)'
       }
-      
+
       console.log('保存的代码:', codeToSave.substring(0, 200)) // 调试
-      
+
       await resumeAPI.saveResume({
         userSaveResumeId: resumeId, // 关键：传主键ID
         userSaveResumeSortedNum: Number(sortedNum),
@@ -139,13 +155,354 @@ const ResumeEditor: React.FC = () => {
       setCode(codeToSave)
       setLastSaved(new Date().toLocaleTimeString('zh-CN'))
       setHasChanges(false)
-      message.success('保存成功')
+      if (showSuccessMessage) {
+        message.success('保存成功')
+      }
+      return true
     } catch (error: any) {
       console.error('保存失败:', error)
       const errorMsg = error?.response?.data?.message || error?.message || '保存失败'
       message.error(errorMsg)
+      return false
     } finally {
       setSaving(false)
+    }
+  }
+
+  const ensureResumeSaved = async () => {
+    if (!resumeId) {
+      message.warning('当前简历信息未加载完成，请稍后重试')
+      return false
+    }
+
+    if (!hasChanges) {
+      return true
+    }
+
+    message.loading({ content: '正在先保存简历...', key: 'resume-ai-save' })
+    const saved = await handleSave({ showSuccessMessage: false })
+    message.destroy('resume-ai-save')
+
+    if (saved) {
+      message.success('简历已保存，正在执行AI分析')
+    }
+
+    return saved
+  }
+
+  const formatAIResultToChinese = (result: any) => {
+    const keywordLabelMap: Record<string, string> = {
+      skills: '技术关键词',
+      keywords: '高频关键词',
+      education: '教育关键词',
+      experience: '工作经验关键词',
+      strengths: '核心优势关键词'
+    }
+
+    if (!result || typeof result !== 'object' || Array.isArray(result)) {
+      return result
+    }
+
+    return Object.entries(result).reduce((acc, [key, value]) => {
+      const label = keywordLabelMap[key] || key
+      acc[label] = value
+      return acc
+    }, {} as Record<string, any>)
+  }
+
+  const formatAIScoreResultToChineseText = (result: any) => {
+    const scoreLabelMap: Record<string, string> = {
+      totalScore: '总分',
+      completenessScore: '完整度得分',
+      experienceScore: '经验质量得分',
+      skillsScore: '技能匹配度得分',
+      presentationScore: '呈现质量得分',
+      strengths: '优势亮点',
+      weaknesses: '不足之处',
+      suggestions: '优化建议',
+      level: '综合等级'
+    }
+
+    const formatScoreObject = (scoreData: Record<string, any>) => {
+      return Object.entries(scoreLabelMap)
+        .filter(([key]) => scoreData[key] !== undefined && scoreData[key] !== null)
+        .map(([key, label]) => {
+          const value = scoreData[key]
+          if (Array.isArray(value)) {
+            return `${label}：\n${value.map((item) => `- ${item}`).join('\n')}`
+          }
+          return `${label}：${value}`
+        })
+        .join('\n\n')
+    }
+
+    if (typeof result === 'string') {
+      try {
+        const parsed = JSON.parse(result)
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+          return formatScoreObject(parsed)
+        }
+        return result
+      } catch {
+        return result
+      }
+    }
+
+    if (result && typeof result === 'object' && !Array.isArray(result)) {
+      return formatScoreObject(result)
+    }
+
+    return String(result || '')
+  }
+
+  const getPriorityTagColor = (priority?: string) => {
+    if (priority === '高') return 'red'
+    if (priority === '中') return 'orange'
+    if (priority === '低') return 'blue'
+    return 'default'
+  }
+
+  const getPriorityLabel = (priority?: string) => {
+    if (priority === '高') return '建议优先修改'
+    if (priority === '中') return '建议尽快优化'
+    if (priority === '低') return '可进一步完善'
+    return priority || '未标注'
+  }
+
+  const openAIResultModal = (title: string, content: React.ReactNode, width = 720) => {
+    Modal.info({
+      title,
+      width,
+      okText: '知道了',
+      content,
+    })
+  }
+
+  const handleExtractKeywords = async () => {
+    if (!user?.userId) {
+      message.warning('请先登录')
+      return
+    }
+
+    if (!resumeId) {
+      message.warning('简历ID不存在，暂时无法提取关键词')
+      return
+    }
+
+    const saved = await ensureResumeSaved()
+    if (!saved) {
+      return
+    }
+
+    setExtractingKeywords(true)
+    try {
+      const response = await resumeAPI.extractKeywordsByAI(user.userId, resumeId)
+      const result = response?.data
+      const formattedResult = formatAIResultToChinese(result)
+      const resultText = typeof formattedResult === 'string'
+        ? formattedResult
+        : JSON.stringify(formattedResult, null, 2)
+
+      openAIResultModal(
+        'AI关键词提取结果',
+        <div className="ai-result-modal">
+          <pre>{resultText || '未返回关键词内容'}</pre>
+        </div>
+      )
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || 'AI关键词提取失败'
+      message.error(errorMsg)
+    } finally {
+      setExtractingKeywords(false)
+    }
+  }
+
+  const handleScoreResume = async () => {
+    if (!user?.userId) {
+      message.warning('请先登录')
+      return
+    }
+
+    if (!resumeId) {
+      message.warning('简历ID不存在，暂时无法进行AI评分')
+      return
+    }
+
+    const saved = await ensureResumeSaved()
+    if (!saved) {
+      return
+    }
+
+    setScoringResume(true)
+    try {
+      const response = await resumeAPI.scoreResumeByAI(user.userId, resumeId)
+      const result = response?.data
+      const resultText = formatAIScoreResultToChineseText(result)
+
+      openAIResultModal(
+        'AI简历评分结果',
+        <div className="ai-result-modal">
+          <pre>{resultText || '未返回评分内容'}</pre>
+        </div>
+      )
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || 'AI简历评分失败'
+      message.error(errorMsg)
+    } finally {
+      setScoringResume(false)
+    }
+  }
+
+  const handleGenerateResumeFeedback = async () => {
+    if (!user?.userId) {
+      message.warning('请先登录')
+      return
+    }
+
+    if (!resumeId) {
+      message.warning('简历ID不存在，暂时无法生成AI反馈')
+      return
+    }
+
+    const saved = await ensureResumeSaved()
+    if (!saved) {
+      return
+    }
+
+    setGeneratingFeedback(true)
+    try {
+      const response = await resumeAPI.getResumeFeedbackByAI(user.userId, resumeId)
+      const result = response?.data
+
+      openAIResultModal(
+        'AI简历反馈',
+        <div className="ai-feedback-modal">
+          <section className="feedback-section">
+            <h3>整体评价</h3>
+            <p>{result?.overallFeedback || '暂无整体评价'}</p>
+          </section>
+
+          <section className="feedback-section">
+            <h3>详细修改建议</h3>
+            {result?.detailedFeedback?.length ? (
+              result.detailedFeedback.map((item, index) => (
+                <div className="feedback-card" key={`${item.section}-${index}`}>
+                  <div className="feedback-card-header">
+                    <strong>{item.section || `建议 ${index + 1}`}</strong>
+                    <Tag color={getPriorityTagColor(item.priority)}>{getPriorityLabel(item.priority)}</Tag>
+                  </div>
+                  <p><span>当前问题：</span>{item.currentIssue || '暂无'}</p>
+                  <p><span>优化建议：</span>{item.suggestion || '暂无'}</p>
+                </div>
+              ))
+            ) : (
+              <p>暂无详细修改建议</p>
+            )}
+          </section>
+
+          <section className="feedback-section">
+            <h3>模块化改进方向</h3>
+            {result?.improvementAreas?.length ? (
+              result.improvementAreas.map((area, index) => (
+                <div className="feedback-card" key={`${area.area}-${index}`}>
+                  <strong>{area.area || `模块 ${index + 1}`}</strong>
+                  <ul>
+                    {(area.improvements || []).map((improvement, improvementIndex) => (
+                      <li key={improvementIndex}>{improvement}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))
+            ) : (
+              <p>暂无模块化改进方向</p>
+            )}
+          </section>
+
+          <section className="feedback-section two-column">
+            <div className="feedback-card compact">
+              <h3>简历亮点</h3>
+              {result?.strengths?.length ? (
+                <ul>
+                  {result.strengths.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>暂无亮点总结</p>
+              )}
+            </div>
+
+            <div className="feedback-card compact">
+              <h3>快速优化项</h3>
+              {result?.quickWins?.length ? (
+                <ul>
+                  {result.quickWins.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>暂无快速优化项</p>
+              )}
+            </div>
+          </section>
+        </div>,
+        880
+      )
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || 'AI简历反馈生成失败'
+      message.error(errorMsg)
+    } finally {
+      setGeneratingFeedback(false)
+    }
+  }
+
+  const handleOpenAiAssistant = () => {
+    if (!showCode) {
+      setShowCode(true)
+    }
+    if (editMode !== 'code') {
+      setEditMode('code')
+      message.info('已为你切换到代码编辑模式')
+    }
+    setAiAssistantModalOpen(true)
+  }
+
+  const handleAssistReactCode = async () => {
+    if (editMode !== 'code') {
+      message.warning('请先切换到代码编辑模式再使用 React 代码 AI 助手')
+      return
+    }
+
+    if (!code.trim()) {
+      message.warning('当前没有可优化的 React 代码')
+      return
+    }
+
+    const requirement = aiAssistantRequirement.trim()
+    if (!requirement) {
+      message.warning('请输入优化需求')
+      return
+    }
+
+    setAssistingReactCode(true)
+    try {
+      const response = await resumeAPI.assistReactCodeByAI(requirement, code)
+      const optimizedCode = response?.data
+
+      if (!optimizedCode || !String(optimizedCode).trim()) {
+        message.warning('AI 未返回可用代码')
+        return
+      }
+
+      setCode(String(optimizedCode))
+      setHasChanges(true)
+      setAiAssistantModalOpen(false)
+      message.success('AI 优化后的 React 代码已生成到代码编辑区')
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || 'React 代码 AI 助手调用失败'
+      message.error(errorMsg)
+    } finally {
+      setAssistingReactCode(false)
     }
   }
 
@@ -476,7 +833,8 @@ const ResumeEditor: React.FC = () => {
   }
 
   return (
-    <div className="resume-editor fullscreen">
+    <>
+      <div className="resume-editor fullscreen">
       {/* 顶部工具栏 */}
       <div className="editor-header">
         <div className="header-left">
@@ -491,22 +849,49 @@ const ResumeEditor: React.FC = () => {
         </div>
         
         <div className="header-right">
-          <Space>
+          <Space wrap>
             <Tooltip title="刷新">
-              <Button 
-                icon={<ReloadOutlined />} 
+              <Button
+                icon={<ReloadOutlined />}
                 onClick={handleRefresh}
                 loading={isLoading}
               />
             </Tooltip>
             <Tooltip title={showCode ? '隐藏代码' : '显示代码'}>
-              <Button 
-                icon={showCode ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />} 
+              <Button
+                icon={showCode ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
                 onClick={() => setShowCode(!showCode)}
               >
                 {showCode ? '隐藏代码' : '显示代码'}
               </Button>
             </Tooltip>
+            <Button
+              icon={<ThunderboltOutlined />}
+              onClick={handleOpenAiAssistant}
+            >
+              React代码AI助手
+            </Button>
+            <Button
+              icon={<CommentOutlined />}
+              loading={generatingFeedback}
+              onClick={handleGenerateResumeFeedback}
+            >
+              AI简历反馈
+            </Button>
+            <Button
+              icon={<RobotOutlined />}
+              loading={extractingKeywords}
+              onClick={handleExtractKeywords}
+            >
+              AI关键字提取
+            </Button>
+            <Button
+              icon={<StarOutlined />}
+              loading={scoringResume}
+              onClick={handleScoreResume}
+            >
+              AI简历打分
+            </Button>
             <Segmented
               value={editMode}
               onChange={(value) => setEditMode(value as 'visual' | 'code')}
@@ -520,11 +905,11 @@ const ResumeEditor: React.FC = () => {
                 导出
               </Button>
             </Dropdown>
-            <Button 
-              type="primary" 
+            <Button
+              type="primary"
               icon={<SaveOutlined />}
               loading={saving}
-              onClick={handleSave}
+              onClick={() => void handleSave()}
             >
               保存
             </Button>
@@ -680,7 +1065,33 @@ const ResumeEditor: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+
+      <Modal
+        title="React代码AI助手"
+        open={aiAssistantModalOpen}
+        onCancel={() => setAiAssistantModalOpen(false)}
+        onOk={() => void handleAssistReactCode()}
+        okText="生成并应用到代码区"
+        cancelText="取消"
+        confirmLoading={assistingReactCode}
+        width={760}
+        destroyOnClose
+      >
+        <div className="ai-assistant-form">
+          <p className="assistant-tip">
+            该功能会自动切换到代码编辑模式，并优化左侧代码编辑区中的 React 简历代码。AI 生成成功后，会直接覆盖到代码编辑区，请先确认当前代码已保存或可接受变更。
+          </p>
+          <TextArea
+            value={aiAssistantRequirement}
+            onChange={(e) => setAiAssistantRequirement(e.target.value)}
+            rows={6}
+            maxLength={500}
+            placeholder="请输入你希望 AI 如何优化这份 React 简历代码，例如：优化排版层级、统一标题样式、压缩重复结构、增强模块化。"
+          />
+        </div>
+      </Modal>
+    </>
   )
 }
 

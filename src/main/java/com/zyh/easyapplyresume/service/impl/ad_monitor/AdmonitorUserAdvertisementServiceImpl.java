@@ -220,7 +220,7 @@ public class AdmonitorUserAdvertisementServiceImpl implements AdmonitorUserAdver
             Page<AdmonitorUserAdvertisement> page = new Page<>(pageNum,pageSize);
             LambdaQueryWrapper<AdmonitorUserAdvertisement> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             if (admonitorUserAdvertisementQuery != null){
-                if (admonitorUserAdvertisementQuery.getAdvertisementName() != null&& admonitorUserAdvertisementQuery.getAdvertisementName().isEmpty()){
+                if (admonitorUserAdvertisementQuery.getAdvertisementName() != null&& !admonitorUserAdvertisementQuery.getAdvertisementName().isEmpty()){
                     lambdaQueryWrapper.like(AdmonitorUserAdvertisement::getAdvertisementName,admonitorUserAdvertisementQuery.getAdvertisementName());
                 }
             }

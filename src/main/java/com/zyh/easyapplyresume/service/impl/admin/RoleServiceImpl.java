@@ -41,12 +41,16 @@ public class RoleServiceImpl implements RoleService {
             return 0;
         }
         RoleFormValidator.validateForAdd(roleForm);
+        validateRoleUnique(roleForm);
         Role role = new Role();
         BeanUtils.copyProperties(roleForm, role);
         try{
             return roleMapper.insert(role);
-        }catch (DataAccessException e){
-            throw resolveDbException(e);
+        }catch (BusException e){
+            throw e;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("新增角色失败");
         }
     }
 
@@ -59,28 +63,33 @@ public class RoleServiceImpl implements RoleService {
             throw new BusException(AdminCodeEnum.NO_UPDATE_SUPER_ADMNIN_ROLE);
         }
         RoleFormValidator.validateForUpdate(roleForm);
+        validateRoleUnique(roleForm);
+
         Role role = new Role();
         BeanUtils.copyProperties(roleForm, role);
         try{
            return roleMapper.updateById(role);
-        }catch (DataAccessException e)
-        {
-            throw resolveDbException(e);
+        }catch (BusException e){
+            throw e;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new RuntimeException("修改角色失败");
         }
     }
 
-    private BusException resolveDbException(Exception e) {
-        String errorMsg = e.getMessage();
+    private void validateRoleUnique(RoleForm roleForm) {
+        LambdaQueryWrapper<Role> roleNameWrapper = lambdaQuery(Role.class);
+        roleNameWrapper.eq(Role::getDeleted, 0);
+        roleNameWrapper.eq(Role::getRoleName, roleForm.getRoleName());
 
-        // 1. 处理唯一约束冲突（DuplicateKeyException 或 SQLIntegrityConstraintViolationException）
-        if (errorMsg != null && (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException)) {
-            if (errorMsg.contains("role_name") || errorMsg.contains("admin_role_pk")) {
-                // 匹配角色名字段或角色名唯一索引
-                return new BusException(AdminCodeEnum.ROLE_NAME_DUPLICATE);
-            }
+        if (roleForm.getRoleId() != null) {
+            roleNameWrapper.ne(Role::getRoleId, roleForm.getRoleId());
         }
-        // 兜底：未匹配到角色唯一冲突，返回异常转换失败枚举
-        return new BusException(AdminCodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
+
+        Long roleNameCount = roleMapper.selectCount(roleNameWrapper);
+        if (roleNameCount != null && roleNameCount > 0) {
+            throw new BusException(AdminCodeEnum.ROLE_NAME_DUPLICATE);
+        }
     }
 
     @Override

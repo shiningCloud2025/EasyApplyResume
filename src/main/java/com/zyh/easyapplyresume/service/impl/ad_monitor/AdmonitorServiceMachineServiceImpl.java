@@ -19,6 +19,7 @@ import com.zyh.easyapplyresume.model.vo.ad_monitor.AdmonitorServiceMachinePageVO
 import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorServiceMachineService;
 import com.zyh.easyapplyresume.utils.admonitorvalidator.AdmonitorServiceMachineFormValidator;
+import com.zyh.easyapplyresume.utils.security.ServiceMachinePasswordCryptoUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ import java.io.InputStream;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -46,6 +48,8 @@ public class AdmonitorServiceMachineServiceImpl implements AdmonitorServiceMachi
             log.info("开始添加服务器");
             AdmonitorServiceMachineFormValidator.validateForAdd(admonitorServiceMachineForm);
             AdmonitorServiceMachine admonitorServiceMachine = BeanUtil.copyProperties(admonitorServiceMachineForm, AdmonitorServiceMachine.class);
+            String encryptedPassword = ServiceMachinePasswordCryptoUtil.encrypt(admonitorServiceMachine.getServiceMachinePassword());
+            admonitorServiceMachine.setServiceMachinePassword(encryptedPassword);
             admonitorServiceMachine.setServiceMachineCreatedTime(new Date());
             admonitorServiceMachine.setServiceMachineUpdatedTime(new Date());
             admonitorServiceMachine.setDeleted(0);
@@ -68,7 +72,24 @@ public class AdmonitorServiceMachineServiceImpl implements AdmonitorServiceMachi
         try{
             log.info("开始更新服务器");
             AdmonitorServiceMachineFormValidator.validateForUpdate(admonitorServiceMachineForm);
+            AdmonitorServiceMachine oldServiceMachine =
+                    admonitorServiceMachineMapper.selectById(admonitorServiceMachineForm.getServiceMachineId());
+            if (oldServiceMachine == null || oldServiceMachine.getDeleted() == 1) {
+                throw new RuntimeException("服务器不存在");
+            }
             AdmonitorServiceMachine admonitorServiceMachine = BeanUtil.copyProperties(admonitorServiceMachineForm, AdmonitorServiceMachine.class);
+            String submitPassword = admonitorServiceMachineForm.getServiceMachinePassword();
+            String dbPassword = oldServiceMachine.getServiceMachinePassword();
+
+            // 如果和数据库里的密码一样，说明前端传回来的就是原来的密文，不再重复加密
+            if (submitPassword.equals(dbPassword)) {
+                admonitorServiceMachine.setServiceMachinePassword(dbPassword);
+            } else {
+                // 如果不一样，说明用户输入了新密码，此时按明文处理并加密后再入库
+                admonitorServiceMachine.setServiceMachinePassword(
+                        ServiceMachinePasswordCryptoUtil.encrypt(submitPassword)
+                );
+            }
             admonitorServiceMachine.setServiceMachineUpdatedTime(new Date());
             return admonitorServiceMachineMapper.updateById(admonitorServiceMachine);
         }catch (BusException e){
@@ -124,7 +145,7 @@ public class AdmonitorServiceMachineServiceImpl implements AdmonitorServiceMachi
             Page<AdmonitorServiceMachine> page = new Page<>(pageNum,pageSize);
             LambdaQueryWrapper<AdmonitorServiceMachine> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             if (admonitorServiceMachineQuery != null){
-                if (admonitorServiceMachineQuery.getServiceMachineName() != null){
+                if (admonitorServiceMachineQuery.getServiceMachineName() != null && !admonitorServiceMachineQuery.getServiceMachineName().trim().isEmpty()){
                     lambdaQueryWrapper.like(AdmonitorServiceMachine::getServiceMachineName,admonitorServiceMachineQuery.getServiceMachineName());
                 }
             }
@@ -161,7 +182,10 @@ public class AdmonitorServiceMachineServiceImpl implements AdmonitorServiceMachi
         try{
             JSch jSch = new JSch();
             session = jSch.getSession(admonitorServiceMachineConnectForm.getServiceMachineUsername(),admonitorServiceMachineConnectForm.getServiceMachineHost(),admonitorServiceMachineConnectForm.getServiceMachinePort());
-            session.setPassword(admonitorServiceMachineConnectForm.getServiceMachinePassword());
+            String plainPassword = ServiceMachinePasswordCryptoUtil.decrypt(
+                    admonitorServiceMachineConnectForm.getServiceMachinePassword()
+            );
+            session.setPassword(plainPassword);
             // 跳过主机密钥检查
             session.setConfig("StrictHostKeyChecking", "no");
             session.setTimeout(60000); // 1分钟超时
@@ -184,7 +208,10 @@ public class AdmonitorServiceMachineServiceImpl implements AdmonitorServiceMachi
         try{
             JSch jSch = new JSch();
             session = jSch.getSession(admonitorServiceMachineJianKongForm.getServiceMachineUsername(),admonitorServiceMachineJianKongForm.getServiceMachineHost(),admonitorServiceMachineJianKongForm.getServiceMachinePort());
-            session.setPassword(admonitorServiceMachineJianKongForm.getServiceMachinePassword());
+            String plainPassword = ServiceMachinePasswordCryptoUtil.decrypt(
+                    admonitorServiceMachineJianKongForm.getServiceMachinePassword()
+            );
+            session.setPassword(plainPassword);
             session.setConfig("StrictHostKeyChecking", "no");
             session.setTimeout(60000);
             session.connect();

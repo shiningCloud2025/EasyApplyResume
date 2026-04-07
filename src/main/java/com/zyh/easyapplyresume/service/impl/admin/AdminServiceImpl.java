@@ -21,7 +21,6 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -63,14 +62,15 @@ public class AdminServiceImpl implements AdminService {
             // 因为是新增，就是为空或者不为空，无法手动输入了，只能上传
             // 为了去解决事务问题，因为我是先上传，后保存。保存失败，上传但是成功了,新增没有id!!所以在修改处理
             AdminFormValidator.validateForAdd(adminForm);
+            validateAdminUnique(adminForm);
             Admin admin = new Admin();
             admin.setAdminLoginTime(new Date());
             BeanUtils.copyProperties(adminForm, admin);
             admin.setAdminPassword(passwordEncoder.encode(admin.getAdminPassword()));
 
             return adminMapper.insert(admin);
-        }catch (DataAccessException e){
-            throw resolveDbException(e);
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("添加管理员失败");
@@ -87,8 +87,8 @@ public class AdminServiceImpl implements AdminService {
             if (adminForm.getAdminId()==1){
                 throw new BusException(AdminCodeEnum.NO_UPDATE_SUPER_ADMIN);
             }
-
-            if (adminForm.getAdminImage().equals("https://ts1.tc.mm.bing.net/th/id/R-C.928ef8908b5eb3666b2a27a1f6cfbe17?rik=h2FXLv1HNaxbTg&riu=http%3a%2f%2fp0.so.qhmsg.com%2ft018b5eb3666b2a27a1.jpg&ehk=QnGPPvZKq3cPW6%2bdkG%2b3zIRvAGXRsgYVTirfbvOBTaU%3d&risl=&pid=ImgRaw&r=0")){
+            // 防空指针,因为是先做的这个校验,再做的整体校验
+            if ("https://ts1.tc.mm.bing.net/th/id/R-C.928ef8908b5eb3666b2a27a1f6cfbe17?rik=h2FXLv1HNaxbTg&riu=http%3a%2f%2fp0.so.qhmsg.com%2ft018b5eb3666b2a27a1.jpg&ehk=QnGPPvZKq3cPW6%2bdkG%2b3zIRvAGXRsgYVTirfbvOBTaU%3d&risl=&pid=ImgRaw&r=0".equals(adminForm.getAdminImage())){
                 // 说明用户修改的时候还是传的原始图片，不需要处理
             }else {
                 // 说明用户传了新的
@@ -107,33 +107,58 @@ public class AdminServiceImpl implements AdminService {
             }
 
             AdminFormValidator.validateForUpdate(adminForm);
+            validateAdminUnique(adminForm);
             Admin admin = new Admin();
             BeanUtils.copyProperties(adminForm, admin);
+            admin.setAdminPassword(passwordEncoder.encode(admin.getAdminPassword()));
             return adminMapper.updateById(admin);
-        }catch (DataAccessException e){
-            throw resolveDbException(e);
+        }catch (BusException e){
+            throw e;
         }catch (Exception e){
             e.printStackTrace();
             throw new RuntimeException("更新管理员失败");
         }
     }
-    private BusException resolveDbException(Exception e) {
-        String errorMsg = e.getMessage();
-        // 1. 处理唯一约束冲突（DuplicateKeyException 或 SQLIntegrityConstraintViolationException）
-        if (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException) {
-            if (errorMsg.contains("admin_username") || errorMsg.contains("admin_admin_pk")) {
-                // 匹配账号名字段或账号名唯一索引
-                return new BusException(AdminCodeEnum.ADMIN_USERNAME_DUPLICATE);
-            } else if (errorMsg.contains("admin_phone") || errorMsg.contains("admin_admin_pk_2")) {
-                // 匹配手机号字段或手机号唯一索引
-                return new BusException(AdminCodeEnum.ADMIN_PHONE_DUPLICATE);
-            } else if (errorMsg.contains("admin_email") || errorMsg.contains("admin_admin_pk_3")) {
-                // 匹配邮箱字段或邮箱唯一索引
-                return new BusException(AdminCodeEnum.ADMIN_EMAIL_DUPLICATE);
-            }
+
+
+    private void validateAdminUnique(AdminForm adminForm) {
+        // 1. 校验账号是否重复
+        LambdaQueryWrapper<Admin> accountWrapper = lambdaQuery(Admin.class);
+        accountWrapper.eq(Admin::getDeleted, 0);
+        accountWrapper.eq(Admin::getAdminAccount, adminForm.getAdminAccount());
+        if (adminForm.getAdminId() != null) {
+            accountWrapper.ne(Admin::getAdminId, adminForm.getAdminId());
         }
-        return new BusException(AdminCodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
+        Long accountCount = adminMapper.selectCount(accountWrapper);
+        if (accountCount != null && accountCount > 0) {
+            throw new BusException(AdminCodeEnum.ADMIN_USERNAME_DUPLICATE);
+        }
+
+        // 2. 校验手机号是否重复
+        LambdaQueryWrapper<Admin> phoneWrapper = lambdaQuery(Admin.class);
+        phoneWrapper.eq(Admin::getDeleted, 0);
+        phoneWrapper.eq(Admin::getAdminPhone, adminForm.getAdminPhone());
+        if (adminForm.getAdminId() != null) {
+            phoneWrapper.ne(Admin::getAdminId, adminForm.getAdminId());
+        }
+        Long phoneCount = adminMapper.selectCount(phoneWrapper);
+        if (phoneCount != null && phoneCount > 0) {
+            throw new BusException(AdminCodeEnum.ADMIN_PHONE_DUPLICATE);
+        }
+
+        // 3. 校验邮箱是否重复
+        LambdaQueryWrapper<Admin> emailWrapper = lambdaQuery(Admin.class);
+        emailWrapper.eq(Admin::getDeleted, 0);
+        emailWrapper.eq(Admin::getAdminEmail, adminForm.getAdminEmail());
+        if (adminForm.getAdminId() != null) {
+            emailWrapper.ne(Admin::getAdminId, adminForm.getAdminId());
+        }
+        Long emailCount = adminMapper.selectCount(emailWrapper);
+        if (emailCount != null && emailCount > 0) {
+            throw new BusException(AdminCodeEnum.ADMIN_EMAIL_DUPLICATE);
+        }
     }
+
 
     @Override
     public Integer deleteAdmin(Integer adminId) {

@@ -202,31 +202,43 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
     @Override
     public Page<AdmonitorAdvertisementPageVO> findAdmonitorAdvertisementByPage(Integer pageNum, Integer pageSize, AdmonitorAdvertisementQuery admonitorAdvertisementQuery) {
         try{
-            String cacheKey = AdmonitorAdvertisementCacheKey.PAGE_PREFIX 
-                            + "_" + pageNum 
-                            + "_" + pageSize 
-                            + "_" + (admonitorAdvertisementQuery != null ? admonitorAdvertisementQuery.hashCode() : 0);
-            
-            Object cached = redisCacheUtil.get(cacheKey);
-            if (cached != null) {
-                log.info("从缓存分页查询广告成功");
-                return (Page<AdmonitorAdvertisementPageVO>) cached;
-            }
-            
-            log.info("分页查询广告开始");
-            Page<AdmonitorAdvertisement> page = new Page<>(pageNum,pageSize);
-            LambdaQueryWrapper<AdmonitorAdvertisement> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-            if (admonitorAdvertisementQuery != null){
-                if (admonitorAdvertisementQuery.getAdvertisementName() != null&& admonitorAdvertisementQuery.getAdvertisementName().isEmpty()){
-                    lambdaQueryWrapper.like(AdmonitorAdvertisement::getAdvertisementName,admonitorAdvertisementQuery.getAdvertisementName());
+            boolean hasQueryCondition = admonitorAdvertisementQuery != null
+                    && admonitorAdvertisementQuery.getAdvertisementName() != null
+                    && !admonitorAdvertisementQuery.getAdvertisementName().trim().isEmpty();
+
+            String cacheKey = AdmonitorAdvertisementCacheKey.PAGE_PREFIX
+                    + "_" + pageNum
+                    + "_" + pageSize;
+
+            if (!hasQueryCondition) {
+                Object cached = redisCacheUtil.get(cacheKey);
+                if (cached != null) {
+                    log.info("从缓存分页查询广告成功");
+                    return (Page<AdmonitorAdvertisementPageVO>) cached;
                 }
             }
+
+            log.info("分页查询广告开始");
+            Page<AdmonitorAdvertisement> page = new Page<>(pageNum, pageSize);
+            LambdaQueryWrapper<AdmonitorAdvertisement> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+
+            if (admonitorAdvertisementQuery != null) {
+                if (admonitorAdvertisementQuery.getAdvertisementName() != null
+                        && !admonitorAdvertisementQuery.getAdvertisementName().trim().isEmpty()) {
+                    lambdaQueryWrapper.like(
+                            AdmonitorAdvertisement::getAdvertisementName,
+                            admonitorAdvertisementQuery.getAdvertisementName().trim()
+                    );
+                }
+            }
+
             lambdaQueryWrapper.eq(AdmonitorAdvertisement::getDeleted, 0);
+
             Page<AdmonitorAdvertisement> admonitorAdvertisementPage = admonitorAdvertisementMapper.selectPage(page, lambdaQueryWrapper);
             List<AdmonitorAdvertisementPageVO> voList = admonitorAdvertisementPage.getRecords().stream()
                     .map(vo -> {
                         AdmonitorAdvertisementPageVO admonitorAdvertisementPageVO = new AdmonitorAdvertisementPageVO();
-                        BeanUtil.copyProperties(vo,admonitorAdvertisementPageVO);
+                        BeanUtil.copyProperties(vo, admonitorAdvertisementPageVO);
                         return admonitorAdvertisementPageVO;
                     })
                     .collect(Collectors.toList());
@@ -237,9 +249,11 @@ public class AdmonitorAdvertisementServiceImpl implements AdmonitorAdvertisement
             resultPage.setTotal(admonitorAdvertisementPage.getTotal());
             resultPage.setPages(admonitorAdvertisementPage.getPages());
             resultPage.setRecords(voList != null ? voList : Collections.emptyList());
-            
-            redisCacheUtil.set(cacheKey, resultPage, AdmonitorAdvertisementCacheKey.PAGE_TTL, TimeUnit.MINUTES);
-            
+
+            if (!hasQueryCondition) {
+                redisCacheUtil.set(cacheKey, resultPage, AdmonitorAdvertisementCacheKey.PAGE_TTL, TimeUnit.MINUTES);
+            }
+
             log.info("分页查询广告成功");
             return resultPage;
         }catch (BusException e){

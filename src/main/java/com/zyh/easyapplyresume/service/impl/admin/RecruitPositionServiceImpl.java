@@ -134,22 +134,33 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
 
     @Override
     public Page<RecruitPositionPageVO> queryRecruitPositionPage(Integer pageNum, Integer pageSize, RecruitPositionQuery recruitPositionQuery) {
-        String cacheKey = RecruitPositionCacheKey.PAGE_PREFIX 
-                        + "_" + pageNum 
-                        + "_" + pageSize 
-                        + "_" + (recruitPositionQuery != null ? recruitPositionQuery.hashCode() : 0);
-        
-        Object cached = redisCacheUtil.get(cacheKey);
-        if (cached != null) {
-            return (Page<RecruitPositionPageVO>) cached;
-        }
-        
+        boolean hasQueryCondition = recruitPositionQuery != null && (
+                (recruitPositionQuery.getRecruitPositionName() != null
+                        && !recruitPositionQuery.getRecruitPositionName().trim().isEmpty())
+                        || recruitPositionQuery.getRecruitPositionIndustryCode() != null
+                        || recruitPositionQuery.getMinMonthSalary() != null
+                        || recruitPositionQuery.getMaxMonthSalary() != null
+                        || recruitPositionQuery.getWeekWorkDayNum() != null
+        );
+
+        String cacheKey = RecruitPositionCacheKey.PAGE_PREFIX
+                + "_" + pageNum
+                + "_" + pageSize;
+
         Page<RecruitPositionPageVO> page = new Page<>(pageNum, pageSize);
-        Page<RecruitPositionPageVO> result = recruitPositionMapper.queryRecruitPositionPage(page, recruitPositionQuery);
-        
-        redisCacheUtil.set(cacheKey, result, RecruitPositionCacheKey.PAGE_TTL, TimeUnit.MINUTES);
-        
-        return result;
+
+        if (!hasQueryCondition) {
+            Object cached = redisCacheUtil.get(cacheKey);
+            if (cached != null) {
+                return (Page<RecruitPositionPageVO>) cached;
+            }
+
+            Page<RecruitPositionPageVO> result = recruitPositionMapper.queryRecruitPositionPage(page, recruitPositionQuery);
+            redisCacheUtil.set(cacheKey, result, RecruitPositionCacheKey.PAGE_TTL, TimeUnit.MINUTES);
+            return result;
+        }
+
+        return recruitPositionMapper.queryRecruitPositionPage(page, recruitPositionQuery);
     }
 
     @Override

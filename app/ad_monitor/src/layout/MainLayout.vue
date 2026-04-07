@@ -131,6 +131,56 @@
               <span>Grafana</span>
             </el-menu-item>
           </el-sub-menu>
+
+          <!-- 内部系统 -->
+          <el-sub-menu index="system">
+            <template #title>
+              <el-icon><Monitor /></el-icon>
+              <span>内部系统</span>
+            </template>
+            <el-menu-item index="/main/system/user-portal">
+              <el-icon><User /></el-icon>
+              <span>易投简历用户端</span>
+            </el-menu-item>
+            <el-menu-item index="/main/system/observation-portal">
+              <el-icon><DataAnalysis /></el-icon>
+              <span>易投简历监测与广告端</span>
+            </el-menu-item>
+          </el-sub-menu>
+
+          <!-- 外部系统 -->
+          <el-sub-menu index="external-platform">
+            <template #title>
+              <el-icon><Platform /></el-icon>
+              <span>外部系统</span>
+            </template>
+            <el-menu-item index="/main/external-platform/bailian">阿里云百炼平台</el-menu-item>
+            <el-menu-item index="/main/external-platform/sms">阿里云短信平台</el-menu-item>
+            <el-menu-item index="/main/external-platform/searchapi">SearchAPI平台</el-menu-item>
+            <el-menu-item index="/main/external-platform/amap">高德开放平台</el-menu-item>
+          </el-sub-menu>
+
+          <!-- 自研平台 -->
+          <el-sub-menu index="yapi">
+            <template #title>
+              <el-icon><Connection /></el-icon>
+              <span>自研平台</span>
+            </template>
+            <el-menu-item index="/main/yapi/embed">
+              <el-icon><Connection /></el-icon>
+              <span>YApi测试平台</span>
+            </el-menu-item>
+          </el-sub-menu>
+
+          <!-- API文档中心 -->
+          <el-sub-menu index="api-docs">
+            <template #title>
+              <el-icon><Link /></el-icon>
+              <span>API文档中心</span>
+            </template>
+            <el-menu-item index="/main/api-docs/external">API对外文档中心</el-menu-item>
+            <el-menu-item index="/main/api-docs/internal">API对内文档中心</el-menu-item>
+          </el-sub-menu>
         </el-menu>
       </el-scrollbar>
     </el-aside>
@@ -211,7 +261,7 @@ import { ElMessageBox, ElMessage } from 'element-plus'
 import {
   House, Bell, Picture, User, UserFilled, Connection, Lock, Monitor,
   TrendCharts, DataLine, DataAnalysis, Fold, Expand, FullScreen,
-  ArrowDown, SwitchButton, ChatLineSquare
+  ArrowDown, SwitchButton, ChatLineSquare, Platform, Link
 } from '@element-plus/icons-vue'
 import IdleAdCarousel from './IdleAdCarousel.vue'
 
@@ -244,6 +294,15 @@ const breadcrumbs = computed(() => {
     '/main/security/spring-boot-admin': 'Spring Boot Admin',
     '/main/security/prometheus': 'Prometheus',
     '/main/security/grafana': 'Grafana',
+    '/main/system/user-portal': '易投简历用户端',
+    '/main/system/observation-portal': '易投简历监测与广告端',
+    '/main/external-platform/bailian': '阿里云百炼平台',
+    '/main/external-platform/sms': '阿里云短信平台',
+    '/main/external-platform/searchapi': 'SearchAPI平台',
+    '/main/external-platform/amap': '高德开放平台',
+    '/main/yapi/embed': 'YApi测试平台',
+    '/main/api-docs/external': 'API对外文档中心',
+    '/main/api-docs/internal': 'API对内文档中心',
     '/main/server/manage': '设备管理',
     '/main/server/monitor': '设备监控',
     '/main/profile': '个人中心',

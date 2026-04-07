@@ -11,6 +11,19 @@
       </el-button>
     </div>
 
+    <!-- 搜索栏 -->
+    <div class="search-bar">
+      <el-input
+        v-model="searchName"
+        placeholder="请输入广告名称"
+        clearable
+        style="width: 240px"
+        @keyup.enter="handleSearch"
+      />
+      <el-button type="primary" @click="handleSearch">查询</el-button>
+      <el-button @click="resetSearch">重置</el-button>
+    </div>
+
     <!-- 广告列表 -->
     <div class="table-container">
       <el-table :data="tableData" v-loading="loading" stripe>
@@ -62,7 +75,7 @@
           :page-sizes="[10, 20, 50]"
           :total="total"
           layout="total, sizes, prev, pager, next"
-          @size-change="loadData"
+          @size-change="handleSizeChange"
           @current-change="loadData"
         />
       </div>
@@ -82,11 +95,11 @@
         label-width="100px"
       >
         <el-form-item label="广告名称" prop="advertisementName">
-          <el-input 
-            v-model="formData.advertisementName" 
-            placeholder="请输入广告名称" 
-            maxlength="25" 
-            show-word-limit 
+          <el-input
+            v-model="formData.advertisementName"
+            placeholder="请输入广告名称"
+            maxlength="25"
+            show-word-limit
           />
         </el-form-item>
         <el-form-item label="广告图片" prop="advertisementUrl">
@@ -97,29 +110,29 @@
             :http-request="handleUpload"
             accept="image/*"
           >
-            <el-image 
-              v-if="formData.advertisementUrl" 
-              :src="formData.advertisementUrl" 
-              fit="contain" 
-              style="width: 200px; height: 120px; border-radius: 4px;" 
+            <el-image
+              v-if="formData.advertisementUrl"
+              :src="formData.advertisementUrl"
+              fit="contain"
+              style="width: 200px; height: 120px; border-radius: 4px;"
             />
             <div v-else class="upload-placeholder">
               <el-icon :size="28"><Plus /></el-icon>
               <span>点击上传广告图片</span>
             </div>
           </el-upload>
-          <el-progress 
-            v-if="uploading" 
-            :percentage="100" 
-            status="success" 
-            :indeterminate="true" 
-            style="margin-top: 8px; width: 200px;" 
+          <el-progress
+            v-if="uploading"
+            :percentage="100"
+            status="success"
+            :indeterminate="true"
+            style="margin-top: 8px; width: 200px;"
           />
         </el-form-item>
         <el-form-item label="跳转链接" prop="advertisementLink">
-          <el-input 
-            v-model="formData.advertisementLink" 
-            placeholder="请输入跳转链接" 
+          <el-input
+            v-model="formData.advertisementLink"
+            placeholder="请输入跳转链接"
             maxlength="3000"
             type="textarea"
             :rows="2"
@@ -212,6 +225,7 @@ const tableData = ref<any[]>([])
 const pageNum = ref(1)
 const pageSize = ref(10)
 const total = ref(0)
+const searchName = ref('')
 
 const dialogVisible = ref(false)
 const viewDialogVisible = ref(false)
@@ -296,7 +310,10 @@ const formatDate = (date: string) => {
 const loadData = async () => {
   loading.value = true
   try {
-    const res = await api.value.getByPage(pageNum.value, pageSize.value, {})
+    const query = searchName.value.trim()
+      ? { advertisementName: searchName.value.trim() }
+      : {}
+    const res = await api.value.getByPage(pageNum.value, pageSize.value, query)
     tableData.value = res?.records || []
     total.value = res?.total || 0
   } catch (e) {
@@ -305,6 +322,22 @@ const loadData = async () => {
   } finally {
     loading.value = false
   }
+}
+
+const handleSearch = () => {
+  pageNum.value = 1
+  loadData()
+}
+
+const resetSearch = () => {
+  searchName.value = ''
+  pageNum.value = 1
+  loadData()
+}
+
+const handleSizeChange = () => {
+  pageNum.value = 1
+  loadData()
 }
 
 const resetForm = () => {
@@ -437,6 +470,13 @@ onMounted(() => {
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   overflow: hidden;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 .pagination {

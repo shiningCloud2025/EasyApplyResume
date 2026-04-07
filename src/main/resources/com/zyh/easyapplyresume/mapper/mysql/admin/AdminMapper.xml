@@ -43,23 +43,36 @@
                 <result property="permissionIntroduce" column="permission_introduce"></result>
             </collection>
     </resultMap>
-    
+
     <select id="findAdminInfoById" parameterType="int" resultMap="AdminInfoResultMap">
         select * from admin_admin
-        left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId
-        left join admin_role on admin_admin_role.roleId = admin_role.role_id
-        left join admin_role_permission on admin_role.role_id = admin_role.role_id
-        left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id
-        where admin_admin.admin_id = #{adminId} and admin_admin.deleted = 0
+        left join admin_admin_role
+        on admin_admin.admin_id = admin_admin_role.adminId
+        left join admin_role
+        on admin_admin_role.roleId = admin_role.role_id
+        and admin_role.deleted = 0
+        left join admin_role_permission
+        on admin_role.role_id = admin_role_permission.roleId
+        left join admin_permission
+        on admin_role_permission.permissionId = admin_permission.permission_id
+        and admin_permission.deleted = 0
+        where admin_admin.admin_id = #{adminId}
+        and admin_admin.deleted = 0
     </select>
 
     <select id="findRoleByAdmin" parameterType="int" resultMap="findRoleByAdminResultMap">
         select * from admin_admin_role
-        left join admin_role on admin_admin_role.roleId = admin_role.role_id
-        left join admin_role_permission on admin_role.role_id = admin_role.role_id
-        left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id
+        left join admin_role
+        on admin_admin_role.roleId = admin_role.role_id
+        and admin_role.deleted = 0
+        left join admin_role_permission
+        on admin_role.role_id = admin_role_permission.roleId
+        left join admin_permission
+        on admin_role_permission.permissionId = admin_permission.permission_id
+        and admin_permission.deleted = 0
         where admin_admin_role.adminId = #{adminId}
     </select>
+
 
     <insert id="assignRoleToAdmin" >
         insert into admin_admin_role values(#{adminId},#{roleId})
@@ -67,7 +80,12 @@
 
     <select id="findByAccountOrPhoneOrEmail" parameterType="string" resultType="com.zyh.easyapplyresume.model.pojo.admin.Admin">
         select * from admin_admin
-        where admin_account = #{accountOrPhoneOrEmail} or admin_phone = #{accountOrPhoneOrEmail} or admin_email = #{accountOrPhoneOrEmail}
+        where deleted = 0
+        and (
+        admin_account = #{accountOrPhoneOrEmail}
+        or admin_phone = #{accountOrPhoneOrEmail}
+        or admin_email = #{accountOrPhoneOrEmail}
+        )
     </select>
 
 </mapper>

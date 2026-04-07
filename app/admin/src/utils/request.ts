@@ -78,53 +78,15 @@ request.interceptors.response.use(
   }
 )
 
-// 请求拦截器 - 增强版，检查token有效性
-let tokenCheckCount = 0
+// 请求拦截器
 request.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     const token = localStorage.getItem('admin_token')
-    
-    // 如果存在token，每次都主动检查是否过期
+
     if (token) {
       config.headers['Admin-Authorization'] = `Admin ${token}`
-      
-      // 每次请求都检查token是否过期
-      try {
-        // 解析JWT token检查是否过期
-        const parts = token.split('.')
-        if (parts.length !== 3) {
-          throw new Error('Invalid token format')
-        }
-        
-        // Base64 URL解码
-        const payload = parts[1].replace(/-/g, '+').replace(/_/g, '/')
-        const jsonPayload = decodeURIComponent(atob(payload + '='.repeat((4 - payload.length % 4) % 4)).split('').map((c) => {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-        }).join(''))
-        
-        const parsedPayload = JSON.parse(jsonPayload)
-        const currentTime = Math.floor(Date.now() / 1000)
-        
-        if (parsedPayload.exp && parsedPayload.exp < currentTime) {
-          // Token已过期，清除认证状态并跳转登录
-          const authStore = useAuthStore()
-          console.warn('Token已过期，自动退出登录')
-          ElMessage.warning('登录已过期，请重新登录')
-          authStore.clearAuth()
-          router.push('/login')
-          return Promise.reject(new Error('Token已过期'))
-        }
-      } catch (parseError) {
-        console.warn('Token解析失败，可能格式错误:', parseError)
-        // Token格式错误，也视为无效token
-        const authStore = useAuthStore()
-        ElMessage.warning('登录状态异常，请重新登录')
-        authStore.clearAuth()
-        router.push('/login')
-        return Promise.reject(new Error('Token解析失败'))
-      }
     }
-    
+
     // 添加时间戳防止缓存
     if (config.method === 'get') {
       config.params = {
@@ -132,7 +94,7 @@ request.interceptors.request.use(
         _t: Date.now()
       }
     }
-    
+
     return config
   },
   (error) => {

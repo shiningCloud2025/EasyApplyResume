@@ -43,7 +43,7 @@ const PortalFooter: React.FC = () => {
     { name: '使用指南', path: '/help/guide', desc: '新手入门' },
     { name: '常见问题', path: '/help/faq', desc: 'FAQ解答' },
     { name: '联系客服', path: '/help/contact', desc: '人工客服' },
-    { name: '意见反馈', href: '#feedback', desc: '问题反馈' },
+    { name: '意见反馈', path: '/feedback/submit', desc: '问题反馈' },
     { name: 'API文档', href: '#api', desc: '开发文档' },
     { name: '服务状态', href: '#status', desc: '系统状态' }
   ]

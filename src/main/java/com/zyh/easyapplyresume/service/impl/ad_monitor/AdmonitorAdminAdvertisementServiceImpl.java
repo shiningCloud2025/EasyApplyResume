@@ -216,7 +216,7 @@ public class AdmonitorAdminAdvertisementServiceImpl implements AdmonitorAdminAdv
             Page<AdmonitorAdminAdvertisement> page = new Page<>(pageNum,pageSize);
             LambdaQueryWrapper<AdmonitorAdminAdvertisement> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             if (admonitorAdminAdvertisementQuery != null){
-                if (admonitorAdminAdvertisementQuery.getAdvertisementName() != null&& admonitorAdminAdvertisementQuery.getAdvertisementName().isEmpty()){
+                if (admonitorAdminAdvertisementQuery.getAdvertisementName() != null&& !admonitorAdminAdvertisementQuery.getAdvertisementName().isEmpty()){
                     lambdaQueryWrapper.like(AdmonitorAdminAdvertisement::getAdvertisementName,admonitorAdminAdvertisementQuery.getAdvertisementName());
                 }
             }

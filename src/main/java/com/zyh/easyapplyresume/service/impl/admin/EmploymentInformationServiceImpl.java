@@ -65,13 +65,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         try{
             log.info("开始添加招聘信息");
             EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
-            LambdaQueryWrapper<EmploymentInformation> judgeQueryWrapper = new LambdaQueryWrapper<>();
-            judgeQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCompanyName, employmentInformationForm.getEmploymentInformationCompanyName());
-            judgeQueryWrapper.eq(EmploymentInformation::getDeleted,0);
-            List<EmploymentInformation> employmentInformations = employmentInformationMapper.selectList(judgeQueryWrapper);
-            if (employmentInformations.size() !=0||!employmentInformations.isEmpty()) {
-                throw new BusException(AdminCodeEnum.EMPLOYMENT_COMPANY_NAME_DUPLICATE);
-            }
+            validateEmploymentInformationUnique(employmentInformationForm);
 
             EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
             LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -137,13 +131,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
     private Integer addEmploymentInformationForUpdate(EmploymentInformationForm employmentInformationForm,Date startTime) {
         try{
             EmploymentInformationFormValidator.validateForAdd(employmentInformationForm);
-            LambdaQueryWrapper<EmploymentInformation> judgeQueryWrapper = new LambdaQueryWrapper<>();
-            judgeQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCompanyName, employmentInformationForm.getEmploymentInformationCompanyName());
-            judgeQueryWrapper.eq(EmploymentInformation::getDeleted,0);
-            List<EmploymentInformation> employmentInformations = employmentInformationMapper.selectList(judgeQueryWrapper);
-            if (employmentInformations.size() !=0||!employmentInformations.isEmpty()) {
-                throw new BusException(AdminCodeEnum.EMPLOYMENT_COMPANY_NAME_DUPLICATE);
-            }
+            validateEmploymentInformationUnique(employmentInformationForm);
             employmentInformationForm.setEmploymentInformationId(null);
             EmploymentInformation employmentInformation = BeanUtil.copyProperties(employmentInformationForm, EmploymentInformation.class);
             LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -189,30 +177,39 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         }
     }
 
-    private BusException resolveDbException(Exception e) {
-        String errorMsg = e.getMessage();
+    private void validateEmploymentInformationUnique(EmploymentInformationForm employmentInformationForm) {
+        // 1. 校验公司名称是否重复
+        LambdaQueryWrapper<EmploymentInformation> companyWrapper = new LambdaQueryWrapper<>();
+        companyWrapper.eq(EmploymentInformation::getDeleted, 0);
+        companyWrapper.eq(EmploymentInformation::getEmploymentInformationCompanyName,
+                employmentInformationForm.getEmploymentInformationCompanyName());
 
-        // 1. 处理唯一约束冲突
-        if (errorMsg != null && (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException)) {
-            // --- 关键修改点：请根据你的数据库唯一索引名称进行修改 ---
-            // 假设你的唯一索引是分别针对 company_name 和 submission_way 字段创建的
-            // 或者是一个复合唯一索引，索引名为 idx_company_submission
-
-            // 匹配公司名称字段或其唯一索引
-            if (errorMsg.contains("employmentInformation_companyName") || errorMsg.contains("idx_employment_company_name")) {
-                return new BusException(AdminCodeEnum.EMPLOYMENT_COMPANY_NAME_DUPLICATE);
-            }
-            // 匹配投递方式字段或其唯一索引
-            else if (errorMsg.contains("employmentInformation_submissionWay") || errorMsg.contains("idx_employment_submission_way")) {
-                return new BusException(AdminCodeEnum.EMPLOYMENT_SUBMISSION_WAY_DUPLICATE);
-            }
-
+        if (employmentInformationForm.getEmploymentInformationId() != null) {
+            companyWrapper.ne(EmploymentInformation::getEmploymentInformationCode,
+                    employmentInformationForm.getEmploymentInformationId());
         }
 
-        // 兜底：未匹配到特定的唯一冲突，返回通用数据库异常
-        return new BusException(AdminCodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
-    }
+        Long companyCount = employmentInformationMapper.selectCount(companyWrapper);
+        if (companyCount != null && companyCount > 0) {
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_COMPANY_NAME_DUPLICATE);
+        }
 
+        // 2. 校验投递方式是否重复
+        LambdaQueryWrapper<EmploymentInformation> submissionWayWrapper = new LambdaQueryWrapper<>();
+        submissionWayWrapper.eq(EmploymentInformation::getDeleted, 0);
+        submissionWayWrapper.eq(EmploymentInformation::getEmploymentInformationSubmissionWay,
+                employmentInformationForm.getEmploymentInformationSubmissionWay());
+
+        if (employmentInformationForm.getEmploymentInformationId() != null) {
+            submissionWayWrapper.ne(EmploymentInformation::getEmploymentInformationCode,
+                    employmentInformationForm.getEmploymentInformationId());
+        }
+
+        Long submissionWayCount = employmentInformationMapper.selectCount(submissionWayWrapper);
+        if (submissionWayCount != null && submissionWayCount > 0) {
+            throw new BusException(AdminCodeEnum.EMPLOYMENT_SUBMISSION_WAY_DUPLICATE);
+        }
+    }
     @Override
     public Integer updateEmploymentInformation(EmploymentInformationForm employmentInformationForm) {
         EmploymentInformationFormValidator.validateForUpdate(employmentInformationForm);
@@ -323,132 +320,215 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
      */
     @Override
     public Page<EmploymentInformationPageVO> getEmploymentInformationPage(int page, int size, EmploymentInformationQuery employmentInformationQuery) {
-        // 1. 生成缓存Key（带查询条件hash）
-        String cacheKey = EmploymentInformationCacheKey.PAGE_PREFIX 
-                        + "_" + page 
-                        + "_" + size 
-                        + "_" + (employmentInformationQuery != null ? employmentInformationQuery.hashCode() : 0);
-        
-        // 2. 先查缓存
-        Object cached = redisCacheUtil.get(cacheKey);
-        if (cached != null) {
-            return (Page<EmploymentInformationPageVO>) cached;
+        // 1. 判断是否有查询条件：有查询条件就不缓存
+        boolean hasQueryCondition = employmentInformationQuery != null && (
+                (employmentInformationQuery.getEmploymentInformationCompanyName() != null
+                        && !employmentInformationQuery.getEmploymentInformationCompanyName().trim().isEmpty())
+                        || employmentInformationQuery.getEmploymentInformationIndustryCategories() != null
+                        || employmentInformationQuery.getEmploymentInformationCompanyType() != null
+                        || employmentInformationQuery.getEmploymentInformationBatch() != null
+                        || employmentInformationQuery.getEmploymentInformationRecruitPosition() != null
+                        || employmentInformationQuery.getEmploymentInformationRecruitObject() != null
+                        || employmentInformationQuery.getEmploymentInformationRecruitLocationFirst() != null
+                        || employmentInformationQuery.getEmploymentInformationRecruitLocationSecond() != null
+                        || (employmentInformationQuery.getEmploymentInformationRecruitLocationDetail() != null
+                        && !employmentInformationQuery.getEmploymentInformationRecruitLocationDetail().trim().isEmpty())
+                        || employmentInformationQuery.getEmploymentInformationStopTime() != null
+                        || (employmentInformationQuery.getEmploymentInformationOnlineApplicationStatus() != null
+                        && !employmentInformationQuery.getEmploymentInformationOnlineApplicationStatus().trim().isEmpty())
+                        || (employmentInformationQuery.getEmploymentInformationOfficialAnnouncement() != null
+                        && !employmentInformationQuery.getEmploymentInformationOfficialAnnouncement().trim().isEmpty())
+                        || (employmentInformationQuery.getEmploymentInformationSubmissionWay() != null
+                        && !employmentInformationQuery.getEmploymentInformationSubmissionWay().trim().isEmpty())
+                        || (employmentInformationQuery.getEmploymentInformationEmployeeReferralCode() != null
+                        && !employmentInformationQuery.getEmploymentInformationEmployeeReferralCode().trim().isEmpty())
+        );
+
+        // 2. 生成缓存Key（无查询条件时只按页码+页大小缓存）
+        String cacheKey = EmploymentInformationCacheKey.PAGE_PREFIX
+                + "_" + page
+                + "_" + size;
+
+        // 3. 无查询条件时先查缓存
+        if (!hasQueryCondition) {
+            Object cached = redisCacheUtil.get(cacheKey);
+            if (cached != null) {
+                return (Page<EmploymentInformationPageVO>) cached;
+            }
         }
-        
-        // 3. 缓存未命中，查数据库
+
+        // 4. 缓存未命中，查数据库
         // 构建 LambdaQueryWrapper（指定数据库实体类 EmploymentInformation）
         LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(EmploymentInformation::getDeleted, 0);
 
-        // 2. 判空过滤：查询条件不为空时，按字段类型添加对应查询规则（String模糊查询，Integer/Date精确匹配）
+        // 5. 判空过滤：查询条件不为空时，按字段类型添加对应查询规则（String模糊查询，Integer/Date精确匹配）
         if (employmentInformationQuery != null) {
             // 公司名称（String类型 → 模糊查询）
-            if (employmentInformationQuery.getEmploymentInformationCompanyName() != null && !employmentInformationQuery.getEmploymentInformationCompanyName().trim().isEmpty()) {
-                lambdaQueryWrapper.like(EmploymentInformation::getEmploymentInformationCompanyName, employmentInformationQuery.getEmploymentInformationCompanyName().trim());
+            if (employmentInformationQuery.getEmploymentInformationCompanyName() != null
+                    && !employmentInformationQuery.getEmploymentInformationCompanyName().trim().isEmpty()) {
+                lambdaQueryWrapper.like(
+                        EmploymentInformation::getEmploymentInformationCompanyName,
+                        employmentInformationQuery.getEmploymentInformationCompanyName().trim()
+                );
             }
 
             // 行业大类（Integer类型 → 精确匹配）
             if (employmentInformationQuery.getEmploymentInformationIndustryCategories() != null) {
-                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationIndustryCategories, employmentInformationQuery.getEmploymentInformationIndustryCategories());
+                lambdaQueryWrapper.eq(
+                        EmploymentInformation::getEmploymentInformationIndustryCategories,
+                        employmentInformationQuery.getEmploymentInformationIndustryCategories()
+                );
             }
 
             // 企业性质（Integer类型 → 精确匹配）
             if (employmentInformationQuery.getEmploymentInformationCompanyType() != null) {
-                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCompanyType, employmentInformationQuery.getEmploymentInformationCompanyType());
+                lambdaQueryWrapper.eq(
+                        EmploymentInformation::getEmploymentInformationCompanyType,
+                        employmentInformationQuery.getEmploymentInformationCompanyType()
+                );
             }
 
             // 招聘批次（Integer类型 → 精确匹配）
             if (employmentInformationQuery.getEmploymentInformationBatch() != null) {
-                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationBatch, employmentInformationQuery.getEmploymentInformationBatch());
+                lambdaQueryWrapper.eq(
+                        EmploymentInformation::getEmploymentInformationBatch,
+                        employmentInformationQuery.getEmploymentInformationBatch()
+                );
             }
 
             // 招聘岗位（Integer类型 → 精确匹配）
             if (employmentInformationQuery.getEmploymentInformationRecruitPosition() != null) {
-                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationRecruitPosition, employmentInformationQuery.getEmploymentInformationRecruitPosition());
+                lambdaQueryWrapper.eq(
+                        EmploymentInformation::getEmploymentInformationRecruitPosition,
+                        employmentInformationQuery.getEmploymentInformationRecruitPosition()
+                );
             }
 
             // 招聘对象（Integer类型 → 精确匹配）
             if (employmentInformationQuery.getEmploymentInformationRecruitObject() != null) {
-                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationRecruitObject, employmentInformationQuery.getEmploymentInformationRecruitObject());
+                lambdaQueryWrapper.eq(
+                        EmploymentInformation::getEmploymentInformationRecruitObject,
+                        employmentInformationQuery.getEmploymentInformationRecruitObject()
+                );
             }
 
             // 招聘地址(省级)（Integer类型 → 精确匹配）
             if (employmentInformationQuery.getEmploymentInformationRecruitLocationFirst() != null) {
-                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationRecruitLocationFirst, employmentInformationQuery.getEmploymentInformationRecruitLocationFirst());
+                lambdaQueryWrapper.eq(
+                        EmploymentInformation::getEmploymentInformationRecruitLocationFirst,
+                        employmentInformationQuery.getEmploymentInformationRecruitLocationFirst()
+                );
             }
 
             // 招聘地址(市级)（Integer类型 → 精确匹配）
             if (employmentInformationQuery.getEmploymentInformationRecruitLocationSecond() != null) {
-                lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationRecruitLocationSecond, employmentInformationQuery.getEmploymentInformationRecruitLocationSecond());
+                lambdaQueryWrapper.eq(
+                        EmploymentInformation::getEmploymentInformationRecruitLocationSecond,
+                        employmentInformationQuery.getEmploymentInformationRecruitLocationSecond()
+                );
             }
 
             // 详细招聘地址（String类型 → 模糊查询）
-            if (employmentInformationQuery.getEmploymentInformationRecruitLocationDetail() != null && !employmentInformationQuery.getEmploymentInformationRecruitLocationDetail().trim().isEmpty()) {
-                lambdaQueryWrapper.like(EmploymentInformation::getEmploymentInformationRecruitLocationDetail, employmentInformationQuery.getEmploymentInformationRecruitLocationDetail().trim());
+            if (employmentInformationQuery.getEmploymentInformationRecruitLocationDetail() != null
+                    && !employmentInformationQuery.getEmploymentInformationRecruitLocationDetail().trim().isEmpty()) {
+                lambdaQueryWrapper.like(
+                        EmploymentInformation::getEmploymentInformationRecruitLocationDetail,
+                        employmentInformationQuery.getEmploymentInformationRecruitLocationDetail().trim()
+                );
             }
 
             // 截止时间（Date类型 → 小于等于查询，适配"截止时间前的招聘信息"需求）
             if (employmentInformationQuery.getEmploymentInformationStopTime() != null) {
-                lambdaQueryWrapper.le(EmploymentInformation::getEmploymentInformationStopTime, employmentInformationQuery.getEmploymentInformationStopTime());
+                lambdaQueryWrapper.le(
+                        EmploymentInformation::getEmploymentInformationStopTime,
+                        employmentInformationQuery.getEmploymentInformationStopTime()
+                );
             }
 
             // 网申状态（String类型 → 模糊查询）
-            if (employmentInformationQuery.getEmploymentInformationOnlineApplicationStatus() != null && !employmentInformationQuery.getEmploymentInformationOnlineApplicationStatus().trim().isEmpty()) {
-                lambdaQueryWrapper.like(EmploymentInformation::getEmploymentInformationOnlineApplicationStatus, employmentInformationQuery.getEmploymentInformationOnlineApplicationStatus().trim());
+            if (employmentInformationQuery.getEmploymentInformationOnlineApplicationStatus() != null
+                    && !employmentInformationQuery.getEmploymentInformationOnlineApplicationStatus().trim().isEmpty()) {
+                lambdaQueryWrapper.like(
+                        EmploymentInformation::getEmploymentInformationOnlineApplicationStatus,
+                        employmentInformationQuery.getEmploymentInformationOnlineApplicationStatus().trim()
+                );
             }
 
             // 官方公告（String类型 → 模糊查询）
-            if (employmentInformationQuery.getEmploymentInformationOfficialAnnouncement() != null && !employmentInformationQuery.getEmploymentInformationOfficialAnnouncement().trim().isEmpty()) {
-                lambdaQueryWrapper.like(EmploymentInformation::getEmploymentInformationOfficialAnnouncement, employmentInformationQuery.getEmploymentInformationOfficialAnnouncement().trim());
+            if (employmentInformationQuery.getEmploymentInformationOfficialAnnouncement() != null
+                    && !employmentInformationQuery.getEmploymentInformationOfficialAnnouncement().trim().isEmpty()) {
+                lambdaQueryWrapper.like(
+                        EmploymentInformation::getEmploymentInformationOfficialAnnouncement,
+                        employmentInformationQuery.getEmploymentInformationOfficialAnnouncement().trim()
+                );
             }
 
             // 投递方式（String类型 → 模糊查询）
-            if (employmentInformationQuery.getEmploymentInformationSubmissionWay() != null && !employmentInformationQuery.getEmploymentInformationSubmissionWay().trim().isEmpty()) {
-                lambdaQueryWrapper.like(EmploymentInformation::getEmploymentInformationSubmissionWay, employmentInformationQuery.getEmploymentInformationSubmissionWay().trim());
+            if (employmentInformationQuery.getEmploymentInformationSubmissionWay() != null
+                    && !employmentInformationQuery.getEmploymentInformationSubmissionWay().trim().isEmpty()) {
+                lambdaQueryWrapper.like(
+                        EmploymentInformation::getEmploymentInformationSubmissionWay,
+                        employmentInformationQuery.getEmploymentInformationSubmissionWay().trim()
+                );
             }
 
             // 内推码（String类型 → 模糊查询）
-            if (employmentInformationQuery.getEmploymentInformationEmployeeReferralCode() != null && !employmentInformationQuery.getEmploymentInformationEmployeeReferralCode().trim().isEmpty()) {
-                lambdaQueryWrapper.like(EmploymentInformation::getEmploymentInformationEmployeeReferralCode, employmentInformationQuery.getEmploymentInformationEmployeeReferralCode().trim());
+            if (employmentInformationQuery.getEmploymentInformationEmployeeReferralCode() != null
+                    && !employmentInformationQuery.getEmploymentInformationEmployeeReferralCode().trim().isEmpty()) {
+                lambdaQueryWrapper.like(
+                        EmploymentInformation::getEmploymentInformationEmployeeReferralCode,
+                        employmentInformationQuery.getEmploymentInformationEmployeeReferralCode().trim()
+                );
             }
         }
 
-        // 3. 调用 Mapper 分页查询（依赖 EmploymentInformationMapper 继承 MyBatis-Plus BaseMapper）
+        // 6. 调用 Mapper 分页查询（依赖 EmploymentInformationMapper 继承 MyBatis-Plus BaseMapper）
         Page<EmploymentInformation> employmentInfoPage = employmentInformationMapper.selectPage(
                 new Page<>(page, size),  // 分页参数：当前页（page）、每页条数（size）
                 lambdaQueryWrapper        // 多条件组合查询（精确+模糊）
         );
 
-        Map<Integer,EmploymentInformationPageVO> map = new HashMap<>();
-        for(EmploymentInformation info : employmentInfoPage.getRecords()){
-            if(map.containsKey(info.getEmploymentInformationCode())){
+        Map<Integer, EmploymentInformationPageVO> map = new HashMap<>();
+        for (EmploymentInformation info : employmentInfoPage.getRecords()) {
+            if (map.containsKey(info.getEmploymentInformationCode())) {
                 EmploymentInformationPageVO pageVO = map.get(info.getEmploymentInformationCode());
-                pageVO.getEmploymentInformationRecruitLocationFirstName().add(Objects.requireNonNull(ProvinceEnum.getById(info.getEmploymentInformationRecruitLocationFirst())).getName());
-                pageVO.getEmploymentInformationRecruitLocationSecondName().add(Objects.requireNonNull(CityEnum.getById(info.getEmploymentInformationRecruitLocationSecond())).getName());
-                pageVO.getEmploymentInformationRecruitLocationDetail().add(Objects.requireNonNull(ProvinceEnum.getById(info.getEmploymentInformationRecruitLocationFirst())).getName()+
+                pageVO.getEmploymentInformationRecruitLocationFirstName().add(
+                        Objects.requireNonNull(ProvinceEnum.getById(info.getEmploymentInformationRecruitLocationFirst())).getName()
+                );
+                pageVO.getEmploymentInformationRecruitLocationSecondName().add(
                         Objects.requireNonNull(CityEnum.getById(info.getEmploymentInformationRecruitLocationSecond())).getName()
                 );
-            }else{
+                pageVO.getEmploymentInformationRecruitLocationDetail().add(
+                        Objects.requireNonNull(ProvinceEnum.getById(info.getEmploymentInformationRecruitLocationFirst())).getName()
+                                + Objects.requireNonNull(CityEnum.getById(info.getEmploymentInformationRecruitLocationSecond())).getName()
+                );
+            } else {
                 EmploymentInformationPageVO pageVO = BeanUtil.copyProperties(info, EmploymentInformationPageVO.class);
                 List<String> provinces = new LinkedList<>();
                 List<String> cities = new LinkedList<>();
                 List<String> details = new LinkedList<>();
                 provinces.add(Objects.requireNonNull(ProvinceEnum.getById(info.getEmploymentInformationRecruitLocationFirst())).getName());
                 cities.add(Objects.requireNonNull(CityEnum.getById(info.getEmploymentInformationRecruitLocationSecond())).getName());
-                details.add(Objects.requireNonNull(ProvinceEnum.getById(info.getEmploymentInformationRecruitLocationFirst())).getName()+
-                        Objects.requireNonNull(CityEnum.getById(info.getEmploymentInformationRecruitLocationSecond())).getName()
+                details.add(
+                        Objects.requireNonNull(ProvinceEnum.getById(info.getEmploymentInformationRecruitLocationFirst())).getName()
+                                + Objects.requireNonNull(CityEnum.getById(info.getEmploymentInformationRecruitLocationSecond())).getName()
                 );
                 pageVO.setEmploymentInformationRecruitLocationFirstName(provinces);
                 pageVO.setEmploymentInformationRecruitLocationSecondName(cities);
                 pageVO.setEmploymentInformationRecruitLocationDetail(details);
-                pageVO.setEmploymentInformationIndustryCategoriesName(industryMapMapper.selectById(info.getEmploymentInformationIndustryCategories()).getIndustryMapIndustryName());
-                pageVO.setEmploymentInformationRecruitPositionName(recruitPositionMapper.selectById(info.getEmploymentInformationRecruitPosition()).getRecruitPositionName());
-                map.put(info.getEmploymentInformationCode(),pageVO);
+                pageVO.setEmploymentInformationIndustryCategoriesName(
+                        industryMapMapper.selectById(info.getEmploymentInformationIndustryCategories()).getIndustryMapIndustryName()
+                );
+                pageVO.setEmploymentInformationRecruitPositionName(
+                        recruitPositionMapper.selectById(info.getEmploymentInformationRecruitPosition()).getRecruitPositionName()
+                );
+                map.put(info.getEmploymentInformationCode(), pageVO);
             }
         }
         List<EmploymentInformationPageVO> voList = new ArrayList<>(map.values());
 
-        // 5. 构建返回的 Page<VO> 对象（保留分页元数据：总条数、总页数等）
+        // 7. 构建返回的 Page<VO> 对象（保留分页元数据：总条数、总页数等）
         Page<EmploymentInformationPageVO> resultPage = new Page<>();
         resultPage.setCurrent(employmentInfoPage.getCurrent()); // 当前页
         resultPage.setSize(employmentInfoPage.getSize());       // 每页条数
@@ -456,9 +536,11 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         resultPage.setPages(employmentInfoPage.getPages());     // 总页数
         resultPage.setRecords(voList != null ? voList : Collections.emptyList()); // 分页数据列表
 
-        // 4. 写入缓存
-        redisCacheUtil.set(cacheKey, resultPage, EmploymentInformationCacheKey.PAGE_TTL, TimeUnit.MINUTES);
-        
+        // 8. 无查询条件时写入缓存
+        if (!hasQueryCondition) {
+            redisCacheUtil.set(cacheKey, resultPage, EmploymentInformationCacheKey.PAGE_TTL, TimeUnit.MINUTES);
+        }
+
         return resultPage;
     }
 

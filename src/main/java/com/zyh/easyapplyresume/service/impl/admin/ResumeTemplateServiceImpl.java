@@ -172,58 +172,63 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
 
     @Override
     public Page<ResumeTemplatePageVO> findResumeTemplateByPage(Integer pageNum, Integer pageSize, ResumeTemplateQuery resumeTemplateQuery) {
-        String cacheKey = ResumeTemplateCacheKey.PAGE_PREFIX 
-                        + "_" + pageNum 
-                        + "_" + pageSize 
-                        + "_" + (resumeTemplateQuery != null ? resumeTemplateQuery.hashCode() : 0);
-        
-        Object cached = redisCacheUtil.get(cacheKey);
-        if (cached != null) {
-            return (Page<ResumeTemplatePageVO>) cached;
+        boolean hasQueryCondition = resumeTemplateQuery != null && (
+                (resumeTemplateQuery.getResumeTemplateName() != null
+                        && !resumeTemplateQuery.getResumeTemplateName().trim().isEmpty())
+                        || resumeTemplateQuery.getResumeTemplateIndustry() != null
+        );
+
+        String cacheKey = ResumeTemplateCacheKey.PAGE_PREFIX
+                + "_" + pageNum
+                + "_" + pageSize;
+
+        if (!hasQueryCondition) {
+            Object cached = redisCacheUtil.get(cacheKey);
+            if (cached != null) {
+                return (Page<ResumeTemplatePageVO>) cached;
+            }
         }
-        
-        // 1. 构建 LambdaQueryWrapper（指定 ResumeTemplate 实体类）
+
         LambdaQueryWrapper<ResumeTemplate> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(ResumeTemplate::getDeleted, 0);
 
-        // 2. 判空过滤：模版名称不为空则模糊查询（和原方法判空逻辑一致）
-        if (resumeTemplateQuery != null && resumeTemplateQuery.getResumeTemplateName() != null && !resumeTemplateQuery.getResumeTemplateName().isEmpty()) {
-            lambdaQueryWrapper.like(ResumeTemplate::getResumeTemplateName, resumeTemplateQuery.getResumeTemplateName());
-        }
-        if(resumeTemplateQuery!=null&&resumeTemplateQuery.getResumeTemplateIndustry()!=null){
-            lambdaQueryWrapper.eq(ResumeTemplate::getResumeTemplateIndustry,resumeTemplateQuery.getResumeTemplateIndustry());
+        if (resumeTemplateQuery != null
+                && resumeTemplateQuery.getResumeTemplateName() != null
+                && !resumeTemplateQuery.getResumeTemplateName().trim().isEmpty()) {
+            lambdaQueryWrapper.like(ResumeTemplate::getResumeTemplateName, resumeTemplateQuery.getResumeTemplateName().trim());
         }
 
-        // 3. 调用 Mapper 分页查询（依赖 ResumeTemplateMapper 继承 BaseMapper/IService）
+        if (resumeTemplateQuery != null && resumeTemplateQuery.getResumeTemplateIndustry() != null) {
+            lambdaQueryWrapper.eq(ResumeTemplate::getResumeTemplateIndustry, resumeTemplateQuery.getResumeTemplateIndustry());
+        }
+
         Page<ResumeTemplate> resumeTemplatePage = resumeTemplateMapper.selectPage(
-                new Page<>(pageNum, pageSize),  // 分页参数：当前页、每页条数
-                lambdaQueryWrapper              // 模糊查询条件
+                new Page<>(pageNum, pageSize),
+                lambdaQueryWrapper
         );
 
-        // 4. 实体转换：ResumeTemplate（数据库实体）→ ResumeTemplatePageVO（）
         List<ResumeTemplatePageVO> voList = resumeTemplatePage.getRecords().stream()
                 .map(resumeTemplate -> {
                     ResumeTemplatePageVO infoVO = new ResumeTemplatePageVO();
-                    // 复制同名字段（要求字段名+数据类型一致，如 resumeTemplateId、resumeTemplateName 等）
                     BeanUtils.copyProperties(resumeTemplate, infoVO);
-                    infoVO.setIndustryMapIndustryName(industryMapService.findIndustryMapById(resumeTemplate.getResumeTemplateIndustry()).getIndustryMapIndustryName());
-                    // 若 VO 与实体字段名/格式不一致，需手动补充映射（示例如下，根据实际 VO 结构调整）
-                    // 示例1：实体日期字段（DateTime）转 VO 字符串格式 → infoVO.setCreateTimeStr(DateUtil.format(resumeTemplate.getResumeTemplateCreatedTime(), "yyyy-MM-dd HH:mm:ss"));
-                    // 示例2：实体字段名不同 → infoVO.setTemplateName(resumeTemplate.getResumeTemplateName());
+                    infoVO.setIndustryMapIndustryName(
+                            industryMapService.findIndustryMapById(resumeTemplate.getResumeTemplateIndustry()).getIndustryMapIndustryName()
+                    );
                     return infoVO;
                 })
                 .collect(Collectors.toList());
 
-        // 5. 直接返回 VO 列表（按方法定义返回 List，分页逻辑已通过 Page 对象实现）
         Page<ResumeTemplatePageVO> voPage = new Page<>(pageNum, pageSize);
         voPage.setRecords(voList);
         voPage.setSize(resumeTemplatePage.getSize());
         voPage.setCurrent(resumeTemplatePage.getCurrent());
         voPage.setPages(resumeTemplatePage.getPages());
         voPage.setTotal(resumeTemplatePage.getTotal());
-        
-        redisCacheUtil.set(cacheKey, voPage, ResumeTemplateCacheKey.PAGE_TTL, TimeUnit.MINUTES);
-        
+
+        if (!hasQueryCondition) {
+            redisCacheUtil.set(cacheKey, voPage, ResumeTemplateCacheKey.PAGE_TTL, TimeUnit.MINUTES);
+        }
+
         return voPage;
     }
     @Override
