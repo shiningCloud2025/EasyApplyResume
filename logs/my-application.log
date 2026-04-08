@@ -8350,3 +8350,50 @@ export default ResumeTemplate;, 耗时: 28722ms
 2026-04-07 18:52:08.677 [lettuce-nioEventLoop-6-10] INFO  i.l.c.protocol.ReconnectionHandler - Reconnected to 117.50.184.138/<unresolved>:37211
 2026-04-07 20:42:18.149 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=1h35m9s517ms560µs300ns).
 2026-04-07 20:42:28.124 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h35m9s517ms882µs500ns).
+2026-04-07 22:38:11.857 [http-nio-8080-exec-7] ERROR c.z.e.filter.UserJwtAuthFilter - 用户端 Token 验证失败: Redis command timed out
+2026-04-07 22:38:11.857 [http-nio-8080-exec-3] ERROR c.z.e.filter.UserJwtAuthFilter - 用户端 Token 验证失败: Redis command timed out
+2026-04-07 22:38:11.857 [http-nio-8080-exec-6] ERROR c.z.e.filter.UserJwtAuthFilter - 用户端 Token 验证失败: Redis command timed out
+2026-04-07 22:38:18.260 [http-nio-8080-exec-5] ERROR c.z.e.filter.AdminJwtAuthFilter - 管理端 Token 验证失败: Redis command timed out
+2026-04-07 22:38:18.260 [http-nio-8080-exec-1] ERROR c.z.e.filter.AdminJwtAuthFilter - 管理端 Token 验证失败: Redis command timed out
+2026-04-07 22:38:28.179 [lettuce-eventExecutorLoop-1-11] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was /117.50.184.138:37211
+2026-04-07 22:38:28.360 [lettuce-nioEventLoop-6-11] INFO  i.l.c.protocol.ReconnectionHandler - Reconnected to 117.50.184.138/<unresolved>:37211
+2026-04-08 08:22:26.071 [lettuce-nioEventLoop-6-11] INFO  i.l.core.protocol.CommandHandler - null Unexpected exception during request: java.net.SocketException: Connection reset
+java.net.SocketException: Connection reset
+	at java.base/sun.nio.ch.SocketChannelImpl.throwConnectionReset(SocketChannelImpl.java:401)
+	at java.base/sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:434)
+	at io.netty.buffer.PooledByteBuf.setBytes(PooledByteBuf.java:255)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1132)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:356)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:151)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-04-08 08:22:28.923 [lettuce-eventExecutorLoop-1-1] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was /117.50.184.138:37211
+2026-04-08 08:22:29.431 [lettuce-nioEventLoop-6-12] WARN  i.l.core.protocol.ConnectionWatchdog - Cannot reconnect to [117.50.184.138/<unresolved>:37211]: Software caused connection abort: getsockopt: /117.50.184.138:37211
+io.netty.channel.AbstractChannel$AnnotatedSocketException: Software caused connection abort: getsockopt: /117.50.184.138:37211
+Caused by: java.net.SocketException: Software caused connection abort: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
+	at java.base/sun.nio.ch.SocketChannelImpl.finishConnect(SocketChannelImpl.java:973)
+	at io.netty.channel.socket.nio.NioSocketChannel.doFinishConnect(NioSocketChannel.java:336)
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.finishConnect(AbstractNioChannel.java:339)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:776)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-04-08 08:22:29.706 [lettuce-nioEventLoop-6-1] INFO  i.l.c.protocol.ReconnectionHandler - Reconnected to 117.50.184.138/<unresolved>:37211
+2026-04-08 08:22:34.107 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=8h40m12s906ms739µs).
+2026-04-08 08:22:43.817 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8h40m12s855ms991µs).
+2026-04-08 09:19:03.168 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=53m56s960ms503µs).
+2026-04-08 09:19:12.890 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=53m56s959ms634µs100ns).
+2026-04-08 14:13:23.602 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=1h59m47s509ms398µs300ns).
+2026-04-08 14:13:33.217 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h59m47s508ms465µs600ns).

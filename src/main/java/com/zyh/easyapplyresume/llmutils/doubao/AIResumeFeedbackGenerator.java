@@ -26,14 +26,15 @@ public class AIResumeFeedbackGenerator {
     @Autowired
     private OpenAiChatModel doubaoModel;
 
+
     @Autowired
-    private AdminLlmUtilsInfoService adminLlmUtilsInfoService;
+    private DoubaoLlmUtilsLogUtil doubaoLlmUtilsLogUtil;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public AIFeedbackResult generateFeedback(String resumeReactCode) {
-        try {
-            String prompt = """
+        long startTime = System.currentTimeMillis();
+        String prompt = """
                     你是资深HR和职业规划专家。请对以下简历进行深度分析，提供详细的修改建议。
                     
                     简历内容：
@@ -94,25 +95,35 @@ public class AIResumeFeedbackGenerator {
                     
                     只返回JSON，不要其他内容。
                     """.formatted(resumeReactCode);
-
+        String toolClass = "AIResumeFeedbackGenerator";
+        String toolDescription = "AI简历反馈生成器-使用豆包大模型(Doubao-1.5-pro-32k)生成详细的简历修改建议";
+        String response = null;
+        try {
             log.info("开始豆包AI生成简历反馈建议");
-            String response = ChatClient.create(doubaoModel)
+             response = ChatClient.create(doubaoModel)
                     .prompt()
                     .user(prompt)
                     .call()
                     .content();
-            AdminLlmUtilsInfoForm adminLlmUtilsInfoForm = new AdminLlmUtilsInfoForm();
-            adminLlmUtilsInfoForm.setLlmUtilsInfoToolClass("AIResumeFeedbackGenerator");
-            adminLlmUtilsInfoForm.setLlmUtilsInfoToolDescription("AI简历反馈生成器-使用豆包大模型(Doubao-1.5-pro-32k)生成详细的简历修改建议");
-            adminLlmUtilsInfoForm.setLlmUtilsInfoModelProvider("火山方舟");
-            adminLlmUtilsInfoForm.setLlmUtilsInfoModelName("Doubao-1.5-pro-32k");
-            adminLlmUtilsInfoForm.setLlmUtilsInfoInputContent(prompt.toString());
-            adminLlmUtilsInfoForm.setLlmUtilsInfoOutputResult(response);
 
-
+            doubaoLlmUtilsLogUtil.saveSuccessLog(
+                    "AIResumeFeedbackGenerator",
+                    "AI简历反馈生成器-使用豆包大模型(Doubao-1.5-pro-32k)生成详细的简历修改建议",
+                    prompt.toString(),
+                    response,
+                    startTime
+            );
             return parseFeedbackResult(response);
         } catch (Exception e) {
             log.error("AI生成简历反馈失败", e);
+            doubaoLlmUtilsLogUtil.saveFailLog(
+                    toolClass,
+                    toolDescription,
+                    prompt.toString(),
+                    response,
+                    startTime,
+                    e.getMessage()
+            );
             throw new RuntimeException("AI生成简历反馈失败: " + e.getMessage());
         }
     }
