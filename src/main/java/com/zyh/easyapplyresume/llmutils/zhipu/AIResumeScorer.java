@@ -24,51 +24,80 @@ public class AIResumeScorer {
     @Autowired
     private ZhiPuAiChatModel zhipuAiChatModel;
 
+    @Autowired
+    private ZhipuLlmUtilsLogUtil zhipuLlmUtilsLogUtil;
+
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public AIScoreResult scoreResume(String resumeReactCode) {
+        long startTime = System.currentTimeMillis();
+        String toolClass = "AIResumeScorer";
+        String toolDescription = "AI简历评分器-使用智谱AI(glm-4-air)对简历进行智能评分（0-100分）";
+
+        String prompt = """
+                  你是资深HR专家。请对以下简历进行专业评分（0-100分）。
+
+                  简历内容：
+                  %s
+
+                  请从以下维度评分并返回JSON格式：
+                  {
+                    "totalScore": 85,
+                    "dimensions": {
+                      "completeness": 90,
+                      "experience": 85,
+                      "skills": 80,
+                      "presentation": 85
+                    },
+                    "strengths": ["项目经验丰富", "技术栈全面"],
+                    "weaknesses": ["缺少量化成果", "自我评价过长"],
+                    "suggestions": ["建议增加项目成果数据", "精简自我评价"],
+                    "level": "优秀"
+                  }
+
+                  评分标准：
+                  - completeness（完整度）：基本信息、教育、经验、技能是否完整
+                  - experience（经验质量）：工作/项目经验的深度和相关性
+                  - skills（技能匹配）：技能描述的专业性和深度
+                  - presentation（呈现质量）：排版、表达、逻辑性
+                  - level：优秀(85+)、良好(70-84)、一般(55-69)、待改进(<55)
+
+                  只返回JSON，不要其他内容。
+                  """.formatted(resumeReactCode);
+
+        String response = null;
         try {
-            String prompt = """
-                    你是资深HR专家。请对以下简历进行专业评分（0-100分）。
-                    
-                    简历内容：
-                    %s
-                    
-                    请从以下维度评分并返回JSON格式：
-                    {
-                      "totalScore": 85,
-                      "dimensions": {
-                        "completeness": 90,
-                        "experience": 85,
-                        "skills": 80,
-                        "presentation": 85
-                      },
-                      "strengths": ["项目经验丰富", "技术栈全面"],
-                      "weaknesses": ["缺少量化成果", "自我评价过长"],
-                      "suggestions": ["建议增加项目成果数据", "精简自我评价"],
-                      "level": "优秀"
-                    }
-                    
-                    评分标准：
-                    - completeness（完整度）：基本信息、教育、经验、技能是否完整
-                    - experience（经验质量）：工作/项目经验的深度和相关性
-                    - skills（技能匹配）：技能描述的专业性和深度
-                    - presentation（呈现质量）：排版、表达、逻辑性
-                    - level：优秀(85+)、良好(70-84)、一般(55-69)、待改进(<55)
-                    
-                    只返回JSON，不要其他内容。
-                    """.formatted(resumeReactCode);
 
             log.info("开始智谱AI评分简历");
-            String response = ChatClient.create(zhipuAiChatModel)
+            response = ChatClient.create(zhipuAiChatModel)
                     .prompt()
                     .user(prompt)
                     .call()
                     .content();
 
-            return parseScoreResult(response);
+            AIScoreResult result = parseScoreResult(response);
+
+            zhipuLlmUtilsLogUtil.saveSuccessLog(
+                    toolClass,
+                    toolDescription,
+                    prompt,
+                    response,
+                    startTime
+            );
+
+            return result;
         } catch (Exception e) {
             log.error("AI评分简历失败", e);
+            zhipuLlmUtilsLogUtil.saveFailLog(
+                    toolClass,
+                    toolDescription,
+                    prompt,
+                    response,
+                    startTime,
+                    e.getMessage()
+            );
+
             throw new RuntimeException("AI评分简历失败: " + e.getMessage());
         }
     }

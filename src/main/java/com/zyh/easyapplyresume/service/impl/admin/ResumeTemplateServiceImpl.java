@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.service.impl.admin;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
+import com.alibaba.dashscope.threads.runs.Run;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
@@ -54,6 +55,7 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
     @Override
     public Integer addResumeTemplate(ResumeTemplateForm resumeTemplateForm) {
         ResumeTemplateFormValidator.validateForAdd(resumeTemplateForm);
+        validateResumeTemplateUnique(resumeTemplateForm);
         ResumeTemplate resumeTemplate = new ResumeTemplate();
         BeanUtils.copyProperties(resumeTemplateForm, resumeTemplate);
         resumeTemplate.setResumeTemplateIsActive(1);
@@ -76,8 +78,12 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
             );
             
             return result;
-        }catch (DataAccessException e){
-            throw resolveResumeDbException(e);
+        }catch (BusException e){
+            log.info("添加简历模版失败:",e);
+            throw e;
+        }catch (Exception e){
+            log.error("添加简历失败",e);
+            throw new RuntimeException(e);
         }
 
     }
@@ -85,6 +91,7 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
     @Override
     public Integer updateResumeTemplate(ResumeTemplateForm resumeTemplateForm) {
         ResumeTemplateFormValidator.validateForUpdate(resumeTemplateForm);
+        validateResumeTemplateUnique(resumeTemplateForm);
         ResumeTemplate resumeTemplate = new ResumeTemplate();
         BeanUtils.copyProperties(resumeTemplateForm, resumeTemplate);
         resumeTemplate.setResumeTemplateUpdatedTime(new DateTime());
@@ -104,24 +111,29 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
             );
             
             return result;
-        }catch (DataAccessException e){
-            throw resolveResumeDbException(e);
+        }catch (BusException e){
+            log.info("修改简历模版失败:",e);
+            throw e;
+        }catch (Exception e){
+            log.error("修改简历失败",e);
+            throw new RuntimeException(e);
         }
     }
 
 
-    private BusException resolveResumeDbException(Exception e) {
-        String errorMsg = e.getMessage();
-        // 1. 匹配唯一约束冲突异常（与原方法一致：DuplicateKeyException 或包含 "Duplicate entry" 信息）
-        if (errorMsg.contains("Duplicate entry") || e instanceof DuplicateKeyException) {
-            // 2. 匹配简历名称字段名 或 简历名称唯一索引名（核心逻辑）
-            // 注意：请将 "uk_resume_template_name" 替换为你数据库中实际的唯一索引名！
-            if (errorMsg.contains("resumeTemplate_name") || errorMsg.contains("general_resumeTemplate_pk")) {
-                return new BusException(AdminCodeEnum.RESUME_TEMPLATE_NAME_DUPLICATE);
-            }
+    private void validateResumeTemplateUnique(ResumeTemplateForm resumeTemplateForm) {
+        LambdaQueryWrapper<ResumeTemplate> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(ResumeTemplate::getDeleted, 0);
+        lambdaQueryWrapper.eq(ResumeTemplate::getResumeTemplateName, resumeTemplateForm.getResumeTemplateName());
+
+        if (resumeTemplateForm.getResumeTemplateId() != null) {
+            lambdaQueryWrapper.ne(ResumeTemplate::getResumeTemplateId, resumeTemplateForm.getResumeTemplateId());
         }
-        // 3. 未匹配到特定异常，返回模块内通用数据库异常
-        return new BusException(AdminCodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
+
+        Long count = resumeTemplateMapper.selectCount(lambdaQueryWrapper);
+        if (count != null && count > 0) {
+            throw new BusException(AdminCodeEnum.RESUME_TEMPLATE_NAME_DUPLICATE);
+        }
     }
 
     @Override
@@ -233,7 +245,9 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
     }
     @Override
     public List<ResumeTemplatePageVO> findAllResumeTemplate() {
-        List<ResumeTemplate> resumeTemplates = resumeTemplateMapper.selectList(null);
+        LambdaQueryWrapper<ResumeTemplate> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(ResumeTemplate::getDeleted, 0);
+        List<ResumeTemplate> resumeTemplates = resumeTemplateMapper.selectList(lambdaQueryWrapper);
         List<ResumeTemplatePageVO> resumeTemplatePageVOs = BeanUtil.copyToList(resumeTemplates, ResumeTemplatePageVO.class);
         return resumeTemplatePageVOs;
     }

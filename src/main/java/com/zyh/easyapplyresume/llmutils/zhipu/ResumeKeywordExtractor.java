@@ -24,45 +24,72 @@ public class ResumeKeywordExtractor {
     @Autowired
     private ZhiPuAiChatModel zhipuAiChatModel;
 
+    @Autowired
+    private ZhipuLlmUtilsLogUtil zhipuLlmUtilsLogUtil;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     public KeywordExtractionResult extractKeywords(String resumeText) {
+        long startTime = System.currentTimeMillis();
+        String toolClass = "ResumeKeywordExtractor";
+        String toolDescription = "简历关键词提取器-使用智谱AI(glm-4-air)从简历中提取关键词和技能标签";
+
+        String prompt = """
+                  你是简历分析专家。请从以下简历中提取关键信息。
+
+                  简历内容：
+                  %s
+
+                  请提取以下信息并返回JSON格式：
+                  {
+                    "skills": ["Java", "Spring Boot", "MySQL"],
+                    "keywords": ["微服务", "高并发", "团队协作"],
+                    "education": ["本科", "计算机科学与技术", "XX大学"],
+                    "experience": ["3年工作经验", "互联网行业"],
+                    "strengths": ["技术能力强", "项目经验丰富"]
+                  }
+
+                  要求：
+                  1. skills: 技术栈、工具、框架（5-15个）
+                  2. keywords: 高频关键词（5-10个）
+                  3. education: 教育背景关键信息
+                  4. experience: 工作经验概述
+                  5. strengths: 核心优势（3-5个）
+
+                  只返回JSON，不要其他内容。
+                  """.formatted(resumeText);
+
+        String response = null;
         try {
-            String prompt = """
-                    你是简历分析专家。请从以下简历中提取关键信息。
-                    
-                    简历内容：
-                    %s
-                    
-                    请提取以下信息并返回JSON格式：
-                    {
-                      "skills": ["Java", "Spring Boot", "MySQL"],
-                      "keywords": ["微服务", "高并发", "团队协作"],
-                      "education": ["本科", "计算机科学与技术", "XX大学"],
-                      "experience": ["3年工作经验", "互联网行业"],
-                      "strengths": ["技术能力强", "项目经验丰富"]
-                    }
-                    
-                    要求：
-                    1. skills: 技术栈、工具、框架（5-15个）
-                    2. keywords: 高频关键词（5-10个）
-                    3. education: 教育背景关键信息
-                    4. experience: 工作经验概述
-                    5. strengths: 核心优势（3-5个）
-                    
-                    只返回JSON，不要其他内容。
-                    """.formatted(resumeText);
 
             log.info("开始智谱AI提取简历关键词");
-            String response = ChatClient.create(zhipuAiChatModel)
+            response = ChatClient.create(zhipuAiChatModel)
                     .prompt()
                     .user(prompt)
                     .call()
                     .content();
 
-            return parseKeywordResult(response);
+            KeywordExtractionResult result = parseKeywordResult(response);
+
+            zhipuLlmUtilsLogUtil.saveSuccessLog(
+                    toolClass,
+                    toolDescription,
+                    prompt,
+                    response,
+                    startTime
+            );
+
+            return result;
         } catch (Exception e) {
             log.error("AI提取简历关键词失败", e);
+            zhipuLlmUtilsLogUtil.saveFailLog(
+                    toolClass,
+                    toolDescription,
+                    prompt,
+                    response,
+                    startTime,
+                    e.getMessage()
+            );
             throw new RuntimeException("AI提取简历关键词失败: " + e.getMessage());
         }
     }
