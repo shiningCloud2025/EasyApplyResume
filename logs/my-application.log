@@ -8852,3 +8852,21 @@ Caused by: java.net.ConnectException: Connection refused: getsockopt
 2026-04-08 16:57:53.120 [scheduling-1] INFO  c.z.e.t.u.UserDeleteResumeScheduledTask - 清理过期简历任务执行完成
 2026-04-08 16:58:07.938 [lettuce-eventExecutorLoop-1-12] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was 117.50.184.138/<unresolved>:37211
 2026-04-08 16:58:08.246 [lettuce-nioEventLoop-6-7] INFO  i.l.c.protocol.ReconnectionHandler - Reconnected to 117.50.184.138/<unresolved>:37211
+2026-04-08 16:59:52.547 [lettuce-eventExecutorLoop-1-2] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was /117.50.184.138:37211
+2026-04-08 16:59:54.827 [lettuce-nioEventLoop-6-8] WARN  i.l.core.protocol.ConnectionWatchdog - Cannot reconnect to [117.50.184.138/<unresolved>:37211]: Connection refused: getsockopt: /117.50.184.138:37211
+2026-04-08 16:59:59.539 [lettuce-eventExecutorLoop-1-7] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was 117.50.184.138/<unresolved>:37211
+2026-04-08 17:00:01.951 [lettuce-nioEventLoop-6-11] WARN  i.l.core.protocol.ConnectionWatchdog - Cannot reconnect to [117.50.184.138/<unresolved>:37211]: Connection refused: getsockopt: /117.50.184.138:37211
+2026-04-08 17:00:06.941 [lettuce-eventExecutorLoop-1-12] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was 117.50.184.138/<unresolved>:37211
+2026-04-08 17:00:09.314 [lettuce-nioEventLoop-6-2] WARN  i.l.core.protocol.ConnectionWatchdog - Cannot reconnect to [117.50.184.138/<unresolved>:37211]: Connection refused: getsockopt: /117.50.184.138:37211
+2026-04-08 17:00:12.238 [lettuce-eventExecutorLoop-1-5] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was 117.50.184.138/<unresolved>:37211
+2026-04-08 17:00:14.651 [lettuce-nioEventLoop-6-4] WARN  i.l.core.protocol.ConnectionWatchdog - Cannot reconnect to [117.50.184.138/<unresolved>:37211]: Connection refused: getsockopt: /117.50.184.138:37211
+2026-04-08 17:00:18.834 [lettuce-eventExecutorLoop-1-10] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was 117.50.184.138/<unresolved>:37211
+2026-04-08 17:00:21.201 [lettuce-nioEventLoop-6-6] WARN  i.l.core.protocol.ConnectionWatchdog - Cannot reconnect to [117.50.184.138/<unresolved>:37211]: Connection refused: getsockopt: /117.50.184.138:37211
+2026-04-08 17:00:29.833 [lettuce-eventExecutorLoop-1-2] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was 117.50.184.138/<unresolved>:37211
+2026-04-08 17:00:32.194 [lettuce-nioEventLoop-6-8] WARN  i.l.core.protocol.ConnectionWatchdog - Cannot reconnect to [117.50.184.138/<unresolved>:37211]: Connection refused: getsockopt: /117.50.184.138:37211
+2026-04-08 17:00:40.441 [lettuce-eventExecutorLoop-1-4] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was 117.50.184.138/<unresolved>:37211
+2026-04-08 17:00:40.625 [lettuce-nioEventLoop-6-9] INFO  i.l.c.protocol.ReconnectionHandler - Reconnected to 117.50.184.138/<unresolved>:37211
+2026-04-08 19:50:25.139 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=2h1m14s164ms429µs300ns).
+2026-04-08 19:50:35.071 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2h1m14s154ms473µs200ns).
+2026-04-08 22:01:09.158 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h14m3s194ms624µs700ns).
+2026-04-08 22:01:29.296 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=1h14m3s197ms376µs700ns).

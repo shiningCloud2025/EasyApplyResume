@@ -50,7 +50,10 @@ import type {
   UserDeleteResumeQuery,
   UserDeleteResumeBySystemPageVO,
   UserDeleteResumeBySystemInfoVO,
-  UserDeleteResumeInfoVO
+  UserDeleteResumeInfoVO,
+  AdminLlmUtilsInfoQuery,
+  AdminLlmUtilsInfoPageVO,
+  AdminLlmUtilsInfoVO
 } from '@/types/admin'
 import type {
   ProjectIntroduceForm,
@@ -402,7 +405,20 @@ export const emailApi = {
     })
 }
 
-// AI助手相关API
+// LLM调用日志相关API
+export const llmUtilsInfoApi = {
+  // 查询LLM调用日志详情
+  getAdminLlmUtilsInfoById: (llmUtilsInfoId: number) =>
+    api.get<AdminLlmUtilsInfoVO>('/admin/llmUtilsInfo/getInfo', { params: { llmUtilsInfoId } }),
+
+  // 分页查询LLM调用日志
+  getAdminLlmUtilsInfoPage: (pageNum: number, pageSize: number, query: AdminLlmUtilsInfoQuery) =>
+    api.post<PageResult<AdminLlmUtilsInfoPageVO>>('/admin/llmUtilsInfo/getPage', query, {
+      params: { pageNum, pageSize }
+    })
+}
+
+// AI管理相关API
 export const aiApi = {
   // AI系统管理助手 - 应用对话（流式）- 直接返回fetch响应，不经过拦截器
   aiSystemManagerApplicationChat: async (message: string, chatId?: string) => {

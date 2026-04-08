@@ -11,6 +11,7 @@ import com.zyh.easyapplyresume.model.form.user.FormalLoginForm;
 import com.zyh.easyapplyresume.model.form.user.FormalRegisterForm;
 import com.zyh.easyapplyresume.model.form.user.PhoneLoginForm;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorAdminDailyVisitNum;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zyh.easyapplyresume.model.pojo.ad_monitor.AdmonitorUserDailyVisitNum;
 import com.zyh.easyapplyresume.model.pojo.user.User;
 import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
@@ -163,6 +164,7 @@ public class UserAuthServiceImpl implements UserAuthService {
         userLoginAndRegisterEmailVerifyService.verifyCode(formalRegisterForm.getUserEmail(), formalRegisterForm.getEmailMessageCode());
         // TODO:用户端注册的头像一定是为空的，就需要用户去修改的时候改变头像，这样也简化了后端的流程
         FormalRegisterValidator.validateForRegister(formalRegisterForm);
+        validateUserUnique(formalRegisterForm);
         try {
             User user = new User();
             formalRegisterForm.setUserCreatedTime(new Date());
@@ -178,9 +180,12 @@ public class UserAuthServiceImpl implements UserAuthService {
             String redisKey = "user:token:" + user.getUserId();
             stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
             return token;
-        } catch (DataAccessException e) {
-            log.error("数据库异常", e);
-            throw resolveDbException(e);
+        } catch (BusException e) {
+            log.info("注册失败", e);
+            throw e;
+        }catch (Exception e){
+            log.error("注册失败",e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -217,24 +222,29 @@ public class UserAuthServiceImpl implements UserAuthService {
         stringRedisTemplate.delete(redisKey);
     }
 
-    /**
-     * 私有辅助方法：解析数据库异常并转换为业务异常
-     */
-    private BusException resolveDbException(Exception e) {
-        String errorMsg = e.getMessage();
-        // 1. 处理唯一约束冲突（DuplicateKeyException 或 SQLIntegrityConstraintViolationException）
-        if (errorMsg.contains("Duplicate entry") || e instanceof org.springframework.dao.DuplicateKeyException) {
-            if (errorMsg.contains("user_account")|| errorMsg.contains("user_user_pk")) {
-                // 匹配用户账号字段或账号唯一索引
-                return new BusException(UserCodeEnum.USER_ACCOUNT_DUPLICATE);
-            } else if (errorMsg.contains("user_phone")|| errorMsg.contains("user_user_pk_2")) {
-                // 匹配用户手机号字段或手机号唯一索引
-                return new BusException(UserCodeEnum.USER_PHONE_DUPLICATE);
-            } else if (errorMsg.contains("user_email")|| errorMsg.contains("user_user_pk_3")) {
-                // 匹配用户邮箱字段或邮箱唯一索引
-                return new BusException(UserCodeEnum.USER_EMAIL_DUPLICATE);
-            }
+    private void validateUserUnique(FormalRegisterForm formalRegisterForm) {
+        // 1. 校验账号是否重复
+        LambdaQueryWrapper<User> accountWrapper = new LambdaQueryWrapper<>();
+        accountWrapper.eq(User::getUserAccount, formalRegisterForm.getUserAccount());
+        Long accountCount = userMapper.selectCount(accountWrapper);
+        if (accountCount != null && accountCount > 0) {
+            throw new BusException(UserCodeEnum.USER_ACCOUNT_DUPLICATE);
         }
-        return new BusException(UserCodeEnum.DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION);
+
+        // 2. 校验手机号是否重复
+        LambdaQueryWrapper<User> phoneWrapper = new LambdaQueryWrapper<>();
+        phoneWrapper.eq(User::getUserPhone, formalRegisterForm.getUserPhone());
+        Long phoneCount = userMapper.selectCount(phoneWrapper);
+        if (phoneCount != null && phoneCount > 0) {
+            throw new BusException(UserCodeEnum.USER_PHONE_DUPLICATE);
+        }
+
+        // 3. 校验邮箱是否重复
+        LambdaQueryWrapper<User> emailWrapper = new LambdaQueryWrapper<>();
+        emailWrapper.eq(User::getUserEmail, formalRegisterForm.getUserEmail());
+        Long emailCount = userMapper.selectCount(emailWrapper);
+        if (emailCount != null && emailCount > 0) {
+            throw new BusException(UserCodeEnum.USER_EMAIL_DUPLICATE);
+        }
     }
 }

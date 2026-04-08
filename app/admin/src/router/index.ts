@@ -127,9 +127,9 @@ const router = createRouter({
         },
         {
           path: 'ai',
-          name: 'AIAssistant',
+          name: 'AIManagement',
           redirect: '/admin/ai/chat',
-          meta: { title: 'AI助手' },
+          meta: { title: 'AI管理' },
           children: [
             {
               path: 'chat',
@@ -142,6 +142,12 @@ const router = createRouter({
               name: 'AIAgent',
               component: () => import('@/views/admin/ai/AIAgent.vue'),
               meta: { title: 'AI智能体助手' }
+            },
+            {
+              path: 'llm-utils-info',
+              name: 'LlmUtilsInfoManagement',
+              component: () => import('@/views/admin/ai/LlmUtilsInfoManagement.vue'),
+              meta: { title: 'LLM调用日志管理' }
             }
           ]
         },

@@ -342,6 +342,44 @@ export interface IndustryMapPageVO {
   updatedTime: string
 }
 
+// LLM调用日志查询
+export interface AdminLlmUtilsInfoQuery {
+  llmUtilsInfoToolDescription?: string
+  llmUtilsInfoModelProvider?: string
+  llmUtilsInfoModelName?: string
+  llmUtilsInfoStatus?: string
+}
+
+// LLM调用日志分页VO
+export interface AdminLlmUtilsInfoPageVO {
+  llmUtilsInfoId: number
+  llmUtilsInfoToolClass: string
+  llmUtilsInfoToolDescription: string
+  llmUtilsInfoModelProvider: string
+  llmUtilsInfoModelName: string
+  llmUtilsInfoInputContent: string
+  llmUtilsInfoOutputResult: string
+  llmUtilsInfoLatencyMs: number
+  llmUtilsInfoStatus: string
+  llmUtilsInfoErrorMessage: string
+  llmUtilsInfoCreatedTime: string
+}
+
+// LLM调用日志详情VO
+export interface AdminLlmUtilsInfoVO {
+  llmUtilsInfoId: number
+  llmUtilsInfoToolClass: string
+  llmUtilsInfoToolDescription: string
+  llmUtilsInfoModelProvider: string
+  llmUtilsInfoModelName: string
+  llmUtilsInfoInputContent: string
+  llmUtilsInfoOutputResult: string
+  llmUtilsInfoLatencyMs: number
+  llmUtilsInfoStatus: string
+  llmUtilsInfoErrorMessage: string
+  llmUtilsInfoCreatedTime: string
+}
+
 // 管理员反馈查询
 export interface AdminFeedbackQuery {
   adminFeedbackTitle?: string

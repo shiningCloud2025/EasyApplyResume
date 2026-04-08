@@ -81,14 +81,15 @@
           <el-menu-item index="/admin/map/industry">行业Map管理</el-menu-item>
         </el-sub-menu>
 
-        <!-- AI助手 -->
+        <!-- AI管理 -->
         <el-sub-menu index="/admin/ai">
           <template #title>
             <el-icon><Cpu /></el-icon>
-            <span>AI助手</span>
+            <span>AI管理</span>
           </template>
           <el-menu-item index="/admin/ai/chat">AI智能问答助手</el-menu-item>
           <el-menu-item index="/admin/ai/agent">AI智能体助手</el-menu-item>
+          <el-menu-item index="/admin/ai/llm-utils-info">LLM调用日志管理</el-menu-item>
         </el-sub-menu>
 
         <!-- 反馈管理 -->
@@ -530,9 +531,10 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/resume/system-deleted': '系统删除简历管理',
     '/admin/map': 'Map管理',
     '/admin/map/industry': '行业Map管理',
-    '/admin/ai': 'AI助手',
+    '/admin/ai': 'AI管理',
     '/admin/ai/chat': 'AI智能问答助手',
     '/admin/ai/agent': 'AI智能体助手',
+    '/admin/ai/llm-utils-info': 'LLM调用日志管理',
     '/admin/system': '内部系统',
     '/admin/system/user-portal': '易投简历用户端',
     '/admin/system/observation-portal': '易投简历监测与广告端',
