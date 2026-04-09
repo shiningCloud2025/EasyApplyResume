@@ -16,7 +16,7 @@ import java.util.UUID;
     webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @TestPropertySource(
-    locations = "classpath:application-dev.yaml"
+    locations = "classpath:application-dev-local.yaml"
 )
 class MySQLBasedChatMemoryTest {
 
