@@ -53,10 +53,11 @@ public class AdminQuestionFirstCategoryServiceImpl implements AdminQuestionFirst
             adminQuestionFirstCategoryMapper.insert(questionFirstCategory);
             return questionFirstCategory.getQuestionFirstCategoryId();
         } catch (BusException e) {
+            log.info("新增题库大类业务异常", e);
             throw e;
         } catch (Exception e) {
             log.error("新增题库大类失败", e);
-            throw new BusException(AdminCodeEnum.QUESTION_FIRST_CATEGORY_ADD_FAIL);
+            throw new RuntimeException("新增题库大类失败");
         }
     }
 
@@ -69,10 +70,11 @@ public class AdminQuestionFirstCategoryServiceImpl implements AdminQuestionFirst
             // 占位：后续需要联动小类、题目、用户题目映射表
             throw new BusException(AdminCodeEnum.QUESTION_FIRST_CATEGORY_UPDATE_FAIL);
         } catch (BusException e) {
+            log.info("修改题库大类业务异常", e);
             throw e;
         } catch (Exception e) {
             log.error("修改题库大类失败", e);
-            throw new BusException(AdminCodeEnum.QUESTION_FIRST_CATEGORY_UPDATE_FAIL);
+            throw new RuntimeException("修改题库大类失败");
         }
     }
 
@@ -82,10 +84,11 @@ public class AdminQuestionFirstCategoryServiceImpl implements AdminQuestionFirst
             // 占位：后续需要联动小类、题目、用户题目映射表
             throw new BusException(AdminCodeEnum.QUESTION_FIRST_CATEGORY_DELETE_FAIL);
         } catch (BusException e) {
+            log.info("删除题库大类业务异常", e);
             throw e;
         } catch (Exception e) {
             log.error("删除题库大类失败", e);
-            throw new BusException(AdminCodeEnum.QUESTION_FIRST_CATEGORY_DELETE_FAIL);
+            throw new RuntimeException("删除题库大类失败");
         }
     }
 
@@ -104,10 +107,11 @@ public class AdminQuestionFirstCategoryServiceImpl implements AdminQuestionFirst
             BeanUtils.copyProperties(questionFirstCategory, vo);
             return vo;
         } catch (BusException e) {
+            log.info("查询题库大类详情业务异常", e);
             throw e;
         } catch (Exception e) {
             log.error("查询题库大类详情失败", e);
-            throw new BusException(AdminCodeEnum.QUESTION_FIRST_CATEGORY_INFO_FAIL);
+            throw new RuntimeException("查询题库大类详情失败");
         }
     }
 
@@ -149,9 +153,35 @@ public class AdminQuestionFirstCategoryServiceImpl implements AdminQuestionFirst
             result.setPages(page.getPages());
 
             return result;
+        } catch (BusException e) {
+            log.info("分页查询题库大类业务异常", e);
+            throw e;
         } catch (Exception e) {
             log.error("分页查询题库大类失败", e);
-            throw new BusException(AdminCodeEnum.QUESTION_FIRST_CATEGORY_PAGE_FAIL);
+            throw new RuntimeException("分页查询题库大类失败");
+        }
+    }
+
+    @Override
+    public List<AdminQuestionFirstCategoryInfoVO> findAllQuestionFirstCategory() {
+        try {
+            LambdaQueryWrapper<AdminQuestionFirstCategory> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(AdminQuestionFirstCategory::getDeleted, 0);
+            lambdaQueryWrapper.orderByDesc(AdminQuestionFirstCategory::getQuestionFirstCategoryCreateTime);
+
+            List<AdminQuestionFirstCategory> questionFirstCategoryList = adminQuestionFirstCategoryMapper.selectList(lambdaQueryWrapper);
+
+            return questionFirstCategoryList.stream().map(item -> {
+                AdminQuestionFirstCategoryInfoVO vo = new AdminQuestionFirstCategoryInfoVO();
+                BeanUtils.copyProperties(item, vo);
+                return vo;
+            }).collect(Collectors.toList());
+        } catch (BusException e) {
+            log.info("查询所有题库大类业务异常", e);
+            throw e;
+        } catch (Exception e) {
+            log.error("查询所有题库大类失败", e);
+            throw new RuntimeException("查询所有题库大类失败");
         }
     }
 

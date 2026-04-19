@@ -12,6 +12,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * 题库大类控制器-管理端
  * @author shiningCloud2025
@@ -57,5 +59,11 @@ public class AdminQuestionFirstCategoryController {
             @RequestParam(required = false, value = "pageSize", defaultValue = "10") Integer pageSize,
             @RequestBody AdminQuestionFirstCategoryQuery query) {
         return BaseResult.ok(adminQuestionFirstCategoryService.findQuestionFirstCategoryByPage(pageNum, pageSize, query));
+    }
+
+    @Operation(summary = "查询所有题库大类")
+    @GetMapping("/findAllQuestionFirstCategory")
+    public BaseResult<List<AdminQuestionFirstCategoryInfoVO>> findAllQuestionFirstCategory() {
+        return BaseResult.ok(adminQuestionFirstCategoryService.findAllQuestionFirstCategory());
     }
 }

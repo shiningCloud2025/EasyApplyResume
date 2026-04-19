@@ -6,6 +6,8 @@ import com.zyh.easyapplyresume.model.query.admin.AdminQuestionFirstCategoryQuery
 import com.zyh.easyapplyresume.model.vo.admin.AdminQuestionFirstCategoryInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminQuestionFirstCategoryPageVO;
 
+import java.util.List;
+
 /**
  * 题库大类管理服务
  * @author shiningCloud2025
@@ -36,4 +38,9 @@ public interface AdminQuestionFirstCategoryService {
      * 分页查询题库大类
      */
     Page<AdminQuestionFirstCategoryPageVO> findQuestionFirstCategoryByPage(Integer pageNum, Integer pageSize, AdminQuestionFirstCategoryQuery query);
+
+    /**
+     * 查询所有题库大类
+     */
+    List<AdminQuestionFirstCategoryInfoVO> findAllQuestionFirstCategory();
 }
