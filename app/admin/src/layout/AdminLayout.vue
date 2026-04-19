@@ -79,6 +79,11 @@
             <span>Map管理</span>
           </template>
           <el-menu-item index="/admin/map/industry">行业Map管理</el-menu-item>
+          <el-menu-item index="/admin/map/university">大学Map管理</el-menu-item>
+          <el-menu-item index="/admin/map/province">省份Map管理</el-menu-item>
+          <el-menu-item index="/admin/map/city">城市Map管理</el-menu-item>
+          <el-menu-item index="/admin/map/area">区县Map管理</el-menu-item>
+          <el-menu-item index="/admin/map/street">街道Map管理</el-menu-item>
         </el-sub-menu>
 
         <!-- AI管理 -->

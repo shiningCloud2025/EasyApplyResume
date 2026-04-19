@@ -463,8 +463,52 @@ export interface AdminFeedbackRecordInfoVO {
   adminFeedbackRecordApprovalPersonName: string  // 处理人姓名
 }
 
+// 大学Map
+export interface UniversityMap {
+  universityMapId: number
+  universityMapName: string
+  universityMapAddress?: string
+  universityMapLat?: string
+  universityMapLng?: string
+  universityMapStatus?: number
+}
+
+export interface UniversityMapQuery {
+  universityMapName?: string
+}
+
+export interface UniversityMapPageVO {
+  universityMapId: number
+  universityMapName: string
+  universityMapAddress?: string
+  universityMapLat?: string
+  universityMapLng?: string
+  universityMapStatus?: number
+}
+
+export interface UniversityMapInfoVO {
+  universityMapId: number
+  universityMapName: string
+  universityMapAddress?: string
+  universityMapLat?: string
+  universityMapLng?: string
+  universityMapStatus?: number
+}
+
 // 省份Map
 export interface ProvinceMap {
+  provinceMapPid: number
+  provinceMapPname: string
+}
+
+// 省份Map查询
+export interface ProvinceMapQuery {
+  provinceMapPname?: string
+  provinceMapPid?: number
+}
+
+// 省份Map分页VO
+export interface ProvinceMapPageVO {
   provinceMapPid: number
   provinceMapPname: string
 }
@@ -476,11 +520,57 @@ export interface CityMap {
   cityMapPid: number
 }
 
+// 城市Map查询
+export interface CityMapQuery {
+  cityMapCname?: string
+  cityMapPid?: number
+}
+
+// 城市Map分页VO
+export interface CityMapPageVO {
+  cityMapCid: number
+  cityMapCname: string
+  cityMapPid: number
+}
+
 // 区县Map
 export interface AreaMap {
   areaMapAid: number
   areaMapAname: string
   areaMapCid: number
+}
+
+// 区县Map查询
+export interface AreaMapQuery {
+  areaMapAname?: string
+  areaMapCid?: number
+}
+
+// 区县Map分页VO
+export interface AreaMapPageVO {
+  areaMapId: number
+  areaMapAname: string
+  areaMapCid: number
+}
+
+// 街道Map
+export interface StreetMap {
+  streetMapSid: number
+  streetMapSname: string
+  streetMapAid: number
+}
+
+// 街道Map查询
+export interface StreetMapQuery {
+  streetMapSname?: string
+  streetMapAid?: number
+}
+
+// 街道Map分页VO
+export interface StreetMapPageVO {
+  streetMapSid: number
+  streetMapSname: string
+  streetMapAid: number
 }
 
 // ============= 用户反馈（UserFeedback）=============

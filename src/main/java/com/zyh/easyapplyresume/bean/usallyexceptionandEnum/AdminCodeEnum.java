@@ -266,6 +266,19 @@ public enum AdminCodeEnum {
     USER_GUIDE_NOT_FOUND(908, "使用指南不存在"),
 
 
+    // ===================== 题库大类相关（从910开始）=====================
+    QUESTION_FIRST_CATEGORY_NAME_EMPTY(910, "题库大类名称不能为空"),
+    QUESTION_FIRST_CATEGORY_NAME_TOO_LONG(911, "题库大类名称不能超过20个字符"),
+    QUESTION_FIRST_CATEGORY_INTRO_EMPTY(912, "题库大类介绍不能为空"),
+    QUESTION_FIRST_CATEGORY_INTRO_TOO_LONG(913, "题库大类介绍不能超过60个字符"),
+    QUESTION_FIRST_CATEGORY_NAME_DUPLICATE(914, "题库大类名称已存在"),
+    QUESTION_FIRST_CATEGORY_NOT_FOUND(919, "题库大类不存在"),
+    QUESTION_FIRST_CATEGORY_ADD_FAIL(920, "新增题库大类失败"),
+    QUESTION_FIRST_CATEGORY_UPDATE_FAIL(921, "修改题库大类失败"),
+    QUESTION_FIRST_CATEGORY_DELETE_FAIL(922, "删除题库大类失败"),
+    QUESTION_FIRST_CATEGORY_PAGE_FAIL(923, "分页查询题库大类失败"),
+    QUESTION_FIRST_CATEGORY_INFO_FAIL(924, "查询题库大类详情失败"),
+
 
     ;
 

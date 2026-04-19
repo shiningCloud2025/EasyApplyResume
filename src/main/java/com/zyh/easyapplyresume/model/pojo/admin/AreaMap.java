@@ -20,7 +20,7 @@ public class AreaMap {
     /**
      * 区县id,主键
      */
-    @TableId(value = "areaMap_id", type = IdType.AUTO)
+    @TableId(value = "areaMap_aid", type = IdType.AUTO)
     private Integer areaMapId;
     /**
      * 区县名称

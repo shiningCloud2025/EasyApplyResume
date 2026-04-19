@@ -1,15 +1,17 @@
 package com.zyh.easyapplyresume.controller.admin;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
 import com.zyh.easyapplyresume.model.pojo.admin.AreaMap;
 import com.zyh.easyapplyresume.model.pojo.admin.StreetMap;
+import com.zyh.easyapplyresume.model.query.admin.AreaMapQuery;
+import com.zyh.easyapplyresume.model.vo.admin.AreaMapInfoVO;
+import com.zyh.easyapplyresume.model.vo.admin.AreaMapPageVO;
 import com.zyh.easyapplyresume.service.admin.AreaMapService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,11 +34,23 @@ public class AdminAreaMapController {
 
     @Operation(summary = "根据区县id获取所有街道")
     @GetMapping("/getStreetByAreaId")
-    public List<StreetMap> getStreetByAreaId(@RequestParam (required = true,value = "areaMapId") Integer areaMapId){
+    public List<StreetMap> getStreetByAreaId(@RequestParam(required = true, value = "areaMapId") Integer areaMapId){
         return areaMapService.getStreetByAreaId(areaMapId);
     }
 
+    @Operation(summary = "查询区县Map详情")
+    @GetMapping("/findAreaMapById")
+    public BaseResult<AreaMapInfoVO> findAreaMapById(
+            @RequestParam(required = true, value = "areaMapId") Integer areaMapId) {
+        return BaseResult.ok(areaMapService.findAreaMapById(areaMapId));
+    }
 
-
-
+    @Operation(summary = "分页查询区县Map")
+    @PostMapping("/findAreaMapByPage")
+    public BaseResult<Page<AreaMapPageVO>> findAreaMapByPage(
+            @RequestParam(required = false, value = "pageNum", defaultValue = "1") Integer pageNum,
+            @RequestParam(required = false, value = "pageSize", defaultValue = "10") Integer pageSize,
+            @RequestBody AreaMapQuery areaMapQuery) {
+        return BaseResult.ok(areaMapService.findAreaMapByPage(pageNum, pageSize, areaMapQuery));
+    }
 }

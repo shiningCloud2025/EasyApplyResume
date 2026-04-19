@@ -122,6 +122,36 @@ const router = createRouter({
               name: 'IndustryMapManagement',
               component: () => import('@/views/admin/map/IndustryMapManagement.vue'),
               meta: { title: '行业Map管理' }
+            },
+            {
+              path: 'university',
+              name: 'UniversityMapManagement',
+              component: () => import('@/views/admin/map/UniversityMapManagement.vue'),
+              meta: { title: '大学Map管理' }
+            },
+            {
+              path: 'province',
+              name: 'ProvinceMapManagement',
+              component: () => import('@/views/admin/map/ProvinceMapManagement.vue'),
+              meta: { title: '省份Map管理' }
+            },
+            {
+              path: 'city',
+              name: 'CityMapManagement',
+              component: () => import('@/views/admin/map/CityMapManagement.vue'),
+              meta: { title: '城市Map管理' }
+            },
+            {
+              path: 'area',
+              name: 'AreaMapManagement',
+              component: () => import('@/views/admin/map/AreaMapManagement.vue'),
+              meta: { title: '区县Map管理' }
+            },
+            {
+              path: 'street',
+              name: 'StreetMapManagement',
+              component: () => import('@/views/admin/map/StreetMapManagement.vue'),
+              meta: { title: '街道Map管理' }
             }
           ]
         },

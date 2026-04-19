@@ -44,9 +44,26 @@ import type {
   IndustryMapForm,
   IndustryMapQuery,
   IndustryMapPageVO,
+  UniversityMap,
+  UniversityMapQuery,
+  UniversityMapPageVO,
+  UniversityMapInfoVO,
   ProvinceMap,
+  ProvinceMapQuery,
+  ProvinceMapPageVO,
+  ProvinceMapInfoVO,
   CityMap,
+  CityMapQuery,
+  CityMapPageVO,
+  CityMapInfoVO,
   AreaMap,
+  AreaMapQuery,
+  AreaMapPageVO,
+  AreaMapInfoVO,
+  StreetMap,
+  StreetMapQuery,
+  StreetMapPageVO,
+  StreetMapInfoVO,
   UserDeleteResumeQuery,
   UserDeleteResumeBySystemPageVO,
   UserDeleteResumeBySystemInfoVO,
@@ -324,58 +341,50 @@ export const industryMapApi = {
   findAllIndustryMap: () => api.get<IndustryMapInfoVO[]>('/admin/industryMap/findAllIndustryMap')
 }
 
-// 地区相关API（注意：这些接口直接返回数据，没有BaseResult包装）
-export const provinceMapApi = {
-  // 查询所有省份
-  getAllProvince: async () => {
-    console.log('🔥 API层：开始调用 getAllProvince')
-    try {
-      const response = await request.get<ProvinceMap[]>('/admin/provinceMap/getAllProvince')
-      console.log('🔥 API层：getAllProvince axios响应:', response)
-      console.log('🔥 API层：getAllProvince 数据:', response.data)
-      // 响应拦截器已处理数组包装，直接返回
-      return response as any
-    } catch (error) {
-      console.error('🔥 API层：getAllProvince 失败:', error)
-      throw error
-    }
-  },
-  
-  // 根据省份查询城市
-  getCityByProvinceId: async (provinceMapId: number) => {
-    console.log('🔥 API层：开始调用 getCityByProvinceId, 省份ID:', provinceMapId)
-    try {
-      const response = await request.get<CityMap[]>('/admin/provinceMap/getCityByProvinceId', { 
-        params: { provinceMapId } 
-      })
-      console.log('🔥 API层：getCityByProvinceId axios响应:', response)
-      console.log('🔥 API层：getCityByProvinceId 数据:', response.data)
-      // 响应拦截器已处理数组包装，直接返回
-      return response as any
-    } catch (error) {
-      console.error('🔥 API层：getCityByProvinceId 失败:', error)
-      throw error
-    }
-  }
+// Map相关API
+export const universityMapApi = {
+  getUniversityMapPage: (pageNum: number, pageSize: number, query: UniversityMapQuery) =>
+    api.post<PageResult<UniversityMapPageVO>>('/admin/universityMap/findUniversityMapByPage', query, {
+      params: { pageNum, pageSize }
+    }),
+  getUniversityMapInfo: (universityMapId: number) =>
+    api.get<UniversityMapInfoVO>('/admin/universityMap/findUniversityMapById', { universityMapId })
 }
 
-// 城市相关API（注意：这些接口直接返回数据，没有BaseResult包装）
+export const provinceMapApi = {
+  getProvinceMapPage: (pageNum: number, pageSize: number, query: ProvinceMapQuery) =>
+    api.post<PageResult<ProvinceMapPageVO>>('/admin/provinceMap/findProvinceMapByPage', query, {
+      params: { pageNum, pageSize }
+    }),
+  getProvinceMapInfo: (provinceMapId: number) =>
+    api.get<ProvinceMapInfoVO>('/admin/provinceMap/findProvinceMapById', { provinceMapId })
+}
+
 export const cityMapApi = {
-  // 查询所有城市
-  getAllCity: async () => {
-    const response = await request.get<CityMap[]>('/admin/cityMap/getAllCity')
-    // 响应拦截器已处理数组包装，直接返回
-    return response as any
-  },
-  
-  // 根据城市查询区县
-  getAllAreaByCityId: async (cityId: number) => {
-    const response = await request.get<AreaMap[]>('/admin/cityMap/getAllAreaByCityId', { 
-      params: { cityId } 
-    })
-    // 响应拦截器已处理数组包装，直接返回
-    return response as any
-  }
+  getCityMapPage: (pageNum: number, pageSize: number, query: CityMapQuery) =>
+    api.post<PageResult<CityMapPageVO>>('/admin/cityMap/findCityMapByPage', query, {
+      params: { pageNum, pageSize }
+    }),
+  getCityMapInfo: (cityMapId: number) =>
+    api.get<CityMapInfoVO>('/admin/cityMap/findCityMapById', { cityMapId })
+}
+
+export const areaMapApi = {
+  getAreaMapPage: (pageNum: number, pageSize: number, query: AreaMapQuery) =>
+    api.post<PageResult<AreaMapPageVO>>('/admin/areaMap/findAreaMapByPage', query, {
+      params: { pageNum, pageSize }
+    }),
+  getAreaMapInfo: (areaMapId: number) =>
+    api.get<AreaMapInfoVO>('/admin/areaMap/findAreaMapById', { areaMapId })
+}
+
+export const streetMapApi = {
+  getStreetMapPage: (pageNum: number, pageSize: number, query: StreetMapQuery) =>
+    api.post<PageResult<StreetMapPageVO>>('/admin/streetMap/findStreetMapByPage', query, {
+      params: { pageNum, pageSize }
+    }),
+  getStreetMapInfo: (streetMapId: number) =>
+    api.get<StreetMapInfoVO>('/admin/streetMap/findStreetMapById', { params: { streetMapId } })
 }
 
 // 邮件发送相关API
