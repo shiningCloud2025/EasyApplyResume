@@ -123,3 +123,160 @@ This generated password is for development use only. Your security configuration
 2026-04-20 10:28:38.066 [Thread-7] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
 2026-04-20 10:28:38.127 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - De-registering from Nacos Server now...
 2026-04-20 10:28:38.200 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - De-registration finished.
+2026-04-20 23:59:09.753 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-04-20 23:59:10.091 [main] INFO  c.a.c.n.c.NacosConfigDataLoader - [Nacos Config] Load config[dataId=EasyApplyResume-dev.yaml, group=DEFAULT_GROUP] success
+2026-04-20 23:59:10.091 [main] INFO  c.a.c.n.c.NacosConfigDataLoader - [Nacos Config] Load config[dataId=EasyApplyResume.yaml, group=DEFAULT_GROUP] success
+2026-04-20 23:59:10.798 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2026-04-20 23:59:10.828 [main] INFO  c.a.c.n.c.NacosConfigDataLoader - [Nacos Config] Load config[dataId=EasyApplyResume-dev.yaml, group=DEFAULT_GROUP] success
+2026-04-20 23:59:10.828 [main] INFO  c.a.c.n.c.NacosConfigDataLoader - [Nacos Config] Load config[dataId=EasyApplyResume.yaml, group=DEFAULT_GROUP] success
+2026-04-20 23:59:13.527 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-20 23:59:13.531 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-20 23:59:13.590 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 39 ms. Found 0 Redis repository interfaces.
+2026-04-20 23:59:13.761 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.762 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.762 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.763 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.763 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.763 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.764 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.764 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.765 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.765 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.765 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.766 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.766 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.766 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.766 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.767 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.767 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.767 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.768 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.768 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.768 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.768 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.769 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.769 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.769 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.770 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.770 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.771 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.771 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.772 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.772 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.772 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.773 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.773 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.774 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.774 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.774 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.775 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.775 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.775 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.776 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.776 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.776 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.778 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.778 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.779 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.779 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.780 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.780 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.781 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.781 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.781 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.781 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-20 23:59:13.785 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2026-04-20 23:59:14.011 [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=b5ddbcf1-0a24-31f4-91d7-9070ec98991f
+2026-04-20 23:59:15.215 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-20 23:59:15.241 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-20 23:59:15.246 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-20 23:59:15.247 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-04-20 23:59:15.417 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-04-20 23:59:15.418 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4589 ms
+2026-04-20 23:59:17.341 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserCollections".
+2026-04-20 23:59:17.342 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserCollections ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-04-20 23:59:17.603 [main] DEBUG c.z.e.filter.UserJwtAuthFilter - Filter 'userJwtAuthFilter' configured for use
+2026-04-20 23:59:17.607 [main] DEBUG c.z.e.filter.AdminJwtAuthFilter - Filter 'adminJwtAuthFilter' configured for use
+2026-04-20 23:59:17.918 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 开始初始化阿里云短信客户端...
+2026-04-20 23:59:18.293 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端初始化完成
+2026-04-20 23:59:20.395 [main] INFO  c.z.e.d.a.AdminSensitiveWordsAdvisor - 管理端敏感词初始化完成，共加载 137 个敏感词
+2026-04-20 23:59:22.815 [main] INFO  c.z.s.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 40136 (C:\Users\shini\IdeaProjects\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2026-04-20 23:59:22.816 [main] INFO  c.z.s.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2026-04-20 23:59:24.188 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2026-04-20 23:59:24.260 [pool-6-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2026-04-20 23:59:24.319 [main] INFO  c.z.s.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 2.452 seconds (process running for 3.482)
+2026-04-20 23:59:27.078 [pool-11-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2026-04-20 23:59:27.086 [pool-9-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2026-04-20 23:59:27.456 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 用户端敏感词初始化完成，共加载 137 个敏感词
+2026-04-20 23:59:27.802 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2026-04-20 23:59:27.806 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2026-04-20 23:59:27.810 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2026-04-20 23:59:32.065 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 842ac2cf-4f86-49b9-aa25-0b0cb020d32c
+2026-04-20 23:59:32.340 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 855f1cf9-3e98-4f30-8519-49f9a01e4448
+2026-04-20 23:59:32.648 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 9012ab9d-0c40-4ef2-a27c-95a6609d7adb
+2026-04-20 23:59:32.926 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2026-04-20 23:59:32.938 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2026-04-20 23:59:33.403 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2026-04-20 23:59:33.495 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2026-04-20 23:59:33.499 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2026-04-20 23:59:33.499 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2026-04-20 23:59:33.506 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-20 23:59:33.993 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@40dfb712
+2026-04-20 23:59:33.996 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-20 23:59:34.642 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: 4d14d959-3926-4ef6-84a5-2aa999327f10
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-04-20 23:59:34.653 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-04-20 23:59:35.507 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 20 endpoints beneath base path '/actuator'
+2026-04-20 23:59:37.006 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-04-20 23:59:37.020 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2026-04-20 23:59:37.056 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-20 23:59:37.056 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-20 23:59:37.607 [main] INFO  c.a.c.n.r.NacosServiceRegistry - nacos registry, DEFAULT_GROUP EasyApplyResume 192.168.1.137:8080 register finished
+2026-04-20 23:59:37.635 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 30.821 seconds (process running for 32.085)
+2026-04-20 23:59:40.503 [main] INFO  c.a.c.n.r.NacosContextRefresher - [Nacos Config] Listening config: dataId=EasyApplyResume.yaml, group=DEFAULT_GROUP
+2026-04-20 23:59:40.505 [main] INFO  c.a.c.n.r.NacosContextRefresher - [Nacos Config] Listening config: dataId=EasyApplyResume-dev.yaml, group=DEFAULT_GROUP
+2026-04-20 23:59:41.786 [registrationTask1] WARN  d.c.b.a.c.r.ApplicationRegistrator - Failed to register application as Application(name=EasyApplyResume, managementUrl=http://backend-1:8080/actuator, healthUrl=http://backend-1:8080/actuator/health, serviceUrl=http://backend-1:8080) at spring-boot-admin ([http://EasyApplyResume-spring-boot-admin:9090/instances]): I/O error on POST request for "http://EasyApplyResume-spring-boot-admin:9090/instances": 不知道这样的主机。 (easyapplyresume-spring-boot-admin). Further attempts are logged on DEBUG level
+2026-04-21 00:00:10.009 [scheduling-1] INFO  c.z.e.t.a.AdmonitorAdminDailyVisitNumScheduledTask - 开始执行统计昨日访问量任务
+2026-04-21 00:00:10.027 [scheduling-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-04-21 00:00:11.042 [scheduling-1] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2c015f72
+2026-04-21 00:00:11.043 [scheduling-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-04-21 00:00:11.137 [scheduling-1] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdmonitorAdminDailyVisitNumServiceImpl, 方法: calculateAdmonitorAdminDailyVisitNum, 参数: [1776614410001]
+2026-04-21 00:00:11.137 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDailyVisitNumServiceImpl - 计算记录开始
+2026-04-21 00:00:11.208 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT adminDailyVisitNum_id,adminDailyVisitNum_adminId,adminDailyVisitNum_visitTime FROM admonitor_adminDailyVisitNum WHERE (adminDailyVisitNum_visitTime = ?)
+2026-04-21 00:00:11.231 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2026-04-20(LocalDate)
+2026-04-21 00:00:11.373 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 0
+2026-04-21 00:00:11.376 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDailyVisitNumServiceImpl - 计算记录成功
+2026-04-21 00:00:11.381 [scheduling-1] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdmonitorAdminDailyVisitNumServiceImpl, 方法: calculateAdmonitorAdminDailyVisitNum, 返回值: {}, 耗时: 239ms
+2026-04-21 00:00:11.555 [scheduling-1] INFO  c.z.e.t.a.AdmonitorAdminDailyVisitNumScheduledTask - 昨日访问量统计完成
+2026-04-21 00:00:11.555 [scheduling-1] INFO  c.z.e.t.a.AdmonitorAdminDailyVisitNumScheduledTask - 开始执行新增昨日访问量任务
+2026-04-21 00:00:11.705 [scheduling-1] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdmonitorAdminDailyVisitTotalNumServiceImpl, 方法: addAdmonitorAdminDailyVisitTotalNum, 参数: [{"adminDailyVisitTotalNumDate":1776614410001,"adminDailyVisitTotalNumNum":0}]
+2026-04-21 00:00:11.705 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorAdminDailyVisitTotalNumServiceImpl - 新增记录开始
+2026-04-21 00:00:11.710 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==>  Preparing: INSERT INTO admonitor_adminDailyVisitTotalNum ( adminDailyVisitTotalNum_date, adminDailyVisitTotalNum_num ) VALUES ( ?, ? )
+2026-04-21 00:00:11.714 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==> Parameters: 2026-04-20 00:00:10.001(Timestamp), 0(Integer)
+2026-04-21 00:00:11.861 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - <==    Updates: 1
+2026-04-21 00:00:11.864 [scheduling-1] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdmonitorAdminDailyVisitTotalNumServiceImpl, 方法: addAdmonitorAdminDailyVisitTotalNum, 返回值: {}, 耗时: 159ms
+2026-04-21 00:00:12.004 [scheduling-1] INFO  c.z.e.t.a.AdmonitorAdminDailyVisitNumScheduledTask - 新增昨日访问量任务完成
+2026-04-21 00:00:20.001 [scheduling-1] INFO  c.z.e.t.a.AdmonitorUserDailyVisitNumScheduledTask - 开始执行统计用户昨日访问量任务
+2026-04-21 00:00:20.258 [scheduling-1] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdmonitorUserDailyVisitNumServiceImpl, 方法: calculateAdmonitorUserDailyVisitNum, 参数: [1776614420001]
+2026-04-21 00:00:20.258 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录开始
+2026-04-21 00:00:20.259 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT userDailyVisitNum_id,userDailyVisitNum_userId AS userDailyVisitNumAdminId,userDailyVisitNum_visitTime FROM admonitor_userDailyVisitNum WHERE (userDailyVisitNum_visitTime = ?)
+2026-04-21 00:00:20.261 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 2026-04-20(LocalDate)
+2026-04-21 00:00:20.360 [scheduling-1] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 0
+2026-04-21 00:00:20.361 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitNumServiceImpl - 计算记录成功
+2026-04-21 00:00:20.362 [scheduling-1] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdmonitorUserDailyVisitNumServiceImpl, 方法: calculateAdmonitorUserDailyVisitNum, 返回值: {}, 耗时: 103ms
+2026-04-21 00:00:20.519 [scheduling-1] INFO  c.z.e.t.a.AdmonitorUserDailyVisitNumScheduledTask - 昨日用户访问量统计完成
+2026-04-21 00:00:20.519 [scheduling-1] INFO  c.z.e.t.a.AdmonitorUserDailyVisitNumScheduledTask - 开始执行用户新增昨日访问量任务
+2026-04-21 00:00:20.568 [scheduling-1] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdmonitorUserDailyVisitTotalNumServiceImpl, 方法: addAdmonitorUserDailyVisitTotalNum, 参数: [{"userDailyVisitTotalNumDate":1776614420001,"userDailyVisitTotalNumNum":0}]
+2026-04-21 00:00:20.568 [scheduling-1] INFO  c.z.e.s.i.a.AdmonitorUserDailyVisitTotalNumServiceImpl - 新增记录开始
+2026-04-21 00:00:20.570 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==>  Preparing: INSERT INTO admonitor_userDailyVisitTotalNum ( userDailyVisitTotalNum_date, userDailyVisitTotalNum_num ) VALUES ( ?, ? )
+2026-04-21 00:00:20.571 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - ==> Parameters: 2026-04-20 00:00:20.001(Timestamp), 0(Integer)
+2026-04-21 00:00:20.770 [scheduling-1] DEBUG c.z.e.m.m.a.A.insert - <==    Updates: 1
+2026-04-21 00:00:20.770 [scheduling-1] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdmonitorUserDailyVisitTotalNumServiceImpl, 方法: addAdmonitorUserDailyVisitTotalNum, 返回值: {}, 耗时: 202ms
+2026-04-21 00:00:20.933 [scheduling-1] INFO  c.z.e.t.a.AdmonitorUserDailyVisitNumScheduledTask - 用户新增昨日访问量任务完成
+2026-04-21 00:14:20.126 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=45s901ms327µs100ns).
+2026-04-21 00:15:24.605 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m4s488ms848µs800ns).
+2026-04-21 00:15:24.628 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=1m4s488ms720µs101ns).
