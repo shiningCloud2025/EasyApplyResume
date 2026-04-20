@@ -54,6 +54,21 @@ public enum AdminCodeEnum {
     SCORE_TRAINING_DATA_DATA_SOURCE_INVALID(957, "数据来源不合法"),
     SCORE_TRAINING_DATA_NOT_FOUND(958, "简历评分训练数据不存在"),
 
+    // ===================== 简历评分模型训练代码相关（从960开始）=====================
+    SCORE_MODEL_TRAIN_CODE_ID_EMPTY(960, "训练代码id不能为空"),
+    SCORE_MODEL_TRAIN_CODE_NAME_EMPTY(961, "训练代码名称不能为空"),
+    SCORE_MODEL_TRAIN_CODE_NAME_TOO_LONG(962, "训练代码名称不能超过64个字符"),
+    SCORE_MODEL_TRAIN_CODE_VERSION_EMPTY(963, "训练代码版本号不能为空"),
+    SCORE_MODEL_TRAIN_CODE_VERSION_TOO_LONG(964, "训练代码版本号不能超过64个字符"),
+    SCORE_MODEL_TRAIN_CODE_LANGUAGE_EMPTY(965, "训练代码语言不能为空"),
+    SCORE_MODEL_TRAIN_CODE_LANGUAGE_TOO_LONG(966, "训练代码语言不能超过32个字符"),
+    SCORE_MODEL_TRAIN_CODE_CONTENT_EMPTY(967, "训练代码内容不能为空"),
+    SCORE_MODEL_TRAIN_CODE_DESC_EMPTY(968, "训练代码描述不能为空"),
+    SCORE_MODEL_TRAIN_CODE_DESC_TOO_LONG(969, "训练代码描述不能超过500个字符"),
+    SCORE_MODEL_TRAIN_CODE_NOT_FOUND(970, "训练代码不存在"),
+    SCORE_MODEL_TRAIN_CODE_FILE_NAME_EMPTY(971, "训练代码中的文件名不能为空"),
+    SCORE_MODEL_TRAIN_CODE_FILE_BLOCK_INVALID(972, "训练代码内容格式不正确"),
+
     ;
 
     private final Integer code;
