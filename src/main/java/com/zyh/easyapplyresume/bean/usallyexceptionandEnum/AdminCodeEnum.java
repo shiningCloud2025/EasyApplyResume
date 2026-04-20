@@ -43,6 +43,17 @@ public enum AdminCodeEnum {
     QUESTION_SECOND_CATEGORY_PAGE_FAIL(940, "分页查询题库小类失败"),
     QUESTION_SECOND_CATEGORY_INFO_FAIL(941, "查询题库小类详情失败"),
 
+    // ===================== 简历评分训练数据相关（从950开始）=====================
+    SCORE_TRAINING_DATA_RESUME_NAME_EMPTY(950, "简历名称不能为空"),
+    SCORE_TRAINING_DATA_RESUME_NAME_TOO_LONG(951, "简历名称不能超过25个字符"),
+    SCORE_TRAINING_DATA_INDUSTRY_NAME_EMPTY(952, "行业名称不能为空"),
+    SCORE_TRAINING_DATA_INDUSTRY_NAME_TOO_LONG(953, "行业名称不能超过35个字符"),
+    SCORE_TRAINING_DATA_RESUME_CONTENT_EMPTY(954, "简历内容不能为空"),
+    SCORE_TRAINING_DATA_LABEL_SCORE_EMPTY(955, "训练标签分数不能为空"),
+    SCORE_TRAINING_DATA_DATA_SOURCE_EMPTY(956, "数据来源不能为空"),
+    SCORE_TRAINING_DATA_DATA_SOURCE_INVALID(957, "数据来源不合法"),
+    SCORE_TRAINING_DATA_NOT_FOUND(958, "简历评分训练数据不存在"),
+
     ;
 
     private final Integer code;
