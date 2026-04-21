@@ -270,6 +270,34 @@ public class AdminQuestionSecondCategoryServiceImpl implements AdminQuestionSeco
     }
 
     @Override
+    public List<AdminQuestionSecondCategoryInfoVO> findQuestionSecondCategoryByFirstCategoryId(Integer questionFirstCategoryId) {
+        try {
+            if (questionFirstCategoryId == null) {
+                throw new BusException(AdminCodeEnum.QUESTION_SECOND_CATEGORY_FIRST_CATEGORY_ID_EMPTY);
+            }
+
+            LambdaQueryWrapper<AdminQuestionSecondCategory> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(AdminQuestionSecondCategory::getQuestionFirstCategoryId, questionFirstCategoryId);
+            lambdaQueryWrapper.eq(AdminQuestionSecondCategory::getDeleted, 0);
+            lambdaQueryWrapper.orderByDesc(AdminQuestionSecondCategory::getQuestionSecondCategoryCreateTime);
+
+            List<AdminQuestionSecondCategory> questionSecondCategoryList = adminQuestionSecondCategoryMapper.selectList(lambdaQueryWrapper);
+
+            return questionSecondCategoryList.stream().map(item -> {
+                AdminQuestionSecondCategoryInfoVO vo = new AdminQuestionSecondCategoryInfoVO();
+                BeanUtils.copyProperties(item, vo);
+                return vo;
+            }).collect(Collectors.toList());
+        } catch (BusException e) {
+            log.info("根据题库大类id查询题库小类业务异常", e);
+            throw e;
+        } catch (Exception e) {
+            log.error("根据题库大类id查询题库小类失败", e);
+            throw new RuntimeException("根据题库大类id查询题库小类失败");
+        }
+    }
+
+    @Override
     public List<AdminQuestionSecondCategoryInfoVO> findAllQuestionSecondCategory() {
         try {
             LambdaQueryWrapper<AdminQuestionSecondCategory> lambdaQueryWrapper = new LambdaQueryWrapper<>();

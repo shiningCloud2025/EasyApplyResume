@@ -45,6 +45,11 @@ public interface AdminQuestionSecondCategoryService {
     Page<AdminQuestionSecondCategoryPageVO> findQuestionSecondCategoryByPage(Integer pageNum, Integer pageSize, AdminQuestionSecondCategoryQuery query);
 
     /**
+     * 根据题库大类id查询题库小类
+     */
+    List<AdminQuestionSecondCategoryInfoVO> findQuestionSecondCategoryByFirstCategoryId(Integer questionFirstCategoryId);
+
+    /**
      * 查询所有题库小类
      */
     List<AdminQuestionSecondCategoryInfoVO> findAllQuestionSecondCategory();
