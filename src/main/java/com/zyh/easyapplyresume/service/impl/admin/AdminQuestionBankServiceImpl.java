@@ -67,7 +67,14 @@ public class AdminQuestionBankServiceImpl implements AdminQuestionBankService {
             lambdaUpdateWrapper.set(AdminQuestionBank::getQuestionFirstCategoryName, questionFirstCategoryName.trim());
             lambdaUpdateWrapper.set(AdminQuestionBank::getQuestionBankUpdateTime, LocalDateTime.now());
 
-            return adminQuestionBankMapper.update(null, lambdaUpdateWrapper);
+            int updateCount = adminQuestionBankMapper.update(null, lambdaUpdateWrapper);
+
+            adminFirstCategoryQuestionBankService.updateFirstCategoryQuestionBankFirstCategoryNameByFirstCategoryId(
+                    questionFirstCategoryId,
+                    questionFirstCategoryName
+            );
+
+            return updateCount;
         } catch (BusException e) {
             log.info("按大类id同步题库题目大类名称业务异常", e);
             throw e;
@@ -110,7 +117,16 @@ public class AdminQuestionBankServiceImpl implements AdminQuestionBankService {
             lambdaUpdateWrapper.set(AdminQuestionBank::getQuestionSecondCategoryName, questionSecondCategoryName.trim());
             lambdaUpdateWrapper.set(AdminQuestionBank::getQuestionBankUpdateTime, LocalDateTime.now());
 
-            return adminQuestionBankMapper.update(null, lambdaUpdateWrapper);
+            int updateCount = adminQuestionBankMapper.update(null, lambdaUpdateWrapper);
+
+            adminFirstCategoryQuestionBankService.updateFirstCategoryQuestionBankCategoryInfoBySecondCategoryId(
+                    questionSecondCategoryId,
+                    questionFirstCategoryId,
+                    questionFirstCategoryName,
+                    questionSecondCategoryName
+            );
+
+            return updateCount;
         } catch (BusException e) {
             log.info("按小类id同步题库题目分类信息业务异常", e);
             throw e;
@@ -133,7 +149,13 @@ public class AdminQuestionBankServiceImpl implements AdminQuestionBankService {
             lambdaUpdateWrapper.set(AdminQuestionBank::getDeleted, 1);
             lambdaUpdateWrapper.set(AdminQuestionBank::getQuestionBankUpdateTime, LocalDateTime.now());
 
-            return adminQuestionBankMapper.update(null, lambdaUpdateWrapper);
+            int updateCount = adminQuestionBankMapper.update(null, lambdaUpdateWrapper);
+
+            adminFirstCategoryQuestionBankService.deleteFirstCategoryQuestionBankBySecondCategoryId(
+                    questionSecondCategoryId
+            );
+
+            return updateCount;
         } catch (BusException e) {
             log.info("按小类id删除题库题目业务异常", e);
             throw e;
@@ -156,7 +178,13 @@ public class AdminQuestionBankServiceImpl implements AdminQuestionBankService {
             lambdaUpdateWrapper.set(AdminQuestionBank::getDeleted, 1);
             lambdaUpdateWrapper.set(AdminQuestionBank::getQuestionBankUpdateTime, LocalDateTime.now());
 
-            return adminQuestionBankMapper.update(null, lambdaUpdateWrapper);
+            int updateCount = adminQuestionBankMapper.update(null, lambdaUpdateWrapper);
+
+            adminFirstCategoryQuestionBankService.deleteFirstCategoryQuestionBankByFirstCategoryId(
+                    questionFirstCategoryId
+            );
+
+            return updateCount;
         } catch (BusException e) {
             log.info("按大类id删除题库题目业务异常", e);
             throw e;

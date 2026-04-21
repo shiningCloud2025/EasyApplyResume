@@ -1,16 +1,20 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
+import com.zyh.easyapplyresume.mapper.mysql.admin.AdminQuestionFirstCategoryMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.AdminQuestionSecondCategoryMapper;
 import com.zyh.easyapplyresume.model.form.admin.AdminQuestionSecondCategoryForm;
+import com.zyh.easyapplyresume.model.pojo.admin.AdminQuestionFirstCategory;
 import com.zyh.easyapplyresume.model.pojo.admin.AdminQuestionSecondCategory;
 import com.zyh.easyapplyresume.model.query.admin.AdminQuestionSecondCategoryQuery;
 import com.zyh.easyapplyresume.model.vo.admin.AdminQuestionSecondCategoryInfoVO;
 import com.zyh.easyapplyresume.model.vo.admin.AdminQuestionSecondCategoryPageVO;
 import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
+import com.zyh.easyapplyresume.service.admin.AdminQuestionBankService;
 import com.zyh.easyapplyresume.service.admin.AdminQuestionSecondCategoryService;
 import com.zyh.easyapplyresume.utils.adminvalidator.AdminQuestionSecondCategoryFormValidator;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -37,7 +42,13 @@ public class AdminQuestionSecondCategoryServiceImpl implements AdminQuestionSeco
     private AdminQuestionSecondCategoryMapper adminQuestionSecondCategoryMapper;
 
     @Autowired
+    private AdminQuestionFirstCategoryMapper adminQuestionFirstCategoryMapper;
+
+    @Autowired
     private AdminQuestionSecondCategoryFormValidator adminQuestionSecondCategoryFormValidator;
+
+    @Autowired
+    private AdminQuestionBankService adminQuestionBankService;
 
     @Override
     public Integer addQuestionSecondCategory(AdminQuestionSecondCategoryForm form) {
@@ -67,8 +78,55 @@ public class AdminQuestionSecondCategoryServiceImpl implements AdminQuestionSeco
             adminQuestionSecondCategoryFormValidator.validateForUpdate(form);
             validateQuestionSecondCategoryUnique(form);
 
-            // 占位：后续需要联动题目、用户题目映射表
-            throw new BusException(AdminCodeEnum.QUESTION_SECOND_CATEGORY_UPDATE_FAIL);
+            LambdaQueryWrapper<AdminQuestionSecondCategory> secondCategoryQueryWrapper = new LambdaQueryWrapper<>();
+            secondCategoryQueryWrapper.eq(AdminQuestionSecondCategory::getQuestionSecondCategoryId, form.getQuestionSecondCategoryId());
+            secondCategoryQueryWrapper.eq(AdminQuestionSecondCategory::getDeleted, 0);
+
+            AdminQuestionSecondCategory dbQuestionSecondCategory = adminQuestionSecondCategoryMapper.selectOne(secondCategoryQueryWrapper);
+            if (dbQuestionSecondCategory == null) {
+                throw new BusException(AdminCodeEnum.QUESTION_SECOND_CATEGORY_NOT_FOUND);
+            }
+
+            String newQuestionSecondCategoryName = form.getQuestionSecondCategoryName() == null
+                    ? null
+                    : form.getQuestionSecondCategoryName().trim();
+
+            boolean needSyncQuestionBank =
+                    !Objects.equals(dbQuestionSecondCategory.getQuestionFirstCategoryId(), form.getQuestionFirstCategoryId())
+                    || !Objects.equals(dbQuestionSecondCategory.getQuestionSecondCategoryName(), newQuestionSecondCategoryName);
+
+            String questionFirstCategoryName = null;
+            if (needSyncQuestionBank) {
+                LambdaQueryWrapper<AdminQuestionFirstCategory> firstCategoryQueryWrapper = new LambdaQueryWrapper<>();
+                firstCategoryQueryWrapper.eq(AdminQuestionFirstCategory::getQuestionFirstCategoryId, form.getQuestionFirstCategoryId());
+                firstCategoryQueryWrapper.eq(AdminQuestionFirstCategory::getDeleted, 0);
+
+                AdminQuestionFirstCategory questionFirstCategory = adminQuestionFirstCategoryMapper.selectOne(firstCategoryQueryWrapper);
+                if (questionFirstCategory == null) {
+                    throw new BusException(AdminCodeEnum.QUESTION_FIRST_CATEGORY_NOT_FOUND);
+                }
+
+                questionFirstCategoryName = questionFirstCategory.getQuestionFirstCategoryName();
+            }
+
+            AdminQuestionSecondCategory questionSecondCategory = new AdminQuestionSecondCategory();
+            BeanUtils.copyProperties(form, questionSecondCategory);
+
+            int updateCount = adminQuestionSecondCategoryMapper.updateById(questionSecondCategory);
+            if (updateCount <= 0) {
+                throw new BusException(AdminCodeEnum.QUESTION_SECOND_CATEGORY_UPDATE_FAIL);
+            }
+
+            if (needSyncQuestionBank) {
+                adminQuestionBankService.updateQuestionBankSecondCategoryInfoBySecondCategoryId(
+                        form.getQuestionSecondCategoryId(),
+                        form.getQuestionFirstCategoryId(),
+                        questionFirstCategoryName,
+                        newQuestionSecondCategoryName
+                );
+            }
+
+            return updateCount;
         } catch (BusException e) {
             log.info("修改题库小类业务异常", e);
             throw e;
@@ -81,14 +139,59 @@ public class AdminQuestionSecondCategoryServiceImpl implements AdminQuestionSeco
     @Override
     public Integer deleteQuestionSecondCategory(Integer questionSecondCategoryId) {
         try {
-            // 占位：后续需要联动题目、用户题目映射表
-            throw new BusException(AdminCodeEnum.QUESTION_SECOND_CATEGORY_DELETE_FAIL);
+            LambdaQueryWrapper<AdminQuestionSecondCategory> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(AdminQuestionSecondCategory::getQuestionSecondCategoryId, questionSecondCategoryId);
+            lambdaQueryWrapper.eq(AdminQuestionSecondCategory::getDeleted, 0);
+
+            AdminQuestionSecondCategory dbQuestionSecondCategory = adminQuestionSecondCategoryMapper.selectOne(lambdaQueryWrapper);
+            if (dbQuestionSecondCategory == null) {
+                throw new BusException(AdminCodeEnum.QUESTION_SECOND_CATEGORY_NOT_FOUND);
+            }
+
+            AdminQuestionSecondCategory questionSecondCategory = new AdminQuestionSecondCategory();
+            questionSecondCategory.setQuestionSecondCategoryId(questionSecondCategoryId);
+            questionSecondCategory.setDeleted(1);
+
+            int updateCount = adminQuestionSecondCategoryMapper.updateById(questionSecondCategory);
+            if (updateCount <= 0) {
+                throw new BusException(AdminCodeEnum.QUESTION_SECOND_CATEGORY_DELETE_FAIL);
+            }
+
+            adminQuestionBankService.deleteQuestionBankBySecondCategoryId(questionSecondCategoryId);
+
+            return updateCount;
         } catch (BusException e) {
             log.info("删除题库小类业务异常", e);
             throw e;
         } catch (Exception e) {
             log.error("删除题库小类失败", e);
             throw new RuntimeException("删除题库小类失败");
+        }
+    }
+
+    @Override
+    public Integer deleteQuestionSecondCategoryByFirstCategoryId(Integer questionFirstCategoryId) {
+        try {
+            if (questionFirstCategoryId == null) {
+                throw new BusException(AdminCodeEnum.QUESTION_BANK_FIRST_CATEGORY_ID_EMPTY);
+            }
+
+            LambdaUpdateWrapper<AdminQuestionSecondCategory> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+            lambdaUpdateWrapper.eq(AdminQuestionSecondCategory::getQuestionFirstCategoryId, questionFirstCategoryId);
+            lambdaUpdateWrapper.eq(AdminQuestionSecondCategory::getDeleted, 0);
+            lambdaUpdateWrapper.set(AdminQuestionSecondCategory::getDeleted, 1);
+
+            int updateCount = adminQuestionSecondCategoryMapper.update(null, lambdaUpdateWrapper);
+
+            adminQuestionBankService.deleteQuestionBankByFirstCategoryId(questionFirstCategoryId);
+
+            return updateCount;
+        } catch (BusException e) {
+            log.info("按大类id删除题库小类业务异常", e);
+            throw e;
+        } catch (Exception e) {
+            log.error("按大类id删除题库小类失败", e);
+            throw new RuntimeException("按大类id删除题库小类失败");
         }
     }
 

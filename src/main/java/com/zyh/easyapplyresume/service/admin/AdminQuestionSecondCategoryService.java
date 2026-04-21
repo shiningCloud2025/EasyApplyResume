@@ -30,6 +30,11 @@ public interface AdminQuestionSecondCategoryService {
     Integer deleteQuestionSecondCategory(Integer questionSecondCategoryId);
 
     /**
+     * 内部业务使用：按大类id删除题库小类
+     */
+    Integer deleteQuestionSecondCategoryByFirstCategoryId(Integer questionFirstCategoryId);
+
+    /**
      * 查询题库小类详情
      */
     AdminQuestionSecondCategoryInfoVO findQuestionSecondCategoryById(Integer questionSecondCategoryId);
