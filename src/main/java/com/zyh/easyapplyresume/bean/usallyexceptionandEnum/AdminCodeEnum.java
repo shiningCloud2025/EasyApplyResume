@@ -359,6 +359,16 @@ public enum AdminCodeEnum {
     QUESTION_BANK_PAGE_FAIL(1018, "分页查询题库题目失败"),
     QUESTION_BANK_INFO_FAIL(1019, "查询题库题目详情失败"),
 
+    // ==================== 用户-笔试第一大类答题映射相关（1050开始）====================
+    USER_FIRST_CATEGORY_QUESTION_BANK_USER_ID_EMPTY(1050, "用户id不能为空"),
+    USER_FIRST_CATEGORY_QUESTION_BANK_ID_EMPTY(1051, "题目id不能为空"),
+    USER_FIRST_CATEGORY_QUESTION_BANK_NOT_FOUND(1052, "用户笔试题目记录不存在"),
+    USER_FIRST_CATEGORY_QUESTION_BANK_FIRST_CATEGORY_NAME_TOO_LONG(1053, "题库大类名称不能超过20个字符"),
+    USER_FIRST_CATEGORY_QUESTION_BANK_SECOND_CATEGORY_NAME_TOO_LONG(1054, "题库小类名称不能超过20个字符"),
+    USER_FIRST_CATEGORY_QUESTION_BANK_DELETE_FAIL(1055, "删除用户笔试题目记录失败"),
+    USER_FIRST_CATEGORY_QUESTION_BANK_INFO_FAIL(1056, "查询用户笔试题目详情失败"),
+    USER_FIRST_CATEGORY_QUESTION_BANK_PAGE_FAIL(1057, "分页查询用户笔试题目失败"),
+
     ;
 
     private final Integer code;
