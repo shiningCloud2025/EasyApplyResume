@@ -37,12 +37,6 @@ public class AdminScoreModelVersionForm {
     private String scoreModelVersionModelType;
 
     /**
-     * 模型访问地址，最长2056字符
-     */
-    @Schema(description = "模型访问地址，最长2056字符")
-    private String scoreModelVersionModelUrl;
-
-    /**
      * 使用的embedding模型，如bge-m3，最长64字符
      */
     @Schema(description = "使用的embedding模型，如bge-m3，最长64字符")
