@@ -22,6 +22,34 @@ public interface AdminFirstCategoryQuestionBankService {
     );
 
     /**
+     * 内部业务使用：按大类id同步用户题目大类名称
+     */
+    Integer updateFirstCategoryQuestionBankFirstCategoryNameByFirstCategoryId(
+            Integer questionFirstCategoryId,
+            String questionFirstCategoryName
+    );
+
+    /**
+     * 内部业务使用：按小类id同步用户题目分类信息
+     */
+    Integer updateFirstCategoryQuestionBankCategoryInfoBySecondCategoryId(
+            Integer questionSecondCategoryId,
+            Integer questionFirstCategoryId,
+            String questionFirstCategoryName,
+            String questionSecondCategoryName
+    );
+
+    /**
+     * 内部业务使用：按小类id删除用户题目记录
+     */
+    Integer deleteFirstCategoryQuestionBankBySecondCategoryId(Integer questionSecondCategoryId);
+
+    /**
+     * 内部业务使用：按大类id删除用户题目记录
+     */
+    Integer deleteFirstCategoryQuestionBankByFirstCategoryId(Integer questionFirstCategoryId);
+
+    /**
      * 删除用户-笔试题目记录
      */
     Integer deleteFirstCategoryQuestionBank(Integer userId, Integer questionBankId);

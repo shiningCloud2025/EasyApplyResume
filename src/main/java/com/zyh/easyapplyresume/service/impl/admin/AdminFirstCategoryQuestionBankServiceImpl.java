@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +34,117 @@ public class AdminFirstCategoryQuestionBankServiceImpl implements AdminFirstCate
 
     @Autowired
     private UserFirstCategoryQuestionBankMapper firstCategoryQuestionBankMapper;
+
+    @Override
+    public Integer updateFirstCategoryQuestionBankFirstCategoryNameByFirstCategoryId(Integer questionFirstCategoryId,
+                                                                                     String questionFirstCategoryName) {
+        try {
+            if (questionFirstCategoryId == null) {
+                throw new BusException(AdminCodeEnum.QUESTION_BANK_FIRST_CATEGORY_ID_EMPTY);
+            }
+            if (questionFirstCategoryName == null || questionFirstCategoryName.trim().isEmpty()) {
+                throw new BusException(AdminCodeEnum.QUESTION_BANK_FIRST_CATEGORY_NAME_EMPTY);
+            }
+            if (questionFirstCategoryName.trim().length() > 20) {
+                throw new BusException(AdminCodeEnum.USER_FIRST_CATEGORY_QUESTION_BANK_FIRST_CATEGORY_NAME_TOO_LONG);
+            }
+
+            LambdaUpdateWrapper<UserFirstCategoryQuestionBank> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+            lambdaUpdateWrapper.eq(UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserQuestionFirstCategoryId, questionFirstCategoryId);
+            lambdaUpdateWrapper.set(UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserQuestionFirstCategoryName, questionFirstCategoryName.trim());
+            lambdaUpdateWrapper.set(UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserUpdateTime, LocalDateTime.now());
+
+            return firstCategoryQuestionBankMapper.update(null, lambdaUpdateWrapper);
+        } catch (BusException e) {
+            log.info("按大类id同步用户题目大类名称业务异常", e);
+            throw e;
+        } catch (Exception e) {
+            log.error("按大类id同步用户题目大类名称失败", e);
+            throw new RuntimeException("按大类id同步用户题目大类名称失败");
+        }
+    }
+
+    @Override
+    public Integer updateFirstCategoryQuestionBankCategoryInfoBySecondCategoryId(Integer questionSecondCategoryId,
+                                                                                 Integer questionFirstCategoryId,
+                                                                                 String questionFirstCategoryName,
+                                                                                 String questionSecondCategoryName) {
+        try {
+            if (questionSecondCategoryId == null) {
+                throw new BusException(AdminCodeEnum.QUESTION_BANK_SECOND_CATEGORY_ID_EMPTY);
+            }
+            if (questionFirstCategoryId == null) {
+                throw new BusException(AdminCodeEnum.QUESTION_BANK_FIRST_CATEGORY_ID_EMPTY);
+            }
+            if (questionFirstCategoryName == null || questionFirstCategoryName.trim().isEmpty()) {
+                throw new BusException(AdminCodeEnum.QUESTION_BANK_FIRST_CATEGORY_NAME_EMPTY);
+            }
+            if (questionFirstCategoryName.trim().length() > 20) {
+                throw new BusException(AdminCodeEnum.USER_FIRST_CATEGORY_QUESTION_BANK_FIRST_CATEGORY_NAME_TOO_LONG);
+            }
+            if (questionSecondCategoryName == null || questionSecondCategoryName.trim().isEmpty()) {
+                throw new BusException(AdminCodeEnum.QUESTION_BANK_SECOND_CATEGORY_NAME_EMPTY);
+            }
+            if (questionSecondCategoryName.trim().length() > 20) {
+                throw new BusException(AdminCodeEnum.USER_FIRST_CATEGORY_QUESTION_BANK_SECOND_CATEGORY_NAME_TOO_LONG);
+            }
+
+            LambdaUpdateWrapper<UserFirstCategoryQuestionBank> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+            lambdaUpdateWrapper.eq(UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserQuestionSecondCategoryId, questionSecondCategoryId);
+            lambdaUpdateWrapper.set(UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserQuestionFirstCategoryId, questionFirstCategoryId);
+            lambdaUpdateWrapper.set(UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserQuestionFirstCategoryName, questionFirstCategoryName.trim());
+            lambdaUpdateWrapper.set(UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserQuestionSecondCategoryName, questionSecondCategoryName.trim());
+            lambdaUpdateWrapper.set(UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserUpdateTime, LocalDateTime.now());
+
+            return firstCategoryQuestionBankMapper.update(null, lambdaUpdateWrapper);
+        } catch (BusException e) {
+            log.info("按小类id同步用户题目分类信息业务异常", e);
+            throw e;
+        } catch (Exception e) {
+            log.error("按小类id同步用户题目分类信息失败", e);
+            throw new RuntimeException("按小类id同步用户题目分类信息失败");
+        }
+    }
+
+    @Override
+    public Integer deleteFirstCategoryQuestionBankBySecondCategoryId(Integer questionSecondCategoryId) {
+        try {
+            if (questionSecondCategoryId == null) {
+                throw new BusException(AdminCodeEnum.QUESTION_BANK_SECOND_CATEGORY_ID_EMPTY);
+            }
+
+            LambdaQueryWrapper<UserFirstCategoryQuestionBank> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserQuestionSecondCategoryId, questionSecondCategoryId);
+
+            return firstCategoryQuestionBankMapper.delete(lambdaQueryWrapper);
+        } catch (BusException e) {
+            log.info("按小类id删除用户题目记录业务异常", e);
+            throw e;
+        } catch (Exception e) {
+            log.error("按小类id删除用户题目记录失败", e);
+            throw new RuntimeException("按小类id删除用户题目记录失败");
+        }
+    }
+
+    @Override
+    public Integer deleteFirstCategoryQuestionBankByFirstCategoryId(Integer questionFirstCategoryId) {
+        try {
+            if (questionFirstCategoryId == null) {
+                throw new BusException(AdminCodeEnum.QUESTION_BANK_FIRST_CATEGORY_ID_EMPTY);
+            }
+
+            LambdaQueryWrapper<UserFirstCategoryQuestionBank> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserQuestionFirstCategoryId, questionFirstCategoryId);
+
+            return firstCategoryQuestionBankMapper.delete(lambdaQueryWrapper);
+        } catch (BusException e) {
+            log.info("按大类id删除用户题目记录业务异常", e);
+            throw e;
+        } catch (Exception e) {
+            log.error("按大类id删除用户题目记录失败", e);
+            throw new RuntimeException("按大类id删除用户题目记录失败");
+        }
+    }
 
     @Override
     public Integer updateFirstCategoryQuestionBankCategoryInfo(Integer questionBankId,
