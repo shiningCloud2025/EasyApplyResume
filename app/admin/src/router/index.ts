@@ -236,9 +236,15 @@ const router = createRouter({
         {
           path: 'score-model',
           name: 'ScoreModelManagement',
-          redirect: '/admin/score-model/train-code',
+          redirect: '/admin/score-model/training-data',
           meta: { title: '评分模型管理' },
           children: [
+            {
+              path: 'training-data',
+              name: 'ScoreModelTrainingDataManagement',
+              component: () => import('@/views/admin/score-model/ScoreModelManagement.vue'),
+              meta: { title: '训练数据管理' }
+            },
             {
               path: 'train-code',
               name: 'ScoreModelTrainCodeManagement',

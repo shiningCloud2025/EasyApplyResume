@@ -148,6 +148,7 @@
             <el-icon><Histogram /></el-icon>
             <span>评分模型管理</span>
           </template>
+          <el-menu-item index="/admin/score-model/training-data">训练数据管理</el-menu-item>
           <el-menu-item index="/admin/score-model/train-code">训练代码管理</el-menu-item>
           <el-menu-item index="/admin/score-model/version">模型版本管理</el-menu-item>
         </el-sub-menu>
@@ -566,6 +567,7 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/ai/agent': 'AI智能体助手',
     '/admin/ai/llm-utils-info': 'LLM调用日志管理',
     '/admin/score-model': '评分模型管理',
+    '/admin/score-model/training-data': '训练数据管理',
     '/admin/score-model/train-code': '训练代码管理',
     '/admin/score-model/version': '模型版本管理',
     '/admin/system': '内部系统',
@@ -849,6 +851,9 @@ onUnmounted(() => {
 }
 
 .sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
   transition: width 0.3s ease;
@@ -904,6 +909,9 @@ onUnmounted(() => {
 }
 
 .sidebar-menu {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
   border-right: none !important;
   flex: 1;
   --el-menu-text-color: #cbd5e1;
@@ -911,14 +919,14 @@ onUnmounted(() => {
   --el-menu-active-color: #ffffff;
   --el-menu-bg-color: transparent;
   --el-menu-hover-bg-color: rgba(59, 130, 246, 0.15);
-  
+
   .el-menu-item, .el-sub-menu__title {
     height: 50px;
     line-height: 50px;
     margin: 4px 12px;
     border-radius: 8px;
     transition: all 0.3s ease;
-    
+
     &:hover {
       background-color: rgba(59, 130, 246, 0.2);
       color: #ffffff;

@@ -43,7 +43,7 @@
         :closable="false"
         show-icon
         title="评分模型管理入口已创建"
-        description="当前已接入训练代码管理和模型版本管理两个前端入口。后续如果你给我具体字段和交互要求，我可以继续只改前端，把表格、上传表单、详情抽屉和筛选区逐步补齐。"
+        description="当前已接入训练数据管理、训练代码管理和模型版本管理三个前端入口。后续如果你给我具体字段和交互要求，我可以继续只改前端，把表格、上传表单、详情抽屉和筛选区逐步补齐。"
       />
     </div>
   </div>
@@ -59,6 +59,12 @@ const router = useRouter()
 
 const modules = [
   {
+    key: 'training-data',
+    path: '/admin/score-model/training-data',
+    title: '训练数据管理',
+    description: '维护评分模型训练数据，后续可扩展列表查询、详情查看、导出和数据录入能力。'
+  },
+  {
     key: 'train-code',
     path: '/admin/score-model/train-code',
     title: '训练代码管理',
@@ -72,7 +78,7 @@ const modules = [
   }
 ] as const
 
-const currentKey = computed(() => route.path.split('/').pop() || 'train-code')
+const currentKey = computed(() => route.path.split('/').pop() || 'training-data')
 
 const currentModule = computed(() => {
   const current = modules.find(item => item.key === currentKey.value) || modules[0]
