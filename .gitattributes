@@ -1,4 +1,7 @@
 /mvnw text eol=lf
 *.cmd text eol=crlf
 *.exe filter=lfs diff=lfs merge=lfs -text
+\# filter=lfs diff=lfs merge=lfs -text
+关联所有.exe文件 filter=lfs diff=lfs merge=lfs -text
 *.bin filter=lfs diff=lfs merge=lfs -text
+关联所有.bin文件 filter=lfs diff=lfs merge=lfs -text
