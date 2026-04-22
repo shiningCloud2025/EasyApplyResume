@@ -366,6 +366,24 @@ const router = createRouter({
               name: 'AmapAPI',
               component: () => import('@/views/admin/external-api/AmapAPI.vue'),
               meta: { title: '高德开放平台' }
+            },
+            {
+              path: 'baidu-cloud',
+              name: 'BaiduCloudAPI',
+              component: () => import('@/views/admin/external-api/BaiduCloudAPI.vue'),
+              meta: { title: '百度智能云平台' }
+            },
+            {
+              path: 'qiniu',
+              name: 'QiniuCloudAPI',
+              component: () => import('@/views/admin/external-api/QiniuCloudAPI.vue'),
+              meta: { title: '七牛云平台' }
+            },
+            {
+              path: 'autodl',
+              name: 'AutoDLAPI',
+              component: () => import('@/views/admin/external-api/AutoDLAPI.vue'),
+              meta: { title: 'AutoDL平台' }
             }
           ]
         },

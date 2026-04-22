@@ -7,6 +7,7 @@
     <select id="selectQuestionBankByPage"
             resultType="com.zyh.easyapplyresume.model.vo.user.UserQuestionBankPageVO">
         select
+        gqb.questionBank_id as questionBankId,
         gqb.questionBank_description as questionBankDescription,
         gqb.questionBank_type as questionBankType,
         gqb.questionFirstCategory_name as questionFirstCategoryName,

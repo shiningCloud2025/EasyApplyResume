@@ -191,6 +191,18 @@
             <el-icon><Location /></el-icon>
             <span>高德开放平台</span>
           </el-menu-item>
+          <el-menu-item index="/admin/external-api/baidu-cloud">
+            <el-icon><Cpu /></el-icon>
+            <span>百度智能云平台</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/external-api/qiniu">
+            <el-icon><Connection /></el-icon>
+            <span>七牛云平台</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/external-api/autodl">
+            <el-icon><Monitor /></el-icon>
+            <span>AutoDL平台</span>
+          </el-menu-item>
         </el-sub-menu>
 
         <!-- 自研平台 -->
@@ -586,6 +598,9 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/external-api/sms': '阿里云短信平台',
     '/admin/external-api/searchapi': 'SearchAPI平台',
     '/admin/external-api/amap': '高德开放平台',
+    '/admin/external-api/baidu-cloud': '百度智能云平台',
+    '/admin/external-api/qiniu': '七牛云平台',
+    '/admin/external-api/autodl': 'AutoDL平台',
     '/admin/yapi': '自研平台',
     '/admin/yapi/embed': 'YApi测试平台'
   }

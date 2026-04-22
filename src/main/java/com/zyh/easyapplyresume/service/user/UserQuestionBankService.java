@@ -2,6 +2,7 @@ package com.zyh.easyapplyresume.service.user;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.model.query.user.UserQuestionBankQuery;
+import com.zyh.easyapplyresume.model.vo.user.UserQuestionBankInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserQuestionBankPageVO;
 
 /**
@@ -19,4 +20,9 @@ public interface UserQuestionBankService {
             Integer pageSize,
             UserQuestionBankQuery query
     );
+
+    /**
+     * 查询用户端题库题目详情
+     */
+    UserQuestionBankInfoVO findQuestionBankById(Integer questionBankId);
 }

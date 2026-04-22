@@ -3,6 +3,7 @@ package com.zyh.easyapplyresume.controller.user;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
 import com.zyh.easyapplyresume.model.query.user.UserQuestionBankQuery;
+import com.zyh.easyapplyresume.model.vo.user.UserQuestionBankInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserQuestionBankPageVO;
 import com.zyh.easyapplyresume.service.user.UserQuestionBankService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -30,5 +31,12 @@ public class UserQuestionBankController {
             @RequestParam(required = false, value = "pageSize", defaultValue = "10") Integer pageSize,
             @RequestBody UserQuestionBankQuery query) {
         return BaseResult.ok(userQuestionBankService.findQuestionBankByPage(userId, pageNum, pageSize, query));
+    }
+
+    @Operation(summary = "查询用户端题库题目详情")
+    @GetMapping("/findQuestionBankById")
+    public BaseResult<UserQuestionBankInfoVO> findQuestionBankById(
+            @RequestParam(required = true, value = "questionBankId") Integer questionBankId) {
+        return BaseResult.ok(userQuestionBankService.findQuestionBankById(questionBankId));
     }
 }
