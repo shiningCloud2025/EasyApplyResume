@@ -248,7 +248,7 @@ const router = createRouter({
             {
               path: 'train-code',
               name: 'ScoreModelTrainCodeManagement',
-              component: () => import('@/views/admin/score-model/ScoreModelManagement.vue'),
+              component: () => import('@/views/admin/score-model/ScoreModelTrainCodeManagement.vue'),
               meta: { title: '训练代码管理' }
             },
             {

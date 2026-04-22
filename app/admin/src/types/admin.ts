@@ -733,6 +733,41 @@ export interface AdminScoreTrainingDataInfoVO {
   scoreTrainingDataCreateTime?: string
 }
 
+// ============= 评分模型训练代码（ScoreModelTrainCode）=============
+
+export interface AdminScoreModelTrainCodeQuery {
+  scoreModelTrainCodeName?: string
+  scoreModelTrainCodeLanguage?: string
+}
+
+export interface AdminScoreModelTrainCodeForm {
+  scoreModelTrainCodeId?: number
+  scoreModelTrainCodeName: string
+  scoreModelTrainCodeVersion: string
+  scoreModelTrainCodeLanguage: string
+  scoreModelTrainCodeContent: string
+  scoreModelTrainCodeDesc: string
+}
+
+export interface AdminScoreModelTrainCodePageVO {
+  scoreModelTrainCodeId: number
+  scoreModelTrainCodeName: string
+  scoreModelTrainCodeVersion: string
+  scoreModelTrainCodeLanguage: string
+  scoreModelTrainCodeDesc: string
+  scoreModelTrainCodeCreateTime?: string
+}
+
+export interface AdminScoreModelTrainCodeInfoVO {
+  scoreModelTrainCodeId: number
+  scoreModelTrainCodeName: string
+  scoreModelTrainCodeVersion: string
+  scoreModelTrainCodeLanguage: string
+  scoreModelTrainCodeContent: string
+  scoreModelTrainCodeDesc: string
+  scoreModelTrainCodeCreateTime?: string
+}
+
 // ============= 内容管理（Content Management）=============
 
 export interface ProjectIntroduceForm {

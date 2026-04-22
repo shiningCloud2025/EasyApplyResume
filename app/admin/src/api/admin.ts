@@ -73,6 +73,10 @@ import type {
   AdminScoreTrainingDataForm,
   AdminScoreTrainingDataPageVO,
   AdminScoreTrainingDataInfoVO,
+  AdminScoreModelTrainCodeQuery,
+  AdminScoreModelTrainCodeForm,
+  AdminScoreModelTrainCodePageVO,
+  AdminScoreModelTrainCodeInfoVO,
   AdminLlmUtilsInfoQuery,
   AdminLlmUtilsInfoPageVO,
   AdminLlmUtilsInfoVO
@@ -617,6 +621,41 @@ export const scoreTrainingDataApi = {
       responseType: 'blob',
       headers: {
         'Content-Type': 'application/json',
+        ...(token ? { 'Admin-Authorization': `Admin ${token}` } : {})
+      }
+    })
+  }
+}
+
+// 评分模型训练代码相关API
+export const scoreModelTrainCodeApi = {
+  addScoreModelTrainCode: (data: AdminScoreModelTrainCodeForm) =>
+    api.post<number>('/admin/scoreModelTrainCode/addScoreModelTrainCode', data),
+
+  updateScoreModelTrainCode: (data: AdminScoreModelTrainCodeForm) =>
+    api.post<number>('/admin/scoreModelTrainCode/updateScoreModelTrainCode', data),
+
+  deleteScoreModelTrainCode: (scoreModelTrainCodeId: number) =>
+    api.delete<number>('/admin/scoreModelTrainCode/deleteScoreModelTrainCode', { scoreModelTrainCodeId }),
+
+  getScoreModelTrainCodeInfo: (scoreModelTrainCodeId: number) =>
+    api.get<AdminScoreModelTrainCodeInfoVO>('/admin/scoreModelTrainCode/findScoreModelTrainCodeById', { scoreModelTrainCodeId }),
+
+  getScoreModelTrainCodePage: (pageNum: number, pageSize: number, query: AdminScoreModelTrainCodeQuery) =>
+    api.post<PageResult<AdminScoreModelTrainCodePageVO>>('/admin/scoreModelTrainCode/findScoreModelTrainCodeByPage', query, {
+      params: { pageNum, pageSize }
+    }),
+
+  getAllScoreModelTrainCode: () =>
+    api.get<AdminScoreModelTrainCodePageVO[]>('/admin/scoreModelTrainCode/findAllScoreModelTrainCode'),
+
+  downloadScoreModelTrainCode: async (scoreModelTrainCodeId: number) => {
+    const token = localStorage.getItem('admin_token')
+    return axios.get('/admin/scoreModelTrainCode/downloadScoreModelTrainCode', {
+      baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
+      responseType: 'blob',
+      params: { scoreModelTrainCodeId },
+      headers: {
         ...(token ? { 'Admin-Authorization': `Admin ${token}` } : {})
       }
     })
