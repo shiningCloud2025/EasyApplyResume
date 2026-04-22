@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { api } from '@/utils/request'
 import request from '@/utils/request'
 import type { AdminUser, LoginForm, PhoneLoginForm, EmailLoginForm } from '@/store/auth'
@@ -306,12 +307,12 @@ export const employmentInformationApi = {
   updateEmploymentInformation: (data: EmploymentInformationForm) => api.post<number>('/admin/employmentInformation/updateEmploymentInformation', data),
   
   // 删除招聘信息
-  deleteEmploymentInformation: (data: EmploymentInformationForm) => 
-    api.post<number>('/admin/employmentInformation/deleteEmploymentInformation', data),
+  deleteEmploymentInformation: (employmentInformationId: number) =>
+    api.delete<number>('/admin/employmentInformation/deleteEmploymentInformation', { employmentInformationId }),
   
   // 查询招聘信息详情
-  getEmploymentInformationInfo: (employmentInformationId: number) => 
-    api.get<EmploymentInformationInfoVO>('/admin/employmentInformation/getEmploymentInformationInfo', { params: { employmentInformationId } }),
+  getEmploymentInformationInfo: (employmentInformationId: number) =>
+    api.get<EmploymentInformationInfoVO>('/admin/employmentInformation/getEmploymentInformationInfo', { employmentInformationId }),
   
   // 分页查询招聘信息
   getEmploymentInformationPage: (pageNum: number, pageSize: number, query: EmploymentInformationQuery) => 
@@ -611,13 +612,14 @@ export const scoreTrainingDataApi = {
 
   exportScoreTrainingData: async (query: AdminScoreTrainingDataQuery) => {
     const token = localStorage.getItem('admin_token')
-    const response = await request.post('/admin/scoreTrainingData/exportScoreTrainingData', query, {
+    return axios.post('/api/admin/scoreTrainingData/exportScoreTrainingData', query, {
+      baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
       responseType: 'blob',
       headers: {
+        'Content-Type': 'application/json',
         ...(token ? { 'Admin-Authorization': `Admin ${token}` } : {})
       }
     })
-    return response
   }
 }
 

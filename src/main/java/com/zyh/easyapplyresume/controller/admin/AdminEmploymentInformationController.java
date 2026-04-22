@@ -41,8 +41,8 @@ public class AdminEmploymentInformationController {
 
     @Operation(summary = "删除招聘信息")
     @DeleteMapping("/deleteEmploymentInformation")
-    public BaseResult<?> deleteEmploymentInformation(@RequestBody EmploymentInformationForm employmentInformationForm){
-        return BaseResult.ok(employmentInformationService.deleteEmploymentInformation(employmentInformationForm.getEmploymentInformationId()));
+    public BaseResult<?> deleteEmploymentInformation(@RequestParam("employmentInformationId") Integer employmentInformationIdm){
+        return BaseResult.ok(employmentInformationService.deleteEmploymentInformation(employmentInformationIdm));
     }
 
     @Operation(summary = "根据id查询招聘信息信息")

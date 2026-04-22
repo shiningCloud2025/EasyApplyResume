@@ -1058,9 +1058,7 @@ const handleDelete = (row: EmploymentInformationPageVO) => {
     type: 'warning'
   }).then(async () => {
     try {
-      await employmentInformationApi.deleteEmploymentInformation({
-        employmentInformationId: row.employmentInformationId
-      } as any)
+      await employmentInformationApi.deleteEmploymentInformation(row.employmentInformationId)
       ElMessage.success('删除成功')
       getInfoList()
     } catch (error) {

@@ -242,7 +242,7 @@ const router = createRouter({
             {
               path: 'training-data',
               name: 'ScoreModelTrainingDataManagement',
-              component: () => import('@/views/admin/score-model/ScoreModelManagement.vue'),
+              component: () => import('@/views/admin/score-model/ScoreTrainingDataManagement.vue'),
               meta: { title: '训练数据管理' }
             },
             {
