@@ -68,6 +68,10 @@ import type {
   UserDeleteResumeBySystemPageVO,
   UserDeleteResumeBySystemInfoVO,
   UserDeleteResumeInfoVO,
+  AdminScoreTrainingDataQuery,
+  AdminScoreTrainingDataForm,
+  AdminScoreTrainingDataPageVO,
+  AdminScoreTrainingDataInfoVO,
   AdminLlmUtilsInfoQuery,
   AdminLlmUtilsInfoPageVO,
   AdminLlmUtilsInfoVO
@@ -578,12 +582,43 @@ export const systemDeleteResumeApi = {
     api.post<PageResult<UserDeleteResumeBySystemPageVO>>('/admin/userDeleteResumeBySystemService/getUserDeleteResumeInfoPage', query, {
       params: { pageNum, pageSize }
     }),
-  
+
   // 查询系统删除简历详情
   getDeleteResumeDetail: (userDeleteResumeId: number) =>
     api.get<UserDeleteResumeBySystemInfoVO>('/admin/userDeleteResumeBySystemService/getUserDeleteResumeInfoById', {
       params: { userDeleteResumeId }
     })
+}
+
+// 简历评分训练数据相关API
+export const scoreTrainingDataApi = {
+  addScoreTrainingData: (data: AdminScoreTrainingDataForm) =>
+    api.post<number>('/admin/scoreTrainingData/addScoreTrainingData', data),
+
+  deleteScoreTrainingData: (scoreTrainingDataId: number) =>
+    api.delete<number>('/admin/scoreTrainingData/deleteScoreTrainingData', { scoreTrainingDataId }),
+
+  getScoreTrainingDataInfo: (scoreTrainingDataId: number) =>
+    api.get<AdminScoreTrainingDataInfoVO>('/admin/scoreTrainingData/findScoreTrainingDataById', { scoreTrainingDataId }),
+
+  getScoreTrainingDataPage: (pageNum: number, pageSize: number, query: AdminScoreTrainingDataQuery) =>
+    api.post<PageResult<AdminScoreTrainingDataPageVO>>('/admin/scoreTrainingData/findScoreTrainingDataByPage', query, {
+      params: { pageNum, pageSize }
+    }),
+
+  getAllScoreTrainingData: () =>
+    api.get<AdminScoreTrainingDataPageVO[]>('/admin/scoreTrainingData/findAllScoreTrainingData'),
+
+  exportScoreTrainingData: async (query: AdminScoreTrainingDataQuery) => {
+    const token = localStorage.getItem('admin_token')
+    const response = await request.post('/admin/scoreTrainingData/exportScoreTrainingData', query, {
+      responseType: 'blob',
+      headers: {
+        ...(token ? { 'Admin-Authorization': `Admin ${token}` } : {})
+      }
+    })
+    return response
+  }
 }
 
 // 公告相关API

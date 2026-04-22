@@ -30,7 +30,7 @@ public class UserFirstCategoryQuestionBankInfoVO {
     @Schema(description = "题库小类名称")
     private String firstCategoryQuestionBankUserQuestionSecondCategoryName;
 
-    @Schema(description = "答题状态(0未开始 1进行中 2已完成)")
+    @Schema(description = "答题状态(0未作答 1已做错 2已做对)")
     private Integer firstCategoryQuestionBankUserAnswerStatus;
 
     @Schema(description = "创建时间")

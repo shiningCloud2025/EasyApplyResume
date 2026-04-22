@@ -276,6 +276,18 @@ const router = createRouter({
               name: 'ObservationPortal',
               component: () => import('@/views/admin/system/ObservationPortal.vue'),
               meta: { title: '易投简历观测与广告端' }
+            },
+            {
+              path: 'nacos-platform',
+              name: 'NacosPlatform',
+              component: () => import('@/views/admin/system/NacosPlatform.vue'),
+              meta: { title: 'Nacos配置平台' }
+            },
+            {
+              path: 'yapi-platform',
+              name: 'YApiPlatformInternal',
+              component: () => import('@/views/admin/yapi/YApiEmbed.vue'),
+              meta: { title: 'YApi测试平台' }
             }
           ]
         },
@@ -396,20 +408,6 @@ const router = createRouter({
               name: 'VolcengineAPI',
               component: () => import('@/views/admin/external-api/VolcengineAPI.vue'),
               meta: { title: '火山引擎平台' }
-            }
-          ]
-        },
-        {
-          path: 'yapi',
-          name: 'YApiPlatform',
-          redirect: '/admin/yapi/embed',
-          meta: { title: 'YApi测试平台' },
-          children: [
-            {
-              path: 'embed',
-              name: 'YApiEmbed',
-              component: () => import('@/views/admin/yapi/YApiEmbed.vue'),
-              meta: { title: 'YApi测试平台' }
             }
           ]
         },

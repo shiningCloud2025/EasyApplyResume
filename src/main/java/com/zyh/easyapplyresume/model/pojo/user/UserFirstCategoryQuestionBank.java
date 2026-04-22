@@ -54,7 +54,7 @@ public class UserFirstCategoryQuestionBank {
     private String firstCategoryQuestionBankUserQuestionSecondCategoryName;
 
     /**
-     * 答题状态(0未开始 1进行中 2已完成)
+     * 答题状态(0未作答 1已做错 2已做对)
      */
     @TableField("firstCategoryQuestionBankUser_answerStatus")
     private Integer firstCategoryQuestionBankUserAnswerStatus;

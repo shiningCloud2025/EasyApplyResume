@@ -697,6 +697,42 @@ export interface UserDeleteResumeInfoVO {
   userDeleteResumeDeleteTime: string       // 删除时间
 }
 
+// ============= 简历评分训练数据（ScoreTrainingData）=============
+
+export interface AdminScoreTrainingDataQuery {
+  scoreTrainingDataResumeName?: string
+  scoreTrainingDataIndustryName?: string
+  scoreTrainingDataDataSource?: number
+}
+
+export interface AdminScoreTrainingDataForm {
+  scoreTrainingDataId?: number
+  scoreTrainingDataResumeName: string
+  scoreTrainingDataIndustryName: string
+  scoreTrainingDataResumeContent: string
+  scoreTrainingDataLabelScore: number | null
+  scoreTrainingDataDataSource: number
+}
+
+export interface AdminScoreTrainingDataPageVO {
+  scoreTrainingDataId: number
+  scoreTrainingDataResumeName: string
+  scoreTrainingDataIndustryName: string
+  scoreTrainingDataLabelScore: number
+  scoreTrainingDataDataSource: number
+  scoreTrainingDataCreateTime?: string
+}
+
+export interface AdminScoreTrainingDataInfoVO {
+  scoreTrainingDataId: number
+  scoreTrainingDataResumeName: string
+  scoreTrainingDataIndustryName: string
+  scoreTrainingDataResumeContent: string
+  scoreTrainingDataLabelScore: number
+  scoreTrainingDataDataSource: number
+  scoreTrainingDataCreateTime?: string
+}
+
 // ============= 内容管理（Content Management）=============
 
 export interface ProjectIntroduceForm {

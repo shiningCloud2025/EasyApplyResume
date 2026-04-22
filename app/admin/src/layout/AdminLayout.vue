@@ -167,6 +167,14 @@
             <el-icon><DataAnalysis /></el-icon>
             <span>易投简历监测与广告端</span>
           </el-menu-item>
+          <el-menu-item index="/admin/system/nacos-platform">
+            <el-icon><Connection /></el-icon>
+            <span>Nacos配置平台</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/system/yapi-platform">
+            <el-icon><Link /></el-icon>
+            <span>YApi测试平台</span>
+          </el-menu-item>
         </el-sub-menu>
 
         <!-- 外部系统 -->
@@ -210,18 +218,6 @@
           <el-menu-item index="/admin/external-api/volcengine">
             <el-icon><Cpu /></el-icon>
             <span>火山引擎平台</span>
-          </el-menu-item>
-        </el-sub-menu>
-
-        <!-- 自研平台 -->
-        <el-sub-menu index="/admin/yapi">
-          <template #title>
-            <el-icon><Connection /></el-icon>
-            <span>自研平台</span>
-          </template>
-          <el-menu-item index="/admin/yapi/embed">
-            <el-icon><Link /></el-icon>
-            <span>YApi测试平台</span>
           </el-menu-item>
         </el-sub-menu>
 
@@ -593,6 +589,8 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/system': '内部系统',
     '/admin/system/user-portal': '易投简历用户端',
     '/admin/system/observation-portal': '易投简历监测与广告端',
+    '/admin/system/nacos-platform': 'Nacos配置平台',
+    '/admin/system/yapi-platform': 'YApi测试平台',
     '/admin/feedback': '反馈管理',
     '/admin/feedback/submit': '意见反馈',
     '/admin/feedback/user-management': '用户端反馈管理',
@@ -610,9 +608,7 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/external-api/qiniu': '七牛云平台',
     '/admin/external-api/autodl': 'AutoDL平台',
     '/admin/external-api/bigmodel': '智谱开放平台',
-    '/admin/external-api/volcengine': '火山引擎平台',
-    '/admin/yapi': '自研平台',
-    '/admin/yapi/embed': 'YApi测试平台'
+    '/admin/external-api/volcengine': '火山引擎平台'
   }
 
   const breadcrumbs = []
