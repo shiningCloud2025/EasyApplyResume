@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyh.easyapplyresume.mapper.mysql.user.UserQuestionBankMapper">
+
+    <select id="selectQuestionBankByPage"
+            resultType="com.zyh.easyapplyresume.model.vo.user.UserQuestionBankPageVO">
+        select
+        gqb.questionBank_description as questionBankDescription,
+        gqb.questionBank_type as questionBankType,
+        gqb.questionFirstCategory_name as questionFirstCategoryName,
+        gqb.questionSecondCategory_name as questionSecondCategoryName,
+        gqb.questionBank_difficulty as questionBankDifficulty,
+        gqb.questionBank_state as questionBankState,
+        ifnull(gfqbu.firstCategoryQuestionBankUser_answerStatus, 0) as questionBankAnswerStatus,
+        gqb.questionBank_createTime as questionBankCreateTime,
+        gqb.questionBank_updateTime as questionBankUpdateTime
+        from general_questionBank gqb
+        left join general_firstCategory_questionBank_user gfqbu
+        on gqb.questionBank_id = gfqbu.firstCategoryQuestionBankUser_questionBankId
+        and gfqbu.firstCategoryQuestionBankUser_userId = #{userId}
+        <where>
+            gqb.deleted = 0
+            and gqb.questionBank_state = 1
+
+            <if test="query != null and query.questionFirstCategoryId != null">
+                and gqb.questionFirstCategory_id = #{query.questionFirstCategoryId}
+            </if>
+
+            <if test="query != null and query.questionSecondCategoryId != null">
+                and gqb.questionSecondCategory_id = #{query.questionSecondCategoryId}
+            </if>
+
+            <if test="query != null and query.questionBankType != null">
+                and gqb.questionBank_type = #{query.questionBankType}
+            </if>
+
+            <if test="query != null and query.questionBankDifficulty != null">
+                and gqb.questionBank_difficulty = #{query.questionBankDifficulty}
+            </if>
+
+            <if test="query != null and query.questionBankDescription != null and query.questionBankDescription != ''">
+                and gqb.questionBank_description like concat('%', #{query.questionBankDescription}, '%')
+            </if>
+
+            <if test="query != null and query.questionBankAnswerStatus != null">
+                and ifnull(gfqbu.firstCategoryQuestionBankUser_answerStatus, 0) = #{query.questionBankAnswerStatus}
+            </if>
+        </where>
+        order by gqb.questionBank_createTime desc
+    </select>
+
+</mapper>

@@ -182,6 +182,78 @@ const router = createRouter({
           ]
         },
         {
+          path: 'help-center',
+          name: 'HelpCenterManagement',
+          redirect: '/admin/help-center/faq',
+          meta: { title: '帮助中心管理' },
+          children: [
+            {
+              path: 'faq',
+              name: 'FaqManagement',
+              component: () => import('@/views/admin/content/HelpCenterManagement.vue'),
+              meta: { title: 'FAQ管理' }
+            },
+            {
+              path: 'customer-service',
+              name: 'CustomerServiceManagement',
+              component: () => import('@/views/admin/content/HelpCenterManagement.vue'),
+              meta: { title: '客服管理' }
+            },
+            {
+              path: 'user-guide',
+              name: 'UserGuideManagement',
+              component: () => import('@/views/admin/content/HelpCenterManagement.vue'),
+              meta: { title: '使用指南管理' }
+            }
+          ]
+        },
+        {
+          path: 'written-test',
+          name: 'WrittenTestManagement',
+          redirect: '/admin/written-test/first-category',
+          meta: { title: '笔试专项管理' },
+          children: [
+            {
+              path: 'first-category',
+              name: 'WrittenTestFirstCategoryManagement',
+              component: () => import('@/views/admin/written-test/WrittenTestManagement.vue'),
+              meta: { title: '题库大类管理' }
+            },
+            {
+              path: 'second-category',
+              name: 'WrittenTestSecondCategoryManagement',
+              component: () => import('@/views/admin/written-test/WrittenTestManagement.vue'),
+              meta: { title: '题库小类管理' }
+            },
+            {
+              path: 'question-bank',
+              name: 'WrittenTestQuestionBankManagement',
+              component: () => import('@/views/admin/written-test/WrittenTestManagement.vue'),
+              meta: { title: '题库题目管理' }
+            }
+          ]
+        },
+        {
+          path: 'score-model',
+          name: 'ScoreModelManagement',
+          redirect: '/admin/score-model/train-code',
+          meta: { title: '评分模型管理' },
+          children: [
+            {
+              path: 'train-code',
+              name: 'ScoreModelTrainCodeManagement',
+              component: () => import('@/views/admin/score-model/ScoreModelManagement.vue'),
+              meta: { title: '训练代码管理' }
+            },
+            {
+              path: 'version',
+              name: 'ScoreModelVersionManagement',
+              component: () => import('@/views/admin/score-model/ScoreModelManagement.vue'),
+              meta: { title: '模型版本管理' }
+            }
+          ]
+        },
+        {
           path: 'system',
           name: 'SystemManagement',
           redirect: '/admin/system/user-portal',

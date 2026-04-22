@@ -133,6 +133,25 @@
           <el-menu-item index="/admin/help-center/user-guide">使用指南管理</el-menu-item>
         </el-sub-menu>
 
+        <el-sub-menu index="/admin/written-test">
+          <template #title>
+            <el-icon><EditPen /></el-icon>
+            <span>笔试专项管理</span>
+          </template>
+          <el-menu-item index="/admin/written-test/first-category">题库大类管理</el-menu-item>
+          <el-menu-item index="/admin/written-test/second-category">题库小类管理</el-menu-item>
+          <el-menu-item index="/admin/written-test/question-bank">题库题目管理</el-menu-item>
+        </el-sub-menu>
+
+        <el-sub-menu index="/admin/score-model">
+          <template #title>
+            <el-icon><Histogram /></el-icon>
+            <span>评分模型管理</span>
+          </template>
+          <el-menu-item index="/admin/score-model/train-code">训练代码管理</el-menu-item>
+          <el-menu-item index="/admin/score-model/version">模型版本管理</el-menu-item>
+        </el-sub-menu>
+
         <!-- 内部系统 -->
         <el-sub-menu index="/admin/system">
           <template #title>
@@ -406,6 +425,8 @@ import {
   Monitor,
   ChatLineSquare,
   Search,
+  EditPen,
+  Histogram,
   Bell,
   FullScreen,
   Fold,
@@ -528,6 +549,10 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/help-center/faq': 'FAQ管理',
     '/admin/help-center/customer-service': '客服管理',
     '/admin/help-center/user-guide': '使用指南管理',
+    '/admin/written-test': '笔试专项管理',
+    '/admin/written-test/first-category': '题库大类管理',
+    '/admin/written-test/second-category': '题库小类管理',
+    '/admin/written-test/question-bank': '题库题目管理',
     '/admin/recruitment': '招聘管理',
     '/admin/recruitment/positions': '招聘岗位管理',
     '/admin/recruitment/information': '招聘信息管理',
@@ -540,6 +565,9 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/ai/chat': 'AI智能问答助手',
     '/admin/ai/agent': 'AI智能体助手',
     '/admin/ai/llm-utils-info': 'LLM调用日志管理',
+    '/admin/score-model': '评分模型管理',
+    '/admin/score-model/train-code': '训练代码管理',
+    '/admin/score-model/version': '模型版本管理',
     '/admin/system': '内部系统',
     '/admin/system/user-portal': '易投简历用户端',
     '/admin/system/observation-portal': '易投简历监测与广告端',

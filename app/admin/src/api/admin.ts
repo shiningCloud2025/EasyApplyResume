@@ -384,7 +384,7 @@ export const streetMapApi = {
       params: { pageNum, pageSize }
     }),
   getStreetMapInfo: (streetMapId: number) =>
-    api.get<StreetMapInfoVO>('/admin/streetMap/findStreetMapById', { params: { streetMapId } })
+    api.get<StreetMapInfoVO>('/admin/streetMap/findStreetMapById', { streetMapId })
 }
 
 // 邮件发送相关API

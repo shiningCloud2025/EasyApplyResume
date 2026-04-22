@@ -88,6 +88,10 @@ public enum UserCodeEnum {
     USER_UPDATE_ANNOUNCEMENT_FAIL(10105, "用户修改公告失败"),
     USER_GET_ANNOUNCEMENT_INFO_FAIL(10106, "用户获取公告信息失败"),
 
+    // ==================== 用户端题库题目业务 (10120-10140) ====================
+    USER_QUESTION_BANK_USER_ID_EMPTY(10120, "用户id不能为空"),
+    USER_QUESTION_BANK_PAGE_FAIL(10121, "分页查询用户端题库题目失败"),
+
     // ==================== 数据库异常 (10999) ====================
     DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION(10999, "数据库异常转换失败"),
     // ==================== 通用参数异常  ====================
