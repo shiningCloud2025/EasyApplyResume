@@ -384,6 +384,18 @@ const router = createRouter({
               name: 'AutoDLAPI',
               component: () => import('@/views/admin/external-api/AutoDLAPI.vue'),
               meta: { title: 'AutoDL平台' }
+            },
+            {
+              path: 'bigmodel',
+              name: 'BigModelAPI',
+              component: () => import('@/views/admin/external-api/BigModelAPI.vue'),
+              meta: { title: '智谱开放平台' }
+            },
+            {
+              path: 'volcengine',
+              name: 'VolcengineAPI',
+              component: () => import('@/views/admin/external-api/VolcengineAPI.vue'),
+              meta: { title: '火山引擎平台' }
             }
           ]
         },

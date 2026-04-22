@@ -203,6 +203,14 @@
             <el-icon><Monitor /></el-icon>
             <span>AutoDL平台</span>
           </el-menu-item>
+          <el-menu-item index="/admin/external-api/bigmodel">
+            <el-icon><MagicStick /></el-icon>
+            <span>智谱开放平台</span>
+          </el-menu-item>
+          <el-menu-item index="/admin/external-api/volcengine">
+            <el-icon><Cpu /></el-icon>
+            <span>火山引擎平台</span>
+          </el-menu-item>
         </el-sub-menu>
 
         <!-- 自研平台 -->
@@ -601,6 +609,8 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/external-api/baidu-cloud': '百度智能云平台',
     '/admin/external-api/qiniu': '七牛云平台',
     '/admin/external-api/autodl': 'AutoDL平台',
+    '/admin/external-api/bigmodel': '智谱开放平台',
+    '/admin/external-api/volcengine': '火山引擎平台',
     '/admin/yapi': '自研平台',
     '/admin/yapi/embed': 'YApi测试平台'
   }
