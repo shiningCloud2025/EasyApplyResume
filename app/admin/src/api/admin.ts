@@ -612,7 +612,7 @@ export const scoreTrainingDataApi = {
 
   exportScoreTrainingData: async (query: AdminScoreTrainingDataQuery) => {
     const token = localStorage.getItem('admin_token')
-    return axios.post('/api/admin/scoreTrainingData/exportScoreTrainingData', query, {
+    return axios.post('/admin/scoreTrainingData/exportScoreTrainingData', query, {
       baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
       responseType: 'blob',
       headers: {

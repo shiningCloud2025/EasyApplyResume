@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
@@ -68,20 +69,17 @@ public class AdminScoreTrainingDataServiceImpl implements AdminScoreTrainingData
     @Override
     public Integer deleteScoreTrainingData(Integer scoreTrainingDataId) {
         try {
-            LambdaQueryWrapper<AdminScoreTrainingData> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-            lambdaQueryWrapper.eq(AdminScoreTrainingData::getScoreTrainingDataId, scoreTrainingDataId);
-            lambdaQueryWrapper.eq(AdminScoreTrainingData::getDeleted, 0);
+            LambdaUpdateWrapper<AdminScoreTrainingData> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+            lambdaUpdateWrapper.eq(AdminScoreTrainingData::getScoreTrainingDataId, scoreTrainingDataId);
+            lambdaUpdateWrapper.eq(AdminScoreTrainingData::getDeleted, 0);
+            lambdaUpdateWrapper.set(AdminScoreTrainingData::getDeleted, 1);
 
-            AdminScoreTrainingData scoreTrainingData = adminScoreTrainingDataMapper.selectOne(lambdaQueryWrapper);
-            if (scoreTrainingData == null) {
+            int result = adminScoreTrainingDataMapper.update(null, lambdaUpdateWrapper);
+            if (result == 0) {
                 throw new BusException(AdminCodeEnum.SCORE_TRAINING_DATA_NOT_FOUND);
             }
 
-            AdminScoreTrainingData updateEntity = new AdminScoreTrainingData();
-            updateEntity.setScoreTrainingDataId(scoreTrainingDataId);
-            updateEntity.setDeleted(1);
-
-            return adminScoreTrainingDataMapper.updateById(updateEntity);
+            return result;
         } catch (BusException e) {
             log.info("删除简历评分训练数据业务异常", e);
             throw e;

@@ -42,7 +42,6 @@ public class AISystemManagerAssistantController {
     @Operation(summary = "AI系统管理助手Agent对话")
     @PostMapping(value = "/agent/chat")
     public SseEmitter agentChat(@RequestBody String message, @RequestParam(required = true,value = "chatId") String chatId){
-        chatId = UUID.randomUUID().toString();
         SystemAssistantAgent systemAssistantAgent = new SystemAssistantAgent(allTools,dashscopeChatModel);
         return systemAssistantAgent.runStream(message,chatId);
     }

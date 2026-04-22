@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
@@ -135,11 +136,13 @@ public class AdminQuestionFirstCategoryServiceImpl implements AdminQuestionFirst
                 throw new BusException(AdminCodeEnum.QUESTION_FIRST_CATEGORY_NOT_FOUND);
             }
 
-            AdminQuestionFirstCategory questionFirstCategory = new AdminQuestionFirstCategory();
-            questionFirstCategory.setQuestionFirstCategoryId(questionFirstCategoryId);
-            questionFirstCategory.setDeleted(1);
 
-            int updateCount = adminQuestionFirstCategoryMapper.updateById(questionFirstCategory);
+            LambdaUpdateWrapper<AdminQuestionFirstCategory> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+            lambdaUpdateWrapper.eq(AdminQuestionFirstCategory::getQuestionFirstCategoryId, questionFirstCategoryId);
+            lambdaUpdateWrapper.eq(AdminQuestionFirstCategory::getDeleted, 0);
+            lambdaUpdateWrapper.set(AdminQuestionFirstCategory::getDeleted, 1);
+
+            int updateCount = adminQuestionFirstCategoryMapper.update(null, lambdaUpdateWrapper);
             if (updateCount <= 0) {
                 throw new BusException(AdminCodeEnum.QUESTION_FIRST_CATEGORY_DELETE_FAIL);
             }

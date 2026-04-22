@@ -282,15 +282,17 @@ public class AdminQuestionBankServiceImpl implements AdminQuestionBankService {
                 throw new BusException(AdminCodeEnum.QUESTION_BANK_NOT_FOUND);
             }
 
-            AdminQuestionBank questionBank = new AdminQuestionBank();
-            questionBank.setQuestionBankId(questionBankId);
-            questionBank.setDeleted(1);
-            questionBank.setQuestionBankUpdateTime(LocalDateTime.now());
+            LambdaUpdateWrapper<AdminQuestionBank> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+            lambdaUpdateWrapper.eq(AdminQuestionBank::getQuestionBankId, questionBankId);
+            lambdaUpdateWrapper.eq(AdminQuestionBank::getDeleted, 0);
+            lambdaUpdateWrapper.set(AdminQuestionBank::getDeleted, 1);
+            lambdaUpdateWrapper.set(AdminQuestionBank::getQuestionBankUpdateTime, LocalDateTime.now());
 
-            int updateCount = adminQuestionBankMapper.updateById(questionBank);
+            int updateCount = adminQuestionBankMapper.update(null, lambdaUpdateWrapper);
             if (updateCount <= 0) {
                 throw new BusException(AdminCodeEnum.QUESTION_BANK_DELETE_FAIL);
             }
+
 
             LambdaQueryWrapper<UserFirstCategoryQuestionBank> userQuestionBankWrapper = new LambdaQueryWrapper<>();
             userQuestionBankWrapper.eq(UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserQuestionBankId, questionBankId);

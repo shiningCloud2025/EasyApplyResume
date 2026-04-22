@@ -148,11 +148,13 @@ public class AdminQuestionSecondCategoryServiceImpl implements AdminQuestionSeco
                 throw new BusException(AdminCodeEnum.QUESTION_SECOND_CATEGORY_NOT_FOUND);
             }
 
-            AdminQuestionSecondCategory questionSecondCategory = new AdminQuestionSecondCategory();
-            questionSecondCategory.setQuestionSecondCategoryId(questionSecondCategoryId);
-            questionSecondCategory.setDeleted(1);
+            LambdaUpdateWrapper<AdminQuestionSecondCategory> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+            lambdaUpdateWrapper.eq(AdminQuestionSecondCategory::getQuestionSecondCategoryId, questionSecondCategoryId);
+            lambdaUpdateWrapper.eq(AdminQuestionSecondCategory::getDeleted, 0);
+            lambdaUpdateWrapper.set(AdminQuestionSecondCategory::getDeleted, 1);
 
-            int updateCount = adminQuestionSecondCategoryMapper.updateById(questionSecondCategory);
+
+            int updateCount = adminQuestionSecondCategoryMapper.update(null, lambdaUpdateWrapper);
             if (updateCount <= 0) {
                 throw new BusException(AdminCodeEnum.QUESTION_SECOND_CATEGORY_DELETE_FAIL);
             }
