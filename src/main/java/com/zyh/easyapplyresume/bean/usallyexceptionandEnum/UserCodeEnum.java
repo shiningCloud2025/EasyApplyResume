@@ -94,6 +94,9 @@ public enum UserCodeEnum {
     USER_QUESTION_BANK_ID_EMPTY(10122, "题库题目id不能为空"),
     USER_QUESTION_BANK_NOT_FOUND(10123, "题库题目不存在"),
     USER_QUESTION_BANK_INFO_FAIL(10124, "查询用户端题库题目详情失败"),
+    USER_QUESTION_BANK_ANSWER_FORM_EMPTY(10125, "用户题库题目作答表单不能为空"),
+    USER_QUESTION_BANK_ANSWERS_EMPTY(10126, "用户作答答案不能为空"),
+    USER_QUESTION_BANK_SUBMIT_FAIL(10127, "用户端题库题目作答失败"),
 
     // ==================== 数据库异常 (10999) ====================
     DB_EXCEPTION_TRANSFORM_FAIL_EXCEPTION(10999, "数据库异常转换失败"),

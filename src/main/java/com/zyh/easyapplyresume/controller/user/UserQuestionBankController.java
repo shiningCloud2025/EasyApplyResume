@@ -2,7 +2,9 @@ package com.zyh.easyapplyresume.controller.user;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BaseResult;
+import com.zyh.easyapplyresume.model.form.user.UserQuestionBankAnswerForm;
 import com.zyh.easyapplyresume.model.query.user.UserQuestionBankQuery;
+import com.zyh.easyapplyresume.model.vo.user.UserQuestionBankAnswerResultVO;
 import com.zyh.easyapplyresume.model.vo.user.UserQuestionBankInfoVO;
 import com.zyh.easyapplyresume.model.vo.user.UserQuestionBankPageVO;
 import com.zyh.easyapplyresume.service.user.UserQuestionBankService;
@@ -38,5 +40,12 @@ public class UserQuestionBankController {
     public BaseResult<UserQuestionBankInfoVO> findQuestionBankById(
             @RequestParam(required = true, value = "questionBankId") Integer questionBankId) {
         return BaseResult.ok(userQuestionBankService.findQuestionBankById(questionBankId));
+    }
+
+    @Operation(summary = "提交用户端题库题目答案")
+    @PostMapping("/submitQuestionBankAnswer")
+    public BaseResult<UserQuestionBankAnswerResultVO> submitQuestionBankAnswer(
+            @RequestBody UserQuestionBankAnswerForm userQuestionBankAnswerForm) {
+        return BaseResult.ok(userQuestionBankService.submitQuestionBankAnswer(userQuestionBankAnswerForm));
     }
 }

@@ -36,7 +36,7 @@ public class AdminQuestionBankForm {
     @Schema(description = "题目代码段")
     private String questionBankCode;
 
-    @Schema(description = "题目类型(1单选 2多选 3判断 4填空 5简答 6编程)")
+    @Schema(description = "题目类型(1单选 2多选 3判断 4填空 5简答)")
     private Integer questionBankType;
 
     @Schema(description = "题目大类id")

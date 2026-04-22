@@ -65,7 +65,7 @@ public class AdminQuestionBank {
     @TableField("questionBank_code")
     private String questionBankCode;
     /**
-     * 题目类型(1单选 2多选 3判断 4填空 5简答 6编程)
+     * 题目类型(1单选 2多选 3判断 4填空 5简答)
      */
     @TableField("questionBank_type")
     private Integer questionBankType;
