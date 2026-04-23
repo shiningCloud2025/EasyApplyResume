@@ -35,9 +35,9 @@ export const singletonContentPageConfigs: Record<string, SingletonContentPageCon
   company: {
     key: 'about-company',
     section: '关于我们',
-    title: '公司介绍',
-    description: '了解 EasyApplyResume 的品牌理念、平台定位与面向求职者的服务愿景。',
-    emptyDescription: '暂未发布公司介绍内容。',
+    title: '项目介绍',
+    description: '了解 EasyApplyResume 项目的定位、理念与面向求职者的服务愿景。',
+    emptyDescription: '暂未发布项目介绍内容。',
     fetcher: contentAPI.getCompanyInfo,
   },
   team: {

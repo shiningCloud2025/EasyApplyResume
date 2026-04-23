@@ -8,13 +8,8 @@ pip install pandas openpyxl numpy scikit-learn xgboost FlagEmbedding
 运行示例：
 python resume_score_train_excel.py --excel-path "D:/train_data.xlsx"
 
-可选示例：
-python resume_score_train_excel.py \
-  --excel-path "D:/train_data.xlsx" \
-  --sheet-name 0 \
-  --embedding-model-name "BAAI/bge-m3" \
-  --model-name "resume-score-model" \
-  --model-type "xgboost"
+说明：
+除训练数据路径外，其余训练参数默认固定在脚本中。
 """
 
 import argparse
@@ -38,11 +33,30 @@ SCRIPT_PATH = Path(__file__).resolve()
 PROJECT_ROOT = SCRIPT_PATH.parents[8]
 DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "upload"
 
-COL_ID = "训练数据ID"
 COL_INDUSTRY_NAME = "行业名称"
 COL_RESUME_NAME = "简历名称"
 COL_RESUME_CONTENT = "简历内容"
 COL_LABEL_SCORE = "训练标签分数"
+
+# 固定训练配置：平时只需要传训练 Excel 路径，其余参数默认从这里读取。
+FIXED_SHEET_NAME: Union[int, str] = 0  # 读取第几个 sheet；0 表示第一个 sheet
+FIXED_EMBEDDING_MODEL_NAME = "BAAI/bge-m3"  # embedding 模型名；也可以改成本地模型目录
+FIXED_MODEL_NAME = "resume-score-model"  # 模型名称；会写入 summary 和输出文件名
+FIXED_MODEL_TYPE = "xgboost"  # 模型类型标识；当前脚本固定为 xgboost
+FIXED_OUTPUT_ROOT = DEFAULT_OUTPUT_ROOT  # 模型输出根目录
+FIXED_BATCH_SIZE = 8  # 一次送入 embedding 模型的文本条数
+FIXED_MAX_LENGTH = 8192  # 单条文本最多处理多长；过长内容可能被截断
+FIXED_MIN_CONTENT_LENGTH = 20  # 简历内容少于该长度时直接过滤
+FIXED_TEST_SIZE = 0.2  # 验证集比例；0.2 表示 20% 样本用于验证
+FIXED_RANDOM_STATE = 42  # 随机种子；用于保证切分和训练结果可复现
+FIXED_N_ESTIMATORS = 300  # XGBoost 总树数量
+FIXED_LEARNING_RATE = 0.05  # 学习率；每棵树修正前面结果的力度
+FIXED_MAX_DEPTH = 6  # 单棵树最多长多深
+FIXED_SUBSAMPLE = 0.9  # 每棵树随机使用多少比例的样本
+FIXED_COLSAMPLE_BYTREE = 0.9  # 每棵树随机使用多少比例的特征列
+FIXED_REG_LAMBDA = 1.0  # L2 正则强度；用于抑制过拟合
+FIXED_N_JOBS = -1  # 并行线程数；-1 表示尽量使用全部 CPU 线程
+FIXED_USE_FP16 = False  # embedding 是否用半精度；通常有 GPU 时再考虑打开
 
 
 def init_logger() -> None:
@@ -53,35 +67,9 @@ def init_logger() -> None:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="简历评分模型训练脚本（Excel 输入版）")
+    parser = argparse.ArgumentParser(description="简历评分模型训练脚本（Excel 输入版，固定参数版）")
     parser.add_argument("--excel-path", required=True, help="训练 Excel 路径")
-    parser.add_argument("--sheet-name", default="0", help="sheet 名称或索引，默认 0")
-    parser.add_argument("--embedding-model-name", default="BAAI/bge-m3", help="embedding 模型名")
-    parser.add_argument("--model-name", default="resume-score-model", help="模型名称")
-    parser.add_argument("--model-type", default="xgboost", help="模型类型")
-    parser.add_argument("--output-root", default=str(DEFAULT_OUTPUT_ROOT), help="模型输出根目录")
-    parser.add_argument("--batch-size", type=int, default=8, help="embedding 批大小")
-    parser.add_argument("--max-length", type=int, default=8192, help="embedding 最大长度")
-    parser.add_argument("--min-content-length", type=int, default=20, help="简历内容最小长度")
-    parser.add_argument("--test-size", type=float, default=0.2, help="验证集比例")
-    parser.add_argument("--random-state", type=int, default=42, help="随机种子")
-    parser.add_argument("--n-estimators", type=int, default=300, help="XGBoost 树数量")
-    parser.add_argument("--learning-rate", type=float, default=0.05, help="学习率")
-    parser.add_argument("--max-depth", type=int, default=6, help="树深度")
-    parser.add_argument("--subsample", type=float, default=0.9, help="subsample")
-    parser.add_argument("--colsample-bytree", type=float, default=0.9, help="colsample_bytree")
-    parser.add_argument("--reg-lambda", type=float, default=1.0, help="L2 正则")
-    parser.add_argument("--n-jobs", type=int, default=-1, help="并行线程数")
-    parser.add_argument("--use-fp16", action="store_true", help="如果有 GPU，可以打开 fp16")
-    parser.add_argument("--version", default="", help="手动指定版本号，不传则自动生成")
     return parser.parse_args()
-
-
-def resolve_sheet_name(sheet_name_arg: str) -> Union[int, str]:
-    sheet_name_arg = str(sheet_name_arg).strip()
-    if sheet_name_arg.isdigit():
-        return int(sheet_name_arg)
-    return sheet_name_arg
 
 
 def normalize_text(value: Any) -> str:
@@ -91,10 +79,11 @@ def normalize_text(value: Any) -> str:
 
 
 def build_sample_text(resume_name: str, industry_name: str, resume_content: str) -> str:
+    # 把多列字段拼成 embedding 模型真正要吃的一段完整文本。
     return (
-        f"[简历名称] {resume_name.strip()}\n"
-        f"[行业名称] {industry_name.strip()}\n"
-        f"[简历内容] {resume_content.strip()}"
+        f"[简历名称]: {resume_name.strip()}\n"
+        f"[行业名称]: {industry_name.strip()}\n"
+        f"[简历内容]: {resume_content.strip()}"
     )
 
 
@@ -102,7 +91,6 @@ def load_excel_samples(excel_path: str, sheet_name: Union[int, str], min_content
     df = pd.read_excel(excel_path, sheet_name=sheet_name, engine="openpyxl")
 
     required_columns = [
-        COL_ID,
         COL_INDUSTRY_NAME,
         COL_RESUME_NAME,
         COL_RESUME_CONTENT,
@@ -115,7 +103,6 @@ def load_excel_samples(excel_path: str, sheet_name: Union[int, str], min_content
     df = df[required_columns].copy()
     df = df.rename(
         columns={
-            COL_ID: "sample_id",
             COL_INDUSTRY_NAME: "industry_name",
             COL_RESUME_NAME: "resume_name",
             COL_RESUME_CONTENT: "resume_content",
@@ -123,11 +110,13 @@ def load_excel_samples(excel_path: str, sheet_name: Union[int, str], min_content
         }
     )
 
+    # 统一把文本列转成干净字符串，避免空值、空格、非字符串类型影响训练。
     df["resume_name"] = df["resume_name"].fillna("").astype(str).str.strip()
     df["industry_name"] = df["industry_name"].fillna("").astype(str).str.strip()
     df["resume_content"] = df["resume_content"].fillna("").astype(str).str.strip()
-    df["label_score"] = pd.to_numeric(df["label_score"], errors="coerce")
+    df["label_score"] = pd.to_numeric(df["label_score"], errors="coerce")  # 非数字标签会被转成 NaN
 
+    # 过滤掉简历名称、行业名称、简历内容为空，或标签分数无效的样本。
     df = df[
         (df["resume_name"] != "")
         & (df["industry_name"] != "")
@@ -135,6 +124,7 @@ def load_excel_samples(excel_path: str, sheet_name: Union[int, str], min_content
         & df["label_score"].notna()
     ].copy()
 
+    # 过滤过短简历，并按关键字段去重，避免重复样本反复参与训练。
     df = df[df["resume_content"].str.len() >= min_content_length].copy()
     df = df.drop_duplicates(subset=["resume_name", "industry_name", "resume_content"]).copy()
 
@@ -158,7 +148,6 @@ def load_excel_samples(excel_path: str, sheet_name: Union[int, str], min_content
     for _, row in df.iterrows():
         result.append(
             {
-                "sample_id": int(row["sample_id"]) if pd.notna(row["sample_id"]) else None,
                 "resume_name": row["resume_name"],
                 "industry_name": row["industry_name"],
                 "resume_content": row["resume_content"],
@@ -188,6 +177,7 @@ def build_embeddings(
         max_length=max_length,
     )
 
+    # dense_vecs 就是后续给 XGBoost 使用的稠密向量特征。
     embeddings = np.asarray(result["dense_vecs"], dtype=np.float32)
     if embeddings.ndim != 2:
         raise ValueError("embedding 结果维度不正确")
@@ -204,26 +194,26 @@ def compute_metric_block(y_true: np.ndarray, y_pred: np.ndarray, prefix: str) ->
     }
 
 
-def train_xgboost_model(X: np.ndarray, y: np.ndarray, args: argparse.Namespace):
+def train_xgboost_model(X: np.ndarray, y: np.ndarray):
     model = XGBRegressor(
-        objective="reg:squarederror",
-        n_estimators=args.n_estimators,
-        learning_rate=args.learning_rate,
-        max_depth=args.max_depth,
-        subsample=args.subsample,
-        colsample_bytree=args.colsample_bytree,
-        reg_lambda=args.reg_lambda,
-        random_state=args.random_state,
-        n_jobs=args.n_jobs,
-        tree_method="hist",
+        objective="reg:squarederror",  # 回归任务：预测连续分数
+        n_estimators=FIXED_N_ESTIMATORS,  # 总共训练多少棵树
+        learning_rate=FIXED_LEARNING_RATE,  # 每棵树修正前面结果的力度
+        max_depth=FIXED_MAX_DEPTH,  # 单棵树最多长多深
+        subsample=FIXED_SUBSAMPLE,  # 每棵树随机使用多少比例的样本
+        colsample_bytree=FIXED_COLSAMPLE_BYTREE,  # 每棵树随机使用多少比例的特征列
+        reg_lambda=FIXED_REG_LAMBDA,  # L2 正则，防止模型过拟合
+        random_state=FIXED_RANDOM_STATE,  # 固定随机性，方便复现
+        n_jobs=FIXED_N_JOBS,  # 并行线程数
+        tree_method="hist",  # 直方图加速建树，通常更快更省资源
     )
 
     if len(X) >= 10:
         X_train, X_valid, y_train, y_valid = train_test_split(
             X,
             y,
-            test_size=args.test_size,
-            random_state=args.random_state,
+            test_size=FIXED_TEST_SIZE,
+            random_state=FIXED_RANDOM_STATE,
         )
 
         LOGGER.info("开始训练 XGBoost，训练集=%s，验证集=%s", len(X_train), len(X_valid))
@@ -271,9 +261,7 @@ def sanitize_path_segment(value: str) -> str:
     return value or "unknown"
 
 
-def build_version(args: argparse.Namespace) -> str:
-    if normalize_text(args.version):
-        return normalize_text(args.version)
+def build_version() -> str:
     return datetime.now().strftime("v%Y.%m.%d-%H%M%S")
 
 
@@ -296,20 +284,19 @@ def resolve_unique_path(target_path: Path) -> Path:
 def save_outputs(
     model: XGBRegressor,
     metrics: Dict[str, Any],
-    args: argparse.Namespace,
     sample_count: int,
     embedding_dimension: int,
     train_cost_ms: int,
 ) -> Dict[str, Any]:
-    version = build_version(args)
+    version = build_version()
     date_str = datetime.now().strftime("%Y%m%d")
 
-    safe_model_type = sanitize_path_segment(args.model_type)
-    safe_model_name_for_file = sanitize_file_name(args.model_name)
+    safe_model_type = sanitize_path_segment(FIXED_MODEL_TYPE)
+    safe_model_name_for_file = sanitize_file_name(FIXED_MODEL_NAME)
     safe_version_for_file = sanitize_file_name(version)
 
     relative_dir = Path("mlmodel") / safe_model_type / date_str
-    full_dir = Path(args.output_root).resolve() / relative_dir
+    full_dir = Path(FIXED_OUTPUT_ROOT).resolve() / relative_dir
     full_dir.mkdir(parents=True, exist_ok=True)
 
     model_file_name = f"{safe_model_name_for_file}_{safe_version_for_file}.json"
@@ -317,8 +304,8 @@ def save_outputs(
 
     metrics["embedding_dimension"] = int(embedding_dimension)
     metrics["sample_count"] = int(sample_count)
-    metrics["embedding_model"] = args.embedding_model_name
-    metrics["model_type"] = args.model_type
+    metrics["embedding_model"] = FIXED_EMBEDDING_MODEL_NAME
+    metrics["model_type"] = FIXED_MODEL_TYPE
 
     model.save_model(str(model_path))
 
@@ -331,11 +318,11 @@ def save_outputs(
     relative_model_url = str((relative_dir / model_path.name).as_posix())
 
     summary = {
-        "scoreModelVersionModelName": args.model_name,
+        "scoreModelVersionModelName": FIXED_MODEL_NAME,
         "scoreModelVersionVersion": version,
-        "scoreModelVersionModelType": args.model_type,
+        "scoreModelVersionModelType": FIXED_MODEL_TYPE,
         "scoreModelVersionModelUrl": relative_model_url,
-        "scoreModelVersionEmbeddingModel": args.embedding_model_name,
+        "scoreModelVersionEmbeddingModel": FIXED_EMBEDDING_MODEL_NAME,
         "scoreModelVersionSampleCount": int(sample_count),
         "scoreModelVersionTrainCostMs": int(train_cost_ms),
         "scoreModelVersionMetricJson": json.dumps(metrics, ensure_ascii=False),
@@ -361,25 +348,26 @@ def main() -> None:
 
     samples = load_excel_samples(
         excel_path=args.excel_path,
-        sheet_name=resolve_sheet_name(args.sheet_name),
-        min_content_length=args.min_content_length,
+        sheet_name=FIXED_SHEET_NAME,
+        min_content_length=FIXED_MIN_CONTENT_LENGTH,
     )
 
+    # texts 是模型输入文本，labels 是人工打分标签。
     texts = [item["sample_text"] for item in samples]
     labels = np.asarray([item["label_score"] for item in samples], dtype=np.float32)
 
+    # embedding 阶段把文本转成数值向量，后面 XGBoost 只吃这个向量结果。
     embeddings = build_embeddings(
         texts=texts,
-        embedding_model_name=args.embedding_model_name,
-        batch_size=args.batch_size,
-        max_length=args.max_length,
-        use_fp16=args.use_fp16,
+        embedding_model_name=FIXED_EMBEDDING_MODEL_NAME,
+        batch_size=FIXED_BATCH_SIZE,
+        max_length=FIXED_MAX_LENGTH,
+        use_fp16=FIXED_USE_FP16,
     )
 
     model, metrics = train_xgboost_model(
         X=embeddings,
         y=labels,
-        args=args,
     )
 
     train_cost_ms = int((time.time() - start_time) * 1000)
@@ -387,7 +375,6 @@ def main() -> None:
     summary = save_outputs(
         model=model,
         metrics=metrics,
-        args=args,
         sample_count=len(samples),
         embedding_dimension=int(embeddings.shape[1]),
         train_cost_ms=train_cost_ms,

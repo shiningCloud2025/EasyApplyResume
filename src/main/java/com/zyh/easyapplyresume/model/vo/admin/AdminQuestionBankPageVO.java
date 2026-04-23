@@ -9,6 +9,9 @@ import java.time.LocalDateTime;
 @Data
 @Schema(description = "题库题目分页信息")
 public class AdminQuestionBankPageVO {
+    @Schema(description = "题目id")
+    private Integer questionBankId;
+
     @Schema(description = "题目描述")
     private String questionBankDescription;
 

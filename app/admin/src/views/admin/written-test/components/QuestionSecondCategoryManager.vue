@@ -109,13 +109,21 @@
           <el-input v-model="questionSecondCategoryForm.questionSecondCategoryId" disabled />
         </el-form-item>
 
-        <el-form-item label="所属大类ID" prop="questionFirstCategoryId">
-          <el-input-number
+        <el-form-item label="所属大类" prop="questionFirstCategoryId">
+          <el-select
             v-model="questionSecondCategoryForm.questionFirstCategoryId"
-            placeholder="请输入所属大类ID"
-            :controls="false"
+            placeholder="请选择所属大类"
+            filterable
+            clearable
             style="width: 100%"
-          />
+          >
+            <el-option
+              v-for="item in questionFirstCategoryOptions"
+              :key="item.questionFirstCategoryId"
+              :label="item.questionFirstCategoryName"
+              :value="item.questionFirstCategoryId"
+            />
+          </el-select>
         </el-form-item>
 
         <el-form-item label="小类名称" prop="questionSecondCategoryName">
@@ -182,8 +190,9 @@ import { onMounted, reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, Search } from '@element-plus/icons-vue'
 import { formatDate } from '@/utils'
-import { questionSecondCategoryApi } from '@/api/admin'
+import { questionFirstCategoryApi, questionSecondCategoryApi } from '@/api/admin'
 import type {
+  AdminQuestionFirstCategoryInfoVO,
   AdminQuestionSecondCategoryForm,
   AdminQuestionSecondCategoryInfoVO,
   AdminQuestionSecondCategoryPageVO,
@@ -211,6 +220,7 @@ const pagination = reactive({
 })
 
 const tableData = ref<AdminQuestionSecondCategoryPageVO[]>([])
+const questionFirstCategoryOptions = ref<AdminQuestionFirstCategoryInfoVO[]>([])
 
 const questionSecondCategoryFormRef = ref<FormInstance>()
 const questionSecondCategoryForm = reactive<AdminQuestionSecondCategoryForm>({
@@ -222,7 +232,7 @@ const questionSecondCategoryForm = reactive<AdminQuestionSecondCategoryForm>({
 
 const questionSecondCategoryRules = {
   questionFirstCategoryId: [
-    { required: true, message: '请输入所属大类ID', trigger: 'blur' }
+    { required: true, message: '请选择所属大类', trigger: 'change' }
   ],
   questionSecondCategoryName: [
     { required: true, message: '请输入题库小类名称', trigger: 'blur' },
@@ -250,6 +260,16 @@ const getQuestionSecondCategoryList = async () => {
     ElMessage.error('加载题库小类数据失败')
   } finally {
     loading.value = false
+  }
+}
+
+const getQuestionFirstCategoryOptions = async () => {
+  try {
+    const response = await questionFirstCategoryApi.getAllQuestionFirstCategory()
+    questionFirstCategoryOptions.value = response.data || []
+  } catch (error) {
+    console.error('获取题库大类列表失败:', error)
+    ElMessage.error('加载题库大类选项失败')
   }
 }
 
@@ -389,6 +409,7 @@ const resetForm = () => {
 }
 
 onMounted(() => {
+  getQuestionFirstCategoryOptions()
   getQuestionSecondCategoryList()
 })
 

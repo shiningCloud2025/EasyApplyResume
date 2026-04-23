@@ -254,7 +254,7 @@ const router = createRouter({
             {
               path: 'version',
               name: 'ScoreModelVersionManagement',
-              component: () => import('@/views/admin/score-model/ScoreModelManagement.vue'),
+              component: () => import('@/views/admin/score-model/ScoreModelVersionManagement.vue'),
               meta: { title: '模型版本管理' }
             }
           ]

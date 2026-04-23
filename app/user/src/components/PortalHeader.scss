@@ -16,24 +16,33 @@
     height: 100%;
     margin: 0 auto;
     padding: 0 clamp(24px, 3vw, 40px);
-    display: flex;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    justify-content: space-between;
-    gap: clamp(20px, 2.4vw, 40px);
+    column-gap: clamp(20px, 2.4vw, 40px);
   }
 
   .header-left {
+    align-self: stretch;
+    display: flex;
+    align-items: stretch;
+    height: 100%;
     flex: 0 0 auto;
 
     .logo {
-      font-size: 20px;
+      height: 100%;
+      min-height: 100%;
+      padding: 0 18px;
+      font-size: 22px;
       font-weight: bold;
       color: #1890ff;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 8px;
-      font-size: 18px;
+      justify-content: center;
+      gap: 10px;
+      align-self: stretch;
+      line-height: 1;
 
       &:hover {
         opacity: 0.8;
@@ -42,21 +51,27 @@
   }
 
   .header-nav {
-    flex: 1;
     min-width: 0;
+    width: 100%;
     display: flex;
     justify-content: center;
 
     .nav-list {
+      width: 100%;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      align-items: center;
       list-style: none;
       margin: 0;
       padding: 0;
-      gap: clamp(18px, 2vw, 32px);
+      gap: clamp(8px, 1.2vw, 16px);
 
       .nav-item {
+        flex: 1 1 0;
+        display: flex;
+        justify-content: center;
+
         .nav-link {
           background: none;
           border: none;
@@ -66,6 +81,7 @@
           padding: 8px 0;
           position: relative;
           transition: all 0.3s ease;
+          white-space: nowrap;
 
           &:hover {
             color: #1890ff;
@@ -111,6 +127,8 @@
     }
 
     .header-search {
+      width: clamp(180px, 13vw, 220px);
+
       .ant-input-affix-wrapper {
         border-radius: 24px;
         border: 1px solid #e8e8e8;
@@ -214,16 +232,16 @@
   }
 }
 
-/* 响应式设计 */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .portal-header {
     .header-content {
-      padding: 0 16px;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      column-gap: 16px;
     }
 
     .header-nav {
       .nav-list {
-        gap: 16px;
+        gap: 8px;
 
         .nav-item {
           .nav-link {
@@ -234,6 +252,44 @@
     }
 
     .header-right {
+      .header-search {
+        width: 160px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .portal-header {
+    .header-content {
+      padding: 0 16px;
+      grid-template-columns: auto 1fr;
+      row-gap: 8px;
+      align-items: stretch;
+    }
+
+    .header-nav {
+      grid-column: 1 / -1;
+      order: 3;
+
+      .nav-list {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+
+        .nav-item {
+          flex: 0 0 auto;
+
+          .nav-link {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .header-right {
+      justify-self: end;
+
       .ant-btn {
         font-size: 14px;
         padding: 4px 12px;
@@ -250,24 +306,42 @@
 
 @media (max-width: 640px) {
   .portal-header {
-    height: 56px;
+    height: auto;
+    min-height: 56px;
 
     .header-content {
+      padding: 10px 16px;
+      align-items: stretch;
+    }
+
+    .header-left {
       .logo {
-        font-size: 16px;
+        min-height: 56px;
+        padding: 0 12px;
+        font-size: 18px;
       }
+    }
 
-      .header-nav {
-        .nav-list {
-          gap: 8px;
+    .header-nav {
+      .nav-list {
+        gap: 8px 12px;
 
-          .nav-item {
-            .nav-link {
-              font-size: 12px;
-              padding: 4px 0;
-            }
+        .nav-item {
+          .nav-link {
+            font-size: 12px;
+            padding: 4px 0;
           }
         }
+      }
+    }
+
+    .header-right {
+      .header-actions {
+        gap: 8px;
+      }
+
+      .header-search {
+        width: 132px;
       }
     }
   }

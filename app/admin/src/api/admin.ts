@@ -77,6 +77,10 @@ import type {
   AdminScoreModelTrainCodeForm,
   AdminScoreModelTrainCodePageVO,
   AdminScoreModelTrainCodeInfoVO,
+  AdminScoreModelVersionQuery,
+  AdminScoreModelVersionForm,
+  AdminScoreModelVersionPageVO,
+  AdminScoreModelVersionInfoVO,
   AdminQuestionFirstCategoryForm,
   AdminQuestionFirstCategoryQuery,
   AdminQuestionFirstCategoryPageVO,
@@ -85,6 +89,10 @@ import type {
   AdminQuestionSecondCategoryQuery,
   AdminQuestionSecondCategoryPageVO,
   AdminQuestionSecondCategoryInfoVO,
+  AdminQuestionBankForm,
+  AdminQuestionBankQuery,
+  AdminQuestionBankPageVO,
+  AdminQuestionBankInfoVO,
   AdminLlmUtilsInfoQuery,
   AdminLlmUtilsInfoPageVO,
   AdminLlmUtilsInfoVO
@@ -670,6 +678,56 @@ export const scoreModelTrainCodeApi = {
   }
 }
 
+// 评分模型版本相关API
+export const scoreModelVersionApi = {
+  addScoreModelVersion: (data: AdminScoreModelVersionForm, modelFile: File) => {
+    const formData = new FormData()
+    formData.append('scoreModelVersionModelName', data.scoreModelVersionModelName)
+    formData.append('scoreModelVersionVersion', data.scoreModelVersionVersion)
+    formData.append('scoreModelVersionModelType', data.scoreModelVersionModelType)
+    formData.append('scoreModelVersionEmbeddingModel', data.scoreModelVersionEmbeddingModel)
+    formData.append('scoreModelVersionSampleCount', String(data.scoreModelVersionSampleCount))
+    formData.append('scoreModelVersionTrainCostMs', String(data.scoreModelVersionTrainCostMs))
+    formData.append('scoreModelVersionMetricJson', data.scoreModelVersionMetricJson)
+    formData.append('scoreModelVersionIsActive', String(data.scoreModelVersionIsActive))
+    formData.append('modelFile', modelFile)
+    return api.upload<number>('/admin/scoreModelVersion/addScoreModelVersion', formData)
+  },
+
+  updateScoreModelVersion: (data: AdminScoreModelVersionForm, modelFile?: File | null) => {
+    const formData = new FormData()
+    if (data.scoreModelVersionId != null) {
+      formData.append('scoreModelVersionId', String(data.scoreModelVersionId))
+    }
+    formData.append('scoreModelVersionModelName', data.scoreModelVersionModelName)
+    formData.append('scoreModelVersionVersion', data.scoreModelVersionVersion)
+    formData.append('scoreModelVersionModelType', data.scoreModelVersionModelType)
+    formData.append('scoreModelVersionEmbeddingModel', data.scoreModelVersionEmbeddingModel)
+    formData.append('scoreModelVersionSampleCount', String(data.scoreModelVersionSampleCount))
+    formData.append('scoreModelVersionTrainCostMs', String(data.scoreModelVersionTrainCostMs))
+    formData.append('scoreModelVersionMetricJson', data.scoreModelVersionMetricJson)
+    formData.append('scoreModelVersionIsActive', String(data.scoreModelVersionIsActive))
+    if (modelFile) {
+      formData.append('modelFile', modelFile)
+    }
+    return api.upload<number>('/admin/scoreModelVersion/updateScoreModelVersion', formData)
+  },
+
+  deleteScoreModelVersion: (scoreModelVersionId: number) =>
+    api.delete<number>('/admin/scoreModelVersion/deleteScoreModelVersion', { scoreModelVersionId }),
+
+  getScoreModelVersionInfo: (scoreModelVersionId: number) =>
+    api.get<AdminScoreModelVersionInfoVO>('/admin/scoreModelVersion/findScoreModelVersionById', { scoreModelVersionId }),
+
+  getScoreModelVersionPage: (pageNum: number, pageSize: number, query: AdminScoreModelVersionQuery) =>
+    api.post<PageResult<AdminScoreModelVersionPageVO>>('/admin/scoreModelVersion/findScoreModelVersionByPage', query, {
+      params: { pageNum, pageSize }
+    }),
+
+  getAllScoreModelVersion: () =>
+    api.get<AdminScoreModelVersionPageVO[]>('/admin/scoreModelVersion/findAllScoreModelVersion')
+}
+
 // 题库大类相关API
 export const questionFirstCategoryApi = {
   addQuestionFirstCategory: (data: AdminQuestionFirstCategoryForm) =>
@@ -713,7 +771,30 @@ export const questionSecondCategoryApi = {
     }),
 
   getAllQuestionSecondCategory: () =>
-    api.get<AdminQuestionSecondCategoryInfoVO[]>('/admin/questionSecondCategory/findAllQuestionSecondCategory')
+    api.get<AdminQuestionSecondCategoryInfoVO[]>('/admin/questionSecondCategory/findAllQuestionSecondCategory'),
+
+  getQuestionSecondCategoryByFirstCategoryId: (questionFirstCategoryId: number) =>
+    api.get<AdminQuestionSecondCategoryInfoVO[]>('/admin/questionSecondCategory/findQuestionSecondCategoryByFirstCategoryId', { questionFirstCategoryId })
+}
+
+// 题库题目相关API
+export const questionBankApi = {
+  addQuestionBank: (data: AdminQuestionBankForm) =>
+    api.post<number>('/admin/questionBank/addQuestionBank', data),
+
+  updateQuestionBank: (data: AdminQuestionBankForm) =>
+    api.post<number>('/admin/questionBank/updateQuestionBank', data),
+
+  deleteQuestionBank: (questionBankId: number) =>
+    api.delete<number>('/admin/questionBank/deleteQuestionBank', { questionBankId }),
+
+  getQuestionBankInfo: (questionBankId: number) =>
+    api.get<AdminQuestionBankInfoVO>('/admin/questionBank/findQuestionBankById', { questionBankId }),
+
+  getQuestionBankPage: (pageNum: number, pageSize: number, query: AdminQuestionBankQuery) =>
+    api.post<PageResult<AdminQuestionBankPageVO>>('/admin/questionBank/findQuestionBankByPage', query, {
+      params: { pageNum, pageSize }
+    })
 }
 
 // 公告相关API

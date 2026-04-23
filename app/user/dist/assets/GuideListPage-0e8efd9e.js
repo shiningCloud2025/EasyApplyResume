@@ -1,0 +1,1 @@
+import{j as t}from"./index-2d411f87.js";import{C as o}from"./ContentListPage-843325dd.js";import{g as i}from"./contentPageConfigs-10648392.js";import"./react-vendor-fa9da516.js";import"./antd-vendor-3b81ac23.js";import"./useQuery-ad06bc89.js";import"./utils-0507c293.js";const n=()=>t.jsx(o,{config:i});export{n as default};

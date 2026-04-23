@@ -768,6 +768,52 @@ export interface AdminScoreModelTrainCodeInfoVO {
   scoreModelTrainCodeCreateTime?: string
 }
 
+// ============= 评分模型版本（ScoreModelVersion）=============
+
+export interface AdminScoreModelVersionQuery {
+  scoreModelVersionModelName?: string
+  scoreModelVersionModelType?: string
+}
+
+export interface AdminScoreModelVersionForm {
+  scoreModelVersionId?: number
+  scoreModelVersionModelName: string
+  scoreModelVersionVersion: string
+  scoreModelVersionModelType: string
+  scoreModelVersionEmbeddingModel: string
+  scoreModelVersionSampleCount: number
+  scoreModelVersionTrainCostMs: number
+  scoreModelVersionMetricJson: string
+  scoreModelVersionIsActive: number
+}
+
+export interface AdminScoreModelVersionPageVO {
+  scoreModelVersionId: number
+  scoreModelVersionModelName: string
+  scoreModelVersionVersion: string
+  scoreModelVersionModelType: string
+  scoreModelVersionModelUrl: string
+  scoreModelVersionEmbeddingModel: string
+  scoreModelVersionSampleCount: number
+  scoreModelVersionTrainCostMs: number
+  scoreModelVersionIsActive: number
+  scoreModelVersionCreateTime?: string
+}
+
+export interface AdminScoreModelVersionInfoVO {
+  scoreModelVersionId: number
+  scoreModelVersionModelName: string
+  scoreModelVersionVersion: string
+  scoreModelVersionModelType: string
+  scoreModelVersionModelUrl: string
+  scoreModelVersionEmbeddingModel: string
+  scoreModelVersionSampleCount: number
+  scoreModelVersionTrainCostMs: number
+  scoreModelVersionMetricJson: string
+  scoreModelVersionIsActive: number
+  scoreModelVersionCreateTime?: string
+}
+
 // ============= 笔试专项题库分类管理 =============
 
 export interface AdminQuestionFirstCategoryForm {
@@ -822,6 +868,71 @@ export interface AdminQuestionSecondCategoryInfoVO {
   questionSecondCategoryName: string
   questionSecondCategoryIntroduce: string
   questionSecondCategoryCreateTime?: string
+}
+
+export interface AdminQuestionBankForm {
+  questionBankId?: number
+  questionBankDescription: string
+  questionBankOptionA: string
+  questionBankOptionB: string
+  questionBankOptionC: string
+  questionBankOptionD: string
+  questionBankCorrectAnswer: string
+  questionBankImage: string
+  questionBankCode: string
+  questionBankType: number | undefined
+  questionFirstCategoryId: number | undefined
+  questionFirstCategoryName: string
+  questionSecondCategoryId: number | undefined
+  questionSecondCategoryName: string
+  questionBankReferenceAnswer: string
+  questionBankAnalysis: string
+  questionBankDifficulty: number | undefined
+  questionBankState: number | undefined
+}
+
+export interface AdminQuestionBankQuery {
+  questionBankDescription?: string
+  questionBankType?: number
+  questionFirstCategoryId?: number
+  questionSecondCategoryId?: number
+  questionBankDifficulty?: number
+  questionBankState?: number
+}
+
+export interface AdminQuestionBankPageVO {
+  questionBankId: number
+  questionBankDescription: string
+  questionBankType: number
+  questionFirstCategoryName: string
+  questionSecondCategoryName: string
+  questionBankDifficulty: number
+  questionBankState: number
+  questionBankCreateTime?: string
+  questionBankUpdateTime?: string
+}
+
+export interface AdminQuestionBankInfoVO {
+  questionBankId: number
+  questionBankDescription: string
+  questionBankOptionA: string
+  questionBankOptionB: string
+  questionBankOptionC: string
+  questionBankOptionD: string
+  questionBankCorrectAnswer: string
+  questionBankImage: string
+  questionBankCode: string
+  questionBankType: number
+  questionFirstCategoryId: number
+  questionFirstCategoryName: string
+  questionSecondCategoryId: number
+  questionSecondCategoryName: string
+  questionBankReferenceAnswer: string
+  questionBankAnalysis: string
+  questionBankDifficulty: number
+  questionBankState: number
+  questionBankCreateTime?: string
+  questionBankUpdateTime?: string
 }
 
 // ============= 内容管理（Content Management）=============

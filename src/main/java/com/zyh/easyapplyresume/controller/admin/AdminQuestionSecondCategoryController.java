@@ -61,6 +61,13 @@ public class AdminQuestionSecondCategoryController {
         return BaseResult.ok(adminQuestionSecondCategoryService.findQuestionSecondCategoryByPage(pageNum, pageSize, query));
     }
 
+    @Operation(summary = "根据题库大类id查询题库小类")
+    @GetMapping("/findQuestionSecondCategoryByFirstCategoryId")
+    public BaseResult<List<AdminQuestionSecondCategoryInfoVO>> findQuestionSecondCategoryByFirstCategoryId(
+            @RequestParam(required = true, value = "questionFirstCategoryId") Integer questionFirstCategoryId) {
+        return BaseResult.ok(adminQuestionSecondCategoryService.findQuestionSecondCategoryByFirstCategoryId(questionFirstCategoryId));
+    }
+
     @Operation(summary = "查询所有题库小类")
     @GetMapping("/findAllQuestionSecondCategory")
     public BaseResult<List<AdminQuestionSecondCategoryInfoVO>> findAllQuestionSecondCategory() {

@@ -31,7 +31,7 @@ const PortalFooter: React.FC = () => {
   ]
 
   const aboutLinks = [
-    { name: '公司介绍', path: '/about/company', desc: '了解我们' },
+    { name: '项目介绍', path: '/about/company', desc: '了解项目' },
     { name: '团队介绍', path: '/about/team', desc: '核心团队' },
     { name: '发展历程', path: '/about/history', desc: '成长足迹' },
     { name: '加入我们', path: '/about/join-us', desc: '招贤纳士' },
@@ -131,7 +131,7 @@ const PortalFooter: React.FC = () => {
             </div>
 
             {/* 关于我们 */}
-            <div className="footer-section">
+            <div className="footer-section" id="footer-about-section">
               <h4 className="section-title">关于我们</h4>
               <div className="link-grid">
                 {aboutLinks.map((link, index) => (

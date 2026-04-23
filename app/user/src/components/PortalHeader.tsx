@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Button, Space, Dropdown, message, Input } from 'antd'
 import { UserOutlined, LogoutOutlined, SearchOutlined, DownOutlined } from '@ant-design/icons'
 import { useUserStore } from '@stores/userStore'
@@ -106,29 +106,84 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
 
   const portalMenuItems = [
     { key: 'home', label: '首页', path: '/home' },
-    { key: 'my-resumes', label: '我的简历', path: '/resume/my-resumes', requireLogin: true },
-    { key: 'templates', label: '简历模板', path: '/resume/templates' },
-    { key: 'jobs', label: '招聘信息', path: '/jobs' },
-    { key: 'advice', label: '求职攻略', path: '/advice' },
-    { 
-      key: 'ai', 
-      label: 'AI简历助手', 
+    {
+      key: 'my-resumes',
+      label: '我的简历',
+      path: '/resume/my-resumes',
+      requireLogin: true,
+      activePrefixes: ['/resume/my-resumes', '/resume/edit/', '/resume/recycle-bin'],
+    },
+    {
+      key: 'templates',
+      label: '简历模板',
+      path: '/resume/templates',
+      activePrefixes: ['/resume/templates', '/resume/template/'],
+    },
+    {
+      key: 'jobs',
+      label: '招聘信息',
+      path: '/jobs',
+      activePrefixes: ['/jobs', '/job/'],
+    },
+    {
+      key: 'advice',
+      label: '求职攻略',
+      path: '/advice',
+      activePrefixes: ['/advice'],
+    },
+    {
+      key: 'ai',
+      label: 'AI简历助手',
       path: '/ai/chat',
       children: [
         { key: 'ai-chat', label: 'AI智能问答助手', path: '/ai/chat' },
         { key: 'ai-agent', label: 'AI智能体助手', path: '/ai/agent' }
       ]
     },
-    { key: 'feedback', label: '反馈', path: '/feedback/submit' }
+    {
+      key: 'feedback',
+      label: '反馈',
+      path: '/feedback/submit',
+      activePrefixes: ['/feedback'],
+    },
+    {
+      key: 'help',
+      label: '帮助中心',
+      path: '/help/guide',
+      activePrefixes: ['/help'],
+      children: [
+        { key: 'help-guide', label: '使用指南', path: '/help/guide' },
+        { key: 'help-faq', label: '常见问题', path: '/help/faq' },
+        { key: 'help-contact', label: '联系客服', path: '/help/contact' },
+      ]
+    },
+    {
+      key: 'about',
+      label: '关于我们',
+      path: '/about/company',
+      activePrefixes: ['/about'],
+      children: [
+        { key: 'about-company', label: '项目介绍', path: '/about/company' },
+        { key: 'about-team', label: '团队介绍', path: '/about/team' },
+        { key: 'about-history', label: '发展历程', path: '/about/history' },
+        { key: 'about-join-us', label: '加入我们', path: '/about/join-us' },
+        { key: 'about-partners', label: '合作伙伴', path: '/about/partners' },
+        { key: 'about-media', label: '媒体报道', path: '/about/media' },
+      ]
+    },
   ]
 
   const isActiveRoute = (path: string, item?: any) => {
-    // 检查是否有子菜单
     if (item?.children) {
       return item.children.some((child: any) => location.pathname === child.path)
     }
-    return location.pathname === path || 
-           (activeMenu && portalMenuItems.find(item => item.key === activeMenu)?.path === path)
+
+    if (item?.activePrefixes?.some((prefix: string) => location.pathname.startsWith(prefix))) {
+      return true
+    }
+
+    return location.pathname === path ||
+      (activeMenu && portalMenuItems.find(menuItem => menuItem.key === activeMenu)?.path === path)
   }
 
   return (
@@ -163,7 +218,7 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
                     </button>
                   </Dropdown>
                 ) : (
-                  <button 
+                  <button
                     className="nav-link"
                     onClick={() => handleNavigate(item.path, item.key, (item as any).requireLogin)}
                   >
@@ -182,7 +237,6 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
               placeholder="搜索..."
               className="header-search"
               prefix={<SearchOutlined style={{ color: '#999' }} />}
-              style={{ width: 200 }}
               onPressEnter={(e) => {
                 const value = (e.target as HTMLInputElement).value
                 if (value) {

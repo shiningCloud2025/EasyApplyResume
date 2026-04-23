@@ -105,6 +105,14 @@ public class UserSaveResumeController {
         return BaseResult.ok(result);
     }
 
+    @GetMapping("/scoreByModel")
+    @Operation(summary = "基于XgBoost模型进行评分")
+    public BaseResult<Object> scoreByModel(@RequestParam(required = true, value = "userId") Integer userId,
+                                           @RequestParam(required = true, value = "resumeId") Integer resumeId) {
+        Object result = userSaveResumeService.scoreResumeByModel(userId, resumeId);
+        return BaseResult.ok(result);
+    }
+
     @PostMapping("/updateUserDeleteResumeName")
     @Operation(summary = "根据用户id和简历排序以及简历名称去修改简历名称")
     public BaseResult<Void> updateUserDeleteResumeName(@RequestParam(required = true,value = "userId") Integer userId,
