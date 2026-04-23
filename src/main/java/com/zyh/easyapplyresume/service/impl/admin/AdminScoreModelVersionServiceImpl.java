@@ -58,6 +58,7 @@ class AdminScoreModelVersionServiceImpl implements AdminScoreModelVersionService
         boolean needDeleteModelFile = false;
         try {
             AdminScoreModelVersionFormValidator.validateForAdd(form, modelFile);
+            validateActiveModelUnique(form);
 
             LambdaQueryWrapper<AdminScoreModelVersion> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(AdminScoreModelVersion::getDeleted, 0);
@@ -97,6 +98,7 @@ class AdminScoreModelVersionServiceImpl implements AdminScoreModelVersionService
         boolean needDeleteNewModelFile = false;
         try {
             AdminScoreModelVersionFormValidator.validateForUpdate(form, modelFile);
+            validateActiveModelUnique(form);
 
             LambdaQueryWrapper<AdminScoreModelVersion> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(AdminScoreModelVersion::getScoreModelVersionId, form.getScoreModelVersionId());
@@ -344,6 +346,29 @@ class AdminScoreModelVersionServiceImpl implements AdminScoreModelVersionService
         } catch (Exception e) {
             log.error("删除模型文件失败", e);
             throw new RuntimeException("删除模型文件失败");
+        }
+    }
+
+    private void validateActiveModelUnique(AdminScoreModelVersionForm form) {
+        if (form == null) {
+            return;
+        }
+
+        if (!Integer.valueOf(1).equals(form.getScoreModelVersionIsActive())) {
+            return;
+        }
+
+        LambdaQueryWrapper<AdminScoreModelVersion> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(AdminScoreModelVersion::getDeleted, 0);
+        lambdaQueryWrapper.eq(AdminScoreModelVersion::getScoreModelVersionIsActive, 1);
+
+        if (form.getScoreModelVersionId() != null) {
+            lambdaQueryWrapper.ne(AdminScoreModelVersion::getScoreModelVersionId, form.getScoreModelVersionId());
+        }
+
+        Long count = adminScoreModelVersionMapper.selectCount(lambdaQueryWrapper);
+        if (count != null && count > 0) {
+            throw new BusException(AdminCodeEnum.SCORE_MODEL_VERSION_ACTIVE_DUPLICATE);
         }
     }
 
