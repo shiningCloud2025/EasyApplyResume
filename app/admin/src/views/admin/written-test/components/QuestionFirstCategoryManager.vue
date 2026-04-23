@@ -1,6 +1,10 @@
 <template>
   <div class="question-first-category-management">
     <div class="page-header">
+      <div class="header-content">
+        <h2 class="page-title">题库大类管理</h2>
+        <p class="page-description">维护笔试专项下的题库大类，作为后续题库小类与题库题目的业务入口。</p>
+      </div>
       <div class="header-actions">
         <el-button type="primary" @click="openCreateDialog">
           <el-icon><Plus /></el-icon>
@@ -367,8 +371,26 @@ defineExpose({
 .question-first-category-management {
   .page-header {
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    gap: 16px;
+  }
+
+  .header-content {
+    .page-title {
+      margin: 0 0 8px;
+      font-size: 24px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .page-description {
+      margin: 0;
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.6;
+    }
   }
 
   .header-actions {
@@ -396,6 +418,7 @@ defineExpose({
 @media (max-width: 768px) {
   .question-first-category-management {
     .page-header {
+      flex-direction: column;
       justify-content: stretch;
     }
 

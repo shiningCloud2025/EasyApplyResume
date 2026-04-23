@@ -768,6 +768,62 @@ export interface AdminScoreModelTrainCodeInfoVO {
   scoreModelTrainCodeCreateTime?: string
 }
 
+// ============= 笔试专项题库分类管理 =============
+
+export interface AdminQuestionFirstCategoryForm {
+  questionFirstCategoryId?: number
+  questionFirstCategoryName: string
+  questionFirstCategoryIntroduce: string
+}
+
+export interface AdminQuestionFirstCategoryQuery {
+  questionFirstCategoryName?: string
+  questionFirstCategoryIntroduce?: string
+}
+
+export interface AdminQuestionFirstCategoryPageVO {
+  questionFirstCategoryId: number
+  questionFirstCategoryName: string
+  questionFirstCategoryIntroduce: string
+  questionFirstCategoryCreateTime?: string
+}
+
+export interface AdminQuestionFirstCategoryInfoVO {
+  questionFirstCategoryId: number
+  questionFirstCategoryName: string
+  questionFirstCategoryIntroduce: string
+  questionFirstCategoryCreateTime?: string
+}
+
+export interface AdminQuestionSecondCategoryForm {
+  questionSecondCategoryId?: number
+  questionFirstCategoryId: number | undefined
+  questionSecondCategoryName: string
+  questionSecondCategoryIntroduce: string
+}
+
+export interface AdminQuestionSecondCategoryQuery {
+  questionFirstCategoryId?: number
+  questionSecondCategoryName?: string
+  questionSecondCategoryIntroduce?: string
+}
+
+export interface AdminQuestionSecondCategoryPageVO {
+  questionSecondCategoryId: number
+  questionFirstCategoryId: number
+  questionSecondCategoryName: string
+  questionSecondCategoryIntroduce: string
+  questionSecondCategoryCreateTime?: string
+}
+
+export interface AdminQuestionSecondCategoryInfoVO {
+  questionSecondCategoryId: number
+  questionFirstCategoryId: number
+  questionSecondCategoryName: string
+  questionSecondCategoryIntroduce: string
+  questionSecondCategoryCreateTime?: string
+}
+
 // ============= 内容管理（Content Management）=============
 
 export interface ProjectIntroduceForm {

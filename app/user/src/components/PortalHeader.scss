@@ -11,16 +11,20 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
   .header-content {
-    max-width: 1200px;
+    width: 100%;
+    max-width: 1680px;
     height: 100%;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 clamp(24px, 3vw, 40px);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: clamp(20px, 2.4vw, 40px);
   }
 
   .header-left {
+    flex: 0 0 auto;
+
     .logo {
       font-size: 20px;
       font-weight: bold;
@@ -38,12 +42,19 @@
   }
 
   .header-nav {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    justify-content: center;
+
     .nav-list {
       display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       list-style: none;
       margin: 0;
       padding: 0;
-      gap: 32px;
+      gap: clamp(18px, 2vw, 32px);
 
       .nav-item {
         .nav-link {
@@ -91,6 +102,8 @@
   }
 
   .header-right {
+    flex: 0 0 auto;
+
     .header-actions {
       display: flex;
       align-items: center;

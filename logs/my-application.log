@@ -8418,3 +8418,1217 @@ render(<ResumeTemplate />)
 2026-04-23 10:20:34.743 [http-nio-8080-exec-2] ERROR c.z.e.filter.UserJwtAuthFilter - 用户端 Token 验证失败: Redis command timed out
 2026-04-23 10:20:51.060 [lettuce-eventExecutorLoop-1-4] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was /117.50.184.138:37211
 2026-04-23 10:20:51.417 [lettuce-nioEventLoop-6-4] INFO  i.l.c.protocol.ReconnectionHandler - Reconnected to 117.50.184.138/<unresolved>:37211
+2026-04-23 10:54:23.836 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=8m22s468ms235µs500ns).
+2026-04-23 10:54:33.694 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=8m22s478ms185µs100ns).
+2026-04-23 10:54:45.187 [http-nio-8080-exec-3] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, IP: 0:0:0:0:0:0:0:1, Params: {}
+2026-04-23 10:54:50.254 [http-nio-8080-exec-3] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@3e91d7f0 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 10:54:55.259 [http-nio-8080-exec-3] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@76377d6 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 10:54:58.521 [http-nio-8080-exec-1] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, IP: 0:0:0:0:0:0:0:1, Params: {}
+2026-04-23 10:55:00.266 [http-nio-8080-exec-3] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@553d0a4 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 10:55:03.537 [http-nio-8080-exec-1] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@7730ffcf (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 10:55:05.272 [http-nio-8080-exec-3] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@51948676 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 10:55:08.552 [http-nio-8080-exec-1] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@5faee44b (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 10:55:10.279 [http-nio-8080-exec-3] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@9fcd301 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 10:55:13.563 [http-nio-8080-exec-1] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@6450ef9c (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 10:55:15.285 [http-nio-8080-exec-3] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1231e46a (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 10:55:15.335 [http-nio-8080-exec-3] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, Status: 200, Duration: 30149ms
+2026-04-23 10:55:18.134 [http-nio-8080-exec-4] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, IP: 0:0:0:0:0:0:0:1, Params: {}
+2026-04-23 10:55:18.249 [http-nio-8080-exec-4] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminAuthServiceImpl, 方法: formalLogin, 参数: [{"accountOrPhoneOrEmail":"18242991090","password":"zyh0.123"}]
+2026-04-23 10:55:18.269 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==>  Preparing: select * from admin_admin where deleted = 0 and ( admin_account = ? or admin_phone = ? or admin_email = ? )
+2026-04-23 10:55:18.276 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==> Parameters: 18242991090(String), 18242991090(String), 18242991090(String)
+2026-04-23 10:55:18.333 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - <==      Total: 1
+2026-04-23 10:55:18.414 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==>  Preparing: UPDATE admin_admin SET admin_account=?, admin_username=?, admin_email=?, admin_phone=?, admin_password=?, admin_image=?, admin_introduce=?, admin_state=?, admin_loginTime=? WHERE admin_id=? AND deleted=0
+2026-04-23 10:55:18.417 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==> Parameters: 1812463057(String), 超级管理员(String), 1812463057@qq.com(String), 18242991090(String), $2a$10$Wz8s6hYf0UGOCCZ6Ff5QW.QgfqIQSJijiFXIqqplg3eGqw3HNxSeu(String), https://ts1.tc.mm.bing.net/th/id/R-C.928ef8908b5eb3666b2a27a1f6cfbe17?rik=h2FXLv1HNaxbTg&riu=http%3a%2f%2fp0.so.qhmsg.com%2ft018b5eb3666b2a27a1.jpg&ehk=QnGPPvZKq3cPW6%2bdkG%2b3zIRvAGXRsgYVTirfbvOBTaU%3d&risl=&pid=ImgRaw&r=0(String), 至高无上的超级管理员(String), 1(Integer), 2026-04-23 10:55:18.402(Timestamp), 1(Integer)
+2026-04-23 10:55:18.517 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.updateById - <==    Updates: 1
+2026-04-23 10:55:18.571 [http-nio-8080-exec-1] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@3648e4dc (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 10:55:18.669 [http-nio-8080-exec-1] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminAuthServiceImpl, 方法: formalLogin, 参数: [{"accountOrPhoneOrEmail":"18242991090","password":"zyh0.123"}]
+2026-04-23 10:55:18.670 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==>  Preparing: select * from admin_admin where deleted = 0 and ( admin_account = ? or admin_phone = ? or admin_email = ? )
+2026-04-23 10:55:18.671 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==> Parameters: 18242991090(String), 18242991090(String), 18242991090(String)
+2026-04-23 10:55:18.724 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - <==      Total: 1
+2026-04-23 10:55:18.794 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==>  Preparing: UPDATE admin_admin SET admin_account=?, admin_username=?, admin_email=?, admin_phone=?, admin_password=?, admin_image=?, admin_introduce=?, admin_state=?, admin_loginTime=? WHERE admin_id=? AND deleted=0
+2026-04-23 10:55:18.795 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==> Parameters: 1812463057(String), 超级管理员(String), 1812463057@qq.com(String), 18242991090(String), $2a$10$Wz8s6hYf0UGOCCZ6Ff5QW.QgfqIQSJijiFXIqqplg3eGqw3HNxSeu(String), https://ts1.tc.mm.bing.net/th/id/R-C.928ef8908b5eb3666b2a27a1f6cfbe17?rik=h2FXLv1HNaxbTg&riu=http%3a%2f%2fp0.so.qhmsg.com%2ft018b5eb3666b2a27a1.jpg&ehk=QnGPPvZKq3cPW6%2bdkG%2b3zIRvAGXRsgYVTirfbvOBTaU%3d&risl=&pid=ImgRaw&r=0(String), 至高无上的超级管理员(String), 1(Integer), 2026-04-23 10:55:18.791(Timestamp), 1(Integer)
+2026-04-23 10:55:21.565 [http-nio-8080-exec-4] ERROR c.z.e.s.s.S.ServiceLogAspect - 【Service异常】类: AdminAuthServiceImpl, 方法: formalLogin, 异常: Redis command timed out, 耗时: 3315ms
+2026-04-23 10:55:21.624 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.updateById - <==    Updates: 1
+2026-04-23 10:55:21.688 [http-nio-8080-exec-4] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, Status: 200, Duration: 3554ms
+2026-04-23 10:55:22.974 [http-nio-8080-exec-5] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, IP: 0:0:0:0:0:0:0:1, Params: {}
+2026-04-23 10:55:23.197 [http-nio-8080-exec-5] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminAuthServiceImpl, 方法: formalLogin, 参数: [{"accountOrPhoneOrEmail":"18242991090","password":"zyh0.123"}]
+2026-04-23 10:55:23.197 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==>  Preparing: select * from admin_admin where deleted = 0 and ( admin_account = ? or admin_phone = ? or admin_email = ? )
+2026-04-23 10:55:23.198 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==> Parameters: 18242991090(String), 18242991090(String), 18242991090(String)
+2026-04-23 10:55:23.288 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - <==      Total: 1
+2026-04-23 10:55:23.360 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==>  Preparing: UPDATE admin_admin SET admin_account=?, admin_username=?, admin_email=?, admin_phone=?, admin_password=?, admin_image=?, admin_introduce=?, admin_state=?, admin_loginTime=? WHERE admin_id=? AND deleted=0
+2026-04-23 10:55:23.360 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==> Parameters: 1812463057(String), 超级管理员(String), 1812463057@qq.com(String), 18242991090(String), $2a$10$Wz8s6hYf0UGOCCZ6Ff5QW.QgfqIQSJijiFXIqqplg3eGqw3HNxSeu(String), https://ts1.tc.mm.bing.net/th/id/R-C.928ef8908b5eb3666b2a27a1f6cfbe17?rik=h2FXLv1HNaxbTg&riu=http%3a%2f%2fp0.so.qhmsg.com%2ft018b5eb3666b2a27a1.jpg&ehk=QnGPPvZKq3cPW6%2bdkG%2b3zIRvAGXRsgYVTirfbvOBTaU%3d&risl=&pid=ImgRaw&r=0(String), 至高无上的超级管理员(String), 1(Integer), 2026-04-23 10:55:23.359(Timestamp), 1(Integer)
+2026-04-23 10:55:24.634 [http-nio-8080-exec-1] ERROR c.z.e.s.s.S.ServiceLogAspect - 【Service异常】类: AdminAuthServiceImpl, 方法: formalLogin, 异常: Redis command timed out, 耗时: 5964ms
+2026-04-23 10:55:24.683 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.updateById - <==    Updates: 1
+2026-04-23 10:55:24.740 [http-nio-8080-exec-1] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, Status: 200, Duration: 26219ms
+2026-04-23 10:55:27.698 [http-nio-8080-exec-5] ERROR c.z.e.s.s.S.ServiceLogAspect - 【Service异常】类: AdminAuthServiceImpl, 方法: formalLogin, 异常: Redis command timed out, 耗时: 4501ms
+2026-04-23 10:55:27.803 [http-nio-8080-exec-5] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, Status: 200, Duration: 4829ms
+2026-04-23 10:55:30.005 [http-nio-8080-exec-6] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, IP: 0:0:0:0:0:0:0:1, Params: {}
+2026-04-23 10:55:30.108 [http-nio-8080-exec-6] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminAuthServiceImpl, 方法: formalLogin, 参数: [{"accountOrPhoneOrEmail":"18242991090","password":"zyh0.123"}]
+2026-04-23 10:55:30.108 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==>  Preparing: select * from admin_admin where deleted = 0 and ( admin_account = ? or admin_phone = ? or admin_email = ? )
+2026-04-23 10:55:30.109 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==> Parameters: 18242991090(String), 18242991090(String), 18242991090(String)
+2026-04-23 10:55:30.160 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - <==      Total: 1
+2026-04-23 10:55:30.239 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==>  Preparing: UPDATE admin_admin SET admin_account=?, admin_username=?, admin_email=?, admin_phone=?, admin_password=?, admin_image=?, admin_introduce=?, admin_state=?, admin_loginTime=? WHERE admin_id=? AND deleted=0
+2026-04-23 10:55:30.241 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==> Parameters: 1812463057(String), 超级管理员(String), 1812463057@qq.com(String), 18242991090(String), $2a$10$Wz8s6hYf0UGOCCZ6Ff5QW.QgfqIQSJijiFXIqqplg3eGqw3HNxSeu(String), https://ts1.tc.mm.bing.net/th/id/R-C.928ef8908b5eb3666b2a27a1f6cfbe17?rik=h2FXLv1HNaxbTg&riu=http%3a%2f%2fp0.so.qhmsg.com%2ft018b5eb3666b2a27a1.jpg&ehk=QnGPPvZKq3cPW6%2bdkG%2b3zIRvAGXRsgYVTirfbvOBTaU%3d&risl=&pid=ImgRaw&r=0(String), 至高无上的超级管理员(String), 1(Integer), 2026-04-23 10:55:30.238(Timestamp), 1(Integer)
+2026-04-23 10:55:30.402 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.updateById - <==    Updates: 1
+2026-04-23 10:55:33.419 [http-nio-8080-exec-6] ERROR c.z.e.s.s.S.ServiceLogAspect - 【Service异常】类: AdminAuthServiceImpl, 方法: formalLogin, 异常: Redis command timed out, 耗时: 3311ms
+2026-04-23 10:55:33.525 [http-nio-8080-exec-6] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, Status: 200, Duration: 3520ms
+2026-04-23 10:55:34.556 [http-nio-8080-exec-9] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, IP: 0:0:0:0:0:0:0:1, Params: {}
+2026-04-23 10:55:34.762 [http-nio-8080-exec-9] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminAuthServiceImpl, 方法: formalLogin, 参数: [{"accountOrPhoneOrEmail":"18242991090","password":"zyh0.123"}]
+2026-04-23 10:55:34.762 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==>  Preparing: select * from admin_admin where deleted = 0 and ( admin_account = ? or admin_phone = ? or admin_email = ? )
+2026-04-23 10:55:34.762 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==> Parameters: 18242991090(String), 18242991090(String), 18242991090(String)
+2026-04-23 10:55:34.916 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - <==      Total: 1
+2026-04-23 10:55:34.985 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==>  Preparing: UPDATE admin_admin SET admin_account=?, admin_username=?, admin_email=?, admin_phone=?, admin_password=?, admin_image=?, admin_introduce=?, admin_state=?, admin_loginTime=? WHERE admin_id=? AND deleted=0
+2026-04-23 10:55:34.986 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==> Parameters: 1812463057(String), 超级管理员(String), 1812463057@qq.com(String), 18242991090(String), $2a$10$Wz8s6hYf0UGOCCZ6Ff5QW.QgfqIQSJijiFXIqqplg3eGqw3HNxSeu(String), https://ts1.tc.mm.bing.net/th/id/R-C.928ef8908b5eb3666b2a27a1f6cfbe17?rik=h2FXLv1HNaxbTg&riu=http%3a%2f%2fp0.so.qhmsg.com%2ft018b5eb3666b2a27a1.jpg&ehk=QnGPPvZKq3cPW6%2bdkG%2b3zIRvAGXRsgYVTirfbvOBTaU%3d&risl=&pid=ImgRaw&r=0(String), 至高无上的超级管理员(String), 1(Integer), 2026-04-23 10:55:34.985(Timestamp), 1(Integer)
+2026-04-23 10:55:35.215 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.updateById - <==    Updates: 1
+2026-04-23 10:55:38.230 [http-nio-8080-exec-9] ERROR c.z.e.s.s.S.ServiceLogAspect - 【Service异常】类: AdminAuthServiceImpl, 方法: formalLogin, 异常: Redis command timed out, 耗时: 3468ms
+2026-04-23 10:55:38.344 [http-nio-8080-exec-9] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, Status: 200, Duration: 3788ms
+2026-04-23 10:55:41.466 [lettuce-eventExecutorLoop-1-5] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was /117.50.184.138:37211
+2026-04-23 10:55:41.707 [http-nio-8080-exec-8] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, IP: 0:0:0:0:0:0:0:1, Params: {}
+2026-04-23 10:55:41.720 [lettuce-nioEventLoop-6-5] INFO  i.l.c.protocol.ReconnectionHandler - Reconnected to 117.50.184.138/<unresolved>:37211
+2026-04-23 10:55:41.872 [http-nio-8080-exec-8] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminAuthServiceImpl, 方法: formalLogin, 参数: [{"accountOrPhoneOrEmail":"18242991090","password":"zyh0.123"}]
+2026-04-23 10:55:41.872 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==>  Preparing: select * from admin_admin where deleted = 0 and ( admin_account = ? or admin_phone = ? or admin_email = ? )
+2026-04-23 10:55:41.872 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - ==> Parameters: 18242991090(String), 18242991090(String), 18242991090(String)
+2026-04-23 10:55:41.974 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findByAccountOrPhoneOrEmail - <==      Total: 1
+2026-04-23 10:55:42.050 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==>  Preparing: UPDATE admin_admin SET admin_account=?, admin_username=?, admin_email=?, admin_phone=?, admin_password=?, admin_image=?, admin_introduce=?, admin_state=?, admin_loginTime=? WHERE admin_id=? AND deleted=0
+2026-04-23 10:55:42.050 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.updateById - ==> Parameters: 1812463057(String), 超级管理员(String), 1812463057@qq.com(String), 18242991090(String), $2a$10$Wz8s6hYf0UGOCCZ6Ff5QW.QgfqIQSJijiFXIqqplg3eGqw3HNxSeu(String), https://ts1.tc.mm.bing.net/th/id/R-C.928ef8908b5eb3666b2a27a1f6cfbe17?rik=h2FXLv1HNaxbTg&riu=http%3a%2f%2fp0.so.qhmsg.com%2ft018b5eb3666b2a27a1.jpg&ehk=QnGPPvZKq3cPW6%2bdkG%2b3zIRvAGXRsgYVTirfbvOBTaU%3d&risl=&pid=ImgRaw&r=0(String), 至高无上的超级管理员(String), 1(Integer), 2026-04-23 10:55:42.049(Timestamp), 1(Integer)
+2026-04-23 10:55:42.281 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.updateById - <==    Updates: 1
+2026-04-23 10:55:42.346 [http-nio-8080-exec-8] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdminAuthServiceImpl, 方法: formalLogin, 返回值: eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyVHlwZSI6ImFkbWluIiwidXNlck5hbWUiOiLotoXnuqfnrqHnkIblkZgiLCJ1c2VySWQiOjEsInN1YiI6Iui2hee6p-euoeeQhuWRmCIsImlhdCI6MTc3NjkxMjk0MiwiZXhwIjoxNzc2OTQxNzQyfQ.jAOwDsw1fXj8h7Gd8WklVedv6fcY6Uh_LRx8meDjUlVEv2n9jjKlhPSKXYuobEl6DZwmuV40dC6fb05aA6Abhg, 耗时: 474ms
+2026-04-23 10:55:42.446 [http-nio-8080-exec-8] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/auth/formalLogin, Controller: AdminAuthController.formalLogin, Status: 200, Duration: 739ms
+2026-04-23 10:55:42.524 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:55:42.524 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:55:42.573 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:55:42.574 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:55:42.576 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:55:42.697 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:55:42.701 [http-nio-8080-exec-10] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/auth/getAdminInfo, Controller: AdminAuthController.getAdminInfo, IP: 0:0:0:0:0:0:0:1, Params: {}
+2026-04-23 10:55:42.706 [http-nio-8080-exec-10] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/auth/getAdminInfo, Controller: AdminAuthController.getAdminInfo, Status: 200, Duration: 6ms
+2026-04-23 10:55:43.347 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:55:43.350 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:55:43.409 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:55:43.411 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:55:43.412 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:55:43.514 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:55:43.516 [http-nio-8080-exec-7] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: GET, URI: /api/admonitor/admin/advertisement/findAllAdmonitorAdminAdvertisement, Controller: AdmonitorAdminAdvertisementController.findAllAdmonitorAdminAdvertisement, IP: 0:0:0:0:0:0:0:1, Params: {"_t":"1776912943211"}
+2026-04-23 10:55:43.613 [http-nio-8080-exec-7] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdmonitorAdminAdvertisementServiceImpl, 方法: findAllAdmonitorAdminAdvertisement, 参数: 无参数
+2026-04-23 10:55:43.673 [http-nio-8080-exec-7] INFO  c.z.e.s.i.a.AdmonitorAdminAdvertisementServiceImpl - 从缓存查询所有广告成功
+2026-04-23 10:55:43.673 [http-nio-8080-exec-7] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdmonitorAdminAdvertisementServiceImpl, 方法: findAllAdmonitorAdminAdvertisement, 返回值: [{"advertisementId":1,"advertisementName":"华为手机1","advertisementUrl":"https://ts2.tc.mm.bing.net/th/id/OIP-C.9hB59eg5ODjsS16R_NMQVAHaFl?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3","advertisementLink":"https://www.huawei.com/cn/","advertisementStartedTime":1751990400000,"advertisementEndTime":1786464000000}], 耗时: 60ms
+2026-04-23 10:55:43.820 [http-nio-8080-exec-7] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: GET, URI: /api/admonitor/admin/advertisement/findAllAdmonitorAdminAdvertisement, Controller: AdmonitorAdminAdvertisementController.findAllAdmonitorAdminAdvertisement, Status: 200, Duration: 304ms
+2026-04-23 10:58:43.315 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:58:43.315 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:58:43.316 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:58:43.316 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:58:43.368 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:58:43.368 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:58:43.368 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:58:43.368 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:58:43.369 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:58:43.369 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:58:43.419 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:58:43.419 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:58:43.420 [http-nio-8080-exec-3] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: GET, URI: /api/admonitor/admin/advertisement/findAllAdmonitorAdminAdvertisement, Controller: AdmonitorAdminAdvertisementController.findAllAdmonitorAdminAdvertisement, IP: 0:0:0:0:0:0:0:1, Params: {"_t":"1776913123200"}
+2026-04-23 10:58:43.421 [http-nio-8080-exec-2] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/auth/getAdminInfo, Controller: AdminAuthController.getAdminInfo, IP: 0:0:0:0:0:0:0:1, Params: {}
+2026-04-23 10:58:43.423 [http-nio-8080-exec-2] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/auth/getAdminInfo, Controller: AdminAuthController.getAdminInfo, Status: 200, Duration: 2ms
+2026-04-23 10:58:43.469 [http-nio-8080-exec-3] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdmonitorAdminAdvertisementServiceImpl, 方法: findAllAdmonitorAdminAdvertisement, 参数: 无参数
+2026-04-23 10:58:43.521 [http-nio-8080-exec-3] INFO  c.z.e.s.i.a.AdmonitorAdminAdvertisementServiceImpl - 从缓存查询所有广告成功
+2026-04-23 10:58:43.523 [http-nio-8080-exec-3] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdmonitorAdminAdvertisementServiceImpl, 方法: findAllAdmonitorAdminAdvertisement, 返回值: [{"advertisementId":1,"advertisementName":"华为手机1","advertisementUrl":"https://ts2.tc.mm.bing.net/th/id/OIP-C.9hB59eg5ODjsS16R_NMQVAHaFl?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3","advertisementLink":"https://www.huawei.com/cn/","advertisementStartedTime":1751990400000,"advertisementEndTime":1786464000000}], 耗时: 53ms
+2026-04-23 10:58:43.619 [http-nio-8080-exec-3] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: GET, URI: /api/admonitor/admin/advertisement/findAllAdmonitorAdminAdvertisement, Controller: AdmonitorAdminAdvertisementController.findAllAdmonitorAdminAdvertisement, Status: 200, Duration: 199ms
+2026-04-23 10:58:46.522 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:58:46.523 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:58:46.575 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:58:46.575 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:58:46.576 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:58:46.631 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:58:46.635 [http-nio-8080-exec-4] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeByPage, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeByPage, IP: 0:0:0:0:0:0:0:1, Params: {"pageSize":"10","pageNum":"1"}
+2026-04-23 10:58:46.740 [http-nio-8080-exec-4] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeByPage, 参数: [1,10,{"scoreModelTrainCodeName":"","scoreModelTrainCodeLanguage":""}]
+2026-04-23 10:58:46.777 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM admin_scoreModelTrainCode WHERE deleted = 0 AND (deleted = ?)
+2026-04-23 10:58:46.777 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectList_mpCount - ==> Parameters: 0(Integer)
+2026-04-23 10:58:46.868 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectList_mpCount - <==      Total: 1
+2026-04-23 10:58:46.869 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT scoreModelTrainCode_id,scoreModelTrainCode_name,scoreModelTrainCode_version,scoreModelTrainCode_language,scoreModelTrainCode_content,scoreModelTrainCode_desc,scoreModelTrainCode_createTime,deleted FROM admin_scoreModelTrainCode WHERE deleted=0 AND (deleted = ?) ORDER BY scoreModelTrainCode_createTime DESC LIMIT ?
+2026-04-23 10:58:46.870 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 0(Integer), 10(Long)
+2026-04-23 10:58:46.986 [http-nio-8080-exec-4] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-04-23 10:58:46.990 [http-nio-8080-exec-4] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeByPage, 返回值: {"records":[{"scoreModelTrainCodeId":1,"scoreModelTrainCodeName":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeVersion":"V0.0","scoreModelTrainCodeLanguage":"Python","scoreModelTrainCodeDesc":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeCreateTime":1776908820000}],"total":1,"size":10,"current":1}, 耗时: 247ms
+2026-04-23 10:58:47.180 [http-nio-8080-exec-4] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeByPage, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeByPage, Status: 200, Duration: 546ms
+2026-04-23 10:58:56.275 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:58:56.276 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:58:56.429 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:58:56.432 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:58:56.432 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:58:56.493 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:58:56.495 [http-nio-8080-exec-1] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeByPage, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeByPage, IP: 0:0:0:0:0:0:0:1, Params: {"pageSize":"10","pageNum":"1"}
+2026-04-23 10:58:56.622 [http-nio-8080-exec-1] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeByPage, 参数: [1,10,{"scoreModelTrainCodeName":"","scoreModelTrainCodeLanguage":""}]
+2026-04-23 10:58:56.631 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM admin_scoreModelTrainCode WHERE deleted = 0 AND (deleted = ?)
+2026-04-23 10:58:56.631 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList_mpCount - ==> Parameters: 0(Integer)
+2026-04-23 10:58:56.683 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList_mpCount - <==      Total: 1
+2026-04-23 10:58:56.683 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT scoreModelTrainCode_id,scoreModelTrainCode_name,scoreModelTrainCode_version,scoreModelTrainCode_language,scoreModelTrainCode_content,scoreModelTrainCode_desc,scoreModelTrainCode_createTime,deleted FROM admin_scoreModelTrainCode WHERE deleted=0 AND (deleted = ?) ORDER BY scoreModelTrainCode_createTime DESC LIMIT ?
+2026-04-23 10:58:56.684 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 0(Integer), 10(Long)
+2026-04-23 10:58:56.940 [http-nio-8080-exec-1] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-04-23 10:58:56.941 [http-nio-8080-exec-1] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeByPage, 返回值: {"records":[{"scoreModelTrainCodeId":1,"scoreModelTrainCodeName":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeVersion":"V0.0","scoreModelTrainCodeLanguage":"Python","scoreModelTrainCodeDesc":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeCreateTime":1776908820000}],"total":1,"size":10,"current":1}, 耗时: 318ms
+2026-04-23 10:58:57.071 [http-nio-8080-exec-1] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeByPage, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeByPage, Status: 200, Duration: 576ms
+2026-04-23 10:59:02.344 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:59:02.345 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:02.396 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:59:02.396 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:59:02.397 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:02.452 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:59:02.455 [http-nio-8080-exec-5] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: GET, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeById, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeById, IP: 0:0:0:0:0:0:0:1, Params: {"_t":"1776913142213","scoreModelTrainCodeId":"1"}
+2026-04-23 10:59:02.517 [http-nio-8080-exec-5] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeById, 参数: [1]
+2026-04-23 10:59:02.537 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT scoreModelTrainCode_id,scoreModelTrainCode_name,scoreModelTrainCode_version,scoreModelTrainCode_language,scoreModelTrainCode_content,scoreModelTrainCode_desc,scoreModelTrainCode_createTime,deleted FROM admin_scoreModelTrainCode WHERE deleted=0 AND (scoreModelTrainCode_id = ? AND deleted = ?)
+2026-04-23 10:59:02.539 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 1(Integer), 0(Integer)
+2026-04-23 10:59:02.639 [http-nio-8080-exec-5] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-04-23 10:59:02.669 [http-nio-8080-exec-5] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeById, 返回值: {"scoreModelTrainCodeId":1,"scoreModelTrainCodeName":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeVersion":"V0.0","scoreModelTrainCodeLanguage":"Python","scoreModelTrainCodeContent":"++++???++++\n文件名:基于XgBoost的简历评分模型代码.py\n# -*- coding: utf-8 -*-\n\"\"\"\n简历评分模型训练脚本（Excel 输入单文件版）\n\n依赖安装：\npip install pandas openpyxl numpy scikit-learn xgboost FlagEmbedding\n\n运行示例：\npython resume_score_train_excel.py --excel-path \"D:/train_data.xlsx\"\n\n可选示例：\npython resume_score_train_excel.py \\\n  --excel-path \"D:/train_data.xlsx\" \\\n  --sheet-name 0 \\\n  --embedding-model-name \"BAAI/bge-m3\" \\\n  --model-name \"resume-score-model\" \\\n  --model-type \"xgboost\"\n\"\"\"\n\nimport argparse\nimport json\nimport logging\nimport re\nimport time\nfrom datetime import datetime\nfrom pathlib import Path\nfrom typing import Any, Dict, List, Union\n\nimport numpy as np\nimport pandas as pd\nfrom sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score\nfrom sklearn.model_selection import train_test_split\nfrom xgboost import XGBRegressor\n\n\nLOGGER = logging.getLogger(\"resume_score_train_excel\")\nSCRIPT_PATH = Path(__file__).resolve()\nPROJECT_ROOT = SCRIPT_PATH.parents[8]\nDEFAULT_OUTPUT_ROOT = PROJECT_ROOT / \"upload\"\n\nCOL_ID = \"训练数据ID\"\nCOL_INDUSTRY_NAME = \"行业名称\"\nCOL_RESUME_NAME = \"简历名称\"\nCOL_RESUME_CONTENT = \"简历内容\"\nCOL_LABEL_SCORE = \"训练标签分数\"\n\n\ndef init_logger() -> None:\n    logging.basicConfig(\n        level=logging.INFO,\n        format=\"%(asctime)s [%(levelname)s] %(message)s\",\n    )\n\n\ndef parse_args() -> argparse.Namespace:\n    parser = argparse.ArgumentParser(description=\"简历评分模型训练脚本（Excel 输入版）\")\n    parser.add_argument(\"--excel-path\", required=True, help=\"训练 Excel 路径\")\n    parser.add_argument(\"--sheet-name\", default=\"0\", help=\"sheet 名称或索引，默认 0\")\n    parser.add_argument(\"--embedding-model-name\", default=\"BAAI/bge-m3\", help=\"embedding 模型名\")\n    parser.add_argument(\"--model-name\", default=\"resume-score-model\", help=\"模型名称\")\n    parser.add_argument(\"--model-type\", default=\"xgboost\", help=\"模型类型\")\n    parser.add_argument(\"--output-root\", default=str(DEFAULT_OUTPUT_ROOT), help=\"模型输出根目录\")\n    parser.add_argument(\"--batch-size\", type=int, default=8, help=\"embedding 批大小\")\n    parser.add_argument(\"--max-length\", type=int, default=8192, help=\"embedding 最大长度\")\n    parser.add_argument(\"--min-content-length\", type=int, default=20, help=\"简历内容最小长度\")\n    parser.add_argument(\"--test-size\", type=float, default=0.2, help=\"验证集比例\")\n    parser.add_argument(\"--random-state\", type=int, default=42, help=\"随机种子\")\n    parser.add_argument(\"--n-estimators\", type=int, default=300, help=\"XGBoost 树数量\")\n    parser.add_argument(\"--learning-rate\", type=float, default=0.05, help=\"学习率\")\n    parser.add_argument(\"--max-depth\", type=int, default=6, help=\"树深度\")\n    parser.add_argument(\"--subsample\", type=float, default=0.9, help=\"subsample\")\n    parser.add_argument(\"--colsample-bytree\", type=float, default=0.9, help=\"colsample_bytree\")\n    parser.add_argument(\"--reg-lambda\", type=float, default=1.0, help=\"L2 正则\")\n    parser.add_argument(\"--n-jobs\", type=int, default=-1, help=\"并行线程数\")\n    parser.add_argument(\"--use-fp16\", action=\"store_true\", help=\"如果有 GPU，可以打开 fp16\")\n    parser.add_argument(\"--version\", default=\"\", help=\"手动指定版本号，不传则自动生成\")\n    return parser.parse_args()\n\n\ndef resolve_sheet_name(sheet_name_arg: str) -> Union[int, str]:\n    sheet_name_arg = str(sheet_name_arg).strip()\n    if sheet_name_arg.isdigit():\n        return int(sheet_name_arg)\n    return sheet_name_arg\n\n\ndef normalize_text(value: Any) -> str:\n    if value is None:\n        return \"\"\n    return str(value).strip()\n\n\ndef build_sample_text(resume_name: str, industry_name: str, resume_content: str) -> str:\n    return (\n        f\"[简历名称] {resume_name.strip()}\\n\"\n        f\"[行业名称] {industry_name.strip()}\\n\"\n        f\"[简历内容] {resume_content.strip()}\"\n    )\n\n\ndef load_excel_samples(excel_path: str, sheet_name: Union[int, str], min_content_length: int) -> List[Dict[str, Any]]:\n    df = pd.read_excel(excel_path, sheet_name=sheet_name, engine=\"openpyxl\")\n\n    required_columns = [\n        COL_ID,\n        COL_INDUSTRY_NAME,\n        COL_RESUME_NAME,\n        COL_RESUME_CONTENT,\n        COL_LABEL_SCORE,\n    ]\n    missing_columns = [col for col in required_columns if col not in df.columns]\n    if missing_columns:\n        raise ValueError(f\"Excel 缺少必需列: {missing_columns}\")\n\n    df = df[required_columns].copy()\n    df = df.rename(\n        columns={\n            COL_ID: \"sample_id\",\n            COL_INDUSTRY_NAME: \"industry_name\",\n            COL_RESUME_NAME: \"resume_name\",\n            COL_RESUME_CONTENT: \"resume_content\",\n            COL_LABEL_SCORE: \"label_score\",\n        }\n    )\n\n    df[\"resume_name\"] = df[\"resume_name\"].fillna(\"\").astype(str).str.strip()\n    df[\"industry_name\"] = df[\"industry_name\"].fillna(\"\").astype(str).str.strip()\n    df[\"resume_content\"] = df[\"resume_content\"].fillna(\"\").astype(str).str.strip()\n    df[\"label_score\"] = pd.to_numeric(df[\"label_score\"], errors=\"coerce\")\n\n    df = df[\n        (df[\"resume_name\"] != \"\")\n        & (df[\"industry_name\"] != \"\")\n        & (df[\"resume_content\"] != \"\")\n        & df[\"label_score\"].notna()\n    ].copy()\n\n    df = df[df[\"resume_content\"].str.len() >= min_content_length].copy()\n    df = df.drop_duplicates(subset=[\"resume_name\", \"industry_name\", \"resume_content\"]).copy()\n\n    if df.empty:\n        raise ValueError(\"清洗后没有可用训练样本\")\n\n    sample_texts = []\n    for _, row in df.iterrows():\n        sample_texts.append(\n            build_sample_text(\n                resume_name=row[\"resume_name\"],\n                industry_name=row[\"industry_name\"],\n                resume_content=row[\"resume_content\"],\n            )\n        )\n    df[\"sample_text\"] = sample_texts\n\n    LOGGER.info(\"Excel 样本读取并清洗完成，剩余 %s 条\", len(df))\n\n    result: List[Dict[str, Any]] = []\n    for _, row in df.iterrows():\n        result.append(\n            {\n                \"sample_id\": int(row[\"sample_id\"]) if pd.notna(row[\"sample_id\"]) else None,\n                \"resume_name\": row[\"resume_name\"],\n                \"industry_name\": row[\"industry_name\"],\n                \"resume_content\": row[\"resume_content\"],\n                \"label_score\": float(row[\"label_score\"]),\n                \"sample_text\": row[\"sample_text\"],\n            }\n        )\n    return result\n\n\ndef build_embeddings(\n    texts: List[str],\n    embedding_model_name: str,\n    batch_size: int,\n    max_length: int,\n    use_fp16: bool,\n) -> np.ndarray:\n    from FlagEmbedding import BGEM3FlagModel\n\n    LOGGER.info(\"开始加载 embedding 模型: %s\", embedding_model_name)\n    embedding_model = BGEM3FlagModel(embedding_model_name, use_fp16=use_fp16)\n\n    LOGGER.info(\"开始生成 embedding，样本数: %s\", len(texts))\n    result = embedding_model.encode(\n        texts,\n        batch_size=batch_size,\n        max_length=max_length,\n    )\n\n    embeddings = np.asarray(result[\"dense_vecs\"], dtype=np.float32)\n    if embeddings.ndim != 2:\n        raise ValueError(\"embedding 结果维度不正确\")\n\n    LOGGER.info(\"embedding 完成，向量维度: %s\", embeddings.shape[1])\n    return embeddings\n\n\ndef compute_metric_block(y_true: np.ndarray, y_pred: np.ndarray, prefix: str) -> Dict[str, Any]:\n    return {\n        f\"{prefix}_rmse\": round(float(np.sqrt(mean_squared_error(y_true, y_pred))), 6),\n        f\"{prefix}_mae\": round(float(mean_absolute_error(y_true, y_pred)), 6),\n        f\"{prefix}_r2\": round(float(r2_score(y_true, y_pred)), 6),\n    }\n\n\ndef train_xgboost_model(X: np.ndarray, y: np.ndarray, args: argparse.Namespace):\n    model = XGBRegressor(\n        objective=\"reg:squarederror\",\n        n_estimators=args.n_estimators,\n        learning_rate=args.learning_rate,\n        max_depth=args.max_depth,\n        subsample=args.subsample,\n        colsample_bytree=args.colsample_bytree,\n        reg_lambda=args.reg_lambda,\n        random_state=args.random_state,\n        n_jobs=args.n_jobs,\n        tree_method=\"hist\",\n    )\n\n    if len(X) >= 10:\n        X_train, X_valid, y_train, y_valid = train_test_split(\n            X,\n            y,\n            test_size=args.test_size,\n            random_state=args.random_state,\n        )\n\n        LOGGER.info(\"开始训练 XGBoost，训练集=%s，验证集=%s\", len(X_train), len(X_valid))\n        model.fit(X_train, y_train)\n\n        train_pred = model.predict(X_train)\n        valid_pred = model.predict(X_valid)\n\n        metrics = {\n            \"eval_mode\": \"train_valid_split\",\n            \"train_size\": int(len(X_train)),\n            \"valid_size\": int(len(X_valid)),\n        }\n        metrics.update(compute_metric_block(y_train, train_pred, \"train\"))\n        metrics.update(compute_metric_block(y_valid, valid_pred, \"valid\"))\n        return model, metrics\n\n    LOGGER.warning(\"样本数量小于10，改为全量训练并在训练集上评估\")\n    model.fit(X, y)\n\n    pred = model.predict(X)\n    metrics = {\n        \"eval_mode\": \"train_only\",\n        \"train_size\": int(len(X)),\n        \"valid_size\": 0,\n    }\n    metrics.update(compute_metric_block(y, pred, \"train\"))\n    return model, metrics\n\n\ndef sanitize_file_name(file_name: str) -> str:\n    file_name = normalize_text(file_name)\n    file_name = re.sub(r'[<>:\"/\\\\|?*\\x00-\\x1f]+', \"_\", file_name)\n    file_name = re.sub(r\"\\s+\", \"_\", file_name)\n    file_name = re.sub(r\"_+\", \"_\", file_name)\n    file_name = file_name.strip(\"._-\")\n    return file_name or \"resume_score_model\"\n\n\ndef sanitize_path_segment(value: str) -> str:\n    value = normalize_text(value)\n    value = re.sub(r\"[^A-Za-z0-9._-]+\", \"_\", value)\n    value = re.sub(r\"_+\", \"_\", value)\n    value = value.strip(\"._-\")\n    return value or \"unknown\"\n\n\ndef build_version(args: argparse.Namespace) -> str:\n    if normalize_text(args.version):\n        return normalize_text(args.version)\n    return datetime.now().strftime(\"v%Y.%m.%d-%H%M%S\")\n\n\ndef resolve_unique_path(target_path: Path) -> Path:\n    if not target_path.exists():\n        return target_path\n\n    suffix_index = 1\n    stem = target_path.stem\n    suffix = target_path.suffix\n    parent = target_path.parent\n\n    while True:\n        candidate = parent / f\"{stem}_{suffix_index}{suffix}\"\n        if not candidate.exists():\n            return candidate\n        suffix_index += 1\n\n\ndef save_outputs(\n    model: XGBRegressor,\n    metrics: Dict[str, Any],\n    args: argparse.Namespace,\n    sample_count: int,\n    embedding_dimension: int,\n    train_cost_ms: int,\n) -> Dict[str, Any]:\n    version = build_version(args)\n    date_str = datetime.now().strftime(\"%Y%m%d\")\n\n    safe_model_type = sanitize_path_segment(args.model_type)\n    safe_model_name_for_file = sanitize_file_name(args.model_name)\n    safe_version_for_file = sanitize_file_name(version)\n\n    relative_dir = Path(\"mlmodel\") / safe_model_type / date_str\n    full_dir = Path(args.output_root).resolve() / relative_dir\n    full_dir.mkdir(parents=True, exist_ok=True)\n\n    model_file_name = f\"{safe_model_name_for_file}_{safe_version_for_file}.json\"\n    model_path = resolve_unique_path(full_dir / model_file_name)\n\n    metrics[\"embedding_dimension\"] = int(embedding_dimension)\n    metrics[\"sample_count\"] = int(sample_count)\n    metrics[\"embedding_model\"] = args.embedding_model_name\n    metrics[\"model_type\"] = args.model_type\n\n    model.save_model(str(model_path))\n\n    metrics_path = model_path.with_suffix(\".metrics.json\")\n    metrics_path.write_text(\n        json.dumps(metrics, ensure_ascii=False, indent=2),\n        encoding=\"utf-8\",\n    )\n\n    relative_model_url = str((relative_dir / model_path.name).as_posix())\n\n    summary = {\n        \"scoreModelVersionModelName\": args.model_name,\n        \"scoreModelVersionVersion\": version,\n        \"scoreModelVersionModelType\": args.model_type,\n        \"scoreModelVersionModelUrl\": relative_model_url,\n        \"scoreModelVersionEmbeddingModel\": args.embedding_model_name,\n        \"scoreModelVersionSampleCount\": int(sample_count),\n        \"scoreModelVersionTrainCostMs\": int(train_cost_ms),\n        \"scoreModelVersionMetricJson\": json.dumps(metrics, ensure_ascii=False),\n        \"scoreModelVersionIsActive\": 0,\n        \"localModelAbsolutePath\": str(model_path),\n        \"localMetricAbsolutePath\": str(metrics_path),\n    }\n\n    summary_path = model_path.with_suffix(\".summary.json\")\n    summary_path.write_text(\n        json.dumps(summary, ensure_ascii=False, indent=2),\n        encoding=\"utf-8\",\n    )\n\n    return summary\n\n\ndef main() -> None:\n    init_logger()\n    args = parse_args()\n\n    start_time = time.time()\n\n    samples = load_excel_samples(\n        excel_path=args.excel_path,\n        sheet_name=resolve_sheet_name(args.sheet_name),\n        min_content_length=args.min_content_length,\n    )\n\n    texts = [item[\"sample_text\"] for item in samples]\n    labels = np.asarray([item[\"label_score\"] for item in samples], dtype=np.float32)\n\n    embeddings = build_embeddings(\n        texts=texts,\n        embedding_model_name=args.embedding_model_name,\n        batch_size=args.batch_size,\n        max_length=args.max_length,\n        use_fp16=args.use_fp16,\n    )\n\n    model, metrics = train_xgboost_model(\n        X=embeddings,\n        y=labels,\n        args=args,\n    )\n\n    train_cost_ms = int((time.time() - start_time) * 1000)\n\n    summary = save_outputs(\n        model=model,\n        metrics=metrics,\n        args=args,\n        sample_count=len(samples),\n        embedding_dimension=int(embeddings.shape[1]),\n        train_cost_ms=train_cost_ms,\n    )\n\n    LOGGER.info(\"训练完成\")\n    print(json.dumps(summary, ensure_ascii=False, indent=2))\n\n\nif __name__ == \"__main__\":\n    main()","scoreModelTrainCodeDesc":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeCreateTime":1776908820000}, 耗时: 138ms
+2026-04-23 10:59:02.788 [http-nio-8080-exec-5] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: GET, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeById, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeById, Status: 200, Duration: 333ms
+2026-04-23 10:59:03.068 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:59:03.068 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:03.117 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:59:03.121 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:59:03.122 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:03.179 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:59:03.181 [http-nio-8080-exec-6] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: GET, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeById, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeById, IP: 0:0:0:0:0:0:0:1, Params: {"_t":"1776913142693","scoreModelTrainCodeId":"1"}
+2026-04-23 10:59:03.232 [http-nio-8080-exec-6] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeById, 参数: [1]
+2026-04-23 10:59:03.233 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT scoreModelTrainCode_id,scoreModelTrainCode_name,scoreModelTrainCode_version,scoreModelTrainCode_language,scoreModelTrainCode_content,scoreModelTrainCode_desc,scoreModelTrainCode_createTime,deleted FROM admin_scoreModelTrainCode WHERE deleted=0 AND (scoreModelTrainCode_id = ? AND deleted = ?)
+2026-04-23 10:59:03.233 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 1(Integer), 0(Integer)
+2026-04-23 10:59:03.333 [http-nio-8080-exec-6] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-04-23 10:59:03.337 [http-nio-8080-exec-6] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeById, 返回值: {"scoreModelTrainCodeId":1,"scoreModelTrainCodeName":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeVersion":"V0.0","scoreModelTrainCodeLanguage":"Python","scoreModelTrainCodeContent":"++++???++++\n文件名:基于XgBoost的简历评分模型代码.py\n# -*- coding: utf-8 -*-\n\"\"\"\n简历评分模型训练脚本（Excel 输入单文件版）\n\n依赖安装：\npip install pandas openpyxl numpy scikit-learn xgboost FlagEmbedding\n\n运行示例：\npython resume_score_train_excel.py --excel-path \"D:/train_data.xlsx\"\n\n可选示例：\npython resume_score_train_excel.py \\\n  --excel-path \"D:/train_data.xlsx\" \\\n  --sheet-name 0 \\\n  --embedding-model-name \"BAAI/bge-m3\" \\\n  --model-name \"resume-score-model\" \\\n  --model-type \"xgboost\"\n\"\"\"\n\nimport argparse\nimport json\nimport logging\nimport re\nimport time\nfrom datetime import datetime\nfrom pathlib import Path\nfrom typing import Any, Dict, List, Union\n\nimport numpy as np\nimport pandas as pd\nfrom sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score\nfrom sklearn.model_selection import train_test_split\nfrom xgboost import XGBRegressor\n\n\nLOGGER = logging.getLogger(\"resume_score_train_excel\")\nSCRIPT_PATH = Path(__file__).resolve()\nPROJECT_ROOT = SCRIPT_PATH.parents[8]\nDEFAULT_OUTPUT_ROOT = PROJECT_ROOT / \"upload\"\n\nCOL_ID = \"训练数据ID\"\nCOL_INDUSTRY_NAME = \"行业名称\"\nCOL_RESUME_NAME = \"简历名称\"\nCOL_RESUME_CONTENT = \"简历内容\"\nCOL_LABEL_SCORE = \"训练标签分数\"\n\n\ndef init_logger() -> None:\n    logging.basicConfig(\n        level=logging.INFO,\n        format=\"%(asctime)s [%(levelname)s] %(message)s\",\n    )\n\n\ndef parse_args() -> argparse.Namespace:\n    parser = argparse.ArgumentParser(description=\"简历评分模型训练脚本（Excel 输入版）\")\n    parser.add_argument(\"--excel-path\", required=True, help=\"训练 Excel 路径\")\n    parser.add_argument(\"--sheet-name\", default=\"0\", help=\"sheet 名称或索引，默认 0\")\n    parser.add_argument(\"--embedding-model-name\", default=\"BAAI/bge-m3\", help=\"embedding 模型名\")\n    parser.add_argument(\"--model-name\", default=\"resume-score-model\", help=\"模型名称\")\n    parser.add_argument(\"--model-type\", default=\"xgboost\", help=\"模型类型\")\n    parser.add_argument(\"--output-root\", default=str(DEFAULT_OUTPUT_ROOT), help=\"模型输出根目录\")\n    parser.add_argument(\"--batch-size\", type=int, default=8, help=\"embedding 批大小\")\n    parser.add_argument(\"--max-length\", type=int, default=8192, help=\"embedding 最大长度\")\n    parser.add_argument(\"--min-content-length\", type=int, default=20, help=\"简历内容最小长度\")\n    parser.add_argument(\"--test-size\", type=float, default=0.2, help=\"验证集比例\")\n    parser.add_argument(\"--random-state\", type=int, default=42, help=\"随机种子\")\n    parser.add_argument(\"--n-estimators\", type=int, default=300, help=\"XGBoost 树数量\")\n    parser.add_argument(\"--learning-rate\", type=float, default=0.05, help=\"学习率\")\n    parser.add_argument(\"--max-depth\", type=int, default=6, help=\"树深度\")\n    parser.add_argument(\"--subsample\", type=float, default=0.9, help=\"subsample\")\n    parser.add_argument(\"--colsample-bytree\", type=float, default=0.9, help=\"colsample_bytree\")\n    parser.add_argument(\"--reg-lambda\", type=float, default=1.0, help=\"L2 正则\")\n    parser.add_argument(\"--n-jobs\", type=int, default=-1, help=\"并行线程数\")\n    parser.add_argument(\"--use-fp16\", action=\"store_true\", help=\"如果有 GPU，可以打开 fp16\")\n    parser.add_argument(\"--version\", default=\"\", help=\"手动指定版本号，不传则自动生成\")\n    return parser.parse_args()\n\n\ndef resolve_sheet_name(sheet_name_arg: str) -> Union[int, str]:\n    sheet_name_arg = str(sheet_name_arg).strip()\n    if sheet_name_arg.isdigit():\n        return int(sheet_name_arg)\n    return sheet_name_arg\n\n\ndef normalize_text(value: Any) -> str:\n    if value is None:\n        return \"\"\n    return str(value).strip()\n\n\ndef build_sample_text(resume_name: str, industry_name: str, resume_content: str) -> str:\n    return (\n        f\"[简历名称] {resume_name.strip()}\\n\"\n        f\"[行业名称] {industry_name.strip()}\\n\"\n        f\"[简历内容] {resume_content.strip()}\"\n    )\n\n\ndef load_excel_samples(excel_path: str, sheet_name: Union[int, str], min_content_length: int) -> List[Dict[str, Any]]:\n    df = pd.read_excel(excel_path, sheet_name=sheet_name, engine=\"openpyxl\")\n\n    required_columns = [\n        COL_ID,\n        COL_INDUSTRY_NAME,\n        COL_RESUME_NAME,\n        COL_RESUME_CONTENT,\n        COL_LABEL_SCORE,\n    ]\n    missing_columns = [col for col in required_columns if col not in df.columns]\n    if missing_columns:\n        raise ValueError(f\"Excel 缺少必需列: {missing_columns}\")\n\n    df = df[required_columns].copy()\n    df = df.rename(\n        columns={\n            COL_ID: \"sample_id\",\n            COL_INDUSTRY_NAME: \"industry_name\",\n            COL_RESUME_NAME: \"resume_name\",\n            COL_RESUME_CONTENT: \"resume_content\",\n            COL_LABEL_SCORE: \"label_score\",\n        }\n    )\n\n    df[\"resume_name\"] = df[\"resume_name\"].fillna(\"\").astype(str).str.strip()\n    df[\"industry_name\"] = df[\"industry_name\"].fillna(\"\").astype(str).str.strip()\n    df[\"resume_content\"] = df[\"resume_content\"].fillna(\"\").astype(str).str.strip()\n    df[\"label_score\"] = pd.to_numeric(df[\"label_score\"], errors=\"coerce\")\n\n    df = df[\n        (df[\"resume_name\"] != \"\")\n        & (df[\"industry_name\"] != \"\")\n        & (df[\"resume_content\"] != \"\")\n        & df[\"label_score\"].notna()\n    ].copy()\n\n    df = df[df[\"resume_content\"].str.len() >= min_content_length].copy()\n    df = df.drop_duplicates(subset=[\"resume_name\", \"industry_name\", \"resume_content\"]).copy()\n\n    if df.empty:\n        raise ValueError(\"清洗后没有可用训练样本\")\n\n    sample_texts = []\n    for _, row in df.iterrows():\n        sample_texts.append(\n            build_sample_text(\n                resume_name=row[\"resume_name\"],\n                industry_name=row[\"industry_name\"],\n                resume_content=row[\"resume_content\"],\n            )\n        )\n    df[\"sample_text\"] = sample_texts\n\n    LOGGER.info(\"Excel 样本读取并清洗完成，剩余 %s 条\", len(df))\n\n    result: List[Dict[str, Any]] = []\n    for _, row in df.iterrows():\n        result.append(\n            {\n                \"sample_id\": int(row[\"sample_id\"]) if pd.notna(row[\"sample_id\"]) else None,\n                \"resume_name\": row[\"resume_name\"],\n                \"industry_name\": row[\"industry_name\"],\n                \"resume_content\": row[\"resume_content\"],\n                \"label_score\": float(row[\"label_score\"]),\n                \"sample_text\": row[\"sample_text\"],\n            }\n        )\n    return result\n\n\ndef build_embeddings(\n    texts: List[str],\n    embedding_model_name: str,\n    batch_size: int,\n    max_length: int,\n    use_fp16: bool,\n) -> np.ndarray:\n    from FlagEmbedding import BGEM3FlagModel\n\n    LOGGER.info(\"开始加载 embedding 模型: %s\", embedding_model_name)\n    embedding_model = BGEM3FlagModel(embedding_model_name, use_fp16=use_fp16)\n\n    LOGGER.info(\"开始生成 embedding，样本数: %s\", len(texts))\n    result = embedding_model.encode(\n        texts,\n        batch_size=batch_size,\n        max_length=max_length,\n    )\n\n    embeddings = np.asarray(result[\"dense_vecs\"], dtype=np.float32)\n    if embeddings.ndim != 2:\n        raise ValueError(\"embedding 结果维度不正确\")\n\n    LOGGER.info(\"embedding 完成，向量维度: %s\", embeddings.shape[1])\n    return embeddings\n\n\ndef compute_metric_block(y_true: np.ndarray, y_pred: np.ndarray, prefix: str) -> Dict[str, Any]:\n    return {\n        f\"{prefix}_rmse\": round(float(np.sqrt(mean_squared_error(y_true, y_pred))), 6),\n        f\"{prefix}_mae\": round(float(mean_absolute_error(y_true, y_pred)), 6),\n        f\"{prefix}_r2\": round(float(r2_score(y_true, y_pred)), 6),\n    }\n\n\ndef train_xgboost_model(X: np.ndarray, y: np.ndarray, args: argparse.Namespace):\n    model = XGBRegressor(\n        objective=\"reg:squarederror\",\n        n_estimators=args.n_estimators,\n        learning_rate=args.learning_rate,\n        max_depth=args.max_depth,\n        subsample=args.subsample,\n        colsample_bytree=args.colsample_bytree,\n        reg_lambda=args.reg_lambda,\n        random_state=args.random_state,\n        n_jobs=args.n_jobs,\n        tree_method=\"hist\",\n    )\n\n    if len(X) >= 10:\n        X_train, X_valid, y_train, y_valid = train_test_split(\n            X,\n            y,\n            test_size=args.test_size,\n            random_state=args.random_state,\n        )\n\n        LOGGER.info(\"开始训练 XGBoost，训练集=%s，验证集=%s\", len(X_train), len(X_valid))\n        model.fit(X_train, y_train)\n\n        train_pred = model.predict(X_train)\n        valid_pred = model.predict(X_valid)\n\n        metrics = {\n            \"eval_mode\": \"train_valid_split\",\n            \"train_size\": int(len(X_train)),\n            \"valid_size\": int(len(X_valid)),\n        }\n        metrics.update(compute_metric_block(y_train, train_pred, \"train\"))\n        metrics.update(compute_metric_block(y_valid, valid_pred, \"valid\"))\n        return model, metrics\n\n    LOGGER.warning(\"样本数量小于10，改为全量训练并在训练集上评估\")\n    model.fit(X, y)\n\n    pred = model.predict(X)\n    metrics = {\n        \"eval_mode\": \"train_only\",\n        \"train_size\": int(len(X)),\n        \"valid_size\": 0,\n    }\n    metrics.update(compute_metric_block(y, pred, \"train\"))\n    return model, metrics\n\n\ndef sanitize_file_name(file_name: str) -> str:\n    file_name = normalize_text(file_name)\n    file_name = re.sub(r'[<>:\"/\\\\|?*\\x00-\\x1f]+', \"_\", file_name)\n    file_name = re.sub(r\"\\s+\", \"_\", file_name)\n    file_name = re.sub(r\"_+\", \"_\", file_name)\n    file_name = file_name.strip(\"._-\")\n    return file_name or \"resume_score_model\"\n\n\ndef sanitize_path_segment(value: str) -> str:\n    value = normalize_text(value)\n    value = re.sub(r\"[^A-Za-z0-9._-]+\", \"_\", value)\n    value = re.sub(r\"_+\", \"_\", value)\n    value = value.strip(\"._-\")\n    return value or \"unknown\"\n\n\ndef build_version(args: argparse.Namespace) -> str:\n    if normalize_text(args.version):\n        return normalize_text(args.version)\n    return datetime.now().strftime(\"v%Y.%m.%d-%H%M%S\")\n\n\ndef resolve_unique_path(target_path: Path) -> Path:\n    if not target_path.exists():\n        return target_path\n\n    suffix_index = 1\n    stem = target_path.stem\n    suffix = target_path.suffix\n    parent = target_path.parent\n\n    while True:\n        candidate = parent / f\"{stem}_{suffix_index}{suffix}\"\n        if not candidate.exists():\n            return candidate\n        suffix_index += 1\n\n\ndef save_outputs(\n    model: XGBRegressor,\n    metrics: Dict[str, Any],\n    args: argparse.Namespace,\n    sample_count: int,\n    embedding_dimension: int,\n    train_cost_ms: int,\n) -> Dict[str, Any]:\n    version = build_version(args)\n    date_str = datetime.now().strftime(\"%Y%m%d\")\n\n    safe_model_type = sanitize_path_segment(args.model_type)\n    safe_model_name_for_file = sanitize_file_name(args.model_name)\n    safe_version_for_file = sanitize_file_name(version)\n\n    relative_dir = Path(\"mlmodel\") / safe_model_type / date_str\n    full_dir = Path(args.output_root).resolve() / relative_dir\n    full_dir.mkdir(parents=True, exist_ok=True)\n\n    model_file_name = f\"{safe_model_name_for_file}_{safe_version_for_file}.json\"\n    model_path = resolve_unique_path(full_dir / model_file_name)\n\n    metrics[\"embedding_dimension\"] = int(embedding_dimension)\n    metrics[\"sample_count\"] = int(sample_count)\n    metrics[\"embedding_model\"] = args.embedding_model_name\n    metrics[\"model_type\"] = args.model_type\n\n    model.save_model(str(model_path))\n\n    metrics_path = model_path.with_suffix(\".metrics.json\")\n    metrics_path.write_text(\n        json.dumps(metrics, ensure_ascii=False, indent=2),\n        encoding=\"utf-8\",\n    )\n\n    relative_model_url = str((relative_dir / model_path.name).as_posix())\n\n    summary = {\n        \"scoreModelVersionModelName\": args.model_name,\n        \"scoreModelVersionVersion\": version,\n        \"scoreModelVersionModelType\": args.model_type,\n        \"scoreModelVersionModelUrl\": relative_model_url,\n        \"scoreModelVersionEmbeddingModel\": args.embedding_model_name,\n        \"scoreModelVersionSampleCount\": int(sample_count),\n        \"scoreModelVersionTrainCostMs\": int(train_cost_ms),\n        \"scoreModelVersionMetricJson\": json.dumps(metrics, ensure_ascii=False),\n        \"scoreModelVersionIsActive\": 0,\n        \"localModelAbsolutePath\": str(model_path),\n        \"localMetricAbsolutePath\": str(metrics_path),\n    }\n\n    summary_path = model_path.with_suffix(\".summary.json\")\n    summary_path.write_text(\n        json.dumps(summary, ensure_ascii=False, indent=2),\n        encoding=\"utf-8\",\n    )\n\n    return summary\n\n\ndef main() -> None:\n    init_logger()\n    args = parse_args()\n\n    start_time = time.time()\n\n    samples = load_excel_samples(\n        excel_path=args.excel_path,\n        sheet_name=resolve_sheet_name(args.sheet_name),\n        min_content_length=args.min_content_length,\n    )\n\n    texts = [item[\"sample_text\"] for item in samples]\n    labels = np.asarray([item[\"label_score\"] for item in samples], dtype=np.float32)\n\n    embeddings = build_embeddings(\n        texts=texts,\n        embedding_model_name=args.embedding_model_name,\n        batch_size=args.batch_size,\n        max_length=args.max_length,\n        use_fp16=args.use_fp16,\n    )\n\n    model, metrics = train_xgboost_model(\n        X=embeddings,\n        y=labels,\n        args=args,\n    )\n\n    train_cost_ms = int((time.time() - start_time) * 1000)\n\n    summary = save_outputs(\n        model=model,\n        metrics=metrics,\n        args=args,\n        sample_count=len(samples),\n        embedding_dimension=int(embeddings.shape[1]),\n        train_cost_ms=train_cost_ms,\n    )\n\n    LOGGER.info(\"训练完成\")\n    print(json.dumps(summary, ensure_ascii=False, indent=2))\n\n\nif __name__ == \"__main__\":\n    main()","scoreModelTrainCodeDesc":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeCreateTime":1776908820000}, 耗时: 101ms
+2026-04-23 10:59:03.435 [http-nio-8080-exec-6] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: GET, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeById, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeById, Status: 200, Duration: 254ms
+2026-04-23 10:59:06.306 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:59:06.307 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:06.463 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:59:06.465 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:59:06.465 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:06.567 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:59:06.569 [http-nio-8080-exec-9] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/scoreModelTrainCode/updateScoreModelTrainCode, Controller: AdminScoreModelTrainCodeController.updateScoreModelTrainCode, IP: 0:0:0:0:0:0:0:1, Params: {}
+2026-04-23 10:59:06.676 [http-nio-8080-exec-9] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminScoreModelTrainCodeServiceImpl, 方法: updateScoreModelTrainCode, 参数: [{"scoreModelTrainCodeId":1,"scoreModelTrainCodeName":"基于XgBoost的简历评分模型代码1","scoreModelTrainCodeVersion":"V0.0","scoreModelTrainCodeLanguage":"Python","scoreModelTrainCodeContent":"++++???++++\n文件名:基于XgBoost的简历评分模型代码1.py\n# -*- coding: utf-8 -*-\n\"\"\"\n简历评分模型训练脚本（Excel 输入单文件版）\n\n依赖安装：\npip install pandas openpyxl numpy scikit-learn xgboost FlagEmbedding\n\n运行示例：\npython resume_score_train_excel.py --excel-path \"D:/train_data.xlsx\"\n\n可选示例：\npython resume_score_train_excel.py \\\n  --excel-path \"D:/train_data.xlsx\" \\\n  --sheet-name 0 \\\n  --embedding-model-name \"BAAI/bge-m3\" \\\n  --model-name \"resume-score-model\" \\\n  --model-type \"xgboost\"\n\"\"\"\n\nimport argparse\nimport json\nimport logging\nimport re\nimport time\nfrom datetime import datetime\nfrom pathlib import Path\nfrom typing import Any, Dict, List, Union\n\nimport numpy as np\nimport pandas as pd\nfrom sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score\nfrom sklearn.model_selection import train_test_split\nfrom xgboost import XGBRegressor\n\n\nLOGGER = logging.getLogger(\"resume_score_train_excel\")\nSCRIPT_PATH = Path(__file__).resolve()\nPROJECT_ROOT = SCRIPT_PATH.parents[8]\nDEFAULT_OUTPUT_ROOT = PROJECT_ROOT / \"upload\"\n\nCOL_ID = \"训练数据ID\"\nCOL_INDUSTRY_NAME = \"行业名称\"\nCOL_RESUME_NAME = \"简历名称\"\nCOL_RESUME_CONTENT = \"简历内容\"\nCOL_LABEL_SCORE = \"训练标签分数\"\n\n\ndef init_logger() -> None:\n    logging.basicConfig(\n        level=logging.INFO,\n        format=\"%(asctime)s [%(levelname)s] %(message)s\",\n    )\n\n\ndef parse_args() -> argparse.Namespace:\n    parser = argparse.ArgumentParser(description=\"简历评分模型训练脚本（Excel 输入版）\")\n    parser.add_argument(\"--excel-path\", required=True, help=\"训练 Excel 路径\")\n    parser.add_argument(\"--sheet-name\", default=\"0\", help=\"sheet 名称或索引，默认 0\")\n    parser.add_argument(\"--embedding-model-name\", default=\"BAAI/bge-m3\", help=\"embedding 模型名\")\n    parser.add_argument(\"--model-name\", default=\"resume-score-model\", help=\"模型名称\")\n    parser.add_argument(\"--model-type\", default=\"xgboost\", help=\"模型类型\")\n    parser.add_argument(\"--output-root\", default=str(DEFAULT_OUTPUT_ROOT), help=\"模型输出根目录\")\n    parser.add_argument(\"--batch-size\", type=int, default=8, help=\"embedding 批大小\")\n    parser.add_argument(\"--max-length\", type=int, default=8192, help=\"embedding 最大长度\")\n    parser.add_argument(\"--min-content-length\", type=int, default=20, help=\"简历内容最小长度\")\n    parser.add_argument(\"--test-size\", type=float, default=0.2, help=\"验证集比例\")\n    parser.add_argument(\"--random-state\", type=int, default=42, help=\"随机种子\")\n    parser.add_argument(\"--n-estimators\", type=int, default=300, help=\"XGBoost 树数量\")\n    parser.add_argument(\"--learning-rate\", type=float, default=0.05, help=\"学习率\")\n    parser.add_argument(\"--max-depth\", type=int, default=6, help=\"树深度\")\n    parser.add_argument(\"--subsample\", type=float, default=0.9, help=\"subsample\")\n    parser.add_argument(\"--colsample-bytree\", type=float, default=0.9, help=\"colsample_bytree\")\n    parser.add_argument(\"--reg-lambda\", type=float, default=1.0, help=\"L2 正则\")\n    parser.add_argument(\"--n-jobs\", type=int, default=-1, help=\"并行线程数\")\n    parser.add_argument(\"--use-fp16\", action=\"store_true\", help=\"如果有 GPU，可以打开 fp16\")\n    parser.add_argument(\"--version\", default=\"\", help=\"手动指定版本号，不传则自动生成\")\n    return parser.parse_args()\n\n\ndef resolve_sheet_name(sheet_name_arg: str) -> Union[int, str]:\n    sheet_name_arg = str(sheet_name_arg).strip()\n    if sheet_name_arg.isdigit():\n        return int(sheet_name_arg)\n    return sheet_name_arg\n\n\ndef normalize_text(value: Any) -> str:\n    if value is None:\n        return \"\"\n    return str(value).strip()\n\n\ndef build_sample_text(resume_name: str, industry_name: str, resume_content: str) -> str:\n    return (\n        f\"[简历名称] {resume_name.strip()}\\n\"\n        f\"[行业名称] {industry_name.strip()}\\n\"\n        f\"[简历内容] {resume_content.strip()}\"\n    )\n\n\ndef load_excel_samples(excel_path: str, sheet_name: Union[int, str], min_content_length: int) -> List[Dict[str, Any]]:\n    df = pd.read_excel(excel_path, sheet_name=sheet_name, engine=\"openpyxl\")\n\n    required_columns = [\n        COL_ID,\n        COL_INDUSTRY_NAME,\n        COL_RESUME_NAME,\n        COL_RESUME_CONTENT,\n        COL_LABEL_SCORE,\n    ]\n    missing_columns = [col for col in required_columns if col not in df.columns]\n    if missing_columns:\n        raise ValueError(f\"Excel 缺少必需列: {missing_columns}\")\n\n    df = df[required_columns].copy()\n    df = df.rename(\n        columns={\n            COL_ID: \"sample_id\",\n            COL_INDUSTRY_NAME: \"industry_name\",\n            COL_RESUME_NAME: \"resume_name\",\n            COL_RESUME_CONTENT: \"resume_content\",\n            COL_LABEL_SCORE: \"label_score\",\n        }\n    )\n\n    df[\"resume_name\"] = df[\"resume_name\"].fillna(\"\").astype(str).str.strip()\n    df[\"industry_name\"] = df[\"industry_name\"].fillna(\"\").astype(str).str.strip()\n    df[\"resume_content\"] = df[\"resume_content\"].fillna(\"\").astype(str).str.strip()\n    df[\"label_score\"] = pd.to_numeric(df[\"label_score\"], errors=\"coerce\")\n\n    df = df[\n        (df[\"resume_name\"] != \"\")\n        & (df[\"industry_name\"] != \"\")\n        & (df[\"resume_content\"] != \"\")\n        & df[\"label_score\"].notna()\n    ].copy()\n\n    df = df[df[\"resume_content\"].str.len() >= min_content_length].copy()\n    df = df.drop_duplicates(subset=[\"resume_name\", \"industry_name\", \"resume_content\"]).copy()\n\n    if df.empty:\n        raise ValueError(\"清洗后没有可用训练样本\")\n\n    sample_texts = []\n    for _, row in df.iterrows():\n        sample_texts.append(\n            build_sample_text(\n                resume_name=row[\"resume_name\"],\n                industry_name=row[\"industry_name\"],\n                resume_content=row[\"resume_content\"],\n            )\n        )\n    df[\"sample_text\"] = sample_texts\n\n    LOGGER.info(\"Excel 样本读取并清洗完成，剩余 %s 条\", len(df))\n\n    result: List[Dict[str, Any]] = []\n    for _, row in df.iterrows():\n        result.append(\n            {\n                \"sample_id\": int(row[\"sample_id\"]) if pd.notna(row[\"sample_id\"]) else None,\n                \"resume_name\": row[\"resume_name\"],\n                \"industry_name\": row[\"industry_name\"],\n                \"resume_content\": row[\"resume_content\"],\n                \"label_score\": float(row[\"label_score\"]),\n                \"sample_text\": row[\"sample_text\"],\n            }\n        )\n    return result\n\n\ndef build_embeddings(\n    texts: List[str],\n    embedding_model_name: str,\n    batch_size: int,\n    max_length: int,\n    use_fp16: bool,\n) -> np.ndarray:\n    from FlagEmbedding import BGEM3FlagModel\n\n    LOGGER.info(\"开始加载 embedding 模型: %s\", embedding_model_name)\n    embedding_model = BGEM3FlagModel(embedding_model_name, use_fp16=use_fp16)\n\n    LOGGER.info(\"开始生成 embedding，样本数: %s\", len(texts))\n    result = embedding_model.encode(\n        texts,\n        batch_size=batch_size,\n        max_length=max_length,\n    )\n\n    embeddings = np.asarray(result[\"dense_vecs\"], dtype=np.float32)\n    if embeddings.ndim != 2:\n        raise ValueError(\"embedding 结果维度不正确\")\n\n    LOGGER.info(\"embedding 完成，向量维度: %s\", embeddings.shape[1])\n    return embeddings\n\n\ndef compute_metric_block(y_true: np.ndarray, y_pred: np.ndarray, prefix: str) -> Dict[str, Any]:\n    return {\n        f\"{prefix}_rmse\": round(float(np.sqrt(mean_squared_error(y_true, y_pred))), 6),\n        f\"{prefix}_mae\": round(float(mean_absolute_error(y_true, y_pred)), 6),\n        f\"{prefix}_r2\": round(float(r2_score(y_true, y_pred)), 6),\n    }\n\n\ndef train_xgboost_model(X: np.ndarray, y: np.ndarray, args: argparse.Namespace):\n    model = XGBRegressor(\n        objective=\"reg:squarederror\",\n        n_estimators=args.n_estimators,\n        learning_rate=args.learning_rate,\n        max_depth=args.max_depth,\n        subsample=args.subsample,\n        colsample_bytree=args.colsample_bytree,\n        reg_lambda=args.reg_lambda,\n        random_state=args.random_state,\n        n_jobs=args.n_jobs,\n        tree_method=\"hist\",\n    )\n\n    if len(X) >= 10:\n        X_train, X_valid, y_train, y_valid = train_test_split(\n            X,\n            y,\n            test_size=args.test_size,\n            random_state=args.random_state,\n        )\n\n        LOGGER.info(\"开始训练 XGBoost，训练集=%s，验证集=%s\", len(X_train), len(X_valid))\n        model.fit(X_train, y_train)\n\n        train_pred = model.predict(X_train)\n        valid_pred = model.predict(X_valid)\n\n        metrics = {\n            \"eval_mode\": \"train_valid_split\",\n            \"train_size\": int(len(X_train)),\n            \"valid_size\": int(len(X_valid)),\n        }\n        metrics.update(compute_metric_block(y_train, train_pred, \"train\"))\n        metrics.update(compute_metric_block(y_valid, valid_pred, \"valid\"))\n        return model, metrics\n\n    LOGGER.warning(\"样本数量小于10，改为全量训练并在训练集上评估\")\n    model.fit(X, y)\n\n    pred = model.predict(X)\n    metrics = {\n        \"eval_mode\": \"train_only\",\n        \"train_size\": int(len(X)),\n        \"valid_size\": 0,\n    }\n    metrics.update(compute_metric_block(y, pred, \"train\"))\n    return model, metrics\n\n\ndef sanitize_file_name(file_name: str) -> str:\n    file_name = normalize_text(file_name)\n    file_name = re.sub(r'[<>:\"/\\\\|?*\\x00-\\x1f]+', \"_\", file_name)\n    file_name = re.sub(r\"\\s+\", \"_\", file_name)\n    file_name = re.sub(r\"_+\", \"_\", file_name)\n    file_name = file_name.strip(\"._-\")\n    return file_name or \"resume_score_model\"\n\n\ndef sanitize_path_segment(value: str) -> str:\n    value = normalize_text(value)\n    value = re.sub(r\"[^A-Za-z0-9._-]+\", \"_\", value)\n    value = re.sub(r\"_+\", \"_\", value)\n    value = value.strip(\"._-\")\n    return value or \"unknown\"\n\n\ndef build_version(args: argparse.Namespace) -> str:\n    if normalize_text(args.version):\n        return normalize_text(args.version)\n    return datetime.now().strftime(\"v%Y.%m.%d-%H%M%S\")\n\n\ndef resolve_unique_path(target_path: Path) -> Path:\n    if not target_path.exists():\n        return target_path\n\n    suffix_index = 1\n    stem = target_path.stem\n    suffix = target_path.suffix\n    parent = target_path.parent\n\n    while True:\n        candidate = parent / f\"{stem}_{suffix_index}{suffix}\"\n        if not candidate.exists():\n            return candidate\n        suffix_index += 1\n\n\ndef save_outputs(\n    model: XGBRegressor,\n    metrics: Dict[str, Any],\n    args: argparse.Namespace,\n    sample_count: int,\n    embedding_dimension: int,\n    train_cost_ms: int,\n) -> Dict[str, Any]:\n    version = build_version(args)\n    date_str = datetime.now().strftime(\"%Y%m%d\")\n\n    safe_model_type = sanitize_path_segment(args.model_type)\n    safe_model_name_for_file = sanitize_file_name(args.model_name)\n    safe_version_for_file = sanitize_file_name(version)\n\n    relative_dir = Path(\"mlmodel\") / safe_model_type / date_str\n    full_dir = Path(args.output_root).resolve() / relative_dir\n    full_dir.mkdir(parents=True, exist_ok=True)\n\n    model_file_name = f\"{safe_model_name_for_file}_{safe_version_for_file}.json\"\n    model_path = resolve_unique_path(full_dir / model_file_name)\n\n    metrics[\"embedding_dimension\"] = int(embedding_dimension)\n    metrics[\"sample_count\"] = int(sample_count)\n    metrics[\"embedding_model\"] = args.embedding_model_name\n    metrics[\"model_type\"] = args.model_type\n\n    model.save_model(str(model_path))\n\n    metrics_path = model_path.with_suffix(\".metrics.json\")\n    metrics_path.write_text(\n        json.dumps(metrics, ensure_ascii=False, indent=2),\n        encoding=\"utf-8\",\n    )\n\n    relative_model_url = str((relative_dir / model_path.name).as_posix())\n\n    summary = {\n        \"scoreModelVersionModelName\": args.model_name,\n        \"scoreModelVersionVersion\": version,\n        \"scoreModelVersionModelType\": args.model_type,\n        \"scoreModelVersionModelUrl\": relative_model_url,\n        \"scoreModelVersionEmbeddingModel\": args.embedding_model_name,\n        \"scoreModelVersionSampleCount\": int(sample_count),\n        \"scoreModelVersionTrainCostMs\": int(train_cost_ms),\n        \"scoreModelVersionMetricJson\": json.dumps(metrics, ensure_ascii=False),\n        \"scoreModelVersionIsActive\": 0,\n        \"localModelAbsolutePath\": str(model_path),\n        \"localMetricAbsolutePath\": str(metrics_path),\n    }\n\n    summary_path = model_path.with_suffix(\".summary.json\")\n    summary_path.write_text(\n        json.dumps(summary, ensure_ascii=False, indent=2),\n        encoding=\"utf-8\",\n    )\n\n    return summary\n\n\ndef main() -> None:\n    init_logger()\n    args = parse_args()\n\n    start_time = time.time()\n\n    samples = load_excel_samples(\n        excel_path=args.excel_path,\n        sheet_name=resolve_sheet_name(args.sheet_name),\n        min_content_length=args.min_content_length,\n    )\n\n    texts = [item[\"sample_text\"] for item in samples]\n    labels = np.asarray([item[\"label_score\"] for item in samples], dtype=np.float32)\n\n    embeddings = build_embeddings(\n        texts=texts,\n        embedding_model_name=args.embedding_model_name,\n        batch_size=args.batch_size,\n        max_length=args.max_length,\n        use_fp16=args.use_fp16,\n    )\n\n    model, metrics = train_xgboost_model(\n        X=embeddings,\n        y=labels,\n        args=args,\n    )\n\n    train_cost_ms = int((time.time() - start_time) * 1000)\n\n    summary = save_outputs(\n        model=model,\n        metrics=metrics,\n        args=args,\n        sample_count=len(samples),\n        embedding_dimension=int(embeddings.shape[1]),\n        train_cost_ms=train_cost_ms,\n    )\n\n    LOGGER.info(\"训练完成\")\n    print(json.dumps(summary, ensure_ascii=False, indent=2))\n\n\nif __name__ == \"__main__\":\n    main()","scoreModelTrainCodeDesc":"基于XgBoost的简历评分模型代码"}]
+2026-04-23 10:59:06.705 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.update - ==>  Preparing: UPDATE admin_scoreModelTrainCode SET scoreModelTrainCode_name=?, scoreModelTrainCode_version=?, scoreModelTrainCode_language=?, scoreModelTrainCode_content=?, scoreModelTrainCode_desc=? WHERE deleted=0 AND (scoreModelTrainCode_id = ? AND deleted = ?)
+2026-04-23 10:59:06.707 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.update - ==> Parameters: 基于XgBoost的简历评分模型代码1(String), V0.0(String), Python(String), ++++???++++
+文件名:基于XgBoost的简历评分模型代码1.py
+# -*- coding: utf-8 -*-
+"""
+简历评分模型训练脚本（Excel 输入单文件版）
+
+依赖安装：
+pip install pandas openpyxl numpy scikit-learn xgboost FlagEmbedding
+
+运行示例：
+python resume_score_train_excel.py --excel-path "D:/train_data.xlsx"
+
+可选示例：
+python resume_score_train_excel.py \
+  --excel-path "D:/train_data.xlsx" \
+  --sheet-name 0 \
+  --embedding-model-name "BAAI/bge-m3" \
+  --model-name "resume-score-model" \
+  --model-type "xgboost"
+"""
+
+import argparse
+import json
+import logging
+import re
+import time
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List, Union
+
+import numpy as np
+import pandas as pd
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.model_selection import train_test_split
+from xgboost import XGBRegressor
+
+
+LOGGER = logging.getLogger("resume_score_train_excel")
+SCRIPT_PATH = Path(__file__).resolve()
+PROJECT_ROOT = SCRIPT_PATH.parents[8]
+DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "upload"
+
+COL_ID = "训练数据ID"
+COL_INDUSTRY_NAME = "行业名称"
+COL_RESUME_NAME = "简历名称"
+COL_RESUME_CONTENT = "简历内容"
+COL_LABEL_SCORE = "训练标签分数"
+
+
+def init_logger() -> None:
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(message)s",
+    )
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="简历评分模型训练脚本（Excel 输入版）")
+    parser.add_argument("--excel-path", required=True, help="训练 Excel 路径")
+    parser.add_argument("--sheet-name", default="0", help="sheet 名称或索引，默认 0")
+    parser.add_argument("--embedding-model-name", default="BAAI/bge-m3", help="embedding 模型名")
+    parser.add_argument("--model-name", default="resume-score-model", help="模型名称")
+    parser.add_argument("--model-type", default="xgboost", help="模型类型")
+    parser.add_argument("--output-root", default=str(DEFAULT_OUTPUT_ROOT), help="模型输出根目录")
+    parser.add_argument("--batch-size", type=int, default=8, help="embedding 批大小")
+    parser.add_argument("--max-length", type=int, default=8192, help="embedding 最大长度")
+    parser.add_argument("--min-content-length", type=int, default=20, help="简历内容最小长度")
+    parser.add_argument("--test-size", type=float, default=0.2, help="验证集比例")
+    parser.add_argument("--random-state", type=int, default=42, help="随机种子")
+    parser.add_argument("--n-estimators", type=int, default=300, help="XGBoost 树数量")
+    parser.add_argument("--learning-rate", type=float, default=0.05, help="学习率")
+    parser.add_argument("--max-depth", type=int, default=6, help="树深度")
+    parser.add_argument("--subsample", type=float, default=0.9, help="subsample")
+    parser.add_argument("--colsample-bytree", type=float, default=0.9, help="colsample_bytree")
+    parser.add_argument("--reg-lambda", type=float, default=1.0, help="L2 正则")
+    parser.add_argument("--n-jobs", type=int, default=-1, help="并行线程数")
+    parser.add_argument("--use-fp16", action="store_true", help="如果有 GPU，可以打开 fp16")
+    parser.add_argument("--version", default="", help="手动指定版本号，不传则自动生成")
+    return parser.parse_args()
+
+
+def resolve_sheet_name(sheet_name_arg: str) -> Union[int, str]:
+    sheet_name_arg = str(sheet_name_arg).strip()
+    if sheet_name_arg.isdigit():
+        return int(sheet_name_arg)
+    return sheet_name_arg
+
+
+def normalize_text(value: Any) -> str:
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+def build_sample_text(resume_name: str, industry_name: str, resume_content: str) -> str:
+    return (
+        f"[简历名称] {resume_name.strip()}\n"
+        f"[行业名称] {industry_name.strip()}\n"
+        f"[简历内容] {resume_content.strip()}"
+    )
+
+
+def load_excel_samples(excel_path: str, sheet_name: Union[int, str], min_content_length: int) -> List[Dict[str, Any]]:
+    df = pd.read_excel(excel_path, sheet_name=sheet_name, engine="openpyxl")
+
+    required_columns = [
+        COL_ID,
+        COL_INDUSTRY_NAME,
+        COL_RESUME_NAME,
+        COL_RESUME_CONTENT,
+        COL_LABEL_SCORE,
+    ]
+    missing_columns = [col for col in required_columns if col not in df.columns]
+    if missing_columns:
+        raise ValueError(f"Excel 缺少必需列: {missing_columns}")
+
+    df = df[required_columns].copy()
+    df = df.rename(
+        columns={
+            COL_ID: "sample_id",
+            COL_INDUSTRY_NAME: "industry_name",
+            COL_RESUME_NAME: "resume_name",
+            COL_RESUME_CONTENT: "resume_content",
+            COL_LABEL_SCORE: "label_score",
+        }
+    )
+
+    df["resume_name"] = df["resume_name"].fillna("").astype(str).str.strip()
+    df["industry_name"] = df["industry_name"].fillna("").astype(str).str.strip()
+    df["resume_content"] = df["resume_content"].fillna("").astype(str).str.strip()
+    df["label_score"] = pd.to_numeric(df["label_score"], errors="coerce")
+
+    df = df[
+        (df["resume_name"] != "")
+        & (df["industry_name"] != "")
+        & (df["resume_content"] != "")
+        & df["label_score"].notna()
+    ].copy()
+
+    df = df[df["resume_content"].str.len() >= min_content_length].copy()
+    df = df.drop_duplicates(subset=["resume_name", "industry_name", "resume_content"]).copy()
+
+    if df.empty:
+        raise ValueError("清洗后没有可用训练样本")
+
+    sample_texts = []
+    for _, row in df.iterrows():
+        sample_texts.append(
+            build_sample_text(
+                resume_name=row["resume_name"],
+                industry_name=row["industry_name"],
+                resume_content=row["resume_content"],
+            )
+        )
+    df["sample_text"] = sample_texts
+
+    LOGGER.info("Excel 样本读取并清洗完成，剩余 %s 条", len(df))
+
+    result: List[Dict[str, Any]] = []
+    for _, row in df.iterrows():
+        result.append(
+            {
+                "sample_id": int(row["sample_id"]) if pd.notna(row["sample_id"]) else None,
+                "resume_name": row["resume_name"],
+                "industry_name": row["industry_name"],
+                "resume_content": row["resume_content"],
+                "label_score": float(row["label_score"]),
+                "sample_text": row["sample_text"],
+            }
+        )
+    return result
+
+
+def build_embeddings(
+    texts: List[str],
+    embedding_model_name: str,
+    batch_size: int,
+    max_length: int,
+    use_fp16: bool,
+) -> np.ndarray:
+    from FlagEmbedding import BGEM3FlagModel
+
+    LOGGER.info("开始加载 embedding 模型: %s", embedding_model_name)
+    embedding_model = BGEM3FlagModel(embedding_model_name, use_fp16=use_fp16)
+
+    LOGGER.info("开始生成 embedding，样本数: %s", len(texts))
+    result = embedding_model.encode(
+        texts,
+        batch_size=batch_size,
+        max_length=max_length,
+    )
+
+    embeddings = np.asarray(result["dense_vecs"], dtype=np.float32)
+    if embeddings.ndim != 2:
+        raise ValueError("embedding 结果维度不正确")
+
+    LOGGER.info("embedding 完成，向量维度: %s", embeddings.shape[1])
+    return embeddings
+
+
+def compute_metric_block(y_true: np.ndarray, y_pred: np.ndarray, prefix: str) -> Dict[str, Any]:
+    return {
+        f"{prefix}_rmse": round(float(np.sqrt(mean_squared_error(y_true, y_pred))), 6),
+        f"{prefix}_mae": round(float(mean_absolute_error(y_true, y_pred)), 6),
+        f"{prefix}_r2": round(float(r2_score(y_true, y_pred)), 6),
+    }
+
+
+def train_xgboost_model(X: np.ndarray, y: np.ndarray, args: argparse.Namespace):
+    model = XGBRegressor(
+        objective="reg:squarederror",
+        n_estimators=args.n_estimators,
+        learning_rate=args.learning_rate,
+        max_depth=args.max_depth,
+        subsample=args.subsample,
+        colsample_bytree=args.colsample_bytree,
+        reg_lambda=args.reg_lambda,
+        random_state=args.random_state,
+        n_jobs=args.n_jobs,
+        tree_method="hist",
+    )
+
+    if len(X) >= 10:
+        X_train, X_valid, y_train, y_valid = train_test_split(
+            X,
+            y,
+            test_size=args.test_size,
+            random_state=args.random_state,
+        )
+
+        LOGGER.info("开始训练 XGBoost，训练集=%s，验证集=%s", len(X_train), len(X_valid))
+        model.fit(X_train, y_train)
+
+        train_pred = model.predict(X_train)
+        valid_pred = model.predict(X_valid)
+
+        metrics = {
+            "eval_mode": "train_valid_split",
+            "train_size": int(len(X_train)),
+            "valid_size": int(len(X_valid)),
+        }
+        metrics.update(compute_metric_block(y_train, train_pred, "train"))
+        metrics.update(compute_metric_block(y_valid, valid_pred, "valid"))
+        return model, metrics
+
+    LOGGER.warning("样本数量小于10，改为全量训练并在训练集上评估")
+    model.fit(X, y)
+
+    pred = model.predict(X)
+    metrics = {
+        "eval_mode": "train_only",
+        "train_size": int(len(X)),
+        "valid_size": 0,
+    }
+    metrics.update(compute_metric_block(y, pred, "train"))
+    return model, metrics
+
+
+def sanitize_file_name(file_name: str) -> str:
+    file_name = normalize_text(file_name)
+    file_name = re.sub(r'[<>:"/\\|?*\x00-\x1f]+', "_", file_name)
+    file_name = re.sub(r"\s+", "_", file_name)
+    file_name = re.sub(r"_+", "_", file_name)
+    file_name = file_name.strip("._-")
+    return file_name or "resume_score_model"
+
+
+def sanitize_path_segment(value: str) -> str:
+    value = normalize_text(value)
+    value = re.sub(r"[^A-Za-z0-9._-]+", "_", value)
+    value = re.sub(r"_+", "_", value)
+    value = value.strip("._-")
+    return value or "unknown"
+
+
+def build_version(args: argparse.Namespace) -> str:
+    if normalize_text(args.version):
+        return normalize_text(args.version)
+    return datetime.now().strftime("v%Y.%m.%d-%H%M%S")
+
+
+def resolve_unique_path(target_path: Path) -> Path:
+    if not target_path.exists():
+        return target_path
+
+    suffix_index = 1
+    stem = target_path.stem
+    suffix = target_path.suffix
+    parent = target_path.parent
+
+    while True:
+        candidate = parent / f"{stem}_{suffix_index}{suffix}"
+        if not candidate.exists():
+            return candidate
+        suffix_index += 1
+
+
+def save_outputs(
+    model: XGBRegressor,
+    metrics: Dict[str, Any],
+    args: argparse.Namespace,
+    sample_count: int,
+    embedding_dimension: int,
+    train_cost_ms: int,
+) -> Dict[str, Any]:
+    version = build_version(args)
+    date_str = datetime.now().strftime("%Y%m%d")
+
+    safe_model_type = sanitize_path_segment(args.model_type)
+    safe_model_name_for_file = sanitize_file_name(args.model_name)
+    safe_version_for_file = sanitize_file_name(version)
+
+    relative_dir = Path("mlmodel") / safe_model_type / date_str
+    full_dir = Path(args.output_root).resolve() / relative_dir
+    full_dir.mkdir(parents=True, exist_ok=True)
+
+    model_file_name = f"{safe_model_name_for_file}_{safe_version_for_file}.json"
+    model_path = resolve_unique_path(full_dir / model_file_name)
+
+    metrics["embedding_dimension"] = int(embedding_dimension)
+    metrics["sample_count"] = int(sample_count)
+    metrics["embedding_model"] = args.embedding_model_name
+    metrics["model_type"] = args.model_type
+
+    model.save_model(str(model_path))
+
+    metrics_path = model_path.with_suffix(".metrics.json")
+    metrics_path.write_text(
+        json.dumps(metrics, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+    relative_model_url = str((relative_dir / model_path.name).as_posix())
+
+    summary = {
+        "scoreModelVersionModelName": args.model_name,
+        "scoreModelVersionVersion": version,
+        "scoreModelVersionModelType": args.model_type,
+        "scoreModelVersionModelUrl": relative_model_url,
+        "scoreModelVersionEmbeddingModel": args.embedding_model_name,
+        "scoreModelVersionSampleCount": int(sample_count),
+        "scoreModelVersionTrainCostMs": int(train_cost_ms),
+        "scoreModelVersionMetricJson": json.dumps(metrics, ensure_ascii=False),
+        "scoreModelVersionIsActive": 0,
+        "localModelAbsolutePath": str(model_path),
+        "localMetricAbsolutePath": str(metrics_path),
+    }
+
+    summary_path = model_path.with_suffix(".summary.json")
+    summary_path.write_text(
+        json.dumps(summary, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+    return summary
+
+
+def main() -> None:
+    init_logger()
+    args = parse_args()
+
+    start_time = time.time()
+
+    samples = load_excel_samples(
+        excel_path=args.excel_path,
+        sheet_name=resolve_sheet_name(args.sheet_name),
+        min_content_length=args.min_content_length,
+    )
+
+    texts = [item["sample_text"] for item in samples]
+    labels = np.asarray([item["label_score"] for item in samples], dtype=np.float32)
+
+    embeddings = build_embeddings(
+        texts=texts,
+        embedding_model_name=args.embedding_model_name,
+        batch_size=args.batch_size,
+        max_length=args.max_length,
+        use_fp16=args.use_fp16,
+    )
+
+    model, metrics = train_xgboost_model(
+        X=embeddings,
+        y=labels,
+        args=args,
+    )
+
+    train_cost_ms = int((time.time() - start_time) * 1000)
+
+    summary = save_outputs(
+        model=model,
+        metrics=metrics,
+        args=args,
+        sample_count=len(samples),
+        embedding_dimension=int(embeddings.shape[1]),
+        train_cost_ms=train_cost_ms,
+    )
+
+    LOGGER.info("训练完成")
+    print(json.dumps(summary, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()(String), 基于XgBoost的简历评分模型代码(String), 1(Integer), 0(Integer)
+2026-04-23 10:59:06.975 [http-nio-8080-exec-9] DEBUG c.z.e.m.m.a.A.update - <==    Updates: 1
+2026-04-23 10:59:06.976 [http-nio-8080-exec-9] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdminScoreModelTrainCodeServiceImpl, 方法: updateScoreModelTrainCode, 返回值: {}, 耗时: 298ms
+2026-04-23 10:59:07.189 [http-nio-8080-exec-9] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/scoreModelTrainCode/updateScoreModelTrainCode, Controller: AdminScoreModelTrainCodeController.updateScoreModelTrainCode, Status: 200, Duration: 620ms
+2026-04-23 10:59:07.286 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:59:07.287 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:07.336 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:59:07.342 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:59:07.343 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:07.402 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:59:07.410 [http-nio-8080-exec-8] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeByPage, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeByPage, IP: 0:0:0:0:0:0:0:1, Params: {"pageSize":"10","pageNum":"1"}
+2026-04-23 10:59:07.460 [http-nio-8080-exec-8] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeByPage, 参数: [1,10,{"scoreModelTrainCodeName":"","scoreModelTrainCodeLanguage":""}]
+2026-04-23 10:59:07.474 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM admin_scoreModelTrainCode WHERE deleted = 0 AND (deleted = ?)
+2026-04-23 10:59:07.475 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList_mpCount - ==> Parameters: 0(Integer)
+2026-04-23 10:59:07.525 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList_mpCount - <==      Total: 1
+2026-04-23 10:59:07.528 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT scoreModelTrainCode_id,scoreModelTrainCode_name,scoreModelTrainCode_version,scoreModelTrainCode_language,scoreModelTrainCode_content,scoreModelTrainCode_desc,scoreModelTrainCode_createTime,deleted FROM admin_scoreModelTrainCode WHERE deleted=0 AND (deleted = ?) ORDER BY scoreModelTrainCode_createTime DESC LIMIT ?
+2026-04-23 10:59:07.529 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 0(Integer), 10(Long)
+2026-04-23 10:59:07.628 [http-nio-8080-exec-8] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-04-23 10:59:07.629 [http-nio-8080-exec-8] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeByPage, 返回值: {"records":[{"scoreModelTrainCodeId":1,"scoreModelTrainCodeName":"基于XgBoost的简历评分模型代码1","scoreModelTrainCodeVersion":"V0.0","scoreModelTrainCodeLanguage":"Python","scoreModelTrainCodeDesc":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeCreateTime":1776908820000}],"total":1,"size":10,"current":1}, 耗时: 169ms
+2026-04-23 10:59:07.734 [http-nio-8080-exec-8] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeByPage, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeByPage, Status: 200, Duration: 324ms
+2026-04-23 10:59:08.762 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:59:08.762 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:08.812 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:59:08.813 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:59:08.816 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:08.868 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:59:08.870 [http-nio-8080-exec-10] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: GET, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeById, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeById, IP: 0:0:0:0:0:0:0:1, Params: {"_t":"1776913148340","scoreModelTrainCodeId":"1"}
+2026-04-23 10:59:08.920 [http-nio-8080-exec-10] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeById, 参数: [1]
+2026-04-23 10:59:08.922 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT scoreModelTrainCode_id,scoreModelTrainCode_name,scoreModelTrainCode_version,scoreModelTrainCode_language,scoreModelTrainCode_content,scoreModelTrainCode_desc,scoreModelTrainCode_createTime,deleted FROM admin_scoreModelTrainCode WHERE deleted=0 AND (scoreModelTrainCode_id = ? AND deleted = ?)
+2026-04-23 10:59:08.923 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 1(Integer), 0(Integer)
+2026-04-23 10:59:09.021 [http-nio-8080-exec-10] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-04-23 10:59:09.028 [http-nio-8080-exec-10] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeById, 返回值: {"scoreModelTrainCodeId":1,"scoreModelTrainCodeName":"基于XgBoost的简历评分模型代码1","scoreModelTrainCodeVersion":"V0.0","scoreModelTrainCodeLanguage":"Python","scoreModelTrainCodeContent":"++++???++++\n文件名:基于XgBoost的简历评分模型代码1.py\n# -*- coding: utf-8 -*-\n\"\"\"\n简历评分模型训练脚本（Excel 输入单文件版）\n\n依赖安装：\npip install pandas openpyxl numpy scikit-learn xgboost FlagEmbedding\n\n运行示例：\npython resume_score_train_excel.py --excel-path \"D:/train_data.xlsx\"\n\n可选示例：\npython resume_score_train_excel.py \\\n  --excel-path \"D:/train_data.xlsx\" \\\n  --sheet-name 0 \\\n  --embedding-model-name \"BAAI/bge-m3\" \\\n  --model-name \"resume-score-model\" \\\n  --model-type \"xgboost\"\n\"\"\"\n\nimport argparse\nimport json\nimport logging\nimport re\nimport time\nfrom datetime import datetime\nfrom pathlib import Path\nfrom typing import Any, Dict, List, Union\n\nimport numpy as np\nimport pandas as pd\nfrom sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score\nfrom sklearn.model_selection import train_test_split\nfrom xgboost import XGBRegressor\n\n\nLOGGER = logging.getLogger(\"resume_score_train_excel\")\nSCRIPT_PATH = Path(__file__).resolve()\nPROJECT_ROOT = SCRIPT_PATH.parents[8]\nDEFAULT_OUTPUT_ROOT = PROJECT_ROOT / \"upload\"\n\nCOL_ID = \"训练数据ID\"\nCOL_INDUSTRY_NAME = \"行业名称\"\nCOL_RESUME_NAME = \"简历名称\"\nCOL_RESUME_CONTENT = \"简历内容\"\nCOL_LABEL_SCORE = \"训练标签分数\"\n\n\ndef init_logger() -> None:\n    logging.basicConfig(\n        level=logging.INFO,\n        format=\"%(asctime)s [%(levelname)s] %(message)s\",\n    )\n\n\ndef parse_args() -> argparse.Namespace:\n    parser = argparse.ArgumentParser(description=\"简历评分模型训练脚本（Excel 输入版）\")\n    parser.add_argument(\"--excel-path\", required=True, help=\"训练 Excel 路径\")\n    parser.add_argument(\"--sheet-name\", default=\"0\", help=\"sheet 名称或索引，默认 0\")\n    parser.add_argument(\"--embedding-model-name\", default=\"BAAI/bge-m3\", help=\"embedding 模型名\")\n    parser.add_argument(\"--model-name\", default=\"resume-score-model\", help=\"模型名称\")\n    parser.add_argument(\"--model-type\", default=\"xgboost\", help=\"模型类型\")\n    parser.add_argument(\"--output-root\", default=str(DEFAULT_OUTPUT_ROOT), help=\"模型输出根目录\")\n    parser.add_argument(\"--batch-size\", type=int, default=8, help=\"embedding 批大小\")\n    parser.add_argument(\"--max-length\", type=int, default=8192, help=\"embedding 最大长度\")\n    parser.add_argument(\"--min-content-length\", type=int, default=20, help=\"简历内容最小长度\")\n    parser.add_argument(\"--test-size\", type=float, default=0.2, help=\"验证集比例\")\n    parser.add_argument(\"--random-state\", type=int, default=42, help=\"随机种子\")\n    parser.add_argument(\"--n-estimators\", type=int, default=300, help=\"XGBoost 树数量\")\n    parser.add_argument(\"--learning-rate\", type=float, default=0.05, help=\"学习率\")\n    parser.add_argument(\"--max-depth\", type=int, default=6, help=\"树深度\")\n    parser.add_argument(\"--subsample\", type=float, default=0.9, help=\"subsample\")\n    parser.add_argument(\"--colsample-bytree\", type=float, default=0.9, help=\"colsample_bytree\")\n    parser.add_argument(\"--reg-lambda\", type=float, default=1.0, help=\"L2 正则\")\n    parser.add_argument(\"--n-jobs\", type=int, default=-1, help=\"并行线程数\")\n    parser.add_argument(\"--use-fp16\", action=\"store_true\", help=\"如果有 GPU，可以打开 fp16\")\n    parser.add_argument(\"--version\", default=\"\", help=\"手动指定版本号，不传则自动生成\")\n    return parser.parse_args()\n\n\ndef resolve_sheet_name(sheet_name_arg: str) -> Union[int, str]:\n    sheet_name_arg = str(sheet_name_arg).strip()\n    if sheet_name_arg.isdigit():\n        return int(sheet_name_arg)\n    return sheet_name_arg\n\n\ndef normalize_text(value: Any) -> str:\n    if value is None:\n        return \"\"\n    return str(value).strip()\n\n\ndef build_sample_text(resume_name: str, industry_name: str, resume_content: str) -> str:\n    return (\n        f\"[简历名称] {resume_name.strip()}\\n\"\n        f\"[行业名称] {industry_name.strip()}\\n\"\n        f\"[简历内容] {resume_content.strip()}\"\n    )\n\n\ndef load_excel_samples(excel_path: str, sheet_name: Union[int, str], min_content_length: int) -> List[Dict[str, Any]]:\n    df = pd.read_excel(excel_path, sheet_name=sheet_name, engine=\"openpyxl\")\n\n    required_columns = [\n        COL_ID,\n        COL_INDUSTRY_NAME,\n        COL_RESUME_NAME,\n        COL_RESUME_CONTENT,\n        COL_LABEL_SCORE,\n    ]\n    missing_columns = [col for col in required_columns if col not in df.columns]\n    if missing_columns:\n        raise ValueError(f\"Excel 缺少必需列: {missing_columns}\")\n\n    df = df[required_columns].copy()\n    df = df.rename(\n        columns={\n            COL_ID: \"sample_id\",\n            COL_INDUSTRY_NAME: \"industry_name\",\n            COL_RESUME_NAME: \"resume_name\",\n            COL_RESUME_CONTENT: \"resume_content\",\n            COL_LABEL_SCORE: \"label_score\",\n        }\n    )\n\n    df[\"resume_name\"] = df[\"resume_name\"].fillna(\"\").astype(str).str.strip()\n    df[\"industry_name\"] = df[\"industry_name\"].fillna(\"\").astype(str).str.strip()\n    df[\"resume_content\"] = df[\"resume_content\"].fillna(\"\").astype(str).str.strip()\n    df[\"label_score\"] = pd.to_numeric(df[\"label_score\"], errors=\"coerce\")\n\n    df = df[\n        (df[\"resume_name\"] != \"\")\n        & (df[\"industry_name\"] != \"\")\n        & (df[\"resume_content\"] != \"\")\n        & df[\"label_score\"].notna()\n    ].copy()\n\n    df = df[df[\"resume_content\"].str.len() >= min_content_length].copy()\n    df = df.drop_duplicates(subset=[\"resume_name\", \"industry_name\", \"resume_content\"]).copy()\n\n    if df.empty:\n        raise ValueError(\"清洗后没有可用训练样本\")\n\n    sample_texts = []\n    for _, row in df.iterrows():\n        sample_texts.append(\n            build_sample_text(\n                resume_name=row[\"resume_name\"],\n                industry_name=row[\"industry_name\"],\n                resume_content=row[\"resume_content\"],\n            )\n        )\n    df[\"sample_text\"] = sample_texts\n\n    LOGGER.info(\"Excel 样本读取并清洗完成，剩余 %s 条\", len(df))\n\n    result: List[Dict[str, Any]] = []\n    for _, row in df.iterrows():\n        result.append(\n            {\n                \"sample_id\": int(row[\"sample_id\"]) if pd.notna(row[\"sample_id\"]) else None,\n                \"resume_name\": row[\"resume_name\"],\n                \"industry_name\": row[\"industry_name\"],\n                \"resume_content\": row[\"resume_content\"],\n                \"label_score\": float(row[\"label_score\"]),\n                \"sample_text\": row[\"sample_text\"],\n            }\n        )\n    return result\n\n\ndef build_embeddings(\n    texts: List[str],\n    embedding_model_name: str,\n    batch_size: int,\n    max_length: int,\n    use_fp16: bool,\n) -> np.ndarray:\n    from FlagEmbedding import BGEM3FlagModel\n\n    LOGGER.info(\"开始加载 embedding 模型: %s\", embedding_model_name)\n    embedding_model = BGEM3FlagModel(embedding_model_name, use_fp16=use_fp16)\n\n    LOGGER.info(\"开始生成 embedding，样本数: %s\", len(texts))\n    result = embedding_model.encode(\n        texts,\n        batch_size=batch_size,\n        max_length=max_length,\n    )\n\n    embeddings = np.asarray(result[\"dense_vecs\"], dtype=np.float32)\n    if embeddings.ndim != 2:\n        raise ValueError(\"embedding 结果维度不正确\")\n\n    LOGGER.info(\"embedding 完成，向量维度: %s\", embeddings.shape[1])\n    return embeddings\n\n\ndef compute_metric_block(y_true: np.ndarray, y_pred: np.ndarray, prefix: str) -> Dict[str, Any]:\n    return {\n        f\"{prefix}_rmse\": round(float(np.sqrt(mean_squared_error(y_true, y_pred))), 6),\n        f\"{prefix}_mae\": round(float(mean_absolute_error(y_true, y_pred)), 6),\n        f\"{prefix}_r2\": round(float(r2_score(y_true, y_pred)), 6),\n    }\n\n\ndef train_xgboost_model(X: np.ndarray, y: np.ndarray, args: argparse.Namespace):\n    model = XGBRegressor(\n        objective=\"reg:squarederror\",\n        n_estimators=args.n_estimators,\n        learning_rate=args.learning_rate,\n        max_depth=args.max_depth,\n        subsample=args.subsample,\n        colsample_bytree=args.colsample_bytree,\n        reg_lambda=args.reg_lambda,\n        random_state=args.random_state,\n        n_jobs=args.n_jobs,\n        tree_method=\"hist\",\n    )\n\n    if len(X) >= 10:\n        X_train, X_valid, y_train, y_valid = train_test_split(\n            X,\n            y,\n            test_size=args.test_size,\n            random_state=args.random_state,\n        )\n\n        LOGGER.info(\"开始训练 XGBoost，训练集=%s，验证集=%s\", len(X_train), len(X_valid))\n        model.fit(X_train, y_train)\n\n        train_pred = model.predict(X_train)\n        valid_pred = model.predict(X_valid)\n\n        metrics = {\n            \"eval_mode\": \"train_valid_split\",\n            \"train_size\": int(len(X_train)),\n            \"valid_size\": int(len(X_valid)),\n        }\n        metrics.update(compute_metric_block(y_train, train_pred, \"train\"))\n        metrics.update(compute_metric_block(y_valid, valid_pred, \"valid\"))\n        return model, metrics\n\n    LOGGER.warning(\"样本数量小于10，改为全量训练并在训练集上评估\")\n    model.fit(X, y)\n\n    pred = model.predict(X)\n    metrics = {\n        \"eval_mode\": \"train_only\",\n        \"train_size\": int(len(X)),\n        \"valid_size\": 0,\n    }\n    metrics.update(compute_metric_block(y, pred, \"train\"))\n    return model, metrics\n\n\ndef sanitize_file_name(file_name: str) -> str:\n    file_name = normalize_text(file_name)\n    file_name = re.sub(r'[<>:\"/\\\\|?*\\x00-\\x1f]+', \"_\", file_name)\n    file_name = re.sub(r\"\\s+\", \"_\", file_name)\n    file_name = re.sub(r\"_+\", \"_\", file_name)\n    file_name = file_name.strip(\"._-\")\n    return file_name or \"resume_score_model\"\n\n\ndef sanitize_path_segment(value: str) -> str:\n    value = normalize_text(value)\n    value = re.sub(r\"[^A-Za-z0-9._-]+\", \"_\", value)\n    value = re.sub(r\"_+\", \"_\", value)\n    value = value.strip(\"._-\")\n    return value or \"unknown\"\n\n\ndef build_version(args: argparse.Namespace) -> str:\n    if normalize_text(args.version):\n        return normalize_text(args.version)\n    return datetime.now().strftime(\"v%Y.%m.%d-%H%M%S\")\n\n\ndef resolve_unique_path(target_path: Path) -> Path:\n    if not target_path.exists():\n        return target_path\n\n    suffix_index = 1\n    stem = target_path.stem\n    suffix = target_path.suffix\n    parent = target_path.parent\n\n    while True:\n        candidate = parent / f\"{stem}_{suffix_index}{suffix}\"\n        if not candidate.exists():\n            return candidate\n        suffix_index += 1\n\n\ndef save_outputs(\n    model: XGBRegressor,\n    metrics: Dict[str, Any],\n    args: argparse.Namespace,\n    sample_count: int,\n    embedding_dimension: int,\n    train_cost_ms: int,\n) -> Dict[str, Any]:\n    version = build_version(args)\n    date_str = datetime.now().strftime(\"%Y%m%d\")\n\n    safe_model_type = sanitize_path_segment(args.model_type)\n    safe_model_name_for_file = sanitize_file_name(args.model_name)\n    safe_version_for_file = sanitize_file_name(version)\n\n    relative_dir = Path(\"mlmodel\") / safe_model_type / date_str\n    full_dir = Path(args.output_root).resolve() / relative_dir\n    full_dir.mkdir(parents=True, exist_ok=True)\n\n    model_file_name = f\"{safe_model_name_for_file}_{safe_version_for_file}.json\"\n    model_path = resolve_unique_path(full_dir / model_file_name)\n\n    metrics[\"embedding_dimension\"] = int(embedding_dimension)\n    metrics[\"sample_count\"] = int(sample_count)\n    metrics[\"embedding_model\"] = args.embedding_model_name\n    metrics[\"model_type\"] = args.model_type\n\n    model.save_model(str(model_path))\n\n    metrics_path = model_path.with_suffix(\".metrics.json\")\n    metrics_path.write_text(\n        json.dumps(metrics, ensure_ascii=False, indent=2),\n        encoding=\"utf-8\",\n    )\n\n    relative_model_url = str((relative_dir / model_path.name).as_posix())\n\n    summary = {\n        \"scoreModelVersionModelName\": args.model_name,\n        \"scoreModelVersionVersion\": version,\n        \"scoreModelVersionModelType\": args.model_type,\n        \"scoreModelVersionModelUrl\": relative_model_url,\n        \"scoreModelVersionEmbeddingModel\": args.embedding_model_name,\n        \"scoreModelVersionSampleCount\": int(sample_count),\n        \"scoreModelVersionTrainCostMs\": int(train_cost_ms),\n        \"scoreModelVersionMetricJson\": json.dumps(metrics, ensure_ascii=False),\n        \"scoreModelVersionIsActive\": 0,\n        \"localModelAbsolutePath\": str(model_path),\n        \"localMetricAbsolutePath\": str(metrics_path),\n    }\n\n    summary_path = model_path.with_suffix(\".summary.json\")\n    summary_path.write_text(\n        json.dumps(summary, ensure_ascii=False, indent=2),\n        encoding=\"utf-8\",\n    )\n\n    return summary\n\n\ndef main() -> None:\n    init_logger()\n    args = parse_args()\n\n    start_time = time.time()\n\n    samples = load_excel_samples(\n        excel_path=args.excel_path,\n        sheet_name=resolve_sheet_name(args.sheet_name),\n        min_content_length=args.min_content_length,\n    )\n\n    texts = [item[\"sample_text\"] for item in samples]\n    labels = np.asarray([item[\"label_score\"] for item in samples], dtype=np.float32)\n\n    embeddings = build_embeddings(\n        texts=texts,\n        embedding_model_name=args.embedding_model_name,\n        batch_size=args.batch_size,\n        max_length=args.max_length,\n        use_fp16=args.use_fp16,\n    )\n\n    model, metrics = train_xgboost_model(\n        X=embeddings,\n        y=labels,\n        args=args,\n    )\n\n    train_cost_ms = int((time.time() - start_time) * 1000)\n\n    summary = save_outputs(\n        model=model,\n        metrics=metrics,\n        args=args,\n        sample_count=len(samples),\n        embedding_dimension=int(embeddings.shape[1]),\n        train_cost_ms=train_cost_ms,\n    )\n\n    LOGGER.info(\"训练完成\")\n    print(json.dumps(summary, ensure_ascii=False, indent=2))\n\n\nif __name__ == \"__main__\":\n    main()","scoreModelTrainCodeDesc":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeCreateTime":1776908820000}, 耗时: 101ms
+2026-04-23 10:59:09.128 [http-nio-8080-exec-10] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: GET, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeById, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeById, Status: 200, Duration: 259ms
+2026-04-23 10:59:09.132 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:59:09.132 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:09.182 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:59:09.182 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:59:09.183 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:09.235 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:59:09.237 [http-nio-8080-exec-7] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: GET, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeById, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeById, IP: 0:0:0:0:0:0:0:1, Params: {"_t":"1776913149078","scoreModelTrainCodeId":"1"}
+2026-04-23 10:59:09.288 [http-nio-8080-exec-7] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeById, 参数: [1]
+2026-04-23 10:59:09.290 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT scoreModelTrainCode_id,scoreModelTrainCode_name,scoreModelTrainCode_version,scoreModelTrainCode_language,scoreModelTrainCode_content,scoreModelTrainCode_desc,scoreModelTrainCode_createTime,deleted FROM admin_scoreModelTrainCode WHERE deleted=0 AND (scoreModelTrainCode_id = ? AND deleted = ?)
+2026-04-23 10:59:09.291 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 1(Integer), 0(Integer)
+2026-04-23 10:59:09.345 [http-nio-8080-exec-7] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-04-23 10:59:09.352 [http-nio-8080-exec-7] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeById, 返回值: {"scoreModelTrainCodeId":1,"scoreModelTrainCodeName":"基于XgBoost的简历评分模型代码1","scoreModelTrainCodeVersion":"V0.0","scoreModelTrainCodeLanguage":"Python","scoreModelTrainCodeContent":"++++???++++\n文件名:基于XgBoost的简历评分模型代码1.py\n# -*- coding: utf-8 -*-\n\"\"\"\n简历评分模型训练脚本（Excel 输入单文件版）\n\n依赖安装：\npip install pandas openpyxl numpy scikit-learn xgboost FlagEmbedding\n\n运行示例：\npython resume_score_train_excel.py --excel-path \"D:/train_data.xlsx\"\n\n可选示例：\npython resume_score_train_excel.py \\\n  --excel-path \"D:/train_data.xlsx\" \\\n  --sheet-name 0 \\\n  --embedding-model-name \"BAAI/bge-m3\" \\\n  --model-name \"resume-score-model\" \\\n  --model-type \"xgboost\"\n\"\"\"\n\nimport argparse\nimport json\nimport logging\nimport re\nimport time\nfrom datetime import datetime\nfrom pathlib import Path\nfrom typing import Any, Dict, List, Union\n\nimport numpy as np\nimport pandas as pd\nfrom sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score\nfrom sklearn.model_selection import train_test_split\nfrom xgboost import XGBRegressor\n\n\nLOGGER = logging.getLogger(\"resume_score_train_excel\")\nSCRIPT_PATH = Path(__file__).resolve()\nPROJECT_ROOT = SCRIPT_PATH.parents[8]\nDEFAULT_OUTPUT_ROOT = PROJECT_ROOT / \"upload\"\n\nCOL_ID = \"训练数据ID\"\nCOL_INDUSTRY_NAME = \"行业名称\"\nCOL_RESUME_NAME = \"简历名称\"\nCOL_RESUME_CONTENT = \"简历内容\"\nCOL_LABEL_SCORE = \"训练标签分数\"\n\n\ndef init_logger() -> None:\n    logging.basicConfig(\n        level=logging.INFO,\n        format=\"%(asctime)s [%(levelname)s] %(message)s\",\n    )\n\n\ndef parse_args() -> argparse.Namespace:\n    parser = argparse.ArgumentParser(description=\"简历评分模型训练脚本（Excel 输入版）\")\n    parser.add_argument(\"--excel-path\", required=True, help=\"训练 Excel 路径\")\n    parser.add_argument(\"--sheet-name\", default=\"0\", help=\"sheet 名称或索引，默认 0\")\n    parser.add_argument(\"--embedding-model-name\", default=\"BAAI/bge-m3\", help=\"embedding 模型名\")\n    parser.add_argument(\"--model-name\", default=\"resume-score-model\", help=\"模型名称\")\n    parser.add_argument(\"--model-type\", default=\"xgboost\", help=\"模型类型\")\n    parser.add_argument(\"--output-root\", default=str(DEFAULT_OUTPUT_ROOT), help=\"模型输出根目录\")\n    parser.add_argument(\"--batch-size\", type=int, default=8, help=\"embedding 批大小\")\n    parser.add_argument(\"--max-length\", type=int, default=8192, help=\"embedding 最大长度\")\n    parser.add_argument(\"--min-content-length\", type=int, default=20, help=\"简历内容最小长度\")\n    parser.add_argument(\"--test-size\", type=float, default=0.2, help=\"验证集比例\")\n    parser.add_argument(\"--random-state\", type=int, default=42, help=\"随机种子\")\n    parser.add_argument(\"--n-estimators\", type=int, default=300, help=\"XGBoost 树数量\")\n    parser.add_argument(\"--learning-rate\", type=float, default=0.05, help=\"学习率\")\n    parser.add_argument(\"--max-depth\", type=int, default=6, help=\"树深度\")\n    parser.add_argument(\"--subsample\", type=float, default=0.9, help=\"subsample\")\n    parser.add_argument(\"--colsample-bytree\", type=float, default=0.9, help=\"colsample_bytree\")\n    parser.add_argument(\"--reg-lambda\", type=float, default=1.0, help=\"L2 正则\")\n    parser.add_argument(\"--n-jobs\", type=int, default=-1, help=\"并行线程数\")\n    parser.add_argument(\"--use-fp16\", action=\"store_true\", help=\"如果有 GPU，可以打开 fp16\")\n    parser.add_argument(\"--version\", default=\"\", help=\"手动指定版本号，不传则自动生成\")\n    return parser.parse_args()\n\n\ndef resolve_sheet_name(sheet_name_arg: str) -> Union[int, str]:\n    sheet_name_arg = str(sheet_name_arg).strip()\n    if sheet_name_arg.isdigit():\n        return int(sheet_name_arg)\n    return sheet_name_arg\n\n\ndef normalize_text(value: Any) -> str:\n    if value is None:\n        return \"\"\n    return str(value).strip()\n\n\ndef build_sample_text(resume_name: str, industry_name: str, resume_content: str) -> str:\n    return (\n        f\"[简历名称] {resume_name.strip()}\\n\"\n        f\"[行业名称] {industry_name.strip()}\\n\"\n        f\"[简历内容] {resume_content.strip()}\"\n    )\n\n\ndef load_excel_samples(excel_path: str, sheet_name: Union[int, str], min_content_length: int) -> List[Dict[str, Any]]:\n    df = pd.read_excel(excel_path, sheet_name=sheet_name, engine=\"openpyxl\")\n\n    required_columns = [\n        COL_ID,\n        COL_INDUSTRY_NAME,\n        COL_RESUME_NAME,\n        COL_RESUME_CONTENT,\n        COL_LABEL_SCORE,\n    ]\n    missing_columns = [col for col in required_columns if col not in df.columns]\n    if missing_columns:\n        raise ValueError(f\"Excel 缺少必需列: {missing_columns}\")\n\n    df = df[required_columns].copy()\n    df = df.rename(\n        columns={\n            COL_ID: \"sample_id\",\n            COL_INDUSTRY_NAME: \"industry_name\",\n            COL_RESUME_NAME: \"resume_name\",\n            COL_RESUME_CONTENT: \"resume_content\",\n            COL_LABEL_SCORE: \"label_score\",\n        }\n    )\n\n    df[\"resume_name\"] = df[\"resume_name\"].fillna(\"\").astype(str).str.strip()\n    df[\"industry_name\"] = df[\"industry_name\"].fillna(\"\").astype(str).str.strip()\n    df[\"resume_content\"] = df[\"resume_content\"].fillna(\"\").astype(str).str.strip()\n    df[\"label_score\"] = pd.to_numeric(df[\"label_score\"], errors=\"coerce\")\n\n    df = df[\n        (df[\"resume_name\"] != \"\")\n        & (df[\"industry_name\"] != \"\")\n        & (df[\"resume_content\"] != \"\")\n        & df[\"label_score\"].notna()\n    ].copy()\n\n    df = df[df[\"resume_content\"].str.len() >= min_content_length].copy()\n    df = df.drop_duplicates(subset=[\"resume_name\", \"industry_name\", \"resume_content\"]).copy()\n\n    if df.empty:\n        raise ValueError(\"清洗后没有可用训练样本\")\n\n    sample_texts = []\n    for _, row in df.iterrows():\n        sample_texts.append(\n            build_sample_text(\n                resume_name=row[\"resume_name\"],\n                industry_name=row[\"industry_name\"],\n                resume_content=row[\"resume_content\"],\n            )\n        )\n    df[\"sample_text\"] = sample_texts\n\n    LOGGER.info(\"Excel 样本读取并清洗完成，剩余 %s 条\", len(df))\n\n    result: List[Dict[str, Any]] = []\n    for _, row in df.iterrows():\n        result.append(\n            {\n                \"sample_id\": int(row[\"sample_id\"]) if pd.notna(row[\"sample_id\"]) else None,\n                \"resume_name\": row[\"resume_name\"],\n                \"industry_name\": row[\"industry_name\"],\n                \"resume_content\": row[\"resume_content\"],\n                \"label_score\": float(row[\"label_score\"]),\n                \"sample_text\": row[\"sample_text\"],\n            }\n        )\n    return result\n\n\ndef build_embeddings(\n    texts: List[str],\n    embedding_model_name: str,\n    batch_size: int,\n    max_length: int,\n    use_fp16: bool,\n) -> np.ndarray:\n    from FlagEmbedding import BGEM3FlagModel\n\n    LOGGER.info(\"开始加载 embedding 模型: %s\", embedding_model_name)\n    embedding_model = BGEM3FlagModel(embedding_model_name, use_fp16=use_fp16)\n\n    LOGGER.info(\"开始生成 embedding，样本数: %s\", len(texts))\n    result = embedding_model.encode(\n        texts,\n        batch_size=batch_size,\n        max_length=max_length,\n    )\n\n    embeddings = np.asarray(result[\"dense_vecs\"], dtype=np.float32)\n    if embeddings.ndim != 2:\n        raise ValueError(\"embedding 结果维度不正确\")\n\n    LOGGER.info(\"embedding 完成，向量维度: %s\", embeddings.shape[1])\n    return embeddings\n\n\ndef compute_metric_block(y_true: np.ndarray, y_pred: np.ndarray, prefix: str) -> Dict[str, Any]:\n    return {\n        f\"{prefix}_rmse\": round(float(np.sqrt(mean_squared_error(y_true, y_pred))), 6),\n        f\"{prefix}_mae\": round(float(mean_absolute_error(y_true, y_pred)), 6),\n        f\"{prefix}_r2\": round(float(r2_score(y_true, y_pred)), 6),\n    }\n\n\ndef train_xgboost_model(X: np.ndarray, y: np.ndarray, args: argparse.Namespace):\n    model = XGBRegressor(\n        objective=\"reg:squarederror\",\n        n_estimators=args.n_estimators,\n        learning_rate=args.learning_rate,\n        max_depth=args.max_depth,\n        subsample=args.subsample,\n        colsample_bytree=args.colsample_bytree,\n        reg_lambda=args.reg_lambda,\n        random_state=args.random_state,\n        n_jobs=args.n_jobs,\n        tree_method=\"hist\",\n    )\n\n    if len(X) >= 10:\n        X_train, X_valid, y_train, y_valid = train_test_split(\n            X,\n            y,\n            test_size=args.test_size,\n            random_state=args.random_state,\n        )\n\n        LOGGER.info(\"开始训练 XGBoost，训练集=%s，验证集=%s\", len(X_train), len(X_valid))\n        model.fit(X_train, y_train)\n\n        train_pred = model.predict(X_train)\n        valid_pred = model.predict(X_valid)\n\n        metrics = {\n            \"eval_mode\": \"train_valid_split\",\n            \"train_size\": int(len(X_train)),\n            \"valid_size\": int(len(X_valid)),\n        }\n        metrics.update(compute_metric_block(y_train, train_pred, \"train\"))\n        metrics.update(compute_metric_block(y_valid, valid_pred, \"valid\"))\n        return model, metrics\n\n    LOGGER.warning(\"样本数量小于10，改为全量训练并在训练集上评估\")\n    model.fit(X, y)\n\n    pred = model.predict(X)\n    metrics = {\n        \"eval_mode\": \"train_only\",\n        \"train_size\": int(len(X)),\n        \"valid_size\": 0,\n    }\n    metrics.update(compute_metric_block(y, pred, \"train\"))\n    return model, metrics\n\n\ndef sanitize_file_name(file_name: str) -> str:\n    file_name = normalize_text(file_name)\n    file_name = re.sub(r'[<>:\"/\\\\|?*\\x00-\\x1f]+', \"_\", file_name)\n    file_name = re.sub(r\"\\s+\", \"_\", file_name)\n    file_name = re.sub(r\"_+\", \"_\", file_name)\n    file_name = file_name.strip(\"._-\")\n    return file_name or \"resume_score_model\"\n\n\ndef sanitize_path_segment(value: str) -> str:\n    value = normalize_text(value)\n    value = re.sub(r\"[^A-Za-z0-9._-]+\", \"_\", value)\n    value = re.sub(r\"_+\", \"_\", value)\n    value = value.strip(\"._-\")\n    return value or \"unknown\"\n\n\ndef build_version(args: argparse.Namespace) -> str:\n    if normalize_text(args.version):\n        return normalize_text(args.version)\n    return datetime.now().strftime(\"v%Y.%m.%d-%H%M%S\")\n\n\ndef resolve_unique_path(target_path: Path) -> Path:\n    if not target_path.exists():\n        return target_path\n\n    suffix_index = 1\n    stem = target_path.stem\n    suffix = target_path.suffix\n    parent = target_path.parent\n\n    while True:\n        candidate = parent / f\"{stem}_{suffix_index}{suffix}\"\n        if not candidate.exists():\n            return candidate\n        suffix_index += 1\n\n\ndef save_outputs(\n    model: XGBRegressor,\n    metrics: Dict[str, Any],\n    args: argparse.Namespace,\n    sample_count: int,\n    embedding_dimension: int,\n    train_cost_ms: int,\n) -> Dict[str, Any]:\n    version = build_version(args)\n    date_str = datetime.now().strftime(\"%Y%m%d\")\n\n    safe_model_type = sanitize_path_segment(args.model_type)\n    safe_model_name_for_file = sanitize_file_name(args.model_name)\n    safe_version_for_file = sanitize_file_name(version)\n\n    relative_dir = Path(\"mlmodel\") / safe_model_type / date_str\n    full_dir = Path(args.output_root).resolve() / relative_dir\n    full_dir.mkdir(parents=True, exist_ok=True)\n\n    model_file_name = f\"{safe_model_name_for_file}_{safe_version_for_file}.json\"\n    model_path = resolve_unique_path(full_dir / model_file_name)\n\n    metrics[\"embedding_dimension\"] = int(embedding_dimension)\n    metrics[\"sample_count\"] = int(sample_count)\n    metrics[\"embedding_model\"] = args.embedding_model_name\n    metrics[\"model_type\"] = args.model_type\n\n    model.save_model(str(model_path))\n\n    metrics_path = model_path.with_suffix(\".metrics.json\")\n    metrics_path.write_text(\n        json.dumps(metrics, ensure_ascii=False, indent=2),\n        encoding=\"utf-8\",\n    )\n\n    relative_model_url = str((relative_dir / model_path.name).as_posix())\n\n    summary = {\n        \"scoreModelVersionModelName\": args.model_name,\n        \"scoreModelVersionVersion\": version,\n        \"scoreModelVersionModelType\": args.model_type,\n        \"scoreModelVersionModelUrl\": relative_model_url,\n        \"scoreModelVersionEmbeddingModel\": args.embedding_model_name,\n        \"scoreModelVersionSampleCount\": int(sample_count),\n        \"scoreModelVersionTrainCostMs\": int(train_cost_ms),\n        \"scoreModelVersionMetricJson\": json.dumps(metrics, ensure_ascii=False),\n        \"scoreModelVersionIsActive\": 0,\n        \"localModelAbsolutePath\": str(model_path),\n        \"localMetricAbsolutePath\": str(metrics_path),\n    }\n\n    summary_path = model_path.with_suffix(\".summary.json\")\n    summary_path.write_text(\n        json.dumps(summary, ensure_ascii=False, indent=2),\n        encoding=\"utf-8\",\n    )\n\n    return summary\n\n\ndef main() -> None:\n    init_logger()\n    args = parse_args()\n\n    start_time = time.time()\n\n    samples = load_excel_samples(\n        excel_path=args.excel_path,\n        sheet_name=resolve_sheet_name(args.sheet_name),\n        min_content_length=args.min_content_length,\n    )\n\n    texts = [item[\"sample_text\"] for item in samples]\n    labels = np.asarray([item[\"label_score\"] for item in samples], dtype=np.float32)\n\n    embeddings = build_embeddings(\n        texts=texts,\n        embedding_model_name=args.embedding_model_name,\n        batch_size=args.batch_size,\n        max_length=args.max_length,\n        use_fp16=args.use_fp16,\n    )\n\n    model, metrics = train_xgboost_model(\n        X=embeddings,\n        y=labels,\n        args=args,\n    )\n\n    train_cost_ms = int((time.time() - start_time) * 1000)\n\n    summary = save_outputs(\n        model=model,\n        metrics=metrics,\n        args=args,\n        sample_count=len(samples),\n        embedding_dimension=int(embeddings.shape[1]),\n        train_cost_ms=train_cost_ms,\n    )\n\n    LOGGER.info(\"训练完成\")\n    print(json.dumps(summary, ensure_ascii=False, indent=2))\n\n\nif __name__ == \"__main__\":\n    main()","scoreModelTrainCodeDesc":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeCreateTime":1776908820000}, 耗时: 56ms
+2026-04-23 10:59:09.475 [http-nio-8080-exec-7] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: GET, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeById, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeById, Status: 200, Duration: 238ms
+2026-04-23 10:59:15.114 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:59:15.115 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:15.165 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:59:15.167 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:59:15.167 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:15.223 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:59:15.226 [http-nio-8080-exec-2] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/scoreModelTrainCode/updateScoreModelTrainCode, Controller: AdminScoreModelTrainCodeController.updateScoreModelTrainCode, IP: 0:0:0:0:0:0:0:1, Params: {}
+2026-04-23 10:59:15.284 [http-nio-8080-exec-2] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminScoreModelTrainCodeServiceImpl, 方法: updateScoreModelTrainCode, 参数: [{"scoreModelTrainCodeId":1,"scoreModelTrainCodeName":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeVersion":"V0.0","scoreModelTrainCodeLanguage":"Python","scoreModelTrainCodeContent":"++++???++++\n文件名:基于XgBoost的简历评分模型代码.py\n# -*- coding: utf-8 -*-\n\"\"\"\n简历评分模型训练脚本（Excel 输入单文件版）\n\n依赖安装：\npip install pandas openpyxl numpy scikit-learn xgboost FlagEmbedding\n\n运行示例：\npython resume_score_train_excel.py --excel-path \"D:/train_data.xlsx\"\n\n可选示例：\npython resume_score_train_excel.py \\\n  --excel-path \"D:/train_data.xlsx\" \\\n  --sheet-name 0 \\\n  --embedding-model-name \"BAAI/bge-m3\" \\\n  --model-name \"resume-score-model\" \\\n  --model-type \"xgboost\"\n\"\"\"\n\nimport argparse\nimport json\nimport logging\nimport re\nimport time\nfrom datetime import datetime\nfrom pathlib import Path\nfrom typing import Any, Dict, List, Union\n\nimport numpy as np\nimport pandas as pd\nfrom sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score\nfrom sklearn.model_selection import train_test_split\nfrom xgboost import XGBRegressor\n\n\nLOGGER = logging.getLogger(\"resume_score_train_excel\")\nSCRIPT_PATH = Path(__file__).resolve()\nPROJECT_ROOT = SCRIPT_PATH.parents[8]\nDEFAULT_OUTPUT_ROOT = PROJECT_ROOT / \"upload\"\n\nCOL_ID = \"训练数据ID\"\nCOL_INDUSTRY_NAME = \"行业名称\"\nCOL_RESUME_NAME = \"简历名称\"\nCOL_RESUME_CONTENT = \"简历内容\"\nCOL_LABEL_SCORE = \"训练标签分数\"\n\n\ndef init_logger() -> None:\n    logging.basicConfig(\n        level=logging.INFO,\n        format=\"%(asctime)s [%(levelname)s] %(message)s\",\n    )\n\n\ndef parse_args() -> argparse.Namespace:\n    parser = argparse.ArgumentParser(description=\"简历评分模型训练脚本（Excel 输入版）\")\n    parser.add_argument(\"--excel-path\", required=True, help=\"训练 Excel 路径\")\n    parser.add_argument(\"--sheet-name\", default=\"0\", help=\"sheet 名称或索引，默认 0\")\n    parser.add_argument(\"--embedding-model-name\", default=\"BAAI/bge-m3\", help=\"embedding 模型名\")\n    parser.add_argument(\"--model-name\", default=\"resume-score-model\", help=\"模型名称\")\n    parser.add_argument(\"--model-type\", default=\"xgboost\", help=\"模型类型\")\n    parser.add_argument(\"--output-root\", default=str(DEFAULT_OUTPUT_ROOT), help=\"模型输出根目录\")\n    parser.add_argument(\"--batch-size\", type=int, default=8, help=\"embedding 批大小\")\n    parser.add_argument(\"--max-length\", type=int, default=8192, help=\"embedding 最大长度\")\n    parser.add_argument(\"--min-content-length\", type=int, default=20, help=\"简历内容最小长度\")\n    parser.add_argument(\"--test-size\", type=float, default=0.2, help=\"验证集比例\")\n    parser.add_argument(\"--random-state\", type=int, default=42, help=\"随机种子\")\n    parser.add_argument(\"--n-estimators\", type=int, default=300, help=\"XGBoost 树数量\")\n    parser.add_argument(\"--learning-rate\", type=float, default=0.05, help=\"学习率\")\n    parser.add_argument(\"--max-depth\", type=int, default=6, help=\"树深度\")\n    parser.add_argument(\"--subsample\", type=float, default=0.9, help=\"subsample\")\n    parser.add_argument(\"--colsample-bytree\", type=float, default=0.9, help=\"colsample_bytree\")\n    parser.add_argument(\"--reg-lambda\", type=float, default=1.0, help=\"L2 正则\")\n    parser.add_argument(\"--n-jobs\", type=int, default=-1, help=\"并行线程数\")\n    parser.add_argument(\"--use-fp16\", action=\"store_true\", help=\"如果有 GPU，可以打开 fp16\")\n    parser.add_argument(\"--version\", default=\"\", help=\"手动指定版本号，不传则自动生成\")\n    return parser.parse_args()\n\n\ndef resolve_sheet_name(sheet_name_arg: str) -> Union[int, str]:\n    sheet_name_arg = str(sheet_name_arg).strip()\n    if sheet_name_arg.isdigit():\n        return int(sheet_name_arg)\n    return sheet_name_arg\n\n\ndef normalize_text(value: Any) -> str:\n    if value is None:\n        return \"\"\n    return str(value).strip()\n\n\ndef build_sample_text(resume_name: str, industry_name: str, resume_content: str) -> str:\n    return (\n        f\"[简历名称] {resume_name.strip()}\\n\"\n        f\"[行业名称] {industry_name.strip()}\\n\"\n        f\"[简历内容] {resume_content.strip()}\"\n    )\n\n\ndef load_excel_samples(excel_path: str, sheet_name: Union[int, str], min_content_length: int) -> List[Dict[str, Any]]:\n    df = pd.read_excel(excel_path, sheet_name=sheet_name, engine=\"openpyxl\")\n\n    required_columns = [\n        COL_ID,\n        COL_INDUSTRY_NAME,\n        COL_RESUME_NAME,\n        COL_RESUME_CONTENT,\n        COL_LABEL_SCORE,\n    ]\n    missing_columns = [col for col in required_columns if col not in df.columns]\n    if missing_columns:\n        raise ValueError(f\"Excel 缺少必需列: {missing_columns}\")\n\n    df = df[required_columns].copy()\n    df = df.rename(\n        columns={\n            COL_ID: \"sample_id\",\n            COL_INDUSTRY_NAME: \"industry_name\",\n            COL_RESUME_NAME: \"resume_name\",\n            COL_RESUME_CONTENT: \"resume_content\",\n            COL_LABEL_SCORE: \"label_score\",\n        }\n    )\n\n    df[\"resume_name\"] = df[\"resume_name\"].fillna(\"\").astype(str).str.strip()\n    df[\"industry_name\"] = df[\"industry_name\"].fillna(\"\").astype(str).str.strip()\n    df[\"resume_content\"] = df[\"resume_content\"].fillna(\"\").astype(str).str.strip()\n    df[\"label_score\"] = pd.to_numeric(df[\"label_score\"], errors=\"coerce\")\n\n    df = df[\n        (df[\"resume_name\"] != \"\")\n        & (df[\"industry_name\"] != \"\")\n        & (df[\"resume_content\"] != \"\")\n        & df[\"label_score\"].notna()\n    ].copy()\n\n    df = df[df[\"resume_content\"].str.len() >= min_content_length].copy()\n    df = df.drop_duplicates(subset=[\"resume_name\", \"industry_name\", \"resume_content\"]).copy()\n\n    if df.empty:\n        raise ValueError(\"清洗后没有可用训练样本\")\n\n    sample_texts = []\n    for _, row in df.iterrows():\n        sample_texts.append(\n            build_sample_text(\n                resume_name=row[\"resume_name\"],\n                industry_name=row[\"industry_name\"],\n                resume_content=row[\"resume_content\"],\n            )\n        )\n    df[\"sample_text\"] = sample_texts\n\n    LOGGER.info(\"Excel 样本读取并清洗完成，剩余 %s 条\", len(df))\n\n    result: List[Dict[str, Any]] = []\n    for _, row in df.iterrows():\n        result.append(\n            {\n                \"sample_id\": int(row[\"sample_id\"]) if pd.notna(row[\"sample_id\"]) else None,\n                \"resume_name\": row[\"resume_name\"],\n                \"industry_name\": row[\"industry_name\"],\n                \"resume_content\": row[\"resume_content\"],\n                \"label_score\": float(row[\"label_score\"]),\n                \"sample_text\": row[\"sample_text\"],\n            }\n        )\n    return result\n\n\ndef build_embeddings(\n    texts: List[str],\n    embedding_model_name: str,\n    batch_size: int,\n    max_length: int,\n    use_fp16: bool,\n) -> np.ndarray:\n    from FlagEmbedding import BGEM3FlagModel\n\n    LOGGER.info(\"开始加载 embedding 模型: %s\", embedding_model_name)\n    embedding_model = BGEM3FlagModel(embedding_model_name, use_fp16=use_fp16)\n\n    LOGGER.info(\"开始生成 embedding，样本数: %s\", len(texts))\n    result = embedding_model.encode(\n        texts,\n        batch_size=batch_size,\n        max_length=max_length,\n    )\n\n    embeddings = np.asarray(result[\"dense_vecs\"], dtype=np.float32)\n    if embeddings.ndim != 2:\n        raise ValueError(\"embedding 结果维度不正确\")\n\n    LOGGER.info(\"embedding 完成，向量维度: %s\", embeddings.shape[1])\n    return embeddings\n\n\ndef compute_metric_block(y_true: np.ndarray, y_pred: np.ndarray, prefix: str) -> Dict[str, Any]:\n    return {\n        f\"{prefix}_rmse\": round(float(np.sqrt(mean_squared_error(y_true, y_pred))), 6),\n        f\"{prefix}_mae\": round(float(mean_absolute_error(y_true, y_pred)), 6),\n        f\"{prefix}_r2\": round(float(r2_score(y_true, y_pred)), 6),\n    }\n\n\ndef train_xgboost_model(X: np.ndarray, y: np.ndarray, args: argparse.Namespace):\n    model = XGBRegressor(\n        objective=\"reg:squarederror\",\n        n_estimators=args.n_estimators,\n        learning_rate=args.learning_rate,\n        max_depth=args.max_depth,\n        subsample=args.subsample,\n        colsample_bytree=args.colsample_bytree,\n        reg_lambda=args.reg_lambda,\n        random_state=args.random_state,\n        n_jobs=args.n_jobs,\n        tree_method=\"hist\",\n    )\n\n    if len(X) >= 10:\n        X_train, X_valid, y_train, y_valid = train_test_split(\n            X,\n            y,\n            test_size=args.test_size,\n            random_state=args.random_state,\n        )\n\n        LOGGER.info(\"开始训练 XGBoost，训练集=%s，验证集=%s\", len(X_train), len(X_valid))\n        model.fit(X_train, y_train)\n\n        train_pred = model.predict(X_train)\n        valid_pred = model.predict(X_valid)\n\n        metrics = {\n            \"eval_mode\": \"train_valid_split\",\n            \"train_size\": int(len(X_train)),\n            \"valid_size\": int(len(X_valid)),\n        }\n        metrics.update(compute_metric_block(y_train, train_pred, \"train\"))\n        metrics.update(compute_metric_block(y_valid, valid_pred, \"valid\"))\n        return model, metrics\n\n    LOGGER.warning(\"样本数量小于10，改为全量训练并在训练集上评估\")\n    model.fit(X, y)\n\n    pred = model.predict(X)\n    metrics = {\n        \"eval_mode\": \"train_only\",\n        \"train_size\": int(len(X)),\n        \"valid_size\": 0,\n    }\n    metrics.update(compute_metric_block(y, pred, \"train\"))\n    return model, metrics\n\n\ndef sanitize_file_name(file_name: str) -> str:\n    file_name = normalize_text(file_name)\n    file_name = re.sub(r'[<>:\"/\\\\|?*\\x00-\\x1f]+', \"_\", file_name)\n    file_name = re.sub(r\"\\s+\", \"_\", file_name)\n    file_name = re.sub(r\"_+\", \"_\", file_name)\n    file_name = file_name.strip(\"._-\")\n    return file_name or \"resume_score_model\"\n\n\ndef sanitize_path_segment(value: str) -> str:\n    value = normalize_text(value)\n    value = re.sub(r\"[^A-Za-z0-9._-]+\", \"_\", value)\n    value = re.sub(r\"_+\", \"_\", value)\n    value = value.strip(\"._-\")\n    return value or \"unknown\"\n\n\ndef build_version(args: argparse.Namespace) -> str:\n    if normalize_text(args.version):\n        return normalize_text(args.version)\n    return datetime.now().strftime(\"v%Y.%m.%d-%H%M%S\")\n\n\ndef resolve_unique_path(target_path: Path) -> Path:\n    if not target_path.exists():\n        return target_path\n\n    suffix_index = 1\n    stem = target_path.stem\n    suffix = target_path.suffix\n    parent = target_path.parent\n\n    while True:\n        candidate = parent / f\"{stem}_{suffix_index}{suffix}\"\n        if not candidate.exists():\n            return candidate\n        suffix_index += 1\n\n\ndef save_outputs(\n    model: XGBRegressor,\n    metrics: Dict[str, Any],\n    args: argparse.Namespace,\n    sample_count: int,\n    embedding_dimension: int,\n    train_cost_ms: int,\n) -> Dict[str, Any]:\n    version = build_version(args)\n    date_str = datetime.now().strftime(\"%Y%m%d\")\n\n    safe_model_type = sanitize_path_segment(args.model_type)\n    safe_model_name_for_file = sanitize_file_name(args.model_name)\n    safe_version_for_file = sanitize_file_name(version)\n\n    relative_dir = Path(\"mlmodel\") / safe_model_type / date_str\n    full_dir = Path(args.output_root).resolve() / relative_dir\n    full_dir.mkdir(parents=True, exist_ok=True)\n\n    model_file_name = f\"{safe_model_name_for_file}_{safe_version_for_file}.json\"\n    model_path = resolve_unique_path(full_dir / model_file_name)\n\n    metrics[\"embedding_dimension\"] = int(embedding_dimension)\n    metrics[\"sample_count\"] = int(sample_count)\n    metrics[\"embedding_model\"] = args.embedding_model_name\n    metrics[\"model_type\"] = args.model_type\n\n    model.save_model(str(model_path))\n\n    metrics_path = model_path.with_suffix(\".metrics.json\")\n    metrics_path.write_text(\n        json.dumps(metrics, ensure_ascii=False, indent=2),\n        encoding=\"utf-8\",\n    )\n\n    relative_model_url = str((relative_dir / model_path.name).as_posix())\n\n    summary = {\n        \"scoreModelVersionModelName\": args.model_name,\n        \"scoreModelVersionVersion\": version,\n        \"scoreModelVersionModelType\": args.model_type,\n        \"scoreModelVersionModelUrl\": relative_model_url,\n        \"scoreModelVersionEmbeddingModel\": args.embedding_model_name,\n        \"scoreModelVersionSampleCount\": int(sample_count),\n        \"scoreModelVersionTrainCostMs\": int(train_cost_ms),\n        \"scoreModelVersionMetricJson\": json.dumps(metrics, ensure_ascii=False),\n        \"scoreModelVersionIsActive\": 0,\n        \"localModelAbsolutePath\": str(model_path),\n        \"localMetricAbsolutePath\": str(metrics_path),\n    }\n\n    summary_path = model_path.with_suffix(\".summary.json\")\n    summary_path.write_text(\n        json.dumps(summary, ensure_ascii=False, indent=2),\n        encoding=\"utf-8\",\n    )\n\n    return summary\n\n\ndef main() -> None:\n    init_logger()\n    args = parse_args()\n\n    start_time = time.time()\n\n    samples = load_excel_samples(\n        excel_path=args.excel_path,\n        sheet_name=resolve_sheet_name(args.sheet_name),\n        min_content_length=args.min_content_length,\n    )\n\n    texts = [item[\"sample_text\"] for item in samples]\n    labels = np.asarray([item[\"label_score\"] for item in samples], dtype=np.float32)\n\n    embeddings = build_embeddings(\n        texts=texts,\n        embedding_model_name=args.embedding_model_name,\n        batch_size=args.batch_size,\n        max_length=args.max_length,\n        use_fp16=args.use_fp16,\n    )\n\n    model, metrics = train_xgboost_model(\n        X=embeddings,\n        y=labels,\n        args=args,\n    )\n\n    train_cost_ms = int((time.time() - start_time) * 1000)\n\n    summary = save_outputs(\n        model=model,\n        metrics=metrics,\n        args=args,\n        sample_count=len(samples),\n        embedding_dimension=int(embeddings.shape[1]),\n        train_cost_ms=train_cost_ms,\n    )\n\n    LOGGER.info(\"训练完成\")\n    print(json.dumps(summary, ensure_ascii=False, indent=2))\n\n\nif __name__ == \"__main__\":\n    main()","scoreModelTrainCodeDesc":"基于XgBoost的简历评分模型代码"}]
+2026-04-23 10:59:15.290 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.update - ==>  Preparing: UPDATE admin_scoreModelTrainCode SET scoreModelTrainCode_name=?, scoreModelTrainCode_version=?, scoreModelTrainCode_language=?, scoreModelTrainCode_content=?, scoreModelTrainCode_desc=? WHERE deleted=0 AND (scoreModelTrainCode_id = ? AND deleted = ?)
+2026-04-23 10:59:15.293 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.update - ==> Parameters: 基于XgBoost的简历评分模型代码(String), V0.0(String), Python(String), ++++???++++
+文件名:基于XgBoost的简历评分模型代码.py
+# -*- coding: utf-8 -*-
+"""
+简历评分模型训练脚本（Excel 输入单文件版）
+
+依赖安装：
+pip install pandas openpyxl numpy scikit-learn xgboost FlagEmbedding
+
+运行示例：
+python resume_score_train_excel.py --excel-path "D:/train_data.xlsx"
+
+可选示例：
+python resume_score_train_excel.py \
+  --excel-path "D:/train_data.xlsx" \
+  --sheet-name 0 \
+  --embedding-model-name "BAAI/bge-m3" \
+  --model-name "resume-score-model" \
+  --model-type "xgboost"
+"""
+
+import argparse
+import json
+import logging
+import re
+import time
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, List, Union
+
+import numpy as np
+import pandas as pd
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.model_selection import train_test_split
+from xgboost import XGBRegressor
+
+
+LOGGER = logging.getLogger("resume_score_train_excel")
+SCRIPT_PATH = Path(__file__).resolve()
+PROJECT_ROOT = SCRIPT_PATH.parents[8]
+DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "upload"
+
+COL_ID = "训练数据ID"
+COL_INDUSTRY_NAME = "行业名称"
+COL_RESUME_NAME = "简历名称"
+COL_RESUME_CONTENT = "简历内容"
+COL_LABEL_SCORE = "训练标签分数"
+
+
+def init_logger() -> None:
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(message)s",
+    )
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="简历评分模型训练脚本（Excel 输入版）")
+    parser.add_argument("--excel-path", required=True, help="训练 Excel 路径")
+    parser.add_argument("--sheet-name", default="0", help="sheet 名称或索引，默认 0")
+    parser.add_argument("--embedding-model-name", default="BAAI/bge-m3", help="embedding 模型名")
+    parser.add_argument("--model-name", default="resume-score-model", help="模型名称")
+    parser.add_argument("--model-type", default="xgboost", help="模型类型")
+    parser.add_argument("--output-root", default=str(DEFAULT_OUTPUT_ROOT), help="模型输出根目录")
+    parser.add_argument("--batch-size", type=int, default=8, help="embedding 批大小")
+    parser.add_argument("--max-length", type=int, default=8192, help="embedding 最大长度")
+    parser.add_argument("--min-content-length", type=int, default=20, help="简历内容最小长度")
+    parser.add_argument("--test-size", type=float, default=0.2, help="验证集比例")
+    parser.add_argument("--random-state", type=int, default=42, help="随机种子")
+    parser.add_argument("--n-estimators", type=int, default=300, help="XGBoost 树数量")
+    parser.add_argument("--learning-rate", type=float, default=0.05, help="学习率")
+    parser.add_argument("--max-depth", type=int, default=6, help="树深度")
+    parser.add_argument("--subsample", type=float, default=0.9, help="subsample")
+    parser.add_argument("--colsample-bytree", type=float, default=0.9, help="colsample_bytree")
+    parser.add_argument("--reg-lambda", type=float, default=1.0, help="L2 正则")
+    parser.add_argument("--n-jobs", type=int, default=-1, help="并行线程数")
+    parser.add_argument("--use-fp16", action="store_true", help="如果有 GPU，可以打开 fp16")
+    parser.add_argument("--version", default="", help="手动指定版本号，不传则自动生成")
+    return parser.parse_args()
+
+
+def resolve_sheet_name(sheet_name_arg: str) -> Union[int, str]:
+    sheet_name_arg = str(sheet_name_arg).strip()
+    if sheet_name_arg.isdigit():
+        return int(sheet_name_arg)
+    return sheet_name_arg
+
+
+def normalize_text(value: Any) -> str:
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+def build_sample_text(resume_name: str, industry_name: str, resume_content: str) -> str:
+    return (
+        f"[简历名称] {resume_name.strip()}\n"
+        f"[行业名称] {industry_name.strip()}\n"
+        f"[简历内容] {resume_content.strip()}"
+    )
+
+
+def load_excel_samples(excel_path: str, sheet_name: Union[int, str], min_content_length: int) -> List[Dict[str, Any]]:
+    df = pd.read_excel(excel_path, sheet_name=sheet_name, engine="openpyxl")
+
+    required_columns = [
+        COL_ID,
+        COL_INDUSTRY_NAME,
+        COL_RESUME_NAME,
+        COL_RESUME_CONTENT,
+        COL_LABEL_SCORE,
+    ]
+    missing_columns = [col for col in required_columns if col not in df.columns]
+    if missing_columns:
+        raise ValueError(f"Excel 缺少必需列: {missing_columns}")
+
+    df = df[required_columns].copy()
+    df = df.rename(
+        columns={
+            COL_ID: "sample_id",
+            COL_INDUSTRY_NAME: "industry_name",
+            COL_RESUME_NAME: "resume_name",
+            COL_RESUME_CONTENT: "resume_content",
+            COL_LABEL_SCORE: "label_score",
+        }
+    )
+
+    df["resume_name"] = df["resume_name"].fillna("").astype(str).str.strip()
+    df["industry_name"] = df["industry_name"].fillna("").astype(str).str.strip()
+    df["resume_content"] = df["resume_content"].fillna("").astype(str).str.strip()
+    df["label_score"] = pd.to_numeric(df["label_score"], errors="coerce")
+
+    df = df[
+        (df["resume_name"] != "")
+        & (df["industry_name"] != "")
+        & (df["resume_content"] != "")
+        & df["label_score"].notna()
+    ].copy()
+
+    df = df[df["resume_content"].str.len() >= min_content_length].copy()
+    df = df.drop_duplicates(subset=["resume_name", "industry_name", "resume_content"]).copy()
+
+    if df.empty:
+        raise ValueError("清洗后没有可用训练样本")
+
+    sample_texts = []
+    for _, row in df.iterrows():
+        sample_texts.append(
+            build_sample_text(
+                resume_name=row["resume_name"],
+                industry_name=row["industry_name"],
+                resume_content=row["resume_content"],
+            )
+        )
+    df["sample_text"] = sample_texts
+
+    LOGGER.info("Excel 样本读取并清洗完成，剩余 %s 条", len(df))
+
+    result: List[Dict[str, Any]] = []
+    for _, row in df.iterrows():
+        result.append(
+            {
+                "sample_id": int(row["sample_id"]) if pd.notna(row["sample_id"]) else None,
+                "resume_name": row["resume_name"],
+                "industry_name": row["industry_name"],
+                "resume_content": row["resume_content"],
+                "label_score": float(row["label_score"]),
+                "sample_text": row["sample_text"],
+            }
+        )
+    return result
+
+
+def build_embeddings(
+    texts: List[str],
+    embedding_model_name: str,
+    batch_size: int,
+    max_length: int,
+    use_fp16: bool,
+) -> np.ndarray:
+    from FlagEmbedding import BGEM3FlagModel
+
+    LOGGER.info("开始加载 embedding 模型: %s", embedding_model_name)
+    embedding_model = BGEM3FlagModel(embedding_model_name, use_fp16=use_fp16)
+
+    LOGGER.info("开始生成 embedding，样本数: %s", len(texts))
+    result = embedding_model.encode(
+        texts,
+        batch_size=batch_size,
+        max_length=max_length,
+    )
+
+    embeddings = np.asarray(result["dense_vecs"], dtype=np.float32)
+    if embeddings.ndim != 2:
+        raise ValueError("embedding 结果维度不正确")
+
+    LOGGER.info("embedding 完成，向量维度: %s", embeddings.shape[1])
+    return embeddings
+
+
+def compute_metric_block(y_true: np.ndarray, y_pred: np.ndarray, prefix: str) -> Dict[str, Any]:
+    return {
+        f"{prefix}_rmse": round(float(np.sqrt(mean_squared_error(y_true, y_pred))), 6),
+        f"{prefix}_mae": round(float(mean_absolute_error(y_true, y_pred)), 6),
+        f"{prefix}_r2": round(float(r2_score(y_true, y_pred)), 6),
+    }
+
+
+def train_xgboost_model(X: np.ndarray, y: np.ndarray, args: argparse.Namespace):
+    model = XGBRegressor(
+        objective="reg:squarederror",
+        n_estimators=args.n_estimators,
+        learning_rate=args.learning_rate,
+        max_depth=args.max_depth,
+        subsample=args.subsample,
+        colsample_bytree=args.colsample_bytree,
+        reg_lambda=args.reg_lambda,
+        random_state=args.random_state,
+        n_jobs=args.n_jobs,
+        tree_method="hist",
+    )
+
+    if len(X) >= 10:
+        X_train, X_valid, y_train, y_valid = train_test_split(
+            X,
+            y,
+            test_size=args.test_size,
+            random_state=args.random_state,
+        )
+
+        LOGGER.info("开始训练 XGBoost，训练集=%s，验证集=%s", len(X_train), len(X_valid))
+        model.fit(X_train, y_train)
+
+        train_pred = model.predict(X_train)
+        valid_pred = model.predict(X_valid)
+
+        metrics = {
+            "eval_mode": "train_valid_split",
+            "train_size": int(len(X_train)),
+            "valid_size": int(len(X_valid)),
+        }
+        metrics.update(compute_metric_block(y_train, train_pred, "train"))
+        metrics.update(compute_metric_block(y_valid, valid_pred, "valid"))
+        return model, metrics
+
+    LOGGER.warning("样本数量小于10，改为全量训练并在训练集上评估")
+    model.fit(X, y)
+
+    pred = model.predict(X)
+    metrics = {
+        "eval_mode": "train_only",
+        "train_size": int(len(X)),
+        "valid_size": 0,
+    }
+    metrics.update(compute_metric_block(y, pred, "train"))
+    return model, metrics
+
+
+def sanitize_file_name(file_name: str) -> str:
+    file_name = normalize_text(file_name)
+    file_name = re.sub(r'[<>:"/\\|?*\x00-\x1f]+', "_", file_name)
+    file_name = re.sub(r"\s+", "_", file_name)
+    file_name = re.sub(r"_+", "_", file_name)
+    file_name = file_name.strip("._-")
+    return file_name or "resume_score_model"
+
+
+def sanitize_path_segment(value: str) -> str:
+    value = normalize_text(value)
+    value = re.sub(r"[^A-Za-z0-9._-]+", "_", value)
+    value = re.sub(r"_+", "_", value)
+    value = value.strip("._-")
+    return value or "unknown"
+
+
+def build_version(args: argparse.Namespace) -> str:
+    if normalize_text(args.version):
+        return normalize_text(args.version)
+    return datetime.now().strftime("v%Y.%m.%d-%H%M%S")
+
+
+def resolve_unique_path(target_path: Path) -> Path:
+    if not target_path.exists():
+        return target_path
+
+    suffix_index = 1
+    stem = target_path.stem
+    suffix = target_path.suffix
+    parent = target_path.parent
+
+    while True:
+        candidate = parent / f"{stem}_{suffix_index}{suffix}"
+        if not candidate.exists():
+            return candidate
+        suffix_index += 1
+
+
+def save_outputs(
+    model: XGBRegressor,
+    metrics: Dict[str, Any],
+    args: argparse.Namespace,
+    sample_count: int,
+    embedding_dimension: int,
+    train_cost_ms: int,
+) -> Dict[str, Any]:
+    version = build_version(args)
+    date_str = datetime.now().strftime("%Y%m%d")
+
+    safe_model_type = sanitize_path_segment(args.model_type)
+    safe_model_name_for_file = sanitize_file_name(args.model_name)
+    safe_version_for_file = sanitize_file_name(version)
+
+    relative_dir = Path("mlmodel") / safe_model_type / date_str
+    full_dir = Path(args.output_root).resolve() / relative_dir
+    full_dir.mkdir(parents=True, exist_ok=True)
+
+    model_file_name = f"{safe_model_name_for_file}_{safe_version_for_file}.json"
+    model_path = resolve_unique_path(full_dir / model_file_name)
+
+    metrics["embedding_dimension"] = int(embedding_dimension)
+    metrics["sample_count"] = int(sample_count)
+    metrics["embedding_model"] = args.embedding_model_name
+    metrics["model_type"] = args.model_type
+
+    model.save_model(str(model_path))
+
+    metrics_path = model_path.with_suffix(".metrics.json")
+    metrics_path.write_text(
+        json.dumps(metrics, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+    relative_model_url = str((relative_dir / model_path.name).as_posix())
+
+    summary = {
+        "scoreModelVersionModelName": args.model_name,
+        "scoreModelVersionVersion": version,
+        "scoreModelVersionModelType": args.model_type,
+        "scoreModelVersionModelUrl": relative_model_url,
+        "scoreModelVersionEmbeddingModel": args.embedding_model_name,
+        "scoreModelVersionSampleCount": int(sample_count),
+        "scoreModelVersionTrainCostMs": int(train_cost_ms),
+        "scoreModelVersionMetricJson": json.dumps(metrics, ensure_ascii=False),
+        "scoreModelVersionIsActive": 0,
+        "localModelAbsolutePath": str(model_path),
+        "localMetricAbsolutePath": str(metrics_path),
+    }
+
+    summary_path = model_path.with_suffix(".summary.json")
+    summary_path.write_text(
+        json.dumps(summary, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+
+    return summary
+
+
+def main() -> None:
+    init_logger()
+    args = parse_args()
+
+    start_time = time.time()
+
+    samples = load_excel_samples(
+        excel_path=args.excel_path,
+        sheet_name=resolve_sheet_name(args.sheet_name),
+        min_content_length=args.min_content_length,
+    )
+
+    texts = [item["sample_text"] for item in samples]
+    labels = np.asarray([item["label_score"] for item in samples], dtype=np.float32)
+
+    embeddings = build_embeddings(
+        texts=texts,
+        embedding_model_name=args.embedding_model_name,
+        batch_size=args.batch_size,
+        max_length=args.max_length,
+        use_fp16=args.use_fp16,
+    )
+
+    model, metrics = train_xgboost_model(
+        X=embeddings,
+        y=labels,
+        args=args,
+    )
+
+    train_cost_ms = int((time.time() - start_time) * 1000)
+
+    summary = save_outputs(
+        model=model,
+        metrics=metrics,
+        args=args,
+        sample_count=len(samples),
+        embedding_dimension=int(embeddings.shape[1]),
+        train_cost_ms=train_cost_ms,
+    )
+
+    LOGGER.info("训练完成")
+    print(json.dumps(summary, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()(String), 基于XgBoost的简历评分模型代码(String), 1(Integer), 0(Integer)
+2026-04-23 10:59:15.399 [http-nio-8080-exec-2] DEBUG c.z.e.m.m.a.A.update - <==    Updates: 1
+2026-04-23 10:59:15.399 [http-nio-8080-exec-2] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdminScoreModelTrainCodeServiceImpl, 方法: updateScoreModelTrainCode, 返回值: {}, 耗时: 111ms
+2026-04-23 10:59:15.499 [http-nio-8080-exec-2] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/scoreModelTrainCode/updateScoreModelTrainCode, Controller: AdminScoreModelTrainCodeController.updateScoreModelTrainCode, Status: 200, Duration: 273ms
+2026-04-23 10:59:15.620 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==>  Preparing: SELECT admin_id,admin_account,admin_username,admin_email,admin_phone,admin_password,admin_image,admin_introduce,admin_state,admin_loginTime,deleted FROM admin_admin WHERE admin_id=? AND deleted=0
+2026-04-23 10:59:15.620 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:15.671 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.AdminMapper.selectById - <==      Total: 1
+2026-04-23 10:59:15.672 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==>  Preparing: select * from admin_admin left join admin_admin_role on admin_admin.admin_id = admin_admin_role.adminId left join admin_role on admin_admin_role.roleId = admin_role.role_id and admin_role.deleted = 0 left join admin_role_permission on admin_role.role_id = admin_role_permission.roleId left join admin_permission on admin_role_permission.permissionId = admin_permission.permission_id and admin_permission.deleted = 0 where admin_admin.admin_id = ? and admin_admin.deleted = 0
+2026-04-23 10:59:15.672 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - ==> Parameters: 1(Integer)
+2026-04-23 10:59:15.725 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.findAdminInfoById - <==      Total: 1
+2026-04-23 10:59:15.727 [http-nio-8080-exec-3] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeByPage, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeByPage, IP: 0:0:0:0:0:0:0:1, Params: {"pageSize":"10","pageNum":"1"}
+2026-04-23 10:59:15.780 [http-nio-8080-exec-3] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service执行】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeByPage, 参数: [1,10,{"scoreModelTrainCodeName":"","scoreModelTrainCodeLanguage":""}]
+2026-04-23 10:59:15.790 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM admin_scoreModelTrainCode WHERE deleted = 0 AND (deleted = ?)
+2026-04-23 10:59:15.791 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectList_mpCount - ==> Parameters: 0(Integer)
+2026-04-23 10:59:15.839 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectList_mpCount - <==      Total: 1
+2026-04-23 10:59:15.839 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectList - ==>  Preparing: SELECT scoreModelTrainCode_id,scoreModelTrainCode_name,scoreModelTrainCode_version,scoreModelTrainCode_language,scoreModelTrainCode_content,scoreModelTrainCode_desc,scoreModelTrainCode_createTime,deleted FROM admin_scoreModelTrainCode WHERE deleted=0 AND (deleted = ?) ORDER BY scoreModelTrainCode_createTime DESC LIMIT ?
+2026-04-23 10:59:15.842 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectList - ==> Parameters: 0(Integer), 10(Long)
+2026-04-23 10:59:15.959 [http-nio-8080-exec-3] DEBUG c.z.e.m.m.a.A.selectList - <==      Total: 1
+2026-04-23 10:59:15.962 [http-nio-8080-exec-3] INFO  c.z.e.s.s.S.ServiceLogAspect - 【Service完成】类: AdminScoreModelTrainCodeServiceImpl, 方法: findScoreModelTrainCodeByPage, 返回值: {"records":[{"scoreModelTrainCodeId":1,"scoreModelTrainCodeName":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeVersion":"V0.0","scoreModelTrainCodeLanguage":"Python","scoreModelTrainCodeDesc":"基于XgBoost的简历评分模型代码","scoreModelTrainCodeCreateTime":1776908820000}],"total":1,"size":10,"current":1}, 耗时: 182ms
+2026-04-23 10:59:16.060 [http-nio-8080-exec-3] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/admin/scoreModelTrainCode/findScoreModelTrainCodeByPage, Controller: AdminScoreModelTrainCodeController.findScoreModelTrainCodeByPage, Status: 200, Duration: 333ms
+2026-04-23 11:04:57.034 [http-nio-8080-exec-4] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求开始】Method: POST, URI: /api/user/auth/formalLogin, Controller: UserAuthController.formalLogin, IP: 0:0:0:0:0:0:0:1, Params: {}
+2026-04-23 11:05:02.069 [http-nio-8080-exec-4] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@357030f8 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 11:05:07.084 [http-nio-8080-exec-4] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@25cb98af (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 11:05:10.602 [http-nio-8080-exec-1] ERROR c.z.e.filter.AdminJwtAuthFilter - 管理端 Token 验证失败: Redis command timed out
+2026-04-23 11:05:12.092 [http-nio-8080-exec-4] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@41838a58 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 11:05:17.107 [http-nio-8080-exec-4] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@30994b74 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 11:05:22.116 [http-nio-8080-exec-4] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1cbb4268 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 11:05:26.964 [lettuce-eventExecutorLoop-1-6] INFO  i.l.core.protocol.ConnectionWatchdog - Reconnecting, last destination was /117.50.184.138:37211
+2026-04-23 11:05:27.127 [http-nio-8080-exec-4] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-2 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@5ab1feeb (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2026-04-23 11:05:27.167 [http-nio-8080-exec-4] INFO  c.z.e.interceptor.UsallyInterceptor - 【请求结束】Method: POST, URI: /api/user/auth/formalLogin, Controller: UserAuthController.formalLogin, Status: 200, Duration: 30135ms
+2026-04-23 11:05:27.192 [lettuce-nioEventLoop-6-6] INFO  i.l.c.protocol.ReconnectionHandler - Reconnected to 117.50.184.138/<unresolved>:37211
+2026-04-23 11:05:50.842 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Start destroying ThreadPool
+2026-04-23 11:05:50.842 [Thread-9] WARN  c.a.nacos.common.notify.NotifyCenter - [NotifyCenter] Start destroying Publisher
+2026-04-23 11:05:50.842 [Thread-7] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2026-04-23 11:05:50.845 [Thread-9] WARN  c.a.nacos.common.notify.NotifyCenter - [NotifyCenter] Destruction of the end
+2026-04-23 11:05:50.846 [Thread-1] WARN  c.a.n.c.executor.ThreadPoolManager - [ThreadPoolManager] Destruction of the end
+2026-04-23 11:05:50.861 [Thread-7] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2026-04-23 11:05:50.901 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - De-registering from Nacos Server now...
+2026-04-23 11:05:50.967 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - De-registration finished.
+2026-04-23 11:06:00.982 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosGracefulShutdownDelegate - Nacos client graceful shutdown has been executed successfully. Graceful shutdown wait time is 10000
+2026-04-23 11:06:01.584 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-23 11:06:01.609 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-23 11:06:01.613 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 关闭阿里云短信客户端...
+2026-04-23 11:06:01.641 [SpringApplicationShutdownHook] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端已关闭
+2026-04-23 11:06:01.643 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 关闭阿里云短信客户端...
+2026-04-23 11:06:01.647 [SpringApplicationShutdownHook] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端已关闭
+2026-04-23 11:06:01.671 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-04-23 11:06:01.680 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-04-23 11:06:01.692 [parallel-8] WARN  i.m.c.transport.StdioClientTransport - Process terminated with code 1
+2026-04-23 11:06:01.692 [parallel-7] WARN  i.m.c.transport.StdioClientTransport - Process terminated with code 1
+2026-04-23 11:28:20.391 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-04-23 11:28:20.740 [main] INFO  c.a.c.n.c.NacosConfigDataLoader - [Nacos Config] Load config[dataId=EasyApplyResume-dev.yaml, group=DEFAULT_GROUP] success
+2026-04-23 11:28:20.740 [main] INFO  c.a.c.n.c.NacosConfigDataLoader - [Nacos Config] Load config[dataId=EasyApplyResume.yaml, group=DEFAULT_GROUP] success
+2026-04-23 11:28:21.365 [main] INFO  c.z.e.EasyApplyResumeApplication - The following 1 profile is active: "dev"
+2026-04-23 11:28:21.387 [main] INFO  c.a.c.n.c.NacosConfigDataLoader - [Nacos Config] Load config[dataId=EasyApplyResume-dev.yaml, group=DEFAULT_GROUP] success
+2026-04-23 11:28:21.387 [main] INFO  c.a.c.n.c.NacosConfigDataLoader - [Nacos Config] Load config[dataId=EasyApplyResume.yaml, group=DEFAULT_GROUP] success
+2026-04-23 11:28:23.544 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-04-23 11:28:23.548 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-04-23 11:28:23.604 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 0 Redis repository interfaces.
+2026-04-23 11:28:23.731 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.732 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.733 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.734 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.734 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.734 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.734 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.735 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.735 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.735 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.736 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.736 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.736 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.737 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.737 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.737 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.738 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.738 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.738 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.738 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.739 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.739 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.740 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.740 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.740 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.741 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.741 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.741 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.742 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.742 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.742 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.742 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.743 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.743 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.743 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.743 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.743 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.744 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.744 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.744 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.744 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.745 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.745 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.745 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.745 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.746 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.746 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.746 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.747 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.747 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.747 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.747 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.747 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.747 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.748 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.748 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.749 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - Cannot use both: sqlSessionTemplate and sqlSessionFactory together. sqlSessionFactory is ignored.
+2026-04-23 11:28:23.751 [main] WARN  o.m.s.mapper.ClassPathMapperScanner - No MyBatis mapper was found in '[com.zyh.easyapplyresume.mapper.pgvector]' package. Please check your configuration.
+2026-04-23 11:28:23.933 [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=c27ed75f-23ba-311d-8416-ceeefab7ac50
+2026-04-23 11:28:25.004 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-23 11:28:25.022 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-23 11:28:25.028 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-23 11:28:25.028 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-04-23 11:28:25.157 [main] INFO  o.a.c.c.C.[.[localhost].[/api] - Initializing Spring embedded WebApplicationContext
+2026-04-23 11:28:25.158 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3771 ms
+2026-04-23 11:28:26.561 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserCollections".
+2026-04-23 11:28:26.561 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserCollections ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-04-23 11:28:26.836 [main] DEBUG c.z.e.filter.UserJwtAuthFilter - Filter 'userJwtAuthFilter' configured for use
+2026-04-23 11:28:26.838 [main] DEBUG c.z.e.filter.AdminJwtAuthFilter - Filter 'adminJwtAuthFilter' configured for use
+2026-04-23 11:28:27.091 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 开始初始化阿里云短信客户端...
+2026-04-23 11:28:27.426 [main] INFO  c.z.e.s.i.admin.AdminSmsServiceImpl - 阿里云短信客户端初始化完成
+2026-04-23 11:28:28.021 [main] WARN  c.b.m.core.metadata.TableInfoHelper - Can not find table primary key in Class: "com.zyh.easyapplyresume.model.pojo.user.UserFirstCategoryQuestionBank".
+2026-04-23 11:28:28.021 [main] WARN  c.b.m.c.injector.DefaultSqlInjector - class com.zyh.easyapplyresume.model.pojo.user.UserFirstCategoryQuestionBank ,Not found @TableId annotation, Cannot use Mybatis-Plus 'xxById' Method.
+2026-04-23 11:28:29.348 [main] INFO  c.z.e.d.a.AdminSensitiveWordsAdvisor - 管理端敏感词初始化完成，共加载 137 个敏感词
+2026-04-23 11:28:30.838 [main] INFO  c.z.s.ImageSearchMcpApplication - Starting ImageSearchMcpApplication v0.0.1-SNAPSHOT using Java 21.0.9 with PID 1344 (C:\Users\shini\IdeaProjects\EasyApplyResume\Image-Search-Mcp\target\Image-Search-Mcp-0.0.1-SNAPSHOT.jar started by shini in C:\Users\shini\IdeaProjects\EasyApplyResume)
+2026-04-23 11:28:30.839 [main] INFO  c.z.s.ImageSearchMcpApplication - The following 1 profile is active: "stdio"
+2026-04-23 11:28:31.789 [pool-1-thread-1] INFO  i.m.server.McpAsyncServer - Client initialize request - Protocol: 2024-11-05, Capabilities: ClientCapabilities[experimental=null, roots=null, sampling=null], Info: Implementation[name=spring-ai-mcp-client, version=1.0.0]
+2026-04-23 11:28:31.838 [pool-6-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=LoggingCapabilities[], prompts=null, resources=null, tools=ToolCapabilities[listChanged=true]], Info: Implementation[name=image-search-mcp-server, version=0.0.1] and Instructions null
+2026-04-23 11:28:31.893 [main] INFO  c.z.s.ImageSearchMcpApplication - Started ImageSearchMcpApplication in 1.456 seconds (process running for 2.145)
+2026-04-23 11:28:34.309 [pool-11-thread-1] INFO  i.m.c.transport.StdioClientTransport - STDERR Message received: Amap Maps MCP Server running on stdio
+2026-04-23 11:28:34.317 [pool-9-thread-1] INFO  i.m.client.McpAsyncClient - Server response with Protocol: 2024-11-05, Capabilities: ServerCapabilities[experimental=null, logging=null, prompts=null, resources=null, tools=ToolCapabilities[listChanged=null]], Info: Implementation[name=mcp-server/amap-maps, version=0.1.0] and Instructions null
+2026-04-23 11:28:34.556 [main] INFO  c.z.e.d.a.SensitiveWordsAdvisor - 用户端敏感词初始化完成，共加载 137 个敏感词
+2026-04-23 11:28:34.796 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2026-04-23 11:28:34.801 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2026-04-23 11:28:34.804 [main] INFO  o.s.a.t.splitter.TextSplitter - Splitting up document into 2 chunks.
+2026-04-23 11:28:39.516 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = fbfa2a74-eb6a-4b9c-b6ff-776a4de11005
+2026-04-23 11:28:39.741 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 31a62df8-cc73-4515-913d-f182464c5aa2
+2026-04-23 11:28:40.001 [main] INFO  o.s.ai.vectorstore.SimpleVectorStore - Calling EmbeddingModel for document id = 3e563ea8-d298-4806-88e2-b17a26801fbc
+2026-04-23 11:28:40.260 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 开始初始化阿里云短信客户端...
+2026-04-23 11:28:40.271 [main] INFO  c.z.e.s.impl.user.UserSmsServiceImpl - 阿里云短信客户端初始化完成
+2026-04-23 11:28:40.587 [main] WARN  c.b.m.e.s.MybatisSqlSessionFactoryBean - Property 'mapperLocations' was specified but matching resources are not found.
+2026-04-23 11:28:40.675 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Using the vector table name: vector_store. Is empty: false
+2026-04-23 11:28:40.686 [main] INFO  o.s.a.v.pgvector.PgVectorStore - Initializing PGVectorStore schema for table: vector_store in schema: public
+2026-04-23 11:28:40.686 [main] INFO  o.s.a.v.pgvector.PgVectorStore - vectorTableValidationsEnabled false
+2026-04-23 11:28:40.693 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-23 11:28:41.180 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5ca7d6a3
+2026-04-23 11:28:41.181 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-23 11:28:41.789 [main] WARN  o.s.b.a.s.s.UserDetailsServiceAutoConfiguration - 
+
+Using generated security password: ac628953-882a-4478-a708-29719a86f060
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-04-23 11:28:41.801 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-04-23 11:28:42.536 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 20 endpoints beneath base path '/actuator'
+2026-04-23 11:28:43.569 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-04-23 11:28:43.580 [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/api'
+2026-04-23 11:28:43.599 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.impl.NacosClientAuthServiceImpl success.
+2026-04-23 11:28:43.599 [main] INFO  c.a.n.p.a.s.c.ClientAuthPluginManager - [ClientAuthPluginManager] Load ClientAuthService com.alibaba.nacos.client.auth.ram.RamClientAuthServiceImpl success.
+2026-04-23 11:28:44.199 [main] INFO  c.a.c.n.r.NacosServiceRegistry - nacos registry, DEFAULT_GROUP EasyApplyResume 192.168.1.137:8080 register finished
+2026-04-23 11:28:44.222 [main] INFO  c.z.e.EasyApplyResumeApplication - Started EasyApplyResumeApplication in 26.779 seconds (process running for 27.907)
+2026-04-23 11:28:47.075 [main] INFO  c.a.c.n.r.NacosContextRefresher - [Nacos Config] Listening config: dataId=EasyApplyResume.yaml, group=DEFAULT_GROUP
+2026-04-23 11:28:47.076 [main] INFO  c.a.c.n.r.NacosContextRefresher - [Nacos Config] Listening config: dataId=EasyApplyResume-dev.yaml, group=DEFAULT_GROUP
+2026-04-23 11:28:48.352 [registrationTask1] WARN  d.c.b.a.c.r.ApplicationRegistrator - Failed to register application as Application(name=EasyApplyResume, managementUrl=http://backend-1:8080/actuator, healthUrl=http://backend-1:8080/actuator/health, serviceUrl=http://backend-1:8080) at spring-boot-admin ([http://EasyApplyResume-spring-boot-admin:9090/instances]): I/O error on POST request for "http://EasyApplyResume-spring-boot-admin:9090/instances": 不知道这样的主机。 (easyapplyresume-spring-boot-admin). Further attempts are logged on DEBUG level
+2026-04-23 11:53:14.817 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12m33s393ms341µs600ns).

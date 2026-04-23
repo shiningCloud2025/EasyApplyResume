@@ -77,6 +77,14 @@ import type {
   AdminScoreModelTrainCodeForm,
   AdminScoreModelTrainCodePageVO,
   AdminScoreModelTrainCodeInfoVO,
+  AdminQuestionFirstCategoryForm,
+  AdminQuestionFirstCategoryQuery,
+  AdminQuestionFirstCategoryPageVO,
+  AdminQuestionFirstCategoryInfoVO,
+  AdminQuestionSecondCategoryForm,
+  AdminQuestionSecondCategoryQuery,
+  AdminQuestionSecondCategoryPageVO,
+  AdminQuestionSecondCategoryInfoVO,
   AdminLlmUtilsInfoQuery,
   AdminLlmUtilsInfoPageVO,
   AdminLlmUtilsInfoVO
@@ -660,6 +668,52 @@ export const scoreModelTrainCodeApi = {
       }
     })
   }
+}
+
+// 题库大类相关API
+export const questionFirstCategoryApi = {
+  addQuestionFirstCategory: (data: AdminQuestionFirstCategoryForm) =>
+    api.post<number>('/admin/questionFirstCategory/addQuestionFirstCategory', data),
+
+  updateQuestionFirstCategory: (data: AdminQuestionFirstCategoryForm) =>
+    api.post<number>('/admin/questionFirstCategory/updateQuestionFirstCategory', data),
+
+  deleteQuestionFirstCategory: (questionFirstCategoryId: number) =>
+    api.delete<number>('/admin/questionFirstCategory/deleteQuestionFirstCategory', { questionFirstCategoryId }),
+
+  getQuestionFirstCategoryInfo: (questionFirstCategoryId: number) =>
+    api.get<AdminQuestionFirstCategoryInfoVO>('/admin/questionFirstCategory/findQuestionFirstCategoryById', { questionFirstCategoryId }),
+
+  getQuestionFirstCategoryPage: (pageNum: number, pageSize: number, query: AdminQuestionFirstCategoryQuery) =>
+    api.post<PageResult<AdminQuestionFirstCategoryPageVO>>('/admin/questionFirstCategory/findQuestionFirstCategoryByPage', query, {
+      params: { pageNum, pageSize }
+    }),
+
+  getAllQuestionFirstCategory: () =>
+    api.get<AdminQuestionFirstCategoryInfoVO[]>('/admin/questionFirstCategory/findAllQuestionFirstCategory')
+}
+
+// 题库小类相关API
+export const questionSecondCategoryApi = {
+  addQuestionSecondCategory: (data: AdminQuestionSecondCategoryForm) =>
+    api.post<number>('/admin/questionSecondCategory/addQuestionSecondCategory', data),
+
+  updateQuestionSecondCategory: (data: AdminQuestionSecondCategoryForm) =>
+    api.post<number>('/admin/questionSecondCategory/updateQuestionSecondCategory', data),
+
+  deleteQuestionSecondCategory: (questionSecondCategoryId: number) =>
+    api.delete<number>('/admin/questionSecondCategory/deleteQuestionSecondCategory', { questionSecondCategoryId }),
+
+  getQuestionSecondCategoryInfo: (questionSecondCategoryId: number) =>
+    api.get<AdminQuestionSecondCategoryInfoVO>('/admin/questionSecondCategory/findQuestionSecondCategoryById', { questionSecondCategoryId }),
+
+  getQuestionSecondCategoryPage: (pageNum: number, pageSize: number, query: AdminQuestionSecondCategoryQuery) =>
+    api.post<PageResult<AdminQuestionSecondCategoryPageVO>>('/admin/questionSecondCategory/findQuestionSecondCategoryByPage', query, {
+      params: { pageNum, pageSize }
+    }),
+
+  getAllQuestionSecondCategory: () =>
+    api.get<AdminQuestionSecondCategoryInfoVO[]>('/admin/questionSecondCategory/findAllQuestionSecondCategory')
 }
 
 // 公告相关API

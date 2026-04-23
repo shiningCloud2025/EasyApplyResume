@@ -104,6 +104,9 @@
       <el-form ref="formRef" :model="form" :rules="rules" label-width="110px">
         <el-form-item label="代码名称" prop="scoreModelTrainCodeName">
           <el-input v-model="form.scoreModelTrainCodeName" placeholder="请输入代码名称" maxlength="64" show-word-limit />
+          <div class="form-tip">
+            代码名称同时也是下载压缩包名称；单文件模式下，文件名默认等于代码名称，编辑时改代码名称也会同步改文件名。
+          </div>
         </el-form-item>
         <el-form-item label="版本" prop="scoreModelTrainCodeVersion">
           <el-input v-model="form.scoreModelTrainCodeVersion" placeholder="请输入版本" maxlength="64" show-word-limit />
@@ -126,8 +129,11 @@
             v-model="form.scoreModelTrainCodeContent"
             type="textarea"
             :rows="14"
-            placeholder="请输入训练代码内容，支持多文件块格式"
+            placeholder="请输入训练代码内容；支持直接粘贴单文件代码，提交时会自动补成可下载格式"
           />
+          <div class="form-tip">
+            单文件代码可直接粘贴，提交时会自动生成文件块；如果你手动使用多文件块格式，则需自行维护每个“文件名:xxx”。
+          </div>
         </el-form-item>
       </el-form>
 
@@ -285,6 +291,9 @@ const pagination = reactive({
 
 const tableData = ref<AdminScoreModelTrainCodePageVO[]>([])
 
+const FILE_SEPARATOR = '++++???++++'
+const FILE_NAME_PREFIX = '文件名:'
+
 const getFilenameFromDisposition = (disposition?: string) => {
   if (!disposition) return '训练代码.zip'
   const utf8Match = disposition.match(/filename\*=UTF-8''([^;]+)/i)
@@ -296,6 +305,157 @@ const getFilenameFromDisposition = (disposition?: string) => {
     return decodeURIComponent(normalMatch[1])
   }
   return '训练代码.zip'
+}
+
+const isStructuredTrainCodeContent = (content: string) => {
+  const normalizedContent = content.replace(/\r\n/g, '\n').trim()
+  if (!normalizedContent.startsWith(FILE_SEPARATOR)) {
+    return false
+  }
+
+  const blockList = normalizedContent
+    .split(FILE_SEPARATOR)
+    .map(block => block.trim())
+    .filter(Boolean)
+
+  return blockList.length > 0 && blockList.every(block => {
+    const [firstLine] = block.split('\n')
+    return firstLine?.trim().startsWith(FILE_NAME_PREFIX)
+  })
+}
+
+const extractStructuredTrainCodeFileName = (content: string) => {
+  const normalizedContent = content.replace(/\r\n/g, '\n').trim()
+  if (!isStructuredTrainCodeContent(normalizedContent)) {
+    return ''
+  }
+
+  const blockList = normalizedContent
+    .split(FILE_SEPARATOR)
+    .map(block => block.trim())
+    .filter(Boolean)
+
+  if (blockList.length !== 1) {
+    return ''
+  }
+
+  const [firstLine] = blockList[0].split('\n')
+  return firstLine?.trim().startsWith(FILE_NAME_PREFIX)
+    ? firstLine.trim().slice(FILE_NAME_PREFIX.length).trim()
+    : ''
+}
+
+const replaceStructuredTrainCodeFileName = (content: string, nextFileName: string) => {
+  const normalizedContent = content.replace(/\r\n/g, '\n').trim()
+  if (!isStructuredTrainCodeContent(normalizedContent)) {
+    return content
+  }
+
+  const blockList = normalizedContent
+    .split(FILE_SEPARATOR)
+    .map(block => block.trim())
+    .filter(Boolean)
+
+  if (blockList.length !== 1) {
+    return content
+  }
+
+  const lineList = blockList[0].split('\n')
+  if (!lineList[0]?.trim().startsWith(FILE_NAME_PREFIX)) {
+    return content
+  }
+
+  lineList[0] = `${FILE_NAME_PREFIX}${nextFileName}`
+  return `${FILE_SEPARATOR}\n${lineList.join('\n')}`
+}
+
+const sanitizeSingleFileName = (fileName: string) => {
+  const sanitizedName = fileName
+    .trim()
+    .replace(/[<>:"/\\|?*\x00-\x1f]+/g, '_')
+    .replace(/\s+/g, '_')
+    .replace(/_+/g, '_')
+    .replace(/^[_./-]+|[_./-]+$/g, '')
+
+  return sanitizedName || 'train_code.txt'
+}
+
+const inferSingleFileExtension = (language: string, codeName: string, content: string) => {
+  const normalizedLanguage = language.trim().toLowerCase()
+  const normalizedName = codeName.trim().toLowerCase()
+  const normalizedContent = content.trim()
+
+  if (normalizedLanguage.includes('python') || normalizedName.includes('python') || normalizedContent.startsWith('#!') || normalizedContent.includes('import argparse')) {
+    return '.py'
+  }
+  if (normalizedLanguage.includes('java')) {
+    return '.java'
+  }
+  if (normalizedLanguage.includes('javascript') || normalizedLanguage === 'js') {
+    return '.js'
+  }
+  if (normalizedLanguage.includes('typescript') || normalizedLanguage === 'ts') {
+    return '.ts'
+  }
+  if (normalizedLanguage.includes('vue')) {
+    return '.vue'
+  }
+  if (normalizedLanguage.includes('shell') || normalizedLanguage.includes('bash') || normalizedLanguage === 'sh') {
+    return '.sh'
+  }
+  if (normalizedLanguage.includes('go')) {
+    return '.go'
+  }
+  if (normalizedLanguage.includes('c++') || normalizedLanguage.includes('cpp')) {
+    return '.cpp'
+  }
+  if (normalizedLanguage.includes('c#') || normalizedLanguage.includes('csharp')) {
+    return '.cs'
+  }
+  if (normalizedLanguage.includes('json')) {
+    return '.json'
+  }
+  return '.txt'
+}
+
+const buildSingleFileTrainCodeContent = (content: string, language: string, codeName: string) => {
+  const trimmedContent = content.trim()
+  const normalizedName = codeName.trim()
+  const hasExtension = /\.[A-Za-z0-9]+$/.test(normalizedName)
+  const fileExtension = hasExtension ? '' : inferSingleFileExtension(language, codeName, trimmedContent)
+  const fileName = sanitizeSingleFileName(`${normalizedName || 'train_code'}${fileExtension}`)
+  return `${FILE_SEPARATOR}\n${FILE_NAME_PREFIX}${fileName}\n${trimmedContent}`
+}
+
+const isSingleFileStructuredTrainCodeContent = (content: string) => Boolean(extractStructuredTrainCodeFileName(content))
+
+const syncSingleFileStructuredName = (content: string, language: string, codeName: string) => {
+  const currentFileName = extractStructuredTrainCodeFileName(content)
+  if (!currentFileName) {
+    return content
+  }
+
+  const normalizedName = codeName.trim()
+  const hasExtension = /\.[A-Za-z0-9]+$/.test(normalizedName)
+  const nextFileName = sanitizeSingleFileName(
+    `${normalizedName || 'train_code'}${hasExtension ? '' : inferSingleFileExtension(language, codeName, content)}`
+  )
+
+  return replaceStructuredTrainCodeFileName(content, nextFileName)
+}
+
+const normalizeTrainCodeContentForSubmit = (content: string, language: string, codeName: string) => {
+  const trimmedContent = content.trim()
+  if (!trimmedContent) {
+    return trimmedContent
+  }
+  if (isSingleFileStructuredTrainCodeContent(trimmedContent)) {
+    return syncSingleFileStructuredName(trimmedContent, language, codeName)
+  }
+  if (isStructuredTrainCodeContent(trimmedContent)) {
+    return trimmedContent
+  }
+  return buildSingleFileTrainCodeContent(trimmedContent, language, codeName)
 }
 
 const getTableData = async () => {
@@ -390,7 +550,11 @@ const handleSubmit = async () => {
       scoreModelTrainCodeName: form.scoreModelTrainCodeName.trim(),
       scoreModelTrainCodeVersion: form.scoreModelTrainCodeVersion.trim(),
       scoreModelTrainCodeLanguage: form.scoreModelTrainCodeLanguage.trim(),
-      scoreModelTrainCodeContent: form.scoreModelTrainCodeContent.trim(),
+      scoreModelTrainCodeContent: normalizeTrainCodeContentForSubmit(
+        form.scoreModelTrainCodeContent,
+        form.scoreModelTrainCodeLanguage,
+        form.scoreModelTrainCodeName
+      ),
       scoreModelTrainCodeDesc: form.scoreModelTrainCodeDesc.trim()
     }
 
@@ -566,6 +730,13 @@ onMounted(() => {
     font-weight: 600;
     color: #111827;
   }
+}
+
+.form-tip {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 12px;
+  line-height: 1.6;
 }
 
 @media (max-width: 768px) {

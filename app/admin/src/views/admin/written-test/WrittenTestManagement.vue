@@ -38,12 +38,16 @@
         </div>
       </div>
 
+      <QuestionFirstCategoryManager v-if="currentKey === 'first-category'" />
+      <QuestionSecondCategoryManager v-else-if="currentKey === 'second-category'" />
+
       <el-alert
+        v-else
         type="info"
         :closable="false"
         show-icon
-        title="前端入口已创建"
-        description="当前已补齐管理端菜单、路由和页面入口。后续如果你确认页面字段和交互，我可以继续只改前端，把列表、表单、分页、上传等界面逐步补全。"
+        :title="`${currentModule.title}待继续实现`"
+        :description="currentModule.placeholderDescription"
       />
     </div>
   </div>
@@ -53,6 +57,8 @@
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { RefreshRight } from '@element-plus/icons-vue'
+import QuestionFirstCategoryManager from './components/QuestionFirstCategoryManager.vue'
+import QuestionSecondCategoryManager from './components/QuestionSecondCategoryManager.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -62,19 +68,22 @@ const modules = [
     key: 'first-category',
     path: '/admin/written-test/first-category',
     title: '题库大类管理',
-    description: '维护笔试专项下的题库大类，作为后续题库小类与题库题目的业务入口。'
+    description: '维护笔试专项下的题库大类，作为后续题库小类与题库题目的业务入口。',
+    placeholderDescription: ''
   },
   {
     key: 'second-category',
     path: '/admin/written-test/second-category',
     title: '题库小类管理',
-    description: '维护题库小类，建立题目在业务分类中的归属关系。'
+    description: '维护题库小类，建立题目在业务分类中的归属关系。',
+    placeholderDescription: '题库小类管理入口已经就绪，后续可以继续补列表、筛选、表单、详情和级联业务。'
   },
   {
     key: 'question-bank',
     path: '/admin/written-test/question-bank',
     title: '题库题目管理',
-    description: '维护笔试专项题库题目，用于后续列表、查询、编辑与展示扩展。'
+    description: '维护笔试专项题库题目，用于后续列表、查询、编辑与展示扩展。',
+    placeholderDescription: '题库题目管理入口已经就绪，后续可以继续补分页、详情、表单和联动分类选择。'
   }
 ] as const
 
@@ -85,7 +94,11 @@ const currentModule = computed(() => {
   return {
     ...current,
     panelTitle: `${current.title}入口页`,
-    panelDescription: `这里已经接入“${current.title}”的管理端菜单与路由入口，后续可以继续在当前页面扩展列表、筛选、弹窗表单和详情能力。`
+    panelDescription: current.key === 'first-category'
+      ? '当前已接入真实题库大类管理页面，可以直接完成新增、修改、删除、详情和分页查询。'
+      : current.key === 'second-category'
+        ? '当前已接入真实题库小类管理页面，可以直接完成新增、修改、删除、详情和分页查询。'
+        : `这里已经接入“${current.title}”的管理端菜单与路由入口，后续可以继续在当前页面扩展列表、筛选、弹窗表单和详情能力。`
   }
 })
 

@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
@@ -96,14 +97,12 @@ public class AdminScoreModelTrainCodeServiceImpl implements AdminScoreModelTrain
     @Override
     public Integer deleteScoreModelTrainCode(Integer scoreModelTrainCodeId) {
         try {
-            AdminScoreModelTrainCode updateAdminScoreModelTrainCode = new AdminScoreModelTrainCode();
-            updateAdminScoreModelTrainCode.setDeleted(1);
+            LambdaUpdateWrapper<AdminScoreModelTrainCode> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+            lambdaUpdateWrapper.eq(AdminScoreModelTrainCode::getScoreModelTrainCodeId, scoreModelTrainCodeId);
+            lambdaUpdateWrapper.eq(AdminScoreModelTrainCode::getDeleted, 0);
+            lambdaUpdateWrapper.set(AdminScoreModelTrainCode::getDeleted, 1);
 
-            LambdaQueryWrapper<AdminScoreModelTrainCode> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-            lambdaQueryWrapper.eq(AdminScoreModelTrainCode::getScoreModelTrainCodeId, scoreModelTrainCodeId);
-            lambdaQueryWrapper.eq(AdminScoreModelTrainCode::getDeleted, 0);
-
-            int result = adminScoreModelTrainCodeMapper.update(updateAdminScoreModelTrainCode, lambdaQueryWrapper);
+            int result = adminScoreModelTrainCodeMapper.update(null, lambdaUpdateWrapper);
             if (result == 0) {
                 throw new BusException(AdminCodeEnum.SCORE_MODEL_TRAIN_CODE_NOT_FOUND);
             }
