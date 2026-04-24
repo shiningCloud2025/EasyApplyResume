@@ -45,10 +45,12 @@ const identifierTokens = (id, varName, callee) => (input, stack) => {
 }
 
 export const identifiers = new ExternalTokenizer(
-  identifierTokens(identifier, VariableName, callee)
+  identifierTokens(identifier, VariableName, callee),
+  {contextual: true}
 )
 export const queryIdentifiers = new ExternalTokenizer(
-  identifierTokens(queryIdentifier, queryVariableName, QueryCallee)
+  identifierTokens(queryIdentifier, queryVariableName, QueryCallee),
+  {contextual: true}
 )
 
 export const descendant = new ExternalTokenizer(input => {

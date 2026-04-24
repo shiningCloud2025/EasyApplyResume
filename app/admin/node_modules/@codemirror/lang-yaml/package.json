@@ -1,6 +1,6 @@
 {
   "name": "@codemirror/lang-yaml",
-  "version": "6.1.2",
+  "version": "6.1.3",
   "description": "YAML language support for the CodeMirror code editor",
   "scripts": {
     "test": "cm-runtests",

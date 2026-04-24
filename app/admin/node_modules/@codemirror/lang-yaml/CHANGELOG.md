@@ -1,3 +1,9 @@
+## 6.1.3 (2026-03-24)
+
+### Bug fixes
+
+Fix a regression in indentation caused by a bugfix in @lezer/lr 1.4.7.
+
 ## 6.1.2 (2024-12-10)
 
 ### Bug fixes

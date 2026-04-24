@@ -901,7 +901,7 @@ declare module "http" {
          * been transmitted are equal or not.
          *
          * Attempting to set a header field name or value that contains invalid characters
-         * will result in a \[`Error`\]\[\] being thrown.
+         * will result in a `Error` being thrown.
          * @since v0.1.30
          */
         writeHead(
@@ -1573,7 +1573,7 @@ declare module "http" {
          * sockets. Do not modify.
          * @since v0.5.9
          */
-        readonly requests: NodeJS.ReadOnlyDict<IncomingMessage[]>;
+        readonly requests: NodeJS.ReadOnlyDict<ClientRequest[]>;
         constructor(opts?: AgentOptions);
         /**
          * Destroy any sockets that are currently in use by the agent.
