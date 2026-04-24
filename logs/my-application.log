@@ -1119,3 +1119,5 @@ This generated password is for development use only. Your security configuration
 2026-04-24 15:54:46.273 [nacos.client.config.listener.task-0] INFO  o.s.boot.SpringApplication - The following 1 profile is active: "dev"
 2026-04-24 15:54:46.284 [nacos.client.config.listener.task-0] INFO  o.s.boot.SpringApplication - Started application in 0.532 seconds (process running for 2900.91)
 2026-04-24 15:54:46.984 [nacos.client.config.listener.task-0] INFO  o.s.c.e.event.RefreshEventListener - Refresh keys changed: [spring.ai.mcp.client.stdio.servers-configuration]
+2026-04-25 00:12:15.713 [HikariPool-2 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Thread starvation or clock leap detected (housekeeper delta=7h27m28s336ms455µs800ns).
+2026-04-25 00:12:26.183 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=7h27m27s439ms315µs).
