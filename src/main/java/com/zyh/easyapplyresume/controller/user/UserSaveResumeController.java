@@ -107,9 +107,9 @@ public class UserSaveResumeController {
 
     @GetMapping("/scoreByModel")
     @Operation(summary = "基于XgBoost模型进行评分")
-    public BaseResult<Object> scoreByModel(@RequestParam(required = true, value = "userId") Integer userId,
+    public BaseResult<Integer> scoreByModel(@RequestParam(required = true, value = "userId") Integer userId,
                                            @RequestParam(required = true, value = "resumeId") Integer resumeId) {
-        Object result = userSaveResumeService.scoreResumeByModel(userId, resumeId);
+        Integer result = userSaveResumeService.scoreResumeByModel(userId, resumeId);
         return BaseResult.ok(result);
     }
 

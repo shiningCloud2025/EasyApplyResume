@@ -141,6 +141,7 @@
           <el-menu-item index="/admin/written-test/first-category">题库大类管理</el-menu-item>
           <el-menu-item index="/admin/written-test/second-category">题库小类管理</el-menu-item>
           <el-menu-item index="/admin/written-test/question-bank">题库题目管理</el-menu-item>
+          <el-menu-item index="/admin/written-test/user-answer">用户答题管理</el-menu-item>
         </el-sub-menu>
 
         <el-sub-menu index="/admin/score-model">
@@ -570,6 +571,7 @@ const getCurrentRouteInfo = (path: string) => {
     '/admin/written-test/first-category': '题库大类管理',
     '/admin/written-test/second-category': '题库小类管理',
     '/admin/written-test/question-bank': '题库题目管理',
+    '/admin/written-test/user-answer': '用户答题管理',
     '/admin/recruitment': '招聘管理',
     '/admin/recruitment/positions': '招聘岗位管理',
     '/admin/recruitment/information': '招聘信息管理',

@@ -146,6 +146,14 @@
               <el-icon><DataAnalysis /></el-icon>
               <span>易投简历监测与广告端</span>
             </el-menu-item>
+            <el-menu-item index="/main/system/nacos-platform">
+              <el-icon><Connection /></el-icon>
+              <span>Nacos配置平台</span>
+            </el-menu-item>
+            <el-menu-item index="/main/system/yapi-platform">
+              <el-icon><Link /></el-icon>
+              <span>YApi测试平台</span>
+            </el-menu-item>
           </el-sub-menu>
 
           <!-- 外部系统 -->
@@ -158,18 +166,11 @@
             <el-menu-item index="/main/external-platform/sms">阿里云短信平台</el-menu-item>
             <el-menu-item index="/main/external-platform/searchapi">SearchAPI平台</el-menu-item>
             <el-menu-item index="/main/external-platform/amap">高德开放平台</el-menu-item>
-          </el-sub-menu>
-
-          <!-- 自研平台 -->
-          <el-sub-menu index="yapi">
-            <template #title>
-              <el-icon><Connection /></el-icon>
-              <span>自研平台</span>
-            </template>
-            <el-menu-item index="/main/yapi/embed">
-              <el-icon><Connection /></el-icon>
-              <span>YApi测试平台</span>
-            </el-menu-item>
+            <el-menu-item index="/main/external-platform/baidu-cloud">百度智能云平台</el-menu-item>
+            <el-menu-item index="/main/external-platform/qiniu">七牛云平台</el-menu-item>
+            <el-menu-item index="/main/external-platform/autodl">AutoDL平台</el-menu-item>
+            <el-menu-item index="/main/external-platform/bigmodel">智谱开放平台</el-menu-item>
+            <el-menu-item index="/main/external-platform/volcengine">火山引擎平台</el-menu-item>
           </el-sub-menu>
 
           <!-- API文档中心 -->
@@ -296,11 +297,17 @@ const breadcrumbs = computed(() => {
     '/main/security/grafana': 'Grafana',
     '/main/system/user-portal': '易投简历用户端',
     '/main/system/observation-portal': '易投简历监测与广告端',
+    '/main/system/nacos-platform': 'Nacos配置平台',
+    '/main/system/yapi-platform': 'YApi测试平台',
     '/main/external-platform/bailian': '阿里云百炼平台',
     '/main/external-platform/sms': '阿里云短信平台',
     '/main/external-platform/searchapi': 'SearchAPI平台',
     '/main/external-platform/amap': '高德开放平台',
-    '/main/yapi/embed': 'YApi测试平台',
+    '/main/external-platform/baidu-cloud': '百度智能云平台',
+    '/main/external-platform/qiniu': '七牛云平台',
+    '/main/external-platform/autodl': 'AutoDL平台',
+    '/main/external-platform/bigmodel': '智谱开放平台',
+    '/main/external-platform/volcengine': '火山引擎平台',
     '/main/api-docs/external': 'API对外文档中心',
     '/main/api-docs/internal': 'API对内文档中心',
     '/main/server/manage': '设备管理',

@@ -255,38 +255,36 @@ public class AdminFirstCategoryQuestionBankServiceImpl implements AdminFirstCate
     @Override
     public Page<UserFirstCategoryQuestionBankPageVO> findFirstCategoryQuestionBankByPage(Integer pageNum, Integer pageSize, UserFirstCategoryQuestionBankQuery query) {
         try {
-            if (query == null || query.getUserId() == null) {
-                throw new BusException(AdminCodeEnum.USER_FIRST_CATEGORY_QUESTION_BANK_USER_ID_EMPTY);
-            }
-
-            if (query.getQuestionFirstCategoryName() != null
-                    && query.getQuestionFirstCategoryName().trim().length() > 20) {
-                throw new BusException(AdminCodeEnum.USER_FIRST_CATEGORY_QUESTION_BANK_FIRST_CATEGORY_NAME_TOO_LONG);
-            }
-
-            if (query.getQuestionSecondCategoryName() != null
-                    && query.getQuestionSecondCategoryName().trim().length() > 20) {
-                throw new BusException(AdminCodeEnum.USER_FIRST_CATEGORY_QUESTION_BANK_SECOND_CATEGORY_NAME_TOO_LONG);
-            }
-
             LambdaQueryWrapper<UserFirstCategoryQuestionBank> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-            lambdaQueryWrapper.eq(UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserUserId, query.getUserId());
 
-            if (query.getQuestionFirstCategoryName() != null && !query.getQuestionFirstCategoryName().trim().isEmpty()) {
-                lambdaQueryWrapper.like(
-                        UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserQuestionFirstCategoryName,
-                        query.getQuestionFirstCategoryName().trim()
-                );
+            if (query != null) {
+                if (query.getUserId() != null) {
+                    lambdaQueryWrapper.eq(
+                            UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserUserId,
+                            query.getUserId()
+                    );
+                }
+
+                if (query.getQuestionFirstCategoryName() != null
+                        && !query.getQuestionFirstCategoryName().trim().isEmpty()) {
+                    lambdaQueryWrapper.like(
+                            UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserQuestionFirstCategoryName,
+                            query.getQuestionFirstCategoryName().trim()
+                    );
+                }
+
+                if (query.getQuestionSecondCategoryName() != null
+                        && !query.getQuestionSecondCategoryName().trim().isEmpty()) {
+                    lambdaQueryWrapper.like(
+                            UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserQuestionSecondCategoryName,
+                            query.getQuestionSecondCategoryName().trim()
+                    );
+                }
             }
 
-            if (query.getQuestionSecondCategoryName() != null && !query.getQuestionSecondCategoryName().trim().isEmpty()) {
-                lambdaQueryWrapper.like(
-                        UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserQuestionSecondCategoryName,
-                        query.getQuestionSecondCategoryName().trim()
-                );
-            }
-
-            lambdaQueryWrapper.orderByDesc(UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserCreateTime);
+            lambdaQueryWrapper.orderByDesc(
+                    UserFirstCategoryQuestionBank::getFirstCategoryQuestionBankUserCreateTime
+            );
 
             Page<UserFirstCategoryQuestionBank> page = firstCategoryQuestionBankMapper.selectPage(
                     new Page<>(pageNum, pageSize),

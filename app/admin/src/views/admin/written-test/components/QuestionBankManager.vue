@@ -281,7 +281,7 @@
 
         <el-row :gutter="16" v-if="showOptionABFields">
           <el-col :span="12">
-            <el-form-item label="选项A">
+            <el-form-item label="选项A" prop="questionBankOptionA" :required="showOptionABFields">
               <el-input
                 v-model="questionBankForm.questionBankOptionA"
                 placeholder="请输入选项A"
@@ -291,7 +291,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="选项B">
+            <el-form-item label="选项B" prop="questionBankOptionB" :required="showOptionABFields">
               <el-input
                 v-model="questionBankForm.questionBankOptionB"
                 placeholder="请输入选项B"
@@ -304,7 +304,7 @@
 
         <el-row :gutter="16" v-if="showOptionCDFields">
           <el-col :span="12">
-            <el-form-item label="选项C">
+            <el-form-item label="选项C" prop="questionBankOptionC" :required="showOptionCDFields">
               <el-input
                 v-model="questionBankForm.questionBankOptionC"
                 placeholder="请输入选项C"
@@ -314,7 +314,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="选项D">
+            <el-form-item label="选项D" prop="questionBankOptionD" :required="showOptionCDFields">
               <el-input
                 v-model="questionBankForm.questionBankOptionD"
                 placeholder="请输入选项D"
@@ -325,7 +325,12 @@
           </el-col>
         </el-row>
 
-        <el-form-item label="正确答案" v-if="showCorrectAnswerField">
+        <el-form-item
+          label="正确答案"
+          prop="questionBankCorrectAnswer"
+          :required="showCorrectAnswerField"
+          v-if="showCorrectAnswerField"
+        >
           <el-input
             v-model="questionBankForm.questionBankCorrectAnswer"
             :placeholder="correctAnswerPlaceholder"
@@ -335,7 +340,12 @@
           <div class="field-hint">{{ correctAnswerHint }}</div>
         </el-form-item>
 
-        <el-form-item label="参考答案" v-if="showReferenceAnswerField">
+        <el-form-item
+          label="参考答案"
+          prop="questionBankReferenceAnswer"
+          :required="showReferenceAnswerField"
+          v-if="showReferenceAnswerField"
+        >
           <el-input
             v-model="questionBankForm.questionBankReferenceAnswer"
             type="textarea"
@@ -574,6 +584,114 @@ const questionBankRules = {
   questionSecondCategoryId: [
     { required: true, message: '请选择所属小类', trigger: 'change' }
   ],
+  questionBankOptionA: [
+    {
+      validator: (_rule: unknown, value: string, callback: (error?: Error) => void) => {
+        if (!showOptionABFields.value) {
+          callback()
+          return
+        }
+
+        if (!value?.trim()) {
+          callback(new Error('请输入选项A'))
+          return
+        }
+
+        callback()
+      },
+      trigger: ['blur', 'change']
+    }
+  ],
+  questionBankOptionB: [
+    {
+      validator: (_rule: unknown, value: string, callback: (error?: Error) => void) => {
+        if (!showOptionABFields.value) {
+          callback()
+          return
+        }
+
+        if (!value?.trim()) {
+          callback(new Error('请输入选项B'))
+          return
+        }
+
+        callback()
+      },
+      trigger: ['blur', 'change']
+    }
+  ],
+  questionBankOptionC: [
+    {
+      validator: (_rule: unknown, value: string, callback: (error?: Error) => void) => {
+        if (!showOptionCDFields.value) {
+          callback()
+          return
+        }
+
+        if (!value?.trim()) {
+          callback(new Error('请输入选项C'))
+          return
+        }
+
+        callback()
+      },
+      trigger: ['blur', 'change']
+    }
+  ],
+  questionBankOptionD: [
+    {
+      validator: (_rule: unknown, value: string, callback: (error?: Error) => void) => {
+        if (!showOptionCDFields.value) {
+          callback()
+          return
+        }
+
+        if (!value?.trim()) {
+          callback(new Error('请输入选项D'))
+          return
+        }
+
+        callback()
+      },
+      trigger: ['blur', 'change']
+    }
+  ],
+  questionBankCorrectAnswer: [
+    {
+      validator: (_rule: unknown, value: string, callback: (error?: Error) => void) => {
+        if (!showCorrectAnswerField.value) {
+          callback()
+          return
+        }
+
+        if (!value?.trim()) {
+          callback(new Error('请输入正确答案'))
+          return
+        }
+
+        callback()
+      },
+      trigger: ['blur', 'change']
+    }
+  ],
+  questionBankReferenceAnswer: [
+    {
+      validator: (_rule: unknown, value: string, callback: (error?: Error) => void) => {
+        if (!showReferenceAnswerField.value) {
+          callback()
+          return
+        }
+
+        if (!value?.trim()) {
+          callback(new Error('请输入参考答案'))
+          return
+        }
+
+        callback()
+      },
+      trigger: ['blur', 'change']
+    }
+  ],
   questionBankDifficulty: [
     { required: true, message: '请选择题目难度', trigger: 'change' }
   ],
@@ -662,13 +780,43 @@ const displayText = (value?: string) => {
   return hasText(value) ? value : '-'
 }
 
+const toOptionalNumber = (value?: number | string) => {
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return value
+  }
+
+  if (typeof value === 'string') {
+    const trimmedValue = value.trim()
+    if (/^\d+$/.test(trimmedValue)) {
+      return Number(trimmedValue)
+    }
+  }
+
+  return undefined
+}
+
+const buildSearchQuery = (): AdminQuestionBankQuery => {
+  const questionFirstCategoryId = toOptionalNumber(searchForm.questionFirstCategoryId)
+
+  return {
+    questionBankDescription: searchForm.questionBankDescription.trim() || undefined,
+    questionBankType: toOptionalNumber(searchForm.questionBankType),
+    questionFirstCategoryId,
+    questionSecondCategoryId: questionFirstCategoryId
+      ? toOptionalNumber(searchForm.questionSecondCategoryId)
+      : undefined,
+    questionBankDifficulty: toOptionalNumber(searchForm.questionBankDifficulty),
+    questionBankState: toOptionalNumber(searchForm.questionBankState)
+  }
+}
+
 const getQuestionBankList = async () => {
   loading.value = true
   try {
     const response = await questionBankApi.getQuestionBankPage(
       pagination.current,
       pagination.size,
-      searchForm
+      buildSearchQuery()
     )
     tableData.value = response.data.records
     pagination.total = response.data.total
@@ -786,6 +934,14 @@ const handleFormFirstCategoryChange = async () => {
 
 const handleFormTypeChange = () => {
   normalizeQuestionBankFormByType()
+  questionBankFormRef.value?.clearValidate([
+    'questionBankOptionA',
+    'questionBankOptionB',
+    'questionBankOptionC',
+    'questionBankOptionD',
+    'questionBankCorrectAnswer',
+    'questionBankReferenceAnswer'
+  ])
 }
 
 const normalizeQuestionBankFormByType = () => {

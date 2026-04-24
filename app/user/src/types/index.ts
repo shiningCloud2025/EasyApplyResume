@@ -239,3 +239,72 @@ export interface FaqDetail extends ContentBase {}
 export interface ContentPageQuery {
   keyword?: string
 }
+
+export interface QuestionFirstCategory {
+  questionFirstCategoryId: number
+  questionFirstCategoryName: string
+  questionFirstCategoryIntroduce?: string
+  questionFirstCategoryCreateTime?: string
+}
+
+export interface QuestionSecondCategory {
+  questionSecondCategoryId: number
+  questionFirstCategoryId: number
+  questionFirstCategoryName?: string
+  questionSecondCategoryName: string
+  questionSecondCategoryIntroduce?: string
+  questionSecondCategoryCreateTime?: string
+}
+
+export interface QuestionBankListItem {
+  questionBankId: number
+  questionBankDescription: string
+  questionBankType: number
+  questionFirstCategoryName: string
+  questionSecondCategoryName: string
+  questionBankDifficulty: number
+  questionBankState: number
+  questionBankAnswerStatus: number
+  questionBankCreateTime?: string
+  questionBankUpdateTime?: string
+}
+
+export interface QuestionBankDetail {
+  questionBankId: number
+  questionBankDescription: string
+  questionBankOptionA?: string
+  questionBankOptionB?: string
+  questionBankOptionC?: string
+  questionBankOptionD?: string
+  questionBankImage?: string
+  questionBankCode?: string
+  questionBankReferenceAnswer?: string
+  questionBankAnalysis?: string
+  questionBankType: number
+  questionFirstCategoryName: string
+  questionSecondCategoryName: string
+  questionBankDifficulty: number
+}
+
+export interface QuestionBankAnswerForm {
+  userId: number
+  questionBankId: number
+  userAnswers: string[]
+}
+
+export interface QuestionBankAnswerResult {
+  questionBankId: number
+  correct: boolean
+  correctAnswer?: string
+  referenceAnswer?: string
+  questionBankAnalysis?: string
+}
+
+export interface QuestionBankQuery {
+  questionFirstCategoryId?: number
+  questionSecondCategoryId?: number
+  questionBankType?: number
+  questionBankDifficulty?: number
+  questionBankAnswerStatus?: number
+  questionBankDescription?: string
+}

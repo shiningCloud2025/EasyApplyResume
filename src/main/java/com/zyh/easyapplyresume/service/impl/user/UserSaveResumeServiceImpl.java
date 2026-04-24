@@ -10,8 +10,14 @@ import com.zyh.easyapplyresume.llmutils.doubao.AIResumeFeedbackGenerator;
 import com.zyh.easyapplyresume.llmutils.zhipu.AIResumeScorer;
 import com.zyh.easyapplyresume.llmutils.zhipu.ReactCodeAssistant;
 import com.zyh.easyapplyresume.llmutils.zhipu.ResumeKeywordExtractor;
+import com.zyh.easyapplyresume.mapper.mysql.admin.AdminScoreModelVersionMapper;
+import com.zyh.easyapplyresume.mapper.mysql.admin.AdminScoreTrainingDataMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.IndustryMapMapper;
 import com.zyh.easyapplyresume.mapper.mysql.user.UserSaveResumeMapper;
+import com.zyh.easyapplyresume.mlmodel.scoremodel.DashScopeEmbeddingService;
+import com.zyh.easyapplyresume.mlmodel.scoremodel.ResumeScorePredictor;
+import com.zyh.easyapplyresume.model.pojo.admin.AdminScoreModelVersion;
+import com.zyh.easyapplyresume.model.pojo.admin.AdminScoreTrainingData;
 import com.zyh.easyapplyresume.model.pojo.admin.IndustryMap;
 import com.zyh.easyapplyresume.model.pojo.user.UserDeleteResume;
 import com.zyh.easyapplyresume.model.pojo.user.UserSaveResume;
@@ -22,12 +28,12 @@ import com.zyh.easyapplyresume.selfannotation.service.ServiceLog.ServiceLog;
 import com.zyh.easyapplyresume.service.user.UserDeleteResumeService;
 import com.zyh.easyapplyresume.service.user.UserSaveResumeService;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 /**
@@ -61,6 +67,15 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
     
     @Autowired
     private AIResumeFeedbackGenerator aiResumeFeedbackGenerator;
+
+    @Autowired
+    private ResumeScorePredictor resumeScorePredictor;
+
+    @Autowired
+    private AdminScoreModelVersionMapper adminScoreModelVersionMapper;
+
+    @Autowired
+    private AdminScoreTrainingDataMapper adminScoreTrainingDataMapper;
     @Override
     public List<UserSaveResumeInfoVO> getUserSaveResumeInfoByUserId(Integer userSaveResumeUserId, UserSaveResumeQuery userSaveResumeQuery) {
         try{
@@ -321,6 +336,59 @@ public class UserSaveResumeServiceImpl implements UserSaveResumeService {
         }catch (Exception e){
             log.error("AI生成简历反馈建议失败", e);
             throw new RuntimeException("AI生成简历反馈建议失败");
+        }
+    }
+
+    @Override
+    public Integer scoreResumeByModel(Integer userId, Integer resumeId) {
+        try{
+            log.info("开始模型评分");
+            LambdaQueryWrapper<UserSaveResume> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeUserId, userId);
+            lambdaQueryWrapper.eq(UserSaveResume::getUserSaveResumeId, resumeId);
+            UserSaveResume userSaveResume = userSaveResumeMapper.selectOne(lambdaQueryWrapper);
+
+            if (userSaveResume == null) {
+                throw new RuntimeException("简历不存在或无权访问");
+            }
+
+            LambdaQueryWrapper<AdminScoreModelVersion> modelLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            modelLambdaQueryWrapper.eq(AdminScoreModelVersion::getDeleted, 0);
+            modelLambdaQueryWrapper.eq(AdminScoreModelVersion::getScoreModelVersionIsActive, 1);
+            modelLambdaQueryWrapper.last("limit 1");
+            AdminScoreModelVersion adminScoreModelVersion = adminScoreModelVersionMapper.selectOne(modelLambdaQueryWrapper);
+
+            if (adminScoreModelVersion == null) {
+                throw new RuntimeException("当前没有启用的评分模型");
+            }
+
+            IndustryMap industryMap = industryMapMapper.selectById(userSaveResume.getUserSaveResumeIndustry());
+            String industryName = industryMap == null ? "" : industryMap.getIndustryMapIndustryName();
+
+            Integer totalScore = resumeScorePredictor.predict(
+                    adminScoreModelVersion,
+                    userSaveResume.getUserSaveResumeResumeName(),
+                    industryName,
+                    userSaveResume.getUserSaveResumeResumeReactCode()
+            );
+
+            AdminScoreTrainingData adminScoreTrainingData = new AdminScoreTrainingData();
+            adminScoreTrainingData.setScoreTrainingDataResumeName(userSaveResume.getUserSaveResumeResumeName());
+            adminScoreTrainingData.setScoreTrainingDataIndustryName(industryName);
+            adminScoreTrainingData.setScoreTrainingDataResumeContent(userSaveResume.getUserSaveResumeResumeReactCode());
+            adminScoreTrainingData.setScoreTrainingDataLabelScore(Double.valueOf(totalScore));
+            adminScoreTrainingData.setScoreTrainingDataDataSource(1);
+            adminScoreTrainingData.setScoreTrainingDataCreateTime(LocalDateTime.now());
+            adminScoreTrainingData.setDeleted(0);
+            adminScoreTrainingDataMapper.insert(adminScoreTrainingData);
+
+            log.info("模型评分成功，得分：{}", totalScore);
+            return totalScore;
+        }catch (BusException e){
+            throw e;
+        }catch (Exception e){
+            log.error("模型评分失败", e);
+            throw new RuntimeException("模型评分失败");
         }
     }
     

@@ -19,4 +19,10 @@ public class UserQuestionBankAnswerResultVO {
 
     @Schema(description = "正确答案")
     private String correctAnswer;
+
+    @Schema(description = "参考答案")
+    private String referenceAnswer;
+
+    @Schema(description = "题目解析")
+    private String questionBankAnalysis;
 }

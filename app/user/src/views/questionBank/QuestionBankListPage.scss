@@ -1,0 +1,97 @@
+.question-bank-list-page {
+  padding: 24px;
+  max-width: 1440px;
+  margin: 0 auto;
+  background: #f5f5f5;
+  min-height: 100vh;
+
+  .page-header {
+    margin-bottom: 24px;
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: #666;
+    }
+  }
+
+  .filter-card,
+  .table-card,
+  .question-bank-auth-card {
+    border-radius: 8px;
+  }
+
+  .filter-card {
+    margin-bottom: 24px;
+  }
+
+  .question-bank-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .question-bank-filter-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .question-bank-filter-title {
+    font-size: 14px;
+    color: #666;
+  }
+
+  .question-bank-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .question-bank-filter-actions {
+    margin-top: 16px;
+
+    .ant-row {
+      width: 100%;
+    }
+
+    .ant-btn {
+      min-width: 108px;
+    }
+  }
+
+  .question-bank-search {
+    width: 100%;
+  }
+
+  .question-bank-fetching {
+    margin-bottom: 16px;
+  }
+
+  .question-bank-desc-btn {
+    padding: 0;
+    height: auto;
+    color: #1677ff;
+    line-height: 1.6;
+    white-space: normal;
+    text-align: left;
+  }
+
+  .question-bank-desc-btn:hover {
+    color: #4096ff;
+  }
+
+  .ant-table-row:hover td {
+    background: #f0f7ff !important;
+  }
+}

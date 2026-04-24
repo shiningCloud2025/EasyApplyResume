@@ -63,6 +63,11 @@ public interface UserSaveResumeService {
     public Object getResumeFeedbackByAI(Integer userId, Integer resumeId);
 
     /**
+     * 模型评分
+     */
+    public Integer scoreResumeByModel(Integer userId, Integer resumeId);
+
+    /**
      * 根据用户id和简历排序以及简历名称去修改简历名称
      */
     public void updateUserDeleteResumeNameByUserIdAndResumeSortedNumAndResumeName(Integer userId, Integer resumeSortedNum, String resumeName);

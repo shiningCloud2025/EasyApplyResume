@@ -230,6 +230,12 @@ const router = createRouter({
               name: 'WrittenTestQuestionBankManagement',
               component: () => import('@/views/admin/written-test/WrittenTestManagement.vue'),
               meta: { title: '题库题目管理' }
+            },
+            {
+              path: 'user-answer',
+              name: 'WrittenTestUserAnswerManagement',
+              component: () => import('@/views/admin/written-test/WrittenTestManagement.vue'),
+              meta: { title: '用户答题管理' }
             }
           ]
         },

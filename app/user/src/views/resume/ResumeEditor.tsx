@@ -61,6 +61,7 @@ const ResumeEditor: React.FC = () => {
   const [saving, setSaving] = useState(false)
   const [extractingKeywords, setExtractingKeywords] = useState(false)
   const [scoringResume, setScoringResume] = useState(false)
+  const [scoringResumeByModel, setScoringResumeByModel] = useState(false)
   const [generatingFeedback, setGeneratingFeedback] = useState(false)
   const [assistingReactCode, setAssistingReactCode] = useState(false)
   const [aiAssistantModalOpen, setAiAssistantModalOpen] = useState(false)
@@ -350,6 +351,41 @@ const ResumeEditor: React.FC = () => {
       message.error(errorMsg)
     } finally {
       setScoringResume(false)
+    }
+  }
+
+  const handleScoreResumeByModel = async () => {
+    if (!user?.userId) {
+      message.warning('请先登录')
+      return
+    }
+
+    if (!resumeId) {
+      message.warning('简历ID不存在，暂时无法进行模型简历打分')
+      return
+    }
+
+    const saved = await ensureResumeSaved()
+    if (!saved) {
+      return
+    }
+
+    setScoringResumeByModel(true)
+    try {
+      const response = await resumeAPI.scoreResumeByModel(user.userId, resumeId)
+      const score = response?.data
+
+      openAIResultModal(
+        '模型简历打分结果',
+        <div className="ai-result-modal">
+          <pre>{score !== undefined && score !== null ? `评分：${score}` : '未返回评分结果'}</pre>
+        </div>
+      )
+    } catch (error: any) {
+      const errorMsg = error?.response?.data?.message || error?.message || '模型简历打分失败'
+      message.error(errorMsg)
+    } finally {
+      setScoringResumeByModel(false)
     }
   }
 
@@ -891,6 +927,13 @@ const ResumeEditor: React.FC = () => {
               onClick={handleScoreResume}
             >
               AI简历打分
+            </Button>
+            <Button
+              icon={<StarOutlined />}
+              loading={scoringResumeByModel}
+              onClick={handleScoreResumeByModel}
+            >
+              模型简历打分
             </Button>
             <Segmented
               value={editMode}

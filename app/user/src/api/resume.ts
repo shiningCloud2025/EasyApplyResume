@@ -139,6 +139,14 @@ export const resumeAPI = {
     })
   },
 
+  // 模型简历评分
+  scoreResumeByModel: (userId: number, resumeId: number) => {
+    return request.get('/user/saveResume/scoreByModel', {
+      params: { userId, resumeId },
+      timeout: 120000
+    })
+  },
+
   // AI简历反馈
   getResumeFeedbackByAI: (userId: number, resumeId: number) => {
     return request.get<AIResumeFeedbackResult>('/user/saveResume/getFeedbackByAI', {

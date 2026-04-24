@@ -137,7 +137,13 @@ public class UserQuestionBankServiceImpl implements UserQuestionBankService {
             UserQuestionBankAnswerResultVO resultVO = new UserQuestionBankAnswerResultVO();
             resultVO.setQuestionBankId(questionBank.getQuestionBankId());
             resultVO.setCorrect(correct);
-            resultVO.setCorrectAnswer(questionBank.getQuestionBankCorrectAnswer());
+            if (questionBank.getQuestionBankType() != null && questionBank.getQuestionBankType() == 5) {
+                resultVO.setReferenceAnswer(questionBank.getQuestionBankReferenceAnswer());
+            } else {
+                resultVO.setCorrectAnswer(questionBank.getQuestionBankCorrectAnswer());
+            }
+
+            resultVO.setQuestionBankAnalysis(questionBank.getQuestionBankAnalysis());
             return resultVO;
         } catch (BusException e) {
             log.info("提交用户端题库题目答案业务异常", e);

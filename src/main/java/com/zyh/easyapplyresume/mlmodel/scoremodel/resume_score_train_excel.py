@@ -3,18 +3,20 @@
 简历评分模型训练脚本（Excel 输入单文件版）
 
 依赖安装：
-pip install pandas openpyxl numpy scikit-learn xgboost FlagEmbedding
+pip install pandas openpyxl numpy scikit-learn xgboost requests
 
 运行示例：
 python resume_score_train_excel.py --excel-path "D:/train_data.xlsx"
 
 说明：
 除训练数据路径外，其余训练参数默认固定在脚本中。
+运行前需通过环境变量提供 DASHSCOPE_API_KEY。
 """
 
 import argparse
 import json
 import logging
+import os
 import re
 import time
 from datetime import datetime
@@ -23,6 +25,7 @@ from typing import Any, Dict, List, Union
 
 import numpy as np
 import pandas as pd
+import requests
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 from xgboost import XGBRegressor
@@ -30,8 +33,7 @@ from xgboost import XGBRegressor
 
 LOGGER = logging.getLogger("resume_score_train_excel")
 SCRIPT_PATH = Path(__file__).resolve()
-PROJECT_ROOT = SCRIPT_PATH.parents[8]
-DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "upload"
+DEFAULT_OUTPUT_ROOT = SCRIPT_PATH.parent / "upload"
 
 COL_INDUSTRY_NAME = "行业名称"
 COL_RESUME_NAME = "简历名称"
@@ -40,12 +42,15 @@ COL_LABEL_SCORE = "训练标签分数"
 
 # 固定训练配置：平时只需要传训练 Excel 路径，其余参数默认从这里读取。
 FIXED_SHEET_NAME: Union[int, str] = 0  # 读取第几个 sheet；0 表示第一个 sheet
-FIXED_EMBEDDING_MODEL_NAME = "BAAI/bge-m3"  # embedding 模型名；也可以改成本地模型目录
+FIXED_EMBEDDING_MODEL_NAME = "text-embedding-v4"  # 固定使用 DashScope embedding 模型
+FIXED_DASHSCOPE_EMBEDDING_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings"
+FIXED_DASHSCOPE_TIMEOUT_SECONDS = 120  # 单次 embedding 请求超时时间
+FIXED_EMBEDDING_DIMENSIONS = 512  # 固定使用 512 维；训练和推理必须保持一致
 FIXED_MODEL_NAME = "resume-score-model"  # 模型名称；会写入 summary 和输出文件名
 FIXED_MODEL_TYPE = "xgboost"  # 模型类型标识；当前脚本固定为 xgboost
 FIXED_OUTPUT_ROOT = DEFAULT_OUTPUT_ROOT  # 模型输出根目录
-FIXED_BATCH_SIZE = 8  # 一次送入 embedding 模型的文本条数
-FIXED_MAX_LENGTH = 8192  # 单条文本最多处理多长；过长内容可能被截断
+FIXED_BATCH_SIZE = 8  # 一次送入 embedding 接口的文本条数
+FIXED_MAX_LENGTH = 8192  # 该参数在 DashScope 方案下不再参与截断，先保留占位
 FIXED_MIN_CONTENT_LENGTH = 20  # 简历内容少于该长度时直接过滤
 FIXED_TEST_SIZE = 0.2  # 验证集比例；0.2 表示 20% 样本用于验证
 FIXED_RANDOM_STATE = 42  # 随机种子；用于保证切分和训练结果可复现
@@ -56,7 +61,7 @@ FIXED_SUBSAMPLE = 0.9  # 每棵树随机使用多少比例的样本
 FIXED_COLSAMPLE_BYTREE = 0.9  # 每棵树随机使用多少比例的特征列
 FIXED_REG_LAMBDA = 1.0  # L2 正则强度；用于抑制过拟合
 FIXED_N_JOBS = -1  # 并行线程数；-1 表示尽量使用全部 CPU 线程
-FIXED_USE_FP16 = False  # embedding 是否用半精度；通常有 GPU 时再考虑打开
+FIXED_USE_FP16 = False  # DashScope 方案下该参数不再生效，先保留占位
 
 
 def init_logger() -> None:
@@ -165,20 +170,60 @@ def build_embeddings(
     max_length: int,
     use_fp16: bool,
 ) -> np.ndarray:
-    from FlagEmbedding import BGEM3FlagModel
+    # DashScope API 方案下，这两个参数保留只是为了不改主流程调用。
+    _ = max_length
+    _ = use_fp16
 
-    LOGGER.info("开始加载 embedding 模型: %s", embedding_model_name)
-    embedding_model = BGEM3FlagModel(embedding_model_name, use_fp16=use_fp16)
+    api_key = os.getenv("DASHSCOPE_API_KEY")
+    if not api_key:
+        raise ValueError("缺少环境变量 DASHSCOPE_API_KEY")
 
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+
+    all_embeddings: List[List[float]] = []
+
+    LOGGER.info("开始调用 DashScope embedding 模型: %s", embedding_model_name)
     LOGGER.info("开始生成 embedding，样本数: %s", len(texts))
-    result = embedding_model.encode(
-        texts,
-        batch_size=batch_size,
-        max_length=max_length,
-    )
 
-    # dense_vecs 就是后续给 XGBoost 使用的稠密向量特征。
-    embeddings = np.asarray(result["dense_vecs"], dtype=np.float32)
+    for start in range(0, len(texts), batch_size):
+        batch_texts = texts[start:start + batch_size]
+
+        payload = {
+            "model": embedding_model_name,
+            "input": batch_texts,
+        }
+
+        if FIXED_EMBEDDING_DIMENSIONS is not None:
+            payload["dimensions"] = FIXED_EMBEDDING_DIMENSIONS
+
+        response = requests.post(
+            FIXED_DASHSCOPE_EMBEDDING_URL,
+            headers=headers,
+            json=payload,
+            timeout=FIXED_DASHSCOPE_TIMEOUT_SECONDS,
+        )
+
+        if response.status_code != 200:
+            raise ValueError(f"DashScope embedding 调用失败: {response.status_code} {response.text}")
+
+        result = response.json()
+        data = result.get("data")
+        if not isinstance(data, list):
+            raise ValueError(f"DashScope embedding 返回格式异常: {result}")
+
+        data = sorted(data, key=lambda item: item.get("index", 0))
+        batch_embeddings = [item["embedding"] for item in data]
+
+        if len(batch_embeddings) != len(batch_texts):
+            raise ValueError("embedding 返回数量和输入数量不一致")
+
+        all_embeddings.extend(batch_embeddings)
+        LOGGER.info("embedding 进度: %s/%s", min(start + batch_size, len(texts)), len(texts))
+
+    embeddings = np.asarray(all_embeddings, dtype=np.float32)
     if embeddings.ndim != 2:
         raise ValueError("embedding 结果维度不正确")
 
@@ -356,7 +401,7 @@ def main() -> None:
     texts = [item["sample_text"] for item in samples]
     labels = np.asarray([item["label_score"] for item in samples], dtype=np.float32)
 
-    # embedding 阶段把文本转成数值向量，后面 XGBoost 只吃这个向量结果。
+    # embedding 阶段通过 DashScope 接口把文本转成数值向量，后面 XGBoost 只吃这个向量结果。
     embeddings = build_embeddings(
         texts=texts,
         embedding_model_name=FIXED_EMBEDDING_MODEL_NAME,

@@ -93,6 +93,10 @@ import type {
   AdminQuestionBankQuery,
   AdminQuestionBankPageVO,
   AdminQuestionBankInfoVO,
+  AdminUserFirstCategoryQuestionBankQuery,
+  AdminUserFirstCategoryQuestionBankPageVO,
+  AdminUserFirstCategoryQuestionBankInfoVO,
+  AdminUserFirstCategoryQuestionBankKey,
   AdminLlmUtilsInfoQuery,
   AdminLlmUtilsInfoPageVO,
   AdminLlmUtilsInfoVO
@@ -353,8 +357,8 @@ export const industryMapApi = {
   updateIndustryMap: (data: IndustryMapForm) => api.post<number>('/admin/industryMap/updateIndustryMap', data),
   
   // 查询行业详情
-  getIndustryMapInfo: (industryMapIndustryCode: number) => 
-    api.get<IndustryMapInfoVO>('/admin/industryMap/findIndustryMapById', { params: { industryMapId: industryMapIndustryCode } }),
+  getIndustryMapInfo: (industryMapIndustryCode: number) =>
+    api.get<IndustryMapInfoVO>('/admin/industryMap/findIndustryMapById', { industryMapId: industryMapIndustryCode }),
   
   // 分页查询行业
   getIndustryMapPage: (pageNum: number, pageSize: number, query: IndustryMapQuery) => 
@@ -443,7 +447,7 @@ export const emailApi = {
 export const llmUtilsInfoApi = {
   // 查询LLM调用日志详情
   getAdminLlmUtilsInfoById: (llmUtilsInfoId: number) =>
-    api.get<AdminLlmUtilsInfoVO>('/admin/llmUtilsInfo/getInfo', { params: { llmUtilsInfoId } }),
+    api.get<AdminLlmUtilsInfoVO>('/admin/llmUtilsInfo/getInfo', { llmUtilsInfoId }),
 
   // 分页查询LLM调用日志
   getAdminLlmUtilsInfoPage: (pageNum: number, pageSize: number, query: AdminLlmUtilsInfoQuery) =>
@@ -795,6 +799,29 @@ export const questionBankApi = {
     api.post<PageResult<AdminQuestionBankPageVO>>('/admin/questionBank/findQuestionBankByPage', query, {
       params: { pageNum, pageSize }
     })
+}
+
+export const firstCategoryQuestionBankUserApi = {
+  getPage: (pageNum: number, pageSize: number, query: AdminUserFirstCategoryQuestionBankQuery) =>
+    api.post<PageResult<AdminUserFirstCategoryQuestionBankPageVO>>(
+      '/admin/firstCategoryQuestionBank/findFirstCategoryQuestionBankByPage',
+      query,
+      {
+        params: { pageNum, pageSize }
+      }
+    ),
+
+  getInfo: (params: AdminUserFirstCategoryQuestionBankKey) =>
+    api.get<AdminUserFirstCategoryQuestionBankInfoVO>(
+      '/admin/firstCategoryQuestionBank/findFirstCategoryQuestionBankById',
+      params
+    ),
+
+  remove: (params: AdminUserFirstCategoryQuestionBankKey) =>
+    api.delete<number>(
+      '/admin/firstCategoryQuestionBank/deleteFirstCategoryQuestionBank',
+      params
+    )
 }
 
 // 公告相关API

@@ -935,6 +935,39 @@ export interface AdminQuestionBankInfoVO {
   questionBankUpdateTime?: string
 }
 
+export interface AdminUserFirstCategoryQuestionBankQuery {
+  userId?: number
+  questionFirstCategoryName?: string
+  questionSecondCategoryName?: string
+}
+
+export interface AdminUserFirstCategoryQuestionBankPageVO {
+  firstCategoryQuestionBankUserUserId: number
+  firstCategoryQuestionBankUserQuestionBankId: number
+  firstCategoryQuestionBankUserQuestionFirstCategoryName: string
+  firstCategoryQuestionBankUserQuestionSecondCategoryName: string
+  firstCategoryQuestionBankUserAnswerStatus: number
+  firstCategoryQuestionBankUserCreateTime?: string
+  firstCategoryQuestionBankUserUpdateTime?: string
+}
+
+export interface AdminUserFirstCategoryQuestionBankInfoVO {
+  firstCategoryQuestionBankUserUserId: number
+  firstCategoryQuestionBankUserQuestionBankId: number
+  firstCategoryQuestionBankUserQuestionFirstCategoryId: number
+  firstCategoryQuestionBankUserQuestionFirstCategoryName: string
+  firstCategoryQuestionBankUserQuestionSecondCategoryId: number
+  firstCategoryQuestionBankUserQuestionSecondCategoryName: string
+  firstCategoryQuestionBankUserAnswerStatus: number
+  firstCategoryQuestionBankUserCreateTime?: string
+  firstCategoryQuestionBankUserUpdateTime?: string
+}
+
+export interface AdminUserFirstCategoryQuestionBankKey {
+  userId: number
+  questionBankId: number
+}
+
 // ============= 内容管理（Content Management）=============
 
 export interface ProjectIntroduceForm {

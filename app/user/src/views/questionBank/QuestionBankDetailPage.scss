@@ -1,0 +1,140 @@
+.question-bank-detail-page {
+  padding: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+
+  .loading-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+  }
+
+  .detail-card {
+    border-radius: 8px;
+  }
+
+  .back-btn {
+    padding-left: 0;
+    margin-bottom: 16px;
+  }
+
+  .detail-header {
+    margin-bottom: 24px;
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: 26px;
+      font-weight: 700;
+      color: #333;
+      line-height: 1.6;
+    }
+  }
+
+  .detail-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .question-description {
+    padding: 16px 18px;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    background: #fafafa;
+    color: #333;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .detail-section-title {
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .detail-code-block {
+    margin: 0;
+    padding: 16px;
+    border-radius: 8px;
+    background: #1f1f1f;
+    color: #f5f5f5;
+    overflow-x: auto;
+    line-height: 1.7;
+  }
+
+  .detail-image {
+    max-width: 100%;
+  }
+
+  .answer-tip {
+    margin-bottom: 16px;
+  }
+
+  .choice-answer-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .choice-answer-item {
+    margin-inline-start: 0 !important;
+    padding: 12px 14px;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    background: #fafafa;
+    line-height: 1.6;
+  }
+
+  .choice-answer-key {
+    margin-right: 8px;
+    font-weight: 600;
+    color: #1677ff;
+  }
+
+  .choice-answer-text {
+    color: #333;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .answer-input,
+  .answer-textarea {
+    width: 100%;
+  }
+
+  .answer-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .answer-result-alert {
+    margin-top: 24px;
+  }
+
+  .answer-analysis-section {
+    margin-top: 16px;
+  }
+
+  .answer-analysis-toggle {
+    padding-left: 0;
+    height: auto;
+  }
+
+  .answer-analysis-alert {
+    margin-top: 8px;
+  }
+
+  .answer-result-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+}

@@ -29,6 +29,7 @@ import {
 import type { UploadFile } from 'antd/es/upload/interface'
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import { resumeAPI, ResumeSearchQuery } from '@api/resume'
+import { jobAPI } from '@api/job'
 import { useNavigate } from 'react-router-dom'
 import type { UserResume } from '@types/index'
 import { useUserStore } from '@stores/userStore'
@@ -101,7 +102,7 @@ const MyResumes: React.FC = () => {
   const [newResumeName, setNewResumeName] = useState('')
   const [importModalVisible, setImportModalVisible] = useState(false)
   const [importResumeName, setImportResumeName] = useState('')
-  const [importIndustryCode, setImportIndustryCode] = useState<number>(1)
+  const [importIndustryCode, setImportIndustryCode] = useState<number | undefined>(undefined)
   const [importFileList, setImportFileList] = useState<UploadFile[]>([])
   const [importing, setImporting] = useState(false)
 
@@ -118,14 +119,15 @@ const MyResumes: React.FC = () => {
   const [attachmentFormat, setAttachmentFormat] = useState<'png' | 'word' | 'pdf'>('pdf')
   const hiddenPreviewRef = useRef<HTMLDivElement>(null)
 
-  const industryOptions = [
-    { value: 1, label: '互联网' },
-    { value: 2, label: '金融' },
-    { value: 3, label: '教育' },
-    { value: 4, label: '医疗' },
-    { value: 5, label: '制造业' },
-    { value: 6, label: '其他' }
-  ]
+  // 获取行业列表
+  const { data: industriesData = [] } = useQuery(
+    ['industries'],
+    () => jobAPI.getAllIndustries(),
+    {
+      select: (response: any) => response.data || [],
+      staleTime: 1000 * 60 * 10
+    }
+  )
 
   // wangEditor 配置
   const toolbarConfig: Partial<IToolbarConfig> = {
@@ -261,6 +263,11 @@ const MyResumes: React.FC = () => {
       return
     }
 
+    if (importIndustryCode === undefined) {
+      message.warning('请选择所属行业')
+      return
+    }
+
     const currentFile = importFileList[0]?.originFileObj
     if (!currentFile) {
       message.warning('请先选择要导入的简历文件')
@@ -278,7 +285,7 @@ const MyResumes: React.FC = () => {
       message.success('简历导入成功')
       setImportModalVisible(false)
       setImportResumeName('')
-      setImportIndustryCode(1)
+      setImportIndustryCode(undefined)
       setImportFileList([])
       queryClient.invalidateQueries(['user-resumes', user.userId])
       refetch()
@@ -339,10 +346,8 @@ const MyResumes: React.FC = () => {
   }
 
   const getIndustryName = (industryId: number) => {
-    const industries: Record<number, string> = {
-      1: '互联网', 2: '金融', 3: '教育', 4: '医疗', 5: '制造业', 6: '其他'
-    }
-    return industries[industryId] || '其他'
+    const matchedIndustry = industriesData.find((item: any) => item.industryMapIndustryCode === industryId)
+    return matchedIndustry?.industryMapIndustryName || '其他'
   }
 
   const getIndustryColor = (industryId: number) => {
@@ -619,7 +624,7 @@ const MyResumes: React.FC = () => {
         onCancel={() => {
           setImportModalVisible(false)
           setImportResumeName('')
-          setImportIndustryCode(1)
+          setImportIndustryCode(undefined)
           setImportFileList([])
         }}
         footer={[
@@ -628,7 +633,7 @@ const MyResumes: React.FC = () => {
             onClick={() => {
               setImportModalVisible(false)
               setImportResumeName('')
-              setImportIndustryCode(1)
+              setImportIndustryCode(undefined)
               setImportFileList([])
             }}
           >
@@ -653,7 +658,11 @@ const MyResumes: React.FC = () => {
             <Select
               value={importIndustryCode}
               onChange={setImportIndustryCode}
-              options={industryOptions}
+              placeholder="请选择所属行业"
+              options={industriesData.map((industry: any) => ({
+                value: industry.industryMapIndustryCode,
+                label: industry.industryMapIndustryName
+              }))}
             />
           </Form.Item>
           <Form.Item label="简历文件" required extra="支持上传已有简历文件，导入后将自动创建一份新的简历。">

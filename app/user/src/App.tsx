@@ -39,6 +39,8 @@ const AIAgent = React.lazy(() => import('@views/ai/AIAgent'))
 const FeedbackSubmit = React.lazy(() => import('@views/feedback/FeedbackSubmit'))
 const MyFeedback = React.lazy(() => import('@views/feedback/MyFeedback'))
 const FeedbackDetail = React.lazy(() => import('@views/feedback/FeedbackDetail'))
+const QuestionBankListPage = React.lazy(() => import('@views/questionBank/QuestionBankListPage'))
+const QuestionBankDetailPage = React.lazy(() => import('@views/questionBank/QuestionBankDetailPage'))
 const NotFound = React.lazy(() => import('@views/error/NotFound'))
 
 function App() {
@@ -102,6 +104,8 @@ function App() {
         <Route path="feedback/submit" element={<FeedbackSubmit />} />
         <Route path="feedback/my" element={<MyFeedback />} />
         <Route path="feedback/:id" element={<FeedbackDetail />} />
+        <Route path="question-bank/:id" element={<QuestionBankDetailPage />} />
+        <Route path="question-bank" element={<QuestionBankListPage />} />
       </Route>
 
       {/* 404页面 */}

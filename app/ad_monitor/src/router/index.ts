@@ -161,58 +161,93 @@ const router = createRouter({
         {
           path: 'system/user-portal',
           name: 'SystemUserPortal',
-          component: () => import('@/views/main/security/UnifiedPortal.vue'),
+          component: () => import('@/views/main/security/UserPortal.vue'),
           meta: { title: '易投简历用户端' }
         },
         {
           path: 'system/observation-portal',
           name: 'SystemObservationPortal',
-          component: () => import('@/views/main/security/UnifiedPortal.vue'),
+          component: () => import('@/views/main/security/ObservationPortal.vue'),
           meta: { title: '易投简历监测与广告端' }
+        },
+        {
+          path: 'system/nacos-platform',
+          name: 'SystemNacosPlatform',
+          component: () => import('@/views/main/security/NacosPlatform.vue'),
+          meta: { title: 'Nacos配置平台' }
+        },
+        {
+          path: 'system/yapi-platform',
+          name: 'SystemYApiPlatform',
+          component: () => import('@/views/main/security/YApiEmbed.vue'),
+          meta: { title: 'YApi测试平台' }
         },
         // 外部系统
         {
           path: 'external-platform/bailian',
           name: 'ExternalBailianPlatform',
-          component: () => import('@/views/main/security/BailianPlatform.vue'),
+          component: () => import('@/views/main/security/BailianAPI.vue'),
           meta: { title: '阿里云百炼平台' }
         },
         {
           path: 'external-platform/sms',
           name: 'ExternalSmsPlatform',
-          component: () => import('@/views/main/security/UnifiedPortal.vue'),
+          component: () => import('@/views/main/security/SmsAPI.vue'),
           meta: { title: '阿里云短信平台' }
         },
         {
           path: 'external-platform/searchapi',
           name: 'ExternalSearchAPIPlatform',
-          component: () => import('@/views/main/security/SearchApiPlatform.vue'),
+          component: () => import('@/views/main/security/SearchAPI.vue'),
           meta: { title: 'SearchAPI平台' }
         },
         {
           path: 'external-platform/amap',
           name: 'ExternalAmapPlatform',
-          component: () => import('@/views/main/security/UnifiedPortal.vue'),
+          component: () => import('@/views/main/security/AmapAPI.vue'),
           meta: { title: '高德开放平台' }
         },
-        // 自研平台
         {
-          path: 'yapi/embed',
-          name: 'YApiEmbed',
-          component: () => import('@/views/main/security/UnifiedPortal.vue'),
-          meta: { title: 'YApi测试平台' }
+          path: 'external-platform/baidu-cloud',
+          name: 'ExternalBaiduCloudPlatform',
+          component: () => import('@/views/main/security/BaiduCloudAPI.vue'),
+          meta: { title: '百度智能云平台' }
+        },
+        {
+          path: 'external-platform/qiniu',
+          name: 'ExternalQiniuPlatform',
+          component: () => import('@/views/main/security/QiniuCloudAPI.vue'),
+          meta: { title: '七牛云平台' }
+        },
+        {
+          path: 'external-platform/autodl',
+          name: 'ExternalAutoDLPlatform',
+          component: () => import('@/views/main/security/AutoDLAPI.vue'),
+          meta: { title: 'AutoDL平台' }
+        },
+        {
+          path: 'external-platform/bigmodel',
+          name: 'ExternalBigModelPlatform',
+          component: () => import('@/views/main/security/BigModelAPI.vue'),
+          meta: { title: '智谱开放平台' }
+        },
+        {
+          path: 'external-platform/volcengine',
+          name: 'ExternalVolcenginePlatform',
+          component: () => import('@/views/main/security/VolcengineAPI.vue'),
+          meta: { title: '火山引擎平台' }
         },
         // API文档中心
         {
           path: 'api-docs/external',
           name: 'ExternalAPIDocs',
-          component: () => import('@/views/main/security/UnifiedPortal.vue'),
+          component: () => import('@/views/main/security/APIDocs.vue'),
           meta: { title: 'API对外文档中心' }
         },
         {
           path: 'api-docs/internal',
           name: 'InternalAPIDocs',
-          component: () => import('@/views/main/security/UnifiedPortal.vue'),
+          component: () => import('@/views/main/security/APIDocs.vue'),
           meta: { title: 'API对内文档中心' }
         },
         // 个人中心
