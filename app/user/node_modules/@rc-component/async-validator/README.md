@@ -183,6 +183,7 @@ Indicates the `type` of validator to use. Recognised type values are:
 - `url`: Must be of type `url`.
 - `hex`: Must be of type `hex`.
 - `email`: Must be of type `email`.
+- `tel`: Must be of type `tel`.
 - `any`: Can be any type.
 
 #### Required

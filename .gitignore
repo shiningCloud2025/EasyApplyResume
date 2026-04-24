@@ -36,6 +36,8 @@ pom.xml
 src/main/resources/application*.*ml
 src/main/resources/*.*ml
 src/main/resources/*.json
+Spring-Boot-Admin/src/main/resources/application*.yml
+Spring-Boot-Admin/src/main/resources/application*.yaml
 src/main/java/com/zyh/easyapplyresume/doc/
 src/main/java/com/zyh/easyapplyresume/sql/
 src/main/java/com/zyh/easyapplyresume/docker/
