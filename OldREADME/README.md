@@ -27,30 +27,56 @@ OSS核心技术:KODO、MinIO<br>
 ## 核心功能
 (1).用户端:<br>
 1.门户页:
-![img.png](../ReadMeImages/SystemPicture/img.png)
+![img.png](../ReadMeImages/SystemPicture/user/img.png)
 2.我的简历
-![img_1.png](../ReadMeImages/SystemPicture/img_1.png)
+![img_1.png](../ReadMeImages/SystemPicture/user/img_1.png)
 3.简历模版
-![img_2.png](../ReadMeImages/SystemPicture/img_2.png)
+![img_2.png](../ReadMeImages/SystemPicture/user/img_2.png)
 4.招聘信息
-![img_3.png](../ReadMeImages/SystemPicture/img_3.png)
+![img_3.png](../ReadMeImages/SystemPicture/user/img_3.png)
 5.求职攻略
-![img_4.png](../ReadMeImages/SystemPicture/img_4.png)
+![img_4.png](../ReadMeImages/SystemPicture/user/img_4.png)
 6.AI简历助手<br>
 6.1 AI智能问答助手
-![img_5.png](../ReadMeImages/SystemPicture/img_5.png)
+![img_5.png](../ReadMeImages/SystemPicture/user/img_5.png)
 6.2 AI智能体助手
-![img_6.png](../ReadMeImages/SystemPicture/img_6.png)
-7.用户反馈
-![img_7.png](../ReadMeImages/SystemPicture/img_7.png)
-8.用户基础功能<br>
-![img_8.png](../ReadMeImages/SystemPicture/img_8.png)
+![img_6.png](../ReadMeImages/SystemPicture/user/img_6.png)
+7.笔试专项<br>
+7.1 根据笔试大类查询
+![img_7.png](../ReadMeImages/SystemPicture/user/img_7.png)
+7.2 根据笔试小类查询
+![img_8.png](../ReadMeImages/SystemPicture/user/img_8.png)
+7.3 查询所有题库
+![img_9.png](../ReadMeImages/SystemPicture/user/img_9.png)
+8.用户反馈
+![img_10.png](../ReadMeImages/SystemPicture/user/img_10.png)
+9.帮助中心<br>
+9.1 使用指南
+![img_11.png](../ReadMeImages/SystemPicture/user/img_11.png)
+9.2 常见问题
+![img_12.png](../ReadMeImages/SystemPicture/user/img_12.png)
+9.3 联系客服
+![img_13.png](../ReadMeImages/SystemPicture/user/img_13.png)
+10.关于我们<br>
+10.1 项目介绍
+![img_14.png](../ReadMeImages/SystemPicture/user/img_14.png)
+10.2 团队介绍
+![img_15.png](../ReadMeImages/SystemPicture/user/img_15.png)
+10.3 发展历程
+![img_16.png](../ReadMeImages/SystemPicture/user/img_16.png)
+10.4 加入我们
+![img_17.png](../ReadMeImages/SystemPicture/user/img_17.png)
+10.5 合作伙伴
+![img_18.png](../ReadMeImages/SystemPicture/user/img_18.png)
+10.6 媒体报道
+![img_19.png](../ReadMeImages/SystemPicture/user/img_19.png)
+
 
 (2).管理端:<br>
 1.门户页
-![img.png](../ReadMeImages/SystemPicture/img_9.png)
+![img.png](../ReadMeImages/SystemPicture/admin/img.png)
 2.首页
-![img.png](../ReadMeImages/SystemPicture/img_10.png)
+![img_1.png](../ReadMeImages/SystemPicture/admin/img_1.png)
 3.网站管理<br>
 3.1 管理员管理
 ![img_1.png](../ReadMeImages/SystemPicture/img_11.png)

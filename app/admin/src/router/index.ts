@@ -422,6 +422,12 @@ const router = createRouter({
           redirect: '/admin/about-us/project-introduce'
         },
         {
+          path: 'about-us/project-introduce',
+          name: 'ProjectIntroduceManagement',
+          component: () => import('@/views/admin/content/AboutUsManagement.vue'),
+          meta: { title: '项目介绍' }
+        },
+        {
           path: 'about-us/team-introduce',
           name: 'TeamIntroduceManagement',
           component: () => import('@/views/admin/content/AboutUsManagement.vue'),
