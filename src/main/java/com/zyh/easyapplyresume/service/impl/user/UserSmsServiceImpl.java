@@ -173,6 +173,15 @@ public class UserSmsServiceImpl implements UserSmsService {
      */
     @Override
     public void verifyCode(String phoneNumber, String inputCode) {
+        checkCode(phoneNumber, inputCode);
+        deleteCode(phoneNumber);
+    }
+
+    /**
+     * 校验短信验证码（只校验，不删除）
+     */
+    @Override
+    public void checkCode(String phoneNumber, String inputCode) {
         // 1. 校验参数
         if (phoneNumber == null || inputCode == null || inputCode.trim().isEmpty()) {
             log.warn("手机号 [{}] 验证码校验参数无效", phoneNumber);
@@ -185,12 +194,20 @@ public class UserSmsServiceImpl implements UserSmsService {
 
         // 3. 比对验证码
         if (inputCode.equals(storedCode)) {
-            stringRedisTemplate.delete(codeKey); // 验证成功后删除验证码
             log.info("手机号 [{}] 验证码校验成功", phoneNumber);
         } else {
             log.warn("手机号 [{}] 验证码校验失败，输入: {}, 存储: {}", phoneNumber, inputCode, storedCode);
             throw new BusException(AdminCodeEnum.SMS_VERIFY_CODE_INVALID);
         }
+    }
+
+    /**
+     * 删除短信验证码
+     */
+    @Override
+    public void deleteCode(String phoneNumber) {
+        String codeKey = codeRedisPrefix + phoneNumber;
+        stringRedisTemplate.delete(codeKey);
     }
 
     /**

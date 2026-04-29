@@ -79,89 +79,194 @@ OSS核心技术:KODO、MinIO<br>
 ![img_1.png](../ReadMeImages/SystemPicture/admin/img_1.png)
 3.网站管理<br>
 3.1 管理员管理
-![img_1.png](../ReadMeImages/SystemPicture/img_11.png)
+![img_2.png](../ReadMeImages/SystemPicture/admin/img_2.png)
 3.2 角色管理
-![img_2.png](../ReadMeImages/SystemPicture/img_12.png)
+![img_3.png](../ReadMeImages/SystemPicture/admin/img_3.png)
 3.3 权限管理
-![img_3.png](../ReadMeImages/SystemPicture/img_13.png)
+![img_4.png](../ReadMeImages/SystemPicture/admin/img_4.png)
 4.文章管理<br>
 4.1 求职攻略文章管理
-![img_4.png](../ReadMeImages/SystemPicture/img_14.png)
+![img_5.png](../ReadMeImages/SystemPicture/admin/img_5.png)
 5.招聘管理<br>
 5.1 招聘岗位管理
-![img.png](../ReadMeImages/SystemPicture/img_15.png)
+![img_6.png](../ReadMeImages/SystemPicture/admin/img_6.png)
 5.2 招聘信息管理
-![img_1.png](../ReadMeImages/SystemPicture/img_16.png)
+![img_7.png](../ReadMeImages/SystemPicture/admin/img_7.png)
 6.简历管理<br>
 6.1 简历模版管理
-![img_2.png](../ReadMeImages/SystemPicture/img_31.png)
+![img_8.png](../ReadMeImages/SystemPicture/admin/img_8.png)
 6.2 系统删除简历管理
-![img_3.png](../ReadMeImages/SystemPicture/img_32.png)
-7.Map管理
+![img_9.png](../ReadMeImages/SystemPicture/admin/img_9.png)
+7.Map管理<br>
 7.1 行业Map管理
-![img_4.png](../ReadMeImages/SystemPicture/img_19.png)
+![img_10.png](../ReadMeImages/SystemPicture/admin/img_10.png)
+7.2 大学Map管理
+![img_11.png](../ReadMeImages/SystemPicture/admin/img_11.png)
+7.3 省份Map管理
+![img_12.png](../ReadMeImages/SystemPicture/admin/img_12.png)
+7.4 城市Map管理
+![img_13.png](../ReadMeImages/SystemPicture/admin/img_13.png)
+7.5 区县Map管理
+![img_14.png](../ReadMeImages/SystemPicture/admin/img_14.png)
+7.6 街道Map管理
+![img_15.png](../ReadMeImages/SystemPicture/admin/img_15.png)
+
 8.AI助手<br>
 8.1 AI智能问答助手
-![img_5.png](../ReadMeImages/SystemPicture/img_20.png)
+![img_16.png](../ReadMeImages/SystemPicture/admin/img_16.png)
 8.2 AI智能体助手
-![img_6.png](../ReadMeImages/SystemPicture/img_21.png)
+![img_17.png](../ReadMeImages/SystemPicture/admin/img_17.png)
+8.3 LLM调用日志管理
+![img_18.png](../ReadMeImages/SystemPicture/admin/img_18.png)
+
 9.反馈管理<br>
 9.1 用户端反馈管理
-![img_7.png](../ReadMeImages/SystemPicture/img_22.png)
+![img_19.png](../ReadMeImages/SystemPicture/admin/img_19.png)
 9.2 管理端反馈管理
-![img_8.png](../ReadMeImages/SystemPicture/img_23.png)
+![img_20.png](../ReadMeImages/SystemPicture/admin/img_20.png)
 9.3 用户端反馈记录
-![img_9.png](../ReadMeImages/SystemPicture/img_24.png)
+![img_21.png](../ReadMeImages/SystemPicture/admin/img_21.png)
 9.4 管理端反馈记录
-![img_10.png](../ReadMeImages/SystemPicture/img_25.png)
-10.内部系统<br>
-10.1 易投简历用户端
-![img_11.png](../ReadMeImages/SystemPicture/img_26.png)
-10.2 易投简历监测与广告端
-![img_12.png](../ReadMeImages/SystemPicture/img_27.png)
-11. 外部API(以高德为代表)
-![img_13.png](../ReadMeImages/SystemPicture/img_28.png)
-12.API文档中心
-12.1 API对外文档中心
-![img_14.png](../ReadMeImages/SystemPicture/img_29.png)
-12.2 API对内文档中心
-![img_15.png](../ReadMeImages/SystemPicture/img_30.png)
+![img_22.png](../ReadMeImages/SystemPicture/admin/img_22.png)
+10.关于我们管理<br>
+10.1 项目介绍
+![img_23.png](../ReadMeImages/SystemPicture/admin/img_23.png)
+10.2 团队介绍
+![img_24.png](../ReadMeImages/SystemPicture/admin/img_24.png)
+10.3 发展历程
+![img_25.png](../ReadMeImages/SystemPicture/admin/img_25.png)
+10.4 加入我们
+![img_26.png](../ReadMeImages/SystemPicture/admin/img_26.png)
+10.5 合作伙伴
+![img_27.png](../ReadMeImages/SystemPicture/admin/img_27.png)
+10.6 媒体报道
+![img_28.png](../ReadMeImages/SystemPicture/admin/img_28.png)
+11.帮助中心管理<br>
+11.1 FAQ管理
+![img_29.png](../ReadMeImages/SystemPicture/admin/img_29.png)
+11.2 客服管理
+![img_30.png](../ReadMeImages/SystemPicture/admin/img_30.png)
+11.3 使用指南管理
+![img_31.png](../ReadMeImages/SystemPicture/admin/img_31.png)
+12.笔试专项管理<br>
+12.1 题库大类管理
+![img_32.png](../ReadMeImages/SystemPicture/admin/img_32.png)
+12.2 题库小类管理
+![img_33.png](../ReadMeImages/SystemPicture/admin/img_33.png)
+12.3 题库题目管理
+![img_34.png](../ReadMeImages/SystemPicture/admin/img_34.png)
+12.4 用户答题管理
+![img_35.png](../ReadMeImages/SystemPicture/admin/img_35.png)
+13.评分模型管理<br>
+13.1 训练数据管理
+![img_36.png](../ReadMeImages/SystemPicture/admin/img_36.png)
+13.2 训练代码管理
+![img_37.png](../ReadMeImages/SystemPicture/admin/img_37.png)
+13.3 模型版本管理
+![img_38.png](../ReadMeImages/SystemPicture/admin/img_38.png)
+14.内部系统<br>
+14.1 易投简历用户端
+![img_39.png](../ReadMeImages/SystemPicture/admin/img_39.png)
+14.2 易投简历监测与广告端
+![img_40.png](../ReadMeImages/SystemPicture/admin/img_40.png)
+14.3 Nacos配置平台
+![img_41.png](../ReadMeImages/SystemPicture/admin/img_41.png)
+14.4 Yapi测试平台
+![img_42.png](../ReadMeImages/SystemPicture/admin/img_42.png)
+15.外部系统<br>
+15.1 阿里云百炼平台
+![img_43.png](../ReadMeImages/SystemPicture/admin/img_43.png)
+15.2 阿里云短信平台
+![img_44.png](../ReadMeImages/SystemPicture/admin/img_44.png)
+15.3 SearchAPI平台
+![img_45.png](../ReadMeImages/SystemPicture/admin/img_45.png)
+15.4 高德开放平台
+![img_46.png](../ReadMeImages/SystemPicture/admin/img_46.png)
+15.5 百度智能云平台
+![img_47.png](../ReadMeImages/SystemPicture/admin/img_47.png)
+15.6 七牛云平台
+![img_48.png](../ReadMeImages/SystemPicture/admin/img_48.png)
+15.7 AutoDL平台
+![img_49.png](../ReadMeImages/SystemPicture/admin/img_49.png)
+15.8 智谱开放平台
+![img_50.png](../ReadMeImages/SystemPicture/admin/img_50.png)
+15.9 火山引擎平台
+![img_51.png](../ReadMeImages/SystemPicture/admin/img_51.png)
+16.API文档中心
+16.1 API对外文档中心
+![img_52.png](../ReadMeImages/SystemPicture/admin/img_52.png)
+16.2 API对内文档中心
+![img_53.png](../ReadMeImages/SystemPicture/admin/img_53.png)
 
 
 监测与广告端:<br>
 1.门户页
-![img.png](../ReadMeImages/SystemPicture/img_33.png)
+![img.png](../ReadMeImages/SystemPicture/admonitor/img.png)
 2.首页
-![img_1.png](../ReadMeImages/SystemPicture/img_34.png)
+![img_1.png](../ReadMeImages/SystemPicture/admonitor/img_1.png)
 3.公告管理(以管理的公告管理为代表)
-![img_2.png](../ReadMeImages/SystemPicture/img_35.png)
+![img_2.png](../ReadMeImages/SystemPicture/admonitor/img_2.png)
 4.广告管理<br>
 4.1 图片广告管理(以管理端广告管理为代表)<br>
-![img_3.png](../ReadMeImages/SystemPicture/img_36.png)
+![img_3.png](../ReadMeImages/SystemPicture/admonitor/img_3.png)
 4.2 视频广告管理(暂未开发)<br>
 5.用户监测管理<br>
 5.1 网站管理
-![img_4.png](../ReadMeImages/SystemPicture/img_37.png)
-5.2 日志管理<br>
+![img_4.png](../ReadMeImages/SystemPicture/admonitor/img_4.png)
+5.2 日志管理(暂未开发)<br>
 6.管理监测管理<br>
 6.1网站管理(和用户端基本一样)<br>
-6.2日志管理<br>
+6.2日志管理(暂未开发)<br>
 7.中间件监测管理<br>
 7.1 MySQL管理(未开发)<br>
 7.2 Redis管理(未开发)<br>
-7.3 MinIO管理(参考文档中心)<br>
+7.3 MinIO管理
+![img_5.png](../ReadMeImages/SystemPicture/admonitor/img_5.png)
 8.服务器管理<br>
 8.1 设备管理
-![img_5.png](../ReadMeImages/SystemPicture/img_38.png)
+![img_6.png](../ReadMeImages/SystemPicture/admonitor/img_6.png)
 8.2 设备监控
-![img_6.png](../ReadMeImages/SystemPicture/img_39.png)
+![img_7.png](../ReadMeImages/SystemPicture/admonitor/img_7.png)
 9.网站安全管理
 9.1 SpringBootAdmin
-![img_7.png](../ReadMeImages/SystemPicture/img_40.png)
+![img_8.png](../ReadMeImages/SystemPicture/admonitor/img_8.png)
 9.2 Prometheus
-![img_8.png](../ReadMeImages/SystemPicture/img_41.png)
+![img_9.png](../ReadMeImages/SystemPicture/admonitor/img_9.png)
 9.3 Grafana
-![img_9.png](../ReadMeImages/SystemPicture/img_42.png)
+![img_10.png](../ReadMeImages/SystemPicture/admonitor/img_10.png)
+10.内部系统<br>
+10.1 易投简历用户端
+![img_11.png](../ReadMeImages/SystemPicture/admonitor/img_11.png)
+10.2 易投简历监测与广告端
+![img_12.png](../ReadMeImages/SystemPicture/admonitor/img_12.png)
+10.3 Nacos配置平台
+![img_13.png](../ReadMeImages/SystemPicture/admonitor/img_13.png)
+10.4 Yapi测试平台
+![img_14.png](../ReadMeImages/SystemPicture/admonitor/img_14.png)
+11.外部系统<br>
+11.1 阿里云百炼平台
+![img_15.png](../ReadMeImages/SystemPicture/admonitor/img_15.png)
+11.2 阿里云短信平台
+![img_16.png](../ReadMeImages/SystemPicture/admonitor/img_16.png)
+11.3 SearchAPI平台
+![img_17.png](../ReadMeImages/SystemPicture/admonitor/img_17.png)
+11.4 高德开放平台
+![img_18.png](../ReadMeImages/SystemPicture/admonitor/img_18.png)
+11.5 百度智能云平台
+![img_19.png](../ReadMeImages/SystemPicture/admonitor/img_19.png)
+11.6 七牛云平台
+![img_20.png](../ReadMeImages/SystemPicture/admonitor/img_20.png)
+11.7 AutoDL平台
+![img_21.png](../ReadMeImages/SystemPicture/admonitor/img_21.png)
+11.8 智谱开放平台
+![img_22.png](../ReadMeImages/SystemPicture/admonitor/img_22.png)
+11.9 火山引擎平台
+![img_23.png](../ReadMeImages/SystemPicture/admonitor/img_23.png)
+12.API文档中心
+12.1 API对外文档中心
+![img_24.png](../ReadMeImages/SystemPicture/admonitor/img_24.png)
+12.2 API对内文档中心
+![img_25.png](../ReadMeImages/SystemPicture/admonitor/img_25.png)
 ## 项目适用人群
 **本项目适用于:想学习SpringBoot全家桶的编程小白,想学习SpringAI框架的程序员、编程小白,对Java感兴趣的其他行业从业者等等**
 ## 项目使用和二开

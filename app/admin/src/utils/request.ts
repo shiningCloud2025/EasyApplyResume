@@ -22,25 +22,37 @@ const request: AxiosInstance = axios.create({
 // 响应拦截器
 request.interceptors.response.use(
   (response: AxiosResponse<ApiResponse>) => {
-    const { code, message, data } = response.data
-    
-    // 请求成功
-    if (code === 200) {
-      return response.data
+    const responseData = response.data as ApiResponse | any
+
+    if (
+      responseData &&
+      typeof responseData === 'object' &&
+      !Array.isArray(responseData) &&
+      'code' in responseData
+    ) {
+      const { code, message } = responseData
+
+      if (code === 200) {
+        return responseData
+      }
+
+      if (code === 401) {
+        const authStore = useAuthStore()
+        ElMessage.error('登录已过期，请重新登录')
+        authStore.clearAuth()
+        router.push('/login')
+        return Promise.reject(new Error('登录已过期'))
+      }
+
+      ElMessage.error(message || '请求失败')
+      return Promise.reject(new Error(message || '请求失败'))
     }
-    
-    // Token过期或未认证
-    if (code === 401) {
-      const authStore = useAuthStore()
-      ElMessage.error('登录已过期，请重新登录')
-      authStore.clearAuth()
-      router.push('/login')
-      return Promise.reject(new Error('登录已过期'))
+
+    return {
+      code: 200,
+      message: 'success',
+      data: responseData
     }
-    
-    // 业务错误
-    ElMessage.error(message || '请求失败')
-    return Promise.reject(new Error(message || '请求失败'))
   },
   (error) => {
     const { response } = error

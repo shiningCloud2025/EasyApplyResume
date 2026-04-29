@@ -149,6 +149,17 @@ public class UserLoginAndRegisterEmailVerifyServiceImpl implements UserLoginAndR
      */
     @Override
     public void verifyCode(String email, String inputCode) {
+        checkCode(email, inputCode);
+        deleteCode(email);
+    }
+
+    /**
+     * 验证邮箱验证码（只校验，不删除）
+     * @param email 收件人邮箱
+     * @param inputCode 用户输入的验证码
+     */
+    @Override
+    public void checkCode(String email, String inputCode) {
         // 1. 校验输入参数
         if (email == null || inputCode == null || inputCode.trim().isEmpty()) {
             log.warn("邮箱 [{}] 验证码校验，输入参数无效", email);
@@ -161,11 +172,20 @@ public class UserLoginAndRegisterEmailVerifyServiceImpl implements UserLoginAndR
 
         // 3. 校验验证码
         if (inputCode.equals(storedCode)) {
-            stringRedisTemplate.delete(codeKey); // 验证成功后删除
             log.info("邮箱 [{}] 验证码校验成功", email);
         } else {
             log.warn("邮箱 [{}] 验证码校验失败，输入码: {}, 存储码: {}", email, inputCode, storedCode);
             throw new BusException(AdminCodeEnum.EMAIL_VERIFY_CODE_INVALID);
         }
+    }
+
+    /**
+     * 删除邮箱验证码
+     * @param email 收件人邮箱
+     */
+    @Override
+    public void deleteCode(String email) {
+        String codeKey = codeRedisPrefix + email;
+        stringRedisTemplate.delete(codeKey);
     }
 }

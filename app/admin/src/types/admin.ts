@@ -136,44 +136,38 @@ export interface PermissionPageVO {
 // 简历模板信息VO
 export interface ResumeTemplateInfoVO {
   resumeTemplateId: number
-  resumeTemplateUuid: string
   resumeTemplateName: string
-  resumeTemplateDescribe: string
-  resumeTemplateHtml: string
-  resumeTemplateCss: string
-  resumeTemplatePrice: number
-  resumeTemplateState: number
-  resumeTemplateCreatedTime: string
-  resumeTemplateUpdatedTime: string
+  resumeTemplateReactCode: string
+  industryMapIndustryName: string
+  isEnable: number
+  createTime: string
+  updateTime: string
 }
 
 // 简历模板表单
 export interface ResumeTemplateForm {
   resumeTemplateId?: number
-  resumeTemplateUuid?: string
   resumeTemplateName: string
-  resumeTemplateDescribe: string
-  resumeTemplateHtml: string
-  resumeTemplateCss: string
-  resumeTemplatePrice: number
-  resumeTemplateState?: number
+  resumeTemplateReactCode: string
+  resumeTemplateIndustry: number | undefined
+  resumeTemplateIsActive: number
 }
 
 // 简历模板查询
 export interface ResumeTemplateQuery {
   resumeTemplateName?: string
-  resumeTemplateState?: number
+  resumeTemplateIndustry?: number
 }
 
 // 简历模板分页VO
 export interface ResumeTemplatePageVO {
   resumeTemplateId: number
-  resumeTemplateUuid: string
   resumeTemplateName: string
-  resumeTemplateDescribe: string
-  resumeTemplatePrice: number
-  resumeTemplateState: number
+  resumeTemplateReactCode: string
+  industryMapIndustryName: string
+  resumeTemplateIsActive: number
   resumeTemplateCreatedTime: string
+  resumeTemplateUpdatedTime: string
 }
 
 // 求职攻略文章表单

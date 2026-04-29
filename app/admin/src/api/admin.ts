@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { api } from '@/utils/request'
 import request from '@/utils/request'
-import type { AdminUser, LoginForm, PhoneLoginForm, EmailLoginForm } from '@/store/auth'
+import type { AdminUser, LoginForm, PhoneLoginForm, EmailLoginForm, AdminSecurityUser } from '@/store/auth'
+
 import type { 
   PageQuery, 
   PageResult,
@@ -138,7 +139,7 @@ export const authApi = {
   loginByEmail: (data: EmailLoginForm) => api.post<string>('/admin/auth/emailLogin', null, { params: data }),
   
   // 退出登录
-  logout: (adminId: number) => api.get('/admin/admin/logout', { params: { adminId } }),
+  logout: () => api.post('/admin/admin/logout'),
   
   // 发送邮箱验证码
   sendEmailCode: (email: string) => api.post('/admin/email/loginandregister/send', null, { params: { email } }),
@@ -161,8 +162,8 @@ export const adminApi = {
   // 查询管理员详情
   getAdminInfo: (adminId: number) => api.get<AdminInfoVO>(`/admin/admin/findById?adminId=${adminId}`),
   
-  // 获取当前登录管理员信息（通过 JWT）
-  getCurrentAdminInfo: () => api.post<{userId: number, userEmail: string, username: string, authorities: string[]}>('/admin/auth/getAdminInfo'),
+  // 获取当前登录管理员鉴权信息（通过 JWT）
+  getCurrentAdminInfo: () => api.post<AdminSecurityUser>('/admin/auth/getAdminInfo'),
   
   // 分页查询管理员
   getAdminPage: (pageNum: number, pageSize: number, query: AdminPageQuery) => 
@@ -255,12 +256,12 @@ export const resumeTemplateApi = {
   updateResumeTemplate: (data: ResumeTemplateForm) => api.post<number>('/admin/resumeTemplate/updateResumeTemplate', data),
   
   // 删除简历模板
-  deleteResumeTemplate: (resumeTemplateId: number) => 
-    api.delete<number>('/admin/resumeTemplate/deleteResumeTemplate', { params: { resumeTemplateId } }),
+  deleteResumeTemplate: (resumeTemplateId: number) =>
+    api.delete<number>('/admin/resumeTemplate/deleteResumeTemplate', { resumeTemplateId }),
   
   // 查询简历模板详情
-  getResumeTemplateInfo: (resumeTemplateId: number) => 
-    api.get<ResumeTemplateInfoVO>('/admin/resumeTemplate/findResumeTemplateById', { params: { resumeTemplateId } }),
+  getResumeTemplateInfo: (resumeTemplateId: number) =>
+    api.get<ResumeTemplateInfoVO>('/admin/resumeTemplate/findResumeTemplateById', { resumeTemplateId }),
   
   // 分页查询简历模板
   getResumeTemplatePage: (pageNum: number, pageSize: number, query: ResumeTemplateQuery) => 
@@ -305,12 +306,12 @@ export const recruitPositionApi = {
   updateRecruitPosition: (data: RecruitPositionForm) => api.post<number>('/admin/recruitPosition/updateRecruitPosition', data),
   
   // 删除招聘岗位
-  deleteRecruitPosition: (recruitPositionId: number) => 
-    api.delete<number>('/admin/recruitPosition/deleteRecruitPosition', { params: { recruitPositionId } }),
+  deleteRecruitPosition: (recruitPositionId: number) =>
+    api.delete<number>('/admin/recruitPosition/deleteRecruitPosition', { recruitPositionId }),
   
   // 查询招聘岗位详情
-  getRecruitPositionInfo: (recruitPositionId: number) => 
-    api.get<RecruitPositionInfoVO>('/admin/recruitPosition/queryRecruitPosition', { params: { recruitPositionId } }),
+  getRecruitPositionInfo: (recruitPositionId: number) =>
+    api.get<RecruitPositionInfoVO>('/admin/recruitPosition/queryRecruitPosition', { recruitPositionId }),
   
   // 分页查询招聘岗位
   getRecruitPositionPage: (pageNum: number, pageSize: number, query: RecruitPositionQuery) => 
@@ -381,6 +382,9 @@ export const universityMapApi = {
 }
 
 export const provinceMapApi = {
+  getAllProvince: () => api.get<ProvinceMap[]>('/admin/provinceMap/getAllProvince'),
+  getCityByProvinceId: (provinceMapId: number) =>
+    api.get<CityMap[]>('/admin/provinceMap/getCityByProvinceId', { provinceMapId }),
   getProvinceMapPage: (pageNum: number, pageSize: number, query: ProvinceMapQuery) =>
     api.post<PageResult<ProvinceMapPageVO>>('/admin/provinceMap/findProvinceMapByPage', query, {
       params: { pageNum, pageSize }
@@ -553,7 +557,7 @@ export const feedbackRecordApi = {
   // 查询反馈记录详情
   getRecordDetail: (feedbackRecordId: number) =>
     api.get<AdminFeedbackRecordInfoVO>('/admin/adminFeedbackRecord/findAdminFeedbackRecordByFeedbackRecordId', {
-      params: { feedbackRecordId }
+      feedbackRecordId
     })
 }
 
@@ -587,7 +591,7 @@ export const userFeedbackRecordApi = {
   // 查询用户反馈记录详情
   getUserFeedbackRecordDetail: (feedbackRecordId: number) =>
     api.get<UserFeedbackRecordInfoVO>('/admin/userfeedbackRecord/findUserFeedbackRecordByFeedbackRecordId', {
-      params: { feedbackRecordId }
+      feedbackRecordId
     })
 }
 
@@ -611,7 +615,7 @@ export const systemDeleteResumeApi = {
   // 查询系统删除简历详情
   getDeleteResumeDetail: (userDeleteResumeId: number) =>
     api.get<UserDeleteResumeBySystemInfoVO>('/admin/userDeleteResumeBySystemService/getUserDeleteResumeInfoById', {
-      params: { userDeleteResumeId }
+      userDeleteResumeId
     })
 }
 

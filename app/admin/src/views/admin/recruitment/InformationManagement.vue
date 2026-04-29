@@ -1001,10 +1001,10 @@ const handleEdit = async (row: EmploymentInformationPageVO) => {
     if (detail.employmentInformationRecruitLocationFirstName && Array.isArray(detail.employmentInformationRecruitLocationFirstName)) {
       for (const provinceName of detail.employmentInformationRecruitLocationFirstName) {
         const foundProvince = provinceList.value.find(
-          (p: any) => p.provinceMapProvinceName === provinceName
+          (p: any) => p.provinceMapPname === provinceName
         )
         if (foundProvince) {
-          provinceIds.push(foundProvince.provinceMapProvinceCode)
+          provinceIds.push(foundProvince.provinceMapPid)
         }
       }
     }
@@ -1019,10 +1019,10 @@ const handleEdit = async (row: EmploymentInformationPageVO) => {
       
       for (const cityName of detail.employmentInformationRecruitLocationSecondName) {
         const foundCity = cityList.value.find(
-          (c: any) => c.provinceMapCityName === cityName
+          (c: any) => c.cityMapCname === cityName
         )
         if (foundCity) {
-          cityIds.push(foundCity.provinceMapCityCode)
+          cityIds.push(foundCity.cityMapCid)
         }
       }
     }

@@ -1,7 +1,17 @@
 import { defineStore } from 'pinia'
 import { api } from '@/utils/request'
 
+export interface AdminSecurityUser {
+  userId: number
+  userEmail: string
+  username: string
+  userType: string
+  authorities?: any[]
+  enabled?: boolean
+}
+
 export interface AdminUser {
+  userId?: number
   adminId: number
   adminAccount: string
   adminUsername: string
@@ -11,8 +21,9 @@ export interface AdminUser {
   adminIntroduce: string
   adminState: number
   adminLoginTime: string
-  adminCreatedTime: string
+  adminCreatedTime?: string
   roles?: any[]
+  roleInfoVOS?: any[]
 }
 
 export interface LoginForm {
@@ -39,10 +50,11 @@ export const useAuthStore = defineStore('auth', {
 
   getters: {
     isLoggedIn: (state) => !!state.token,
-    userRoles: (state) => state.user?.roles || [],
+    userRoles: (state) => state.user?.roles || state.user?.roleInfoVOS || [],
     userPermissions: (state) => {
       const permissions = []
-      state.user?.roles?.forEach((role: any) => {
+      const roleList = state.user?.roles || state.user?.roleInfoVOS || []
+      roleList.forEach((role: any) => {
         if (role.permissions) {
           permissions.push(...role.permissions.map((p: any) => p.permissionUrl))
         }
@@ -125,16 +137,39 @@ export const useAuthStore = defineStore('auth', {
     },
 
     // 获取用户信息
-    async getUserInfo() {
+    async getUserInfo(silent = false) {
       try {
-        console.log('开始获取用户信息...')
-        const response = await api.post<AdminUser>('/admin/auth/getAdminInfo')
-        console.log('用户信息响应:', response)
-        this.user = response.data
-        return response.data
+        if (!silent) {
+          console.log('开始获取用户信息...')
+        }
+        const securityResponse = await api.post<AdminSecurityUser>('/admin/auth/getAdminInfo')
+        if (!silent) {
+          console.log('鉴权用户信息响应:', securityResponse)
+        }
+
+        const securityUser = securityResponse.data
+        if (!securityUser?.userId) {
+          this.user = null
+          return null
+        }
+
+        const adminResponse = await api.get<AdminUser>('/admin/admin/findById', {
+          adminId: securityUser.userId
+        })
+        if (!silent) {
+          console.log('管理员详情响应:', adminResponse)
+        }
+
+        this.user = {
+          ...adminResponse.data,
+          userId: securityUser.userId,
+          adminId: adminResponse.data.adminId || securityUser.userId,
+          adminEmail: adminResponse.data.adminEmail || securityUser.userEmail,
+          roles: adminResponse.data.roles || adminResponse.data.roleInfoVOS || []
+        }
+        return this.user
       } catch (error: any) {
         console.error('获取用户信息失败:', error)
-        // 获取用户信息失败不影响登录，只是没有用户详情
         return null
       }
     },
@@ -148,16 +183,10 @@ export const useAuthStore = defineStore('auth', {
     // 退出登录
     async logout() {
       try {
-        // 调用退出接口
-        if (this.user) {
-          await api.get('/admin/auth/logout', {
-            params: { adminId: this.user.adminId }
-          })
-        }
+        await api.post('/admin/admin/logout')
       } catch (error) {
         console.error('退出登录失败:', error)
       } finally {
-        // 清除本地数据
         this.token = ''
         this.user = null
         localStorage.removeItem('admin_token')

@@ -160,8 +160,11 @@ public class UserAuthServiceImpl implements UserAuthService {
         if (formalRegisterForm == null) {
             throw new BusException(UserCodeEnum.USER_REGISTER_FORM_NOT_NULL);
         }
-        userSmsService.verifyCode(formalRegisterForm.getUserPhone(), formalRegisterForm.getPhoneMessageCode());
-        userLoginAndRegisterEmailVerifyService.verifyCode(formalRegisterForm.getUserEmail(), formalRegisterForm.getEmailMessageCode());
+        userSmsService.checkCode(formalRegisterForm.getUserPhone(), formalRegisterForm.getPhoneMessageCode());
+        userLoginAndRegisterEmailVerifyService.checkCode(
+                formalRegisterForm.getUserEmail(),
+                formalRegisterForm.getEmailMessageCode()
+        );
         // TODO:用户端注册的头像一定是为空的，就需要用户去修改的时候改变头像，这样也简化了后端的流程
         FormalRegisterValidator.validateForRegister(formalRegisterForm);
         validateUserUnique(formalRegisterForm);
@@ -179,6 +182,9 @@ public class UserAuthServiceImpl implements UserAuthService {
             // TODO:由于我改成了注册即登录，也就不需要去掉了，直接留着就可以
             String redisKey = "user:token:" + user.getUserId();
             stringRedisTemplate.opsForValue().set(redisKey, token, jwtExpiration, TimeUnit.MILLISECONDS);
+            userSmsService.deleteCode(formalRegisterForm.getUserPhone());
+            userLoginAndRegisterEmailVerifyService.deleteCode(formalRegisterForm.getUserEmail());
+
             return token;
         } catch (BusException e) {
             log.info("注册失败", e);
