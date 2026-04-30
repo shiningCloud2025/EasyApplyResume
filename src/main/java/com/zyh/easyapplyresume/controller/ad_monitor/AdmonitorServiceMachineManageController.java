@@ -58,10 +58,13 @@ public class AdmonitorServiceMachineManageController {
 
     }
 
+
     @PostMapping("/testServiceMachineConnect")
-    @Operation(summary = "测试服务器设备连接")
-    public BaseResult<Boolean> testServiceMachineConnect(@RequestBody AdmonitorServiceMachineConnectForm admonitorServiceMachineConnectForm) {
-        return BaseResult.ok(admonitorServiceMachineService.testServiceMachineConnect(admonitorServiceMachineConnectForm));
+    @Operation(summary = "测试服务器设备连接-管理")
+    public BaseResult<Boolean> testServiceMachineConnectForManage(@RequestBody AdmonitorServiceMachineConnectForm
+                                                                          admonitorServiceMachineConnectForm) {
+        return
+                BaseResult.ok(admonitorServiceMachineService.testServiceMachineConnectForManage(admonitorServiceMachineConnectForm));
     }
 
 

@@ -50,6 +50,18 @@ public interface AdmonitorServiceMachineService {
      */
     public Page<AdmonitorServiceMachinePageVO> getAdmonitorServiceMachinePage(Integer pageNum, Integer pageSize, AdmonitorServiceMachineQuery admonitorServiceMachineQuery);
 
+
+    /**
+     * 测试服务器连接-管理（密码按明文处理）
+     * @param admonitorServiceMachineConnectForm
+     * @return
+     */
+    public boolean testServiceMachineConnectForManage(AdmonitorServiceMachineConnectForm
+                                                              admonitorServiceMachineConnectForm);
+
+
+    //  ----------------------------上面是服务器管理，下面是服务器监控--------------------------------//
+
     /**
      * 测试服务器连接
      * @param admonitorServiceMachineConnectForm
@@ -57,8 +69,6 @@ public interface AdmonitorServiceMachineService {
      */
     public boolean testServiceMachineConnect(AdmonitorServiceMachineConnectForm admonitorServiceMachineConnectForm);
 
-
-    //  ----------------------------上面是服务器管理，下面是服务器监控--------------------------------//
 
     public AdmonitorServiceMachineJianKongVO getAdmonitorServiceMachineJianKongInfo(AdmonitorServiceMachineJianKongForm admonitorServiceMachineJianKongForm);
 

@@ -118,11 +118,10 @@
           <el-input
             v-model="formData.serviceMachinePassword"
             type="password"
-            :placeholder="isEdit ? '编辑请输入明文密码' : '请输入登录密码'"
+            placeholder="请输入登录密码"
             maxlength="60"
             show-password
           />
-          <div v-if="isEdit" class="password-hint">编辑时不会回显原密码，请输入明文密码后再测试连接。</div>
         </el-form-item>
         <el-form-item label="备注" prop="serviceMachineRemark">
           <el-input 
@@ -228,8 +227,6 @@ const formData = reactive({
   serviceMachineRemark: ''
 })
 
-const passwordRule = computed(() => isEdit.value ? '编辑请输入明文密码' : '请输入登录密码')
-
 const rules: FormRules = {
   serviceMachineName: [
     { required: true, message: '请输入服务器名称', trigger: 'blur' },
@@ -247,7 +244,7 @@ const rules: FormRules = {
     { max: 60, message: '登录账号最多60个字符', trigger: 'blur' }
   ],
   serviceMachinePassword: [
-    { required: true, message: passwordRule.value, trigger: 'blur' },
+    { required: true, message: '请输入登录密码', trigger: 'blur' },
     { max: 60, message: '登录密码最多60个字符', trigger: 'blur' }
   ],
   serviceMachineRemark: [
@@ -302,7 +299,7 @@ const handleAdd = () => {
 const handleFormTestConnect = async () => {
   testing.value = true
   try {
-    await serviceMachineManageApi.testConnect({
+    await serviceMachineManageApi.testConnectForManage({
       serviceMachineHost: formData.serviceMachineHost,
       serviceMachinePort: formData.serviceMachinePort,
       serviceMachineUsername: formData.serviceMachineUsername,
@@ -467,13 +464,6 @@ onMounted(() => {
 .text-gray {
   color: #9ca3af;
   font-size: 13px;
-}
-
-.password-hint {
-  margin-top: 6px;
-  color: #e6a23c;
-  font-size: 12px;
-  line-height: 1.5;
 }
 
 .test-connect-area {

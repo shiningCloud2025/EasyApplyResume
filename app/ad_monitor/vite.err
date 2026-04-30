@@ -1,0 +1,12 @@
+node:internal/modules/run_main:92
+  const type = getNearestParentPackageJSONType(mainPath);
+               ^
+
+Error: Invalid package config \\?\C:\Users\shini\IdeaProjects\EasyApplyResume\app\ad_monitor\node_modules\vite\package.json.
+    at shouldUseESMLoader (node:internal/modules/run_main:92:16)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:164:20)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'ERR_INVALID_PACKAGE_CONFIG'
+}
+
+Node.js v22.21.1

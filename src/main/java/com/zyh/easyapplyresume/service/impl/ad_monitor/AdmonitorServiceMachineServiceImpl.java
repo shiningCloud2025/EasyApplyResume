@@ -177,6 +177,33 @@ public class AdmonitorServiceMachineServiceImpl implements AdmonitorServiceMachi
     }
 
     @Override
+    public boolean testServiceMachineConnectForManage(AdmonitorServiceMachineConnectForm admonitorServiceMachineConnectForm) {
+        Session session = null;
+        try{
+            JSch jSch = new JSch();
+            session = jSch.getSession(
+                    admonitorServiceMachineConnectForm.getServiceMachineUsername(),
+                    admonitorServiceMachineConnectForm.getServiceMachineHost(),
+                    admonitorServiceMachineConnectForm.getServiceMachinePort()
+            );
+            session.setPassword(admonitorServiceMachineConnectForm.getServiceMachinePassword());
+            // 跳过主机密钥检查
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.setTimeout(60000); // 1分钟超时
+            session.connect();
+            return true;
+        }catch (Exception e){
+            log.error("管理端测试服务器连接失败");
+            e.printStackTrace();
+            throw new RuntimeException("测试服务器连接失败");
+        }finally {
+            if (session != null && session.isConnected()) {
+                session.disconnect();
+            }
+        }
+    }
+
+    @Override
     public boolean testServiceMachineConnect(AdmonitorServiceMachineConnectForm admonitorServiceMachineConnectForm) {
         Session session = null;
         try{

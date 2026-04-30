@@ -342,6 +342,10 @@ export const serviceMachineManageApi = {
   
   // 测试服务器连接
   testConnect: (data: any) =>
+    request.post('/admonitor/servicemachine/manage/testServiceMachineConnect', data),
+
+  // 测试服务器连接-管理端表单
+  testConnectForManage: (data: any) =>
     request.post('/admonitor/servicemachine/manage/testServiceMachineConnect', data)
 }
 
