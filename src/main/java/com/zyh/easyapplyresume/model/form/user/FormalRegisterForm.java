@@ -16,23 +16,18 @@ import java.util.Date;
 @Data
 @Schema(description = "普通注册表单")
 public class FormalRegisterForm {
-    @NotNull(message = "用户账号不能为空")
     @Schema(description = "用户账号")
     private String userAccount;
 
-    @NotNull(message = "用户名称不能为空")
     @Schema(description = "用户名称")
     private String userUsername;
 
-    @NotNull(message = "用户邮箱不能为空")
     @Schema(description = "用户邮箱")
     private String userEmail;
 
-    @NotNull(message = "用户手机不能为空")
     @Schema(description = "用户手机")
     private String userPhone;
 
-    @NotNull(message = "用户密码不能为空")
     @Schema(description = "用户密码")
     private String userPassword;
 

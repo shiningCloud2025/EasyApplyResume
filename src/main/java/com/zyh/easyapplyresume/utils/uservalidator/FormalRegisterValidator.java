@@ -145,7 +145,12 @@ public class FormalRegisterValidator {
 
         // 10. 选填：用户希望的最高月薪（默认0，校验≥最低月薪）→ USER_MAX_SALARY_LESS_THAN_MIN(10018)
         if (form.getUserDreamMaxMonthSalary() == null) {
-            form.setUserDreamMaxMonthSalary(BigDecimal.ZERO);
+            BigDecimal minSalary = form.getUserDreamMinMonthSalary();
+            if (minSalary.compareTo(BigDecimal.ZERO) > 0) {
+                form.setUserDreamMaxMonthSalary(minSalary.add(BigDecimal.ONE));
+            } else {
+                form.setUserDreamMaxMonthSalary(BigDecimal.ZERO);
+            }
         } else {
             BigDecimal maxSalary = form.getUserDreamMaxMonthSalary();
             BigDecimal minSalary = form.getUserDreamMinMonthSalary();
