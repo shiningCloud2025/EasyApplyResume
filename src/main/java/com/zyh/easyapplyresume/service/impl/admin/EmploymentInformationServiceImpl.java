@@ -179,14 +179,22 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
 
     private void validateEmploymentInformationUnique(EmploymentInformationForm employmentInformationForm) {
         // 1. 校验公司名称是否重复
+        Integer currentEmploymentInformationCode = null;
+        if (employmentInformationForm.getEmploymentInformationId() != null) {
+            EmploymentInformation currentEmploymentInformation =
+                    employmentInformationMapper.selectById(employmentInformationForm.getEmploymentInformationId());
+            if (currentEmploymentInformation != null && currentEmploymentInformation.getDeleted() == 0) {
+                currentEmploymentInformationCode = currentEmploymentInformation.getEmploymentInformationCode();
+            }
+        }
         LambdaQueryWrapper<EmploymentInformation> companyWrapper = new LambdaQueryWrapper<>();
         companyWrapper.eq(EmploymentInformation::getDeleted, 0);
         companyWrapper.eq(EmploymentInformation::getEmploymentInformationCompanyName,
                 employmentInformationForm.getEmploymentInformationCompanyName());
 
-        if (employmentInformationForm.getEmploymentInformationId() != null) {
+        if (currentEmploymentInformationCode != null) {
             companyWrapper.ne(EmploymentInformation::getEmploymentInformationCode,
-                    employmentInformationForm.getEmploymentInformationId());
+                    currentEmploymentInformationCode);
         }
 
         Long companyCount = employmentInformationMapper.selectCount(companyWrapper);
@@ -200,9 +208,9 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         submissionWayWrapper.eq(EmploymentInformation::getEmploymentInformationSubmissionWay,
                 employmentInformationForm.getEmploymentInformationSubmissionWay());
 
-        if (employmentInformationForm.getEmploymentInformationId() != null) {
+        if (currentEmploymentInformationCode != null) {
             submissionWayWrapper.ne(EmploymentInformation::getEmploymentInformationCode,
-                    employmentInformationForm.getEmploymentInformationId());
+                    currentEmploymentInformationCode);
         }
 
         Long submissionWayCount = employmentInformationMapper.selectCount(submissionWayWrapper);
