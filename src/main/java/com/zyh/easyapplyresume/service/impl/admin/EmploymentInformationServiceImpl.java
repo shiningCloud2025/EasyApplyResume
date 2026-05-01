@@ -214,7 +214,13 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
     public Integer updateEmploymentInformation(EmploymentInformationForm employmentInformationForm) {
         EmploymentInformationFormValidator.validateForUpdate(employmentInformationForm);
         LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCode, employmentInformationForm.getEmploymentInformationId());
+        EmploymentInformation currentEmploymentInformation =
+                employmentInformationMapper.selectById(employmentInformationForm.getEmploymentInformationId());
+        if (currentEmploymentInformation == null || currentEmploymentInformation.getDeleted() != 0) {
+            throw new RuntimeException("招聘信息不存在");
+        }
+        Integer employmentInformationCode = currentEmploymentInformation.getEmploymentInformationCode();
+        lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCode, employmentInformationCode);
         lambdaQueryWrapper.eq(EmploymentInformation::getDeleted, 0);
         List<EmploymentInformation> employmentInformations = employmentInformationMapper.selectList(lambdaQueryWrapper);
         Date employmentInformationStartTime = employmentInformations.get(0).getEmploymentInformationStartTime();
@@ -248,12 +254,17 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
 //            employmentInformationMapper.updateById(employmentInformation);
 //        }
         // 1. 创建 LambdaUpdateWrapper（指定实体类）
+        EmploymentInformation currentEmploymentInformation = employmentInformationMapper.selectById(employmentInformationId);
+        if (currentEmploymentInformation == null || currentEmploymentInformation.getDeleted() != 0) {
+            throw new RuntimeException("招聘信息不存在");
+        }
+        Integer employmentInformationCode = currentEmploymentInformation.getEmploymentInformationCode();
         LambdaUpdateWrapper<EmploymentInformation> updateWrapper = new LambdaUpdateWrapper<>();
         // 2. 设置更新字段：deleted = 1
         updateWrapper.set(EmploymentInformation::getDeleted, 1);
 
         // 3. 设置查询条件：employmentInformationCode = employmentInformationId（和原代码条件一致）
-        updateWrapper.eq(EmploymentInformation::getEmploymentInformationCode, employmentInformationId);
+        updateWrapper.eq(EmploymentInformation::getEmploymentInformationCode, employmentInformationCode);
         updateWrapper.eq(EmploymentInformation::getDeleted,0);
 
 
@@ -289,8 +300,14 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
         }
         
         // 3. 缓存未命中，查数据库
+        EmploymentInformation currentEmploymentInformation = employmentInformationMapper.selectById(employmentInformationId);
+        if (currentEmploymentInformation == null || currentEmploymentInformation.getDeleted() != 0) {
+            throw new RuntimeException("招聘信息不存在");
+        }
+        Integer employmentInformationCode = currentEmploymentInformation.getEmploymentInformationCode();
+
         LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCode, employmentInformationId);
+        lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationCode, employmentInformationCode);
         lambdaQueryWrapper.eq(EmploymentInformation::getDeleted, 0);
         List<EmploymentInformation> employmentInformations = employmentInformationMapper.selectList(lambdaQueryWrapper);
         List<String> provinces = new LinkedList<>();
