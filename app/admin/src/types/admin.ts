@@ -243,6 +243,7 @@ export interface EmploymentInformationInfoVO {
   employmentInformationCompanyType: number
   employmentInformationBatch: number
   employmentInformationRecruitPosition: number
+  employmentInformationRecruitPositionName?: string
   employmentInformationRecruitObject: number
   employmentInformationRecruitLocationFirstName?: string[]
   employmentInformationRecruitLocationSecondName?: string[]

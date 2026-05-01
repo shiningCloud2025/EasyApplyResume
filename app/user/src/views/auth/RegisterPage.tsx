@@ -7,7 +7,7 @@ import { sendSmsCode, sendEmailCode } from '@api/verify'
 import { provinceAPI, universityAPI, recruitPositionAPI } from '@api/system'
 import { useUserStore } from '@stores/userStore'
 import type { RegisterForm, ProvinceMap, CityMap, UniversityMap, RecruitPosition } from '@types/index'
-import '@styles/auth.scss'
+import { formatRecruitPositionName } from '@utils/index'
 import '@styles/auth-override.scss'
 
 const { Option } = Select
@@ -369,7 +369,7 @@ const RegisterPage: React.FC = () => {
               >
                 {positions.map(pos => (
                   <Option key={pos.recruitPositionId} value={pos.recruitPositionId}>
-                    {pos.recruitPositionName}
+                    {formatRecruitPositionName(pos.recruitPositionName)}
                   </Option>
                 ))}
               </Select>

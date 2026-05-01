@@ -84,7 +84,7 @@
             <el-option
               v-for="position in positionList"
               :key="position.recruitPositionId"
-              :label="position.recruitPositionName"
+              :label="formatRecruitPositionName(position.recruitPositionName)"
               :value="position.recruitPositionId"
             />
           </el-select>
@@ -303,26 +303,41 @@
           <el-descriptions-item label="招聘批次">
             {{ getBatchName(currentViewInfo.employmentInformationBatch) }}
           </el-descriptions-item>
+          <el-descriptions-item label="招聘岗位">
+            {{ formatRecruitPositionName(currentViewInfo.employmentInformationRecruitPositionName) || getPositionName(currentViewInfo.employmentInformationRecruitPosition) }}
+          </el-descriptions-item>
           <el-descriptions-item label="招聘对象">
             {{ getRecruitObjectName(currentViewInfo.employmentInformationRecruitObject) }}
           </el-descriptions-item>
           <el-descriptions-item label="招聘省份" :span="2">
-            <el-tag 
-              v-for="(province, index) in currentViewInfo.employmentInformationRecruitLocationFirstName" 
-              :key="index"
-              style="margin-right: 8px"
-            >
-              {{ province }}
-            </el-tag>
+            <template v-if="currentViewInfo.employmentInformationRecruitLocationFirstName?.length">
+              <el-tag
+                v-for="(province, index) in currentViewInfo.employmentInformationRecruitLocationFirstName"
+                :key="index"
+                style="margin-right: 8px"
+              >
+                {{ province }}
+              </el-tag>
+            </template>
+            <span v-else>-</span>
           </el-descriptions-item>
           <el-descriptions-item label="招聘城市" :span="2">
-            <el-tag 
-              v-for="(city, index) in currentViewInfo.employmentInformationRecruitLocationSecondName" 
-              :key="index"
-              style="margin-right: 8px"
-            >
-              {{ city }}
-            </el-tag>
+            <template v-if="currentViewInfo.employmentInformationRecruitLocationSecondName?.length">
+              <el-tag
+                v-for="(city, index) in currentViewInfo.employmentInformationRecruitLocationSecondName"
+                :key="index"
+                style="margin-right: 8px"
+              >
+                {{ city }}
+              </el-tag>
+            </template>
+            <span v-else>-</span>
+          </el-descriptions-item>
+          <el-descriptions-item label="详细地址" :span="2">
+            <template v-if="currentViewInfo.employmentInformationRecruitLocationDetail?.length">
+              {{ currentViewInfo.employmentInformationRecruitLocationDetail.join('；') }}
+            </template>
+            <span v-else>-</span>
           </el-descriptions-item>
           <el-descriptions-item label="创建时间">
             {{ currentViewInfo.employmentInformationStartTime ? formatDate(currentViewInfo.employmentInformationStartTime) : '-' }}
@@ -448,7 +463,7 @@
                 <el-option
                   v-for="position in positionList"
                   :key="position.recruitPositionId"
-                  :label="position.recruitPositionName"
+                  :label="formatRecruitPositionName(position.recruitPositionName)"
                   :value="position.recruitPositionId"
                 />
               </el-select>
@@ -582,7 +597,7 @@
 <script setup lang="ts">
 import { ref, reactive, watch, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { formatDate } from '@/utils'
+import { formatDate, formatRecruitPositionName } from '@/utils'
 import { employmentInformationApi, industryMapApi, recruitPositionApi, provinceMapApi } from '@/api/admin'
 import type {
   EmploymentInformationPageVO,
@@ -728,7 +743,7 @@ const getRecruitObjectName = (obj: number) => {
 // 获取岗位名称
 const getPositionName = (positionId: number) => {
   const position = positionList.value.find(p => p.recruitPositionId === positionId)
-  return position?.recruitPositionName || '-'
+  return formatRecruitPositionName(position?.recruitPositionName)
 }
 
 // 显示官方公告
@@ -758,7 +773,7 @@ const getIndustryList = async () => {
 const getPositionList = async () => {
   console.log('💼 [岗位] 开始获取岗位列表...')
   try {
-    const response = await recruitPositionApi.getAllRecruitPositions()
+    const response = await recruitPositionApi.getAllEmploymentRecruitPositions()
     console.log('💼 [岗位] API响应:', response)
     console.log('💼 [岗位] 数据:', response.data)
     positionList.value = response.data || []

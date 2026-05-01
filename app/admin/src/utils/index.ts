@@ -36,6 +36,14 @@ export const formatDate = (date: string | Date) => {
 }
 
 /**
+ * 格式化招聘岗位名称展示
+ */
+export const formatRecruitPositionName = (name?: string | null): string => {
+  if (!name) return '-'
+  return name.replace(/\*+$/, '')
+}
+
+/**
  * 格式化时间
  */
 export const formatTime = (date: string | Date) => {

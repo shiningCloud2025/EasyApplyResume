@@ -4,7 +4,7 @@ import { ArrowLeftOutlined, BankOutlined, EnvironmentOutlined, CalendarOutlined,
 import { useQuery } from 'react-query'
 import { useParams, useNavigate } from 'react-router-dom'
 import { jobAPI } from '@api/job'
-import './JobDetail.scss'
+import { formatRecruitPositionName } from '@utils/index'
 
 const JobDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -134,7 +134,7 @@ const JobDetail: React.FC = () => {
             {getBatchName(job.employmentInformationBatch)}
           </Descriptions.Item>
           <Descriptions.Item label="招聘岗位">
-            {job.employmentInformationRecruitPositionName || '-'}
+            {formatRecruitPositionName(job.employmentInformationRecruitPositionName)}
           </Descriptions.Item>
           <Descriptions.Item label="招聘对象">
             {getRecruitObjectName(job.employmentInformationRecruitObject)}

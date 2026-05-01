@@ -41,7 +41,7 @@ public class UserRecruitPositionController {
     @Operation(summary = "查看所有招聘岗位")
     @GetMapping("/queryAllRecruitPositionPage")
     public BaseResult<List<RecruitPositionInfoVO>> queryAllRecruitPositionPage(){
-        return BaseResult.ok(recruitPositionService.queryAllRecruitPositionPage());
+        return BaseResult.ok(recruitPositionService.queryAllRecruitPositionForUser());
     }
 
 }

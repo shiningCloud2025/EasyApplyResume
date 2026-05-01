@@ -193,11 +193,17 @@
         label-width="100px"
       >
         <el-form-item label="账号" prop="adminAccount">
-          <el-input 
-            v-model="form.adminAccount" 
+          <el-input
+            v-model="form.adminAccount"
             placeholder="请输入账号"
             :disabled="dialogType === 'edit'"
-          />
+          >
+            <template v-if="dialogType === 'create'" #append>
+              <el-button :loading="generatingAccount" @click="handleGenerateRandomAccount()">
+                随机生成
+              </el-button>
+            </template>
+          </el-input>
         </el-form-item>
         
         <el-form-item label="姓名" prop="adminUsername">
@@ -525,6 +531,7 @@ const formatDate = (dateStr: string) => {
 const loading = ref(false)
 const submitting = ref(false)
 const uploading = ref(false)
+const generatingAccount = ref(false)
 const dialogVisible = ref(false)
 const dialogType = ref<'create' | 'edit'>('create')
 const formRef = ref<FormInstance>()
@@ -933,13 +940,21 @@ const handleAssignRoleSubmit = async () => {
 }
 
 // 生成随机账号
-const generateRandomAccount = async () => {
+const handleGenerateRandomAccount = async () => {
+  if (generatingAccount.value || dialogType.value !== 'create') {
+    return
+  }
+
   try {
+    generatingAccount.value = true
     const response = await adminApi.generateRandomAccount()
     form.adminAccount = response.data
     ElMessage.success('账号生成成功')
   } catch (error) {
     console.error('生成随机账号失败:', error)
+    ElMessage.error('账号生成失败')
+  } finally {
+    generatingAccount.value = false
   }
 }
 

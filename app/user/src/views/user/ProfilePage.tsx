@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Avatar, Button, Descriptions, Tag } from 'antd'
 import { UserOutlined, EditOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
-import { useUserStore } from '@stores/userStore'
+import { formatRecruitPositionName } from '@utils/index'
 
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate()
@@ -69,7 +69,7 @@ const ProfilePage: React.FC = () => {
         >
           <Descriptions.Item label="目标岗位">
             <Tag color="blue">
-              {user?.userDreamPositionName || '未设置'}
+              {user?.userDreamPositionName ? formatRecruitPositionName(user.userDreamPositionName) : '未设置'}
             </Tag>
           </Descriptions.Item>
           <Descriptions.Item label="期望工作天数">

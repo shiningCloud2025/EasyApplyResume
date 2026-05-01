@@ -320,7 +320,10 @@ export const recruitPositionApi = {
     }),
   
   // 查询所有招聘岗位
-  getAllRecruitPositions: () => api.get<RecruitPositionInfoVO[]>('/admin/recruitPosition/queryAllRecruitPositionPage')
+  getAllRecruitPositions: () => api.get<RecruitPositionInfoVO[]>('/admin/recruitPosition/queryAllRecruitPositionPage'),
+
+  // 查询招聘信息岗位
+  getAllEmploymentRecruitPositions: () => api.get<RecruitPositionInfoVO[]>('/admin/recruitPosition/queryAllRecruitPositionPage')
 }
 
 // 招聘信息相关API

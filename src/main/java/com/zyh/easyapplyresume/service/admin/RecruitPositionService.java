@@ -36,4 +36,13 @@ public interface RecruitPositionService {
      * 查询所有岗位
      */
     public List<RecruitPositionInfoVO> queryAllRecruitPositionPage();
+    /**
+     * 查询用户端可选岗位
+     */
+    public List<RecruitPositionInfoVO> queryAllRecruitPositionForUser();
+
+    /**
+     * 查询招聘信息可选岗位
+     */
+    public List<RecruitPositionInfoVO> queryAllRecruitPositionForEmployment();
 }

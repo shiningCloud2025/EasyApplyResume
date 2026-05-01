@@ -177,4 +177,26 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
         
         return result;
     }
+
+    @Override
+    public List<RecruitPositionInfoVO> queryAllRecruitPositionForUser() {
+        List<RecruitPositionInfoVO> recruitPositionInfoVOS = queryAllRecruitPositionPage();
+        return recruitPositionInfoVOS.stream()
+                .filter(recruitPositionInfoVO -> {
+                    String recruitPositionName = recruitPositionInfoVO.getRecruitPositionName();
+                    return recruitPositionName != null && !recruitPositionName.endsWith("*");
+                })
+                .toList();
+    }
+
+    @Override
+    public List<RecruitPositionInfoVO> queryAllRecruitPositionForEmployment() {
+        List<RecruitPositionInfoVO> recruitPositionInfoVOS = queryAllRecruitPositionPage();
+        return recruitPositionInfoVOS.stream()
+                .filter(recruitPositionInfoVO -> {
+                    String recruitPositionName = recruitPositionInfoVO.getRecruitPositionName();
+                    return recruitPositionName != null && recruitPositionName.endsWith("*");
+                })
+                .toList();
+    }
 }

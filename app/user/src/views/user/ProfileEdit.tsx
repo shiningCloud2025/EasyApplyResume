@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useMutation, useQuery } from 'react-query'
 import { useUserStore } from '@stores/userStore'
 import { provinceAPI, universityAPI, recruitPositionAPI } from '@api/system'
-import request from '@utils/request'
+import { formatRecruitPositionName } from '@utils/index'
 import type { ProvinceMap, CityMap, UniversityMap, RecruitPosition } from '@types/index'
 
 const { TextArea } = Input
@@ -335,7 +335,7 @@ const ProfileEdit: React.FC = () => {
               >
                 {positions.map(pos => (
                   <Option key={pos.recruitPositionId} value={pos.recruitPositionId}>
-                    {pos.recruitPositionName}
+                    {formatRecruitPositionName(pos.recruitPositionName)}
                   </Option>
                 ))}
               </Select>

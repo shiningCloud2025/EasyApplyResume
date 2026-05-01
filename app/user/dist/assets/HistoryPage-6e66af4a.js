@@ -1,0 +1,1 @@
+import{j as o}from"./index-5ced56b8.js";import{S as t}from"./SingletonContentPage-49953401.js";import{s as r}from"./contentPageConfigs-789c51cf.js";import"./react-vendor-fa9da516.js";import"./antd-vendor-63f01c82.js";import"./RichTextContent-98660a5c.js";const p=()=>o.jsx(t,{config:r.history});export{p as default};

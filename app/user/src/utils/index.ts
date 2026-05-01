@@ -93,6 +93,11 @@ export const formatTime = (time: string | Date): string => {
   })
 }
 
+export const formatRecruitPositionName = (name?: string | null): string => {
+  if (!name) return '-'
+  return name.replace(/\*+$/, '')
+}
+
 // 防抖函数
 export const debounce = <T extends (...args: any[]) => any>(
   func: T,

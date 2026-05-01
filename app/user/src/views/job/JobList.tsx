@@ -15,7 +15,7 @@ import { SearchOutlined, ReloadOutlined, BankOutlined } from '@ant-design/icons'
 import { useQuery } from 'react-query'
 import { jobAPI } from '@api/job'
 import { useNavigate } from 'react-router-dom'
-import './JobList.scss'
+import { formatRecruitPositionName } from '@utils/index'
 
 const JobList: React.FC = () => {
   const navigate = useNavigate()
@@ -273,7 +273,7 @@ const JobList: React.FC = () => {
                 dataIndex: 'employmentInformationRecruitPositionName',
                 key: 'position',
                 width: 120,
-                render: (text: string) => text || '-'
+                render: (text: string) => formatRecruitPositionName(text)
               },
               {
                 title: '招聘地址(省)',
