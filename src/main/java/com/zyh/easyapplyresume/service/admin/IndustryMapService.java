@@ -33,4 +33,14 @@ public interface IndustryMapService {
      */
     public List<IndustryMapInfoVO> findAllIndustryMap();
 
+    /**
+     * 查询招聘信息行业Map
+     */
+    public List<IndustryMapInfoVO> findAllRecruitIndustryMap();
+
+    /**
+     * 查询普通行业Map
+     */
+    public List<IndustryMapInfoVO> findAllNormalIndustryMap();
+
 }

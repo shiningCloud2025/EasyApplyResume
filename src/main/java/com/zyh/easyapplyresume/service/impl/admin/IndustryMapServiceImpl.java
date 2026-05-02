@@ -234,4 +234,26 @@ public class IndustryMapServiceImpl implements IndustryMapService {
         
         return result;
     }
+
+    @Override
+    public List<IndustryMapInfoVO> findAllRecruitIndustryMap() {
+        List<IndustryMapInfoVO> industryMapInfoVOS = findAllIndustryMap();
+        return industryMapInfoVOS.stream()
+                .filter(industryMapInfoVO -> {
+                    String industryMapIndustryName = industryMapInfoVO.getIndustryMapIndustryName();
+                    return industryMapIndustryName != null && industryMapIndustryName.endsWith("*");
+                })
+                .toList();
+    }
+
+    @Override
+    public List<IndustryMapInfoVO> findAllNormalIndustryMap() {
+        List<IndustryMapInfoVO> industryMapInfoVOS = findAllIndustryMap();
+        return industryMapInfoVOS.stream()
+                .filter(industryMapInfoVO -> {
+                    String industryMapIndustryName = industryMapInfoVO.getIndustryMapIndustryName();
+                    return industryMapIndustryName != null && !industryMapIndustryName.endsWith("*");
+                })
+                .toList();
+    }
 }

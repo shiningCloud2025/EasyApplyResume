@@ -57,4 +57,16 @@ public class AdminIndustryMapController {
     public BaseResult<List<IndustryMapInfoVO>> findAllIndustryMap(){
         return BaseResult.ok(industryMapService.findAllIndustryMap());
     }
+
+    @Operation(summary = "查询招聘信息行业Map")
+    @GetMapping("/findAllRecruitIndustryMap")
+    public BaseResult<List<IndustryMapInfoVO>> findAllRecruitIndustryMap(){
+        return BaseResult.ok(industryMapService.findAllRecruitIndustryMap());
+    }
+
+    @Operation(summary = "查询普通行业Map")
+    @GetMapping("/findAllNormalIndustryMap")
+    public BaseResult<List<IndustryMapInfoVO>> findAllNormalIndustryMap(){
+        return BaseResult.ok(industryMapService.findAllNormalIndustryMap());
+    }
 }

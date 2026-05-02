@@ -28,5 +28,10 @@ public class UserIndustryMapController {
     public BaseResult<List<IndustryMapInfoVO>> findAllIndustryMap(){
         return BaseResult.ok(industryMapService.findAllIndustryMap());
     }
+    @Operation(summary = "查询普通行业Map")
+    @GetMapping("/findAllNormalIndustryMap")
+    public BaseResult<List<IndustryMapInfoVO>> findAllNormalIndustryMap(){
+        return BaseResult.ok(industryMapService.findAllNormalIndustryMap());
+    }
 
 }
