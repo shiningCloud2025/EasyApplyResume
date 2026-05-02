@@ -7,6 +7,7 @@ import { jobAPI } from '@api/job'
 import useUserStore from '@stores/userStore'
 import { useNavigate } from 'react-router-dom'
 import { LiveProvider, LivePreview, LiveError } from 'react-live'
+import { formatIndustryMapName, isNormalIndustry } from '@utils/index'
 import './ResumeTemplates.scss'
 
 const { Option } = Select
@@ -93,7 +94,11 @@ const ResumeTemplates: React.FC = () => {
     }
   )
 
-  // 获取简历模板列表
+  const normalIndustries = React.useMemo(
+    () => (industries || []).filter((industry: any) => isNormalIndustry(industry.industryMapIndustryName)),
+    [industries]
+  )
+
   const { data: templatesData, isLoading, error, refetch } = useQuery(
     ['templates', pagination, query],
     () => resumeAPI.getTemplates({
@@ -235,9 +240,9 @@ const ResumeTemplates: React.FC = () => {
               onChange={handleIndustryChange}
               allowClear
             >
-              {industries?.map((industry: any) => (
+              {normalIndustries?.map((industry: any) => (
                 <Option key={industry.industryMapIndustryCode} value={industry.industryMapIndustryCode}>
-                  {industry.industryMapIndustryName}
+                  {formatIndustryMapName(industry.industryMapIndustryName)}
                 </Option>
               ))}
             </Select>
@@ -316,7 +321,7 @@ const ResumeTemplates: React.FC = () => {
                       <div className="card-desc">
                         <div className="tags">
                           {template.industryMapIndustryName && (
-                            <Tag color="blue">{template.industryMapIndustryName}</Tag>
+                            <Tag color="blue">{formatIndustryMapName(template.industryMapIndustryName)}</Tag>
                           )}
                         </div>
                         <div className="date">创建：{formatDate(template.resumeTemplateCreatedTime)}</div>

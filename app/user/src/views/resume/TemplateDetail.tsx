@@ -17,6 +17,7 @@ import { LiveProvider, LivePreview, LiveError } from 'react-live'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
 import './TemplateDetail.scss'
+import { formatIndustryMapName } from '@utils/index'
 
 // React代码预览组件
 const ReactCodePreview: React.FC<{ code: string }> = ({ code }) => {
@@ -347,7 +348,7 @@ const TemplateDetail: React.FC = () => {
                 {template.resumeTemplateName}
               </Descriptions.Item>
               <Descriptions.Item label="所属行业">
-                <Tag color="blue">{template.industryMapIndustryName || '-'}</Tag>
+                <Tag color="blue">{formatIndustryMapName(template.industryMapIndustryName)}</Tag>
               </Descriptions.Item>
               <Descriptions.Item label="创建时间">
                 {formatDate(template.createTime)}

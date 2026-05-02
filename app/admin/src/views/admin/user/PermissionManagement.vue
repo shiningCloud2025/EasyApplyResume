@@ -10,7 +10,7 @@
           <el-icon><Refresh /></el-icon>
           刷新
         </el-button>
-        <el-button type="primary" @click="openCreateDialog">
+        <el-button v-if="canAddPermission" type="primary" @click="openCreateDialog">
           <el-icon><Plus /></el-icon>
           新增权限
         </el-button>
@@ -69,19 +69,20 @@
         <el-table-column prop="permissionName" label="权限名称" min-width="150" />
         <el-table-column prop="permissionUrl" label="权限URL" min-width="200" />
         <el-table-column prop="permissionIntroduce" label="权限简介" min-width="200" />
-        <el-table-column label="操作" width="220" fixed="right">
+        <el-table-column v-if="showPermissionActionColumn" label="操作" width="220" fixed="right">
           <template #default="{ row }">
             <el-button
+              v-if="canViewPermissionDetail"
               type="info"
               size="default"
               @click="handleViewDetail(row)"
             >
               查看
             </el-button>
-            <el-button type="primary" size="default" @click="handleEdit(row)">
+            <el-button v-if="canUpdatePermission" type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
-            <el-button type="danger" size="default" @click="handleDelete(row)">
+            <el-button v-if="canDeletePermission" type="danger" size="default" @click="handleDelete(row)">
               删除
             </el-button>
           </template>
@@ -172,11 +173,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh, Plus, Search, RefreshRight } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
 import { permissionApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type {
   PermissionPageVO,
   PermissionForm,
@@ -184,6 +186,15 @@ import type {
   PermissionInfoVO
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
+
+const authStore = useAuthStore()
+const canAddPermission = computed(() => authStore.hasPermission('/admin/permission/add'))
+const canUpdatePermission = computed(() => authStore.hasPermission('/admin/permission/update'))
+const canDeletePermission = computed(() => authStore.hasPermission('/admin/permission/delete'))
+const canViewPermissionDetail = computed(() => authStore.hasPermission('/admin/permission/findById'))
+const showPermissionActionColumn = computed(() => {
+  return canViewPermissionDetail.value || canUpdatePermission.value || canDeletePermission.value
+})
 
 // 响应式数据
 const loading = ref(false)
@@ -328,7 +339,6 @@ const handleDelete = (row: PermissionPageVO) => {
       getPermissionList()
     } catch (error) {
       console.error('删除失败:', error)
-      ElMessage.error('删除失败')
     }
   })
 }

@@ -22,6 +22,7 @@ export interface AdminUser {
   adminState: number
   adminLoginTime: string
   adminCreatedTime?: string
+  authorities?: string[]
   roles?: any[]
   roleInfoVOS?: any[]
 }
@@ -41,6 +42,91 @@ export interface EmailLoginForm {
   messageCode: string
 }
 
+const normalizePermission = (permission: any): string => {
+  if (typeof permission === 'string') {
+    return permission.trim()
+  }
+
+  if (permission && typeof permission === 'object') {
+    if (typeof permission.authority === 'string') {
+      return permission.authority.trim()
+    }
+
+    if (typeof permission.permissionUrl === 'string') {
+      return permission.permissionUrl.trim()
+    }
+
+    if (typeof permission.permission === 'string') {
+      return permission.permission.trim()
+    }
+
+    if (typeof permission.url === 'string') {
+      return permission.url.trim()
+    }
+  }
+
+  return ''
+}
+
+const uniquePermissions = (permissions: string[]) => [...new Set(permissions.filter(Boolean))]
+
+const getFirstAvailableArray = (...sources: any[]): any[] => {
+  for (const source of sources) {
+    if (Array.isArray(source) && source.length > 0) {
+      return source
+    }
+  }
+
+  for (const source of sources) {
+    if (Array.isArray(source)) {
+      return source
+    }
+  }
+
+  return []
+}
+
+const normalizeAuthorities = (authorities?: any[]) => {
+  return uniquePermissions((authorities || []).map((authority) => normalizePermission(authority)))
+}
+
+const extractPermissionsFromRoles = (roles?: any[]) => {
+  const permissions: string[] = []
+
+  ;(roles || []).forEach((role: any) => {
+    const permissionList = getFirstAvailableArray(role?.permissionInfoVOS, role?.permissions)
+
+    permissionList.forEach((permission: any) => {
+      const normalizedPermission = normalizePermission(permission)
+      if (normalizedPermission) {
+        permissions.push(normalizedPermission)
+      }
+    })
+  })
+
+  return uniquePermissions(permissions)
+}
+
+const mergePermissions = (...permissionGroups: string[][]) => {
+  return uniquePermissions(permissionGroups.flat())
+}
+
+const hasAnyPermission = (currentPermissions: string[], permissions: string[]) => {
+  return permissions.some((permission) => currentPermissions.includes(permission))
+}
+
+export const websiteManagementPagePermissions = {
+  admin: ['/admin/admin/findByPage'],
+  role: ['/admin/role/findByPage'],
+  permission: [
+    '/admin/permission/findByPage',
+    '/admin/permission/findById',
+    '/admin/permission/add',
+    '/admin/permission/update',
+    '/admin/permission/delete'
+  ]
+} as const
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('admin_token') || '',
@@ -50,16 +136,12 @@ export const useAuthStore = defineStore('auth', {
 
   getters: {
     isLoggedIn: (state) => !!state.token,
-    userRoles: (state) => state.user?.roles || state.user?.roleInfoVOS || [],
+    userRoles: (state) => getFirstAvailableArray(state.user?.roles, state.user?.roleInfoVOS),
     userPermissions: (state) => {
-      const permissions = []
-      const roleList = state.user?.roles || state.user?.roleInfoVOS || []
-      roleList.forEach((role: any) => {
-        if (role.permissions) {
-          permissions.push(...role.permissions.map((p: any) => p.permissionUrl))
-        }
-      })
-      return [...new Set(permissions)]
+      return mergePermissions(
+        normalizeAuthorities(state.user?.authorities),
+        extractPermissionsFromRoles(getFirstAvailableArray(state.user?.roles, state.user?.roleInfoVOS))
+      )
     }
   },
 
@@ -71,22 +153,21 @@ export const useAuthStore = defineStore('auth', {
         console.log('开始登录，参数:', form)
         const response = await api.post<string>('/admin/auth/formalLogin', form)
         console.log('登录响应:', response)
-        
+
         if (!response.data) {
           throw new Error('登录失败：未获取到token')
         }
-        
+
         this.setToken(response.data)
         console.log('Token已保存:', response.data)
-        
-        // 获取用户信息（失败不影响登录）
+
         try {
           await this.getUserInfo()
           console.log('用户信息已获取:', this.user)
         } catch (error) {
           console.warn('获取用户信息失败，但不影响登录:', error)
         }
-        
+
         return response.data
       } catch (error: any) {
         console.error('登录失败详情:', error)
@@ -102,14 +183,13 @@ export const useAuthStore = defineStore('auth', {
         this.loading = true
         const response = await api.post<string>('/admin/auth/phoneLogin', form)
         this.setToken(response.data)
-        
-        // 获取用户信息（失败不影响登录）
+
         try {
           await this.getUserInfo()
         } catch (error) {
           console.warn('获取用户信息失败，但不影响登录:', error)
         }
-        
+
         return response.data
       } finally {
         this.loading = false
@@ -122,14 +202,13 @@ export const useAuthStore = defineStore('auth', {
         this.loading = true
         const response = await api.post<string>('/admin/auth/emailLogin', form)
         this.setToken(response.data)
-        
-        // 获取用户信息（失败不影响登录）
+
         try {
           await this.getUserInfo()
         } catch (error) {
           console.warn('获取用户信息失败，但不影响登录:', error)
         }
-        
+
         return response.data
       } finally {
         this.loading = false
@@ -142,6 +221,7 @@ export const useAuthStore = defineStore('auth', {
         if (!silent) {
           console.log('开始获取用户信息...')
         }
+
         const securityResponse = await api.post<AdminSecurityUser>('/admin/auth/getAdminInfo')
         if (!silent) {
           console.log('鉴权用户信息响应:', securityResponse)
@@ -153,23 +233,52 @@ export const useAuthStore = defineStore('auth', {
           return null
         }
 
-        const adminResponse = await api.get<AdminUser>('/admin/admin/findById', {
-          adminId: securityUser.userId
-        })
-        if (!silent) {
-          console.log('管理员详情响应:', adminResponse)
+        const authorityPermissions = normalizeAuthorities(securityUser.authorities)
+        let roleInfoVOS: any[] = []
+
+        let adminDetail: Partial<AdminUser> = {}
+        try {
+          const adminResponse = await api.get<AdminUser>('/admin/admin/findById', {
+            adminId: securityUser.userId
+          })
+          adminDetail = adminResponse.data || {}
+          if (!silent) {
+            console.log('管理员详情响应:', adminResponse)
+          }
+        } catch (error) {
+          console.warn('获取管理员详情失败，改用鉴权信息维持登录态:', error)
         }
 
+        const detailRoles = getFirstAvailableArray(adminDetail.roleInfoVOS, adminDetail.roles)
+        roleInfoVOS = detailRoles
+
+        const resolvedRoles = getFirstAvailableArray(roleInfoVOS, adminDetail.roleInfoVOS, adminDetail.roles)
+        const mergedAuthorities = mergePermissions(
+          authorityPermissions,
+          extractPermissionsFromRoles(resolvedRoles)
+        )
+
         this.user = {
-          ...adminResponse.data,
           userId: securityUser.userId,
-          adminId: adminResponse.data.adminId || securityUser.userId,
-          adminEmail: adminResponse.data.adminEmail || securityUser.userEmail,
-          roles: adminResponse.data.roles || adminResponse.data.roleInfoVOS || []
+          adminId: adminDetail.adminId || securityUser.userId,
+          adminAccount: adminDetail.adminAccount || '',
+          adminUsername: adminDetail.adminUsername || securityUser.username || '',
+          adminEmail: adminDetail.adminEmail || securityUser.userEmail || '',
+          adminPhone: adminDetail.adminPhone || '',
+          adminImage: adminDetail.adminImage || '',
+          adminIntroduce: adminDetail.adminIntroduce || '',
+          adminState: adminDetail.adminState ?? (securityUser.enabled === false ? 0 : 1),
+          adminLoginTime: adminDetail.adminLoginTime || '',
+          adminCreatedTime: adminDetail.adminCreatedTime,
+          authorities: mergedAuthorities,
+          roles: resolvedRoles,
+          roleInfoVOS: resolvedRoles
         }
+
         return this.user
       } catch (error: any) {
         console.error('获取用户信息失败:', error)
+        this.user = null
         return null
       }
     },
@@ -202,7 +311,29 @@ export const useAuthStore = defineStore('auth', {
 
     // 检查权限
     hasPermission(permission: string): boolean {
-      return this.userPermissions.includes(permission)
+      return this.userPermissions.includes(permission.trim())
+    },
+
+    hasAnyPermission(permissions: string[]): boolean {
+      return hasAnyPermission(this.userPermissions, permissions)
+    },
+
+    canAccessRoute(permission?: string | string[]): boolean {
+      if (!permission) {
+        return true
+      }
+
+      if (Array.isArray(permission)) {
+        return this.hasAnyPermission(permission)
+      }
+
+      return this.hasPermission(permission)
+    },
+
+    canAccessWebsiteManagement(): boolean {
+      return Object.values(websiteManagementPagePermissions).some((permissions) => {
+        return this.hasAnyPermission(permissions)
+      })
     },
 
     // 检查角色

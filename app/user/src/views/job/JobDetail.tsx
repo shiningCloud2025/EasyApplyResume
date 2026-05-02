@@ -4,7 +4,7 @@ import { ArrowLeftOutlined, BankOutlined, EnvironmentOutlined, CalendarOutlined,
 import { useQuery } from 'react-query'
 import { useParams, useNavigate } from 'react-router-dom'
 import { jobAPI } from '@api/job'
-import { formatRecruitPositionName } from '@utils/index'
+import { formatRecruitPositionName, formatIndustryMapName } from '@utils/index'
 
 const JobDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -108,7 +108,7 @@ const JobDetail: React.FC = () => {
           </h1>
           <div className="job-meta">
             {job.employmentInformationIndustryCategoriesName && (
-              <Tag color="blue">{job.employmentInformationIndustryCategoriesName}</Tag>
+              <Tag color="blue">{formatIndustryMapName(job.employmentInformationIndustryCategoriesName)}</Tag>
             )}
             {job.employmentInformationOnlineApplicationStatus && (
               <Tag color={getStatusColor(job.employmentInformationOnlineApplicationStatus)}>
@@ -125,7 +125,7 @@ const JobDetail: React.FC = () => {
             {job.employmentInformationCode || '-'}
           </Descriptions.Item>
           <Descriptions.Item label="行业大类">
-            {job.employmentInformationIndustryCategoriesName || '-'}
+            {formatIndustryMapName(job.employmentInformationIndustryCategoriesName)}
           </Descriptions.Item>
           <Descriptions.Item label="企业性质">
             {getCompanyTypeName(job.employmentInformationCompanyType)}

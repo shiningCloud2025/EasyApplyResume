@@ -36,9 +36,9 @@
             style="width: 160px"
           >
             <el-option
-              v-for="industry in industryList"
+              v-for="industry in normalIndustryList"
               :key="industry.industryMapIndustryCode"
-              :label="industry.industryMapIndustryName"
+              :label="formatIndustryMapName(industry.industryMapIndustryName)"
               :value="industry.industryMapIndustryCode"
             />
           </el-select>
@@ -104,7 +104,7 @@
         <el-table-column prop="recruitPositionName" label="岗位名称" min-width="200" />
         <el-table-column label="所属行业" width="120">
           <template #default="{ row }">
-            {{ row.recruitPositionIndustryName || '-' }}
+            {{ formatIndustryMapName(row.recruitPositionIndustryName) }}
           </template>
         </el-table-column>
         <el-table-column label="薪资范围" width="150">
@@ -188,9 +188,9 @@
             style="width: 100%"
           >
             <el-option
-              v-for="industry in industryList"
+              v-for="industry in normalIndustryList"
               :key="industry.industryMapIndustryCode"
-              :label="industry.industryMapIndustryName"
+              :label="formatIndustryMapName(industry.industryMapIndustryName)"
               :value="industry.industryMapIndustryCode"
             />
           </el-select>
@@ -280,7 +280,7 @@
             {{ currentViewPosition.recruitPositionName }}
           </el-descriptions-item>
           <el-descriptions-item label="所属行业">
-            {{ currentViewPosition.recruitPositionIndustryName || currentViewPosition.recruitPositionIndustryCode }}
+            {{ formatIndustryMapName(currentViewPosition.recruitPositionIndustryName) || currentViewPosition.recruitPositionIndustryCode }}
           </el-descriptions-item>
           <el-descriptions-item label="薪资范围">
             <el-tag type="warning">{{ currentViewPosition.minMonthSalary }}-{{ currentViewPosition.maxMonthSalary }}元/月</el-tag>
@@ -304,9 +304,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { formatDate } from '@/utils'
+import { formatDate, formatIndustryMapName, isNormalIndustry } from '@/utils'
 import { recruitPositionApi, industryMapApi } from '@/api/admin'
 import type {
   RecruitPositionPageVO,
@@ -324,6 +324,9 @@ const showViewDialog = ref(false)
 const editingPosition = ref<RecruitPositionPageVO | null>(null)
 const currentViewPosition = ref<RecruitPositionInfoVO | null>(null)
 const industryList = ref<any[]>([])
+const normalIndustryList = computed(() =>
+  industryList.value.filter((industry: any) => isNormalIndustry(industry.industryMapIndustryName))
+)
 
 // 搜索表单
 const searchForm = reactive<RecruitPositionQuery>({

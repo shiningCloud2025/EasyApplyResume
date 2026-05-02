@@ -43,6 +43,19 @@ export const formatRecruitPositionName = (name?: string | null): string => {
   return name.replace(/\*+$/, '')
 }
 
+export const formatIndustryMapName = (name?: string | null): string => {
+  if (!name) return '-'
+  return name.replace(/\*+$/, '')
+}
+
+export const isRecruitIndustry = (name?: string | null): boolean => {
+  return !!name && name.endsWith('*')
+}
+
+export const isNormalIndustry = (name?: string | null): boolean => {
+  return !!name && !name.endsWith('*')
+}
+
 /**
  * 格式化时间
  */

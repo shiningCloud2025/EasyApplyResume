@@ -10,7 +10,7 @@
         <el-button @click="refreshData" :icon="Refresh" type="default">
           刷新
         </el-button>
-        <el-button @click="showAddDialog" type="primary" :icon="Plus">
+        <el-button v-if="canAddAdmin" @click="showAddDialog" type="primary" :icon="Plus">
           新增管理员
         </el-button>
       </div>
@@ -73,6 +73,7 @@
         <span class="table-title">管理员列表</span>
         <div class="table-actions">
           <el-button
+            v-if="canDeleteAdmin"
             type="danger"
             :disabled="selectedIds.length === 0"
             @click="handleBatchDelete"
@@ -115,7 +116,7 @@
           </template>
         </el-table-column>
         
-        <el-table-column label="角色" width="120">
+        <el-table-column v-if="canViewAdminRoles" label="角色" width="120">
           <template #default="{ row }">
             <el-button
               type="info"
@@ -126,20 +127,22 @@
             </el-button>
           </template>
         </el-table-column>
-        
-        <el-table-column label="操作" width="360" fixed="right">
+
+        <el-table-column v-if="showAdminActionColumn" label="操作" width="360" fixed="right">
           <template #default="{ row }">
             <el-button
+              v-if="canViewAdminDetail"
               type="info"
               size="default"
               @click="handleViewDetail(row)"
             >
               查看
             </el-button>
-            <el-button type="primary" size="default" @click="handleEdit(row)">
+            <el-button v-if="canUpdateAdmin" type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
             <el-button
+              v-if="canAssignAdminRoles"
               type="warning"
               size="default"
               @click="handleAssignRole(row)"
@@ -147,6 +150,7 @@
               分配角色
             </el-button>
             <el-button
+              v-if="canSendAdminEmail"
               type="success"
               size="default"
               @click="handleSendEmail(row)"
@@ -155,6 +159,7 @@
               发邮件
             </el-button>
             <el-button
+              v-if="canDeleteAdmin"
               type="danger"
               size="default"
               :disabled="row.adminId === 1"
@@ -198,7 +203,7 @@
             placeholder="请输入账号"
             :disabled="dialogType === 'edit'"
           >
-            <template v-if="dialogType === 'create'" #append>
+            <template v-if="dialogType === 'create' && canGenerateRandomAccount" #append>
               <el-button :loading="generatingAccount" @click="handleGenerateRandomAccount()">
                 随机生成
               </el-button>
@@ -520,6 +525,18 @@ import type {
 import type { FormInstance } from 'element-plus'
 
 const authStore = useAuthStore()
+
+const canAddAdmin = computed(() => authStore.hasPermission('/admin/admin/add'))
+const canUpdateAdmin = computed(() => authStore.hasPermission('/admin/admin/update'))
+const canDeleteAdmin = computed(() => authStore.hasPermission('/admin/admin/delete'))
+const canViewAdminDetail = computed(() => authStore.hasPermission('/admin/admin/findById'))
+const canViewAdminRoles = computed(() => authStore.hasPermission('/admin/admin/findRoleByAdmin'))
+const canAssignAdminRoles = computed(() => authStore.hasPermission('/admin/admin/assignRoleToAdmin'))
+const canSendAdminEmail = computed(() => authStore.hasPermission('/admin/email/communication/usallyde/sendHtml'))
+const canGenerateRandomAccount = computed(() => authStore.hasPermission('/admin/admin/generateRandomAccount'))
+const showAdminActionColumn = computed(() => {
+  return canViewAdminDetail.value || canUpdateAdmin.value || canAssignAdminRoles.value || canSendAdminEmail.value || canDeleteAdmin.value
+})
 
 // 日期格式化函数（只显示日期）
 const formatDate = (dateStr: string) => {
@@ -851,7 +868,6 @@ const handleDelete = (row: AdminPageVO) => {
       getAdminList()
     } catch (error) {
       console.error('删除失败:', error)
-      ElMessage.error('删除失败')
     }
   })
 }
@@ -867,7 +883,6 @@ const handleBatchDelete = () => {
       getAdminList()
     } catch (error) {
       console.error('批量删除失败:', error)
-      ElMessage.error('批量删除失败')
     }
   })
 }

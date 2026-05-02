@@ -12,6 +12,7 @@ import com.zyh.easyapplyresume.service.admin.AdminService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,30 +31,35 @@ public class AdminController {
 
     @Operation(summary = "新增管理员")
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('/admin/admin/add')")
     public BaseResult<Integer> addAdmin(@RequestBody AdminForm adminForm){
         return BaseResult.ok(adminService.addAdmin(adminForm));
     }
 
     @Operation(summary = "修改管理员")
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('/admin/admin/update')")
     public BaseResult<Integer> updateAdmin(@RequestBody AdminForm adminForm){
         return BaseResult.ok(adminService.updateAdmin(adminForm));
     }
 
     @Operation(summary = "删除管理员")
     @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('/admin/admin/delete')")
     public BaseResult<Integer> deleteAdmin(@RequestParam(required = true,value = "adminId") Integer adminId){
        return BaseResult.ok(adminService.deleteAdmin(adminId));
     }
 
     @Operation(summary = "查询管理员")
     @GetMapping("/findById")
+    @PreAuthorize("hasAuthority('/admin/admin/findById')")
     public BaseResult<AdminInfoVO> findAdminById(@RequestParam(required = true,value = "adminId") Integer adminId){
         return BaseResult.ok(adminService.findAdminById(adminId));
     }
 
     @Operation(summary = "分页查询管理员")
     @PostMapping("/findByPage")
+    @PreAuthorize("hasAuthority('/admin/admin/findByPage')")
     public BaseResult<Page<AdminPageVO>> findAdminByPage(@RequestParam(required = false,value = "pageNum",defaultValue = "1") Integer pageNum,
                                                          @RequestParam(required = false,value = "pageSize",defaultValue = "10") Integer pageSize,
                                                          @RequestBody AdminPageQuery adminPageQuery){
@@ -62,12 +68,14 @@ public class AdminController {
 
     @Operation(summary = "查看管理员拥有的角色")
     @GetMapping("/findRoleByAdmin")
+    @PreAuthorize("hasAuthority('/admin/admin/findRoleByAdmin')")
     public BaseResult<List<RoleInfoVO>> findRoleByAdmin(@RequestParam(required = true,value = "adminId") Integer adminId){
         return BaseResult.ok(adminService.findRoleByAdmin(adminId));
     }
 
     @Operation(summary = "为管理员分配角色")
     @PostMapping("/assignRoleToAdmin")
+    @PreAuthorize("hasAuthority('/admin/admin/assignRoleToAdmin')")
     public BaseResult<Integer> assignRoleToAdmin(@RequestParam(required = true,value = "adminId") Integer adminId,
                                   @RequestParam(required = true,value = "roleIds") Integer[] roleIds){
         return BaseResult.ok(adminService.assignRoleToAdmin(adminId,roleIds));
@@ -75,6 +83,7 @@ public class AdminController {
 
     @Operation(summary = "生成随机账号")
     @GetMapping("/generateRandomAccount")
+    @PreAuthorize("hasAuthority('/admin/admin/generateRandomAccount')")
     public BaseResult<String> generateRandomAccount(){
         return BaseResult.ok(adminService.generateRandomAccount());
     }

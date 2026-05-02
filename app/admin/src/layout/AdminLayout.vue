@@ -32,14 +32,18 @@
         </el-menu-item>
 
         <!-- 网站管理 -->
-        <el-sub-menu index="/admin/user">
+        <el-sub-menu v-if="showWebsiteManagementMenu" index="/admin/user">
           <template #title>
             <el-icon><User /></el-icon>
             <span>网站管理</span>
           </template>
-          <el-menu-item index="/admin/user/admin">管理员管理</el-menu-item>
-          <el-menu-item index="/admin/user/role">角色管理</el-menu-item>
-          <el-menu-item index="/admin/user/permission">权限管理</el-menu-item>
+          <el-menu-item
+            v-for="item in visibleWebsiteManagementMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            {{ item.title }}
+          </el-menu-item>
         </el-sub-menu>
 
         <!-- 文章管理 -->
@@ -431,7 +435,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, shallowRef, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore } from '@/store/auth'
+import { useAuthStore, websiteManagementPagePermissions } from '@/store/auth'
 import {
   House,
   User,
@@ -505,6 +509,32 @@ const toggleFullScreen = () => {
 // 用户信息
 const currentUser = computed(() => authStore.user)
 const defaultAvatar = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+
+const websiteManagementMenus = [
+  {
+    index: '/admin/user/admin',
+    title: '管理员管理',
+    permission: websiteManagementPagePermissions.admin
+  },
+  {
+    index: '/admin/user/role',
+    title: '角色管理',
+    permission: websiteManagementPagePermissions.role
+  },
+  {
+    index: '/admin/user/permission',
+    title: '权限管理',
+    permission: websiteManagementPagePermissions.permission
+  }
+]
+
+const visibleWebsiteManagementMenus = computed(() => {
+  return websiteManagementMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showWebsiteManagementMenu = computed(() => {
+  return visibleWebsiteManagementMenus.value.length > 0 && authStore.canAccessWebsiteManagement()
+})
 
 // 用户菜单操作
 const handleUserCommand = (command: string) => {

@@ -11,6 +11,7 @@ import com.zyh.easyapplyresume.service.admin.RoleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,6 +61,7 @@ public class AdminRoleController {
 
     @Operation(summary = "查询所有角色")
     @GetMapping("/findAllRole")
+    @PreAuthorize("hasAuthority('/admin/role/findAllRole')")
     public BaseResult<List<RoleInfoVO>> findAllRole(){
         return BaseResult.ok(roleService.findAllRole());
     }

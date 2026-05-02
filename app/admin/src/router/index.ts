@@ -41,19 +41,19 @@ const router = createRouter({
               path: 'admin',
               name: 'AdminManagement',
               component: () => import('@/views/admin/user/AdminManagement.vue'),
-              meta: { title: '管理员管理' }
+              meta: { title: '管理员管理', permission: '/admin/admin/findByPage' }
             },
             {
               path: 'role',
               name: 'RoleManagement',
               component: () => import('@/views/admin/user/RoleManagement.vue'),
-              meta: { title: '角色管理' }
+              meta: { title: '角色管理', permission: '/admin/role/findByPage' }
             },
             {
               path: 'permission',
               name: 'PermissionManagement',
               component: () => import('@/views/admin/user/PermissionManagement.vue'),
-              meta: { title: '权限管理' }
+              meta: { title: '权限管理', permission: ['/admin/permission/findByPage', '/admin/permission/findById', '/admin/permission/add', '/admin/permission/update', '/admin/permission/delete'] }
             }
           ]
         },
@@ -501,7 +501,7 @@ const router = createRouter({
 })
 
 // 路由守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
   const token = localStorage.getItem('admin_token')
 
@@ -519,6 +519,19 @@ router.beforeEach((to, from, next) => {
   // 需要登录的页面
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
     next('/login')
+    return
+  }
+
+  const requiredPermission = typeof to.meta.permission === 'string' || Array.isArray(to.meta.permission)
+    ? to.meta.permission
+    : undefined
+
+  if (requiredPermission && authStore.isLoggedIn && !authStore.user) {
+    await authStore.getUserInfo(true)
+  }
+
+  if (requiredPermission && !authStore.canAccessRoute(requiredPermission)) {
+    next('/403')
     return
   }
 

@@ -37,9 +37,9 @@
             filterable
           >
             <el-option
-              v-for="industry in industries"
+              v-for="industry in normalIndustries"
               :key="industry.industryMapIndustryCode"
-              :label="industry.industryMapIndustryName"
+              :label="formatIndustryMapName(industry.industryMapIndustryName)"
               :value="industry.industryMapIndustryCode"
             />
           </el-select>
@@ -67,7 +67,11 @@
       >
         <el-table-column prop="resumeTemplateId" label="ID" width="70" />
         <el-table-column prop="resumeTemplateName" label="模板名称" min-width="200" />
-        <el-table-column prop="industryMapIndustryName" label="所属行业" width="120" />
+        <el-table-column label="所属行业" width="120">
+          <template #default="{ row }">
+            {{ formatIndustryMapName(row.industryMapIndustryName) }}
+          </template>
+        </el-table-column>
         <el-table-column label="模板代码" width="100" align="center">
           <template #default="{ row }">
             <el-button type="primary" size="small" link @click="handleViewCode(row)">
@@ -148,9 +152,9 @@
                 filterable
               >
                 <el-option
-                  v-for="industry in industries"
+                  v-for="industry in normalIndustries"
                   :key="industry.industryMapIndustryCode"
-                  :label="industry.industryMapIndustryName"
+                  :label="formatIndustryMapName(industry.industryMapIndustryName)"
                   :value="industry.industryMapIndustryCode"
                 />
               </el-select>
@@ -201,7 +205,7 @@
             {{ currentViewTemplate.resumeTemplateName }}
           </el-descriptions-item>
           <el-descriptions-item label="所属行业">
-            {{ currentViewTemplate.industryMapIndustryName }}
+            {{ formatIndustryMapName(currentViewTemplate.industryMapIndustryName) }}
           </el-descriptions-item>
           <el-descriptions-item label="是否启用">
             <el-tag :type="currentViewTemplate.isEnable === 1 ? 'success' : 'danger'">
@@ -233,7 +237,7 @@
       <div class="code-detail" v-if="currentCodeTemplate">
         <div class="code-header">
           <span class="code-title">{{ currentCodeTemplate.resumeTemplateName }}</span>
-          <el-tag size="small" type="info">{{ currentCodeTemplate.industryMapIndustryName }}</el-tag>
+          <el-tag size="small" type="info">{{ formatIndustryMapName(currentCodeTemplate.industryMapIndustryName) }}</el-tag>
         </div>
         <div class="code-preview">
           <pre><code>{{ currentCodeTemplate.resumeTemplateReactCode || '暂无代码' }}</code></pre>
@@ -250,10 +254,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
 import { resumeTemplateApi, industryMapApi } from '@/api/admin'
+import { formatIndustryMapName, isNormalIndustry } from '@/utils'
 import dayjs from 'dayjs'
 import type {
   ResumeTemplatePageVO,
@@ -291,6 +296,9 @@ const tableData = ref<ResumeTemplatePageVO[]>([])
 
 // 行业数据
 const industries = ref<any[]>([])
+const normalIndustries = computed(() =>
+  industries.value.filter((industry: any) => isNormalIndustry(industry.industryMapIndustryName))
+)
 
 // 模板表单
 const templateFormRef = ref<FormInstance>()
@@ -428,7 +436,8 @@ const handleEdit = async (row: ResumeTemplatePageVO) => {
     editingTemplate.value = row
     
     // 根据行业名称反查行业ID
-    const industry = industries.value.find(ind => ind.industryMapIndustryName === detail.industryMapIndustryName)
+    const industry = normalIndustries.value.find(ind => ind.industryMapIndustryName === detail.industryMapIndustryName)
+      || normalIndustries.value.find(ind => formatIndustryMapName(ind.industryMapIndustryName) === formatIndustryMapName(detail.industryMapIndustryName))
     
     Object.assign(templateForm, {
       resumeTemplateId: detail.resumeTemplateId,

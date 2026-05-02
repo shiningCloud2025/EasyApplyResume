@@ -15,7 +15,7 @@ import { SearchOutlined, ReloadOutlined, BankOutlined } from '@ant-design/icons'
 import { useQuery } from 'react-query'
 import { jobAPI } from '@api/job'
 import { useNavigate } from 'react-router-dom'
-import { formatRecruitPositionName } from '@utils/index'
+import { formatRecruitPositionName, formatIndustryMapName, isRecruitIndustry } from '@utils/index'
 
 const JobList: React.FC = () => {
   const navigate = useNavigate()
@@ -40,7 +40,11 @@ const JobList: React.FC = () => {
     }
   )
 
-  // 获取招聘信息列表(一次性获取所有数据)
+  const recruitIndustries = React.useMemo(
+    () => (industries || []).filter((item: any) => isRecruitIndustry(item.industryMapIndustryName)),
+    [industries]
+  )
+
   const {
     data: jobsData,
     isLoading,
@@ -157,9 +161,9 @@ const JobList: React.FC = () => {
               onChange={(value) => handleFilterChange('employmentInformationIndustryCategories', value)}
               allowClear
             >
-              {industries?.map((item: any) => (
+              {recruitIndustries?.map((item: any) => (
                 <Select.Option key={item.industryMapIndustryCode} value={item.industryMapIndustryCode}>
-                  {item.industryMapIndustryName}
+                  {formatIndustryMapName(item.industryMapIndustryName)}
                 </Select.Option>
               ))}
             </Select>
@@ -245,7 +249,7 @@ const JobList: React.FC = () => {
                 dataIndex: 'employmentInformationIndustryCategoriesName',
                 key: 'industry',
                 width: 120,
-                render: (text: string) => text || '-'
+                render: (text: string) => formatIndustryMapName(text)
               },
               {
                 title: '企业性质',

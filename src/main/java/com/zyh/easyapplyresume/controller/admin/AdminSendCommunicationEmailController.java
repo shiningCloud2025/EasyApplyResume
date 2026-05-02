@@ -5,6 +5,7 @@ import com.zyh.easyapplyresume.service.admin.SendCommunicationEmailService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,6 +56,7 @@ public class AdminSendCommunicationEmailController {
 
     @Operation(summary = "发送HTML格式的沟通邮件-使用配置文件中的默认发送者")
     @PostMapping("/usallyde/sendHtml")
+    @PreAuthorize("hasAuthority('/admin/email/communication/usallyde/sendHtml')")
     public BaseResult<?> sendHtmlEmailUsallyDefition(@RequestParam(required = true,value = "toEmail") String toEmail,
                                             @RequestParam(required = true,value = "subject") String subject,
                                             @RequestParam(required = true,value = "htmlContent") String htmlContent) {

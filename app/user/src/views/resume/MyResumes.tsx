@@ -39,6 +39,7 @@ import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import '@wangeditor/editor/dist/css/style.css'
+import { formatIndustryMapName, isNormalIndustry } from '@utils/index'
 import './MyResumes.scss'
 
 const { Search } = Input
@@ -129,7 +130,11 @@ const MyResumes: React.FC = () => {
     }
   )
 
-  // wangEditor 配置
+  const normalIndustries = React.useMemo(
+    () => industriesData.filter((industry: any) => isNormalIndustry(industry.industryMapIndustryName)),
+    [industriesData]
+  )
+
   const toolbarConfig: Partial<IToolbarConfig> = {
     toolbarKeys: [
       'bold', 'italic', 'underline', 'color', 'bgColor', '|',
@@ -347,7 +352,7 @@ const MyResumes: React.FC = () => {
 
   const getIndustryName = (industryId: number) => {
     const matchedIndustry = industriesData.find((item: any) => item.industryMapIndustryCode === industryId)
-    return matchedIndustry?.industryMapIndustryName || '其他'
+    return formatIndustryMapName(matchedIndustry?.industryMapIndustryName) || '其他'
   }
 
   const getIndustryColor = (industryId: number) => {
@@ -561,7 +566,7 @@ const MyResumes: React.FC = () => {
                   </h3>
                   <div className="resume-meta">
                     <Tag color={getIndustryColor(resume.userSaveResumeIndustry)}>
-                      {resume.userSaveResumeIndustryName || getIndustryName(resume.userSaveResumeIndustry)}
+                      {formatIndustryMapName(resume.userSaveResumeIndustryName) || getIndustryName(resume.userSaveResumeIndustry)}
                     </Tag>
                   </div>
                   <div className="resume-times">
@@ -659,9 +664,9 @@ const MyResumes: React.FC = () => {
               value={importIndustryCode}
               onChange={setImportIndustryCode}
               placeholder="请选择所属行业"
-              options={industriesData.map((industry: any) => ({
+              options={normalIndustries.map((industry: any) => ({
                 value: industry.industryMapIndustryCode,
-                label: industry.industryMapIndustryName
+                label: formatIndustryMapName(industry.industryMapIndustryName)
               }))}
             />
           </Form.Item>

@@ -10,7 +10,7 @@
           <el-icon><Refresh /></el-icon>
           刷新
         </el-button>
-        <el-button type="primary" @click="openCreateDialog">
+        <el-button v-if="canAddRole" type="primary" @click="openCreateDialog">
           <el-icon><Plus /></el-icon>
           新增角色
         </el-button>
@@ -60,7 +60,7 @@
         <el-table-column prop="roleId" label="角色ID" width="70" />
         <el-table-column prop="roleName" label="角色名称" min-width="150" />
         <el-table-column prop="roleIntroduce" label="角色描述" min-width="200" />
-        <el-table-column label="权限" width="100" align="center">
+        <el-table-column v-if="canViewRolePermissions" label="权限" width="100" align="center">
           <template #default="{ row }">
             <el-button
               type="info"
@@ -71,22 +71,23 @@
             </el-button>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="280" fixed="right">
+        <el-table-column v-if="showRoleActionColumn" label="操作" width="280" fixed="right">
           <template #default="{ row }">
             <el-button
+              v-if="canViewRoleDetail"
               type="info"
               size="default"
               @click="handleViewRoleInfo(row)"
             >
               查看
             </el-button>
-            <el-button type="primary" size="default" @click="handleEdit(row)">
+            <el-button v-if="canUpdateRole" type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
-            <el-button type="warning" size="default" @click="handlePermission(row)">
+            <el-button v-if="canAssignRolePermissions" type="warning" size="default" @click="handlePermission(row)">
               分配权限
             </el-button>
-            <el-button type="danger" size="default" @click="handleDelete(row)">
+            <el-button v-if="canDeleteRole" type="danger" size="default" @click="handleDelete(row)">
               删除
             </el-button>
           </template>
@@ -242,11 +243,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh, Plus, Search, RefreshRight } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
 import { roleApi, permissionApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type {
   RolePageVO,
   RoleForm,
@@ -255,6 +257,17 @@ import type {
   PermissionInfoVO
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
+
+const authStore = useAuthStore()
+const canAddRole = computed(() => authStore.hasPermission('/admin/role/add'))
+const canUpdateRole = computed(() => authStore.hasPermission('/admin/role/update'))
+const canDeleteRole = computed(() => authStore.hasPermission('/admin/role/delete'))
+const canViewRoleDetail = computed(() => authStore.hasPermission('/admin/role/findById'))
+const canViewRolePermissions = computed(() => authStore.hasPermission('/admin/role/findPermissionByRole'))
+const canAssignRolePermissions = computed(() => authStore.hasPermission('/admin/role/assignPermissionToRole'))
+const showRoleActionColumn = computed(() => {
+  return canViewRoleDetail.value || canUpdateRole.value || canAssignRolePermissions.value || canDeleteRole.value
+})
 
 // 响应式数据
 const loading = ref(false)
@@ -470,7 +483,6 @@ const handleDelete = (row: RolePageVO) => {
       getRoleList()
     } catch (error) {
       console.error('删除失败:', error)
-      ElMessage.error('删除失败')
     }
   })
 }

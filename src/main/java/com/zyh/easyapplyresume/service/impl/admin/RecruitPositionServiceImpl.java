@@ -1,11 +1,14 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
+import com.zyh.easyapplyresume.mapper.mysql.admin.EmploymentInformationMapper;
 import com.zyh.easyapplyresume.mapper.mysql.admin.RecruitPositionMapper;
 import com.zyh.easyapplyresume.model.form.admin.RecruitPositionForm;
+import com.zyh.easyapplyresume.model.pojo.admin.EmploymentInformation;
 import com.zyh.easyapplyresume.model.pojo.admin.RecruitPosition;
 import com.zyh.easyapplyresume.model.query.admin.RecruitPositionQuery;
 import com.zyh.easyapplyresume.model.vo.admin.RecruitPositionInfoVO;
@@ -43,6 +46,8 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
     private RedisCacheUtil redisCacheUtil;
     @Autowired
     private CacheInvalidatePublisher cachePublisher;
+    @Autowired
+    private EmploymentInformationMapper employmentInformationMapper;
     @Override
     public Integer addRecruitPosition(RecruitPositionForm recruitPositionForm) {
         RecruitPositionFormValidator.validateForAdd(recruitPositionForm);
@@ -96,6 +101,16 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
             if (recruitPositionId == 1){
                 throw new BusException(AdminCodeEnum.NOT_DELETE_RECRUIT_POSITION);
             }
+
+            LambdaQueryWrapper<EmploymentInformation> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(EmploymentInformation::getEmploymentInformationRecruitPosition, recruitPositionId);
+            lambdaQueryWrapper.eq(EmploymentInformation::getDeleted, 0);
+
+            Long employmentInformationCount = employmentInformationMapper.selectCount(lambdaQueryWrapper);
+            if (employmentInformationCount != null && employmentInformationCount > 0) {
+                throw new BusException(AdminCodeEnum.NOT_DELETE_RECRUIT_POSITION);
+            }
+
             int result = recruitPositionMapper.deleteById(recruitPositionId);
             
             TransactionSynchronizationManager.registerSynchronization(
@@ -111,8 +126,12 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
             );
             
             return result;
+        }  catch (BusException e) {
+            log.info("删除招聘岗位业务异常: {}", e.getMsg());
+            throw e;
         } catch (Exception e) {
-            throw new BusException(AdminCodeEnum.NOT_DELETE_RECRUIT_POSITION);
+            log.error("删除招聘岗位系统异常", e);
+            throw new RuntimeException("招聘岗位删除失败");
         }
     }
 

@@ -36,9 +36,9 @@
             style="width: 130px"
           >
             <el-option
-              v-for="industry in industryList"
+              v-for="industry in recruitIndustryList"
               :key="industry.industryMapIndustryCode"
-              :label="industry.industryMapIndustryName"
+              :label="formatIndustryMapName(industry.industryMapIndustryName)"
               :value="industry.industryMapIndustryCode"
             />
           </el-select>
@@ -141,7 +141,7 @@
         </el-table-column>
         <el-table-column label="行业" width="100">
           <template #default="{ row }">
-            {{ row.employmentInformationIndustryCategoriesName || '-' }}
+            {{ getIndustryName(row.employmentInformationIndustryCategoriesName) }}
           </template>
         </el-table-column>
         <el-table-column label="企业性质" width="100" align="center">
@@ -295,7 +295,7 @@
             {{ currentViewInfo.employmentInformationCompanyName }}
           </el-descriptions-item>
           <el-descriptions-item label="行业大类">
-            {{ currentViewInfo.employmentInformationIndustryCategoriesName || '-' }}
+            {{ getIndustryName(currentViewInfo.employmentInformationIndustryCategoriesName) }}
           </el-descriptions-item>
           <el-descriptions-item label="企业性质">
             {{ getCompanyTypeName(currentViewInfo.employmentInformationCompanyType) }}
@@ -423,9 +423,9 @@
                 filterable
               >
                 <el-option
-                  v-for="industry in industryList"
+                  v-for="industry in recruitIndustryList"
                   :key="industry.industryMapIndustryCode"
-                  :label="industry.industryMapIndustryName"
+                  :label="formatIndustryMapName(industry.industryMapIndustryName)"
                   :value="industry.industryMapIndustryCode"
                 />
               </el-select>
@@ -595,9 +595,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, onMounted } from 'vue'
+import { computed, ref, reactive, watch, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { formatDate, formatRecruitPositionName } from '@/utils'
+import { formatDate, formatRecruitPositionName, formatIndustryMapName, isRecruitIndustry } from '@/utils'
 import { employmentInformationApi, industryMapApi, recruitPositionApi, provinceMapApi } from '@/api/admin'
 import type {
   EmploymentInformationPageVO,
@@ -617,6 +617,9 @@ const currentViewInfo = ref<EmploymentInformationInfoVO | null>(null)
 
 // 下拉选择数据
 const industryList = ref<any[]>([])
+const recruitIndustryList = computed(() =>
+  industryList.value.filter((industry: any) => isRecruitIndustry(industry.industryMapIndustryName))
+)
 const positionList = ref<any[]>([])
 const provinceList = ref<any[]>([])
 const cityList = ref<any[]>([])
@@ -744,6 +747,10 @@ const getRecruitObjectName = (obj: number) => {
 const getPositionName = (positionId: number) => {
   const position = positionList.value.find(p => p.recruitPositionId === positionId)
   return formatRecruitPositionName(position?.recruitPositionName)
+}
+
+const getIndustryName = (industryName?: string | null) => {
+  return formatIndustryMapName(industryName)
 }
 
 // 显示官方公告
@@ -998,11 +1005,15 @@ const handleEdit = async (row: EmploymentInformationPageVO) => {
     // 根据行业名称反查行业 ID
     let industryId: number | undefined = undefined
     if (detail.employmentInformationIndustryCategoriesName) {
-      const foundIndustry = industryList.value.find(
+      const foundIndustry = recruitIndustryList.value.find(
         (ind: any) => ind.industryMapIndustryName === detail.employmentInformationIndustryCategoriesName
       )
-      if (foundIndustry) {
-        industryId = foundIndustry.industryMapIndustryCode
+      const fallbackIndustry = recruitIndustryList.value.find(
+        (ind: any) => formatIndustryMapName(ind.industryMapIndustryName) === formatIndustryMapName(detail.employmentInformationIndustryCategoriesName)
+      )
+      const matchedIndustry = foundIndustry || fallbackIndustry
+      if (matchedIndustry) {
+        industryId = matchedIndustry.industryMapIndustryCode
       }
     }
     
