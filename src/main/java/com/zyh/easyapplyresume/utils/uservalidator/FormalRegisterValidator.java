@@ -160,7 +160,7 @@ public class FormalRegisterValidator {
         }
 
         // 11. 选填：用户希望的每周工作数（默认5，校验0-7之间）→ USER_WEEK_WORK_DAY_NUM_ILLEGAL(10019)
-        if (form.getUserDreamWeekWorkDayNum() == 0||form.getUserDreamWeekWorkDayNum()==null) {
+        if (form.getUserDreamWeekWorkDayNum()==null||form.getUserDreamWeekWorkDayNum() == 0) {
             form.setUserDreamWeekWorkDayNum(5);
         } else {
             int weekWorkDayNum = form.getUserDreamWeekWorkDayNum();
@@ -195,7 +195,7 @@ public class FormalRegisterValidator {
         }
 
         // 15. 选填：用户大学编码（默认4001）
-        if (form.getUserUniversityCode() == 0||form.getUserUniversityCode()==null) {
+        if (form.getUserUniversityCode()==null||form.getUserUniversityCode() == 0) {
             form.setUserUniversityCode(4001);
         }
     }

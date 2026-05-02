@@ -47,12 +47,18 @@
         </el-sub-menu>
 
         <!-- 文章管理 -->
-        <el-sub-menu index="/admin/article">
+        <el-sub-menu v-if="showArticleManagementMenu" index="/admin/article">
           <template #title>
             <el-icon><Document /></el-icon>
             <span>文章管理</span>
           </template>
-          <el-menu-item index="/admin/article/job-advice">求职攻略文章管理</el-menu-item>
+          <el-menu-item
+            v-for="item in visibleArticleManagementMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            {{ item.title }}
+          </el-menu-item>
         </el-sub-menu>
 
 
@@ -435,7 +441,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, shallowRef, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore, websiteManagementPagePermissions } from '@/store/auth'
+import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions } from '@/store/auth'
 import {
   House,
   User,
@@ -534,6 +540,22 @@ const visibleWebsiteManagementMenus = computed(() => {
 
 const showWebsiteManagementMenu = computed(() => {
   return visibleWebsiteManagementMenus.value.length > 0 && authStore.canAccessWebsiteManagement()
+})
+
+const articleManagementMenus = [
+  {
+    index: '/admin/article/job-advice',
+    title: '求职攻略文章管理',
+    permission: articleManagementPagePermissions.jobAdvice
+  }
+]
+
+const visibleArticleManagementMenus = computed(() => {
+  return articleManagementMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showArticleManagementMenu = computed(() => {
+  return visibleArticleManagementMenus.value.length > 0
 })
 
 // 用户菜单操作

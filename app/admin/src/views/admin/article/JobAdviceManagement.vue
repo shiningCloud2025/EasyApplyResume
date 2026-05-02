@@ -6,7 +6,7 @@
         <p class="page-description">管理求职攻略文章内容，提供求职指导信息</p>
       </div>
       <div class="header-actions">
-        <el-button type="primary" @click="openCreateDialog">
+        <el-button v-if="canAddArticle" type="primary" @click="openCreateDialog">
           <el-icon><Plus /></el-icon>
           新增文章
         </el-button>
@@ -77,7 +77,7 @@
         <el-table-column prop="jobAdviceArticleId" label="ID" width="60" />
         <el-table-column prop="jobAdviceArticleTitle" label="文章标题" width="240" show-overflow-tooltip />
         <el-table-column prop="jobAdviceArticleAuthorName" label="作者" width="180" />
-        <el-table-column label="正文" width="100" align="center">
+        <el-table-column v-if="canViewArticleInfo" label="正文" width="100" align="center">
           <template #default="{ row }">
             <el-button type="primary" size="small" @click="handleViewContent(row)">
               详情
@@ -114,19 +114,19 @@
             {{ formatDate(row.jobAdviceArticleUpdatedTime) }}
           </template>
         </el-table-column>
-        <el-table-column width="200" fixed="right">
+        <el-table-column v-if="showArticleActionColumn" width="200" fixed="right">
           <template #header>
             <div style="text-align: right; padding-right: 65px;">操作</div>
           </template>
           <template #default="{ row }">
             <div style="display: flex; gap: 8px; justify-content: flex-end; padding-right: 10px;">
-              <el-button type="info" size="small" @click="handleView(row)">
+              <el-button v-if="canViewArticleInfo" type="info" size="small" @click="handleView(row)">
               查看
             </el-button>
-              <el-button type="primary" size="small" @click="handleEdit(row)">
+              <el-button v-if="canUpdateArticle" type="primary" size="small" @click="handleEdit(row)">
               编辑
             </el-button>
-              <el-button type="danger" size="small" @click="handleDelete(row)">
+              <el-button v-if="canDeleteArticle" type="danger" size="small" @click="handleDelete(row)">
               删除
             </el-button>
             </div>
@@ -282,11 +282,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
 import { formatDateTime, formatDate } from '@/utils'
 import { jobAdviceArticleApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type {
   JobAdviceArticleForm,
   JobAdviceArticleQuery,
@@ -296,6 +297,15 @@ import type { FormInstance } from 'element-plus'
 
 // 文章详情VO（与分页VO相同）
 type JobAdviceArticleInfoVO = JobAdviceArticlePageVO
+
+const authStore = useAuthStore()
+const canAddArticle = computed(() => authStore.hasPermission('/admin/jobAdviceArticle/addJobAdviceArticle'))
+const canViewArticleInfo = computed(() => authStore.hasPermission('/admin/jobAdviceArticle/getJobAdviceArticleInfo'))
+const canUpdateArticle = computed(() => authStore.hasPermission('/admin/jobAdviceArticle/updateJobAdviceArticle'))
+const canDeleteArticle = computed(() => authStore.hasPermission('/admin/jobAdviceArticle/deleteJobAdviceArticle'))
+const showArticleActionColumn = computed(() => {
+  return canViewArticleInfo.value || canUpdateArticle.value || canDeleteArticle.value
+})
 
 // 响应式数据
 const loading = ref(false)
@@ -450,7 +460,6 @@ const handleDelete = (row: JobAdviceArticlePageVO) => {
       getArticleList()
     } catch (error) {
       console.error('删除失败:', error)
-      ElMessage.error('删除失败')
     }
   })
 }
@@ -475,7 +484,6 @@ const handleSubmit = async () => {
     getArticleList()
   } catch (error) {
     console.error('操作失败:', error)
-    ElMessage.error('操作失败')
   } finally {
     submitting.value = false
   }

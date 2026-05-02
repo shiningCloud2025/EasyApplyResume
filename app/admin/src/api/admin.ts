@@ -216,7 +216,7 @@ export const roleApi = {
   getAllRoles: () => api.get('/admin/role/findAllRole'),
   
   // 查看角色拥有的权限
-  getRolePermissions: (roleId: number) => api.get(`/admin/role/findPermissionByRole?roleId=${roleId}`),
+  getRolePermissions: (roleId: number) => api.get<PermissionInfoVO[]>(`/admin/role/findPermissionByRole?roleId=${roleId}`),
   
   // 为角色分配权限
   assignPermissionToRole: (roleId: number, permissionIds: number[]) => 

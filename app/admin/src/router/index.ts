@@ -67,7 +67,7 @@ const router = createRouter({
               path: 'job-advice',
               name: 'JobAdviceManagement',
               component: () => import('@/views/admin/article/JobAdviceManagement.vue'),
-              meta: { title: '求职攻略文章管理' }
+              meta: { title: '求职攻略文章管理', permission: '/admin/jobAdviceArticle/getJobAdviceArticlePage' }
             }
           ]
         },

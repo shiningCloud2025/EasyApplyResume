@@ -168,7 +168,13 @@
           :titles="['可选权限', '已选权限']"
           :button-texts="['移除', '添加']"
           :format="{ noChecked: '${total}', hasChecked: '${checked}/${total}' }"
-        />
+        >
+          <template #default="{ option }">
+            <el-tooltip :content="option.label" placement="top" :show-after="200">
+              <span class="transfer-option-label">{{ option.label }}</span>
+            </el-tooltip>
+          </template>
+        </el-transfer>
       </div>
       
       <template #footer>
@@ -243,7 +249,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed } from 'vue'
+import { ref, reactive, onMounted, computed, nextTick } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh, Plus, Search, RefreshRight } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
@@ -314,8 +320,8 @@ const roleRules = {
 
 // 权限树数据
 const permissionTree = ref<PermissionInfoVO[]>([])
-const allPermissions = ref<Array<{ key: number; label: string }>>([])
-const selectedPermissionIds = ref<number[]>([])  
+const allPermissions = ref<Array<{ key: string; label: string }>>([])
+const selectedPermissionIds = ref<string[]>([])
 
 // 加载所有权限
 const loadPermissions = async () => {
@@ -434,19 +440,27 @@ const handleViewPermissions = async (row: RolePageVO) => {
 const handlePermission = async (row: RolePageVO) => {
   editingRole.value = row
   showPermissionDialog.value = true
-  
+  allPermissions.value = []
+  selectedPermissionIds.value = []
+
   try {
-    // 获取角色当前权限
-    const rolesPermissionsResponse = await roleApi.getRolePermissions(row.roleId)
-    selectedPermissionIds.value = rolesPermissionsResponse.data
-    
-    // 获取所有权限
-    const allPermissionsResponse = await permissionApi.getAllPermissions()
-    // 修复：正确映射权限数据格式为 el-transfer 需要的格式
-    allPermissions.value = allPermissionsResponse.data.map((permission: any) => ({
-      key: permission.permissionId,
+    const [rolesPermissionsResponse, allPermissionsResponse] = await Promise.all([
+      roleApi.getRolePermissions(row.roleId),
+      permissionApi.getAllPermissions()
+    ])
+
+    allPermissions.value = (allPermissionsResponse.data || []).map((permission: PermissionInfoVO) => ({
+      key: String(permission.permissionId),
       label: permission.permissionName
     }))
+
+    const validPermissionKeys = new Set(allPermissions.value.map((permission) => permission.key))
+    const selectedKeys = (rolesPermissionsResponse.data || [])
+      .map((permission: PermissionInfoVO) => String(permission.permissionId))
+      .filter((permissionId) => validPermissionKeys.has(permissionId))
+
+    await nextTick()
+    selectedPermissionIds.value = [...new Set(selectedKeys)]
   } catch (error) {
     console.error('获取权限信息失败:', error)
   }
@@ -460,7 +474,7 @@ const handleSavePermissions = async () => {
     submitting.value = true
     await roleApi.assignPermissionToRole(
       editingRole.value.roleId,
-      selectedPermissionIds.value
+      selectedPermissionIds.value.map((permissionId) => Number(permissionId))
     )
     ElMessage.success('权限分配成功')
     showPermissionDialog.value = false
@@ -661,6 +675,15 @@ onMounted(() => {
     h4 {
       margin-bottom: 16px;
       color: #1f2937;
+    }
+
+    .transfer-option-label {
+      display: inline-block;
+      max-width: 160px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      vertical-align: middle;
     }
   }
   

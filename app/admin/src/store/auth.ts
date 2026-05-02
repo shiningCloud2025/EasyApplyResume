@@ -127,6 +127,10 @@ export const websiteManagementPagePermissions = {
   ]
 } as const
 
+export const articleManagementPagePermissions = {
+  jobAdvice: '/admin/jobAdviceArticle/getJobAdviceArticlePage'
+} as const
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('admin_token') || '',
@@ -234,45 +238,21 @@ export const useAuthStore = defineStore('auth', {
         }
 
         const authorityPermissions = normalizeAuthorities(securityUser.authorities)
-        let roleInfoVOS: any[] = []
-
-        let adminDetail: Partial<AdminUser> = {}
-        try {
-          const adminResponse = await api.get<AdminUser>('/admin/admin/findById', {
-            adminId: securityUser.userId
-          })
-          adminDetail = adminResponse.data || {}
-          if (!silent) {
-            console.log('管理员详情响应:', adminResponse)
-          }
-        } catch (error) {
-          console.warn('获取管理员详情失败，改用鉴权信息维持登录态:', error)
-        }
-
-        const detailRoles = getFirstAvailableArray(adminDetail.roleInfoVOS, adminDetail.roles)
-        roleInfoVOS = detailRoles
-
-        const resolvedRoles = getFirstAvailableArray(roleInfoVOS, adminDetail.roleInfoVOS, adminDetail.roles)
-        const mergedAuthorities = mergePermissions(
-          authorityPermissions,
-          extractPermissionsFromRoles(resolvedRoles)
-        )
 
         this.user = {
           userId: securityUser.userId,
-          adminId: adminDetail.adminId || securityUser.userId,
-          adminAccount: adminDetail.adminAccount || '',
-          adminUsername: adminDetail.adminUsername || securityUser.username || '',
-          adminEmail: adminDetail.adminEmail || securityUser.userEmail || '',
-          adminPhone: adminDetail.adminPhone || '',
-          adminImage: adminDetail.adminImage || '',
-          adminIntroduce: adminDetail.adminIntroduce || '',
-          adminState: adminDetail.adminState ?? (securityUser.enabled === false ? 0 : 1),
-          adminLoginTime: adminDetail.adminLoginTime || '',
-          adminCreatedTime: adminDetail.adminCreatedTime,
-          authorities: mergedAuthorities,
-          roles: resolvedRoles,
-          roleInfoVOS: resolvedRoles
+          adminId: securityUser.userId,
+          adminAccount: '',
+          adminUsername: securityUser.username || '',
+          adminEmail: securityUser.userEmail || '',
+          adminPhone: '',
+          adminImage: '',
+          adminIntroduce: '',
+          adminState: securityUser.enabled === false ? 0 : 1,
+          adminLoginTime: '',
+          authorities: authorityPermissions,
+          roles: [],
+          roleInfoVOS: []
         }
 
         return this.user
