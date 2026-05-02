@@ -7,7 +7,7 @@ import { jobAPI } from '@api/job'
 import useUserStore from '@stores/userStore'
 import { useNavigate } from 'react-router-dom'
 import { LiveProvider, LivePreview, LiveError } from 'react-live'
-import { formatIndustryMapName, isNormalIndustry } from '@utils/index'
+import { formatIndustryMapName } from '@utils/index'
 import './ResumeTemplates.scss'
 
 const { Option } = Select
@@ -86,17 +86,12 @@ const ResumeTemplates: React.FC = () => {
 
   // 获取行业列表
   const { data: industries } = useQuery(
-    ['industries'],
-    () => jobAPI.getAllIndustries(),
+    ['normal-industries'],
+    () => jobAPI.getNormalIndustries(),
     {
       select: (response) => response.data || [],
       staleTime: 1000 * 60 * 10
     }
-  )
-
-  const normalIndustries = React.useMemo(
-    () => (industries || []).filter((industry: any) => isNormalIndustry(industry.industryMapIndustryName)),
-    [industries]
   )
 
   const { data: templatesData, isLoading, error, refetch } = useQuery(
@@ -240,7 +235,7 @@ const ResumeTemplates: React.FC = () => {
               onChange={handleIndustryChange}
               allowClear
             >
-              {normalIndustries?.map((industry: any) => (
+              {industries?.map((industry: any) => (
                 <Option key={industry.industryMapIndustryCode} value={industry.industryMapIndustryCode}>
                   {formatIndustryMapName(industry.industryMapIndustryName)}
                 </Option>

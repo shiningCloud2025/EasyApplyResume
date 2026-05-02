@@ -23,6 +23,11 @@ export const jobAPI = {
   // 获取所有行业列表
   getAllIndustries: () => {
     return request.get('/user/industryMap/findAllIndustryMap')
+  },
+
+  // 获取普通行业列表
+  getNormalIndustries: () => {
+    return request.get('/user/industryMap/findAllNormalIndustryMap')
   }
 }
 

@@ -24,26 +24,53 @@ const JobList: React.FC = () => {
     employmentInformationIndustryCategories: undefined as number | undefined,
     employmentInformationRecruitLocationDetail: ''
   })
+  const [selectedIndustryCode, setSelectedIndustryCode] = useState<number | undefined>(undefined)
   const [pagination, setPagination] = useState({
     current: 1,
     pageSize: 10
   })
   const [allJobs, setAllJobs] = useState<any[]>([])
 
-  // 获取行业列表
-  const { data: industries } = useQuery(
-    ['industries'],
-    () => jobAPI.getAllIndustries(),
+  // 获取用户端普通行业列表
+  const { data: normalIndustries = [] } = useQuery(
+    ['normal-industries'],
+    () => jobAPI.getNormalIndustries(),
     {
       select: (response) => response.data || [],
-      staleTime: 1000 * 60 * 10 // 10分钟缓存
+      staleTime: 1000 * 60 * 10
     }
   )
 
-  const recruitIndustries = React.useMemo(
-    () => (industries || []).filter((item: any) => isRecruitIndustry(item.industryMapIndustryName)),
-    [industries]
+  // 获取全量行业用于映射到招聘信息行业 code
+  const { data: allIndustries = [] } = useQuery(
+    ['employment-industries'],
+    () => jobAPI.getAllIndustries(),
+    {
+      select: (response) => response.data || [],
+      staleTime: 1000 * 60 * 10
+    }
   )
+
+  const recruitIndustryCodeMap = React.useMemo(() => {
+    const recruitIndustryByName = new Map<string, number>()
+
+    allIndustries
+      .filter((item: any) => isRecruitIndustry(item.industryMapIndustryName))
+      .forEach((item: any) => {
+        recruitIndustryByName.set(
+          formatIndustryMapName(item.industryMapIndustryName),
+          item.industryMapIndustryCode
+        )
+      })
+
+    return normalIndustries.reduce((map: Record<number, number>, item: any) => {
+      const recruitCode = recruitIndustryByName.get(formatIndustryMapName(item.industryMapIndustryName))
+      if (recruitCode !== undefined) {
+        map[item.industryMapIndustryCode] = recruitCode
+      }
+      return map
+    }, {})
+  }, [allIndustries, normalIndustries])
 
   const {
     data: jobsData,
@@ -80,6 +107,16 @@ const JobList: React.FC = () => {
 
   const handleFilterChange = (key: string, value: any) => {
     setFilters({ ...filters, [key]: value === undefined ? undefined : value })
+    setPagination({ ...pagination, current: 1 })
+  }
+
+  const handleIndustryChange = (value: number | undefined) => {
+    setSelectedIndustryCode(value)
+    setFilters({
+      ...filters,
+      employmentInformationIndustryCategories:
+        value === undefined ? undefined : recruitIndustryCodeMap[value]
+    })
     setPagination({ ...pagination, current: 1 })
   }
 
@@ -157,11 +194,11 @@ const JobList: React.FC = () => {
             <Select
               placeholder="请选择行业"
               style={{ width: 150 }}
-              value={filters.employmentInformationIndustryCategories}
-              onChange={(value) => handleFilterChange('employmentInformationIndustryCategories', value)}
+              value={selectedIndustryCode}
+              onChange={handleIndustryChange}
               allowClear
             >
-              {recruitIndustries?.map((item: any) => (
+              {normalIndustries?.map((item: any) => (
                 <Select.Option key={item.industryMapIndustryCode} value={item.industryMapIndustryCode}>
                   {formatIndustryMapName(item.industryMapIndustryName)}
                 </Select.Option>
@@ -192,6 +229,7 @@ const JobList: React.FC = () => {
                 employmentInformationIndustryCategories: undefined,
                 employmentInformationRecruitLocationDetail: ''
               })
+              setSelectedIndustryCode(undefined)
               setPagination({ current: 1, pageSize: 10 })
             }}>
               重置

@@ -189,11 +189,10 @@
         </el-form-item>
         
         <el-form-item label="文章内容" prop="jobAdviceArticleContent">
-          <el-input
+          <MarkdownEditor
             v-model="articleForm.jobAdviceArticleContent"
-            type="textarea"
-            :rows="15"
-            placeholder="请输入文章内容"
+            height="420px"
+            placeholder="请输入文章内容，支持富文本格式..."
           />
         </el-form-item>
       </el-form>
@@ -215,11 +214,7 @@
       width="800px"
     >
       <div v-if="currentContentArticle" class="content-container">
-        <div class="content-body">
-          <div style="white-space: pre-wrap; word-break: break-all; line-height: 1.8;">
-            {{ currentContentArticle.jobAdviceArticleContent || '暂无内容' }}
-          </div>
-        </div>
+        <div class="content-body rich-content-body" v-html="normalizeRichTextHtml(currentContentArticle.jobAdviceArticleContent || '') || '暂无内容'"></div>
       </div>
       
       <template #footer>
@@ -285,7 +280,9 @@
 import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
-import { formatDateTime, formatDate } from '@/utils'
+import MarkdownEditor from '@/components/MarkdownEditor.vue'
+import { formatDate } from '@/utils'
+import { hasMeaningfulRichText, normalizeRichTextHtml } from '@/utils/html'
 import { jobAdviceArticleApi } from '@/api/admin'
 import { useAuthStore } from '@/store/auth'
 import type {
@@ -297,6 +294,15 @@ import type { FormInstance } from 'element-plus'
 
 // 文章详情VO（与分页VO相同）
 type JobAdviceArticleInfoVO = JobAdviceArticlePageVO
+
+const validateRichTextContent = (_rule: any, value: string, callback: (error?: Error) => void) => {
+  if (hasMeaningfulRichText(value)) {
+    callback()
+    return
+  }
+
+  callback(new Error('请输入文章内容'))
+}
 
 const authStore = useAuthStore()
 const canAddArticle = computed(() => authStore.hasPermission('/admin/jobAdviceArticle/addJobAdviceArticle'))
@@ -357,7 +363,7 @@ const articleRules = {
     { required: true, message: '请输入文章分类', trigger: 'blur' }
   ],
   jobAdviceArticleContent: [
-    { required: true, message: '请输入文章内容', trigger: 'blur' }
+    { validator: validateRichTextContent, trigger: ['blur', 'change'] }
   ]
 }
 
@@ -440,7 +446,7 @@ const handleEdit = (row: JobAdviceArticlePageVO) => {
   Object.assign(articleForm, {
     jobAdviceArticleId: row.jobAdviceArticleId,
     jobAdviceArticleTitle: row.jobAdviceArticleTitle,
-    jobAdviceArticleContent: row.jobAdviceArticleContent,
+    jobAdviceArticleContent: normalizeRichTextHtml(row.jobAdviceArticleContent),
     jobAdviceArticleCategory: row.jobAdviceArticleCategory,
     jobAdviceArticleTags: row.jobAdviceArticleTags,
     jobAdviceArticleAuthorName: row.jobAdviceArticleAuthorName,
@@ -468,17 +474,22 @@ const handleDelete = (row: JobAdviceArticlePageVO) => {
 // 提交表单
 const handleSubmit = async () => {
   if (!articleFormRef.value) return
-  
+
   try {
     await articleFormRef.value.validate()
     submitting.value = true
-    
-    if (editingArticle.value) {
-      await jobAdviceArticleApi.updateJobAdviceArticle(articleForm)
-    } else {
-      await jobAdviceArticleApi.addJobAdviceArticle(articleForm)
+
+    const payload = {
+      ...articleForm,
+      jobAdviceArticleContent: normalizeRichTextHtml(articleForm.jobAdviceArticleContent)
     }
-    
+
+    if (editingArticle.value) {
+      await jobAdviceArticleApi.updateJobAdviceArticle(payload)
+    } else {
+      await jobAdviceArticleApi.addJobAdviceArticle(payload)
+    }
+
     ElMessage.success(editingArticle.value ? '更新成功' : '创建成功')
     showCreateDialog.value = false
     getArticleList()

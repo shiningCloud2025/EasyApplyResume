@@ -37,7 +37,7 @@
             filterable
           >
             <el-option
-              v-for="industry in normalIndustries"
+              v-for="industry in industries"
               :key="industry.industryMapIndustryCode"
               :label="formatIndustryMapName(industry.industryMapIndustryName)"
               :value="industry.industryMapIndustryCode"
@@ -152,7 +152,7 @@
                 filterable
               >
                 <el-option
-                  v-for="industry in normalIndustries"
+                  v-for="industry in industries"
                   :key="industry.industryMapIndustryCode"
                   :label="formatIndustryMapName(industry.industryMapIndustryName)"
                   :value="industry.industryMapIndustryCode"
@@ -254,11 +254,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, computed } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
 import { resumeTemplateApi, industryMapApi } from '@/api/admin'
-import { formatIndustryMapName, isNormalIndustry } from '@/utils'
+import { formatIndustryMapName } from '@/utils'
 import dayjs from 'dayjs'
 import type {
   ResumeTemplatePageVO,
@@ -296,9 +296,6 @@ const tableData = ref<ResumeTemplatePageVO[]>([])
 
 // 行业数据
 const industries = ref<any[]>([])
-const normalIndustries = computed(() =>
-  industries.value.filter((industry: any) => isNormalIndustry(industry.industryMapIndustryName))
-)
 
 // 模板表单
 const templateFormRef = ref<FormInstance>()
@@ -339,7 +336,7 @@ const formatDateTime = (dateStr: string | undefined) => {
 // 加载行业数据
 const loadIndustries = async () => {
   try {
-    const response = await industryMapApi.findAllIndustryMap()
+    const response = await industryMapApi.findAllNormalIndustryMap()
     industries.value = response.data
   } catch (error) {
     console.error('加载行业数据失败:', error)
@@ -436,8 +433,8 @@ const handleEdit = async (row: ResumeTemplatePageVO) => {
     editingTemplate.value = row
     
     // 根据行业名称反查行业ID
-    const industry = normalIndustries.value.find(ind => ind.industryMapIndustryName === detail.industryMapIndustryName)
-      || normalIndustries.value.find(ind => formatIndustryMapName(ind.industryMapIndustryName) === formatIndustryMapName(detail.industryMapIndustryName))
+    const industry = industries.value.find(ind => ind.industryMapIndustryName === detail.industryMapIndustryName)
+      || industries.value.find(ind => formatIndustryMapName(ind.industryMapIndustryName) === formatIndustryMapName(detail.industryMapIndustryName))
     
     Object.assign(templateForm, {
       resumeTemplateId: detail.resumeTemplateId,

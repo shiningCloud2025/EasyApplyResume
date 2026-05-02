@@ -1,0 +1,1 @@
+import{j as o}from"./index-610f6630.js";import{S as t}from"./SingletonContentPage-ac2aa39a.js";import{s as i}from"./contentPageConfigs-f508458f.js";import"./react-vendor-fa9da516.js";import"./antd-vendor-aeb4324b.js";import"./RichTextContent-8f016721.js";import"./content-26cbcbae.js";const g=()=>o.jsx(t,{config:i.media});export{g as default};

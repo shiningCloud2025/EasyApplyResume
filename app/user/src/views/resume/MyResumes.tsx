@@ -39,7 +39,7 @@ import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import '@wangeditor/editor/dist/css/style.css'
-import { formatIndustryMapName, isNormalIndustry } from '@utils/index'
+import { formatIndustryMapName } from '@utils/index'
 import './MyResumes.scss'
 
 const { Search } = Input
@@ -122,17 +122,12 @@ const MyResumes: React.FC = () => {
 
   // 获取行业列表
   const { data: industriesData = [] } = useQuery(
-    ['industries'],
-    () => jobAPI.getAllIndustries(),
+    ['normal-industries'],
+    () => jobAPI.getNormalIndustries(),
     {
       select: (response: any) => response.data || [],
       staleTime: 1000 * 60 * 10
     }
-  )
-
-  const normalIndustries = React.useMemo(
-    () => industriesData.filter((industry: any) => isNormalIndustry(industry.industryMapIndustryName)),
-    [industriesData]
   )
 
   const toolbarConfig: Partial<IToolbarConfig> = {
@@ -664,7 +659,7 @@ const MyResumes: React.FC = () => {
               value={importIndustryCode}
               onChange={setImportIndustryCode}
               placeholder="请选择所属行业"
-              options={normalIndustries.map((industry: any) => ({
+              options={industriesData.map((industry: any) => ({
                 value: industry.industryMapIndustryCode,
                 label: formatIndustryMapName(industry.industryMapIndustryName)
               }))}

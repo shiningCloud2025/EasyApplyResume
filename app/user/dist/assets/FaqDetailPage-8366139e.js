@@ -1,0 +1,1 @@
+import{j as t}from"./index-610f6630.js";import{C as o}from"./ContentDetailPage-d339a958.js";import{b as r}from"./contentPageConfigs-f508458f.js";import"./react-vendor-fa9da516.js";import"./antd-vendor-aeb4324b.js";import"./RichTextContent-8f016721.js";import"./content-26cbcbae.js";const n=()=>t.jsx(o,{config:r});export{n as default};

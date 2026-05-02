@@ -371,7 +371,13 @@ export const industryMapApi = {
     }),
   
   // 查询所有行业
-  findAllIndustryMap: () => api.get<IndustryMapInfoVO[]>('/admin/industryMap/findAllIndustryMap')
+  findAllIndustryMap: () => api.get<IndustryMapInfoVO[]>('/admin/industryMap/findAllIndustryMap'),
+
+  // 查询招聘信息行业
+  findAllRecruitIndustryMap: () => api.get<IndustryMapInfoVO[]>('/admin/industryMap/findAllRecruitIndustryMap'),
+
+  // 查询普通行业
+  findAllNormalIndustryMap: () => api.get<IndustryMapInfoVO[]>('/admin/industryMap/findAllNormalIndustryMap')
 }
 
 // Map相关API

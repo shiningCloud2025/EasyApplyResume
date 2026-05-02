@@ -176,15 +176,31 @@ export interface JobAdviceArticleForm {
   jobAdviceArticleTitle: string
   jobAdviceArticleContent: string
   jobAdviceArticleCategory: string
-  jobAdviceArticleTag: string
-  jobAdviceArticleState: number
+  jobAdviceArticleTags: string
+  jobAdviceArticleAuthorName: string
+  jobAdviceArticlePublishedStatus: number
 }
 
 // 求职攻略文章查询
 export interface JobAdviceArticleQuery {
   jobAdviceArticleTitle?: string
+  jobAdviceArticleContent?: string
   jobAdviceArticleCategory?: string
-  jobAdviceArticleState?: number
+  jobAdviceArticleTags?: string
+  jobAdviceArticleAuthorName?: string
+}
+
+// 求职攻略文章分页VO
+export interface JobAdviceArticlePageVO {
+  jobAdviceArticleId: number
+  jobAdviceArticleTitle: string
+  jobAdviceArticleContent: string
+  jobAdviceArticleCategory: string
+  jobAdviceArticleTags: string
+  jobAdviceArticleAuthorName: string
+  jobAdviceArticlePublishedStatus: number
+  jobAdviceArticlePublishedTime?: string
+  jobAdviceArticleUpdatedTime?: string
 }
 
 // 招聘岗位信息VO

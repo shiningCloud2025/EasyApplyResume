@@ -36,7 +36,7 @@
             style="width: 130px"
           >
             <el-option
-              v-for="industry in recruitIndustryList"
+              v-for="industry in industryList"
               :key="industry.industryMapIndustryCode"
               :label="formatIndustryMapName(industry.industryMapIndustryName)"
               :value="industry.industryMapIndustryCode"
@@ -423,7 +423,7 @@
                 filterable
               >
                 <el-option
-                  v-for="industry in recruitIndustryList"
+                  v-for="industry in industryList"
                   :key="industry.industryMapIndustryCode"
                   :label="formatIndustryMapName(industry.industryMapIndustryName)"
                   :value="industry.industryMapIndustryCode"
@@ -595,9 +595,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, reactive, watch, onMounted } from 'vue'
+import { ref, reactive, watch, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
-import { formatDate, formatRecruitPositionName, formatIndustryMapName, isRecruitIndustry } from '@/utils'
+import { formatDate, formatRecruitPositionName, formatIndustryMapName } from '@/utils'
 import { employmentInformationApi, industryMapApi, recruitPositionApi, provinceMapApi } from '@/api/admin'
 import type {
   EmploymentInformationPageVO,
@@ -617,9 +617,6 @@ const currentViewInfo = ref<EmploymentInformationInfoVO | null>(null)
 
 // 下拉选择数据
 const industryList = ref<any[]>([])
-const recruitIndustryList = computed(() =>
-  industryList.value.filter((industry: any) => isRecruitIndustry(industry.industryMapIndustryName))
-)
 const positionList = ref<any[]>([])
 const provinceList = ref<any[]>([])
 const cityList = ref<any[]>([])
@@ -765,7 +762,7 @@ const showAnnouncement = (row: EmploymentInformationPageVO) => {
 const getIndustryList = async () => {
   console.log('🏢 [行业] 开始获取行业列表...')
   try {
-    const response = await industryMapApi.findAllIndustryMap()
+    const response = await industryMapApi.findAllRecruitIndustryMap()
     console.log('🏢 [行业] API响应:', response)
     console.log('🏢 [行业] 数据:', response.data)
     industryList.value = response.data || []
@@ -1005,10 +1002,10 @@ const handleEdit = async (row: EmploymentInformationPageVO) => {
     // 根据行业名称反查行业 ID
     let industryId: number | undefined = undefined
     if (detail.employmentInformationIndustryCategoriesName) {
-      const foundIndustry = recruitIndustryList.value.find(
+      const foundIndustry = industryList.value.find(
         (ind: any) => ind.industryMapIndustryName === detail.employmentInformationIndustryCategoriesName
       )
-      const fallbackIndustry = recruitIndustryList.value.find(
+      const fallbackIndustry = industryList.value.find(
         (ind: any) => formatIndustryMapName(ind.industryMapIndustryName) === formatIndustryMapName(detail.employmentInformationIndustryCategoriesName)
       )
       const matchedIndustry = foundIndustry || fallbackIndustry

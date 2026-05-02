@@ -4,6 +4,7 @@ import { ArrowLeftOutlined, UserOutlined, CalendarOutlined, TagOutlined, EditOut
 import { useQuery } from 'react-query'
 import { useParams, useNavigate } from 'react-router-dom'
 import { adviceAPI } from '@api/job'
+import RichTextContent from '@components/RichTextContent'
 import './AdviceDetail.scss'
 
 const AdviceDetail: React.FC = () => {
@@ -110,9 +111,9 @@ const AdviceDetail: React.FC = () => {
 
         <Divider />
 
-        <div 
+        <RichTextContent
           className="article-content"
-          dangerouslySetInnerHTML={{ __html: article.jobAdviceArticleContent || '' }}
+          html={article.jobAdviceArticleContent || ''}
         />
       </Card>
     </div>
