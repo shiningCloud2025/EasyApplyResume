@@ -136,6 +136,20 @@ export const recruitmentManagementPagePermissions = {
   information: '/admin/employmentInformation/getEmploymentInformationPage'
 } as const
 
+export const resumeManagementPagePermissions = {
+  template: '/admin/resumeTemplate/findResumeTemplateByPage',
+  systemDeleted: '/admin/userDeleteResumeBySystemService/getUserDeleteResumeInfoPage'
+} as const
+
+export const mapManagementPagePermissions = {
+  industry: '/admin/industryMap/findIndustryMapByPage',
+  university: '/admin/universityMap/findUniversityMapByPage',
+  province: '/admin/provinceMap/findProvinceMapByPage',
+  city: '/admin/cityMap/findCityMapByPage',
+  area: '/admin/areaMap/findAreaMapByPage',
+  street: '/admin/streetMap/findStreetMapByPage'
+} as const
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('admin_token') || '',

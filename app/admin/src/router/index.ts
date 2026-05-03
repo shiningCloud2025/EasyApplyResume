@@ -101,13 +101,13 @@ const router = createRouter({
               path: 'template',
               name: 'ResumeTemplateManagement',
               component: () => import('@/views/admin/resume/TemplateManagement.vue'),
-              meta: { title: '简历模版管理' }
+              meta: { title: '简历模版管理', permission: '/admin/resumeTemplate/findResumeTemplateByPage' }
             },
             {
               path: 'system-deleted',
               name: 'SystemResumeManagement',
               component: () => import('@/views/admin/resume/SystemResumeManagement.vue'),
-              meta: { title: '系统删除简历管理' }
+              meta: { title: '系统删除简历管理', permission: '/admin/userDeleteResumeBySystemService/getUserDeleteResumeInfoPage' }
             }
           ]
         },
@@ -121,37 +121,37 @@ const router = createRouter({
               path: 'industry',
               name: 'IndustryMapManagement',
               component: () => import('@/views/admin/map/IndustryMapManagement.vue'),
-              meta: { title: '行业Map管理' }
+              meta: { title: '行业Map管理', permission: '/admin/industryMap/findIndustryMapByPage' }
             },
             {
               path: 'university',
               name: 'UniversityMapManagement',
               component: () => import('@/views/admin/map/UniversityMapManagement.vue'),
-              meta: { title: '大学Map管理' }
+              meta: { title: '大学Map管理', permission: '/admin/universityMap/findUniversityMapByPage' }
             },
             {
               path: 'province',
               name: 'ProvinceMapManagement',
               component: () => import('@/views/admin/map/ProvinceMapManagement.vue'),
-              meta: { title: '省份Map管理' }
+              meta: { title: '省份Map管理', permission: '/admin/provinceMap/findProvinceMapByPage' }
             },
             {
               path: 'city',
               name: 'CityMapManagement',
               component: () => import('@/views/admin/map/CityMapManagement.vue'),
-              meta: { title: '城市Map管理' }
+              meta: { title: '城市Map管理', permission: '/admin/cityMap/findCityMapByPage' }
             },
             {
               path: 'area',
               name: 'AreaMapManagement',
               component: () => import('@/views/admin/map/AreaMapManagement.vue'),
-              meta: { title: '区县Map管理' }
+              meta: { title: '区县Map管理', permission: '/admin/areaMap/findAreaMapByPage' }
             },
             {
               path: 'street',
               name: 'StreetMapManagement',
               component: () => import('@/views/admin/map/StreetMapManagement.vue'),
-              meta: { title: '街道Map管理' }
+              meta: { title: '街道Map管理', permission: '/admin/streetMap/findStreetMapByPage' }
             }
           ]
         },

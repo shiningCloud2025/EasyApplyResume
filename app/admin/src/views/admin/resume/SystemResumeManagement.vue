@@ -88,12 +88,12 @@
         </el-table-column>
         <el-table-column label="代码" width="100" align="center">
           <template #default="{ row }">
-            <el-button type="primary" link @click="showCode(row)">
+            <el-button v-if="canViewDeleteResumeInfo" type="primary" link @click="showCode(row)">
               查看详情
             </el-button>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="80" fixed="right">
+        <el-table-column v-if="canViewDeleteResumeInfo" label="操作" width="80" fixed="right">
           <template #default="{ row }">
             <el-button
               type="info"
@@ -183,11 +183,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
 import { systemDeleteResumeApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type { UserDeleteResumeBySystemPageVO, UserDeleteResumeBySystemInfoVO, UserDeleteResumeQuery } from '@/types/admin'
+
+const authStore = useAuthStore()
+const canViewDeleteResumeInfo = computed(() => authStore.hasPermission('/admin/userDeleteResumeBySystemService/getUserDeleteResumeInfoById'))
 
 // 响应式数据
 const loading = ref(false)
@@ -239,7 +243,6 @@ const getResumeList = async () => {
     pagination.total = response.data.total || 0
   } catch (error) {
     console.error('获取数据失败:', error)
-    ElMessage.error('加载数据失败')
   } finally {
     loading.value = false
   }
@@ -290,7 +293,6 @@ const viewDetail = async (row: UserDeleteResumeBySystemPageVO) => {
     detailDialogVisible.value = true
   } catch (error) {
     console.error('获取详情失败:', error)
-    ElMessage.error('获取详情失败')
   }
 }
 

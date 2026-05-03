@@ -6,7 +6,7 @@
         <p class="page-description">管理简历模板，为用户提供多样化的简历样式</p>
       </div>
       <div class="header-actions">
-        <el-button type="primary" @click="openCreateDialog">
+        <el-button v-if="canAddTemplate" type="primary" @click="openCreateDialog">
           <el-icon><Plus /></el-icon>
           新增模板
         </el-button>
@@ -74,7 +74,7 @@
         </el-table-column>
         <el-table-column label="模板代码" width="100" align="center">
           <template #default="{ row }">
-            <el-button type="primary" size="small" link @click="handleViewCode(row)">
+            <el-button v-if="canViewTemplateInfo" type="primary" size="small" link @click="handleViewCode(row)">
               查看详情
             </el-button>
           </template>
@@ -96,15 +96,15 @@
             {{ formatDate(row.resumeTemplateUpdatedTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="260" fixed="right">
+        <el-table-column v-if="showTemplateActionColumn" label="操作" width="260" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" size="default" @click="handleView(row)">
+            <el-button v-if="canViewTemplateInfo" type="info" size="default" @click="handleView(row)">
               查看
             </el-button>
-            <el-button type="primary" size="default" @click="handleEdit(row)">
+            <el-button v-if="canUpdateTemplate" type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
-            <el-button type="danger" size="default" @click="handleDelete(row)">
+            <el-button v-if="canDeleteTemplate" type="danger" size="default" @click="handleDelete(row)">
               删除
             </el-button>
           </template>
@@ -254,11 +254,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
 import { resumeTemplateApi, industryMapApi } from '@/api/admin'
 import { formatIndustryMapName } from '@/utils'
+import { useAuthStore } from '@/store/auth'
 import dayjs from 'dayjs'
 import type {
   ResumeTemplatePageVO,
@@ -267,6 +268,15 @@ import type {
   ResumeTemplateInfoVO
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
+
+const authStore = useAuthStore()
+const canAddTemplate = computed(() => authStore.hasPermission('/admin/resumeTemplate/addResumeTemplate'))
+const canViewTemplateInfo = computed(() => authStore.hasPermission('/admin/resumeTemplate/findResumeTemplateById'))
+const canUpdateTemplate = computed(() => authStore.hasPermission('/admin/resumeTemplate/updateResumeTemplate'))
+const canDeleteTemplate = computed(() => authStore.hasPermission('/admin/resumeTemplate/deleteResumeTemplate'))
+const showTemplateActionColumn = computed(() => {
+  return canViewTemplateInfo.value || canUpdateTemplate.value || canDeleteTemplate.value
+})
 
 // 响应式数据
 const loading = ref(false)
@@ -357,7 +367,6 @@ const getTemplateList = async () => {
     pagination.total = response.data.total
   } catch (error) {
     console.error('获取模板列表失败:', error)
-    ElMessage.error('加载数据失败')
   } finally {
     loading.value = false
   }
@@ -408,7 +417,6 @@ const handleView = async (row: ResumeTemplatePageVO) => {
     showViewDialog.value = true
   } catch (error) {
     console.error('获取模板详情失败:', error)
-    ElMessage.error('获取模板详情失败')
   }
 }
 
@@ -420,7 +428,6 @@ const handleViewCode = async (row: ResumeTemplatePageVO) => {
     showCodeDialog.value = true
   } catch (error) {
     console.error('获取模板代码失败:', error)
-    ElMessage.error('获取模板代码失败')
   }
 }
 
@@ -429,13 +436,13 @@ const handleEdit = async (row: ResumeTemplatePageVO) => {
   try {
     const response = await resumeTemplateApi.getResumeTemplateInfo(row.resumeTemplateId)
     const detail = response.data
-    
+
     editingTemplate.value = row
-    
+
     // 根据行业名称反查行业ID
     const industry = industries.value.find(ind => ind.industryMapIndustryName === detail.industryMapIndustryName)
       || industries.value.find(ind => formatIndustryMapName(ind.industryMapIndustryName) === formatIndustryMapName(detail.industryMapIndustryName))
-    
+
     Object.assign(templateForm, {
       resumeTemplateId: detail.resumeTemplateId,
       resumeTemplateName: detail.resumeTemplateName,
@@ -446,7 +453,6 @@ const handleEdit = async (row: ResumeTemplatePageVO) => {
     showCreateDialog.value = true
   } catch (error) {
     console.error('获取模板详情失败:', error)
-    ElMessage.error('获取模板详情失败')
   }
 }
 
@@ -461,7 +467,6 @@ const handleDelete = (row: ResumeTemplatePageVO) => {
       getTemplateList()
     } catch (error) {
       console.error('删除失败:', error)
-      ElMessage.error('删除失败')
     }
   })
 }
@@ -469,23 +474,22 @@ const handleDelete = (row: ResumeTemplatePageVO) => {
 // 提交表单
 const handleSubmit = async () => {
   if (!templateFormRef.value) return
-  
+
   try {
     await templateFormRef.value.validate()
     submitting.value = true
-    
+
     if (editingTemplate.value) {
       await resumeTemplateApi.updateResumeTemplate(templateForm)
     } else {
       await resumeTemplateApi.addResumeTemplate(templateForm)
     }
-    
+
     ElMessage.success(editingTemplate.value ? '更新成功' : '创建成功')
     showCreateDialog.value = false
     getTemplateList()
   } catch (error) {
     console.error('操作失败:', error)
-    ElMessage.error('操作失败')
   } finally {
     submitting.value = false
   }

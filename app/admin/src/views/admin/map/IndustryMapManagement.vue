@@ -6,7 +6,7 @@
         <p class="page-description">管理系统行业分类配置</p>
       </div>
       <div class="header-actions">
-        <el-button type="primary" @click="openCreateDialog">
+        <el-button v-if="canAddIndustry" type="primary" @click="openCreateDialog">
           <i class="el-icon-plus"></i>
           新增行业
         </el-button>
@@ -69,12 +69,12 @@
             {{ formatDate(row.updatedTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column v-if="showIndustryActionColumn" label="操作" width="200" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" size="default" @click="handleView(row)">
+            <el-button v-if="canViewIndustryInfo" type="info" size="default" @click="handleView(row)">
               查看
             </el-button>
-            <el-button type="primary" size="default" @click="handleEdit(row)">
+            <el-button v-if="canUpdateIndustry" type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
           </template>
@@ -171,10 +171,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { formatDate } from '@/utils'
 import { industryMapApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type {
   IndustryMapPageVO,
   IndustryMapForm,
@@ -182,6 +183,14 @@ import type {
   IndustryMapInfoVO
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
+
+const authStore = useAuthStore()
+const canAddIndustry = computed(() => authStore.hasPermission('/admin/industryMap/addIndustryMap'))
+const canViewIndustryInfo = computed(() => authStore.hasPermission('/admin/industryMap/findIndustryMapById'))
+const canUpdateIndustry = computed(() => authStore.hasPermission('/admin/industryMap/updateIndustryMap'))
+const showIndustryActionColumn = computed(() => {
+  return canViewIndustryInfo.value || canUpdateIndustry.value
+})
 
 // 响应式数据
 const loading = ref(false)
@@ -236,7 +245,6 @@ const getIndustryList = async () => {
     pagination.total = response.data.total
   } catch (error) {
     console.error('获取行业列表失败:', error)
-    ElMessage.error('加载数据失败')
   } finally {
     loading.value = false
   }
@@ -287,7 +295,6 @@ const handleView = async (row: IndustryMapPageVO) => {
     showViewDialog.value = true
   } catch (error) {
     console.error('获取行业详情失败:', error)
-    ElMessage.error('获取行业详情失败')
   }
 }
 
@@ -305,7 +312,6 @@ const handleEdit = async (row: IndustryMapPageVO) => {
     showCreateDialog.value = true
   } catch (error) {
     console.error('获取行业详情失败:', error)
-    ElMessage.error('获取行业详情失败')
   }
 }
 
@@ -329,7 +335,6 @@ const handleSubmit = async () => {
     getIndustryList()
   } catch (error) {
     console.error('操作失败:', error)
-    ElMessage.error('操作失败')
   } finally {
     submitting.value = false
   }

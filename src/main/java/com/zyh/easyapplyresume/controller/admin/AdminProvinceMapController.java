@@ -47,6 +47,7 @@ public class AdminProvinceMapController {
 
     @Operation(summary = "查询省份Map详情")
     @GetMapping("/findProvinceMapById")
+    @PreAuthorize("hasAuthority('/admin/provinceMap/findProvinceMapById')")
     public BaseResult<ProvinceMapInfoVO> findProvinceMapById(
             @RequestParam(required = true, value = "provinceMapId") Integer provinceMapId) {
         return BaseResult.ok(provinceMapAdminService.findProvinceMapById(provinceMapId));
@@ -54,6 +55,7 @@ public class AdminProvinceMapController {
 
     @Operation(summary = "分页查询省份Map")
     @PostMapping("/findProvinceMapByPage")
+    @PreAuthorize("hasAuthority('/admin/provinceMap/findProvinceMapByPage')")
     public BaseResult<Page<ProvinceMapPageVO>> findProvinceMapByPage(
             @RequestParam(required = false, value = "pageNum", defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, value = "pageSize", defaultValue = "10") Integer pageSize,

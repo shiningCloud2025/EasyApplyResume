@@ -78,27 +78,33 @@
         </el-sub-menu>
 
         <!-- 简历管理 -->
-        <el-sub-menu index="/admin/resume">
+        <el-sub-menu v-if="showResumeManagementMenu" index="/admin/resume">
           <template #title>
             <el-icon><DocumentCopy /></el-icon>
             <span>简历管理</span>
           </template>
-          <el-menu-item index="/admin/resume/template">简历模版管理</el-menu-item>
-          <el-menu-item index="/admin/resume/system-deleted">系统删除简历管理</el-menu-item>
+          <el-menu-item
+            v-for="item in visibleResumeManagementMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            {{ item.title }}
+          </el-menu-item>
         </el-sub-menu>
 
         <!-- Map管理 -->
-        <el-sub-menu index="/admin/map">
+        <el-sub-menu v-if="showMapManagementMenu" index="/admin/map">
           <template #title>
             <el-icon><Location /></el-icon>
             <span>Map管理</span>
           </template>
-          <el-menu-item index="/admin/map/industry">行业Map管理</el-menu-item>
-          <el-menu-item index="/admin/map/university">大学Map管理</el-menu-item>
-          <el-menu-item index="/admin/map/province">省份Map管理</el-menu-item>
-          <el-menu-item index="/admin/map/city">城市Map管理</el-menu-item>
-          <el-menu-item index="/admin/map/area">区县Map管理</el-menu-item>
-          <el-menu-item index="/admin/map/street">街道Map管理</el-menu-item>
+          <el-menu-item
+            v-for="item in visibleMapManagementMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            {{ item.title }}
+          </el-menu-item>
         </el-sub-menu>
 
         <!-- AI管理 -->
@@ -446,7 +452,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, shallowRef, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions } from '@/store/auth'
+import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions } from '@/store/auth'
 import {
   House,
   User,
@@ -582,6 +588,68 @@ const visibleRecruitmentManagementMenus = computed(() => {
 
 const showRecruitmentManagementMenu = computed(() => {
   return visibleRecruitmentManagementMenus.value.length > 0
+})
+
+const resumeManagementMenus = [
+  {
+    index: '/admin/resume/template',
+    title: '简历模版管理',
+    permission: resumeManagementPagePermissions.template
+  },
+  {
+    index: '/admin/resume/system-deleted',
+    title: '系统删除简历管理',
+    permission: resumeManagementPagePermissions.systemDeleted
+  }
+]
+
+const visibleResumeManagementMenus = computed(() => {
+  return resumeManagementMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showResumeManagementMenu = computed(() => {
+  return visibleResumeManagementMenus.value.length > 0
+})
+
+const mapManagementMenus = [
+  {
+    index: '/admin/map/industry',
+    title: '行业Map管理',
+    permission: mapManagementPagePermissions.industry
+  },
+  {
+    index: '/admin/map/university',
+    title: '大学Map管理',
+    permission: mapManagementPagePermissions.university
+  },
+  {
+    index: '/admin/map/province',
+    title: '省份Map管理',
+    permission: mapManagementPagePermissions.province
+  },
+  {
+    index: '/admin/map/city',
+    title: '城市Map管理',
+    permission: mapManagementPagePermissions.city
+  },
+  {
+    index: '/admin/map/area',
+    title: '区县Map管理',
+    permission: mapManagementPagePermissions.area
+  },
+  {
+    index: '/admin/map/street',
+    title: '街道Map管理',
+    permission: mapManagementPagePermissions.street
+  }
+]
+
+const visibleMapManagementMenus = computed(() => {
+  return mapManagementMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showMapManagementMenu = computed(() => {
+  return visibleMapManagementMenus.value.length > 0
 })
 
 // 用户菜单操作

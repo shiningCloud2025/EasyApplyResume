@@ -26,7 +26,7 @@
       <el-table v-loading="loading" :data="tableData" border>
         <el-table-column prop="provinceMapPid" label="ID" width="120" />
         <el-table-column prop="provinceMapPname" label="省份名称" min-width="240" />
-        <el-table-column label="操作" width="120">
+        <el-table-column v-if="canViewProvinceInfo" label="操作" width="120">
           <template #default="{ row }">
             <el-button link type="primary" @click="handleView(row)">查看</el-button>
           </template>
@@ -45,10 +45,14 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive, ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { provinceMapApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type { ProvinceMap, ProvinceMapPageVO } from '@/types/admin'
+
+const authStore = useAuthStore()
+const canViewProvinceInfo = computed(() => authStore.hasPermission('/admin/provinceMap/findProvinceMapById'))
 
 const loading = ref(false)
 const viewVisible = ref(false)
@@ -63,15 +67,23 @@ const getList = async () => {
     const res = await provinceMapApi.getProvinceMapPage(pagination.current, pagination.size, searchForm)
     tableData.value = res.data.records
     pagination.total = res.data.total
-  } catch {
-    ElMessage.error('加载失败')
+  } catch (error) {
+    console.error('获取省份Map列表失败:', error)
   } finally {
     loading.value = false
   }
 }
 const handleSearch = () => { pagination.current = 1; getList() }
 const handleReset = () => { searchForm.provinceMapPname = ''; searchForm.provinceMapPid = undefined; pagination.current = 1; getList() }
-const handleView = async (row: ProvinceMapPageVO) => { const res = await provinceMapApi.getProvinceMapInfo(row.provinceMapPid); currentRow.value = res.data; viewVisible.value = true }
+const handleView = async (row: ProvinceMapPageVO) => {
+  try {
+    const res = await provinceMapApi.getProvinceMapInfo(row.provinceMapPid)
+    currentRow.value = res.data
+    viewVisible.value = true
+  } catch (error) {
+    console.error('获取省份Map详情失败:', error)
+  }
+}
 onMounted(getList)
 </script>
 

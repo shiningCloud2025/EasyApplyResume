@@ -9,6 +9,7 @@ import com.zyh.easyapplyresume.service.admin.UniversityMapAdminService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -24,6 +25,7 @@ public class AdminUniversityMapController {
 
     @Operation(summary = "查询大学Map详情")
     @GetMapping("/findUniversityMapById")
+    @PreAuthorize("hasAuthority('/admin/universityMap/findUniversityMapById')")
     public BaseResult<UniversityMapInfoVO> findUniversityMapById(
             @RequestParam(required = true, value = "universityMapId") Integer universityMapId) {
         return BaseResult.ok(universityMapAdminService.findUniversityMapById(universityMapId));
@@ -31,6 +33,7 @@ public class AdminUniversityMapController {
 
     @Operation(summary = "分页查询大学Map")
     @PostMapping("/findUniversityMapByPage")
+    @PreAuthorize("hasAuthority('/admin/universityMap/findUniversityMapByPage')")
     public BaseResult<Page<UniversityMapPageVO>> findUniversityMapByPage(
             @RequestParam(required = false, value = "pageNum", defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, value = "pageSize", defaultValue = "10") Integer pageSize,

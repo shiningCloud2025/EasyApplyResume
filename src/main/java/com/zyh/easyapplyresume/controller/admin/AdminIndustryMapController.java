@@ -29,24 +29,28 @@ public class AdminIndustryMapController {
 
     @Operation(summary = "新增行业Map")
     @PostMapping("/addIndustryMap")
+    @PreAuthorize("hasAuthority('/admin/industryMap/addIndustryMap')")
     public BaseResult<Integer> addIndustryMap(@RequestBody IndustryMapForm industryMapForm){
         return BaseResult.ok(industryMapService.addIndustryMap(industryMapForm));
     }
 
     @Operation(summary = "修改行业Map")
     @PostMapping("/updateIndustryMap")
+    @PreAuthorize("hasAuthority('/admin/industryMap/updateIndustryMap')")
     public BaseResult<Integer>  updateIndustryMap(@RequestBody IndustryMapForm industryMapForm){
         return BaseResult.ok(industryMapService.updateIndustryMap(industryMapForm));
     }
 
     @Operation(summary = "查询行业Map")
     @GetMapping("/findIndustryMapById")
+    @PreAuthorize("hasAuthority('/admin/industryMap/findIndustryMapById')")
     public BaseResult<IndustryMapInfoVO> findIndustryMapById(@RequestParam(required = true,value = "industryMapId") Integer industryMapId){
         return BaseResult.ok(industryMapService.findIndustryMapById(industryMapId));
     }
 
     @Operation(summary = "分页查询")
     @PostMapping("/findIndustryMapByPage")
+    @PreAuthorize("hasAuthority('/admin/industryMap/findIndustryMapByPage')")
     public BaseResult<Page<IndustryMapPageVO>> findIndustryMapByPage(@RequestParam (required = false,value = "pageNum",defaultValue = "1")Integer pageNum,
                                                                      @RequestParam(required = false,value = "pageSize",defaultValue = "10")  Integer pageSize,
                                                                      @RequestBody IndustryMapQuery industryMapQuery){

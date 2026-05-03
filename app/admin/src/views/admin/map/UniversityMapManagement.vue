@@ -35,7 +35,7 @@
         </el-table-column>
         <el-table-column label="操作" width="120">
           <template #default="{ row }">
-            <el-button link type="primary" @click="handleView(row)">查看</el-button>
+            <el-button v-if="canViewUniversityInfo" link type="primary" @click="handleView(row)">查看</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -70,10 +70,14 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { onMounted, reactive, ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { universityMapApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type { UniversityMap } from '@/types/admin'
+
+const authStore = useAuthStore()
+const canViewUniversityInfo = computed(() => authStore.hasPermission('/admin/universityMap/findUniversityMapById'))
 
 const loading = ref(false)
 const viewVisible = ref(false)
@@ -89,7 +93,7 @@ const getList = async () => {
     tableData.value = res.data.records
     pagination.total = res.data.total
   } catch (e) {
-    ElMessage.error('加载失败')
+    console.error('获取大学Map列表失败:', e)
   } finally {
     loading.value = false
   }
@@ -117,8 +121,8 @@ const handleView = async (row: UniversityMap) => {
     const res = await universityMapApi.getUniversityMapInfo(row.universityMapId)
     currentRow.value = res.data
     viewVisible.value = true
-  } catch {
-    ElMessage.error('获取详情失败')
+  } catch (error) {
+    console.error('获取大学Map详情失败:', error)
   }
 }
 

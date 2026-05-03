@@ -11,6 +11,7 @@ import com.zyh.easyapplyresume.service.admin.CityMapService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class AdminCityMapController {
 
     @Operation(summary = "查询城市Map详情")
     @GetMapping("/findCityMapById")
+    @PreAuthorize("hasAuthority('/admin/cityMap/findCityMapById')")
     public BaseResult<CityMapInfoVO> findCityMapById(
             @RequestParam(required = true, value = "cityMapId") Integer cityMapId) {
         return BaseResult.ok(cityMapService.findCityMapById(cityMapId));
@@ -47,6 +49,7 @@ public class AdminCityMapController {
 
     @Operation(summary = "分页查询城市Map")
     @PostMapping("/findCityMapByPage")
+    @PreAuthorize("hasAuthority('/admin/cityMap/findCityMapByPage')")
     public BaseResult<Page<CityMapPageVO>> findCityMapByPage(
             @RequestParam(required = false, value = "pageNum", defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, value = "pageSize", defaultValue = "10") Integer pageSize,

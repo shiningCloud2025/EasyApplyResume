@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.service.admin.StreetMapService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class AdminStreetMapController {
 
     @Operation(summary = "查询街道Map详情")
     @GetMapping("/findStreetMapById")
+    @PreAuthorize("hasAuthority('/admin/streetMap/findStreetMapById')")
     public BaseResult<StreetMapInfoVO> findStreetMapById(
             @RequestParam(required = true, value = "streetMapId") Integer streetMapId) {
         return BaseResult.ok(streetMapService.findStreetMapById(streetMapId));
@@ -40,6 +42,7 @@ public class AdminStreetMapController {
 
     @Operation(summary = "分页查询街道Map")
     @PostMapping("/findStreetMapByPage")
+    @PreAuthorize("hasAuthority('/admin/streetMap/findStreetMapByPage')")
     public BaseResult<Page<StreetMapPageVO>> findStreetMapByPage(
             @RequestParam(required = false, value = "pageNum", defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, value = "pageSize", defaultValue = "10") Integer pageSize,
