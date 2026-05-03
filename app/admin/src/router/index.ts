@@ -81,13 +81,13 @@ const router = createRouter({
               path: 'positions',
               name: 'RecruitmentPositionManagement',
               component: () => import('@/views/admin/recruitment/PositionManagement.vue'),
-              meta: { title: '招聘岗位管理' }
+              meta: { title: '招聘岗位管理', permission: '/admin/recruitPosition/queryRecruitPositionPage' }
             },
             {
               path: 'information',
               name: 'RecruitmentInformationManagement',
               component: () => import('@/views/admin/recruitment/InformationManagement.vue'),
-              meta: { title: '招聘信息管理' }
+              meta: { title: '招聘信息管理', permission: '/admin/employmentInformation/getEmploymentInformationPage' }
             }
           ]
         },

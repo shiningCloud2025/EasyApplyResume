@@ -11,6 +11,7 @@ import com.zyh.easyapplyresume.service.user.UserDeleteResumeBySystemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,6 +43,7 @@ public class AdminUserDeleteResumeBySystemServiceController {
 
     @GetMapping("/getUserDeleteResumeInfoById")
     @Operation(summary = "根据系统删除简历ID查询系统删除简历信息")
+    @PreAuthorize("hasAuthority('/admin/userDeleteResumeBySystemService/getUserDeleteResumeInfoById')")
     public BaseResult<UserDeleteResumeBySystemInfoVO> getUserDeleteResumeInfoById(@RequestParam(required = true,value = "userDeleteResumeId") Integer userDeleteResumeId) {
         UserDeleteResumeBySystemInfoVO userDeleteResumeInfoVO = userDeleteResumeBySystemService.getUserDeleteResumeInfoById(userDeleteResumeId);
         return BaseResult.ok(userDeleteResumeInfoVO);
@@ -49,6 +51,7 @@ public class AdminUserDeleteResumeBySystemServiceController {
 
     @PostMapping("/getUserDeleteResumeInfoPage")
     @Operation(summary = "获取系统删除简历信息分页")
+    @PreAuthorize("hasAuthority('/admin/userDeleteResumeBySystemService/getUserDeleteResumeInfoPage')")
     public BaseResult<Page<UserDeleteResumeBySystemPageVO>> getUserDeleteResumeInfoPage(@RequestParam(required = false,value = "pageNum",defaultValue = "1") Integer pageNum,
                                                                                         @RequestParam(required = false,value = "pageSize",defaultValue = "10") Integer pageSize,
                                                                                         @RequestBody(required = false) UserDeleteResumeQuery userDeleteResumeQuery) {

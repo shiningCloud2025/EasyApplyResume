@@ -6,7 +6,7 @@
         <p class="page-description">管理企业招聘信息发布</p>
       </div>
       <div class="header-actions">
-        <el-button type="primary" @click="openCreateDialog">
+        <el-button v-if="canAddInformation" type="primary" @click="openCreateDialog">
           <i class="el-icon-plus"></i>
           新增招聘信息
         </el-button>
@@ -249,15 +249,15 @@
             <span v-else>-</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" v-if="showInformationActionColumn" width="200" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" size="default" @click="handleView(row)">
+            <el-button v-if="canViewInformationInfo" type="info" size="default" @click="handleView(row)">
               查看
             </el-button>
-            <el-button type="primary" size="default" @click="handleEdit(row)">
+            <el-button v-if="canUpdateInformation" type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
-            <el-button type="danger" size="default" @click="handleDelete(row)">
+            <el-button v-if="canDeleteInformation" type="danger" size="default" @click="handleDelete(row)">
               删除
             </el-button>
           </template>
@@ -595,10 +595,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch, onMounted } from 'vue'
+import { ref, reactive, watch, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { formatDate, formatRecruitPositionName, formatIndustryMapName } from '@/utils'
 import { employmentInformationApi, industryMapApi, recruitPositionApi, provinceMapApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type {
   EmploymentInformationPageVO,
   EmploymentInformationForm,
@@ -606,6 +607,15 @@ import type {
   EmploymentInformationInfoVO
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
+
+const authStore = useAuthStore()
+const canAddInformation = computed(() => authStore.hasPermission('/admin/employmentInformation/addEmploymentInformation'))
+const canViewInformationInfo = computed(() => authStore.hasPermission('/admin/employmentInformation/getEmploymentInformationInfo'))
+const canUpdateInformation = computed(() => authStore.hasPermission('/admin/employmentInformation/updateEmploymentInformation'))
+const canDeleteInformation = computed(() => authStore.hasPermission('/admin/employmentInformation/deleteEmploymentInformation'))
+const showInformationActionColumn = computed(() => {
+  return canViewInformationInfo.value || canUpdateInformation.value || canDeleteInformation.value
+})
 
 // 响应式数据
 const loading = ref(false)
@@ -1086,7 +1096,6 @@ const handleDelete = (row: EmploymentInformationPageVO) => {
       getInfoList()
     } catch (error) {
       console.error('删除失败:', error)
-      ElMessage.error('删除失败')
     }
   })
 }
@@ -1113,7 +1122,6 @@ const handleSubmit = async () => {
     getInfoList()
   } catch (error) {
     console.error('操作失败:', error)
-    ElMessage.error('操作失败')
   } finally {
     submitting.value = false
   }

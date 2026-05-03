@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.service.admin.ResumeTemplateService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,30 +29,35 @@ public class AdminResumeTemplateController {
 
     @Operation(summary = "新增简历模版")
     @PostMapping("/addResumeTemplate")
+    @PreAuthorize("hasAuthority('/admin/resumeTemplate/addResumeTemplate')")
     public BaseResult<Integer> addResumeTemplate(@RequestBody ResumeTemplateForm resumeTemplateForm){
         return BaseResult.ok(resumeTemplateService.addResumeTemplate(resumeTemplateForm));
     }
 
     @Operation(summary = "修改简历模版")
     @PostMapping("/updateResumeTemplate")
+    @PreAuthorize("hasAuthority('/admin/resumeTemplate/updateResumeTemplate')")
     public BaseResult<Integer> updateResumeTemplate(@RequestBody ResumeTemplateForm resumeTemplateForm){
         return BaseResult.ok(resumeTemplateService.updateResumeTemplate(resumeTemplateForm));
     }
 
     @Operation(summary = "删除简历模版")
     @DeleteMapping("/deleteResumeTemplate")
+    @PreAuthorize("hasAuthority('/admin/resumeTemplate/deleteResumeTemplate')")
     public BaseResult<Integer> deleteResumeTemplate(@RequestParam(required = true,value = "resumeTemplateId") Integer resumeTemplateId){
         return BaseResult.ok(resumeTemplateService.deleteResumeTemplate(resumeTemplateId));
     }
 
     @Operation(summary = "根据id查询简历模版")
     @GetMapping("/findResumeTemplateById")
+    @PreAuthorize("hasAuthority('/admin/resumeTemplate/findResumeTemplateById')")
     public BaseResult<ResumeTemplateInfoVO> findResumeTemplateById(@RequestParam(required = true,value = "resumeTemplateId") Integer resumeTemplateId){
         return BaseResult.ok(resumeTemplateService.findResumeTemplateById(resumeTemplateId));
     }
 
     @Operation(summary = "分页查询简历模版")
     @PostMapping("/findResumeTemplateByPage")
+    @PreAuthorize("hasAuthority('/admin/resumeTemplate/findResumeTemplateByPage')")
     public BaseResult<Page<ResumeTemplatePageVO>> findResumeTemplateByPage(@RequestParam(required = true,value = "pageNum",defaultValue = "1") Integer pageNum,
                                                                            @RequestParam(required = true,value = "pageSize",defaultValue = "10") Integer pageSize,
                                                                            @RequestBody ResumeTemplateQuery resumeTemplateQuery){

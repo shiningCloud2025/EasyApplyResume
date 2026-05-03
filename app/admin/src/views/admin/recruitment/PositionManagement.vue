@@ -6,7 +6,7 @@
         <p class="page-description">管理招聘岗位信息，维护企业职位库</p>
       </div>
       <div class="header-actions">
-        <el-button type="primary" @click="openCreateDialog">
+        <el-button v-if="canAddPosition" type="primary" @click="openCreateDialog">
           <i class="el-icon-plus"></i>
           新增岗位
         </el-button>
@@ -131,15 +131,15 @@
             {{ row.createdTime ? formatDate(row.createdTime) : '-' }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" v-if="showPositionActionColumn" width="200" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" size="default" @click="handleView(row)">
+            <el-button v-if="canViewPositionInfo" type="info" size="default" @click="handleView(row)">
               查看
             </el-button>
-            <el-button type="primary" size="default" @click="handleEdit(row)">
+            <el-button v-if="canUpdatePosition" type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
-            <el-button type="danger" size="default" @click="handleDelete(row)">
+            <el-button v-if="canDeletePosition" type="danger" size="default" @click="handleDelete(row)">
               删除
             </el-button>
           </template>
@@ -304,10 +304,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { formatDate } from '@/utils'
 import { recruitPositionApi, industryMapApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type {
   RecruitPositionPageVO,
   RecruitPositionForm,
@@ -315,6 +316,15 @@ import type {
   RecruitPositionInfoVO
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
+
+const authStore = useAuthStore()
+const canAddPosition = computed(() => authStore.hasPermission('/admin/recruitPosition/addRecruitPosition'))
+const canViewPositionInfo = computed(() => authStore.hasPermission('/admin/recruitPosition/queryRecruitPosition'))
+const canUpdatePosition = computed(() => authStore.hasPermission('/admin/recruitPosition/updateRecruitPosition'))
+const canDeletePosition = computed(() => authStore.hasPermission('/admin/recruitPosition/deleteRecruitPosition'))
+const showPositionActionColumn = computed(() => {
+  return canViewPositionInfo.value || canUpdatePosition.value || canDeletePosition.value
+})
 
 // 响应式数据
 const loading = ref(false)
@@ -523,7 +533,6 @@ const handleDelete = (row: RecruitPositionPageVO) => {
       getPositionList()
     } catch (error) {
       console.error('删除失败:', error)
-      ElMessage.error('删除失败')
     }
   })
 }
@@ -547,7 +556,6 @@ const handleSubmit = async () => {
     getPositionList()
   } catch (error) {
     console.error('操作失败:', error)
-    ElMessage.error('操作失败')
   } finally {
     submitting.value = false
   }

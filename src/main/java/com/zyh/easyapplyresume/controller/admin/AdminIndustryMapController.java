@@ -69,6 +69,7 @@ public class AdminIndustryMapController {
 
     @Operation(summary = "查询普通行业Map")
     @GetMapping("/findAllNormalIndustryMap")
+    @PreAuthorize("hasAuthority('/admin/industryMap/findAllNormalIndustryMap')")
     public BaseResult<List<IndustryMapInfoVO>> findAllNormalIndustryMap(){
         return BaseResult.ok(industryMapService.findAllNormalIndustryMap());
     }

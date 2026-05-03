@@ -480,7 +480,6 @@ const handleSavePermissions = async () => {
     showPermissionDialog.value = false
   } catch (error) {
     console.error('保存权限失败:', error)
-    ElMessage.error('保存失败')
   } finally {
     submitting.value = false
   }

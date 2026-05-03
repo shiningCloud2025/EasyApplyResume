@@ -63,13 +63,18 @@
 
 
         <!-- 招聘管理 -->
-        <el-sub-menu index="/admin/recruitment">
+        <el-sub-menu v-if="showRecruitmentManagementMenu" index="/admin/recruitment">
           <template #title>
             <el-icon><Briefcase /></el-icon>
             <span>招聘管理</span>
           </template>
-          <el-menu-item index="/admin/recruitment/positions">招聘岗位管理</el-menu-item>
-          <el-menu-item index="/admin/recruitment/information">招聘信息管理</el-menu-item>
+          <el-menu-item
+            v-for="item in visibleRecruitmentManagementMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            {{ item.title }}
+          </el-menu-item>
         </el-sub-menu>
 
         <!-- 简历管理 -->
@@ -441,7 +446,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, shallowRef, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions } from '@/store/auth'
+import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions } from '@/store/auth'
 import {
   House,
   User,
@@ -556,6 +561,27 @@ const visibleArticleManagementMenus = computed(() => {
 
 const showArticleManagementMenu = computed(() => {
   return visibleArticleManagementMenus.value.length > 0
+})
+
+const recruitmentManagementMenus = [
+  {
+    index: '/admin/recruitment/positions',
+    title: '招聘岗位管理',
+    permission: recruitmentManagementPagePermissions.position
+  },
+  {
+    index: '/admin/recruitment/information',
+    title: '招聘信息管理',
+    permission: recruitmentManagementPagePermissions.information
+  }
+]
+
+const visibleRecruitmentManagementMenus = computed(() => {
+  return recruitmentManagementMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showRecruitmentManagementMenu = computed(() => {
+  return visibleRecruitmentManagementMenus.value.length > 0
 })
 
 // 用户菜单操作

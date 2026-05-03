@@ -131,6 +131,11 @@ export const articleManagementPagePermissions = {
   jobAdvice: '/admin/jobAdviceArticle/getJobAdviceArticlePage'
 } as const
 
+export const recruitmentManagementPagePermissions = {
+  position: '/admin/recruitPosition/queryRecruitPositionPage',
+  information: '/admin/employmentInformation/getEmploymentInformationPage'
+} as const
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('admin_token') || '',
