@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.service.admin.IndustryMapService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,12 +55,14 @@ public class AdminIndustryMapController {
 
     @Operation(summary = "查询所有行业Map")
     @GetMapping("/findAllIndustryMap")
+    @PreAuthorize("hasAuthority('/admin/industryMap/findAllIndustryMap')")
     public BaseResult<List<IndustryMapInfoVO>> findAllIndustryMap(){
         return BaseResult.ok(industryMapService.findAllIndustryMap());
     }
 
     @Operation(summary = "查询招聘信息行业Map")
     @GetMapping("/findAllRecruitIndustryMap")
+    @PreAuthorize("hasAuthority('/admin/industryMap/findAllRecruitIndustryMap')")
     public BaseResult<List<IndustryMapInfoVO>> findAllRecruitIndustryMap(){
         return BaseResult.ok(industryMapService.findAllRecruitIndustryMap());
     }

@@ -73,7 +73,7 @@ public class EmploymentInformationServiceImpl implements EmploymentInformationSe
             if (employmentInformationMapper.selectList(lambdaQueryWrapper).isEmpty()){
                 employmentInformation.setEmploymentInformationCode(1);
             }else {
-                Integer employmentInformationId = employmentInformationMapper.selectList(null).get(0).getEmploymentInformationId();
+                Integer employmentInformationId = employmentInformationMapper.selectList(lambdaQueryWrapper).get(0).getEmploymentInformationId();
                 employmentInformation.setEmploymentInformationCode(employmentInformationId+1);
             }
             List<Integer>  provinceIds = employmentInformationForm.getEmploymentInformationRecruitLocationFirstList();

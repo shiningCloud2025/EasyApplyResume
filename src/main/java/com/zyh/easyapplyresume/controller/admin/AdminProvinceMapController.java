@@ -12,6 +12,7 @@ import com.zyh.easyapplyresume.service.admin.ProvinceMapService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,12 +33,14 @@ public class AdminProvinceMapController {
 
     @Operation(summary = "获取所有省份信息")
     @GetMapping("/getAllProvince")
+    @PreAuthorize("hasAuthority('/admin/provinceMap/getAllProvince')")
     public List<ProvinceMap> getAllProvince(){
         return provinceMapService.getAllProvince();
     }
 
     @Operation(summary = "根据省份id获取所有市")
     @GetMapping("/getCityByProvinceId")
+    @PreAuthorize("hasAuthority('/admin/provinceMap/getCityByProvinceId')")
     public List<CityMap> getCityByProvinceId(@RequestParam(required = true,value = "provinceMapId") Integer provinceMapId){
         return provinceMapService.getCityByProvinceId(provinceMapId);
     }

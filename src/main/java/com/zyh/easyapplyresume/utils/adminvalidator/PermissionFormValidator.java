@@ -16,8 +16,8 @@ public class PermissionFormValidator {
 
     // 权限名称长度限制（1-20位）
     private static final int PERMISSION_NAME_MAX_LENGTH = 20;
-    // 权限URL长度限制（1-50位）
-    private static final int PERMISSION_URL_MAX_LENGTH = 50;
+    // 权限URL长度限制（1-255位）
+    private static final int PERMISSION_URL_MAX_LENGTH = 255;
     // 权限简介长度限制（1-30位）
     private static final int PERMISSION_INTRO_MAX_LENGTH = 30;
     // 权限简介默认值（仅新增场景未填写时使用）

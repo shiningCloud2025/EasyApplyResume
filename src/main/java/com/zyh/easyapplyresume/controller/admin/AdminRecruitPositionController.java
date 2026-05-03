@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.service.admin.RecruitPositionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,29 +28,34 @@ public class AdminRecruitPositionController {
 
     @Operation(summary = "新增招聘岗位")
     @PostMapping("/addRecruitPosition")
+    @PreAuthorize("hasAuthority('/admin/recruitPosition/addRecruitPosition')")
     public BaseResult<?> addRecruitPosition(@RequestBody RecruitPositionForm recruitPositionForm){
         return BaseResult.ok(recruitPositionService.addRecruitPosition(recruitPositionForm));
     }
     @Operation(summary = "修改招聘岗位")
     @PostMapping("/updateRecruitPosition")
+    @PreAuthorize("hasAuthority('/admin/recruitPosition/updateRecruitPosition')")
     public  BaseResult<?> updateRecruitPosition(@RequestBody RecruitPositionForm recruitPositionForm){
         return BaseResult.ok(recruitPositionService.updateRecruitPosition(recruitPositionForm));
     }
 
     @Operation(summary = "删除招聘岗位")
     @DeleteMapping("/deleteRecruitPosition")
+    @PreAuthorize("hasAuthority('/admin/recruitPosition/deleteRecruitPosition')")
     public  BaseResult<?> deleteRecruitPosition(@RequestParam(required = true,value = "recruitPositionId") Integer recruitPositionId){
         return BaseResult.ok(recruitPositionService.deleteRecruitPosition(recruitPositionId));
     }
 
     @Operation(summary = "查看招聘岗位")
     @GetMapping("/queryRecruitPosition")
+    @PreAuthorize("hasAuthority('/admin/recruitPosition/queryRecruitPosition')")
     public BaseResult<RecruitPositionInfoVO> queryRecruitPosition(@RequestParam(required = true,value = "recruitPositionId") Integer recruitPositionId){
         return BaseResult.ok(recruitPositionService.queryRecruitPosition(recruitPositionId));
     }
 
     @Operation(summary = "分页查询招聘岗位")
     @PostMapping("/queryRecruitPositionPage")
+    @PreAuthorize("hasAuthority('/admin/recruitPosition/queryRecruitPositionPage')")
     public BaseResult<Page<RecruitPositionPageVO>> queryRecruitPositionPage(@RequestParam(required = false,value = "pageNum",defaultValue = "1") Integer pageNum,
                                                                 @RequestParam(required = false,value = "pageSize",defaultValue = "10") Integer pageSize,
                                                                 @RequestBody RecruitPositionQuery recruitPositionQuery){
@@ -58,6 +64,7 @@ public class AdminRecruitPositionController {
 
     @Operation(summary = "查看所有招聘岗位")
     @GetMapping("/queryAllRecruitPositionPage")
+    @PreAuthorize("hasAuthority('/admin/recruitPosition/queryAllRecruitPositionPage')")
     public BaseResult<List<RecruitPositionInfoVO>> queryAllRecruitPositionPage(){
         return BaseResult.ok(recruitPositionService.queryAllRecruitPositionForEmployment());
     }

@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.service.admin.EmploymentInformationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,30 +30,35 @@ public class AdminEmploymentInformationController {
 
     @Operation(summary = "新增招聘信息")
     @PostMapping("/addEmploymentInformation")
+    @PreAuthorize("hasAuthority('/admin/employmentInformation/addEmploymentInformation')")
     public BaseResult<?> addEmploymentInformation(@RequestBody EmploymentInformationForm employmentInformationForm){
         return BaseResult.ok(employmentInformationService.addEmploymentInformation(employmentInformationForm));
     }
 
     @Operation(summary = "修改招聘信息")
     @PostMapping("/updateEmploymentInformation")
+    @PreAuthorize("hasAuthority('/admin/employmentInformation/updateEmploymentInformation')")
     public BaseResult<?> updateEmploymentInformation(@RequestBody EmploymentInformationForm employmentInformationForm){
         return BaseResult.ok(employmentInformationService.updateEmploymentInformation(employmentInformationForm));
     }
 
     @Operation(summary = "删除招聘信息")
     @DeleteMapping("/deleteEmploymentInformation")
+    @PreAuthorize("hasAuthority('/admin/employmentInformation/deleteEmploymentInformation')")
     public BaseResult<?> deleteEmploymentInformation(@RequestParam("employmentInformationId") Integer employmentInformationIdm){
         return BaseResult.ok(employmentInformationService.deleteEmploymentInformation(employmentInformationIdm));
     }
 
     @Operation(summary = "根据id查询招聘信息信息")
     @GetMapping("/getEmploymentInformationInfo")
+    @PreAuthorize("hasAuthority('/admin/employmentInformation/getEmploymentInformationInfo')")
     public BaseResult<EmploymentInformationInfoVO> getEmploymentInformationInfo(@RequestParam(required = true,value = "employmentInformationId")Integer employmentInformationId){
         return BaseResult.ok(employmentInformationService.getEmploymentInformationInfo(employmentInformationId));
     }
 
     @Operation(summary = "分页查询招聘信息信息")
     @PostMapping("/getEmploymentInformationPage")
+    @PreAuthorize("hasAuthority('/admin/employmentInformation/getEmploymentInformationPage')")
     public BaseResult<Page<EmploymentInformationPageVO>> getEmploymentInformationPage(@RequestParam(required = true,value = "pageNum")Integer pageNum,
                                                                                       @RequestParam(required = true,value = "pageSize")Integer pageSize,
                                                                                       @RequestBody EmploymentInformationQuery employmentInformationQuery){
