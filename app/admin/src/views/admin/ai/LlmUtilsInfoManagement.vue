@@ -88,7 +88,7 @@
             {{ formatDateTime(row.llmUtilsInfoCreatedTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="120" fixed="right">
+        <el-table-column v-if="canViewDetail" label="操作" width="120" fixed="right">
           <template #default="{ row }">
             <el-button type="primary" size="default" @click="viewDetail(row)">
               查看详情
@@ -148,11 +148,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
 import { llmUtilsInfoApi } from '@/api/admin'
 import { formatDateTime } from '@/utils'
+import { useAuthStore } from '@/store/auth'
 import type {
   AdminLlmUtilsInfoQuery,
   AdminLlmUtilsInfoPageVO,
@@ -162,6 +163,8 @@ import type {
 const loading = ref(false)
 const detailDialogVisible = ref(false)
 const currentDetail = ref<AdminLlmUtilsInfoVO | null>(null)
+const authStore = useAuthStore()
+const canViewDetail = computed(() => authStore.hasPermission('/admin/llmUtilsInfo/getInfo'))
 
 const pagination = reactive({
   current: 1,
@@ -208,6 +211,11 @@ const getLlmUtilsInfoList = async () => {
 }
 
 const viewDetail = async (row: AdminLlmUtilsInfoPageVO) => {
+  if (!canViewDetail.value) {
+    ElMessage.error('暂无查看权限')
+    return
+  }
+
   try {
     const response = await llmUtilsInfoApi.getAdminLlmUtilsInfoById(row.llmUtilsInfoId)
     currentDetail.value = response.data

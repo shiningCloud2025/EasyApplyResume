@@ -9,6 +9,7 @@ import jakarta.annotation.Resource;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
@@ -34,6 +35,7 @@ public class AISystemManagerAssistantController {
 
     @Operation(summary = "AI系统管理助手应用对话")
     @PostMapping(value= "/application/chat",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @PreAuthorize("hasAuthority('/admin/aiSystemManagerAssistant/application/chat')")
     public Flux<String> applicationChat(@RequestBody String message,
                                                    @RequestParam(required = true,value = "chatId") String chatId){
         return aiSystemManagerAssistant.AiSystemManagerAssistantDoChatWithStream(message,chatId);
@@ -41,6 +43,7 @@ public class AISystemManagerAssistantController {
 
     @Operation(summary = "AI系统管理助手Agent对话")
     @PostMapping(value = "/agent/chat")
+    @PreAuthorize("hasAuthority('/admin/aiSystemManagerAssistant/agent/chat')")
     public SseEmitter agentChat(@RequestBody String message, @RequestParam(required = true,value = "chatId") String chatId){
         SystemAssistantAgent systemAssistantAgent = new SystemAssistantAgent(allTools,dashscopeChatModel);
         return systemAssistantAgent.runStream(message,chatId);

@@ -12,7 +12,7 @@
             <p>专业的智能对话助手，为您提供准确的答案</p>
             </div>
           </div>
-        <el-button @click="clearMessages" type="danger" plain>
+        <el-button @click="clearMessages" type="danger" plain :disabled="isStreaming || !canSendChat">
           <el-icon><Delete /></el-icon>
           清空对话
               </el-button>
@@ -60,7 +60,7 @@
           :rows="3"
           placeholder="请输入您的问题..."
           @keydown.enter.prevent="handleEnter"
-          :disabled="isStreaming"
+          :disabled="isStreaming || !canSendChat"
               resize="none"
             />
             <div class="input-actions">
@@ -72,7 +72,7 @@
                 type="primary" 
                 @click="sendMessage"
             :loading="isStreaming"
-                :disabled="!inputMessage.trim()"
+                :disabled="!inputMessage.trim() || !canSendChat"
               >
             <el-icon><Promotion /></el-icon>
                 发送
@@ -84,9 +84,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, onUnmounted } from 'vue'
+import { ref, nextTick, onUnmounted, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { ChatDotRound, User, Delete, InfoFilled, Promotion } from '@element-plus/icons-vue'
+import { useAuthStore } from '@/store/auth'
 
 interface Message {
   id: number
@@ -99,6 +100,8 @@ const messagesContainer = ref<HTMLElement>()
 const inputMessage = ref('')
 const isStreaming = ref(false)
 const streamingContent = ref('')
+const authStore = useAuthStore()
+const canSendChat = computed(() => authStore.hasPermission('/admin/aiSystemManagerAssistant/application/chat'))
 const messages = ref<Message[]>([
   {
     id: Date.now(),
@@ -154,6 +157,11 @@ const handleEnter = (event: KeyboardEvent) => {
 
 // 发送消息
 const sendMessage = async () => {
+  if (!canSendChat.value) {
+    ElMessage.error('暂无发送权限')
+    return
+  }
+
   if (!inputMessage.value.trim() || isStreaming.value) return
 
   const userMessage: Message = {

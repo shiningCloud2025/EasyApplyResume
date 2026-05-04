@@ -110,6 +110,7 @@ public enum AdminCodeEnum {
     RECRUIT_POSITION_NAME_TOO_LONG(691, "招聘岗位名称不能超过30个字符"),
     RECRUIT_GOOD_WELFARE_TOO_LONG(692, "福利待遇不能超过200个字符"),
     NOT_DELETE_RECRUIT_POSITION(693, "该岗位正在被使用，请勿删除"),
+    RECRUIT_POSITION_DUPLICATE(694, "同一行业下该招聘岗位名称已存在"),
 
     // ------------------- 新增：EmploymentInformationForm表单验证错误码（705开始）-------------------
     EMPLOYMENT_UPDATE_ID_EMPTY(705, "修改招聘信息必须指定招聘信息ID"),

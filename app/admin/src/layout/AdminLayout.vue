@@ -108,26 +108,33 @@
         </el-sub-menu>
 
         <!-- AI管理 -->
-        <el-sub-menu index="/admin/ai">
+        <el-sub-menu v-if="showAiManagementMenu" index="/admin/ai">
           <template #title>
             <el-icon><Cpu /></el-icon>
             <span>AI管理</span>
           </template>
-          <el-menu-item index="/admin/ai/chat">AI智能问答助手</el-menu-item>
-          <el-menu-item index="/admin/ai/agent">AI智能体助手</el-menu-item>
-          <el-menu-item index="/admin/ai/llm-utils-info">LLM调用日志管理</el-menu-item>
+          <el-menu-item
+            v-for="item in visibleAiManagementMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            {{ item.title }}
+          </el-menu-item>
         </el-sub-menu>
 
         <!-- 反馈管理 -->
-        <el-sub-menu index="/admin/feedback">
+        <el-sub-menu v-if="showFeedbackManagementMenu" index="/admin/feedback">
           <template #title>
             <el-icon><ChatLineSquare /></el-icon>
             <span>反馈管理</span>
           </template>
-          <el-menu-item index="/admin/feedback/user-management">用户端反馈管理</el-menu-item>
-          <el-menu-item index="/admin/feedback/management">管理端反馈管理</el-menu-item>
-          <el-menu-item index="/admin/feedback/user-records">用户端反馈记录</el-menu-item>
-          <el-menu-item index="/admin/feedback/records">管理端反馈记录</el-menu-item>
+          <el-menu-item
+            v-for="item in visibleFeedbackManagementMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            {{ item.title }}
+          </el-menu-item>
         </el-sub-menu>
 
         <!-- 关于我们管理 / 帮助中心管理（与反馈/内部系统同级，但可展开子模块） -->
@@ -452,7 +459,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, shallowRef, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions } from '@/store/auth'
+import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions, aiManagementPagePermissions, feedbackManagementPagePermissions } from '@/store/auth'
 import {
   House,
   User,
@@ -650,6 +657,63 @@ const visibleMapManagementMenus = computed(() => {
 
 const showMapManagementMenu = computed(() => {
   return visibleMapManagementMenus.value.length > 0
+})
+
+const aiManagementMenus = [
+  {
+    index: '/admin/ai/chat',
+    title: 'AI智能问答助手',
+    permission: aiManagementPagePermissions.chat
+  },
+  {
+    index: '/admin/ai/agent',
+    title: 'AI智能体助手',
+    permission: aiManagementPagePermissions.agent
+  },
+  {
+    index: '/admin/ai/llm-utils-info',
+    title: 'LLM调用日志管理',
+    permission: aiManagementPagePermissions.llmUtilsInfo
+  }
+]
+
+const visibleAiManagementMenus = computed(() => {
+  return aiManagementMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showAiManagementMenu = computed(() => {
+  return visibleAiManagementMenus.value.length > 0
+})
+
+const feedbackManagementMenus = [
+  {
+    index: '/admin/feedback/user-management',
+    title: '用户端反馈管理',
+    permission: feedbackManagementPagePermissions.userManagement
+  },
+  {
+    index: '/admin/feedback/management',
+    title: '管理端反馈管理',
+    permission: feedbackManagementPagePermissions.management
+  },
+  {
+    index: '/admin/feedback/user-records',
+    title: '用户端反馈记录',
+    permission: feedbackManagementPagePermissions.userRecords
+  },
+  {
+    index: '/admin/feedback/records',
+    title: '管理端反馈记录',
+    permission: feedbackManagementPagePermissions.records
+  }
+]
+
+const visibleFeedbackManagementMenus = computed(() => {
+  return feedbackManagementMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showFeedbackManagementMenu = computed(() => {
+  return visibleFeedbackManagementMenus.value.length > 0
 })
 
 // 用户菜单操作

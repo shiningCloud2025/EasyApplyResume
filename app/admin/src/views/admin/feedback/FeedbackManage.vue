@@ -60,7 +60,7 @@
         <el-table-column prop="adminFeedbackTitle" label="反馈标题" min-width="200" />
         <el-table-column label="反馈内容" min-width="150">
           <template #default="{ row }">
-            <el-button type="primary" size="small" @click="viewFeedbackContent(row)">
+            <el-button v-if="canViewFeedbackDetail" type="primary" size="small" @click="viewFeedbackContent(row)">
               详情
             </el-button>
           </template>
@@ -84,9 +84,10 @@
         </el-table-column>
         <el-table-column prop="adminFeedbackAdminId" label="提交人ID" width="100" />
         <el-table-column prop="adminFeedbackAdminName" label="提交人姓名" width="120" />
-        <el-table-column label="操作" width="280" fixed="right">
+        <el-table-column v-if="showActionColumn" label="操作" width="280" fixed="right">
           <template #default="{ row }">
             <el-button
+              v-if="canViewFeedbackDetail"
               type="info"
               size="default"
               @click="handleDetail(row)"
@@ -94,7 +95,7 @@
               查看
             </el-button>
             <!-- 待接受状态：显示接受和忽视按钮 -->
-            <template v-if="row.adminFeedbackCurStep === '待接受' || row.adminFeedbackCurStep === '待接收'">
+            <template v-if="canUpdateFeedbackStep && (row.adminFeedbackCurStep === '待接受' || row.adminFeedbackCurStep === '待接收')">
               <el-button
                 type="success"
                 size="default"
@@ -111,7 +112,7 @@
               </el-button>
             </template>
             <!-- 待回复状态：显示回复和拒回复按钮 -->
-            <template v-else-if="row.adminFeedbackCurStep === '待回复'">
+            <template v-else-if="canUpdateFeedbackStep && row.adminFeedbackCurStep === '待回复'">
               <el-button
                 type="primary"
                 size="default"
@@ -320,7 +321,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, onBeforeUnmount, shallowRef } from 'vue'
+import { ref, reactive, onMounted, onBeforeUnmount, shallowRef, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
@@ -348,6 +349,9 @@ import type { FormInstance } from 'element-plus'
 import { useAuthStore } from '@/store/auth'
 
 const authStore = useAuthStore()
+const canViewFeedbackDetail = computed(() => authStore.hasPermission('/admin/feedback/findFeedbackById'))
+const canUpdateFeedbackStep = computed(() => authStore.hasPermission('/admin/feedback/updateFeedbackStep'))
+const showActionColumn = computed(() => canViewFeedbackDetail.value || canUpdateFeedbackStep.value)
 
 // 响应式数据
 const loading = ref(false)
@@ -488,6 +492,11 @@ const handleCurrentChange = (current: number) => {
 
 // 查看详情
 const handleDetail = async (row: AdminFeedbackPageVO) => {
+  if (!canViewFeedbackDetail.value) {
+    ElMessage.error('暂无查看权限')
+    return
+  }
+
   try {
     const response = await feedbackApi.getFeedbackDetail(row.adminFeedbackId)
     currentDetail.value = response.data
@@ -500,12 +509,22 @@ const handleDetail = async (row: AdminFeedbackPageVO) => {
 
 // 查看反馈内容
 const viewFeedbackContent = (row: AdminFeedbackPageVO) => {
+  if (!canViewFeedbackDetail.value) {
+    ElMessage.error('暂无查看权限')
+    return
+  }
+
   currentContent.value = row
   contentDialogVisible.value = true
 }
 
 // 处理反馈
 const handleProcess = async (row: AdminFeedbackPageVO, operationCode: number, actionName: string) => {
+  if (!canUpdateFeedbackStep.value) {
+    ElMessage.error('暂无处理权限')
+    return
+  }
+
   try {
     // 操作码2（回复）需要弹出对话框填写内容
     if (operationCode === 2) {
@@ -609,6 +628,11 @@ const getStatusType = (status: string) => {
 
 // 提交处理
 const handleProcessSubmit = async () => {
+  if (!canUpdateFeedbackStep.value) {
+    ElMessage.error('暂无处理权限')
+    return
+  }
+
   if (!processFormRef.value || !currentFeedback.value) return
   
   try {

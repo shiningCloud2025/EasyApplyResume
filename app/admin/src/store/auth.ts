@@ -150,6 +150,19 @@ export const mapManagementPagePermissions = {
   street: '/admin/streetMap/findStreetMapByPage'
 } as const
 
+export const aiManagementPagePermissions = {
+  chat: '/admin/aiSystemManagerAssistant/application/chat',
+  agent: '/admin/aiSystemManagerAssistant/agent/chat',
+  llmUtilsInfo: '/admin/llmUtilsInfo/getPage'
+} as const
+
+export const feedbackManagementPagePermissions = {
+  userManagement: '/admin/userFeedback/getFeedbackPage',
+  management: '/admin/feedback/getFeedbackPage',
+  userRecords: '/admin/userfeedbackRecord/findUserFeedbackRecordPage',
+  records: '/admin/adminFeedbackRecord/findAdminFeedbackRecordPage'
+} as const
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('admin_token') || '',

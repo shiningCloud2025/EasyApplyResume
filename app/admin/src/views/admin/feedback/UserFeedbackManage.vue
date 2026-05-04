@@ -60,7 +60,7 @@
         <el-table-column prop="userFeedbackTitle" label="反馈标题" min-width="200" />
         <el-table-column label="反馈内容" min-width="150">
           <template #default="{ row }">
-            <el-button type="primary" size="small" @click="handleShowContent(row)">
+            <el-button v-if="canViewFeedbackDetail" type="primary" size="small" @click="handleShowContent(row)">
               详情
             </el-button>
           </template>
@@ -84,9 +84,10 @@
         </el-table-column>
         <el-table-column prop="userFeedbackUserId" label="提交人ID" width="100" />
         <el-table-column prop="userFeedbackUserName" label="提交人姓名" width="120" />
-        <el-table-column label="操作" width="280" fixed="right">
+        <el-table-column v-if="showActionColumn" label="操作" width="280" fixed="right">
           <template #default="{ row }">
             <el-button
+              v-if="canViewFeedbackDetail"
               type="info"
               size="default"
               @click="handleDetail(row)"
@@ -94,7 +95,7 @@
               查看
             </el-button>
             <!-- 待接受状态：显示接受和忽视按钮 -->
-            <template v-if="row.userFeedbackCurStep === '待接受' || row.userFeedbackCurStep === '待接收'">
+            <template v-if="canUpdateFeedbackStep && (row.userFeedbackCurStep === '待接受' || row.userFeedbackCurStep === '待接收')">
               <el-button
                 type="success"
                 size="default"
@@ -111,7 +112,7 @@
               </el-button>
             </template>
             <!-- 待回复状态：显示回复和拒回复按钮 -->
-            <template v-else-if="row.userFeedbackCurStep === '待回复'">
+            <template v-else-if="canUpdateFeedbackStep && row.userFeedbackCurStep === '待回复'">
               <el-button
                 type="primary"
                 size="default"
@@ -287,7 +288,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, onBeforeUnmount, shallowRef } from 'vue'
+import { ref, reactive, onMounted, onBeforeUnmount, shallowRef, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh, Search, RefreshRight } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
@@ -309,6 +310,10 @@ const detailDialogVisible = ref(false)
 const currentFeedback = ref<UserFeedbackInfoVO | null>(null)
 const currentContent = ref<UserFeedbackInfoVO | null>(null)
 const processAction = ref('')
+const authStore = useAuthStore()
+const canViewFeedbackDetail = computed(() => authStore.hasPermission('/admin/userFeedback/findFeedbackById'))
+const canUpdateFeedbackStep = computed(() => authStore.hasPermission('/admin/userFeedback/updateFeedbackStep'))
+const showActionColumn = computed(() => canViewFeedbackDetail.value || canUpdateFeedbackStep.value)
 
 const searchForm = reactive<UserFeedbackQuery>({
   userFeedbackTitle: '',
@@ -454,6 +459,11 @@ const handleCurrentChange = (current: number) => {
 
 // 查看详情
 const handleDetail = async (row: UserFeedbackPageVO) => {
+  if (!canViewFeedbackDetail.value) {
+    ElMessage.error('暂无查看权限')
+    return
+  }
+
   try {
     const response = await userFeedbackApi.getUserFeedbackDetail(row.userFeedbackId)
     currentFeedback.value = response.data
@@ -466,6 +476,11 @@ const handleDetail = async (row: UserFeedbackPageVO) => {
 
 // 查看反馈内容
 const handleShowContent = async (row: UserFeedbackPageVO) => {
+  if (!canViewFeedbackDetail.value) {
+    ElMessage.error('暂无查看权限')
+    return
+  }
+
   try {
     const response = await userFeedbackApi.getUserFeedbackDetail(row.userFeedbackId)
     currentContent.value = response.data
@@ -478,6 +493,11 @@ const handleShowContent = async (row: UserFeedbackPageVO) => {
 
 // 处理反馈
 const handleProcess = async (row: UserFeedbackPageVO, operationCode: number, actionName: string) => {
+  if (!canUpdateFeedbackStep.value) {
+    ElMessage.error('暂无处理权限')
+    return
+  }
+
   try {
     // 操作码2（回复）需要弹出对话框填写内容
     if (operationCode === 2) {
@@ -569,6 +589,11 @@ const getOperationDesc = (code: number) => {
 
 // 提交处理
 const handleProcessSubmit = async () => {
+  if (!canUpdateFeedbackStep.value) {
+    ElMessage.error('暂无处理权限')
+    return
+  }
+
   if (!processFormRef.value || !currentFeedback.value) return
   
   try {

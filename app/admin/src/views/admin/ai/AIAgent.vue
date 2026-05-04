@@ -12,7 +12,7 @@
             <p>智能管理助手，为您提供专业服务</p>
           </div>
         </div>
-        <el-button @click="clearMessages" type="danger" plain>
+        <el-button @click="clearMessages" type="danger" plain :disabled="isStreaming || !canSendAgent">
           <el-icon><Delete /></el-icon>
           清空对话
         </el-button>
@@ -127,7 +127,7 @@
           :rows="3"
           placeholder="请输入您的问题..."
           @keydown.enter.prevent="handleEnter"
-          :disabled="isStreaming"
+          :disabled="isStreaming || !canSendAgent"
           resize="none"
         />
         <div class="input-actions">
@@ -139,7 +139,7 @@
             type="primary" 
             @click="sendMessage" 
             :loading="isStreaming"
-            :disabled="!inputMessage.trim()"
+            :disabled="!inputMessage.trim() || !canSendAgent"
           >
             <el-icon><Promotion /></el-icon>
             发送
@@ -151,10 +151,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, nextTick, onMounted, onUnmounted } from 'vue'
+import { ref, nextTick, onMounted, onUnmounted, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Cpu, User, Delete, InfoFilled, Promotion, View, CircleCheck } from '@element-plus/icons-vue'
 import { aiApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 
 interface Message {
   id: number
@@ -175,6 +176,8 @@ const messagesContainer = ref<HTMLElement>()
 const inputMessage = ref('')
 const isStreaming = ref(false)
 const streamingContent = ref('')
+const authStore = useAuthStore()
+const canSendAgent = computed(() => authStore.hasPermission('/admin/aiSystemManagerAssistant/agent/chat'))
 const streamingSteps = ref<ThinkingStep[]>([])  // 当前流式传输的思考步骤
 const messages = ref<Message[]>([
   {
@@ -238,6 +241,11 @@ const handleEnter = (event: KeyboardEvent) => {
 
 // 发送消息
 const sendMessage = async () => {
+  if (!canSendAgent.value) {
+    ElMessage.error('暂无发送权限')
+    return
+  }
+
   if (!inputMessage.value.trim() || isStreaming.value) return
 
   const userMessage: Message = {

@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.service.admin.AdminLlmUtilsInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -26,12 +27,14 @@ public class AdminLlmUtilsInfoController {
 
     @Operation(summary = "获取LLM工具类调用日志详情")
     @GetMapping("/getInfo")
+    @PreAuthorize("hasAuthority('/admin/llmUtilsInfo/getInfo')")
     public BaseResult<AdminLlmUtilsInfoVO> findAdminLlmUtilsInfoById(@RequestParam(required = true, value = "llmUtilsInfoId") Long llmUtilsInfoId) {
         return BaseResult.ok(adminLlmUtilsInfoService.findAdminLlmUtilsInfoById(llmUtilsInfoId));
     }
 
     @Operation(summary = "分页查询LLM工具类调用日志")
     @PostMapping("/getPage")
+    @PreAuthorize("hasAuthority('/admin/llmUtilsInfo/getPage')")
     public BaseResult<Page<AdminLlmUtilsInfoPageVO>> findAdminLlmUtilsInfoByPage(
             @RequestParam(required = false, value = "pageNum", defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, value = "pageSize", defaultValue = "10") Integer pageSize,

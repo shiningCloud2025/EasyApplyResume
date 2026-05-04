@@ -165,19 +165,19 @@ const router = createRouter({
               path: 'chat',
               name: 'AIChat',
               component: () => import('@/views/admin/ai/AIChat.vue'),
-              meta: { title: 'AI智能问答助手' }
+              meta: { title: 'AI智能问答助手', permission: '/admin/aiSystemManagerAssistant/application/chat' }
             },
             {
               path: 'agent',
               name: 'AIAgent',
               component: () => import('@/views/admin/ai/AIAgent.vue'),
-              meta: { title: 'AI智能体助手' }
+              meta: { title: 'AI智能体助手', permission: '/admin/aiSystemManagerAssistant/agent/chat' }
             },
             {
               path: 'llm-utils-info',
               name: 'LlmUtilsInfoManagement',
               component: () => import('@/views/admin/ai/LlmUtilsInfoManagement.vue'),
-              meta: { title: 'LLM调用日志管理' }
+              meta: { title: 'LLM调用日志管理', permission: '/admin/llmUtilsInfo/getPage' }
             }
           ]
         },
@@ -313,25 +313,25 @@ const router = createRouter({
               path: 'user-management',
               name: 'UserFeedbackManage',
               component: () => import('@/views/admin/feedback/UserFeedbackManage.vue'),
-              meta: { title: '用户端反馈管理' }
+              meta: { title: '用户端反馈管理', permission: '/admin/userFeedback/getFeedbackPage' }
             },
             {
               path: 'management',
               name: 'FeedbackManage',
               component: () => import('@/views/admin/feedback/FeedbackManage.vue'),
-              meta: { title: '管理端反馈管理' }
+              meta: { title: '管理端反馈管理', permission: '/admin/feedback/getFeedbackPage' }
             },
             {
               path: 'user-records',
               name: 'UserFeedbackRecords',
               component: () => import('@/views/admin/feedback/UserFeedbackRecords.vue'),
-              meta: { title: '用户端反馈记录' }
+              meta: { title: '用户端反馈记录', permission: '/admin/userfeedbackRecord/findUserFeedbackRecordPage' }
             },
             {
               path: 'records',
               name: 'FeedbackRecords',
               component: () => import('@/views/admin/feedback/FeedbackRecords.vue'),
-              meta: { title: '管理端反馈记录' }
+              meta: { title: '管理端反馈记录', permission: '/admin/adminFeedbackRecord/findAdminFeedbackRecordPage' }
             }
           ]
         },

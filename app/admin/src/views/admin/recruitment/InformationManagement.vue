@@ -454,14 +454,16 @@
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item label="招聘岗位" prop="employmentInformationRecruitPosition">
-              <el-select 
-                v-model="infoForm.employmentInformationRecruitPosition" 
-                placeholder="请选择岗位"
+              <el-select
+                v-model="infoForm.employmentInformationRecruitPosition"
+                :placeholder="infoForm.employmentInformationIndustryCategories ? '请选择岗位' : '请先选择行业'"
                 style="width: 100%"
                 filterable
+                :disabled="!infoForm.employmentInformationIndustryCategories"
+                no-data-text="当前行业暂无可选岗位"
               >
                 <el-option
-                  v-for="position in positionList"
+                  v-for="position in filteredEmploymentPositionList"
                   :key="position.recruitPositionId"
                   :label="formatRecruitPositionName(position.recruitPositionName)"
                   :value="position.recruitPositionId"
@@ -604,7 +606,8 @@ import type {
   EmploymentInformationPageVO,
   EmploymentInformationForm,
   EmploymentInformationQuery,
-  EmploymentInformationInfoVO
+  EmploymentInformationInfoVO,
+  RecruitPositionInfoVO
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
 
@@ -627,9 +630,17 @@ const currentViewInfo = ref<EmploymentInformationInfoVO | null>(null)
 
 // 下拉选择数据
 const industryList = ref<any[]>([])
-const positionList = ref<any[]>([])
+const positionList = ref<RecruitPositionInfoVO[]>([])
 const provinceList = ref<any[]>([])
 const cityList = ref<any[]>([])
+
+const filteredEmploymentPositionList = computed(() => {
+  const industryCode = infoForm.employmentInformationIndustryCategories
+  if (!industryCode) {
+    return []
+  }
+  return positionList.value.filter(position => position.recruitPositionIndustryCode === industryCode)
+})
 
 // 搜索表单
 const searchForm = reactive<EmploymentInformationQuery>({
@@ -833,6 +844,15 @@ const handleProvinceFocus = () => {
   console.log('👆 [省份] 用户点击了省份选择框')
   getProvinceList()
 }
+
+watch(
+  () => infoForm.employmentInformationIndustryCategories,
+  (newIndustryCode, oldIndustryCode) => {
+    if (newIndustryCode !== oldIndustryCode) {
+      infoForm.employmentInformationRecruitPosition = undefined as any
+    }
+  }
+)
 
 // 记录最后一个被选择的省份ID
 const lastSelectedProvinceId = ref<number | null>(null)

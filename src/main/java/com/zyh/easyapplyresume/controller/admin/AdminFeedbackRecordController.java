@@ -9,6 +9,7 @@ import com.zyh.easyapplyresume.service.admin.AdminFeedbackRecordService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -26,12 +27,14 @@ public class AdminFeedbackRecordController {
 
     @Operation(summary = "管理员反馈记录信息")
     @GetMapping("/findAdminFeedbackRecordByFeedbackRecordId")
+    @PreAuthorize("hasAuthority('/admin/adminFeedbackRecord/findAdminFeedbackRecordByFeedbackRecordId')")
     public BaseResult<AdminFeedbackRecordInfoVO> findAdminFeedbackRecordByFeedbackRecordId(@RequestParam(required = true,value = "feedbackRecordId") Integer feedbackRecordId) {
         return BaseResult.ok(adminFeedbackRecordService.findAdminFeedbackRecordByFeedbackRecordId(feedbackRecordId));
     }
 
     @Operation(summary = "管理员反馈记录分页查询")
     @PostMapping("/findAdminFeedbackRecordPage")
+    @PreAuthorize("hasAuthority('/admin/adminFeedbackRecord/findAdminFeedbackRecordPage')")
     public BaseResult<Page<AdminFeedbackRecordPageVO>> findAdminFeedbackRecordPage(@RequestParam (required = false,value = "pageNum",defaultValue = "1")Integer pageNum,
                                                                                    @RequestParam(required = false,value = "pageSize",defaultValue = "10")  Integer pageSize,
                                                                                    @RequestBody AdminFeedbackRecordQuery adminFeedbackRecordQuery) {

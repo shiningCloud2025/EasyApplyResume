@@ -68,7 +68,7 @@
         <el-table-column prop="userFeedbackRecordTitle" label="反馈标题" min-width="200" show-overflow-tooltip />
         <el-table-column label="反馈内容" min-width="150">
           <template #default="{ row }">
-            <el-button type="primary" size="small" @click="viewRecordContent(row)">
+            <el-button v-if="canViewRecordDetail" type="primary" size="small" @click="viewRecordContent(row)">
               详情
             </el-button>
           </template>
@@ -105,7 +105,7 @@
             {{ formatDate(row.userFeedbackRecordCurrentStepSolveTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="120" fixed="right">
+        <el-table-column v-if="canViewRecordDetail" label="操作" width="120" fixed="right">
           <template #default="{ row }">
             <el-button
               type="primary"
@@ -217,16 +217,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Refresh, Search, RefreshRight, Right } from '@element-plus/icons-vue'
 import { userFeedbackRecordApi } from '@/api/admin'
 import { formatDateTime, formatDate } from '@/utils'
-import type { 
-  UserFeedbackRecordQuery, 
+import type {
+  UserFeedbackRecordQuery,
   UserFeedbackRecordPageVO,
-  UserFeedbackRecordInfoVO 
+  UserFeedbackRecordInfoVO
 } from '@/types/admin'
+import { useAuthStore } from '@/store/auth'
 
 // 响应式数据
 const loading = ref(false)
@@ -234,6 +235,8 @@ const detailDialogVisible = ref(false)
 const contentDialogVisible = ref(false)
 const currentRecord = ref<UserFeedbackRecordInfoVO | null>(null)
 const currentContent = ref<UserFeedbackRecordPageVO | null>(null)
+const authStore = useAuthStore()
+const canViewRecordDetail = computed(() => authStore.hasPermission('/admin/userfeedbackRecord/findUserFeedbackRecordByFeedbackRecordId'))
 
 // 分页
 const pagination = reactive({
@@ -337,6 +340,11 @@ const handleCurrentChange = (current: number) => {
 
 // 查看详情
 const viewDetail = async (row: UserFeedbackRecordPageVO) => {
+  if (!canViewRecordDetail.value) {
+    ElMessage.error('暂无查看权限')
+    return
+  }
+
   try {
     console.log('📋 [用户反馈记录] 查看详情，记录ID:', row.userFeedbackRecordId)
     
@@ -355,6 +363,11 @@ const viewDetail = async (row: UserFeedbackRecordPageVO) => {
 
 // 查看反馈内容详情
 const viewRecordContent = (row: UserFeedbackRecordPageVO) => {
+  if (!canViewRecordDetail.value) {
+    ElMessage.error('暂无查看权限')
+    return
+  }
+
   currentContent.value = row
   contentDialogVisible.value = true
 }

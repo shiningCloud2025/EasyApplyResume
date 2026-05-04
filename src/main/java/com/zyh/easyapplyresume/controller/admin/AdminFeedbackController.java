@@ -11,6 +11,7 @@ import com.zyh.easyapplyresume.service.admin.AdminFeedbackService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -33,6 +34,7 @@ public class AdminFeedbackController {
 
     @Operation(summary = "更新反馈阶段")
     @PutMapping("/updateFeedbackStep")
+    @PreAuthorize("hasAuthority('/admin/feedback/updateFeedbackStep')")
     public BaseResult<?> updateFeedbackStep(@RequestParam(required = true,value = "feedbackId") Integer feedbackId,
                                             @RequestParam(required = true,value = "OperationCode") Integer OperationCode,
                                             @RequestBody AdminUpdateFeedbackForm adminUpdateFeedbackForm,
@@ -43,12 +45,14 @@ public class AdminFeedbackController {
 
     @Operation(summary = "查询反馈信息")
     @GetMapping("/findFeedbackById")
+    @PreAuthorize("hasAuthority('/admin/feedback/findFeedbackById')")
     public BaseResult<AdminFeedbackInfoVO> findFeedbackById(@RequestParam(required = true,value = "feedbackId") Integer feedbackId) {
         return BaseResult.ok(adminFeedbackService.findFeedbackById(feedbackId));
     }
 
     @Operation(summary = "分页查询反馈信息")
     @PostMapping("/getFeedbackPage")
+    @PreAuthorize("hasAuthority('/admin/feedback/getFeedbackPage')")
     public BaseResult<Page<AdminFeedbackPageVO>> getFeedbackPage(@RequestParam(required = false,value = "pageNum",defaultValue = "1") Integer pageNum,
                                                                  @RequestParam(required = false,value = "pageSize",defaultValue = "10") Integer pageSize,
                                                                  @RequestBody AdminFeedbackQuery adminFeedbackQuery) {

@@ -51,6 +51,7 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
     @Override
     public Integer addRecruitPosition(RecruitPositionForm recruitPositionForm) {
         RecruitPositionFormValidator.validateForAdd(recruitPositionForm);
+        validateRecruitPositionUnique(recruitPositionForm);
         RecruitPosition recruitPosition = new RecruitPosition();
         BeanUtils.copyProperties(recruitPositionForm, recruitPosition);
         recruitPosition.setCreatedTime(new Date());
@@ -75,6 +76,7 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
     @Override
     public Integer updateRecruitPosition(RecruitPositionForm recruitPositionForm) {
         RecruitPositionFormValidator.validateForUpdate(recruitPositionForm);
+        validateRecruitPositionUnique(recruitPositionForm);
         RecruitPosition recruitPosition = new RecruitPosition();
         BeanUtils.copyProperties(recruitPositionForm, recruitPosition);
         recruitPosition.setUpdatedTime(new Date());
@@ -218,4 +220,21 @@ public class RecruitPositionServiceImpl implements RecruitPositionService {
                 })
                 .toList();
     }
+
+    private void validateRecruitPositionUnique(RecruitPositionForm recruitPositionForm) {
+        LambdaQueryWrapper<RecruitPosition> recruitPositionWrapper = new LambdaQueryWrapper<>();
+        recruitPositionWrapper.eq(RecruitPosition::getRecruitPositionName, recruitPositionForm.getRecruitPositionName());
+        recruitPositionWrapper.eq(RecruitPosition::getRecruitPositionIndustryCode,
+                recruitPositionForm.getRecruitPositionIndustryCode());
+
+        if (recruitPositionForm.getRecruitPositionId() != null) {
+            recruitPositionWrapper.ne(RecruitPosition::getRecruitPositionId, recruitPositionForm.getRecruitPositionId());
+        }
+
+        Long recruitPositionCount = recruitPositionMapper.selectCount(recruitPositionWrapper);
+        if (recruitPositionCount != null && recruitPositionCount > 0) {
+            throw new BusException(AdminCodeEnum.RECRUIT_POSITION_DUPLICATE);
+        }
+    }
+
 }
