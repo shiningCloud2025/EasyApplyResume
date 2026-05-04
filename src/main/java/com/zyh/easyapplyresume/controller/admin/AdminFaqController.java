@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.service.admin.AdminFaqService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -25,30 +26,35 @@ public class AdminFaqController {
 
     @Operation(summary = "添加常见问题")
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('/admin/faq/add')")
     public BaseResult<Integer> addFaq(@RequestBody AdminFaqForm faqForm) {
         return BaseResult.ok(faqService.addFaq(faqForm));
     }
 
     @Operation(summary = "修改常见问题")
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('/admin/faq/update')")
     public BaseResult<Integer> updateFaq(@RequestBody AdminFaqForm faqForm) {
         return BaseResult.ok(faqService.updateFaq(faqForm));
     }
 
     @Operation(summary = "删除常见问题")
     @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('/admin/faq/delete')")
     public BaseResult<Integer> deleteFaq(@RequestParam(required = true, value = "faqId") Integer faqId) {
         return BaseResult.ok(faqService.deleteFaq(faqId));
     }
 
     @Operation(summary = "获取常见问题信息")
     @GetMapping("/getInfo")
+    @PreAuthorize("hasAuthority('/admin/faq/getInfo')")
     public BaseResult<AdminFaqInfoVO> getFaqInfo(@RequestParam(required = true, value = "faqId") Integer faqId) {
         return BaseResult.ok(faqService.getFaqInfo(faqId));
     }
 
     @Operation(summary = "分页查询常见问题")
     @PostMapping("/getPage")
+    @PreAuthorize("hasAuthority('/admin/faq/getPage')")
     public BaseResult<Page<AdminFaqPageVO>> getFaqPage(
             @RequestParam(required = false, value = "pageNum", defaultValue = "1") int pageNum,
             @RequestParam(required = false, value = "pageSize", defaultValue = "10") int pageSize,

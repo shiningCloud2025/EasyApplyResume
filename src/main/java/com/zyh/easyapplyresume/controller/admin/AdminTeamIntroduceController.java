@@ -7,6 +7,7 @@ import com.zyh.easyapplyresume.service.admin.AdminTeamIntroduceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,18 +27,21 @@ public class AdminTeamIntroduceController {
 
     @Operation(summary = "添加团队介绍")
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('/admin/teamIntroduce/add')")
     public BaseResult<Integer> addTeamIntroduce(@RequestBody AdminTeamIntroduceForm teamIntroduceForm) {
         return BaseResult.ok(teamIntroduceService.addTeamIntroduce(teamIntroduceForm));
     }
 
     @Operation(summary = "修改团队介绍")
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('/admin/teamIntroduce/update')")
     public BaseResult<Integer> updateTeamIntroduce(@RequestBody AdminTeamIntroduceForm teamIntroduceForm) {
         return BaseResult.ok(teamIntroduceService.updateTeamIntroduce(teamIntroduceForm));
     }
 
     @Operation(summary = "获取团队介绍信息")
     @GetMapping("/getInfo")
+    @PreAuthorize("hasAuthority('/admin/teamIntroduce/getInfo')")
     public BaseResult<AdminTeamIntroduceInfoVO> getTeamIntroduceInfo() {
         return BaseResult.ok(teamIntroduceService.getTeamIntroduceInfo());
     }

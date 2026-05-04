@@ -7,6 +7,7 @@ import com.zyh.easyapplyresume.service.admin.AdminJoinUsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,18 +27,21 @@ public class AdminJoinUsController {
 
     @Operation(summary = "添加加入我们")
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('/admin/joinUs/add')")
     public BaseResult<Integer> addJoinUs(@RequestBody AdminJoinUsForm joinUsForm) {
         return BaseResult.ok(joinUsService.addJoinUs(joinUsForm));
     }
 
     @Operation(summary = "修改加入我们")
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('/admin/joinUs/update')")
     public BaseResult<Integer> updateJoinUs(@RequestBody AdminJoinUsForm joinUsForm) {
         return BaseResult.ok(joinUsService.updateJoinUs(joinUsForm));
     }
 
     @Operation(summary = "获取加入我们信息")
     @GetMapping("/getInfo")
+    @PreAuthorize("hasAuthority('/admin/joinUs/getInfo')")
     public BaseResult<AdminJoinUsInfoVO> getJoinUsInfo() {
         return BaseResult.ok(joinUsService.getJoinUsInfo());
     }

@@ -7,6 +7,7 @@ import com.zyh.easyapplyresume.service.admin.AdminCustomerServiceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,18 +27,21 @@ public class AdminCustomerServiceController {
 
     @Operation(summary = "添加人工客服")
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('/admin/customerService/add')")
     public BaseResult<Integer> addCustomerService(@RequestBody AdminCustomerServiceForm customerServiceForm) {
         return BaseResult.ok(customerServiceService.addCustomerService(customerServiceForm));
     }
 
     @Operation(summary = "修改人工客服")
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('/admin/customerService/update')")
     public BaseResult<Integer> updateCustomerService(@RequestBody AdminCustomerServiceForm customerServiceForm) {
         return BaseResult.ok(customerServiceService.updateCustomerService(customerServiceForm));
     }
 
     @Operation(summary = "获取人工客服信息")
     @GetMapping("/getInfo")
+    @PreAuthorize("hasAuthority('/admin/customerService/getInfo')")
     public BaseResult<AdminCustomerServiceInfoVO> getCustomerServiceInfo() {
         return BaseResult.ok(customerServiceService.getCustomerServiceInfo());
     }
