@@ -40,11 +40,11 @@
             {{ formatDateTime(getDisplayTime(row)) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="240" fixed="right">
+        <el-table-column v-if="props.canView || props.canEdit || props.canDelete" label="操作" width="240" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" @click="handleView(row)">查看</el-button>
-            <el-button type="primary" @click="handleEdit(row)">编辑</el-button>
-            <el-button type="danger" @click="handleDelete(row)">删除</el-button>
+            <el-button v-if="props.canView" type="info" @click="handleView(row)">查看</el-button>
+            <el-button v-if="props.canEdit" type="primary" @click="handleEdit(row)">编辑</el-button>
+            <el-button v-if="props.canDelete" type="danger" @click="handleDelete(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -76,10 +76,11 @@
                   v-model="form.title"
                   :height="titleEditorHeight"
                   placeholder="请输入标题，支持富文本格式..."
+                  :readonly="!canSubmitCurrentForm"
                 />
               </el-form-item>
               <el-form-item label="内容" prop="content">
-                <MarkdownEditor v-model="form.content" :height="editorHeight" />
+                <MarkdownEditor v-model="form.content" :height="editorHeight" :readonly="!canSubmitCurrentForm" />
               </el-form-item>
             </div>
 
@@ -99,7 +100,7 @@
       <template #footer>
         <div class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
-          <el-button type="primary" @click="handleSubmit" :loading="submitting">确定</el-button>
+          <el-button v-if="canSubmitCurrentForm" type="primary" @click="handleSubmit" :loading="submitting">确定</el-button>
         </div>
       </template>
     </el-dialog>
@@ -162,11 +163,19 @@ interface Props {
   remove: (id: number) => Promise<any>
   editorHeight?: string
   titleEditorHeight?: string
+  canView?: boolean
+  canAdd?: boolean
+  canEdit?: boolean
+  canDelete?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   editorHeight: '420px',
-  titleEditorHeight: '220px'
+  titleEditorHeight: '220px',
+  canView: true,
+  canAdd: true,
+  canEdit: true,
+  canDelete: true
 })
 
 const formRef = ref<FormInstance>()
@@ -199,6 +208,7 @@ const previewBody = computed(() => normalizeRichTextHtml(form.content))
 const hasPreviewContent = computed(() => !!previewTitle.value || !!previewBody.value)
 const previewMinHeight = computed(() => `calc(${props.titleEditorHeight} + ${props.editorHeight} + 56px)`)
 const detailIdLabel = computed(() => `${props.moduleLabel}ID`)
+const canSubmitCurrentForm = computed(() => (form.id != null ? props.canEdit : props.canAdd))
 
 const validateRichTextField = (message: string) => {
   return (_rule: any, value: string, callback: (error?: Error) => void) => {

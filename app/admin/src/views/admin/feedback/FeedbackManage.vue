@@ -426,6 +426,7 @@ const toolbarConfig: Partial<IToolbarConfig> = {
     '|',
     'emotion',
     'insertLink',
+    'insertImage',
     '|',
     'undo',
     'redo'

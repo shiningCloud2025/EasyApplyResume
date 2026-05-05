@@ -163,6 +163,21 @@ export const feedbackManagementPagePermissions = {
   records: '/admin/adminFeedbackRecord/findAdminFeedbackRecordPage'
 } as const
 
+export const aboutUsManagementPagePermissions = {
+  projectIntroduce: '/admin/projectIntroduce/getInfo',
+  teamIntroduce: '/admin/teamIntroduce/getInfo',
+  developHistory: '/admin/developHistory/getInfo',
+  joinUs: '/admin/joinUs/getInfo',
+  partnerIntroduce: '/admin/partnerIntroduce/getInfo',
+  mediaReport: '/admin/mediaReport/getInfo'
+} as const
+
+export const helpCenterManagementPagePermissions = {
+  faq: '/admin/faq/getPage',
+  customerService: '/admin/customerService/getInfo',
+  userGuide: '/admin/userGuide/getPage'
+} as const
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('admin_token') || '',

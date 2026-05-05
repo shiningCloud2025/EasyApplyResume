@@ -17,6 +17,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import SingletonContentManager from '@/components/SingletonContentManager.vue'
+import { useAuthStore } from '@/store/auth'
 import {
   projectIntroduceApi,
   teamIntroduceApi,
@@ -27,6 +28,7 @@ import {
 } from '@/api/admin'
 
 const route = useRoute()
+const authStore = useAuthStore()
 
 const moduleMap = {
   'project-introduce': {
@@ -39,7 +41,9 @@ const moduleMap = {
       updatedField: 'projectIntroduceUpdatedTime',
       getInfo: projectIntroduceApi.getInfo,
       add: projectIntroduceApi.add,
-      update: projectIntroduceApi.update
+      update: projectIntroduceApi.update,
+      canAdd: authStore.hasPermission('/admin/projectIntroduce/add'),
+      canUpdate: authStore.hasPermission('/admin/projectIntroduce/update')
     }
   },
   'team-introduce': {
@@ -52,7 +56,9 @@ const moduleMap = {
       updatedField: 'teamIntroduceUpdatedTime',
       getInfo: teamIntroduceApi.getInfo,
       add: teamIntroduceApi.add,
-      update: teamIntroduceApi.update
+      update: teamIntroduceApi.update,
+      canAdd: authStore.hasPermission('/admin/teamIntroduce/add'),
+      canUpdate: authStore.hasPermission('/admin/teamIntroduce/update')
     }
   },
   'develop-history': {
@@ -65,7 +71,9 @@ const moduleMap = {
       updatedField: 'developHistoryUpdatedTime',
       getInfo: developHistoryApi.getInfo,
       add: developHistoryApi.add,
-      update: developHistoryApi.update
+      update: developHistoryApi.update,
+      canAdd: authStore.hasPermission('/admin/developHistory/add'),
+      canUpdate: authStore.hasPermission('/admin/developHistory/update')
     }
   },
   'join-us': {
@@ -78,7 +86,9 @@ const moduleMap = {
       updatedField: 'joinUsUpdatedTime',
       getInfo: joinUsApi.getInfo,
       add: joinUsApi.add,
-      update: joinUsApi.update
+      update: joinUsApi.update,
+      canAdd: authStore.hasPermission('/admin/joinUs/add'),
+      canUpdate: authStore.hasPermission('/admin/joinUs/update')
     }
   },
   'partner-introduce': {
@@ -91,7 +101,9 @@ const moduleMap = {
       updatedField: 'partnerIntroduceUpdatedTime',
       getInfo: partnerIntroduceApi.getInfo,
       add: partnerIntroduceApi.add,
-      update: partnerIntroduceApi.update
+      update: partnerIntroduceApi.update,
+      canAdd: authStore.hasPermission('/admin/partnerIntroduce/add'),
+      canUpdate: authStore.hasPermission('/admin/partnerIntroduce/update')
     }
   },
   'media-report': {
@@ -104,7 +116,9 @@ const moduleMap = {
       updatedField: 'mediaReportUpdatedTime',
       getInfo: mediaReportApi.getInfo,
       add: mediaReportApi.add,
-      update: mediaReportApi.update
+      update: mediaReportApi.update,
+      canAdd: authStore.hasPermission('/admin/mediaReport/add'),
+      canUpdate: authStore.hasPermission('/admin/mediaReport/update')
     }
   }
 } as const

@@ -24,6 +24,7 @@
                 v-model="form.title"
                 :height="titleEditorHeight"
                 placeholder="请输入标题，支持富文本格式..."
+                :readonly="!canSubmitCurrentForm"
               />
             </el-form-item>
 
@@ -32,6 +33,7 @@
                 v-model="form.content"
                 :height="editorHeight"
                 @html-change="handleHtmlChange"
+                :readonly="!canSubmitCurrentForm"
               />
             </el-form-item>
           </div>
@@ -53,7 +55,7 @@
           </div>
           <div class="actions">
             <el-button @click="loadInfo(true)" :loading="loading">刷新</el-button>
-            <el-button type="primary" @click="handleSubmit" :loading="submitting">
+            <el-button v-if="canSubmitCurrentForm" type="primary" @click="handleSubmit" :loading="submitting">
               {{ submitButtonText }}
             </el-button>
           </div>
@@ -82,12 +84,16 @@ interface Props {
   update: (data: Record<string, any>) => Promise<any>
   editorHeight?: string
   titleEditorHeight?: string
+  canAdd?: boolean
+  canUpdate?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   updatedField: '',
   editorHeight: '460px',
-  titleEditorHeight: '220px'
+  titleEditorHeight: '220px',
+  canAdd: true,
+  canUpdate: true
 })
 
 const formRef = ref<FormInstance>()
@@ -112,6 +118,7 @@ const previewTitle = computed(() => normalizeRichTextHtml(form.title))
 const previewBody = computed(() => normalizeRichTextHtml(contentState.htmlContent || form.content))
 const hasPreviewContent = computed(() => !!previewTitle.value || !!previewBody.value)
 const previewMinHeight = computed(() => `calc(${props.titleEditorHeight} + ${props.editorHeight} + 56px)`)
+const canSubmitCurrentForm = computed(() => (form.id != null ? props.canUpdate : props.canAdd))
 
 const validateRichTextField = (message: string) => {
   return (_rule: any, value: string, callback: (error?: Error) => void) => {

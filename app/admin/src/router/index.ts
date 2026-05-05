@@ -191,19 +191,19 @@ const router = createRouter({
               path: 'faq',
               name: 'FaqManagement',
               component: () => import('@/views/admin/content/HelpCenterManagement.vue'),
-              meta: { title: 'FAQ管理' }
+              meta: { title: 'FAQ管理', permission: '/admin/faq/getPage' }
             },
             {
               path: 'customer-service',
               name: 'CustomerServiceManagement',
               component: () => import('@/views/admin/content/HelpCenterManagement.vue'),
-              meta: { title: '客服管理' }
+              meta: { title: '客服管理', permission: '/admin/customerService/getInfo' }
             },
             {
               path: 'user-guide',
               name: 'UserGuideManagement',
               component: () => import('@/views/admin/content/HelpCenterManagement.vue'),
-              meta: { title: '使用指南管理' }
+              meta: { title: '使用指南管理', permission: '/admin/userGuide/getPage' }
             }
           ]
         },
@@ -425,37 +425,37 @@ const router = createRouter({
           path: 'about-us/project-introduce',
           name: 'ProjectIntroduceManagement',
           component: () => import('@/views/admin/content/AboutUsManagement.vue'),
-          meta: { title: '项目介绍' }
+          meta: { title: '项目介绍', permission: '/admin/projectIntroduce/getInfo' }
         },
         {
           path: 'about-us/team-introduce',
           name: 'TeamIntroduceManagement',
           component: () => import('@/views/admin/content/AboutUsManagement.vue'),
-          meta: { title: '团队介绍' }
+          meta: { title: '团队介绍', permission: '/admin/teamIntroduce/getInfo' }
         },
         {
           path: 'about-us/develop-history',
           name: 'DevelopHistoryManagement',
           component: () => import('@/views/admin/content/AboutUsManagement.vue'),
-          meta: { title: '发展历程' }
+          meta: { title: '发展历程', permission: '/admin/developHistory/getInfo' }
         },
         {
           path: 'about-us/join-us',
           name: 'JoinUsManagement',
           component: () => import('@/views/admin/content/AboutUsManagement.vue'),
-          meta: { title: '加入我们' }
+          meta: { title: '加入我们', permission: '/admin/joinUs/getInfo' }
         },
         {
           path: 'about-us/partner-introduce',
           name: 'PartnerIntroduceManagement',
           component: () => import('@/views/admin/content/AboutUsManagement.vue'),
-          meta: { title: '合作伙伴' }
+          meta: { title: '合作伙伴', permission: '/admin/partnerIntroduce/getInfo' }
         },
         {
           path: 'about-us/media-report',
           name: 'MediaReportManagement',
           component: () => import('@/views/admin/content/AboutUsManagement.vue'),
-          meta: { title: '媒体报道' }
+          meta: { title: '媒体报道', permission: '/admin/mediaReport/getInfo' }
         },
         {
           path: 'help-center',
@@ -465,19 +465,19 @@ const router = createRouter({
           path: 'help-center/faq',
           name: 'FaqManagement',
           component: () => import('@/views/admin/content/HelpCenterManagement.vue'),
-          meta: { title: 'FAQ管理' }
+          meta: { title: 'FAQ管理', permission: '/admin/faq/getPage' }
         },
         {
           path: 'help-center/customer-service',
           name: 'CustomerServiceManagement',
           component: () => import('@/views/admin/content/HelpCenterManagement.vue'),
-          meta: { title: '客服管理' }
+          meta: { title: '客服管理', permission: '/admin/customerService/getInfo' }
         },
         {
           path: 'help-center/user-guide',
           name: 'UserGuideManagement',
           component: () => import('@/views/admin/content/HelpCenterManagement.vue'),
-          meta: { title: '使用指南管理' }
+          meta: { title: '使用指南管理', permission: '/admin/userGuide/getPage' }
         },
         {
           path: 'profile',

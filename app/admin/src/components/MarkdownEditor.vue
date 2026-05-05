@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeUnmount, shallowRef } from 'vue'
+import { computed, onBeforeUnmount, shallowRef, watch } from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import type { IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 import '@wangeditor/editor/dist/css/style.css'
@@ -28,12 +28,14 @@ interface Props {
   modelValue: string
   height?: string
   placeholder?: string
+  readonly?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
   height: '420px',
-  placeholder: '请输入内容，支持富文本格式...'
+  placeholder: '请输入内容，支持富文本格式...',
+  readonly: false
 })
 
 const emit = defineEmits<{
@@ -69,6 +71,7 @@ const toolbarConfig: Partial<IToolbarConfig> = {
     '|',
     'emotion',
     'insertLink',
+    'insertImage',
     '|',
     'undo',
     'redo'
@@ -83,9 +86,28 @@ const model = computed({
   }
 })
 
+const syncReadonlyState = (readonly: boolean) => {
+  const editor = editorRef.value
+  if (!editor) {
+    return
+  }
+
+  if (readonly) {
+    editor.disable?.()
+    return
+  }
+
+  editor.enable?.()
+}
+
 const handleEditorCreated = (editor: any) => {
   editorRef.value = editor
+  syncReadonlyState(props.readonly)
 }
+
+watch(() => props.readonly, (readonly) => {
+  syncReadonlyState(readonly)
+})
 
 onBeforeUnmount(() => {
   const editor = editorRef.value

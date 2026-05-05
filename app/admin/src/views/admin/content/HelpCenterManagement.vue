@@ -10,7 +10,7 @@
           <el-icon><Refresh /></el-icon>
           刷新
         </el-button>
-        <el-button type="primary" @click="openCreateDialog">
+        <el-button v-if="currentModule.config.canAdd" type="primary" @click="openCreateDialog">
           <el-icon><Plus /></el-icon>
           新增{{ currentModule.config.moduleLabel }}
         </el-button>
@@ -39,9 +39,11 @@ import { useRoute } from 'vue-router'
 import { Plus, Refresh } from '@element-plus/icons-vue'
 import ContentListManager from '@/components/ContentListManager.vue'
 import SingletonContentManager from '@/components/SingletonContentManager.vue'
+import { useAuthStore } from '@/store/auth'
 import { customerServiceApi, faqApi, userGuideApi } from '@/api/admin'
 
 const route = useRoute()
+const authStore = useAuthStore()
 const listManagerRef = ref<InstanceType<typeof ContentListManager> | null>(null)
 
 const moduleMap = {
@@ -60,7 +62,11 @@ const moduleMap = {
       getInfo: faqApi.getInfo,
       add: faqApi.add,
       update: faqApi.update,
-      remove: faqApi.remove
+      remove: faqApi.remove,
+      canView: authStore.hasPermission('/admin/faq/getInfo'),
+      canAdd: authStore.hasPermission('/admin/faq/add'),
+      canEdit: authStore.hasPermission('/admin/faq/update'),
+      canDelete: authStore.hasPermission('/admin/faq/delete')
     }
   },
   'customer-service': {
@@ -74,7 +80,9 @@ const moduleMap = {
       updatedField: 'customerServiceUpdatedTime',
       getInfo: customerServiceApi.getInfo,
       add: customerServiceApi.add,
-      update: customerServiceApi.update
+      update: customerServiceApi.update,
+      canAdd: authStore.hasPermission('/admin/customerService/add'),
+      canUpdate: authStore.hasPermission('/admin/customerService/update')
     }
   },
   'user-guide': {
@@ -92,7 +100,11 @@ const moduleMap = {
       getInfo: userGuideApi.getInfo,
       add: userGuideApi.add,
       update: userGuideApi.update,
-      remove: userGuideApi.remove
+      remove: userGuideApi.remove,
+      canView: authStore.hasPermission('/admin/userGuide/getInfo'),
+      canAdd: authStore.hasPermission('/admin/userGuide/add'),
+      canEdit: authStore.hasPermission('/admin/userGuide/update'),
+      canDelete: authStore.hasPermission('/admin/userGuide/delete')
     }
   }
 } as const

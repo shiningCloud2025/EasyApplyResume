@@ -138,27 +138,32 @@
         </el-sub-menu>
 
         <!-- 关于我们管理 / 帮助中心管理（与反馈/内部系统同级，但可展开子模块） -->
-        <el-sub-menu index="/admin/about-us">
+        <el-sub-menu v-if="showAboutUsManagementMenu" index="/admin/about-us">
           <template #title>
             <el-icon><Document /></el-icon>
             <span>关于我们管理</span>
           </template>
-          <el-menu-item index="/admin/about-us/project-introduce">项目介绍</el-menu-item>
-          <el-menu-item index="/admin/about-us/team-introduce">团队介绍</el-menu-item>
-          <el-menu-item index="/admin/about-us/develop-history">发展历程</el-menu-item>
-          <el-menu-item index="/admin/about-us/join-us">加入我们</el-menu-item>
-          <el-menu-item index="/admin/about-us/partner-introduce">合作伙伴</el-menu-item>
-          <el-menu-item index="/admin/about-us/media-report">媒体报道</el-menu-item>
+          <el-menu-item
+            v-for="item in visibleAboutUsManagementMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            {{ item.title }}
+          </el-menu-item>
         </el-sub-menu>
 
-        <el-sub-menu index="/admin/help-center">
+        <el-sub-menu v-if="showHelpCenterManagementMenu" index="/admin/help-center">
           <template #title>
             <el-icon><Document /></el-icon>
             <span>帮助中心管理</span>
           </template>
-          <el-menu-item index="/admin/help-center/faq">FAQ管理</el-menu-item>
-          <el-menu-item index="/admin/help-center/customer-service">客服管理</el-menu-item>
-          <el-menu-item index="/admin/help-center/user-guide">使用指南管理</el-menu-item>
+          <el-menu-item
+            v-for="item in visibleHelpCenterManagementMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            {{ item.title }}
+          </el-menu-item>
         </el-sub-menu>
 
         <el-sub-menu index="/admin/written-test">
@@ -459,7 +464,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, shallowRef, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions, aiManagementPagePermissions, feedbackManagementPagePermissions } from '@/store/auth'
+import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions, aiManagementPagePermissions, feedbackManagementPagePermissions, aboutUsManagementPagePermissions, helpCenterManagementPagePermissions } from '@/store/auth'
 import {
   House,
   User,
@@ -716,6 +721,73 @@ const showFeedbackManagementMenu = computed(() => {
   return visibleFeedbackManagementMenus.value.length > 0
 })
 
+const aboutUsManagementMenus = [
+  {
+    index: '/admin/about-us/project-introduce',
+    title: '项目介绍',
+    permission: aboutUsManagementPagePermissions.projectIntroduce
+  },
+  {
+    index: '/admin/about-us/team-introduce',
+    title: '团队介绍',
+    permission: aboutUsManagementPagePermissions.teamIntroduce
+  },
+  {
+    index: '/admin/about-us/develop-history',
+    title: '发展历程',
+    permission: aboutUsManagementPagePermissions.developHistory
+  },
+  {
+    index: '/admin/about-us/join-us',
+    title: '加入我们',
+    permission: aboutUsManagementPagePermissions.joinUs
+  },
+  {
+    index: '/admin/about-us/partner-introduce',
+    title: '合作伙伴',
+    permission: aboutUsManagementPagePermissions.partnerIntroduce
+  },
+  {
+    index: '/admin/about-us/media-report',
+    title: '媒体报道',
+    permission: aboutUsManagementPagePermissions.mediaReport
+  }
+]
+
+const visibleAboutUsManagementMenus = computed(() => {
+  return aboutUsManagementMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showAboutUsManagementMenu = computed(() => {
+  return visibleAboutUsManagementMenus.value.length > 0
+})
+
+const helpCenterManagementMenus = [
+  {
+    index: '/admin/help-center/faq',
+    title: 'FAQ管理',
+    permission: helpCenterManagementPagePermissions.faq
+  },
+  {
+    index: '/admin/help-center/customer-service',
+    title: '客服管理',
+    permission: helpCenterManagementPagePermissions.customerService
+  },
+  {
+    index: '/admin/help-center/user-guide',
+    title: '使用指南管理',
+    permission: helpCenterManagementPagePermissions.userGuide
+  }
+]
+
+const visibleHelpCenterManagementMenus = computed(() => {
+  return helpCenterManagementMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showHelpCenterManagementMenu = computed(() => {
+  return visibleHelpCenterManagementMenus.value.length > 0
+})
+
 // 用户菜单操作
 const handleUserCommand = (command: string) => {
   switch (command) {
@@ -928,6 +1000,7 @@ const toolbarConfig: Partial<IToolbarConfig> = {
     '|',
     'emotion',
     'insertLink',
+    'insertImage',
     '|',
     'undo',
     'redo'
