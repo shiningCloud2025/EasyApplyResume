@@ -178,6 +178,13 @@ export const helpCenterManagementPagePermissions = {
   userGuide: '/admin/userGuide/getPage'
 } as const
 
+export const writtenTestManagementPagePermissions = {
+  firstCategory: '/admin/questionFirstCategory/findQuestionFirstCategoryByPage',
+  secondCategory: '/admin/questionSecondCategory/findQuestionSecondCategoryByPage',
+  questionBank: '/admin/questionBank/findQuestionBankByPage',
+  userAnswer: '/admin/firstCategoryQuestionBank/findFirstCategoryQuestionBankByPage'
+} as const
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('admin_token') || '',

@@ -166,15 +166,18 @@
           </el-menu-item>
         </el-sub-menu>
 
-        <el-sub-menu index="/admin/written-test">
+        <el-sub-menu v-if="showWrittenTestManagementMenu" index="/admin/written-test">
           <template #title>
             <el-icon><EditPen /></el-icon>
             <span>笔试专项管理</span>
           </template>
-          <el-menu-item index="/admin/written-test/first-category">题库大类管理</el-menu-item>
-          <el-menu-item index="/admin/written-test/second-category">题库小类管理</el-menu-item>
-          <el-menu-item index="/admin/written-test/question-bank">题库题目管理</el-menu-item>
-          <el-menu-item index="/admin/written-test/user-answer">用户答题管理</el-menu-item>
+          <el-menu-item
+            v-for="item in visibleWrittenTestManagementMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            {{ item.title }}
+          </el-menu-item>
         </el-sub-menu>
 
         <el-sub-menu index="/admin/score-model">
@@ -464,7 +467,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, shallowRef, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions, aiManagementPagePermissions, feedbackManagementPagePermissions, aboutUsManagementPagePermissions, helpCenterManagementPagePermissions } from '@/store/auth'
+import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions, aiManagementPagePermissions, feedbackManagementPagePermissions, aboutUsManagementPagePermissions, helpCenterManagementPagePermissions, writtenTestManagementPagePermissions } from '@/store/auth'
 import {
   House,
   User,
@@ -786,6 +789,37 @@ const visibleHelpCenterManagementMenus = computed(() => {
 
 const showHelpCenterManagementMenu = computed(() => {
   return visibleHelpCenterManagementMenus.value.length > 0
+})
+
+const writtenTestManagementMenus = [
+  {
+    index: '/admin/written-test/first-category',
+    title: '题库大类管理',
+    permission: writtenTestManagementPagePermissions.firstCategory
+  },
+  {
+    index: '/admin/written-test/second-category',
+    title: '题库小类管理',
+    permission: writtenTestManagementPagePermissions.secondCategory
+  },
+  {
+    index: '/admin/written-test/question-bank',
+    title: '题库题目管理',
+    permission: writtenTestManagementPagePermissions.questionBank
+  },
+  {
+    index: '/admin/written-test/user-answer',
+    title: '用户答题管理',
+    permission: writtenTestManagementPagePermissions.userAnswer
+  }
+]
+
+const visibleWrittenTestManagementMenus = computed(() => {
+  return writtenTestManagementMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showWrittenTestManagementMenu = computed(() => {
+  return visibleWrittenTestManagementMenus.value.length > 0
 })
 
 // 用户菜单操作

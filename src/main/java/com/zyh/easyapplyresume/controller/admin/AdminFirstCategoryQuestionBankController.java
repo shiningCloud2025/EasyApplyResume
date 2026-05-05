@@ -9,6 +9,7 @@ import com.zyh.easyapplyresume.service.admin.AdminFirstCategoryQuestionBankServi
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -25,6 +26,7 @@ public class AdminFirstCategoryQuestionBankController {
 
     @Operation(summary = "删除用户-笔试题目记录")
     @DeleteMapping("/deleteFirstCategoryQuestionBank")
+    @PreAuthorize("hasAuthority('/admin/firstCategoryQuestionBank/deleteFirstCategoryQuestionBank')")
     public BaseResult<Integer> deleteFirstCategoryQuestionBank(
             @RequestParam(required = true, value = "userId") Integer userId,
             @RequestParam(required = true, value = "questionBankId") Integer questionBankId) {
@@ -33,6 +35,7 @@ public class AdminFirstCategoryQuestionBankController {
 
     @Operation(summary = "查询用户-笔试题目详情")
     @GetMapping("/findFirstCategoryQuestionBankById")
+    @PreAuthorize("hasAuthority('/admin/firstCategoryQuestionBank/findFirstCategoryQuestionBankById')")
     public BaseResult<UserFirstCategoryQuestionBankInfoVO> findFirstCategoryQuestionBankById(
             @RequestParam(required = true, value = "userId") Integer userId,
             @RequestParam(required = true, value = "questionBankId") Integer questionBankId) {
@@ -41,6 +44,7 @@ public class AdminFirstCategoryQuestionBankController {
 
     @Operation(summary = "分页查询用户-笔试题目")
     @PostMapping("/findFirstCategoryQuestionBankByPage")
+    @PreAuthorize("hasAuthority('/admin/firstCategoryQuestionBank/findFirstCategoryQuestionBankByPage')")
     public BaseResult<Page<UserFirstCategoryQuestionBankPageVO>> findFirstCategoryQuestionBankByPage(
             @RequestParam(required = false, value = "pageNum", defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, value = "pageSize", defaultValue = "10") Integer pageSize,

@@ -90,10 +90,10 @@
             {{ formatDateTime(row.firstCategoryQuestionBankUserUpdateTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="180" fixed="right">
+        <el-table-column v-if="showUserAnswerActionColumn" label="操作" width="180" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" size="default" @click="handleView(row)">详情</el-button>
-            <el-button type="danger" size="default" @click="handleDelete(row)">删除</el-button>
+            <el-button v-if="canViewUserAnswerInfo" type="info" size="default" @click="handleView(row)">详情</el-button>
+            <el-button v-if="canDeleteUserAnswer" type="danger" size="default" @click="handleDelete(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -160,12 +160,20 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { Refresh, Search } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
 import { firstCategoryQuestionBankUserApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type {
   AdminUserFirstCategoryQuestionBankInfoVO,
   AdminUserFirstCategoryQuestionBankKey,
   AdminUserFirstCategoryQuestionBankPageVO,
   AdminUserFirstCategoryQuestionBankQuery
 } from '@/types/admin'
+
+const authStore = useAuthStore()
+const canViewUserAnswerInfo = computed(() => authStore.hasPermission('/admin/firstCategoryQuestionBank/findFirstCategoryQuestionBankById'))
+const canDeleteUserAnswer = computed(() => authStore.hasPermission('/admin/firstCategoryQuestionBank/deleteFirstCategoryQuestionBank'))
+const showUserAnswerActionColumn = computed(() => {
+  return canViewUserAnswerInfo.value || canDeleteUserAnswer.value
+})
 
 interface SearchFormState {
   userId: string

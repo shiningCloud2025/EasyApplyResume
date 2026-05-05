@@ -6,7 +6,7 @@
         <p class="page-description">维护笔试专项题库题目，支持分页查询、分类联动、查看、新增、编辑与删除。</p>
       </div>
       <div class="header-actions">
-        <el-button type="primary" @click="openCreateDialog">
+        <el-button v-if="canAddQuestionBank" type="primary" @click="openCreateDialog">
           <el-icon><Plus /></el-icon>
           新增题目
         </el-button>
@@ -155,11 +155,11 @@
             {{ formatDateTime(row.questionBankCreateTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="220" fixed="right">
+        <el-table-column v-if="showQuestionBankActionColumn" label="操作" width="220" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" size="default" @click="handleView(row)">查看</el-button>
-            <el-button type="primary" size="default" @click="handleEdit(row)">编辑</el-button>
-            <el-button type="danger" size="default" @click="handleDelete(row)">删除</el-button>
+            <el-button v-if="canViewQuestionBankInfo" type="info" size="default" @click="handleView(row)">查看</el-button>
+            <el-button v-if="canUpdateQuestionBank" type="primary" size="default" @click="handleEdit(row)">编辑</el-button>
+            <el-button v-if="canDeleteQuestionBank" type="danger" size="default" @click="handleDelete(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -489,6 +489,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, Search } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
 import { questionBankApi, questionFirstCategoryApi, questionSecondCategoryApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type {
   AdminQuestionBankForm,
   AdminQuestionBankInfoVO,
@@ -498,6 +499,15 @@ import type {
   AdminQuestionSecondCategoryInfoVO
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
+
+const authStore = useAuthStore()
+const canAddQuestionBank = computed(() => authStore.hasPermission('/admin/questionBank/addQuestionBank'))
+const canViewQuestionBankInfo = computed(() => authStore.hasPermission('/admin/questionBank/findQuestionBankById'))
+const canUpdateQuestionBank = computed(() => authStore.hasPermission('/admin/questionBank/updateQuestionBank'))
+const canDeleteQuestionBank = computed(() => authStore.hasPermission('/admin/questionBank/deleteQuestionBank'))
+const showQuestionBankActionColumn = computed(() => {
+  return canViewQuestionBankInfo.value || canUpdateQuestionBank.value || canDeleteQuestionBank.value
+})
 
 const loading = ref(false)
 const submitting = ref(false)

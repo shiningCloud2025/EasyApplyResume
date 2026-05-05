@@ -6,7 +6,7 @@
         <p class="page-description">维护题库小类，建立题目在业务分类中的归属关系。</p>
       </div>
       <div class="header-actions">
-        <el-button type="primary" @click="openCreateDialog">
+        <el-button v-if="canAddQuestionSecondCategory" type="primary" @click="openCreateDialog">
           <el-icon><Plus /></el-icon>
           新增小类
         </el-button>
@@ -72,11 +72,11 @@
             {{ formatDate(row.questionSecondCategoryCreateTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="220" fixed="right">
+        <el-table-column v-if="showQuestionSecondCategoryActionColumn" label="操作" width="220" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" size="default" @click="handleView(row)">查看</el-button>
-            <el-button type="primary" size="default" @click="handleEdit(row)">编辑</el-button>
-            <el-button type="danger" size="default" @click="handleDelete(row)">删除</el-button>
+            <el-button v-if="canViewQuestionSecondCategoryInfo" type="info" size="default" @click="handleView(row)">查看</el-button>
+            <el-button v-if="canUpdateQuestionSecondCategory" type="primary" size="default" @click="handleEdit(row)">编辑</el-button>
+            <el-button v-if="canDeleteQuestionSecondCategory" type="danger" size="default" @click="handleDelete(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -186,11 +186,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, Search } from '@element-plus/icons-vue'
 import { formatDate } from '@/utils'
 import { questionFirstCategoryApi, questionSecondCategoryApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type {
   AdminQuestionFirstCategoryInfoVO,
   AdminQuestionSecondCategoryForm,
@@ -199,6 +200,15 @@ import type {
   AdminQuestionSecondCategoryQuery
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
+
+const authStore = useAuthStore()
+const canAddQuestionSecondCategory = computed(() => authStore.hasPermission('/admin/questionSecondCategory/addQuestionSecondCategory'))
+const canViewQuestionSecondCategoryInfo = computed(() => authStore.hasPermission('/admin/questionSecondCategory/findQuestionSecondCategoryById'))
+const canUpdateQuestionSecondCategory = computed(() => authStore.hasPermission('/admin/questionSecondCategory/updateQuestionSecondCategory'))
+const canDeleteQuestionSecondCategory = computed(() => authStore.hasPermission('/admin/questionSecondCategory/deleteQuestionSecondCategory'))
+const showQuestionSecondCategoryActionColumn = computed(() => {
+  return canViewQuestionSecondCategoryInfo.value || canUpdateQuestionSecondCategory.value || canDeleteQuestionSecondCategory.value
+})
 
 const loading = ref(false)
 const submitting = ref(false)

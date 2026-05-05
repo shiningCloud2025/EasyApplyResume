@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '@/store/auth'
+import { useAuthStore, writtenTestManagementPagePermissions } from '@/store/auth'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -217,25 +217,25 @@ const router = createRouter({
               path: 'first-category',
               name: 'WrittenTestFirstCategoryManagement',
               component: () => import('@/views/admin/written-test/WrittenTestManagement.vue'),
-              meta: { title: '题库大类管理' }
+              meta: { title: '题库大类管理', permission: writtenTestManagementPagePermissions.firstCategory }
             },
             {
               path: 'second-category',
               name: 'WrittenTestSecondCategoryManagement',
               component: () => import('@/views/admin/written-test/WrittenTestManagement.vue'),
-              meta: { title: '题库小类管理' }
+              meta: { title: '题库小类管理', permission: writtenTestManagementPagePermissions.secondCategory }
             },
             {
               path: 'question-bank',
               name: 'WrittenTestQuestionBankManagement',
               component: () => import('@/views/admin/written-test/WrittenTestManagement.vue'),
-              meta: { title: '题库题目管理' }
+              meta: { title: '题库题目管理', permission: writtenTestManagementPagePermissions.questionBank }
             },
             {
               path: 'user-answer',
               name: 'WrittenTestUserAnswerManagement',
               component: () => import('@/views/admin/written-test/WrittenTestManagement.vue'),
-              meta: { title: '用户答题管理' }
+              meta: { title: '用户答题管理', permission: writtenTestManagementPagePermissions.userAnswer }
             }
           ]
         },

@@ -6,7 +6,7 @@
         <p class="page-description">维护笔试专项下的题库大类，作为后续题库小类与题库题目的业务入口。</p>
       </div>
       <div class="header-actions">
-        <el-button type="primary" @click="openCreateDialog">
+        <el-button v-if="canAddQuestionFirstCategory" type="primary" @click="openCreateDialog">
           <el-icon><Plus /></el-icon>
           新增大类
         </el-button>
@@ -63,11 +63,11 @@
             {{ formatDate(row.questionFirstCategoryCreateTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="220" fixed="right">
+        <el-table-column v-if="showQuestionFirstCategoryActionColumn" label="操作" width="220" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" size="default" @click="handleView(row)">查看</el-button>
-            <el-button type="primary" size="default" @click="handleEdit(row)">编辑</el-button>
-            <el-button type="danger" size="default" @click="handleDelete(row)">删除</el-button>
+            <el-button v-if="canViewQuestionFirstCategoryInfo" type="info" size="default" @click="handleView(row)">查看</el-button>
+            <el-button v-if="canUpdateQuestionFirstCategory" type="primary" size="default" @click="handleEdit(row)">编辑</el-button>
+            <el-button v-if="canDeleteQuestionFirstCategory" type="danger" size="default" @click="handleDelete(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -157,11 +157,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, Search } from '@element-plus/icons-vue'
 import { formatDate } from '@/utils'
 import { questionFirstCategoryApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import type {
   AdminQuestionFirstCategoryForm,
   AdminQuestionFirstCategoryInfoVO,
@@ -169,6 +170,15 @@ import type {
   AdminQuestionFirstCategoryQuery
 } from '@/types/admin'
 import type { FormInstance } from 'element-plus'
+
+const authStore = useAuthStore()
+const canAddQuestionFirstCategory = computed(() => authStore.hasPermission('/admin/questionFirstCategory/addQuestionFirstCategory'))
+const canViewQuestionFirstCategoryInfo = computed(() => authStore.hasPermission('/admin/questionFirstCategory/findQuestionFirstCategoryById'))
+const canUpdateQuestionFirstCategory = computed(() => authStore.hasPermission('/admin/questionFirstCategory/updateQuestionFirstCategory'))
+const canDeleteQuestionFirstCategory = computed(() => authStore.hasPermission('/admin/questionFirstCategory/deleteQuestionFirstCategory'))
+const showQuestionFirstCategoryActionColumn = computed(() => {
+  return canViewQuestionFirstCategoryInfo.value || canUpdateQuestionFirstCategory.value || canDeleteQuestionFirstCategory.value
+})
 
 const loading = ref(false)
 const submitting = ref(false)

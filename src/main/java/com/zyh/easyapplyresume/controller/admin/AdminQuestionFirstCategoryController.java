@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.service.admin.AdminQuestionFirstCategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,18 +29,21 @@ public class AdminQuestionFirstCategoryController {
 
     @Operation(summary = "新增题库大类")
     @PostMapping("/addQuestionFirstCategory")
+    @PreAuthorize("hasAuthority('/admin/questionFirstCategory/addQuestionFirstCategory')")
     public BaseResult<Integer> addQuestionFirstCategory(@RequestBody AdminQuestionFirstCategoryForm adminQuestionFirstCategoryForm) {
         return BaseResult.ok(adminQuestionFirstCategoryService.addQuestionFirstCategory(adminQuestionFirstCategoryForm));
     }
 
     @Operation(summary = "修改题库大类")
     @PostMapping("/updateQuestionFirstCategory")
+    @PreAuthorize("hasAuthority('/admin/questionFirstCategory/updateQuestionFirstCategory')")
     public BaseResult<Integer> updateQuestionFirstCategory(@RequestBody AdminQuestionFirstCategoryForm adminQuestionFirstCategoryForm) {
         return BaseResult.ok(adminQuestionFirstCategoryService.updateQuestionFirstCategory(adminQuestionFirstCategoryForm));
     }
 
     @Operation(summary = "删除题库大类")
     @DeleteMapping("/deleteQuestionFirstCategory")
+    @PreAuthorize("hasAuthority('/admin/questionFirstCategory/deleteQuestionFirstCategory')")
     public BaseResult<Integer> deleteQuestionFirstCategory(
             @RequestParam(required = true, value = "questionFirstCategoryId") Integer questionFirstCategoryId) {
         return BaseResult.ok(adminQuestionFirstCategoryService.deleteQuestionFirstCategory(questionFirstCategoryId));
@@ -47,6 +51,7 @@ public class AdminQuestionFirstCategoryController {
 
     @Operation(summary = "查询题库大类详情")
     @GetMapping("/findQuestionFirstCategoryById")
+    @PreAuthorize("hasAuthority('/admin/questionFirstCategory/findQuestionFirstCategoryById')")
     public BaseResult<AdminQuestionFirstCategoryInfoVO> findQuestionFirstCategoryById(
             @RequestParam(required = true, value = "questionFirstCategoryId") Integer questionFirstCategoryId) {
         return BaseResult.ok(adminQuestionFirstCategoryService.findQuestionFirstCategoryById(questionFirstCategoryId));
@@ -54,6 +59,7 @@ public class AdminQuestionFirstCategoryController {
 
     @Operation(summary = "分页查询题库大类")
     @PostMapping("/findQuestionFirstCategoryByPage")
+    @PreAuthorize("hasAuthority('/admin/questionFirstCategory/findQuestionFirstCategoryByPage')")
     public BaseResult<Page<AdminQuestionFirstCategoryPageVO>> findQuestionFirstCategoryByPage(
             @RequestParam(required = false, value = "pageNum", defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, value = "pageSize", defaultValue = "10") Integer pageSize,
@@ -63,6 +69,7 @@ public class AdminQuestionFirstCategoryController {
 
     @Operation(summary = "查询所有题库大类")
     @GetMapping("/findAllQuestionFirstCategory")
+    @PreAuthorize("hasAuthority('/admin/questionFirstCategory/findAllQuestionFirstCategory')")
     public BaseResult<List<AdminQuestionFirstCategoryInfoVO>> findAllQuestionFirstCategory() {
         return BaseResult.ok(adminQuestionFirstCategoryService.findAllQuestionFirstCategory());
     }
