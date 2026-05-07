@@ -185,6 +185,12 @@ export const writtenTestManagementPagePermissions = {
   userAnswer: '/admin/firstCategoryQuestionBank/findFirstCategoryQuestionBankByPage'
 } as const
 
+export const scoreModelManagementPagePermissions = {
+  trainingData: '/admin/scoreTrainingData/findScoreTrainingDataByPage',
+  trainCode: '/admin/scoreModelTrainCode/findScoreModelTrainCodeByPage',
+  version: '/admin/scoreModelVersion/findScoreModelVersionByPage'
+} as const
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('admin_token') || '',

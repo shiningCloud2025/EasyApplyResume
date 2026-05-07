@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,18 +30,21 @@ public class AdminScoreModelTrainCodeController {
 
     @Operation(summary = "新增训练代码")
     @PostMapping("/addScoreModelTrainCode")
+    @PreAuthorize("hasAuthority('/admin/scoreModelTrainCode/addScoreModelTrainCode')")
     public BaseResult<Integer> addScoreModelTrainCode(@RequestBody AdminScoreModelTrainCodeForm form) {
         return BaseResult.ok(adminScoreModelTrainCodeService.addScoreModelTrainCode(form));
     }
 
     @Operation(summary = "修改训练代码")
     @PostMapping("/updateScoreModelTrainCode")
+    @PreAuthorize("hasAuthority('/admin/scoreModelTrainCode/updateScoreModelTrainCode')")
     public BaseResult<Integer> updateScoreModelTrainCode(@RequestBody AdminScoreModelTrainCodeForm form) {
         return BaseResult.ok(adminScoreModelTrainCodeService.updateScoreModelTrainCode(form));
     }
 
     @Operation(summary = "删除训练代码")
     @DeleteMapping("/deleteScoreModelTrainCode")
+    @PreAuthorize("hasAuthority('/admin/scoreModelTrainCode/deleteScoreModelTrainCode')")
     public BaseResult<Integer> deleteScoreModelTrainCode(
             @RequestParam(required = true, value = "scoreModelTrainCodeId") Integer scoreModelTrainCodeId) {
         return BaseResult.ok(adminScoreModelTrainCodeService.deleteScoreModelTrainCode(scoreModelTrainCodeId));
@@ -48,6 +52,7 @@ public class AdminScoreModelTrainCodeController {
 
     @Operation(summary = "查询训练代码详情")
     @GetMapping("/findScoreModelTrainCodeById")
+    @PreAuthorize("hasAuthority('/admin/scoreModelTrainCode/findScoreModelTrainCodeById')")
     public BaseResult<AdminScoreModelTrainCodeInfoVO> findScoreModelTrainCodeById(
             @RequestParam(required = true, value = "scoreModelTrainCodeId") Integer scoreModelTrainCodeId) {
         return BaseResult.ok(adminScoreModelTrainCodeService.findScoreModelTrainCodeById(scoreModelTrainCodeId));
@@ -55,6 +60,7 @@ public class AdminScoreModelTrainCodeController {
 
     @Operation(summary = "分页查询训练代码")
     @PostMapping("/findScoreModelTrainCodeByPage")
+    @PreAuthorize("hasAuthority('/admin/scoreModelTrainCode/findScoreModelTrainCodeByPage')")
     public BaseResult<Page<AdminScoreModelTrainCodePageVO>> findScoreModelTrainCodeByPage(
             @RequestParam(required = false, value = "pageNum", defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, value = "pageSize", defaultValue = "10") Integer pageSize,
@@ -70,6 +76,7 @@ public class AdminScoreModelTrainCodeController {
 
     @Operation(summary = "下载训练代码压缩包")
     @GetMapping("/downloadScoreModelTrainCode")
+    @PreAuthorize("hasAuthority('/admin/scoreModelTrainCode/downloadScoreModelTrainCode')")
     public void downloadScoreModelTrainCode(
             @RequestParam(required = true, value = "scoreModelTrainCodeId") Integer scoreModelTrainCodeId,
             HttpServletResponse response) {

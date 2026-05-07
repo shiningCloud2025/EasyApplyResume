@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,12 +30,14 @@ public class AdminScoreTrainingDataController {
 
     @Operation(summary = "新增简历评分训练数据")
     @PostMapping("/addScoreTrainingData")
+    @PreAuthorize("hasAuthority('/admin/scoreTrainingData/addScoreTrainingData')")
     public BaseResult<Integer> addScoreTrainingData(@RequestBody AdminScoreTrainingDataForm form) {
         return BaseResult.ok(adminScoreTrainingDataService.addScoreTrainingData(form));
     }
 
     @Operation(summary = "删除简历评分训练数据")
     @DeleteMapping("/deleteScoreTrainingData")
+    @PreAuthorize("hasAuthority('/admin/scoreTrainingData/deleteScoreTrainingData')")
     public BaseResult<Integer> deleteScoreTrainingData(
             @RequestParam(required = true, value = "scoreTrainingDataId") Integer scoreTrainingDataId) {
         return BaseResult.ok(adminScoreTrainingDataService.deleteScoreTrainingData(scoreTrainingDataId));
@@ -42,6 +45,7 @@ public class AdminScoreTrainingDataController {
 
     @Operation(summary = "查询简历评分训练数据详情")
     @GetMapping("/findScoreTrainingDataById")
+    @PreAuthorize("hasAuthority('/admin/scoreTrainingData/findScoreTrainingDataById')")
     public BaseResult<AdminScoreTrainingDataInfoVO> findScoreTrainingDataById(
             @RequestParam(required = true, value = "scoreTrainingDataId") Integer scoreTrainingDataId) {
         return BaseResult.ok(adminScoreTrainingDataService.findScoreTrainingDataById(scoreTrainingDataId));
@@ -49,6 +53,7 @@ public class AdminScoreTrainingDataController {
 
     @Operation(summary = "分页查询简历评分训练数据")
     @PostMapping("/findScoreTrainingDataByPage")
+    @PreAuthorize("hasAuthority('/admin/scoreTrainingData/findScoreTrainingDataByPage')")
     public BaseResult<Page<AdminScoreTrainingDataPageVO>> findScoreTrainingDataByPage(
             @RequestParam(required = false, value = "pageNum", defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, value = "pageSize", defaultValue = "10") Integer pageSize,
@@ -64,6 +69,7 @@ public class AdminScoreTrainingDataController {
 
     @Operation(summary = "导出简历评分训练数据")
     @PostMapping("/exportScoreTrainingData")
+    @PreAuthorize("hasAuthority('/admin/scoreTrainingData/exportScoreTrainingData')")
     public void exportScoreTrainingData(@RequestBody AdminScoreTrainingDataQuery query, HttpServletResponse response) {
         adminScoreTrainingDataService.exportScoreTrainingData(query, response);
     }

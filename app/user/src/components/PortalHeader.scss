@@ -135,21 +135,29 @@
         background: #f5f5f5;
         padding: 6px 16px;
         transition: all 0.3s ease;
-        
-        &:hover, &:focus, &.ant-input-affix-wrapper-focused {
+
+        &:hover,
+        &:focus,
+        &.ant-input-affix-wrapper-focused {
           border-color: #1890ff;
           background: #fff;
           box-shadow: 0 2px 8px rgba(24, 144, 255, 0.15);
         }
-        
+
         .ant-input {
           background: transparent;
-          
+
           &::placeholder {
             color: #bbb;
           }
         }
       }
+    }
+
+    .mobile-menu-button {
+      display: none;
+      font-size: 18px;
+      color: #1890ff;
     }
 
     .user-profile {
@@ -205,6 +213,98 @@
   }
 }
 
+.portal-mobile-drawer {
+  .ant-drawer-body {
+    padding: 20px 16px 24px;
+    background: #f8fbff;
+  }
+
+  .mobile-drawer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mobile-drawer-search {
+    .ant-input-affix-wrapper {
+      border-radius: 14px;
+    }
+  }
+
+  .mobile-menu-section {
+    padding: 14px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  }
+
+  .mobile-menu-primary,
+  .mobile-menu-leaf {
+    width: 100%;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .mobile-menu-primary {
+    padding: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+
+    &.active {
+      color: #1677ff;
+    }
+  }
+
+  .mobile-menu-secondary {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mobile-menu-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mobile-menu-group-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  .mobile-menu-group-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mobile-menu-leaf {
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #334155;
+    border-radius: 12px;
+    background: #f8fafc;
+  }
+
+  .mobile-menu-leaf-level-2 {
+    margin-left: 12px;
+    font-size: 13px;
+    color: #475569;
+  }
+
+  .mobile-auth-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+  }
+}
+
 /* 搜索栏 */
 .search-bar {
   position: fixed;
@@ -219,7 +319,7 @@
   z-index: 999;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   animation: slideDown 0.3s ease;
-  
+
   @keyframes slideDown {
     from {
       opacity: 0;
@@ -261,43 +361,52 @@
 
 @media (max-width: 768px) {
   .portal-header {
+    height: 56px;
+
     .header-content {
       padding: 0 16px;
-      grid-template-columns: auto 1fr;
-      row-gap: 8px;
-      align-items: stretch;
+      grid-template-columns: auto 1fr auto;
+      column-gap: 12px;
+    }
+
+    .header-left {
+      .logo {
+        padding: 0;
+        font-size: 18px;
+      }
     }
 
     .header-nav {
-      grid-column: 1 / -1;
-      order: 3;
-
-      .nav-list {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 12px;
-
-        .nav-item {
-          flex: 0 0 auto;
-
-          .nav-link {
-            font-size: 14px;
-          }
-        }
-      }
+      display: none;
     }
 
     .header-right {
-      justify-self: end;
+      .header-actions {
+        gap: 10px;
+      }
 
-      .ant-btn {
-        font-size: 14px;
-        padding: 4px 12px;
+      .header-search {
+        width: 128px;
+      }
+
+      .mobile-menu-button {
+        display: inline-flex;
+      }
+
+      .desktop-auth-actions {
+        display: none;
       }
 
       .user-profile {
+        padding: 6px;
+
         .username {
           display: none;
+        }
+
+        .avatar {
+          width: 34px;
+          height: 34px;
         }
       }
     }
@@ -306,42 +415,13 @@
 
 @media (max-width: 640px) {
   .portal-header {
-    height: auto;
-    min-height: 56px;
-
     .header-content {
-      padding: 10px 16px;
-      align-items: stretch;
-    }
-
-    .header-left {
-      .logo {
-        min-height: 56px;
-        padding: 0 12px;
-        font-size: 18px;
-      }
-    }
-
-    .header-nav {
-      .nav-list {
-        gap: 8px 12px;
-
-        .nav-item {
-          .nav-link {
-            font-size: 12px;
-            padding: 4px 0;
-          }
-        }
-      }
+      padding: 0 12px;
     }
 
     .header-right {
-      .header-actions {
-        gap: 8px;
-      }
-
       .header-search {
-        width: 132px;
+        display: none;
       }
     }
   }

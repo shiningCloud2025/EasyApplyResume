@@ -9,7 +9,7 @@
         <el-button @click="refreshData" :icon="Refresh">
           刷新
         </el-button>
-        <el-button type="primary" @click="openCreateDialog" :icon="Plus">
+        <el-button v-if="canAddScoreModelTrainCode" type="primary" @click="openCreateDialog" :icon="Plus">
           新增训练代码
         </el-button>
       </div>
@@ -63,18 +63,18 @@
             {{ formatDateTime(row.scoreModelTrainCodeCreateTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="260" fixed="right">
+        <el-table-column v-if="showScoreModelTrainCodeActionColumn" label="操作" width="260" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" size="default" @click="handleViewDetail(row)">
+            <el-button v-if="canViewScoreModelTrainCodeDetail" type="info" size="default" @click="handleViewDetail(row)">
               查看
             </el-button>
-            <el-button type="primary" size="default" @click="handleEdit(row)">
+            <el-button v-if="canUpdateScoreModelTrainCode" type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
-            <el-button type="success" size="default" :loading="downloadingId === row.scoreModelTrainCodeId" @click="handleDownload(row)">
+            <el-button v-if="canDownloadScoreModelTrainCode" type="success" size="default" :loading="downloadingId === row.scoreModelTrainCodeId" @click="handleDownload(row)">
               下载
             </el-button>
-            <el-button type="danger" size="default" @click="handleDelete(row)">
+            <el-button v-if="canDeleteScoreModelTrainCode" type="danger" size="default" @click="handleDelete(row)">
               删除
             </el-button>
           </template>
@@ -191,10 +191,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Plus, Refresh, RefreshRight, Search } from '@element-plus/icons-vue'
 import { scoreModelTrainCodeApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import { formatDateTime } from '@/utils'
 import type {
   AdminScoreModelTrainCodeForm,
@@ -203,6 +204,16 @@ import type {
   AdminScoreModelTrainCodeQuery
 } from '@/types/admin'
 import type { FormInstance, FormRules } from 'element-plus'
+
+const authStore = useAuthStore()
+const canAddScoreModelTrainCode = computed(() => authStore.hasPermission('/admin/scoreModelTrainCode/addScoreModelTrainCode'))
+const canViewScoreModelTrainCodeDetail = computed(() => authStore.hasPermission('/admin/scoreModelTrainCode/findScoreModelTrainCodeById'))
+const canUpdateScoreModelTrainCode = computed(() => authStore.hasPermission('/admin/scoreModelTrainCode/updateScoreModelTrainCode'))
+const canDeleteScoreModelTrainCode = computed(() => authStore.hasPermission('/admin/scoreModelTrainCode/deleteScoreModelTrainCode'))
+const canDownloadScoreModelTrainCode = computed(() => authStore.hasPermission('/admin/scoreModelTrainCode/downloadScoreModelTrainCode'))
+const showScoreModelTrainCodeActionColumn = computed(() => {
+  return canViewScoreModelTrainCodeDetail.value || canUpdateScoreModelTrainCode.value || canDeleteScoreModelTrainCode.value || canDownloadScoreModelTrainCode.value
+})
 
 const loading = ref(false)
 const submitting = ref(false)

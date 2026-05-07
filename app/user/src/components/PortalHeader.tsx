@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Button, Space, Dropdown, message, Input } from 'antd'
+import { Button, Space, Dropdown, message, Input, Drawer } from 'antd'
 import type { MenuProps } from 'antd'
-import { UserOutlined, LogoutOutlined, SearchOutlined, DownOutlined } from '@ant-design/icons'
+import { UserOutlined, LogoutOutlined, SearchOutlined, DownOutlined, MenuOutlined } from '@ant-design/icons'
 import { useQuery, useQueryClient } from 'react-query'
 import { useUserStore } from '@stores/userStore'
 import { userAPI } from '@api/feedback'
@@ -30,6 +30,7 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
   const queryClient = useQueryClient()
   const { user, isLoggedIn, logout, getUserById } = useUserStore()
   const [isSticky, setIsSticky] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [secondCategoryCache, setSecondCategoryCache] = useState<Record<number, QuestionSecondCategory[]>>({})
   const [loadingFirstCategoryIds, setLoadingFirstCategoryIds] = useState<number[]>([])
   const [allSecondCategoriesLoaded, setAllSecondCategoriesLoaded] = useState(false)
@@ -58,6 +59,10 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
 
     fetchUserInfo()
   }, [isLoggedIn, user?.userId, getUserById])
+
+  useEffect(() => {
+    setMobileMenuOpen(false)
+  }, [location.pathname, location.search])
 
   const { data: firstCategories = [], isLoading: isFirstCategoriesLoading } = useQuery<QuestionFirstCategory[]>(
     ['questionFirstCategories'],
@@ -459,47 +464,143 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
     return location.pathname === path || (activeMenu && portalMenuItems.find((menuItem) => menuItem.key === activeMenu)?.path === path)
   }
 
+  const getItemLabel = (label: React.ReactNode) => {
+    return typeof label === 'string' ? label : String(label ?? '')
+  }
+
+  const triggerMenuItem = (menuItem: any) => {
+    if (typeof menuItem?.onClick === 'function') {
+      menuItem.onClick({ key: String(menuItem.key ?? ''), domEvent: undefined as any })
+    }
+    setMobileMenuOpen(false)
+  }
+
+  const renderMobileMenuItems = (items?: MenuProps['items'], level = 0): React.ReactNode => {
+    return (items || [])
+      .filter((item): item is any => !!item && item.type !== 'divider')
+      .map((item) => {
+        const hasChildren = Array.isArray(item.children) && item.children.length > 0
+        const label = getItemLabel(item.label)
+
+        if (hasChildren) {
+          return (
+            <div key={String(item.key)} className={`mobile-menu-group mobile-menu-group-level-${level}`}>
+              <div className="mobile-menu-group-title">{label}</div>
+              <div className="mobile-menu-group-content">{renderMobileMenuItems(item.children, level + 1)}</div>
+            </div>
+          )
+        }
+
+        return (
+          <button
+            key={String(item.key)}
+            type="button"
+            className={`mobile-menu-leaf mobile-menu-leaf-level-${level}`}
+            onClick={() => triggerMenuItem(item)}
+          >
+            {label}
+          </button>
+        )
+      })
+  }
+
   return (
-    <header className={`portal-header ${isSticky ? 'sticky' : ''}`}>
-      <div className="header-content">
-        <div className="header-left">
-          <div className="logo" onClick={() => handleNavigate('/')}>
-            📄 易投简历
+    <>
+      <header className={`portal-header ${isSticky ? 'sticky' : ''}`}>
+        <div className="header-content">
+          <div className="header-left">
+            <div className="logo" onClick={() => handleNavigate('/')}>
+              📄 易投简历
+            </div>
+          </div>
+
+          <nav className="header-nav">
+            <ul className="nav-list">
+              {portalMenuItems.map((item) => (
+                <li key={item.key} className={`nav-item ${isActiveRoute(item.path, item) ? 'active' : ''}`}>
+                  {item.menuItems ? (
+                    <Dropdown
+                      menu={{ items: item.menuItems, onOpenChange: item.key === 'question-bank' ? handleQuestionBankMenuOpenChange : undefined }}
+                      placement="bottom"
+                    >
+                      <button type="button" className="nav-link nav-dropdown">
+                        {item.label} <DownOutlined style={{ fontSize: 10, marginLeft: 4 }} />
+                      </button>
+                    </Dropdown>
+                  ) : (
+                    <button
+                      type="button"
+                      className="nav-link"
+                      onClick={() => handleNavigate(item.path, item.key, item.requireLogin)}
+                    >
+                      {item.label}
+                    </button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="header-right">
+            <div className="header-actions">
+              <Input
+                placeholder="搜索..."
+                className="header-search"
+                prefix={<SearchOutlined style={{ color: '#999' }} />}
+                onPressEnter={(e) => {
+                  const value = (e.target as HTMLInputElement).value
+                  if (value) {
+                    message.info('搜索功能开发中...')
+                  }
+                }}
+              />
+
+              <Button
+                type="text"
+                className="mobile-menu-button"
+                icon={<MenuOutlined />}
+                onClick={() => setMobileMenuOpen(true)}
+              />
+
+              {isLoggedIn ? (
+                <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
+                  <div className="user-profile">
+                    <span className="username">{user?.userUsername || '用户'}</span>
+                    <div className="avatar">
+                      {user?.userImage ? (
+                        <img src={user.userImage} alt="avatar" />
+                      ) : (
+                        <UserOutlined />
+                      )}
+                    </div>
+                  </div>
+                </Dropdown>
+              ) : (
+                <Space className="desktop-auth-actions">
+                  <Button onClick={() => handleNavigate('/auth/login', 'login')} type="text">
+                    登录
+                  </Button>
+                  <Button onClick={() => handleNavigate('/auth/register', 'register')} type="primary">
+                    注册
+                  </Button>
+                </Space>
+              )}
+            </div>
           </div>
         </div>
+      </header>
 
-        <nav className="header-nav">
-          <ul className="nav-list">
-            {portalMenuItems.map((item) => (
-              <li key={item.key} className={`nav-item ${isActiveRoute(item.path, item) ? 'active' : ''}`}>
-                {item.menuItems ? (
-                  <Dropdown
-                    menu={{ items: item.menuItems, onOpenChange: item.key === 'question-bank' ? handleQuestionBankMenuOpenChange : undefined }}
-                    placement="bottom"
-                  >
-                    <button type="button" className="nav-link nav-dropdown">
-                      {item.label} <DownOutlined style={{ fontSize: 10, marginLeft: 4 }} />
-                    </button>
-                  </Dropdown>
-                ) : (
-                  <button
-                    type="button"
-                    className="nav-link"
-                    onClick={() => handleNavigate(item.path, item.key, item.requireLogin)}
-                  >
-                    {item.label}
-                  </button>
-                )}
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="header-right">
-          <div className="header-actions">
+      <Drawer
+        title="导航菜单"
+        placement="right"
+        open={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        className="portal-mobile-drawer"
+      >
+        <div className="mobile-drawer-content">
+          <div className="mobile-drawer-search">
             <Input
               placeholder="搜索..."
-              className="header-search"
               prefix={<SearchOutlined style={{ color: '#999' }} />}
               onPressEnter={(e) => {
                 const value = (e.target as HTMLInputElement).value
@@ -508,34 +609,66 @@ const PortalHeader: React.FC<PortalHeaderProps> = ({ activeMenu, onMenuClick }) 
                 }
               }}
             />
+          </div>
 
+          {portalMenuItems.map((item) => (
+            <div key={item.key} className="mobile-menu-section">
+              <button
+                type="button"
+                className={`mobile-menu-primary ${isActiveRoute(item.path, item) ? 'active' : ''}`}
+                onClick={() => {
+                  handleNavigate(item.path, item.key, item.requireLogin)
+                  setMobileMenuOpen(false)
+                }}
+              >
+                {item.label}
+              </button>
+
+              {item.menuItems && <div className="mobile-menu-secondary">{renderMobileMenuItems(item.menuItems)}</div>}
+            </div>
+          ))}
+
+          <div className="mobile-auth-actions">
             {isLoggedIn ? (
-              <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
-                <div className="user-profile">
-                  <span className="username">{user?.userUsername || '用户'}</span>
-                  <div className="avatar">
-                    {user?.userImage ? (
-                      <img src={user.userImage} alt="avatar" />
-                    ) : (
-                      <UserOutlined />
-                    )}
-                  </div>
-                </div>
-              </Dropdown>
+              <>
+                <Button block onClick={() => {
+                  handleGoToProfile()
+                  setMobileMenuOpen(false)
+                }}>
+                  个人中心
+                </Button>
+                <Button
+                  block
+                  danger
+                  onClick={() => {
+                    logout()
+                    navigate('/auth/login')
+                    setMobileMenuOpen(false)
+                  }}
+                >
+                  退出登录
+                </Button>
+              </>
             ) : (
-              <Space>
-                <Button onClick={() => handleNavigate('/auth/login', 'login')} type="text">
+              <>
+                <Button block onClick={() => {
+                  handleNavigate('/auth/login', 'login')
+                  setMobileMenuOpen(false)
+                }}>
                   登录
                 </Button>
-                <Button onClick={() => handleNavigate('/auth/register', 'register')} type="primary">
+                <Button block type="primary" onClick={() => {
+                  handleNavigate('/auth/register', 'register')
+                  setMobileMenuOpen(false)
+                }}>
                   注册
                 </Button>
-              </Space>
+              </>
             )}
           </div>
         </div>
-      </div>
-    </header>
+      </Drawer>
+    </>
   )
 }
 

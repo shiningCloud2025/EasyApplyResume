@@ -9,11 +9,11 @@
         <el-button @click="refreshData" :icon="Refresh">
           刷新
         </el-button>
-        <el-button type="success" @click="handleExport" :loading="exporting">
+        <el-button v-if="canExportScoreTrainingData" type="success" @click="handleExport" :loading="exporting">
           <el-icon><Download /></el-icon>
           导出训练数据
         </el-button>
-        <el-button type="primary" @click="openCreateDialog" :icon="Plus">
+        <el-button v-if="canAddScoreTrainingData" type="primary" @click="openCreateDialog" :icon="Plus">
           新增训练数据
         </el-button>
       </div>
@@ -84,12 +84,12 @@
             {{ formatDateTime(row.scoreTrainingDataCreateTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="170" fixed="right">
+        <el-table-column v-if="showScoreTrainingDataActionColumn" label="操作" width="170" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" size="default" @click="handleViewDetail(row)">
+            <el-button v-if="canViewScoreTrainingDataDetail" type="info" size="default" @click="handleViewDetail(row)">
               查看
             </el-button>
-            <el-button type="danger" size="default" @click="handleDelete(row)">
+            <el-button v-if="canDeleteScoreTrainingData" type="danger" size="default" @click="handleDelete(row)">
               删除
             </el-button>
           </template>
@@ -205,10 +205,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Download, Plus, Refresh, RefreshRight, Search } from '@element-plus/icons-vue'
 import { scoreTrainingDataApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import { formatDateTime } from '@/utils'
 import type {
   AdminScoreTrainingDataForm,
@@ -217,6 +218,15 @@ import type {
   AdminScoreTrainingDataQuery
 } from '@/types/admin'
 import type { FormInstance, FormRules } from 'element-plus'
+
+const authStore = useAuthStore()
+const canAddScoreTrainingData = computed(() => authStore.hasPermission('/admin/scoreTrainingData/addScoreTrainingData'))
+const canViewScoreTrainingDataDetail = computed(() => authStore.hasPermission('/admin/scoreTrainingData/findScoreTrainingDataById'))
+const canDeleteScoreTrainingData = computed(() => authStore.hasPermission('/admin/scoreTrainingData/deleteScoreTrainingData'))
+const canExportScoreTrainingData = computed(() => authStore.hasPermission('/admin/scoreTrainingData/exportScoreTrainingData'))
+const showScoreTrainingDataActionColumn = computed(() => {
+  return canViewScoreTrainingDataDetail.value || canDeleteScoreTrainingData.value
+})
 
 const loading = ref(false)
 const submitting = ref(false)

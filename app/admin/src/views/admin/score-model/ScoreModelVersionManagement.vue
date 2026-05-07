@@ -9,7 +9,7 @@
         <el-button @click="refreshData" :icon="Refresh">
           刷新
         </el-button>
-        <el-button type="primary" @click="openCreateDialog" :icon="Plus">
+        <el-button v-if="canAddScoreModelVersion" type="primary" @click="openCreateDialog" :icon="Plus">
           新增模型版本
         </el-button>
       </div>
@@ -71,15 +71,15 @@
             {{ formatDateTime(row.scoreModelVersionCreateTime) }}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="260" fixed="right">
+        <el-table-column v-if="showScoreModelVersionActionColumn" label="操作" width="260" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" size="default" @click="handleViewDetail(row)">
+            <el-button v-if="canViewScoreModelVersionDetail" type="info" size="default" @click="handleViewDetail(row)">
               查看
             </el-button>
-            <el-button type="primary" size="default" @click="handleEdit(row)">
+            <el-button v-if="canUpdateScoreModelVersion" type="primary" size="default" @click="handleEdit(row)">
               编辑
             </el-button>
-            <el-button type="danger" size="default" @click="handleDelete(row)">
+            <el-button v-if="canDeleteScoreModelVersion" type="danger" size="default" @click="handleDelete(row)">
               删除
             </el-button>
           </template>
@@ -240,11 +240,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { UploadFile } from 'element-plus'
 import { Plus, Refresh, RefreshRight, Search } from '@element-plus/icons-vue'
 import { scoreModelVersionApi } from '@/api/admin'
+import { useAuthStore } from '@/store/auth'
 import { formatDateTime } from '@/utils'
 import type {
   AdminScoreModelVersionForm,
@@ -253,6 +254,15 @@ import type {
   AdminScoreModelVersionQuery
 } from '@/types/admin'
 import type { FormInstance, FormRules } from 'element-plus'
+
+const authStore = useAuthStore()
+const canAddScoreModelVersion = computed(() => authStore.hasPermission('/admin/scoreModelVersion/addScoreModelVersion'))
+const canViewScoreModelVersionDetail = computed(() => authStore.hasPermission('/admin/scoreModelVersion/findScoreModelVersionById'))
+const canUpdateScoreModelVersion = computed(() => authStore.hasPermission('/admin/scoreModelVersion/updateScoreModelVersion'))
+const canDeleteScoreModelVersion = computed(() => authStore.hasPermission('/admin/scoreModelVersion/deleteScoreModelVersion'))
+const showScoreModelVersionActionColumn = computed(() => {
+  return canViewScoreModelVersionDetail.value || canUpdateScoreModelVersion.value || canDeleteScoreModelVersion.value
+})
 
 const loading = ref(false)
 const submitting = ref(false)

@@ -180,14 +180,18 @@
           </el-menu-item>
         </el-sub-menu>
 
-        <el-sub-menu index="/admin/score-model">
+        <el-sub-menu v-if="showScoreModelManagementMenu" index="/admin/score-model">
           <template #title>
             <el-icon><Histogram /></el-icon>
             <span>评分模型管理</span>
           </template>
-          <el-menu-item index="/admin/score-model/training-data">训练数据管理</el-menu-item>
-          <el-menu-item index="/admin/score-model/train-code">训练代码管理</el-menu-item>
-          <el-menu-item index="/admin/score-model/version">模型版本管理</el-menu-item>
+          <el-menu-item
+            v-for="item in visibleScoreModelManagementMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            {{ item.title }}
+          </el-menu-item>
         </el-sub-menu>
 
         <!-- 内部系统 -->
@@ -467,7 +471,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, shallowRef, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions, aiManagementPagePermissions, feedbackManagementPagePermissions, aboutUsManagementPagePermissions, helpCenterManagementPagePermissions, writtenTestManagementPagePermissions } from '@/store/auth'
+import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions, aiManagementPagePermissions, feedbackManagementPagePermissions, aboutUsManagementPagePermissions, helpCenterManagementPagePermissions, writtenTestManagementPagePermissions, scoreModelManagementPagePermissions } from '@/store/auth'
 import {
   House,
   User,
@@ -820,6 +824,32 @@ const visibleWrittenTestManagementMenus = computed(() => {
 
 const showWrittenTestManagementMenu = computed(() => {
   return visibleWrittenTestManagementMenus.value.length > 0
+})
+
+const scoreModelManagementMenus = [
+  {
+    index: '/admin/score-model/training-data',
+    title: '训练数据管理',
+    permission: scoreModelManagementPagePermissions.trainingData
+  },
+  {
+    index: '/admin/score-model/train-code',
+    title: '训练代码管理',
+    permission: scoreModelManagementPagePermissions.trainCode
+  },
+  {
+    index: '/admin/score-model/version',
+    title: '模型版本管理',
+    permission: scoreModelManagementPagePermissions.version
+  }
+]
+
+const visibleScoreModelManagementMenus = computed(() => {
+  return scoreModelManagementMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showScoreModelManagementMenu = computed(() => {
+  return visibleScoreModelManagementMenus.value.length > 0
 })
 
 // 用户菜单操作

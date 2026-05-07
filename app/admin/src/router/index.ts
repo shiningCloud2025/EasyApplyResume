@@ -249,19 +249,19 @@ const router = createRouter({
               path: 'training-data',
               name: 'ScoreModelTrainingDataManagement',
               component: () => import('@/views/admin/score-model/ScoreTrainingDataManagement.vue'),
-              meta: { title: '训练数据管理' }
+              meta: { title: '训练数据管理', permission: '/admin/scoreTrainingData/findScoreTrainingDataByPage' }
             },
             {
               path: 'train-code',
               name: 'ScoreModelTrainCodeManagement',
               component: () => import('@/views/admin/score-model/ScoreModelTrainCodeManagement.vue'),
-              meta: { title: '训练代码管理' }
+              meta: { title: '训练代码管理', permission: '/admin/scoreModelTrainCode/findScoreModelTrainCodeByPage' }
             },
             {
               path: 'version',
               name: 'ScoreModelVersionManagement',
               component: () => import('@/views/admin/score-model/ScoreModelVersionManagement.vue'),
-              meta: { title: '模型版本管理' }
+              meta: { title: '模型版本管理', permission: '/admin/scoreModelVersion/findScoreModelVersionByPage' }
             }
           ]
         },
@@ -528,6 +528,11 @@ router.beforeEach(async (to, from, next) => {
 
   if (requiredPermission && authStore.isLoggedIn && !authStore.user) {
     await authStore.getUserInfo(true)
+
+    if (!authStore.isLoggedIn) {
+      next('/login')
+      return
+    }
   }
 
   if (requiredPermission && !authStore.canAccessRoute(requiredPermission)) {

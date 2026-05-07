@@ -10,6 +10,29 @@ export interface ApiResponse<T = any> {
   data: T
 }
 
+const unauthorizedMessagePatterns = ['未登录', '登录已过期', 'token已过期', 'token过期', 'token验证失败', '认证失败']
+
+const isAuthenticationExpired = (data: any) => {
+  if (!data || typeof data !== 'object') {
+    return false
+  }
+
+  const code = typeof data.code === 'number' ? data.code : Number(data.code)
+  const message = typeof data.message === 'string' ? data.message : ''
+
+  return code === 401 || unauthorizedMessagePatterns.some((pattern) => message.includes(pattern))
+}
+
+const redirectToLoginForExpiredAuth = () => {
+  const authStore = useAuthStore()
+  ElMessage.error('登录已过期，请重新登录')
+  authStore.clearAuth()
+
+  if (router.currentRoute.value.path !== '/login') {
+    router.replace('/login')
+  }
+}
+
 // 创建axios实例
 const request: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
@@ -37,10 +60,7 @@ request.interceptors.response.use(
       }
 
       if (code === 401) {
-        const authStore = useAuthStore()
-        ElMessage.error('登录已过期，请重新登录')
-        authStore.clearAuth()
-        router.push('/login')
+        redirectToLoginForExpiredAuth()
         return Promise.reject(new Error('登录已过期'))
       }
 
@@ -56,19 +76,20 @@ request.interceptors.response.use(
   },
   (error) => {
     const { response } = error
-    
+
     if (response) {
       const { status, data } = response
-      
+
       switch (status) {
         case 401:
-          const authStore = useAuthStore()
-          ElMessage.error('登录已过期，请重新登录')
-          authStore.clearAuth()
-          router.push('/login')
+          redirectToLoginForExpiredAuth()
           break
         case 403:
-          ElMessage.error('没有权限访问')
+          if (isAuthenticationExpired(data)) {
+            redirectToLoginForExpiredAuth()
+            break
+          }
+          ElMessage.error(data?.message || '没有权限访问')
           router.push('/403')
           break
         case 404:
@@ -85,7 +106,7 @@ request.interceptors.response.use(
     } else {
       ElMessage.error('网络错误，请检查网络连接')
     }
-    
+
     return Promise.reject(error)
   }
 )
@@ -121,22 +142,22 @@ export const api = {
   get<T = any>(url: string, params?: any): Promise<ApiResponse<T>> {
     return request.get(url, { params })
   },
-  
+
   // POST请求
   post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     return request.post(url, data, config)
   },
-  
+
   // PUT请求
   put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ApiResponse<T>> {
     return request.put(url, data, config)
   },
-  
+
   // DELETE请求
   delete<T = any>(url: string, params?: any): Promise<ApiResponse<T>> {
     return request.delete(url, { params })
   },
-  
+
   // 文件上传
   upload<T = any>(url: string, formData: FormData): Promise<ApiResponse<T>> {
     return request.post(url, formData, {

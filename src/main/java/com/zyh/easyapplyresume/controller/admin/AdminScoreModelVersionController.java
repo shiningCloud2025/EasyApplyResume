@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +32,7 @@ public class AdminScoreModelVersionController {
 
     @Operation(summary = "新增模型版本")
     @PostMapping(value = "/addScoreModelVersion", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasAuthority('/admin/scoreModelVersion/addScoreModelVersion')")
     public BaseResult<Integer> addScoreModelVersion(
             @ModelAttribute AdminScoreModelVersionForm form,
             @RequestParam(required = true, value = "modelFile") MultipartFile modelFile) {
@@ -39,6 +41,7 @@ public class AdminScoreModelVersionController {
 
     @Operation(summary = "修改模型版本")
     @PostMapping(value = "/updateScoreModelVersion", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasAuthority('/admin/scoreModelVersion/updateScoreModelVersion')")
     public BaseResult<Integer> updateScoreModelVersion(
             @ModelAttribute AdminScoreModelVersionForm form,
             @RequestParam(required = false, value = "modelFile") MultipartFile modelFile) {
@@ -47,6 +50,7 @@ public class AdminScoreModelVersionController {
 
     @Operation(summary = "删除模型版本")
     @DeleteMapping("/deleteScoreModelVersion")
+    @PreAuthorize("hasAuthority('/admin/scoreModelVersion/deleteScoreModelVersion')")
     public BaseResult<Integer> deleteScoreModelVersion(
             @RequestParam(required = true, value = "scoreModelVersionId") Integer scoreModelVersionId) {
         return BaseResult.ok(adminScoreModelVersionService.deleteScoreModelVersion(scoreModelVersionId));
@@ -54,6 +58,7 @@ public class AdminScoreModelVersionController {
 
     @Operation(summary = "查询模型版本详情")
     @GetMapping("/findScoreModelVersionById")
+    @PreAuthorize("hasAuthority('/admin/scoreModelVersion/findScoreModelVersionById')")
     public BaseResult<AdminScoreModelVersionInfoVO> findScoreModelVersionById(
             @RequestParam(required = true, value = "scoreModelVersionId") Integer scoreModelVersionId) {
         return BaseResult.ok(adminScoreModelVersionService.findScoreModelVersionById(scoreModelVersionId));
@@ -61,6 +66,7 @@ public class AdminScoreModelVersionController {
 
     @Operation(summary = "分页查询模型版本")
     @PostMapping("/findScoreModelVersionByPage")
+    @PreAuthorize("hasAuthority('/admin/scoreModelVersion/findScoreModelVersionByPage')")
     public BaseResult<Page<AdminScoreModelVersionPageVO>> findScoreModelVersionByPage(
             @RequestParam(required = false, value = "pageNum", defaultValue = "1") Integer pageNum,
             @RequestParam(required = false, value = "pageSize", defaultValue = "10") Integer pageSize,
