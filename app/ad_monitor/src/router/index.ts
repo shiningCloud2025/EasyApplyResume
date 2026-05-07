@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '@/store/auth'
+import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions } from '@/store/auth'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -40,38 +40,38 @@ const router = createRouter({
           path: 'notice/admin',
           name: 'NoticeAdmin',
           component: () => import('@/views/main/notice/NoticeManage.vue'),
-          meta: { title: '管理端公告管理' }
+          meta: { title: '管理端公告管理', permission: announcementManagementPermissions.admin.getInfo }
         },
         {
           path: 'notice/user',
           name: 'NoticeUser',
           component: () => import('@/views/main/notice/NoticeManage.vue'),
-          meta: { title: '用户端公告管理' }
+          meta: { title: '用户端公告管理', permission: announcementManagementPermissions.user.getInfo }
         },
         {
           path: 'notice/monitor',
           name: 'NoticeMonitor',
           component: () => import('@/views/main/notice/NoticeManage.vue'),
-          meta: { title: '监测端公告管理' }
+          meta: { title: '监测端公告管理', permission: announcementManagementPermissions.monitor.getInfo }
         },
         // 图片广告管理
         {
           path: 'ad/image/admin',
           name: 'ImageAdAdmin',
           component: () => import('@/views/main/ad/ImageAdManage.vue'),
-          meta: { title: '管理端图片广告' }
+          meta: { title: '管理端图片广告', permission: imageAdvertisementManagementPermissions.admin.getByPage }
         },
         {
           path: 'ad/image/user',
           name: 'ImageAdUser',
           component: () => import('@/views/main/ad/ImageAdManage.vue'),
-          meta: { title: '用户端图片广告' }
+          meta: { title: '用户端图片广告', permission: imageAdvertisementManagementPermissions.user.getByPage }
         },
         {
           path: 'ad/image/monitor',
           name: 'ImageAdMonitor',
           component: () => import('@/views/main/ad/ImageAdManage.vue'),
-          meta: { title: '监测端图片广告' }
+          meta: { title: '监测端图片广告', permission: imageAdvertisementManagementPermissions.monitor.getByPage }
         },
         // 视频广告管理（暂未开放）
         {
@@ -275,7 +275,7 @@ const router = createRouter({
 })
 
 // 路由守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
   const token = localStorage.getItem('monitor_token')
 
@@ -293,6 +293,24 @@ router.beforeEach((to, from, next) => {
   // 需要登录的页面
   if (to.meta.requiresAuth && !authStore.isLoggedIn) {
     next('/login')
+    return
+  }
+
+  const requiredPermission = typeof to.meta.permission === 'string' || Array.isArray(to.meta.permission)
+    ? to.meta.permission
+    : undefined
+
+  if (requiredPermission && authStore.isLoggedIn && !authStore.user) {
+    await authStore.getUserInfo(true)
+
+    if (!authStore.isLoggedIn) {
+      next('/login')
+      return
+    }
+  }
+
+  if (requiredPermission && !authStore.canAccessRoute(requiredPermission)) {
+    next('/main/home')
     return
   }
 

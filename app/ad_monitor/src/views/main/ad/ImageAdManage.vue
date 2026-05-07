@@ -5,7 +5,7 @@
         <h2>{{ pageTitle }}</h2>
         <el-tag :type="tagType">{{ endpoint }}</el-tag>
       </div>
-      <el-button type="primary" @click="handleAdd">
+      <el-button type="primary" @click="handleAdd" :disabled="!canAdd">
         <el-icon><Plus /></el-icon>
         新增广告
       </el-button>
@@ -61,9 +61,9 @@
         </el-table-column>
         <el-table-column label="操作" width="180" fixed="right">
           <template #default="{ row }">
-            <el-button type="info" link size="small" @click="handleView(row)">查看</el-button>
-            <el-button type="primary" link size="small" @click="handleEdit(row)">编辑</el-button>
-            <el-button type="danger" link size="small" @click="handleDelete(row)">删除</el-button>
+            <el-button v-if="canViewDetail" type="info" link size="small" @click="handleView(row)">查看</el-button>
+            <el-button v-if="canUpdate" type="primary" link size="small" @click="handleEdit(row)">编辑</el-button>
+            <el-button v-if="canDelete" type="danger" link size="small" @click="handleDelete(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -153,7 +153,7 @@
 
       <template #footer>
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="handleSubmit" :loading="submitting">
+        <el-button type="primary" @click="handleSubmit" :loading="submitting" :disabled="isEdit ? !canUpdate : !canAdd">
           {{ isEdit ? '更新' : '创建' }}
         </el-button>
       </template>
@@ -197,8 +197,22 @@ import { Plus } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
 import { adminAdvertisementApi, userAdvertisementApi, monitorAdvertisementApi, fileApi } from '@/api'
+import { useAuthStore, imageAdvertisementManagementPermissions } from '@/store/auth'
 
 const route = useRoute()
+const authStore = useAuthStore()
+
+const currentPermissions = computed(() => {
+  if (route.path.includes('/ad/image/admin')) return imageAdvertisementManagementPermissions.admin
+  if (route.path.includes('/ad/image/user')) return imageAdvertisementManagementPermissions.user
+  return imageAdvertisementManagementPermissions.monitor
+})
+
+const canViewPage = computed(() => authStore.canAccessRoute(currentPermissions.value.getByPage))
+const canViewDetail = computed(() => authStore.canAccessRoute(currentPermissions.value.getById))
+const canAdd = computed(() => authStore.canAccessRoute(currentPermissions.value.add))
+const canUpdate = computed(() => authStore.canAccessRoute(currentPermissions.value.update))
+const canDelete = computed(() => authStore.canAccessRoute(currentPermissions.value.delete))
 
 const endpoint = computed(() => {
   if (route.path.includes('/ad/image/admin')) return '管理端'
@@ -309,6 +323,12 @@ const formatDate = (date: string) => {
 }
 
 const loadData = async () => {
+  if (!canViewPage.value) {
+    tableData.value = []
+    total.value = 0
+    return
+  }
+
   loading.value = true
   try {
     const query = searchName.value.trim()
@@ -350,22 +370,42 @@ const resetForm = () => {
 }
 
 const handleAdd = () => {
+  if (!canAdd.value) {
+    ElMessage.warning('暂无新增广告权限')
+    return
+  }
+
   isEdit.value = false
   resetForm()
   dialogVisible.value = true
 }
 
-const handleView = (row: any) => {
-  viewData.advertisementId = row.advertisementId
-  viewData.advertisementName = row.advertisementName || ''
-  viewData.advertisementUrl = row.advertisementUrl || ''
-  viewData.advertisementLink = row.advertisementLink || ''
-  viewData.advertisementStartedTime = row.advertisementStartedTime || ''
-  viewData.advertisementEndTime = row.advertisementEndTime || ''
-  viewDialogVisible.value = true
+const handleView = async (row: any) => {
+  if (!canViewDetail.value) {
+    ElMessage.warning('暂无查看广告详情权限')
+    return
+  }
+
+  try {
+    const res = await api.value.getById(row.advertisementId)
+    viewData.advertisementId = res?.advertisementId ?? row.advertisementId ?? null
+    viewData.advertisementName = res?.advertisementName || ''
+    viewData.advertisementUrl = res?.advertisementUrl || ''
+    viewData.advertisementLink = res?.advertisementLink || ''
+    viewData.advertisementStartedTime = res?.advertisementStartedTime || ''
+    viewData.advertisementEndTime = res?.advertisementEndTime || ''
+    viewDialogVisible.value = true
+  } catch (e) {
+    console.error('查看详情失败', e)
+  }
 }
 
 const handleEdit = (row: any) => {
+  if (!canUpdate.value) {
+    ElMessage.warning('暂无编辑广告权限')
+    return
+  }
+
   isEdit.value = true
   formData.advertisementId = row.advertisementId
   formData.advertisementName = row.advertisementName || ''
@@ -384,6 +424,11 @@ const handleEdit = (row: any) => {
 }
 
 const handleDelete = async (row: any) => {
+  if (!canDelete.value) {
+    ElMessage.warning('暂无删除广告权限')
+    return
+  }
+
   try {
     await ElMessageBox.confirm('确定要删除该广告吗？', '提示', {
       confirmButtonText: '确定',
@@ -398,6 +443,14 @@ const handleDelete = async (row: any) => {
 
 const handleSubmit = async () => {
   if (!formRef.value) return
+  if (isEdit.value && !canUpdate.value) {
+    ElMessage.warning('暂无编辑广告权限')
+    return
+  }
+  if (!isEdit.value && !canAdd.value) {
+    ElMessage.warning('暂无新增广告权限')
+    return
+  }
 
   try {
     await formRef.value.validate()

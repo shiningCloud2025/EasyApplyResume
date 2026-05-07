@@ -33,7 +33,7 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="handleSave" :loading="saving">
+          <el-button type="primary" @click="handleSave" :loading="saving" :disabled="!canSaveNotice">
             {{ hasData ? '更新公告' : '发布公告' }}
           </el-button>
           <el-button @click="handleReset">重置</el-button>
@@ -58,8 +58,23 @@ import { useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
 import { adminAnnouncementApi, userAnnouncementApi, monitorAnnouncementApi } from '@/api'
+import { useAuthStore, announcementManagementPermissions } from '@/store/auth'
 
 const route = useRoute()
+const authStore = useAuthStore()
+
+const currentPermissions = computed(() => {
+  if (route.path.includes('/notice/admin')) return announcementManagementPermissions.admin
+  if (route.path.includes('/notice/user')) return announcementManagementPermissions.user
+  return announcementManagementPermissions.monitor
+})
+
+const canViewNotice = computed(() => authStore.canAccessRoute(currentPermissions.value.getInfo))
+const canAddNotice = computed(() => authStore.canAccessRoute(currentPermissions.value.add))
+const canUpdateNotice = computed(() => authStore.canAccessRoute(currentPermissions.value.update))
+const canSaveNotice = computed(() => {
+  return hasData.value ? canUpdateNotice.value : canAddNotice.value
+})
 
 // 根据路由判断端类型
 const endpoint = computed(() => {
@@ -104,6 +119,12 @@ const rules = computed<FormRules>(() => ({
 }))
 
 const loadData = async () => {
+  if (!canViewNotice.value) {
+    resetForm()
+    hasData.value = false
+    return
+  }
+
   loading.value = true
   try {
     const res = await api.value.getInfo()
@@ -137,6 +158,10 @@ const handleReset = () => {
 const handleSave = async () => {
   if (!formRef.value) return
   if (saving.value) return // 防止重复提交
+  if (!canSaveNotice.value) {
+    ElMessage.warning(hasData.value ? '暂无修改公告权限' : '暂无发布公告权限')
+    return
+  }
 
   try {
     await formRef.value.validate()

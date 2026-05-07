@@ -153,4 +153,47 @@
     padding-left: 8px;
     padding-right: 8px;
   }
+
+  .el-card {
+    margin-bottom: 16px;
+
+    .el-card__body {
+      padding: 16px;
+    }
+  }
+
+  .page-header {
+    .header-actions {
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  .search-card .el-form,
+  .search-form {
+    display: block;
+  }
+
+  .search-card .el-form-item,
+  .search-form .el-form-item {
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .search-card .el-input,
+  .search-card .el-select,
+  .search-card .el-input-number,
+  .search-form .el-input,
+  .search-form .el-select,
+  .search-form .el-input-number {
+    width: 100% !important;
+  }
+
+  .table-header,
+  .table-actions,
+  .dialog-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

@@ -75,15 +75,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { 
   DataAnalysis, Bell, Picture, User, UserFilled, 
   Connection, Lock, Right, Monitor, TrendCharts
 } from '@element-plus/icons-vue'
 import { ElMessageBox } from 'element-plus'
 import { monitorAnnouncementApi } from '@/api'
+import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions } from '@/store/auth'
 
 const currentTime = ref('')
+const authStore = useAuthStore()
 let timer: NodeJS.Timeout
 
 const updateTime = () => {
@@ -107,12 +109,26 @@ const features = ref([
   { icon: 'Lock', title: '安全管理', desc: '集成Spring Boot Admin、Prometheus等监控', color: 'linear-gradient(135deg, #ef4444, #dc2626)' }
 ])
 
-const quickLinks = ref([
-  { icon: 'Bell', title: '管理端公告', path: '/main/notice/admin' },
-  { icon: 'Picture', title: '图片广告', path: '/main/ad/image/admin' },
-  { icon: 'TrendCharts', title: '用户数据', path: '/main/user-monitor/website' },
-  { icon: 'Monitor', title: '管理数据', path: '/main/admin-monitor/website' }
-])
+const quickLinks = computed(() => {
+  const allLinks = [
+    {
+      icon: 'Bell',
+      title: '管理端公告',
+      path: '/main/notice/admin',
+      permission: announcementManagementPermissions.admin.getInfo
+    },
+    {
+      icon: 'Picture',
+      title: '图片广告',
+      path: '/main/ad/image/admin',
+      permission: imageAdvertisementManagementPermissions.admin.getByPage
+    },
+    { icon: 'TrendCharts', title: '用户数据', path: '/main/user-monitor/website' },
+    { icon: 'Monitor', title: '管理数据', path: '/main/admin-monitor/website' }
+  ]
+
+  return allLinks.filter((item) => authStore.canAccessRoute(item.permission))
+})
 
 onMounted(() => {
   updateTime()
@@ -122,16 +138,24 @@ onMounted(() => {
 
 // 显示公告弹窗
 const showAnnouncement = async () => {
+  if (authStore.isLoggedIn && !authStore.user) {
+    await authStore.getUserInfo(true)
+  }
+
+  if (!authStore.canAccessRoute(announcementManagementPermissions.monitor.getInfo)) {
+    return
+  }
+
   // 检查是否是本次会话第一次进入（避免刷新重复显示）
   const announcementShown = sessionStorage.getItem('admonitor_announcement_shown')
   if (announcementShown) return
-  
+
   try {
     const res = await monitorAnnouncementApi.getInfo() as any
     if (res && res.announcementTitle) {
       // 标记已显示
       sessionStorage.setItem('admonitor_announcement_shown', 'true')
-      
+
       await ElMessageBox.alert(
         res.announcementContent || '暂无内容',
         res.announcementTitle,

@@ -41,7 +41,7 @@
 
     <!-- 信息展示 -->
     <el-row :gutter="20" style="margin-top: 20px;">
-      <el-col :span="16">
+      <el-col :xs="24" :md="16">
         <el-card shadow="hover">
           <template #header>
             <span style="font-weight: 600;">基本信息</span>
@@ -60,7 +60,7 @@
         </el-card>
       </el-col>
 
-      <el-col :span="8">
+      <el-col :xs="24" :md="8">
         <el-card shadow="hover">
           <template #header>
             <span style="font-weight: 600;">我的角色</span>
@@ -91,7 +91,7 @@
     <el-dialog
       v-model="showEditDialog"
       title="编辑个人资料"
-      width="600px"
+      :width="window.innerWidth <= 768 ? '94%' : '600px'"
       :close-on-click-modal="false"
     >
       <el-form
@@ -337,10 +337,25 @@ onMounted(() => {
 }
 
 @media (max-width: 768px) {
+  .profile-page {
+    padding: 12px;
+  }
+
   .profile-header {
     flex-direction: column;
     gap: 16px;
     align-items: flex-start;
+
+    .avatar-section {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .header-actions {
+      width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+    }
   }
 }
 </style>

@@ -30,14 +30,18 @@
           </el-menu-item>
 
           <!-- 公告管理 -->
-          <el-sub-menu index="notice">
+          <el-sub-menu v-if="showNoticeMenu" index="notice">
             <template #title>
               <el-icon><Bell /></el-icon>
               <span>公告管理</span>
             </template>
-            <el-menu-item index="/main/notice/admin">管理端公告管理</el-menu-item>
-            <el-menu-item index="/main/notice/user">用户端公告管理</el-menu-item>
-            <el-menu-item index="/main/notice/monitor">监测端公告管理</el-menu-item>
+            <el-menu-item
+              v-for="item in visibleNoticeMenus"
+              :key="item.index"
+              :index="item.index"
+            >
+              {{ item.title }}
+            </el-menu-item>
           </el-sub-menu>
 
           <!-- 广告管理 -->
@@ -46,13 +50,17 @@
               <el-icon><Picture /></el-icon>
               <span>广告管理</span>
             </template>
-            <el-sub-menu index="image-ad">
+            <el-sub-menu v-if="showImageAdMenu" index="image-ad">
               <template #title>
                 <span>图片广告管理</span>
               </template>
-              <el-menu-item index="/main/ad/image/admin">管理端广告管理</el-menu-item>
-              <el-menu-item index="/main/ad/image/user">用户端广告管理</el-menu-item>
-              <el-menu-item index="/main/ad/image/monitor">监测端广告管理</el-menu-item>
+              <el-menu-item
+                v-for="item in visibleImageAdMenus"
+                :key="item.index"
+                :index="item.index"
+              >
+                {{ item.title }}
+              </el-menu-item>
             </el-sub-menu>
             <el-menu-item index="/main/ad/video">
               <span>视频广告管理</span>
@@ -258,7 +266,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore } from '@/store/auth'
+import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions } from '@/store/auth'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import {
   House, Bell, Picture, User, UserFilled, Connection, Lock, Monitor,
@@ -270,6 +278,58 @@ import IdleAdCarousel from './IdleAdCarousel.vue'
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
+
+const noticeMenus = [
+  {
+    index: '/main/notice/admin',
+    title: '管理端公告管理',
+    permission: announcementManagementPermissions.admin.getInfo
+  },
+  {
+    index: '/main/notice/user',
+    title: '用户端公告管理',
+    permission: announcementManagementPermissions.user.getInfo
+  },
+  {
+    index: '/main/notice/monitor',
+    title: '监测端公告管理',
+    permission: announcementManagementPermissions.monitor.getInfo
+  }
+]
+
+const visibleNoticeMenus = computed(() => {
+  return noticeMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showNoticeMenu = computed(() => {
+  return visibleNoticeMenus.value.length > 0
+})
+
+const imageAdMenus = [
+  {
+    index: '/main/ad/image/admin',
+    title: '管理端广告管理',
+    permission: imageAdvertisementManagementPermissions.admin.getByPage
+  },
+  {
+    index: '/main/ad/image/user',
+    title: '用户端广告管理',
+    permission: imageAdvertisementManagementPermissions.user.getByPage
+  },
+  {
+    index: '/main/ad/image/monitor',
+    title: '监测端广告管理',
+    permission: imageAdvertisementManagementPermissions.monitor.getByPage
+  }
+]
+
+const visibleImageAdMenus = computed(() => {
+  return imageAdMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showImageAdMenu = computed(() => {
+  return visibleImageAdMenus.value.length > 0
+})
 
 const isMobile = ref(false)
 const mobileSidebarOpen = ref(false)

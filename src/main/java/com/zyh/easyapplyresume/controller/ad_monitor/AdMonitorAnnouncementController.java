@@ -6,6 +6,7 @@ import com.zyh.easyapplyresume.service.ad_monitor.AdMonitorAnnouncementService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,18 +24,21 @@ public class AdMonitorAnnouncementController {
 
     @Operation(summary = "添加公告")
     @RequestMapping("/add")
+    @PreAuthorize("hasAuthority('/admonitor/admonitor/announcement/add')")
     public Integer addAnnouncement(@RequestBody AdMonitorAnnouncementForm adMonitorAnnouncementForm) {
         return adMonitorAnnouncementService.addAnnouncement(adMonitorAnnouncementForm);
     }
 
     @Operation(summary = "修改公告")
     @RequestMapping("/update")
+    @PreAuthorize("hasAuthority('/admonitor/admonitor/announcement/update')")
     public Integer updateAnnouncement(@RequestBody AdMonitorAnnouncementForm adMonitorAnnouncementForm) {
         return adMonitorAnnouncementService.updateAnnouncement(adMonitorAnnouncementForm);
     }
 
     @Operation(summary = "获取公告信息")
     @RequestMapping("/getInfo")
+    @PreAuthorize("hasAuthority('/admonitor/admonitor/announcement/getInfo')")
     public AdMonitorAnnouncementInfoVO getAnnouncementInfo() {
         return adMonitorAnnouncementService.getAnnouncementInfo();
     }

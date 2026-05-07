@@ -81,5 +81,32 @@ html, body, #app {
     align-items: stretch !important;
     gap: 12px;
   }
+
+  .search-bar {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .search-bar .el-input,
+  .search-bar .el-select,
+  .search-bar .el-input-number {
+    width: 100% !important;
+  }
+
+  .pagination,
+  .pagination-container {
+    justify-content: center !important;
+  }
+
+  .type-tabs {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .el-dialog .el-col,
+  .profile-page .el-col {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
 }
 </style>

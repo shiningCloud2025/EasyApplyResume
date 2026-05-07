@@ -7,6 +7,7 @@ import com.zyh.easyapplyresume.service.ad_monitor.AdMonitorAdminAnnouncementServ
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -22,18 +23,21 @@ public class AdMonitorAdminAnnouncementController {
 
     @Operation(summary = "添加公告")
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('/admonitor/admin/announcement/add')")
     public BaseResult<Integer> addAnnouncement(@RequestBody AdMonitorAdminAnnouncementForm adMonitorAdminAnnouncementForm) {
         return BaseResult.ok(adminAnnouncementService.addAnnouncement(adMonitorAdminAnnouncementForm));
     }
 
     @Operation(summary = "修改公告")
     @PutMapping("/update")
+    @PreAuthorize("hasAuthority('/admonitor/admin/announcement/update')")
     public BaseResult<Integer> updateAnnouncement(@RequestBody AdMonitorAdminAnnouncementForm adMonitorAdminAnnouncementForm) {
         return BaseResult.ok(adminAnnouncementService.updateAnnouncement(adMonitorAdminAnnouncementForm));
     }
 
     @Operation(summary = "获取公告信息")
     @GetMapping("/getInfo")
+    @PreAuthorize("hasAuthority('/admonitor/admin/announcement/getInfo')")
     public BaseResult<AdMonitorAdminAnnouncementInfoVO> getAnnouncementInfo() {
         return BaseResult.ok(adminAnnouncementService.getAnnouncementInfo());
     }

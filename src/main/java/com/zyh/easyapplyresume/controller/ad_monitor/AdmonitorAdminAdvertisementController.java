@@ -10,6 +10,7 @@ import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorAdminAdvertisementSer
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,30 +29,35 @@ public class AdmonitorAdminAdvertisementController {
 
     @PostMapping("/addAdmonitorAdminAdvertisement")
     @Operation(summary = "添加广告")
+    @PreAuthorize("hasAuthority('/admonitor/admin/advertisement/addAdmonitorAdminAdvertisement')")
     public BaseResult<Integer> addAdmonitorAdminAdvertisement(@RequestBody AdmonitorAdminAdvertisementForm admonitorAdminAdvertisementForm) {
         return BaseResult.ok(admonitorAdminAdvertisementService.addAdmonitorAdminAdvertisement(admonitorAdminAdvertisementForm));
     }
 
     @PutMapping("/updateAdmonitorAdminAdvertisement")
     @Operation(summary = "更新广告")
+    @PreAuthorize("hasAuthority('/admonitor/admin/advertisement/updateAdmonitorAdminAdvertisement')")
     public BaseResult<Integer> updateAdmonitorAdminAdvertisement(@RequestBody AdmonitorAdminAdvertisementForm admonitorAdminAdvertisementForm) {
         return BaseResult.ok(admonitorAdminAdvertisementService.updateAdmonitorAdminAdvertisement(admonitorAdminAdvertisementForm));
     }
 
     @DeleteMapping("/deleteAdmonitorAdminAdvertisement")
     @Operation(summary = "删除广告")
+    @PreAuthorize("hasAuthority('/admonitor/admin/advertisement/deleteAdmonitorAdminAdvertisement')")
     public BaseResult<Integer> deleteAdmonitorAdminAdvertisement(@RequestParam(required = true, name = "id") Integer id) {
         return BaseResult.ok(admonitorAdminAdvertisementService.deleteAdmonitorAdminAdvertisement(id));
     }
 
     @GetMapping("/findAdmonitorAdminAdvertisementById")
     @Operation(summary = "查询广告")
+    @PreAuthorize("hasAuthority('/admonitor/admin/advertisement/findAdmonitorAdminAdvertisementById')")
     public BaseResult<AdmonitorAdminAdvertisementInfoVO> findAdmonitorAdminAdvertisementById(@RequestParam(required = true, name = "id") Integer id) {
         return BaseResult.ok(admonitorAdminAdvertisementService.findAdmonitorAdminAdvertisementById(id));
     }
 
     @PostMapping("/findAdmonitorAdminAdvertisementByPage")
     @Operation(summary = "分页查询广告")
+    @PreAuthorize("hasAuthority('/admonitor/admin/advertisement/findAdmonitorAdminAdvertisementByPage')")
     public BaseResult<Page<AdmonitorAdminAdvertisementPageVO>> findAdmonitorAdminAdvertisementByPage(@RequestParam(required = false, name = "pageNum",defaultValue = "1") Integer pageNum,
                                                                                                      @RequestParam(required = false, name = "pageSize",defaultValue = "10") Integer pageSize,
                                                                                                      @RequestBody(required = false) AdmonitorAdminAdvertisementQuery admonitorAdminAdvertisementQuery) {

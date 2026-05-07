@@ -311,4 +311,21 @@ onMounted(() => {
   margin: 0;
   white-space: pre-wrap;
 }
+@media (max-width: 768px) {
+  .announcement-page {
+    padding: 16px;
+  }
+
+  .announcement-form,
+  .preview-card {
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  .preview-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
 </style>

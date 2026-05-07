@@ -256,4 +256,25 @@
       }
     }
   }
+
+  .el-dialog .el-col,
+  .page-header .el-col,
+  .profile-page .el-col {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .el-transfer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .el-transfer__buttons {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
 }

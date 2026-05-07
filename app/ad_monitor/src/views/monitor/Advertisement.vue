@@ -76,7 +76,7 @@
     <el-dialog
       v-model="dialogVisible"
       :title="isEdit ? '编辑广告' : '新增广告'"
-      width="600px"
+      :width="dialogWidth"
       :close-on-click-modal="false"
     >
       <el-form
@@ -161,6 +161,7 @@ const dialogVisible = ref(false)
 const isEdit = ref(false)
 const submitting = ref(false)
 const formRef = ref<FormInstance>()
+const dialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '600px'))
 
 const formData = reactive({
   id: null as number | null,
@@ -322,5 +323,24 @@ onMounted(() => {
   background: #f9fafb;
   border-radius: 4px;
   display: inline-block;
+}
+@media (max-width: 768px) {
+  .advertisement-page {
+    padding: 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .type-tabs {
+    overflow-x: auto;
+  }
+
+  .pagination-container {
+    justify-content: center;
+  }
 }
 </style>
