@@ -75,7 +75,7 @@
     <el-dialog
       v-model="dialogVisible"
       :title="isEdit ? '编辑服务器' : '新增服务器'"
-      width="550px"
+      :width="dialogWidth"
       :close-on-click-modal="false"
     >
       <el-form
@@ -158,7 +158,7 @@
     </el-dialog>
 
     <!-- 查看对话框 -->
-    <el-dialog v-model="viewDialogVisible" title="查看服务器" width="550px">
+    <el-dialog v-model="viewDialogVisible" title="查看服务器" :width="dialogWidth">
       <el-descriptions :column="1" border>
         <el-descriptions-item label="ID">{{ viewData.serviceMachineId }}</el-descriptions-item>
         <el-descriptions-item label="服务器名称">{{ viewData.serviceMachineName }}</el-descriptions-item>
@@ -197,6 +197,7 @@ const submitting = ref(false)
 const testing = ref(false)
 const connectTested = ref(false)
 const formRef = ref<FormInstance>()
+const dialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '550px'))
 
 // 是否可以测试连接（必填字段都填写了）
 const canTest = computed(() => {
@@ -475,5 +476,38 @@ onMounted(() => {
   margin-left: 12px;
   color: #f56c6c;
   font-size: 12px;
+}
+@media (max-width: 768px) {
+  .server-page {
+    padding: 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+
+    :deep(.el-input) {
+      width: 100% !important;
+    }
+  }
+
+  .test-connect-area {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .test-hint {
+    margin-left: 0;
+  }
+
+  .pagination {
+    justify-content: center;
+  }
 }
 </style>

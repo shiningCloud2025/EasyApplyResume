@@ -129,7 +129,9 @@ onBeforeUnmount(() => {
   border: 1px solid #dcdfe6;
   border-radius: 8px;
   background: #fff;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
+  z-index: 1;
 }
 
 .toolbar {
@@ -140,7 +142,7 @@ onBeforeUnmount(() => {
 .editor {
   flex: 1;
   min-height: 0;
-  overflow-y: hidden;
+  overflow: visible;
 }
 
 :deep(.w-e-text-container) {

@@ -56,7 +56,7 @@
     <el-dialog
       v-model="monitorDialogVisible"
       :title="`${monitorData.serviceMachineName} - 监控信息`"
-      width="700px"
+      :width="monitorDialogWidth"
       :close-on-click-modal="false"
     >
       <div v-loading="monitorLoading" class="monitor-content">
@@ -168,6 +168,7 @@ const searchName = ref('')
 const monitorDialogVisible = ref(false)
 const monitorLoading = ref(false)
 const currentServer = ref<any>(null)
+const monitorDialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '700px'))
 
 const monitorData = reactive({
   serviceMachineId: null as number | null,
@@ -390,5 +391,33 @@ onMounted(() => {
   font-size: 36px;
   font-weight: 700;
   color: #10b981;
+}
+@media (max-width: 768px) {
+  .monitor-page {
+    padding: 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+
+    :deep(.el-input) {
+      width: 100% !important;
+    }
+  }
+
+  .monitor-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .pagination {
+    justify-content: center;
+  }
 }
 </style>

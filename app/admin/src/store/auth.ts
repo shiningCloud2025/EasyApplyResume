@@ -210,6 +210,11 @@ export const externalSystemPagePermissions = {
   volcengine: '/admin/external-system/volcengine'
 } as const
 
+export const apiDocsPagePermissions = {
+  external: '/admin/api-docs/external',
+  internal: '/admin/api-docs/internal'
+} as const
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('admin_token') || '',

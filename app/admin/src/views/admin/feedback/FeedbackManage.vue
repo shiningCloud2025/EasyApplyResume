@@ -244,7 +244,7 @@
               v-model="processForm.content"
               :defaultConfig="editorConfig"
               mode="default"
-              style="height: 300px; overflow-y: hidden;"
+              style="height: 300px;"
               @onCreated="handleEditorCreated"
             />
           </div>

@@ -242,4 +242,20 @@ onMounted(() => {
     white-space: pre-wrap;
   }
 }
+@media (max-width: 768px) {
+  .notice-page {
+    padding: 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .notice-form,
+  .preview-card {
+    max-width: 100%;
+    padding: 16px;
+  }
+}
 </style>

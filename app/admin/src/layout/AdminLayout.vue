@@ -228,18 +228,18 @@
         </el-sub-menu>
 
         <!-- API文档中心 -->
-        <el-sub-menu index="api-docs">
+        <el-sub-menu v-if="showApiDocsMenu" index="/admin/api-docs">
           <template #title>
             <el-icon><Document /></el-icon>
             <span>API文档中心</span>
           </template>
-          <el-menu-item index="/admin/api-docs">
-            <el-icon><Link /></el-icon>
-            <span>API对外文档中心</span>
-          </el-menu-item>
-          <el-menu-item index="internal-api-docs">
-            <el-icon><Lock /></el-icon>
-            <span>API对内文档中心</span>
+          <el-menu-item
+            v-for="item in visibleApiDocsMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            <el-icon :is="item.icon" />
+            <span>{{ item.title }}</span>
           </el-menu-item>
         </el-sub-menu>
       </el-menu>
@@ -408,7 +408,7 @@
               v-model="sendResumeForm.htmlContent"
               :defaultConfig="editorConfig"
               mode="default"
-              style="height: 300px; overflow-y: hidden;"
+              style="height: 300px;"
               @onCreated="handleEditorCreated"
             />
           </div>
@@ -436,7 +436,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, shallowRef, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions, aiManagementPagePermissions, feedbackManagementPagePermissions, aboutUsManagementPagePermissions, helpCenterManagementPagePermissions, writtenTestManagementPagePermissions, scoreModelManagementPagePermissions, internalSystemPagePermissions, externalSystemPagePermissions } from '@/store/auth'
+import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions, aiManagementPagePermissions, feedbackManagementPagePermissions, aboutUsManagementPagePermissions, helpCenterManagementPagePermissions, writtenTestManagementPagePermissions, scoreModelManagementPagePermissions, internalSystemPagePermissions, externalSystemPagePermissions, apiDocsPagePermissions } from '@/store/auth'
 import {
   House,
   User,
@@ -517,13 +517,7 @@ const handleMenuSelect = (index: string) => {
     closeMobileSidebar()
   }
 
-  if (index === 'internal-api-docs') {
-    // 跳转到内部API文档页面
-    router.push('/admin/api-docs/internal')
-  } else {
-    // 其他菜单项正常跳转
-    router.push(index)
-  }
+  router.push(index)
 }
 
 // 全屏切换
@@ -943,6 +937,29 @@ const visibleExternalSystemMenus = computed(() => {
 
 const showExternalSystemMenu = computed(() => {
   return visibleExternalSystemMenus.value.length > 0
+})
+
+const apiDocsMenus = [
+  {
+    index: '/admin/api-docs/external',
+    title: 'API对外文档中心',
+    permission: apiDocsPagePermissions.external,
+    icon: Link
+  },
+  {
+    index: '/admin/api-docs/internal',
+    title: 'API对内文档中心',
+    permission: apiDocsPagePermissions.internal,
+    icon: Lock
+  }
+]
+
+const visibleApiDocsMenus = computed(() => {
+  return apiDocsMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showApiDocsMenu = computed(() => {
+  return visibleApiDocsMenus.value.length > 0
 })
 
 // 用户菜单操作

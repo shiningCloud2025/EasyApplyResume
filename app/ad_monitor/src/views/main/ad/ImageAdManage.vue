@@ -85,7 +85,7 @@
     <el-dialog
       v-model="dialogVisible"
       :title="isEdit ? '编辑广告' : '新增广告'"
-      width="600px"
+      :width="formDialogWidth"
       :close-on-click-modal="false"
     >
       <el-form
@@ -160,7 +160,7 @@
     </el-dialog>
 
     <!-- 查看对话框 -->
-    <el-dialog v-model="viewDialogVisible" title="查看广告" width="600px">
+    <el-dialog v-model="viewDialogVisible" title="查看广告" :width="formDialogWidth">
       <el-descriptions :column="1" border>
         <el-descriptions-item label="ID">{{ viewData.advertisementId }}</el-descriptions-item>
         <el-descriptions-item label="广告名称">{{ viewData.advertisementName }}</el-descriptions-item>
@@ -213,6 +213,7 @@ const tagType = computed(() => {
   if (endpoint.value === '用户端') return 'primary'
   return 'warning'
 })
+const formDialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '600px'))
 
 const api = computed(() => {
   if (endpoint.value === '用户端') return userAdvertisementApi
@@ -517,6 +518,30 @@ onMounted(() => {
   
   span {
     font-size: 12px;
+  }
+}
+@media (max-width: 768px) {
+  .ad-page {
+    padding: 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+    align-items: stretch;
+
+    :deep(.el-input) {
+      width: 100% !important;
+    }
+  }
+
+  .pagination {
+    justify-content: center;
   }
 }
 </style>

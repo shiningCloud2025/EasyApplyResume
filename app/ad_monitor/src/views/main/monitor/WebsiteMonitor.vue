@@ -432,6 +432,26 @@ onUnmounted(() => {
   .stats-cards { grid-template-columns: repeat(2, 1fr); }
 }
 
+@media (max-width: 768px) {
+  .website-monitor {
+    padding: 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chart-filter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .chart-card {
+    padding: 16px;
+  }
+}
+
 @media (max-width: 640px) {
   .stats-cards { grid-template-columns: 1fr; }
 }

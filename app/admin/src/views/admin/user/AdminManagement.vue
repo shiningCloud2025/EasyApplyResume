@@ -188,7 +188,7 @@
     <el-dialog
       v-model="dialogVisible"
       :title="dialogType === 'create' ? '新增管理员' : '编辑管理员'"
-      width="600px"
+      :width="dialogWidth"
       @close="resetForm"
     >
       <el-form
@@ -288,7 +288,7 @@
     <el-dialog
       v-model="roleDialogVisible"
       title="分配角色"
-      width="500px"
+      :width="roleDialogWidth"
       :close-on-click-modal="false"
     >
       <div class="role-info">
@@ -327,7 +327,7 @@
     <el-dialog
       v-model="detailDialogVisible"
       title="管理员完整信息"
-      width="500px"
+      :width="detailDialogWidth"
     >
       <el-descriptions v-if="currentDetailAdmin" :column="2" border>
         <el-descriptions-item label="管理员ID">
@@ -377,7 +377,7 @@
     <el-dialog
       v-model="emailDialogVisible"
       title="发送邮件"
-      width="800px"
+      :width="emailDialogWidth"
       :close-on-click-modal="false"
     >
       <el-form
@@ -415,7 +415,7 @@
               v-model="emailForm.htmlContent"
               :defaultConfig="editorConfig"
               mode="default"
-              style="height: 300px; overflow-y: hidden;"
+              style="height: 300px;"
               @onCreated="handleEditorCreated"
             />
           </div>
@@ -447,7 +447,7 @@
     <el-dialog
       v-model="rolesDialogVisible"
       title="管理员角色权限"
-      width="700px"
+      :width="rolesDialogWidth"
     >
       <el-card>
         <template #header>
@@ -537,6 +537,11 @@ const canGenerateRandomAccount = computed(() => authStore.hasPermission('/admin/
 const showAdminActionColumn = computed(() => {
   return canViewAdminDetail.value || canUpdateAdmin.value || canAssignAdminRoles.value || canSendAdminEmail.value || canDeleteAdmin.value
 })
+const dialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '600px'))
+const roleDialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '500px'))
+const detailDialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '500px'))
+const emailDialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '800px'))
+const rolesDialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '700px'))
 
 // 日期格式化函数（只显示日期）
 const formatDate = (dateStr: string) => {
@@ -1297,6 +1302,7 @@ onBeforeUnmount(() => {
     .header-actions {
       width: 100%;
       justify-content: flex-start;
+      flex-wrap: wrap;
     }
     
     .search-card .el-form {

@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore, writtenTestManagementPagePermissions, externalSystemPagePermissions } from '@/store/auth'
+import { useAuthStore, writtenTestManagementPagePermissions, externalSystemPagePermissions, apiDocsPagePermissions } from '@/store/auth'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -345,13 +345,13 @@ const router = createRouter({
               path: 'external',
               name: 'ExternalAPIDocs',
               component: () => import('@/views/admin/APIDocs.vue'),
-              meta: { title: 'API对外文档中心' }
+              meta: { title: 'API对外文档中心', permission: apiDocsPagePermissions.external }
             },
             {
               path: 'internal',
               name: 'InternalAPIDocs',
               component: () => import('@/views/admin/APIDocs.vue'),
-              meta: { title: 'API对内文档中心' }
+              meta: { title: 'API对内文档中心', permission: apiDocsPagePermissions.internal }
             }
           ]
         },

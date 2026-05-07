@@ -163,7 +163,7 @@
     <el-dialog
       v-model="showCreateDialog"
       :title="editingPosition ? '编辑岗位' : '新增岗位'"
-      width="800px"
+      :width="positionDialogWidth"
       @close="resetForm"
     >
       <el-form
@@ -197,7 +197,7 @@
         </el-form-item>
         
         <el-row :gutter="20">
-          <el-col :span="12">
+          <el-col :xs="24" :sm="12">
             <el-form-item label="最低月薪" prop="minMonthSalary">
               <el-input-number 
                 v-model="positionForm.minMonthSalary" 
@@ -211,7 +211,7 @@
               <span style="margin-left: 8px; color: #909399;">元/月</span>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :xs="24" :sm="12">
             <el-form-item label="最高月薪" prop="maxMonthSalary">
               <el-input-number 
                 v-model="positionForm.maxMonthSalary" 
@@ -269,7 +269,7 @@
     <el-dialog
       v-model="showViewDialog"
       title="岗位详情"
-      width="700px"
+      :width="positionDetailDialogWidth"
     >
       <div class="position-detail" v-if="currentViewPosition">
         <el-descriptions :column="2" border>
@@ -325,6 +325,8 @@ const canDeletePosition = computed(() => authStore.hasPermission('/admin/recruit
 const showPositionActionColumn = computed(() => {
   return canViewPositionInfo.value || canUpdatePosition.value || canDeletePosition.value
 })
+const positionDialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '800px'))
+const positionDetailDialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '700px'))
 
 // 响应式数据
 const loading = ref(false)
@@ -687,6 +689,24 @@ onMounted(() => {
     
     .el-table {
       font-size: 14px;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .position-management {
+    .header-actions,
+    .search-form {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .header-actions .el-button {
+      width: 100%;
+    }
+
+    .search-form .el-form-item {
+      display: block;
+      margin-bottom: 16px;
     }
   }
 }

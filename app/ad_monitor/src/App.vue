@@ -54,4 +54,32 @@ html, body, #app {
   background-color: #059669;
   border-color: #059669;
 }
+
+@media (max-width: 768px) {
+  .el-dialog {
+    width: 94% !important;
+    max-width: 94vw;
+  }
+
+  .el-dialog__body {
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .el-pagination {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .el-table {
+    font-size: 14px;
+  }
+
+  .page-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 12px;
+  }
+}
 </style>
