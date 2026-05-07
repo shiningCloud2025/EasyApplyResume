@@ -212,46 +212,18 @@
         </el-sub-menu>
 
         <!-- 外部系统 -->
-        <el-sub-menu index="external-api">
+        <el-sub-menu v-if="showExternalSystemMenu" index="/admin/external-api">
           <template #title>
             <el-icon><Connection /></el-icon>
             <span>外部系统</span>
           </template>
-          <el-menu-item index="/admin/external-api/bailian">
-            <el-icon><MagicStick /></el-icon>
-            <span>阿里云百炼平台</span>
-          </el-menu-item>
-          <el-menu-item index="/admin/external-api/sms">
-            <el-icon><Message /></el-icon>
-            <span>阿里云短信平台</span>
-          </el-menu-item>
-          <el-menu-item index="/admin/external-api/searchapi">
-            <el-icon><Search /></el-icon>
-            <span>SearchAPI平台</span>
-          </el-menu-item>
-          <el-menu-item index="/admin/external-api/amap">
-            <el-icon><Location /></el-icon>
-            <span>高德开放平台</span>
-          </el-menu-item>
-          <el-menu-item index="/admin/external-api/baidu-cloud">
-            <el-icon><Cpu /></el-icon>
-            <span>百度智能云平台</span>
-          </el-menu-item>
-          <el-menu-item index="/admin/external-api/qiniu">
-            <el-icon><Connection /></el-icon>
-            <span>七牛云平台</span>
-          </el-menu-item>
-          <el-menu-item index="/admin/external-api/autodl">
-            <el-icon><Monitor /></el-icon>
-            <span>AutoDL平台</span>
-          </el-menu-item>
-          <el-menu-item index="/admin/external-api/bigmodel">
-            <el-icon><MagicStick /></el-icon>
-            <span>智谱开放平台</span>
-          </el-menu-item>
-          <el-menu-item index="/admin/external-api/volcengine">
-            <el-icon><Cpu /></el-icon>
-            <span>火山引擎平台</span>
+          <el-menu-item
+            v-for="item in visibleExternalSystemMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            <el-icon :is="item.icon" />
+            <span>{{ item.title }}</span>
           </el-menu-item>
         </el-sub-menu>
 
@@ -464,7 +436,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, shallowRef, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions, aiManagementPagePermissions, feedbackManagementPagePermissions, aboutUsManagementPagePermissions, helpCenterManagementPagePermissions, writtenTestManagementPagePermissions, scoreModelManagementPagePermissions, internalSystemPagePermissions } from '@/store/auth'
+import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions, aiManagementPagePermissions, feedbackManagementPagePermissions, aboutUsManagementPagePermissions, helpCenterManagementPagePermissions, writtenTestManagementPagePermissions, scoreModelManagementPagePermissions, internalSystemPagePermissions, externalSystemPagePermissions } from '@/store/auth'
 import {
   House,
   User,
@@ -906,6 +878,71 @@ const visibleInternalSystemMenus = computed(() => {
 
 const showInternalSystemMenu = computed(() => {
   return visibleInternalSystemMenus.value.length > 0
+})
+
+const externalSystemMenus = [
+  {
+    index: '/admin/external-api/bailian',
+    title: '阿里云百炼平台',
+    permission: externalSystemPagePermissions.bailian,
+    icon: MagicStick
+  },
+  {
+    index: '/admin/external-api/sms',
+    title: '阿里云短信平台',
+    permission: externalSystemPagePermissions.sms,
+    icon: Message
+  },
+  {
+    index: '/admin/external-api/searchapi',
+    title: 'SearchAPI平台',
+    permission: externalSystemPagePermissions.searchapi,
+    icon: Search
+  },
+  {
+    index: '/admin/external-api/amap',
+    title: '高德开放平台',
+    permission: externalSystemPagePermissions.amap,
+    icon: Location
+  },
+  {
+    index: '/admin/external-api/baidu-cloud',
+    title: '百度智能云平台',
+    permission: externalSystemPagePermissions.baiduCloud,
+    icon: Cpu
+  },
+  {
+    index: '/admin/external-api/qiniu',
+    title: '七牛云平台',
+    permission: externalSystemPagePermissions.qiniu,
+    icon: Connection
+  },
+  {
+    index: '/admin/external-api/autodl',
+    title: 'AutoDL平台',
+    permission: externalSystemPagePermissions.autodl,
+    icon: Monitor
+  },
+  {
+    index: '/admin/external-api/bigmodel',
+    title: '智谱开放平台',
+    permission: externalSystemPagePermissions.bigmodel,
+    icon: MagicStick
+  },
+  {
+    index: '/admin/external-api/volcengine',
+    title: '火山引擎平台',
+    permission: externalSystemPagePermissions.volcengine,
+    icon: Cpu
+  }
+]
+
+const visibleExternalSystemMenus = computed(() => {
+  return externalSystemMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showExternalSystemMenu = computed(() => {
+  return visibleExternalSystemMenus.value.length > 0
 })
 
 // 用户菜单操作

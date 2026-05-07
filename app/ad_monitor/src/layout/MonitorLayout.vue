@@ -119,7 +119,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
 import {
@@ -195,12 +195,23 @@ onMounted(async () => {
     }
   }
 })
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateMobileState)
+})
 </script>
 
 <style scoped lang="scss">
 .monitor-layout {
   height: 100vh;
   overflow: hidden;
+}
+
+.mobile-sidebar-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 2000;
 }
 
 .sidebar {
@@ -394,5 +405,50 @@ onMounted(async () => {
 .fade-transform-leave-to {
   opacity: 0;
   transform: translateX(10px);
+}
+@media (max-width: 768px) {
+  .monitor-layout {
+    &.is-mobile {
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 220px !important;
+        z-index: 2001;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+
+        &.open {
+          transform: translateX(0);
+        }
+      }
+
+      .header {
+        padding: 0 14px;
+      }
+
+      .header-right {
+        gap: 8px;
+      }
+
+      .main-content {
+        padding: 12px;
+      }
+
+      .footer {
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        height: auto;
+        padding: 8px 12px;
+      }
+
+      .username,
+      .el-breadcrumb {
+        display: none;
+      }
+    }
+  }
 }
 </style>

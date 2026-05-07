@@ -198,6 +198,18 @@ export const internalSystemPagePermissions = {
   yapiPlatform: '/admin/internal-system/yapi-platform'
 } as const
 
+export const externalSystemPagePermissions = {
+  bailian: '/admin/external-system/bailian',
+  sms: '/admin/external-system/sms',
+  searchapi: '/admin/external-system/searchapi',
+  amap: '/admin/external-system/amap',
+  baiduCloud: '/admin/external-system/baidu-cloud',
+  qiniu: '/admin/external-system/qiniu',
+  autodl: '/admin/external-system/autodl',
+  bigmodel: '/admin/external-system/bigmodel',
+  volcengine: '/admin/external-system/volcengine'
+} as const
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('admin_token') || '',

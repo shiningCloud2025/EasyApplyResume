@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore, writtenTestManagementPagePermissions } from '@/store/auth'
+import { useAuthStore, writtenTestManagementPagePermissions, externalSystemPagePermissions } from '@/store/auth'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -365,55 +365,55 @@ const router = createRouter({
               path: 'bailian',
               name: 'BailianAPI',
               component: () => import('@/views/admin/external-api/BailianAPI.vue'),
-              meta: { title: '阿里云百炼平台' }
+              meta: { title: '阿里云百炼平台', permission: externalSystemPagePermissions.bailian }
             },
             {
               path: 'sms',
               name: 'SmsAPI',
               component: () => import('@/views/admin/external-api/SmsAPI.vue'),
-              meta: { title: '阿里云短信平台' }
+              meta: { title: '阿里云短信平台', permission: externalSystemPagePermissions.sms }
             },
             {
               path: 'searchapi',
               name: 'SearchAPI',
               component: () => import('@/views/admin/external-api/SearchAPI.vue'),
-              meta: { title: 'SearchAPI平台' }
+              meta: { title: 'SearchAPI平台', permission: externalSystemPagePermissions.searchapi }
             },
             {
               path: 'amap',
               name: 'AmapAPI',
               component: () => import('@/views/admin/external-api/AmapAPI.vue'),
-              meta: { title: '高德开放平台' }
+              meta: { title: '高德开放平台', permission: externalSystemPagePermissions.amap }
             },
             {
               path: 'baidu-cloud',
               name: 'BaiduCloudAPI',
               component: () => import('@/views/admin/external-api/BaiduCloudAPI.vue'),
-              meta: { title: '百度智能云平台' }
+              meta: { title: '百度智能云平台', permission: externalSystemPagePermissions.baiduCloud }
             },
             {
               path: 'qiniu',
               name: 'QiniuCloudAPI',
               component: () => import('@/views/admin/external-api/QiniuCloudAPI.vue'),
-              meta: { title: '七牛云平台' }
+              meta: { title: '七牛云平台', permission: externalSystemPagePermissions.qiniu }
             },
             {
               path: 'autodl',
               name: 'AutoDLAPI',
               component: () => import('@/views/admin/external-api/AutoDLAPI.vue'),
-              meta: { title: 'AutoDL平台' }
+              meta: { title: 'AutoDL平台', permission: externalSystemPagePermissions.autodl }
             },
             {
               path: 'bigmodel',
               name: 'BigModelAPI',
               component: () => import('@/views/admin/external-api/BigModelAPI.vue'),
-              meta: { title: '智谱开放平台' }
+              meta: { title: '智谱开放平台', permission: externalSystemPagePermissions.bigmodel }
             },
             {
               path: 'volcengine',
               name: 'VolcengineAPI',
               component: () => import('@/views/admin/external-api/VolcengineAPI.vue'),
-              meta: { title: '火山引擎平台' }
+              meta: { title: '火山引擎平台', permission: externalSystemPagePermissions.volcengine }
             }
           ]
         },
