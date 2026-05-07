@@ -191,6 +191,13 @@ export const scoreModelManagementPagePermissions = {
   version: '/admin/scoreModelVersion/findScoreModelVersionByPage'
 } as const
 
+export const internalSystemPagePermissions = {
+  userPortal: '/admin/internal-system/user-portal',
+  observationPortal: '/admin/internal-system/observation-portal',
+  nacosPlatform: '/admin/internal-system/nacos-platform',
+  yapiPlatform: '/admin/internal-system/yapi-platform'
+} as const
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('admin_token') || '',

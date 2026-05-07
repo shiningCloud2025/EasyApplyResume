@@ -1,7 +1,8 @@
 <template>
-  <el-container class="monitor-layout">
+  <el-container :class="['monitor-layout', { 'is-mobile': isMobile, 'mobile-sidebar-open': mobileSidebarOpen }]">
+    <div v-if="isMobile && mobileSidebarOpen" class="mobile-sidebar-mask" @click="closeMobileSidebar"></div>
     <!-- 侧边栏 -->
-    <el-aside :width="sidebarCollapsed ? '64px' : '220px'" class="sidebar">
+    <el-aside :width="sidebarCollapsed ? '64px' : '220px'" :class="['sidebar', { mobile: isMobile, open: mobileSidebarOpen }]">
       <div class="sidebar-header">
         <div class="logo" v-show="!sidebarCollapsed">
           <div class="logo-icon">
@@ -131,8 +132,25 @@ const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 
+const isMobile = ref(false)
+const mobileSidebarOpen = ref(false)
+const updateMobileState = () => {
+  isMobile.value = window.innerWidth <= 768
+  if (!isMobile.value) {
+    mobileSidebarOpen.value = false
+  }
+}
+
+const closeMobileSidebar = () => {
+  mobileSidebarOpen.value = false
+}
+
 const sidebarCollapsed = ref(false)
 const toggleSidebar = () => {
+  if (isMobile.value) {
+    mobileSidebarOpen.value = !mobileSidebarOpen.value
+    return
+  }
   sidebarCollapsed.value = !sidebarCollapsed.value
 }
 
@@ -166,6 +184,9 @@ const handleUserCommand = async (command: string) => {
 }
 
 onMounted(async () => {
+  updateMobileState()
+  window.addEventListener('resize', updateMobileState)
+
   if (!authStore.user && authStore.isLoggedIn) {
     try {
       await authStore.getUserInfo()

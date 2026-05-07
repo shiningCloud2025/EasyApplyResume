@@ -30,6 +30,29 @@
       font-size: 14px;
       color: #333;
       white-space: nowrap;
+      margin-bottom: 8px;
+    }
+  }
+
+  .job-filter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .job-filter-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .job-filter-actions {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    .ant-btn {
+      min-width: 108px;
     }
   }
 
@@ -39,7 +62,7 @@
     .company-name-cell {
       font-weight: 500;
       color: #333;
-      
+
       &:hover {
         color: #1890ff;
       }
@@ -50,6 +73,22 @@
         td {
           background: #f0f7ff !important;
         }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .job-list-page {
+    padding: 16px;
+
+    .job-filter-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .job-filter-actions {
+      .ant-btn {
+        flex: 1;
       }
     }
   }

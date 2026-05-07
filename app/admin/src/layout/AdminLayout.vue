@@ -1,7 +1,8 @@
 <template>
-  <el-container class="admin-layout">
+  <el-container :class="['admin-layout', { 'is-mobile': isMobile, 'mobile-sidebar-open': mobileSidebarOpen }]">
+    <div v-if="isMobile && mobileSidebarOpen" class="mobile-sidebar-mask" @click="closeMobileSidebar"></div>
     <!-- 侧边栏 -->
-    <el-aside :width="sidebarCollapsed ? '64px' : '240px'" class="sidebar">
+    <el-aside :width="sidebarWidth" :class="['sidebar', { collapsed: sidebarCollapsed, mobile: isMobile, open: mobileSidebarOpen }]">
       <div class="sidebar-header">
         <div class="logo" v-show="!sidebarCollapsed">
           <div class="logo-icon">
@@ -195,26 +196,18 @@
         </el-sub-menu>
 
         <!-- 内部系统 -->
-        <el-sub-menu index="/admin/system">
+        <el-sub-menu v-if="showInternalSystemMenu" index="/admin/system">
           <template #title>
             <el-icon><Monitor /></el-icon>
             <span>内部系统</span>
           </template>
-          <el-menu-item index="/admin/system/user-portal">
-            <el-icon><User /></el-icon>
-            <span>易投简历用户端</span>
-          </el-menu-item>
-          <el-menu-item index="/admin/system/observation-portal">
-            <el-icon><DataAnalysis /></el-icon>
-            <span>易投简历监测与广告端</span>
-          </el-menu-item>
-          <el-menu-item index="/admin/system/nacos-platform">
-            <el-icon><Connection /></el-icon>
-            <span>Nacos配置平台</span>
-          </el-menu-item>
-          <el-menu-item index="/admin/system/yapi-platform">
-            <el-icon><Link /></el-icon>
-            <span>YApi测试平台</span>
+          <el-menu-item
+            v-for="item in visibleInternalSystemMenus"
+            :key="item.index"
+            :index="item.index"
+          >
+            <el-icon :is="item.icon" />
+            <span>{{ item.title }}</span>
           </el-menu-item>
         </el-sub-menu>
 
@@ -471,7 +464,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, watch, shallowRef, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions, aiManagementPagePermissions, feedbackManagementPagePermissions, aboutUsManagementPagePermissions, helpCenterManagementPagePermissions, writtenTestManagementPagePermissions, scoreModelManagementPagePermissions } from '@/store/auth'
+import { useAuthStore, websiteManagementPagePermissions, articleManagementPagePermissions, recruitmentManagementPagePermissions, resumeManagementPagePermissions, mapManagementPagePermissions, aiManagementPagePermissions, feedbackManagementPagePermissions, aboutUsManagementPagePermissions, helpCenterManagementPagePermissions, writtenTestManagementPagePermissions, scoreModelManagementPagePermissions, internalSystemPagePermissions } from '@/store/auth'
 import {
   House,
   User,
@@ -510,9 +503,33 @@ const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 
+const isMobile = ref(false)
+const mobileSidebarOpen = ref(false)
+const updateMobileState = () => {
+  isMobile.value = window.innerWidth <= 768
+  if (!isMobile.value) {
+    mobileSidebarOpen.value = false
+  }
+}
+
+const sidebarWidth = computed(() => {
+  if (isMobile.value) {
+    return '240px'
+  }
+  return sidebarCollapsed.value ? '64px' : '240px'
+})
+
+const closeMobileSidebar = () => {
+  mobileSidebarOpen.value = false
+}
+
 // 侧边栏状态
 const sidebarCollapsed = ref(false)
 const toggleSidebar = () => {
+  if (isMobile.value) {
+    mobileSidebarOpen.value = !mobileSidebarOpen.value
+    return
+  }
   sidebarCollapsed.value = !sidebarCollapsed.value
 }
 
@@ -524,6 +541,10 @@ const handleSearch = () => {
 
 // 菜单选择处理
 const handleMenuSelect = (index: string) => {
+  if (isMobile.value) {
+    closeMobileSidebar()
+  }
+
   if (index === 'internal-api-docs') {
     // 跳转到内部API文档页面
     router.push('/admin/api-docs/internal')
@@ -852,6 +873,41 @@ const showScoreModelManagementMenu = computed(() => {
   return visibleScoreModelManagementMenus.value.length > 0
 })
 
+const internalSystemMenus = [
+  {
+    index: '/admin/system/user-portal',
+    title: '易投简历用户端',
+    permission: internalSystemPagePermissions.userPortal,
+    icon: User
+  },
+  {
+    index: '/admin/system/observation-portal',
+    title: '易投简历监测与广告端',
+    permission: internalSystemPagePermissions.observationPortal,
+    icon: DataAnalysis
+  },
+  {
+    index: '/admin/system/nacos-platform',
+    title: 'Nacos配置平台',
+    permission: internalSystemPagePermissions.nacosPlatform,
+    icon: Connection
+  },
+  {
+    index: '/admin/system/yapi-platform',
+    title: 'YApi测试平台',
+    permission: internalSystemPagePermissions.yapiPlatform,
+    icon: Link
+  }
+]
+
+const visibleInternalSystemMenus = computed(() => {
+  return internalSystemMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showInternalSystemMenu = computed(() => {
+  return visibleInternalSystemMenus.value.length > 0
+})
+
 // 用户菜单操作
 const handleUserCommand = (command: string) => {
   switch (command) {
@@ -982,6 +1038,9 @@ watch(
   () => route.path,
   (newPath) => {
     breadcrumbList.value = getCurrentRouteInfo(newPath)
+    if (isMobile.value) {
+      closeMobileSidebar()
+    }
   },
   { immediate: true }
 )
@@ -1177,6 +1236,9 @@ const handleSendResumeSubmit = async () => {
 
 // 组件挂载时检查登录状态并获取用户信息
 onMounted(async () => {
+  updateMobileState()
+  window.addEventListener('resize', updateMobileState)
+
   if (!authStore.isLoggedIn) {
     router.push('/login')
     return
@@ -1200,6 +1262,8 @@ const handleEditorCreated = (editor: any) => {
 
 // 组件卸载时清除定时器
 onUnmounted(() => {
+  window.removeEventListener('resize', updateMobileState)
+
   if (userInfoTimer) {
     console.log('🧹 AdminLayout: 清除用户信息获取定时器')
     clearInterval(userInfoTimer)
@@ -1505,23 +1569,78 @@ onUnmounted(() => {
 
 // 响应式设计
 @media (max-width: 768px) {
+  .admin-layout {
+    &.is-mobile {
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 240px !important;
+        z-index: 2001;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+
+        &.open {
+          transform: translateX(0);
+        }
+      }
+
+      .mobile-sidebar-mask {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.45);
+        z-index: 2000;
+      }
+
+      .header {
+        padding: 0 16px;
+      }
+
+      .header-right {
+        gap: 10px;
+      }
+
+      .notification-badge,
+      .search-input,
+      .breadcrumb-container {
+        display: none;
+      }
+
+      .main-content {
+        padding: 12px;
+      }
+
+      .footer {
+        padding: 0 12px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
   .search-input {
     width: 0;
     overflow: hidden;
   }
-  
+
   .username {
     display: none;
   }
-  
+
   .main-content {
     padding: 16px;
   }
-  
+
   .breadcrumb-container {
     padding: 12px 16px 0;
   }
-  
+
   .footer-content {
     flex-direction: column;
     gap: 4px;

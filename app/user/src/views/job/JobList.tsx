@@ -16,6 +16,7 @@ import { useQuery } from 'react-query'
 import { jobAPI } from '@api/job'
 import { useNavigate } from 'react-router-dom'
 import { formatRecruitPositionName, formatIndustryMapName, isRecruitIndustry } from '@utils/index'
+import './JobList.scss'
 
 const JobList: React.FC = () => {
   const navigate = useNavigate()
@@ -31,7 +32,6 @@ const JobList: React.FC = () => {
   })
   const [allJobs, setAllJobs] = useState<any[]>([])
 
-  // 获取用户端普通行业列表
   const { data: normalIndustries = [] } = useQuery(
     ['normal-industries'],
     () => jobAPI.getNormalIndustries(),
@@ -41,7 +41,6 @@ const JobList: React.FC = () => {
     }
   )
 
-  // 获取全量行业用于映射到招聘信息行业 code
   const { data: allIndustries = [] } = useQuery(
     ['employment-industries'],
     () => jobAPI.getAllIndustries(),
@@ -89,7 +88,7 @@ const JobList: React.FC = () => {
       select: (response) => response.data,
       onSuccess: (data) => {
         setAllJobs(data?.records || [])
-        setPagination({ ...pagination, current: 1 })
+        setPagination((current) => ({ ...current, current: 1 }))
       },
       onError: (error: any) => {
         const errorMsg = error?.response?.data?.message || error?.message || '获取招聘信息失败'
@@ -98,7 +97,6 @@ const JobList: React.FC = () => {
     }
   )
 
-  // 前端分页:计算当前页数据
   const paginatedJobs = React.useMemo(() => {
     const start = (pagination.current - 1) * pagination.pageSize
     const end = start + pagination.pageSize
@@ -133,7 +131,6 @@ const JobList: React.FC = () => {
     return new Date(dateString).toLocaleDateString('zh-CN')
   }
 
-  // 网申状态标签颜色
   const getStatusColor = (status: string) => {
     if (!status) return 'default'
     if (status.includes('进行中') || status.includes('开放')) return 'green'
@@ -141,16 +138,14 @@ const JobList: React.FC = () => {
     return 'blue'
   }
 
-  // 企业性质映射
   const getCompanyTypeName = (type: number) => {
     const typeMap: Record<number, string> = {
-      1: '央企', 2: '国企', 3: '国企控股', 4: '私企', 
+      1: '央企', 2: '国企', 3: '国企控股', 4: '私企',
       5: '外企', 6: '合资', 7: '公务员', 8: '事业编'
     }
     return typeMap[type] || '-'
   }
 
-  // 招聘批次映射
   const getBatchName = (batch: number) => {
     const batchMap: Record<number, string> = {
       1: '春招', 2: '暑期实习', 3: '秋招', 4: '寒假实习', 5: '日常实习'
@@ -158,12 +153,21 @@ const JobList: React.FC = () => {
     return batchMap[batch] || '-'
   }
 
-  // 招聘对象映射
   const getRecruitObjectName = (obj: number) => {
     const objMap: Record<number, string> = {
       1: '应届生', 2: '社会招聘', 3: '实习生'
     }
     return objMap[obj] || '-'
+  }
+
+  const resetFilters = () => {
+    setFilters({
+      employmentInformationCompanyName: '',
+      employmentInformationIndustryCategories: undefined,
+      employmentInformationRecruitLocationDetail: ''
+    })
+    setSelectedIndustryCode(undefined)
+    setPagination({ current: 1, pageSize: 10 })
   }
 
   return (
@@ -174,26 +178,21 @@ const JobList: React.FC = () => {
       </div>
 
       <Card className="filter-card">
-        <Row gutter={24} align="middle">
-          <Col>
+        <div className="job-filter-grid">
+          <div className="job-filter-item">
             <span className="filter-label">公司名称</span>
-          </Col>
-          <Col>
             <Input
               placeholder="请输入公司名称"
               value={filters.employmentInformationCompanyName}
               onChange={(e) => handleFilterChange('employmentInformationCompanyName', e.target.value)}
               allowClear
-              style={{ width: 180 }}
             />
-          </Col>
-          <Col>
+          </div>
+
+          <div className="job-filter-item">
             <span className="filter-label">行业</span>
-          </Col>
-          <Col>
             <Select
               placeholder="请选择行业"
-              style={{ width: 150 }}
               value={selectedIndustryCode}
               onChange={handleIndustryChange}
               allowClear
@@ -204,38 +203,27 @@ const JobList: React.FC = () => {
                 </Select.Option>
               ))}
             </Select>
-          </Col>
-          <Col>
+          </div>
+
+          <div className="job-filter-item">
             <span className="filter-label">详细地址</span>
-          </Col>
-          <Col>
             <Input
               placeholder="请输入地址"
               value={filters.employmentInformationRecruitLocationDetail}
               onChange={(e) => handleFilterChange('employmentInformationRecruitLocationDetail', e.target.value)}
               allowClear
-              style={{ width: 150 }}
             />
-          </Col>
-          <Col>
-            <Button type="primary" icon={<SearchOutlined />} onClick={() => refetch()}>
-              搜索
-            </Button>
-          </Col>
-          <Col>
-            <Button icon={<ReloadOutlined />} onClick={() => {
-              setFilters({
-                employmentInformationCompanyName: '',
-                employmentInformationIndustryCategories: undefined,
-                employmentInformationRecruitLocationDetail: ''
-              })
-              setSelectedIndustryCode(undefined)
-              setPagination({ current: 1, pageSize: 10 })
-            }}>
-              重置
-            </Button>
-          </Col>
-        </Row>
+          </div>
+        </div>
+
+        <div className="job-filter-actions">
+          <Button type="primary" icon={<SearchOutlined />} onClick={() => refetch()}>
+            搜索
+          </Button>
+          <Button icon={<ReloadOutlined />} onClick={resetFilters}>
+            重置
+          </Button>
+        </div>
       </Card>
 
       <Card className="table-card">
@@ -287,6 +275,7 @@ const JobList: React.FC = () => {
                 dataIndex: 'employmentInformationIndustryCategoriesName',
                 key: 'industry',
                 width: 120,
+                responsive: ['md'],
                 render: (text: string) => formatIndustryMapName(text)
               },
               {
@@ -294,6 +283,7 @@ const JobList: React.FC = () => {
                 dataIndex: 'employmentInformationCompanyType',
                 key: 'companyType',
                 width: 100,
+                responsive: ['lg'],
                 render: (val: number) => getCompanyTypeName(val)
               },
               {
@@ -301,6 +291,7 @@ const JobList: React.FC = () => {
                 dataIndex: 'employmentInformationBatch',
                 key: 'batch',
                 width: 100,
+                responsive: ['lg'],
                 render: (val: number) => getBatchName(val)
               },
               {
@@ -308,6 +299,7 @@ const JobList: React.FC = () => {
                 dataIndex: 'employmentInformationRecruitObject',
                 key: 'object',
                 width: 100,
+                responsive: ['lg'],
                 render: (val: number) => getRecruitObjectName(val)
               },
               {
@@ -322,6 +314,7 @@ const JobList: React.FC = () => {
                 dataIndex: 'employmentInformationRecruitLocationFirstName',
                 key: 'locationProvince',
                 width: 150,
+                responsive: ['md'],
                 render: (list: string[]) => list?.join('、') || '-'
               },
               {
@@ -329,6 +322,7 @@ const JobList: React.FC = () => {
                 dataIndex: 'employmentInformationRecruitLocationSecondName',
                 key: 'locationCity',
                 width: 150,
+                responsive: ['lg'],
                 render: (list: string[]) => list?.join('、') || '-'
               },
               {
@@ -336,6 +330,7 @@ const JobList: React.FC = () => {
                 dataIndex: 'employmentInformationRecruitLocationDetail',
                 key: 'locationDetail',
                 width: 200,
+                responsive: ['lg'],
                 render: (list: string[]) => list?.join('、') || '-'
               },
               {
@@ -352,6 +347,7 @@ const JobList: React.FC = () => {
                 dataIndex: 'employmentInformationStartTime',
                 key: 'startTime',
                 width: 110,
+                responsive: ['md'],
                 render: (text: string) => formatDate(text)
               },
               {
@@ -359,6 +355,7 @@ const JobList: React.FC = () => {
                 dataIndex: 'employmentInformationStopTime',
                 key: 'stopTime',
                 width: 110,
+                responsive: ['md'],
                 render: (text: string) => formatDate(text)
               },
               {
@@ -366,6 +363,7 @@ const JobList: React.FC = () => {
                 dataIndex: 'employmentInformationUpdatedTime',
                 key: 'updatedTime',
                 width: 110,
+                responsive: ['lg'],
                 render: (text: string) => formatDate(text)
               }
             ]}

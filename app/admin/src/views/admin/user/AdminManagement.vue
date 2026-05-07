@@ -223,11 +223,11 @@
           <el-input v-model="form.adminPhone" placeholder="请输入手机号" />
         </el-form-item>
         
-        <el-form-item label="密码" prop="adminPassword" v-if="dialogType === 'create'">
-          <el-input 
-            v-model="form.adminPassword" 
-            type="password" 
-            placeholder="请输入密码"
+        <el-form-item :label="dialogType === 'create' ? '密码' : '新密码'" prop="adminPassword">
+          <el-input
+            v-model="form.adminPassword"
+            type="password"
+            :placeholder="dialogType === 'create' ? '请输入密码' : '请输入新密码'"
             show-password
           />
         </el-form-item>

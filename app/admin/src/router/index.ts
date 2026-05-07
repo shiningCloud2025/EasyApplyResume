@@ -275,25 +275,25 @@ const router = createRouter({
               path: 'user-portal',
               name: 'UserPortal',
               component: () => import('@/views/admin/system/UserPortal.vue'),
-              meta: { title: '易投简历用户端' }
+              meta: { title: '易投简历用户端', permission: '/admin/internal-system/user-portal' }
             },
             {
               path: 'observation-portal',
               name: 'ObservationPortal',
               component: () => import('@/views/admin/system/ObservationPortal.vue'),
-              meta: { title: '易投简历观测与广告端' }
+              meta: { title: '易投简历观测与广告端', permission: '/admin/internal-system/observation-portal' }
             },
             {
               path: 'nacos-platform',
               name: 'NacosPlatform',
               component: () => import('@/views/admin/system/NacosPlatform.vue'),
-              meta: { title: 'Nacos配置平台' }
+              meta: { title: 'Nacos配置平台', permission: '/admin/internal-system/nacos-platform' }
             },
             {
               path: 'yapi-platform',
               name: 'YApiPlatformInternal',
               component: () => import('@/views/admin/yapi/YApiEmbed.vue'),
-              meta: { title: 'YApi测试平台' }
+              meta: { title: 'YApi测试平台', permission: '/admin/internal-system/yapi-platform' }
             }
           ]
         },

@@ -342,7 +342,7 @@ const ProfileEdit: React.FC = () => {
             </Form.Item>
 
             <Row gutter={16}>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Form.Item 
                   label="期望工作省份" 
                   name="userRecruitLocationFirst"
@@ -363,7 +363,7 @@ const ProfileEdit: React.FC = () => {
                   </Select>
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Form.Item 
                   label="期望工作城市" 
                   name="userRecruitLocationSecond"
@@ -417,7 +417,7 @@ const ProfileEdit: React.FC = () => {
             </Form.Item>
 
             <Row gutter={16}>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Form.Item 
                   label="最低月薪" 
                   name="userDreamMinMonthSalary"
@@ -426,7 +426,7 @@ const ProfileEdit: React.FC = () => {
                   <InputNumber min={0} max={100000} placeholder="最低" style={{ width: '100%' }} addonAfter="元" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Form.Item 
                   label="最高月薪" 
                   name="userDreamMaxMonthSalary"

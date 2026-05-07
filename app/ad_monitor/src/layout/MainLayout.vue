@@ -1,7 +1,8 @@
 <template>
-  <el-container class="main-layout">
+  <el-container :class="['main-layout', { 'is-mobile': isMobile, 'mobile-sidebar-open': mobileSidebarOpen }]">
+    <div v-if="isMobile && mobileSidebarOpen" class="mobile-sidebar-mask" @click="closeMobileSidebar"></div>
     <!-- 侧边栏 -->
-    <el-aside :width="collapsed ? '64px' : '240px'" class="sidebar">
+    <el-aside :width="sidebarWidth" :class="['sidebar', { mobile: isMobile, open: mobileSidebarOpen }]">
       <div class="sidebar-header">
         <div class="logo" v-show="!collapsed">
           <div class="logo-icon">
@@ -193,7 +194,7 @@
         <div class="header-left">
           <el-button
             :icon="collapsed ? Expand : Fold"
-            @click="collapsed = !collapsed"
+            @click="toggleSidebar"
             text
             class="collapse-btn"
           />
@@ -249,7 +250,7 @@
       </el-main>
     </el-container>
   </el-container>
-  
+
   <!-- 空闲广告轮播 -->
   <IdleAdCarousel :idle-time="7 * 60 * 1000" :enabled="true" />
 </template>
@@ -270,9 +271,37 @@ const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
 
+const isMobile = ref(false)
+const mobileSidebarOpen = ref(false)
+const updateMobileState = () => {
+  isMobile.value = window.innerWidth <= 768
+  if (!isMobile.value) {
+    mobileSidebarOpen.value = false
+  }
+}
+
+const sidebarWidth = computed(() => {
+  if (isMobile.value) {
+    return '240px'
+  }
+  return collapsed.value ? '64px' : '240px'
+})
+
+const closeMobileSidebar = () => {
+  mobileSidebarOpen.value = false
+}
+
 const collapsed = ref(false)
 const activeMenu = computed(() => route.path)
 const defaultAvatar = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+
+const toggleSidebar = () => {
+  if (isMobile.value) {
+    mobileSidebarOpen.value = !mobileSidebarOpen.value
+    return
+  }
+  collapsed.value = !collapsed.value
+}
 
 // 面包屑
 const breadcrumbs = computed(() => {
@@ -402,6 +431,9 @@ const fetchUserInfo = async (silent: boolean = false) => {
 
 // 组件挂载时检查登录状态并获取用户信息
 onMounted(async () => {
+  updateMobileState()
+  window.addEventListener('resize', updateMobileState)
+
   if (!authStore.isLoggedIn) {
     router.push('/')
     return
@@ -419,6 +451,8 @@ onMounted(async () => {
 
 // 组件卸载时清除定时器
 onUnmounted(() => {
+  window.removeEventListener('resize', updateMobileState)
+
   if (userInfoTimer) {
     console.log('🧹 [监控端] 清除用户信息获取定时器')
     clearInterval(userInfoTimer)
@@ -430,6 +464,13 @@ onUnmounted(() => {
 <style scoped lang="scss">
 .main-layout {
   height: 100vh;
+}
+
+.mobile-sidebar-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 2000;
 }
 
 .sidebar {
@@ -584,4 +625,48 @@ onUnmounted(() => {
 .fade-enter-from, .fade-leave-to {
   opacity: 0;
 }
-</style>
+@media (max-width: 768px) {
+  .main-layout {
+    &.is-mobile {
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 240px !important;
+        z-index: 2001;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+
+        &.open {
+          transform: translateX(0);
+        }
+      }
+
+      .header {
+        padding: 0 14px;
+      }
+
+      .header-right {
+        gap: 8px;
+      }
+
+      .main-content {
+        padding: 12px;
+      }
+
+      .footer {
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        height: auto;
+        padding: 8px 12px;
+      }
+
+      .username,
+      .el-breadcrumb {
+        display: none;
+      }
+    }
+  }
+}

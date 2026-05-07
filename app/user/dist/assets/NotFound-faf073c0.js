@@ -1,1 +1,0 @@
-import{u as e,j as t}from"./index-610f6630.js";import{aX as a,B as r}from"./antd-vendor-aeb4324b.js";import"./react-vendor-fa9da516.js";const u=()=>{const s=e();return t.jsx("div",{className:"error-page",children:t.jsx(a,{status:"404",title:"404",subTitle:"抱歉，您访问的页面不存在。",extra:t.jsx(r,{type:"primary",onClick:()=>s("/home"),children:"返回首页"})})})};export{u as default};

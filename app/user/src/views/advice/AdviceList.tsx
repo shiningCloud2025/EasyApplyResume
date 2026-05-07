@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import {
   Card,
   Table,
-  Row,
-  Col,
   Input,
   Button,
   Tag,
@@ -29,7 +27,6 @@ const AdviceList: React.FC = () => {
     pageSize: 10
   })
 
-  // 获取攻略列表
   const {
     data: articlesData,
     isLoading,
@@ -51,11 +48,6 @@ const AdviceList: React.FC = () => {
     }
   )
 
-  const handleSearch = (value: string) => {
-    setFilters({ ...filters, jobAdviceArticleTitle: value })
-    setPagination({ ...pagination, current: 1 })
-  }
-
   const handleFilterChange = (key: string, value: any) => {
     setFilters({ ...filters, [key]: value || '' })
     setPagination({ ...pagination, current: 1 })
@@ -74,6 +66,16 @@ const AdviceList: React.FC = () => {
     return new Date(dateString).toLocaleDateString('zh-CN')
   }
 
+  const resetFilters = () => {
+    setFilters({
+      jobAdviceArticleTitle: '',
+      jobAdviceArticleCategory: '',
+      jobAdviceArticleTags: '',
+      jobAdviceArticleAuthorName: ''
+    })
+    setPagination({ current: 1, pageSize: 10 })
+  }
+
   return (
     <div className="advice-list-page">
       <div className="page-header">
@@ -82,62 +84,46 @@ const AdviceList: React.FC = () => {
       </div>
 
       <Card className="filter-card">
-        <Row gutter={24} align="middle">
-          <Col>
+        <div className="advice-filter-grid">
+          <div className="advice-filter-item">
             <span className="filter-label">攻略标题</span>
-          </Col>
-          <Col>
             <Input
               placeholder="请输入标题"
               value={filters.jobAdviceArticleTitle}
               onChange={(e) => handleFilterChange('jobAdviceArticleTitle', e.target.value)}
               allowClear
-              style={{ width: 180 }}
             />
-          </Col>
-          <Col>
+          </div>
+
+          <div className="advice-filter-item">
             <span className="filter-label">分类</span>
-          </Col>
-          <Col>
             <Input
               placeholder="请输入分类"
               value={filters.jobAdviceArticleCategory}
               onChange={(e) => handleFilterChange('jobAdviceArticleCategory', e.target.value)}
               allowClear
-              style={{ width: 120 }}
             />
-          </Col>
-          <Col>
+          </div>
+
+          <div className="advice-filter-item">
             <span className="filter-label">作者</span>
-          </Col>
-          <Col>
             <Input
               placeholder="请输入作者"
               value={filters.jobAdviceArticleAuthorName}
               onChange={(e) => handleFilterChange('jobAdviceArticleAuthorName', e.target.value)}
               allowClear
-              style={{ width: 120 }}
             />
-          </Col>
-          <Col>
-            <Button type="primary" icon={<SearchOutlined />} onClick={() => refetch()}>
-              搜索
-            </Button>
-          </Col>
-          <Col>
-            <Button icon={<ReloadOutlined />} onClick={() => {
-              setFilters({
-                jobAdviceArticleTitle: '',
-                jobAdviceArticleCategory: '',
-                jobAdviceArticleTags: '',
-                jobAdviceArticleAuthorName: ''
-              })
-              setPagination({ current: 1, pageSize: 10 })
-            }}>
-              重置
-            </Button>
-          </Col>
-        </Row>
+          </div>
+        </div>
+
+        <div className="advice-filter-actions">
+          <Button type="primary" icon={<SearchOutlined />} onClick={() => refetch()}>
+            搜索
+          </Button>
+          <Button icon={<ReloadOutlined />} onClick={resetFilters}>
+            重置
+          </Button>
+        </div>
       </Card>
 
       <Card className="table-card">
@@ -155,6 +141,7 @@ const AdviceList: React.FC = () => {
             dataSource={articlesData?.records || []}
             loading={isLoading}
             rowKey="jobAdviceArticleId"
+            scroll={{ x: 960 }}
             onRow={(record: any) => ({
               onClick: () => handleArticleClick(record.jobAdviceArticleId),
               style: { cursor: 'pointer' }
@@ -193,6 +180,7 @@ const AdviceList: React.FC = () => {
                 dataIndex: 'jobAdviceArticleTags',
                 key: 'tags',
                 width: 200,
+                responsive: ['md'],
                 render: (text: string) => (
                   text ? (
                     <span>
@@ -208,6 +196,7 @@ const AdviceList: React.FC = () => {
                 dataIndex: 'jobAdviceArticleAuthorName',
                 key: 'author',
                 width: 120,
+                responsive: ['md'],
                 render: (text: string) => text || '佚名'
               },
               {
@@ -222,6 +211,7 @@ const AdviceList: React.FC = () => {
                 dataIndex: 'jobAdviceArticleUpdatedTime',
                 key: 'updatedTime',
                 width: 120,
+                responsive: ['lg'],
                 render: (text: string) => formatDate(text)
               }
             ]}

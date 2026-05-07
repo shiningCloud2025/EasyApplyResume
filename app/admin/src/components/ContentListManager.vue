@@ -24,6 +24,7 @@
     </el-card>
 
     <el-card class="table-card">
+      <div class="mobile-table-hint">左右滑动可查看更多列</div>
       <el-table
         v-loading="loading"
         :data="tableData"
@@ -61,10 +62,10 @@
       />
     </el-card>
 
-    <el-dialog
+      <el-dialog
       v-model="dialogVisible"
       :title="form.id != null ? `编辑${moduleLabel}` : `新增${moduleLabel}`"
-      width="1280px"
+      :width="dialogWidth"
       @close="resetForm"
     >
       <div v-loading="detailLoading">
@@ -105,7 +106,7 @@
       </template>
     </el-dialog>
 
-    <el-dialog v-model="viewDialogVisible" :title="`${moduleLabel}详情`" width="960px">
+    <el-dialog v-model="viewDialogVisible" :title="`${moduleLabel}详情`" :width="detailDialogWidth">
       <div v-loading="detailLoading" class="detail-wrapper">
         <template v-if="currentDetail">
           <el-descriptions :column="2" border class="detail-meta">
@@ -209,6 +210,8 @@ const hasPreviewContent = computed(() => !!previewTitle.value || !!previewBody.v
 const previewMinHeight = computed(() => `calc(${props.titleEditorHeight} + ${props.editorHeight} + 56px)`)
 const detailIdLabel = computed(() => `${props.moduleLabel}ID`)
 const canSubmitCurrentForm = computed(() => (form.id != null ? props.canEdit : props.canAdd))
+const dialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '1280px'))
+const detailDialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '960px'))
 
 const validateRichTextField = (message: string) => {
   return (_rule: any, value: string, callback: (error?: Error) => void) => {
@@ -410,6 +413,13 @@ onMounted(() => {
     border-top: 1px solid #f3f4f6;
   }
 
+  .mobile-table-hint {
+    display: none;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: #6b7280;
+  }
+
   .content-form {
     display: flex;
     flex-direction: column;
@@ -514,6 +524,19 @@ onMounted(() => {
     .search-card .el-form-item {
       display: block;
       margin-bottom: 16px;
+    }
+
+    .mobile-table-hint {
+      display: block;
+    }
+
+    .dialog-footer {
+      flex-direction: column-reverse;
+      align-items: stretch;
+    }
+
+    .pagination {
+      justify-content: center;
     }
   }
 }

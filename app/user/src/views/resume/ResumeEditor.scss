@@ -320,3 +320,71 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .resume-editor {
+    height: auto;
+    min-height: 100vh;
+
+    .editor-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      padding: 12px 16px;
+
+      .header-left,
+      .header-right {
+        width: 100%;
+      }
+
+      .header-right {
+        .ant-space {
+          width: 100%;
+          justify-content: space-between;
+        }
+      }
+    }
+
+    .editor-body {
+      flex-direction: column;
+      overflow: visible;
+
+      .editor-left {
+        width: 100%;
+        min-height: 320px;
+        border-right: none;
+        border-bottom: 1px solid #333;
+      }
+
+      .editor-right {
+        min-height: 0;
+
+        .preview-header {
+          padding: 8px 10px;
+
+          .edit-toolbar-pro {
+            gap: 6px;
+          }
+        }
+
+        .preview-container {
+          padding: 12px;
+
+          .preview-content,
+          .preview-placeholder {
+            min-height: 0;
+            max-width: 100%;
+          }
+        }
+      }
+    }
+  }
+
+  .ai-feedback-modal {
+    .feedback-section {
+      &.two-column {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}

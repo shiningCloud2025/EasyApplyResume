@@ -376,7 +376,7 @@ const RegisterPage: React.FC = () => {
             </Form.Item>
 
             <Row gutter={16}>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Form.Item
                   name="userRecruitLocationFirst"
                   label="期望工作省份"
@@ -400,7 +400,7 @@ const RegisterPage: React.FC = () => {
                   </Select>
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Form.Item
                   name="userRecruitLocationSecond"
                   label="期望工作城市"
@@ -452,7 +452,7 @@ const RegisterPage: React.FC = () => {
             </Form.Item>
 
             <Row gutter={16}>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Form.Item
                   name="userDreamMinMonthSalary"
                   label="最低月薪"
@@ -471,7 +471,7 @@ const RegisterPage: React.FC = () => {
                   <Input type="number" placeholder="选填，范围0-100000" />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col xs={24} md={12}>
                 <Form.Item
                   name="userDreamMaxMonthSalary"
                   label="最高月薪"
@@ -528,7 +528,7 @@ const RegisterPage: React.FC = () => {
               label="手机验证码"
               required
             >
-              <div style={{ display: 'flex', gap: '8px' }}>
+              <div className="verification-code-row">
                 <Form.Item
                   name="phoneMessageCode"
                   noStyle
@@ -557,7 +557,7 @@ const RegisterPage: React.FC = () => {
               label="邮箱验证码"
               required
             >
-              <div style={{ display: 'flex', gap: '8px' }}>
+              <div className="verification-code-row">
                 <Form.Item
                   name="emailMessageCode"
                   noStyle

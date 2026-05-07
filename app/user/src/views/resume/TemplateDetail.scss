@@ -134,3 +134,47 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .template-detail-page {
+    padding: 16px;
+
+    .page-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      padding: 14px 16px;
+
+      .header-actions {
+        width: 100%;
+        flex-wrap: wrap;
+
+        .ant-btn {
+          flex: 1;
+        }
+      }
+    }
+
+    .page-content {
+      gap: 16px;
+
+      .preview-card {
+        .preview-container {
+          min-height: 0;
+          padding: 12px;
+
+          .live-preview-wrapper {
+            min-height: 0;
+            padding: 20px 16px;
+          }
+        }
+      }
+
+      .info-card {
+        .ant-descriptions-item-label {
+          width: auto;
+        }
+      }
+    }
+  }
+}
