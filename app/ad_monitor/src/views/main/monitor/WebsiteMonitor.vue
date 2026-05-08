@@ -58,7 +58,7 @@
 
       <div class="charts-grid">
         <!-- 访问量折线图 -->
-        <div class="chart-card">
+        <div v-if="canViewVisitTrend" class="chart-card">
           <h3>访问量趋势</h3>
           <div class="chart-wrapper" v-loading="chartLoading">
             <div v-if="visitData.length === 0" class="empty-chart">
@@ -69,7 +69,7 @@
         </div>
 
         <!-- 用户/管理员数量折线图 -->
-        <div class="chart-card">
+        <div v-if="canViewUserTrend" class="chart-card">
           <h3>{{ isAdmin ? '管理员' : '用户' }}数量趋势</h3>
           <div class="chart-wrapper" v-loading="chartLoading">
             <div v-if="userNumData.length === 0" class="empty-chart">
@@ -88,12 +88,17 @@ import { ref, reactive, computed, onMounted, watch, nextTick, onUnmounted } from
 import { useRoute } from 'vue-router'
 import { TrendCharts, DataLine, User, Top } from '@element-plus/icons-vue'
 import { adminStatisticsApi, userStatisticsApi } from '@/api'
+import { useAuthStore, userWebsiteManagementPermissions } from '@/store/auth'
 import * as echarts from 'echarts'
 
 const route = useRoute()
+const authStore = useAuthStore()
 
 const isAdmin = computed(() => route.path.includes('admin-monitor'))
 const api = computed(() => isAdmin.value ? adminStatisticsApi : userStatisticsApi)
+const canViewVisitTrend = computed(() => isAdmin.value || authStore.canAccessRoute(userWebsiteManagementPermissions.visitTrend))
+const canViewUserTrend = computed(() => isAdmin.value || authStore.canAccessRoute(userWebsiteManagementPermissions.userTrend))
+const canViewPage = computed(() => canViewVisitTrend.value || canViewUserTrend.value)
 
 const stats = reactive({
   todayVisit: 0,
@@ -212,6 +217,14 @@ const generateDateRange = (from: string, to: string): string[] => {
 }
 
 const loadStats = async () => {
+  if (!canViewPage.value) {
+    stats.totalVisit = 0
+    stats.todayIncrease = 0
+    stats.todayVisit = 0
+    stats.totalUsers = 0
+    return
+  }
+
   try {
     // 今日日期
     const today = formatDate(new Date())
@@ -265,28 +278,38 @@ const loadStats = async () => {
 
 const loadChartData = async () => {
   if (!dateRange.value || dateRange.value.length !== 2) return
+  if (!canViewPage.value) {
+    visitData.value = []
+    userNumData.value = []
+    return
+  }
 
   chartLoading.value = true
   try {
     const [from, to] = dateRange.value
     const dateLabels = generateDateRange(from, to)
 
-    // 访问量数据 - 后端返回 List<Integer>
-    const visitRes = await api.value.getVisitNumByDateRange(from, to).catch(() => [])
-    visitData.value = (visitRes || []).map((value: number, index: number) => ({
-      date: dateLabels[index] || '',
-      value: value || 0
-    }))
+    if (canViewVisitTrend.value) {
+      const visitRes = await api.value.getVisitNumByDateRange(from, to).catch(() => [])
+      visitData.value = (visitRes || []).map((value: number, index: number) => ({
+        date: dateLabels[index] || '',
+        value: value || 0
+      }))
+    } else {
+      visitData.value = []
+    }
 
-    // 用户/管理员数量数据 - 后端返回 List<Integer>
-    const userNumApi = isAdmin.value ? api.value.getAdminNumByDateRange : userStatisticsApi.getUserNumByDateRange
-    const userRes = await userNumApi(from, to).catch(() => [])
-    userNumData.value = (userRes || []).map((value: number, index: number) => ({
-      date: dateLabels[index] || '',
-      value: value || 0
-    }))
-    
-    // 更新 ECharts
+    if (canViewUserTrend.value) {
+      const userNumApi = isAdmin.value ? api.value.getAdminNumByDateRange : userStatisticsApi.getUserNumByDateRange
+      const userRes = await userNumApi(from, to).catch(() => [])
+      userNumData.value = (userRes || []).map((value: number, index: number) => ({
+        date: dateLabels[index] || '',
+        value: value || 0
+      }))
+    } else {
+      userNumData.value = []
+    }
+
     updateCharts()
   } catch (e) {
     console.error('加载图表数据失败', e)
@@ -296,7 +319,6 @@ const loadChartData = async () => {
 }
 
 const init = () => {
-  // 默认查询最近7天
   dateRange.value = [formatDate(getDate(-6)), formatDate(getDate(0))]
   loadStats()
   loadChartData()

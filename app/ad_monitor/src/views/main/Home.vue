@@ -82,7 +82,7 @@ import {
 } from '@element-plus/icons-vue'
 import { ElMessageBox } from 'element-plus'
 import { monitorAnnouncementApi } from '@/api'
-import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions } from '@/store/auth'
+import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions } from '@/store/auth'
 
 const currentTime = ref('')
 const authStore = useAuthStore()
@@ -123,7 +123,15 @@ const quickLinks = computed(() => {
       path: '/main/ad/image/admin',
       permission: imageAdvertisementManagementPermissions.admin.getByPage
     },
-    { icon: 'TrendCharts', title: '用户数据', path: '/main/user-monitor/website' },
+    {
+      icon: 'TrendCharts',
+      title: '用户数据',
+      path: '/main/user-monitor/website',
+      permission: [
+        userWebsiteManagementPermissions.visitTrend,
+        userWebsiteManagementPermissions.userTrend
+      ]
+    },
     { icon: 'Monitor', title: '管理数据', path: '/main/admin-monitor/website' }
   ]
 

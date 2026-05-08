@@ -87,6 +87,11 @@ export const imageAdvertisementManagementPermissions = {
   }
 } as const
 
+export const userWebsiteManagementPermissions = {
+  visitTrend: '/admonitor/user/dailyVisitTotalNum/findFromTimeToEndTimeAdmonitorUserDailyVisitTotalNum',
+  userTrend: '/admonitor/user/daliyUserNum/findFromTimeToEndTimeAdmonitorUserDaliyUserNum'
+} as const
+
 export const useAuthStore = defineStore('auth', () => {
   const token = ref<string | null>(localStorage.getItem('monitor_token'))
   const user = ref<AdminUser | null>(null)

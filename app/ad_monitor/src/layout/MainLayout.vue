@@ -69,12 +69,18 @@
           </el-sub-menu>
 
           <!-- 用户监测管理 -->
-          <el-sub-menu index="user-monitor">
+          <el-sub-menu v-if="showUserMonitorMenu" index="user-monitor">
             <template #title>
               <el-icon><User /></el-icon>
               <span>用户监测管理</span>
             </template>
-            <el-menu-item index="/main/user-monitor/website">网站管理</el-menu-item>
+            <el-menu-item
+              v-for="item in visibleUserMonitorMenus"
+              :key="item.index"
+              :index="item.index"
+            >
+              {{ item.title }}
+            </el-menu-item>
             <el-menu-item index="/main/user-monitor/log">
               <span>日志管理</span>
               <el-tag size="small" type="info" style="margin-left: 8px;">暂未开放</el-tag>
@@ -266,7 +272,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions } from '@/store/auth'
+import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions } from '@/store/auth'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import {
   House, Bell, Picture, User, UserFilled, Connection, Lock, Monitor,
@@ -323,12 +329,31 @@ const imageAdMenus = [
   }
 ]
 
+const userMonitorMenus = [
+  {
+    index: '/main/user-monitor/website',
+    title: '网站管理',
+    permission: [
+      userWebsiteManagementPermissions.visitTrend,
+      userWebsiteManagementPermissions.userTrend
+    ]
+  }
+]
+
 const visibleImageAdMenus = computed(() => {
   return imageAdMenus.filter((item) => authStore.canAccessRoute(item.permission))
 })
 
 const showImageAdMenu = computed(() => {
   return visibleImageAdMenus.value.length > 0
+})
+
+const visibleUserMonitorMenus = computed(() => {
+  return userMonitorMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showUserMonitorMenu = computed(() => {
+  return visibleUserMonitorMenus.value.length > 0
 })
 
 const isMobile = ref(false)

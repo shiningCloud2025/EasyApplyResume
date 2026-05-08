@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions } from '@/store/auth'
+import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions } from '@/store/auth'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -85,7 +85,13 @@ const router = createRouter({
           path: 'user-monitor/website',
           name: 'UserWebsite',
           component: () => import('@/views/main/monitor/WebsiteMonitor.vue'),
-          meta: { title: '用户端网站管理' }
+          meta: {
+            title: '用户端网站管理',
+            permission: [
+              userWebsiteManagementPermissions.visitTrend,
+              userWebsiteManagementPermissions.userTrend
+            ]
+          }
         },
         {
           path: 'user-monitor/log',
