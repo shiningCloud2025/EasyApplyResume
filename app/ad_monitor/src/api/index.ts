@@ -291,6 +291,14 @@ export const feedbackApi = {
 
 // 文件上传API
 export const fileApi = {
+  uploadAdminAvatar: (file: File, adminId: number) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('adminId', adminId.toString())
+    return request.post('/admin/file/uploadAdminHeadImg', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+  },
   // 上传管理端广告图片
   uploadAdminAdImg: (file: File) => {
     const formData = new FormData()

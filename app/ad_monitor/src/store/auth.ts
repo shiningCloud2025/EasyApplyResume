@@ -92,6 +92,23 @@ export const userWebsiteManagementPermissions = {
   userTrend: '/admonitor/user/daliyUserNum/findFromTimeToEndTimeAdmonitorUserDaliyUserNum'
 } as const
 
+export const adminWebsiteManagementPermissions = {
+  visitTrend: '/admonitor/admin/dailyVisitTotalNum/findFromTimeToEndTimeAdmonitorAdminDailyVisitTotalNum',
+  adminTrend: '/admonitor/adminDaliyAdminNum/findFromTimeToEndTimeAdmonitorAdminDaliyAdminNum'
+} as const
+
+export const middlewareManagementPermissions = {
+  minio: '/admonitor/middleware/minio'
+} as const
+
+export const serviceMachineManagementPermissions = {
+  getByPage: '/admonitor/servicemachine/manage/getAdmonitorServiceMachinePage',
+  getInfo: '/admonitor/servicemachine/manage/getAdmonitorServiceMachineInfo',
+  add: '/admonitor/servicemachine/manage/addAdmonitorServiceMachine',
+  update: '/admonitor/servicemachine/manage/updateAdmonitorServiceMachine',
+  delete: '/admonitor/servicemachine/manage/deleteAdmonitorServiceMachine'
+} as const
+
 export const useAuthStore = defineStore('auth', () => {
   const token = ref<string | null>(localStorage.getItem('monitor_token'))
   const user = ref<AdminUser | null>(null)

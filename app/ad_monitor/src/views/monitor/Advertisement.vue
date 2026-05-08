@@ -90,10 +90,31 @@
         </el-form-item>
 
         <el-form-item label="广告图片" prop="imageUrl">
-          <el-input v-model="formData.imageUrl" placeholder="请输入图片URL地址" />
-          <div v-if="formData.imageUrl" class="image-preview">
-            <el-image :src="formData.imageUrl" fit="contain" style="max-height: 100px;" />
-          </div>
+          <el-upload
+            class="ad-uploader"
+            :show-file-list="false"
+            :before-upload="beforeUpload"
+            :http-request="handleUpload"
+            accept="image/*"
+          >
+            <el-image
+              v-if="formData.imageUrl"
+              :src="formData.imageUrl"
+              fit="contain"
+              style="width: 200px; height: 120px; border-radius: 4px;"
+            />
+            <div v-else class="upload-placeholder">
+              <el-icon :size="28"><Plus /></el-icon>
+              <span>点击上传广告图片</span>
+            </div>
+          </el-upload>
+          <el-progress
+            v-if="uploading"
+            :percentage="100"
+            status="success"
+            :indeterminate="true"
+            style="margin-top: 8px; width: 200px;"
+          />
         </el-form-item>
 
         <el-form-item label="跳转链接" prop="linkUrl">
@@ -142,7 +163,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { Plus } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
-import { adminAdvertisementApi, userAdvertisementApi } from '@/api'
+import { adminAdvertisementApi, userAdvertisementApi, fileApi } from '@/api'
 
 const route = useRoute()
 const router = useRouter()
@@ -160,6 +181,7 @@ const total = ref(0)
 const dialogVisible = ref(false)
 const isEdit = ref(false)
 const submitting = ref(false)
+const uploading = ref(false)
 const formRef = ref<FormInstance>()
 const dialogWidth = computed(() => (window.innerWidth <= 768 ? '94%' : '600px'))
 
@@ -174,7 +196,40 @@ const formData = reactive({
 })
 
 const formRules: FormRules = {
-  title: [{ required: true, message: '请输入广告标题', trigger: 'blur' }]
+  title: [{ required: true, message: '请输入广告标题', trigger: 'blur' }],
+  imageUrl: [{ required: true, message: '请上传广告图片', trigger: 'change' }]
+}
+
+const getUploadApi = () => {
+  return isAdminType.value ? fileApi.uploadAdminAdImg : fileApi.uploadUserAdImg
+}
+
+const beforeUpload = (file: File) => {
+  const isImage = file.type.startsWith('image/')
+  const isLt5M = file.size / 1024 / 1024 < 5
+  if (!isImage) {
+    ElMessage.error('只能上传图片文件!')
+    return false
+  }
+  if (!isLt5M) {
+    ElMessage.error('图片大小不能超过 5MB!')
+    return false
+  }
+  return true
+}
+
+const handleUpload = async (options: any) => {
+  uploading.value = true
+  try {
+    const response = await getUploadApi()(options.file)
+    formData.imageUrl = response.data
+    ElMessage.success('上传成功')
+  } catch (error) {
+    console.error('上传失败', error)
+    ElMessage.error('上传失败')
+  } finally {
+    uploading.value = false
+  }
 }
 
 const handleTypeChange = (type: 'admin' | 'user') => {

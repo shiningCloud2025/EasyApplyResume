@@ -88,7 +88,7 @@ import { ref, reactive, computed, onMounted, watch, nextTick, onUnmounted } from
 import { useRoute } from 'vue-router'
 import { TrendCharts, DataLine, User, Top } from '@element-plus/icons-vue'
 import { adminStatisticsApi, userStatisticsApi } from '@/api'
-import { useAuthStore, userWebsiteManagementPermissions } from '@/store/auth'
+import { useAuthStore, userWebsiteManagementPermissions, adminWebsiteManagementPermissions } from '@/store/auth'
 import * as echarts from 'echarts'
 
 const route = useRoute()
@@ -96,8 +96,18 @@ const authStore = useAuthStore()
 
 const isAdmin = computed(() => route.path.includes('admin-monitor'))
 const api = computed(() => isAdmin.value ? adminStatisticsApi : userStatisticsApi)
-const canViewVisitTrend = computed(() => isAdmin.value || authStore.canAccessRoute(userWebsiteManagementPermissions.visitTrend))
-const canViewUserTrend = computed(() => isAdmin.value || authStore.canAccessRoute(userWebsiteManagementPermissions.userTrend))
+const canViewVisitTrend = computed(() => {
+  const permission = isAdmin.value
+    ? adminWebsiteManagementPermissions.visitTrend
+    : userWebsiteManagementPermissions.visitTrend
+  return authStore.canAccessRoute(permission)
+})
+const canViewUserTrend = computed(() => {
+  const permission = isAdmin.value
+    ? adminWebsiteManagementPermissions.adminTrend
+    : userWebsiteManagementPermissions.userTrend
+  return authStore.canAccessRoute(permission)
+})
 const canViewPage = computed(() => canViewVisitTrend.value || canViewUserTrend.value)
 
 const stats = reactive({

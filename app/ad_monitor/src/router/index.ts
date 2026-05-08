@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions } from '@/store/auth'
+import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions, adminWebsiteManagementPermissions, middlewareManagementPermissions, serviceMachineManagementPermissions } from '@/store/auth'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -104,7 +104,13 @@ const router = createRouter({
           path: 'admin-monitor/website',
           name: 'AdminWebsite',
           component: () => import('@/views/main/monitor/WebsiteMonitor.vue'),
-          meta: { title: '管理端网站管理' }
+          meta: {
+            title: '管理端网站管理',
+            permission: [
+              adminWebsiteManagementPermissions.visitTrend,
+              adminWebsiteManagementPermissions.adminTrend
+            ]
+          }
         },
         {
           path: 'admin-monitor/log',
@@ -129,14 +135,14 @@ const router = createRouter({
           path: 'middleware/minio',
           name: 'Minio',
           component: () => import('@/views/main/middleware/MiddlewareMonitor.vue'),
-          meta: { title: 'MinIO管理' }
+          meta: { title: 'MinIO管理', permission: middlewareManagementPermissions.minio }
         },
         // 服务器管理
         {
           path: 'server/manage',
           name: 'ServerManage',
           component: () => import('@/views/main/server/ServiceMachineManage.vue'),
-          meta: { title: '设备管理' }
+          meta: { title: '设备管理', permission: serviceMachineManagementPermissions.getByPage }
         },
         {
           path: 'server/monitor',

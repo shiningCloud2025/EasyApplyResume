@@ -88,12 +88,18 @@
           </el-sub-menu>
 
           <!-- 管理监测管理 -->
-          <el-sub-menu index="admin-monitor">
+          <el-sub-menu v-if="showAdminMonitorMenu" index="admin-monitor">
             <template #title>
               <el-icon><UserFilled /></el-icon>
               <span>管理监测管理</span>
             </template>
-            <el-menu-item index="/main/admin-monitor/website">网站管理</el-menu-item>
+            <el-menu-item
+              v-for="item in visibleAdminMonitorMenus"
+              :key="item.index"
+              :index="item.index"
+            >
+              {{ item.title }}
+            </el-menu-item>
             <el-menu-item index="/main/admin-monitor/log">
               <span>日志管理</span>
               <el-tag size="small" type="info" style="margin-left: 8px;">暂未开放</el-tag>
@@ -114,7 +120,13 @@
               <span>Redis管理</span>
               <el-tag size="small" type="info" style="margin-left: 8px;">暂未开放</el-tag>
             </el-menu-item>
-            <el-menu-item index="/main/middleware/minio">MinIO管理</el-menu-item>
+            <el-menu-item
+              v-for="item in visibleMiddlewareMenus"
+              :key="item.index"
+              :index="item.index"
+            >
+              {{ item.title }}
+            </el-menu-item>
           </el-sub-menu>
 
           <!-- 服务器管理 -->
@@ -123,7 +135,13 @@
               <el-icon><Monitor /></el-icon>
               <span>服务器管理</span>
             </template>
-            <el-menu-item index="/main/server/manage">设备管理</el-menu-item>
+            <el-menu-item
+              v-for="item in visibleServerMenus"
+              :key="item.index"
+              :index="item.index"
+            >
+              {{ item.title }}
+            </el-menu-item>
             <el-menu-item index="/main/server/monitor">设备监控</el-menu-item>
           </el-sub-menu>
 
@@ -272,7 +290,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions } from '@/store/auth'
+import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions, adminWebsiteManagementPermissions, middlewareManagementPermissions, serviceMachineManagementPermissions } from '@/store/auth'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import {
   House, Bell, Picture, User, UserFilled, Connection, Lock, Monitor,
@@ -340,6 +358,33 @@ const userMonitorMenus = [
   }
 ]
 
+const adminMonitorMenus = [
+  {
+    index: '/main/admin-monitor/website',
+    title: '网站管理',
+    permission: [
+      adminWebsiteManagementPermissions.visitTrend,
+      adminWebsiteManagementPermissions.adminTrend
+    ]
+  }
+]
+
+const middlewareMenus = [
+  {
+    index: '/main/middleware/minio',
+    title: 'MinIO管理',
+    permission: middlewareManagementPermissions.minio
+  }
+]
+
+const serverMenus = [
+  {
+    index: '/main/server/manage',
+    title: '设备管理',
+    permission: serviceMachineManagementPermissions.getByPage
+  }
+]
+
 const visibleImageAdMenus = computed(() => {
   return imageAdMenus.filter((item) => authStore.canAccessRoute(item.permission))
 })
@@ -354,6 +399,22 @@ const visibleUserMonitorMenus = computed(() => {
 
 const showUserMonitorMenu = computed(() => {
   return visibleUserMonitorMenus.value.length > 0
+})
+
+const visibleAdminMonitorMenus = computed(() => {
+  return adminMonitorMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showAdminMonitorMenu = computed(() => {
+  return visibleAdminMonitorMenus.value.length > 0
+})
+
+const visibleMiddlewareMenus = computed(() => {
+  return middlewareMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const visibleServerMenus = computed(() => {
+  return serverMenus.filter((item) => authStore.canAccessRoute(item.permission))
 })
 
 const isMobile = ref(false)

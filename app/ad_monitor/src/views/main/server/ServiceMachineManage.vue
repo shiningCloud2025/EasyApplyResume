@@ -182,6 +182,14 @@ import { Plus } from '@element-plus/icons-vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
 import { serviceMachineManageApi } from '@/api'
+import { useAuthStore, serviceMachineManagementPermissions } from '@/store/auth'
+
+const authStore = useAuthStore()
+const canViewPage = computed(() => authStore.canAccessRoute(serviceMachineManagementPermissions.getByPage))
+const canViewDetail = computed(() => authStore.canAccessRoute(serviceMachineManagementPermissions.getInfo))
+const canAdd = computed(() => authStore.canAccessRoute(serviceMachineManagementPermissions.add))
+const canUpdate = computed(() => authStore.canAccessRoute(serviceMachineManagementPermissions.update))
+const canDelete = computed(() => authStore.canAccessRoute(serviceMachineManagementPermissions.delete))
 
 const loading = ref(false)
 const tableData = ref<any[]>([])
@@ -316,16 +324,21 @@ const handleFormTestConnect = async () => {
   }
 }
 
-const handleView = (row: any) => {
-  viewData.serviceMachineId = row.serviceMachineId
-  viewData.serviceMachineName = row.serviceMachineName || ''
-  viewData.serviceMachineHost = row.serviceMachineHost || ''
-  viewData.serviceMachinePort = row.serviceMachinePort || 22
-  viewData.serviceMachineUsername = row.serviceMachineUsername || ''
-  viewData.serviceMachineRemark = row.serviceMachineRemark || ''
-  viewData.serviceMachineCreatedTime = row.serviceMachineCreatedTime || ''
-  viewData.serviceMachineUpdatedTime = row.serviceMachineUpdatedTime || ''
-  viewDialogVisible.value = true
+const handleView = async (row: any) => {
+  try {
+    const res = await serviceMachineManageApi.getInfo(row.serviceMachineId)
+    viewData.serviceMachineId = res?.serviceMachineId ?? row.serviceMachineId ?? null
+    viewData.serviceMachineName = res?.serviceMachineName || ''
+    viewData.serviceMachineHost = res?.serviceMachineHost || ''
+    viewData.serviceMachinePort = res?.serviceMachinePort || 22
+    viewData.serviceMachineUsername = res?.serviceMachineUsername || ''
+    viewData.serviceMachineRemark = res?.serviceMachineRemark || ''
+    viewData.serviceMachineCreatedTime = res?.serviceMachineCreatedTime || ''
+    viewData.serviceMachineUpdatedTime = res?.serviceMachineUpdatedTime || ''
+    viewDialogVisible.value = true
+  } catch (e) {
+    console.error('查看详情失败', e)
+  }
 }
 
 const handleEdit = (row: any) => {

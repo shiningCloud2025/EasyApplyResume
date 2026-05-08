@@ -23,21 +23,21 @@ public class AdmonitorFileController {
     @Operation(summary = "上传管理端广告图片")
     @PostMapping("/uploadAdminAdImg")
     public BaseResult<String> uploadAdminAdImg(MultipartFile file){
-        String url = ossService.upload(file, OssSystemTypeEnum.ADMIN, OssAdminBusinessTypeEnum.ADMIN_AD_IMG, 0, false);
+        String url = ossService.upload(file, OssSystemTypeEnum.ADMIN, OssAdMonitorBusinessTypeEnum.ADMONITOR_ADMIN_AD_IMG, 0, false);
         return BaseResult.ok(url);
     }
 
     @Operation(summary = "上传用户端广告图片")
     @PostMapping("/uploadUserAdImg")
     public BaseResult<String> uploadUserAdImg(MultipartFile file){
-        String url = ossService.upload(file, OssSystemTypeEnum.USER, OssUserBusinessTypeEnum.USER_AD_IMG, 0, false);
+        String url = ossService.upload(file, OssSystemTypeEnum.USER, OssAdMonitorBusinessTypeEnum.ADMONITOR_USER_AD_IMG, 0, false);
         return BaseResult.ok(url);
     }
 
     @Operation(summary = "上传监控端广告图片")
     @PostMapping("/uploadAdmonitorAdImg")
     public BaseResult<String> uploadAdmonitorAdImg(MultipartFile file){
-        String url = ossService.upload(file, OssSystemTypeEnum.AD_MONITOR, OssAdMonitorBusinessTypeEnum.ADMONITOR_ADMIN_AD_IMG, 0, false);
+        String url = ossService.upload(file, OssSystemTypeEnum.AD_MONITOR, OssAdMonitorBusinessTypeEnum.ADMONITOR_ADMONITOR_AD_IMG, 0, false);
         return BaseResult.ok(url);
     }
 

@@ -72,12 +72,13 @@
                 <p>点击下方按钮在新窗口中打开 MinIO 控制台</p>
               </div>
             </div>
-            <el-button 
-              size="large" 
-              type="primary" 
+            <el-button
+              size="large"
+              type="primary"
               @click="openMinio"
               class="action-button"
               :loading="loading"
+              :disabled="!canOpenMinio"
             >
               <el-icon><TopRight /></el-icon>
               打开 MinIO 控制台
@@ -101,13 +102,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { FolderOpened, Upload, Folder, Picture, Lock, Right, TopRight, Link, CircleCheck } from '@element-plus/icons-vue'
+import { useAuthStore, middlewareManagementPermissions } from '@/store/auth'
 
+const authStore = useAuthStore()
 const loading = ref(false)
+const canOpenMinio = computed(() => authStore.canAccessRoute(middlewareManagementPermissions.minio))
 
 const openMinio = async () => {
+  if (!canOpenMinio.value) {
+    ElMessage.warning('暂无 MinIO 管理权限')
+    return
+  }
+
   loading.value = true
   try {
     await new Promise(resolve => setTimeout(resolve, 500))

@@ -59,7 +59,6 @@ public class AdmonitorAdminAdvertisementServiceImpl implements AdmonitorAdminAdv
         try{
             log.info("添加广告开始");
             AdmonitorAdminAdvertisementValidator.validateForAdd(admonitorAdminAdvertisementForm);
-            List<String> strings = ossService.listFilesByOwner(OssSystemTypeEnum.AD_MONITOR, OssAdMonitorBusinessTypeEnum.ADMONITOR_ADMIN_AD_IMG, 0, false);
             AdmonitorAdminAdvertisement admonitorAdminAdvertisement = new AdmonitorAdminAdvertisement();
             BeanUtil.copyProperties(admonitorAdminAdvertisementForm,admonitorAdminAdvertisement);
             int result = admonitorAdminAdvertisementMapper.insert(admonitorAdminAdvertisement);

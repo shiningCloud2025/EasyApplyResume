@@ -76,13 +76,13 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { 
-  DataAnalysis, Bell, Picture, User, UserFilled, 
+import {
+  DataAnalysis, Bell, Picture, User, UserFilled,
   Connection, Lock, Right, Monitor, TrendCharts
 } from '@element-plus/icons-vue'
 import { ElMessageBox } from 'element-plus'
 import { monitorAnnouncementApi } from '@/api'
-import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions } from '@/store/auth'
+import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions, adminWebsiteManagementPermissions, serviceMachineManagementPermissions } from '@/store/auth'
 
 const currentTime = ref('')
 const authStore = useAuthStore()
@@ -132,7 +132,21 @@ const quickLinks = computed(() => {
         userWebsiteManagementPermissions.userTrend
       ]
     },
-    { icon: 'Monitor', title: '管理数据', path: '/main/admin-monitor/website' }
+    {
+      icon: 'Monitor',
+      title: '管理数据',
+      path: '/main/admin-monitor/website',
+      permission: [
+        adminWebsiteManagementPermissions.visitTrend,
+        adminWebsiteManagementPermissions.adminTrend
+      ]
+    },
+    {
+      icon: 'Connection',
+      title: '设备管理',
+      path: '/main/server/manage',
+      permission: serviceMachineManagementPermissions.getByPage
+    }
   ]
 
   return allLinks.filter((item) => authStore.canAccessRoute(item.permission))

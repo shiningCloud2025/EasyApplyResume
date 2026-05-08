@@ -10,8 +10,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum OssUserBusinessTypeEnum implements OssBusinessType{
     USER_HEAD_IMG("userheadimg"),
-    USER_AD_IMG("useradimg")
-
     ;
     private final String dir;
 }

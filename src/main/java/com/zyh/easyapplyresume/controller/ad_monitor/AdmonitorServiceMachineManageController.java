@@ -11,6 +11,7 @@ import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorServiceMachineService
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -25,32 +26,37 @@ public class AdmonitorServiceMachineManageController {
     @Autowired
     private AdmonitorServiceMachineService admonitorServiceMachineService;
 
-    @PostMapping("/addAdmonitorServiceMachine")
     @Operation(summary = "添加服务器设备")
+    @PostMapping("/addAdmonitorServiceMachine")
+    @PreAuthorize("hasAuthority('/admonitor/servicemachine/manage/addAdmonitorServiceMachine')")
     public BaseResult<Integer> addAdmonitorServiceMachine(@RequestBody AdmonitorServiceMachineForm admonitorServiceMachineForm) {
         return BaseResult.ok(admonitorServiceMachineService.addAdmonitorServiceMachine(admonitorServiceMachineForm));
     }
 
-    @PutMapping("/updateAdmonitorServiceMachine")
     @Operation(summary = "更新服务器设备")
+    @PutMapping("/updateAdmonitorServiceMachine")
+    @PreAuthorize("hasAuthority('/admonitor/servicemachine/manage/updateAdmonitorServiceMachine')")
     public BaseResult<Integer> updateAdmonitorServiceMachine(@RequestBody AdmonitorServiceMachineForm admonitorServiceMachineForm) {
         return BaseResult.ok(admonitorServiceMachineService.updateAdmonitorServiceMachine(admonitorServiceMachineForm));
     }
 
-    @DeleteMapping("/deleteAdmonitorServiceMachine")
     @Operation(summary = "删除服务器设备")
+    @DeleteMapping("/deleteAdmonitorServiceMachine")
+    @PreAuthorize("hasAuthority('/admonitor/servicemachine/manage/deleteAdmonitorServiceMachine')")
     public BaseResult<Integer> deleteAdmonitorServiceMachine(@RequestParam(required = true, name = "id") Integer id) {
         return BaseResult.ok(admonitorServiceMachineService.deleteAdmonitorServiceMachine(id));
     }
 
-    @GetMapping("/getAdmonitorServiceMachineInfo")
     @Operation(summary = "获取服务器设备信息")
+    @GetMapping("/getAdmonitorServiceMachineInfo")
+    @PreAuthorize("hasAuthority('/admonitor/servicemachine/manage/getAdmonitorServiceMachineInfo')")
     public BaseResult<AdmonitorServiceMachineInfoVO> getAdmonitorServiceMachineInfo(@RequestParam(required = true, name = "id") Integer id) {
         return BaseResult.ok(admonitorServiceMachineService.getAdmonitorServiceMachineInfo(id));
     }
 
-    @PostMapping("/getAdmonitorServiceMachinePage")
     @Operation(summary = "获取服务器设备分页")
+    @PostMapping("/getAdmonitorServiceMachinePage")
+    @PreAuthorize("hasAuthority('/admonitor/servicemachine/manage/getAdmonitorServiceMachinePage')")
     public BaseResult<Page<AdmonitorServiceMachinePageVO>> getAdmonitorServiceMachinePage(@RequestParam(required = false, name = "pageNum", defaultValue = "1") Integer pageNum,
                                                                                           @RequestParam(required = false, name = "pageSize", defaultValue = "10") Integer pageSize,
                                                                                           @RequestBody AdmonitorServiceMachineQuery admonitorServiceMachineQuery) {

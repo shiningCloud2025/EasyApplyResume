@@ -91,7 +91,7 @@
     <el-dialog
       v-model="showEditDialog"
       title="编辑个人资料"
-      :width="window.innerWidth <= 768 ? '94%' : '600px'"
+      :width="dialogWidth"
       :close-on-click-modal="false"
     >
       <el-form
@@ -149,7 +149,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, onMounted, computed } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { FormInstance } from 'element-plus'
 import { Edit, Refresh, Star, Upload } from '@element-plus/icons-vue'
@@ -167,6 +167,7 @@ const editFormRef = ref<FormInstance>()
 
 const defaultAvatar = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
 const adminInfo = ref<AdminInfoVO | null>(null)
+const dialogWidth = computed(() => window.innerWidth <= 768 ? '94%' : '600px')
 
 const editForm = reactive<AdminForm>({
   adminId: undefined,
