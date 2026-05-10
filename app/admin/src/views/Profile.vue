@@ -167,7 +167,7 @@ const editFormRef = ref<FormInstance>()
 
 const defaultAvatar = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
 const adminInfo = ref<AdminInfoVO | null>(null)
-const dialogWidth = computed(() => window.innerWidth <= 768 ? '94%' : '600px')
+const dialogWidth = computed(() => (typeof window !== 'undefined' && window.innerWidth <= 768 ? '94%' : '600px'))
 
 const editForm = reactive<AdminForm>({
   adminId: undefined,
@@ -212,7 +212,7 @@ const getAdminInfo = async () => {
       console.log('📥 [个人中心] authStore.user为空，尝试获取用户信息...')
       await authStore.getUserInfo()
     }
-    
+
     const user = authStore.user
     if (!user?.userId) {
       ElMessage.error('未获取到用户信息，请重新登录')
@@ -220,14 +220,14 @@ const getAdminInfo = async () => {
       console.error('❌ [个人中心] 请检查登录状态或重新登录')
       return
     }
-    
+
     console.log('📥 [个人中心] 当前用户:', user)
     console.log('📥 [个人中心] 调用 /admin/admin/findById，adminId:', user.userId)
     const response = await adminApi.getAdminInfo(user.userId)
     console.log('📥 [个人中心] API响应:', response)
-    adminInfo.value = response.data
+    adminInfo.value = response?.data || response
     console.log('✅ [个人中心] 管理员信息加载成功:', adminInfo.value)
-    console.log('📅 [个人中心] 最后登录时间:', adminInfo.value.adminLoginTime)
+    console.log('📅 [个人中心] 最后登录时间:', adminInfo.value?.adminLoginTime)
   } catch (error) {
     console.error('❌ [个人中心] 获取失败:', error)
     ElMessage.error('获取个人信息失败，请重新登录')

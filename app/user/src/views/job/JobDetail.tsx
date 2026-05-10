@@ -64,6 +64,16 @@ const JobDetail: React.FC = () => {
     return objMap[obj] || '-'
   }
 
+  const isLink = (value?: string) => {
+    const text = value?.trim()
+    return !!text && /^(https?:\/\/|www\.)\S+/i.test(text)
+  }
+
+  const toLink = (value: string) => {
+    const text = value.trim()
+    return /^https?:\/\//i.test(text) ? text : `https://${text}`
+  }
+
   if (isLoading) {
     return (
       <div className="job-detail-page">
@@ -158,10 +168,14 @@ const JobDetail: React.FC = () => {
           </Descriptions.Item>
           <Descriptions.Item label="投递方式">
             {job.employmentInformationSubmissionWay ? (
-              <a href={job.employmentInformationSubmissionWay} target="_blank" rel="noopener noreferrer">
-                <LinkOutlined style={{ marginRight: 4 }} />
-                点击跳转
-              </a>
+              isLink(job.employmentInformationSubmissionWay) ? (
+                <a href={toLink(job.employmentInformationSubmissionWay)} target="_blank" rel="noopener noreferrer">
+                  <LinkOutlined style={{ marginRight: 4 }} />
+                  点击跳转
+                </a>
+              ) : (
+                <span>{job.employmentInformationSubmissionWay}</span>
+              )
             ) : '-'}
           </Descriptions.Item>
           <Descriptions.Item label="内推码">
@@ -183,15 +197,27 @@ const JobDetail: React.FC = () => {
           </Descriptions.Item>
         </Descriptions>
 
-        {job.employmentInformationOfficialAnnouncement && (
-          <>
-            <Divider orientation="left">官方公告</Divider>
-            <div
-              className="announcement-content"
-              dangerouslySetInnerHTML={{ __html: job.employmentInformationOfficialAnnouncement }}
-            />
-          </>
-        )}
+          {job.employmentInformationOfficialAnnouncement && (
+            <>
+              <Divider orientation="left">官方公告</Divider>
+              {isLink(job.employmentInformationOfficialAnnouncement) ? (
+                <a
+                  href={toLink(job.employmentInformationOfficialAnnouncement)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}
+                >
+                  <LinkOutlined />
+                  点击跳转查看官方公告
+                </a>
+              ) : (
+                <div
+                  className="announcement-content"
+                  dangerouslySetInnerHTML={{ __html: job.employmentInformationOfficialAnnouncement }}
+                />
+              )}
+            </>
+          )}
       </Card>
     </div>
   )

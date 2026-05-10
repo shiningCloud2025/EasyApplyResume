@@ -109,12 +109,64 @@ export const serviceMachineManagementPermissions = {
   delete: '/admonitor/servicemachine/manage/deleteAdmonitorServiceMachine'
 } as const
 
+export const serviceMachineMonitorPermissions = {
+  getByPage: '/admonitor/servicemachine/jiankong/getAdmonitorServiceMachinePage',
+  getMonitorInfo: '/admonitor/servicemachine/jiankong/getAdmonitorServiceMachineJianKongInfo',
+  testConnect: '/admonitor/servicemachine/jiankong/testServiceMachineConnect'
+} as const
+
+export const securityManagementPermissions = {
+  springBootAdmin: '/admonitor/security/spring-boot-admin',
+  prometheus: '/admonitor/security/prometheus',
+  grafana: '/admonitor/security/grafana'
+} as const
+
+export const internalSystemPermissions = {
+  userPortal: '/admonitor/internal-system/user-portal',
+  adminPortal: '/admonitor/internal-system/admin-portal',
+  nacosPlatform: '/admonitor/internal-system/nacos-platform',
+  yapiPlatform: '/admonitor/internal-system/yapi-platform'
+} as const
+
+export const externalSystemPermissions = {
+  bailian: '/admonitor/external-system/bailian',
+  sms: '/admonitor/external-system/sms',
+  searchapi: '/admonitor/external-system/searchapi',
+  amap: '/admonitor/external-system/amap',
+  baiduCloud: '/admonitor/external-system/baidu-cloud',
+  qiniu: '/admonitor/external-system/qiniu',
+  autodl: '/admonitor/external-system/autodl',
+  bigmodel: '/admonitor/external-system/bigmodel',
+  volcengine: '/admonitor/external-system/volcengine'
+} as const
+
+export const apiDocsPermissions = {
+  external: '/admonitor/api-docs/external',
+  internal: '/admonitor/api-docs/internal'
+} as const
+
 export const useAuthStore = defineStore('auth', () => {
   const token = ref<string | null>(localStorage.getItem('monitor_token'))
   const user = ref<AdminUser | null>(null)
+  let userInfoPromise: Promise<AdminUser | null> | null = null
 
   const isLoggedIn = computed(() => !!token.value)
   const userPermissions = computed(() => normalizeAuthorities(user.value?.authorities))
+
+  const buildBaseUser = (response: any): AdminUser => ({
+    adminId: response?.adminId ?? response?.userId,
+    userId: response?.userId,
+    adminAccount: response?.adminAccount || response?.username || response?.account || '',
+    adminUsername: response?.adminUsername || response?.username || response?.account || '管理员',
+    adminEmail: response?.adminEmail || response?.email || '',
+    adminPhone: response?.adminPhone || response?.phone || '',
+    adminImage: response?.adminImage || '',
+    adminIntroduce: response?.adminIntroduce,
+    adminLoginTime: response?.adminLoginTime,
+    adminState: response?.adminState,
+    roleInfoVOS: response?.roleInfoVOS,
+    authorities: response?.authorities
+  })
 
   // 账号密码登录
   const login = async (data: { accountOrPhoneOrEmail: string; password: string }) => {
@@ -151,41 +203,58 @@ export const useAuthStore = defineStore('auth', () => {
 
   // 获取用户信息
   const getUserInfo = async (silent: boolean = false) => {
-    try {
-      console.log('📥 [监控端] 开始获取用户信息...', silent ? '(静默模式)' : '')
-      // 先获取基本的SecurityUser信息（包含userId）
-      const response = await authApi.getUserInfo() as any
-      console.log('📥 [监控端] SecurityUser信息:', response)
-      
-      if (response?.userId) {
-        // 使用userId获取完整的管理员信息
-        console.log('📥 [监控端] 获取完整管理员信息，adminId:', response.userId)
-        const adminResponse = await authApi.getAdminById(response.userId) as any
-        console.log('📥 [监控端] 完整管理员信息:', adminResponse)
-        
-        // 合并SecurityUser和AdminUser信息
-        user.value = {
-          ...adminResponse,
-          // 确保serId和adminId都存在（有些地方使用userId，有些使用adminId）
-          userId: response.userId,
-          // 保留SecurityUser中的权限信息
-          authorities: response.authorities
-        } as AdminUser
-        
-        console.log('✅ [监控端] 用户信息已设置:', user.value)
-        return user.value
-      } else {
-        console.warn('⚠️ [监控端] SecurityUser中没有userId')
-        user.value = response
-        return response
-      }
-    } catch (error: any) {
-      if (!silent) {
-        console.error('❌ [监控端] 获取用户信息失败:', error)
-      }
-      // 获取用户信息失败不影响登录，只是没有用户详情
-      return null
+    if (user.value) {
+      return user.value
     }
+
+    if (userInfoPromise) {
+      return userInfoPromise
+    }
+
+    userInfoPromise = (async () => {
+      try {
+        console.log('📥 [监控端] 开始获取用户信息...', silent ? '(静默模式)' : '')
+        const response = await authApi.getUserInfo() as any
+        console.log('📥 [监控端] SecurityUser信息:', response)
+
+        if (response?.userId) {
+          const baseUser = buildBaseUser(response)
+          user.value = baseUser
+
+          try {
+            console.log('📥 [监控端] 获取完整管理员信息，adminId:', response.userId)
+            const adminResponse = await authApi.getAdminById(response.userId, { silentError: true } as any) as any
+            console.log('📥 [监控端] 完整管理员信息:', adminResponse)
+            user.value = {
+              ...baseUser,
+              ...adminResponse,
+              userId: response.userId,
+              authorities: response.authorities
+            } as AdminUser
+          } catch (error) {
+            if (!silent) {
+              console.warn('⚠️ [监控端] 获取完整管理员信息失败，使用基础登录信息继续', error)
+            }
+          }
+
+          console.log('✅ [监控端] 用户信息已设置:', user.value)
+          return user.value
+        }
+
+        console.warn('⚠️ [监控端] SecurityUser中没有userId')
+        user.value = buildBaseUser(response)
+        return user.value
+      } catch (error: any) {
+        if (!silent) {
+          console.error('❌ [监控端] 获取用户信息失败:', error)
+        }
+        return null
+      } finally {
+        userInfoPromise = null
+      }
+    })()
+
+    return userInfoPromise
   }
 
   const setToken = (tokenStr: string) => {

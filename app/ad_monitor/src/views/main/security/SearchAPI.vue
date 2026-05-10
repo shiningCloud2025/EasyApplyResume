@@ -74,6 +74,7 @@
                 @click="openPlatform"
                 class="action-button"
                 :loading="loading"
+                :disabled="!canOpenPlatform"
               >
                 <i class="el-icon-top-right"></i>
                 打开SearchAPI平台
@@ -98,12 +99,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useAuthStore, externalSystemPermissions } from '@/store/auth'
 
+const authStore = useAuthStore()
+const canOpenPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.searchapi))
 const loading = ref(false)
 const platformURL = 'https://www.searchapi.io/'
 
 const openPlatform = async () => {
+  if (!canOpenPlatform.value) {
+    ElMessage.warning('暂无 SearchAPI 平台权限')
+    return
+  }
   loading.value = true
   try {
     await new Promise(resolve => setTimeout(resolve, 500))

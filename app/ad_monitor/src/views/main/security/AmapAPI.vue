@@ -6,7 +6,7 @@
         <p>高德开放平台提供地图、定位、路径规划、地理编码等能力，适合位置服务和地图可视化场景。</p>
       </div>
       <div class="toolbar-right">
-        <el-button type="primary" @click="openPlatform">
+        <el-button type="primary" @click="openPlatform" :disabled="!canOpenPlatform">
           <i class="el-icon-top-right"></i>
           新窗口打开
         </el-button>
@@ -25,8 +25,20 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useAuthStore, externalSystemPermissions } from '@/store/auth'
+
+const authStore = useAuthStore()
+const canOpenPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.amap))
+const platformURL = 'https://lbs.amap.com/'
+
 const openPlatform = () => {
-  window.open('https://lbs.amap.com/', '_blank')
+  if (!canOpenPlatform.value) {
+    ElMessage.warning('暂无高德开放平台权限')
+    return
+  }
+  window.open(platformURL, '_blank')
 }
 </script>
 

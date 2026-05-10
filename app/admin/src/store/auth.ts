@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { api } from '@/utils/request'
+import { adminApi } from '@/api/admin'
 
 export interface AdminSecurityUser {
   userId: number
@@ -322,21 +323,24 @@ export const useAuthStore = defineStore('auth', {
         }
 
         const authorityPermissions = normalizeAuthorities(securityUser.authorities)
+        const adminDetailResponse: any = await adminApi.getAdminInfo(securityUser.userId)
+        const adminDetail = adminDetailResponse?.data || adminDetailResponse
 
         this.user = {
           userId: securityUser.userId,
           adminId: securityUser.userId,
-          adminAccount: '',
-          adminUsername: securityUser.username || '',
-          adminEmail: securityUser.userEmail || '',
-          adminPhone: '',
-          adminImage: '',
-          adminIntroduce: '',
-          adminState: securityUser.enabled === false ? 0 : 1,
-          adminLoginTime: '',
+          adminAccount: adminDetail?.adminAccount || '',
+          adminUsername: adminDetail?.adminUsername || securityUser.username || '',
+          adminEmail: adminDetail?.adminEmail || securityUser.userEmail || '',
+          adminPhone: adminDetail?.adminPhone || '',
+          adminImage: adminDetail?.adminImage || '',
+          adminIntroduce: adminDetail?.adminIntroduce || '',
+          adminState: typeof adminDetail?.adminState === 'number' ? adminDetail.adminState : (securityUser.enabled === false ? 0 : 1),
+          adminLoginTime: adminDetail?.adminLoginTime || '',
+          adminCreatedTime: adminDetail?.adminCreatedTime,
           authorities: authorityPermissions,
-          roles: [],
-          roleInfoVOS: []
+          roles: adminDetail?.roleInfoVOS || [],
+          roleInfoVOS: adminDetail?.roleInfoVOS || []
         }
 
         return this.user
@@ -398,6 +402,28 @@ export const useAuthStore = defineStore('auth', {
       return Object.values(websiteManagementPagePermissions).some((permissions) => {
         return this.hasAnyPermission(permissions)
       })
+    },
+
+    canAccessScoreModelManagement(): boolean {
+      return Object.values(scoreModelManagementPagePermissions).some((permission) => {
+        return this.hasPermission(permission)
+      })
+    },
+
+    canAccessInternalSystem(): boolean {
+      return Object.values(internalSystemPagePermissions).some((permission) => {
+        return this.hasPermission(permission)
+      })
+    },
+
+    canAccessExternalSystem(): boolean {
+      return Object.values(externalSystemPagePermissions).some((permission) => {
+        return this.hasPermission(permission)
+      })
+    },
+
+    showExternalSystemMenu(): boolean {
+      return this.canAccessExternalSystem() || this.canAccessInternalSystem() || this.canAccessScoreModelManagement()
     },
 
     // 检查角色

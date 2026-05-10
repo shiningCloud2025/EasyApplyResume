@@ -72,12 +72,13 @@
                 <p>点击下方按钮在新窗口中打开 Spring Boot Admin</p>
               </div>
             </div>
-            <el-button 
-              size="large" 
-              type="primary" 
+            <el-button
+              size="large"
+              type="primary"
               @click="openSBA"
               class="action-button"
               :loading="loading"
+              :disabled="!canOpenSBA"
             >
               <el-icon><TopRight /></el-icon>
               打开 Spring Boot Admin
@@ -101,13 +102,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Monitor, CircleCheck, TrendCharts, Document, Setting, Right, TopRight, Link } from '@element-plus/icons-vue'
+import { useAuthStore, securityManagementPermissions } from '@/store/auth'
 
+const authStore = useAuthStore()
 const loading = ref(false)
+const canOpenSBA = computed(() => authStore.canAccessRoute(securityManagementPermissions.springBootAdmin))
 
 const openSBA = async () => {
+  if (!canOpenSBA.value) {
+    ElMessage.warning('暂无 Spring Boot Admin 权限')
+    return
+  }
+
   loading.value = true
   try {
     await new Promise(resolve => setTimeout(resolve, 500))

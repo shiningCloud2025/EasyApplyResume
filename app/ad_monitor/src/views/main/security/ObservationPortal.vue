@@ -2,11 +2,11 @@
   <div class="portal-page">
     <div class="toolbar">
       <div class="toolbar-left">
-        <h2>易投简历监测与广告端</h2>
-        <p>监测与广告端用于查看系统运行状态、分析业务数据并处理广告运营相关工作。</p>
+        <h2>易投简历管理端</h2>
+        <p>易投简历管理端面向后台管理人员，提供用户管理、业务配置、内容维护与平台运营等综合能力。</p>
       </div>
       <div class="toolbar-right">
-        <el-button type="primary" @click="openPortal">
+        <el-button type="primary" @click="openPortal" :disabled="!canOpenPortal">
           <i class="el-icon-top-right"></i>
           新窗口打开
         </el-button>
@@ -25,9 +25,19 @@
 </template>
 
 <script setup lang="ts">
-const portalURL = 'http://117.50.184.138:37223'
+import { computed } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useAuthStore, internalSystemPermissions } from '@/store/auth'
+
+const authStore = useAuthStore()
+const canOpenPortal = computed(() => authStore.canAccessRoute(internalSystemPermissions.adminPortal))
+const portalURL = 'http://117.50.184.138:37221/'
 
 const openPortal = () => {
+  if (!canOpenPortal.value) {
+    ElMessage.warning('暂无易投简历管理端权限')
+    return
+  }
   window.open(portalURL, '_blank')
 }
 </script>

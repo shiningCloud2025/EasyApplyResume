@@ -6,7 +6,7 @@
         <p>七牛云提供对象存储、CDN、媒体处理与分发能力，适合文件上传、资源加速和云端静态资源管理场景。</p>
       </div>
       <div class="toolbar-right">
-        <el-button type="primary" @click="openPlatform">
+        <el-button type="primary" @click="openPlatform" :disabled="!canOpenPlatform">
           <i class="el-icon-top-right"></i>
           新窗口打开
         </el-button>
@@ -25,9 +25,19 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useAuthStore, externalSystemPermissions } from '@/store/auth'
+
+const authStore = useAuthStore()
+const canOpenPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.qiniu))
 const platformURL = 'https://www.qiniu.com/'
 
 const openPlatform = () => {
+  if (!canOpenPlatform.value) {
+    ElMessage.warning('暂无七牛云平台权限')
+    return
+  }
   window.open(platformURL, '_blank')
 }
 </script>

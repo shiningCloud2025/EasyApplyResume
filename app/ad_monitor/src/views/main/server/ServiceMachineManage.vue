@@ -5,7 +5,7 @@
         <h2>设备管理</h2>
         <el-tag type="success">服务器管理</el-tag>
       </div>
-      <el-button type="primary" @click="handleAdd">
+      <el-button type="primary" @click="handleAdd" :disabled="!canAdd">
         <el-icon><Plus /></el-icon>
         新增服务器
       </el-button>
@@ -51,9 +51,9 @@
         <el-table-column label="操作" width="240" fixed="right">
           <template #default="{ row }">
             <el-button type="success" link size="small" @click="handleTestConnect(row)">测试连接</el-button>
-            <el-button type="info" link size="small" @click="handleView(row)">查看</el-button>
-            <el-button type="primary" link size="small" @click="handleEdit(row)">编辑</el-button>
-            <el-button type="danger" link size="small" @click="handleDelete(row)">删除</el-button>
+            <el-button v-if="canViewDetail" type="info" link size="small" @click="handleView(row)">查看</el-button>
+            <el-button v-if="canUpdate" type="primary" link size="small" @click="handleEdit(row)">编辑</el-button>
+            <el-button v-if="canDelete" type="danger" link size="small" @click="handleDelete(row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -151,7 +151,7 @@
 
       <template #footer>
         <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="handleSubmit" :loading="submitting" :disabled="!connectTested">
+        <el-button type="primary" @click="handleSubmit" :loading="submitting" :disabled="isEdit ? !canUpdate || !connectTested : !canAdd || !connectTested">
           {{ isEdit ? '更新' : '创建' }}
         </el-button>
       </template>
@@ -267,6 +267,12 @@ const formatDate = (date: string) => {
 }
 
 const loadData = async () => {
+  if (!canViewPage.value) {
+    tableData.value = []
+    total.value = 0
+    return
+  }
+
   loading.value = true
   try {
     const query = searchName.value ? { serviceMachineName: searchName.value } : {}
@@ -299,6 +305,10 @@ const resetForm = () => {
 }
 
 const handleAdd = () => {
+  if (!canAdd.value) {
+    return
+  }
+
   isEdit.value = false
   resetForm()
   dialogVisible.value = true
@@ -325,6 +335,10 @@ const handleFormTestConnect = async () => {
 }
 
 const handleView = async (row: any) => {
+  if (!canViewDetail.value) {
+    return
+  }
+
   try {
     const res = await serviceMachineManageApi.getInfo(row.serviceMachineId)
     viewData.serviceMachineId = res?.serviceMachineId ?? row.serviceMachineId ?? null
@@ -342,6 +356,10 @@ const handleView = async (row: any) => {
 }
 
 const handleEdit = (row: any) => {
+  if (!canUpdate.value) {
+    return
+  }
+
   isEdit.value = true
   formData.serviceMachineId = row.serviceMachineId
   formData.serviceMachineName = row.serviceMachineName || ''
@@ -355,6 +373,10 @@ const handleEdit = (row: any) => {
 }
 
 const handleDelete = async (row: any) => {
+  if (!canDelete.value) {
+    return
+  }
+
   try {
     await ElMessageBox.confirm('确定要删除该服务器吗？', '提示', {
       confirmButtonText: '确定',
@@ -384,6 +406,7 @@ const handleTestConnect = async (row: any) => {
 
 const handleSubmit = async () => {
   if (!formRef.value) return
+  if (isEdit.value ? !canUpdate.value : !canAdd.value) return
 
   try {
     await formRef.value.validate()

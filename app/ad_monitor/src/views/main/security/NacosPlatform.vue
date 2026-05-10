@@ -6,7 +6,7 @@
         <p>Nacos 提供配置中心与服务发现能力，适合统一管理项目配置、环境参数和服务注册信息。</p>
       </div>
       <div class="toolbar-right">
-        <el-button type="primary" @click="openPlatform">
+        <el-button type="primary" @click="openPlatform" :disabled="!canOpenPlatform">
           <i class="el-icon-top-right"></i>
           新窗口打开
         </el-button>
@@ -25,9 +25,19 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useAuthStore, internalSystemPermissions } from '@/store/auth'
+
+const authStore = useAuthStore()
+const canOpenPlatform = computed(() => authStore.canAccessRoute(internalSystemPermissions.nacosPlatform))
 const platformURL = 'http://117.50.184.138:37215/nacos/#/login'
 
 const openPlatform = () => {
+  if (!canOpenPlatform.value) {
+    ElMessage.warning('暂无 Nacos 配置平台权限')
+    return
+  }
   window.open(platformURL, '_blank')
 }
 </script>

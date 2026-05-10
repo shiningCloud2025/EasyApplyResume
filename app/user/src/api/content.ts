@@ -53,6 +53,10 @@ const mapFaq = (item: Record<string, any>): FaqListItem => ({
 })
 
 export const contentAPI = {
+  getUserAnnouncement: async (): Promise<{ announcementTitle: string; announcementContent: string } | null> => {
+    const response = await request.get('/admonitor/user/announcement/getInfo')
+    return response?.data || response || null
+  },
   getCompanyInfo: async (): Promise<SingletonContent> => {
     const response = await request.get('/user/projectIntroduce/getInfo')
     return mapSingletonContent(response.data, 'projectIntroduceId', 'projectIntroduceTitle', 'projectIntroduceContent', 'projectIntroduceUpdatedTime')

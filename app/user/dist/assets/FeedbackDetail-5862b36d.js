@@ -1,1 +1,0 @@
-import{j as r}from"./index-9d3199ad.js";import"./react-vendor-fa9da516.js";import"./antd-vendor-f6394a9b.js";const s=()=>r.jsxs("div",{children:[r.jsx("h2",{children:"反馈详情"}),r.jsx("p",{children:"反馈详情功能开发中..."})]});export{s as default};

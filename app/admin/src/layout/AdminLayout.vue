@@ -1115,7 +1115,7 @@ const fetchUserInfo = async (silent: boolean = false) => {
   }
 
   // 如果已经有用户信息，清除定时器
-  if (authStore.user) {
+  if (authStore.user && authStore.user.adminImage) {
     console.log('✅ AdminLayout: 用户信息已存在，停止定时获取')
     if (userInfoTimer) {
       clearInterval(userInfoTimer)

@@ -6,7 +6,7 @@
         <p>阿里云短信平台提供验证码、通知和营销短信等能力，支持高并发发送、模板管理与全球触达。</p>
       </div>
       <div class="toolbar-right">
-        <el-button type="primary" @click="openPlatform">
+        <el-button type="primary" @click="openPlatform" :disabled="!canOpenPlatform">
           <i class="el-icon-top-right"></i>
           新窗口打开
         </el-button>
@@ -25,8 +25,20 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useAuthStore, externalSystemPermissions } from '@/store/auth'
+
+const authStore = useAuthStore()
+const canOpenPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.sms))
+const platformURL = 'https://www.aliyun.com/benefit'
+
 const openPlatform = () => {
-  window.open('https://www.aliyun.com/benefit', '_blank')
+  if (!canOpenPlatform.value) {
+    ElMessage.warning('暂无阿里云短信平台权限')
+    return
+  }
+  window.open(platformURL, '_blank')
 }
 </script>
 

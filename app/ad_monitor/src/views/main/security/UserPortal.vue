@@ -6,7 +6,7 @@
         <p>易投简历用户端面向求职用户，提供简历制作、职位搜索、AI优化与求职服务等一体化能力。</p>
       </div>
       <div class="toolbar-right">
-        <el-button type="primary" @click="openPortal">
+        <el-button type="primary" @click="openPortal" :disabled="!canOpenPortal">
           <i class="el-icon-top-right"></i>
           新窗口打开
         </el-button>
@@ -25,9 +25,19 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useAuthStore, internalSystemPermissions } from '@/store/auth'
+
+const authStore = useAuthStore()
+const canOpenPortal = computed(() => authStore.canAccessRoute(internalSystemPermissions.userPortal))
 const portalURL = 'http://117.50.184.138:37222'
 
 const openPortal = () => {
+  if (!canOpenPortal.value) {
+    ElMessage.warning('暂无易投简历用户端权限')
+    return
+  }
   window.open(portalURL, '_blank')
 }
 </script>

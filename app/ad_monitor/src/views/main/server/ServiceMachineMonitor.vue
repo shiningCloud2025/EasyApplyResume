@@ -5,7 +5,7 @@
         <h2>设备监控</h2>
         <el-tag type="warning">实时监控</el-tag>
       </div>
-      <el-button type="primary" @click="loadData" :loading="loading">
+      <el-button type="primary" @click="loadData" :loading="loading" :disabled="!canViewPage">
         <el-icon><Refresh /></el-icon>
         刷新数据
       </el-button>
@@ -33,8 +33,8 @@
         <el-table-column prop="serviceMachinePort" label="SSH端口" width="90" />
         <el-table-column label="操作" width="160" fixed="right">
           <template #default="{ row }">
-            <el-button type="primary" link size="small" @click="handleMonitor(row)">查看监控</el-button>
-            <el-button type="success" link size="small" @click="handleTestConnect(row)">测试连接</el-button>
+            <el-button v-if="canViewMonitor" type="primary" link size="small" @click="handleMonitor(row)">查看监控</el-button>
+            <el-button v-if="canTestConnect" type="success" link size="small" @click="handleTestConnect(row)">测试连接</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -146,17 +146,23 @@
 
       <template #footer>
         <el-button @click="monitorDialogVisible = false">关闭</el-button>
-        <el-button type="primary" @click="refreshMonitor" :loading="monitorLoading">刷新</el-button>
+        <el-button type="primary" @click="refreshMonitor" :loading="monitorLoading" :disabled="!canViewMonitor">刷新</el-button>
       </template>
     </el-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import { Refresh, Cpu, Coin, FolderOpened, TrendCharts } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { serviceMachineMonitorApi } from '@/api'
+import { useAuthStore, serviceMachineMonitorPermissions } from '@/store/auth'
+
+const authStore = useAuthStore()
+const canViewPage = computed(() => authStore.canAccessRoute(serviceMachineMonitorPermissions.getByPage))
+const canViewMonitor = computed(() => authStore.canAccessRoute(serviceMachineMonitorPermissions.getMonitorInfo))
+const canTestConnect = computed(() => authStore.canAccessRoute(serviceMachineMonitorPermissions.testConnect))
 
 const loading = ref(false)
 const tableData = ref<any[]>([])
@@ -191,6 +197,12 @@ const getProgressColor = (percentage: number) => {
 }
 
 const loadData = async () => {
+  if (!canViewPage.value) {
+    tableData.value = []
+    total.value = 0
+    return
+  }
+
   loading.value = true
   try {
     const query = searchName.value ? { serviceMachineName: searchName.value } : {}
@@ -212,6 +224,10 @@ const resetSearch = () => {
 }
 
 const handleTestConnect = async (row: any) => {
+  if (!canTestConnect.value) {
+    return
+  }
+
   try {
     ElMessage.info('正在测试连接...')
     await serviceMachineMonitorApi.testConnect({
@@ -227,6 +243,10 @@ const handleTestConnect = async (row: any) => {
 }
 
 const handleMonitor = async (row: any) => {
+  if (!canViewMonitor.value) {
+    return
+  }
+
   currentServer.value = row
   monitorData.serviceMachineId = row.serviceMachineId
   monitorData.serviceMachineName = row.serviceMachineName
@@ -235,8 +255,8 @@ const handleMonitor = async (row: any) => {
 }
 
 const fetchMonitorInfo = async () => {
-  if (!currentServer.value) return
-  
+  if (!currentServer.value || !canViewMonitor.value) return
+
   monitorLoading.value = true
   try {
     const res = await serviceMachineMonitorApi.getMonitorInfo({
@@ -247,7 +267,7 @@ const fetchMonitorInfo = async () => {
       serviceMachineUsername: currentServer.value.serviceMachineUsername,
       serviceMachinePassword: currentServer.value.serviceMachinePassword
     })
-    
+
     monitorData.cpuUsage = res?.cpuUsage || 0
     monitorData.memoryTotal = res?.memoryTotal || 0
     monitorData.memoryUsed = res?.memoryUsed || 0
@@ -266,6 +286,10 @@ const fetchMonitorInfo = async () => {
 }
 
 const refreshMonitor = () => {
+  if (!canViewMonitor.value) {
+    return
+  }
+
   fetchMonitorInfo()
 }
 

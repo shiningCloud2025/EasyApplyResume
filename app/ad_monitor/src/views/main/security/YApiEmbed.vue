@@ -6,7 +6,7 @@
         <p>YApi 是一个可视化、可本地部署的 API 管理与测试平台，支持接口定义、调试、Mock 与团队协作。</p>
       </div>
       <div class="toolbar-right">
-        <el-button type="primary" @click="openInNewWindow">
+        <el-button type="primary" @click="openInNewWindow" :disabled="!canOpenYApi">
           <el-icon><Link /></el-icon>
           新窗口打开
         </el-button>
@@ -25,11 +25,20 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { ElMessage } from 'element-plus'
 import { Link } from '@element-plus/icons-vue'
+import { useAuthStore, internalSystemPermissions } from '@/store/auth'
 
+const authStore = useAuthStore()
+const canOpenYApi = computed(() => authStore.canAccessRoute(internalSystemPermissions.yapiPlatform))
 const yapiUrl = 'http://120.48.177.183:3000/'
 
 const openInNewWindow = () => {
+  if (!canOpenYApi.value) {
+    ElMessage.warning('暂无 YApi 测试平台权限')
+    return
+  }
   window.open(yapiUrl, '_blank')
 }
 </script>

@@ -72,12 +72,13 @@
                 <p>点击下方按钮在新窗口中打开 Prometheus</p>
               </div>
             </div>
-            <el-button 
-              size="large" 
-              type="primary" 
+            <el-button
+              size="large"
+              type="primary"
               @click="openPrometheus"
               class="action-button"
               :loading="loading"
+              :disabled="!canOpenPrometheus"
             >
               <el-icon><TopRight /></el-icon>
               打开 Prometheus
@@ -101,13 +102,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { TrendCharts, DataLine, Bell, Search, Timer, Right, TopRight, Link, CircleCheck } from '@element-plus/icons-vue'
+import { useAuthStore, securityManagementPermissions } from '@/store/auth'
 
+const authStore = useAuthStore()
 const loading = ref(false)
+const canOpenPrometheus = computed(() => authStore.canAccessRoute(securityManagementPermissions.prometheus))
 
 const openPrometheus = async () => {
+  if (!canOpenPrometheus.value) {
+    ElMessage.warning('暂无 Prometheus 权限')
+    return
+  }
+
   loading.value = true
   try {
     await new Promise(resolve => setTimeout(resolve, 500))

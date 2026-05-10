@@ -24,10 +24,13 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response) => {
     const res = response.data
+    const silentError = Boolean((response.config as any)?.silentError)
     // 支持两种格式：{ code, data } 或直接返回数据
     if (res.code !== undefined) {
       if (res.code !== 200) {
-        ElMessage.error(res.message || '请求失败')
+        if (!silentError) {
+          ElMessage.error(res.message || '请求失败')
+        }
         return Promise.reject(new Error(res.message || '请求失败'))
       }
       return res.data
@@ -35,6 +38,7 @@ request.interceptors.response.use(
     return res
   },
   (error) => {
+    const silentError = Boolean((error.config as any)?.silentError)
     if (error.response?.status === 401) {
       console.warn('[ad_monitor] 接口返回401，准备清理登录态并跳转登录页:', {
         url: error.config?.url,
@@ -43,7 +47,7 @@ request.interceptors.response.use(
       })
       localStorage.removeItem('monitor_token')
       window.location.href = '/login'
-    } else {
+    } else if (!silentError) {
       ElMessage.error(error.response?.data?.message || error.message || '网络错误')
     }
     return Promise.reject(error)
@@ -72,8 +76,8 @@ export const authApi = {
   getUserInfo: () => request.post('/admin/auth/getAdminInfo', {}),
   
   // 根据adminId获取管理员详情
-  getAdminById: (adminId: number) => 
-    request.get('/admin/admin/findById', { params: { adminId } })
+  getAdminById: (adminId: number, config?: any) =>
+    request.get('/admin/admin/findById', { params: { adminId }, ...(config || {}) } as any)
 }
 
 // 短信API

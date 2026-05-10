@@ -165,7 +165,7 @@ const editFormRef = ref<FormInstance>()
 
 const defaultAvatar = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
 const adminInfo = ref<any>(null)
-const dialogWidth = computed(() => window.innerWidth <= 768 ? '94%' : '600px')
+const dialogWidth = computed(() => (typeof window !== 'undefined' && window.innerWidth <= 768 ? '94%' : '600px'))
 
 const editForm = reactive<any>({
   adminId: undefined,
@@ -218,7 +218,7 @@ const getAdminInfo = async () => {
     console.log('📥 [个人中心] 调用 /admin/admin/findById，adminId:', user.userId)
     const response = await adminApi.getAdminInfo(user.userId)
     console.log('📥 [个人中心] API响应:', response)
-    adminInfo.value = response
+    adminInfo.value = response?.data || response
     console.log('✅ [个人中心] 管理员信息加载成功:', adminInfo.value)
   } catch (error) {
     console.error('❌ [个人中心] 获取失败:', error)

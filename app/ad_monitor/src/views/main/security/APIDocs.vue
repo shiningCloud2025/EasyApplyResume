@@ -3,7 +3,7 @@
     <div class="docs-header">
       <h1>{{ pageTitle }}</h1>
       <div class="header-actions">
-        <el-button @click="openAPIDocs" type="primary" size="large">
+        <el-button @click="openAPIDocs" type="primary" size="large" :disabled="!canOpenAPIDocs">
           <i class="el-icon-view"></i>
           在新窗口打开{{ pageTitle }}
         </el-button>
@@ -78,12 +78,13 @@
                   <p>点击下方按钮在新窗口中查看完整的API文档</p>
                 </div>
               </div>
-              <el-button 
-                size="large" 
-                type="primary" 
+              <el-button
+                size="large"
+                type="primary"
                 @click="openAPIDocs"
                 class="action-button"
                 :loading="loading"
+                :disabled="!canOpenAPIDocs"
               >
                 <i class="el-icon-top-right"></i>
                 打开 {{ pageType === 'external' ? 'Swagger UI' : 'Knife4j UI' }}
@@ -109,9 +110,12 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
+import { useAuthStore, apiDocsPermissions } from '@/store/auth'
 
 const route = useRoute()
+const authStore = useAuthStore()
 const loading = ref(false)
 
 const pageType = computed(() => {
@@ -133,15 +137,25 @@ const pageIcon = computed(() => {
 })
 
 const apiURL = computed(() => {
-  return pageType.value === 'external' 
+  return pageType.value === 'external'
     ? 'http://117.50.184.138:37221/api/swagger-ui/index.html'
     : 'http://117.50.184.138:37221/api/doc.html#/home'
 })
 
+const pagePermission = computed(() => {
+  return pageType.value === 'external' ? apiDocsPermissions.external : apiDocsPermissions.internal
+})
+
+const canOpenAPIDocs = computed(() => authStore.canAccessRoute(pagePermission.value))
+
 const openAPIDocs = async () => {
+  if (!canOpenAPIDocs.value) {
+    ElMessage.warning(`暂无${pageTitle.value}权限`)
+    return
+  }
+
   loading.value = true
   try {
-    // 模拟加载效果
     await new Promise(resolve => setTimeout(resolve, 500))
     window.open(apiURL.value, '_blank')
   } finally {

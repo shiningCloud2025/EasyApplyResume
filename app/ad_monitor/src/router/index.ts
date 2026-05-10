@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions, adminWebsiteManagementPermissions, middlewareManagementPermissions, serviceMachineManagementPermissions } from '@/store/auth'
+import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions, adminWebsiteManagementPermissions, middlewareManagementPermissions, serviceMachineManagementPermissions, serviceMachineMonitorPermissions, securityManagementPermissions, internalSystemPermissions, externalSystemPermissions, apiDocsPermissions } from '@/store/auth'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -148,119 +148,119 @@ const router = createRouter({
           path: 'server/monitor',
           name: 'ServerMonitor',
           component: () => import('@/views/main/server/ServiceMachineMonitor.vue'),
-          meta: { title: '设备监控' }
+          meta: { title: '设备监控', permission: serviceMachineMonitorPermissions.getByPage }
         },
         // 网站安全管理
         {
           path: 'security/spring-boot-admin',
           name: 'SpringBootAdmin',
           component: () => import('@/views/main/security/SpringBootAdmin.vue'),
-          meta: { title: 'Spring Boot Admin' }
+          meta: { title: 'Spring Boot Admin', permission: securityManagementPermissions.springBootAdmin }
         },
         {
           path: 'security/prometheus',
           name: 'Prometheus',
           component: () => import('@/views/main/security/Prometheus.vue'),
-          meta: { title: 'Prometheus' }
+          meta: { title: 'Prometheus', permission: securityManagementPermissions.prometheus }
         },
         {
           path: 'security/grafana',
           name: 'Grafana',
           component: () => import('@/views/main/security/Grafana.vue'),
-          meta: { title: 'Grafana' }
+          meta: { title: 'Grafana', permission: securityManagementPermissions.grafana }
         },
         // 内部系统
         {
           path: 'system/user-portal',
           name: 'SystemUserPortal',
           component: () => import('@/views/main/security/UserPortal.vue'),
-          meta: { title: '易投简历用户端' }
+          meta: { title: '易投简历用户端', permission: internalSystemPermissions.userPortal }
         },
         {
-          path: 'system/observation-portal',
-          name: 'SystemObservationPortal',
+          path: 'system/admin-portal',
+          name: 'SystemAdminPortal',
           component: () => import('@/views/main/security/ObservationPortal.vue'),
-          meta: { title: '易投简历监测与广告端' }
+          meta: { title: '易投简历管理端', permission: internalSystemPermissions.adminPortal }
         },
         {
           path: 'system/nacos-platform',
           name: 'SystemNacosPlatform',
           component: () => import('@/views/main/security/NacosPlatform.vue'),
-          meta: { title: 'Nacos配置平台' }
+          meta: { title: 'Nacos配置平台', permission: internalSystemPermissions.nacosPlatform }
         },
         {
           path: 'system/yapi-platform',
           name: 'SystemYApiPlatform',
           component: () => import('@/views/main/security/YApiEmbed.vue'),
-          meta: { title: 'YApi测试平台' }
+          meta: { title: 'YApi测试平台', permission: internalSystemPermissions.yapiPlatform }
         },
         // 外部系统
         {
           path: 'external-platform/bailian',
           name: 'ExternalBailianPlatform',
           component: () => import('@/views/main/security/BailianAPI.vue'),
-          meta: { title: '阿里云百炼平台' }
+          meta: { title: '阿里云百炼平台', permission: externalSystemPermissions.bailian }
         },
         {
           path: 'external-platform/sms',
           name: 'ExternalSmsPlatform',
           component: () => import('@/views/main/security/SmsAPI.vue'),
-          meta: { title: '阿里云短信平台' }
+          meta: { title: '阿里云短信平台', permission: externalSystemPermissions.sms }
         },
         {
           path: 'external-platform/searchapi',
           name: 'ExternalSearchAPIPlatform',
           component: () => import('@/views/main/security/SearchAPI.vue'),
-          meta: { title: 'SearchAPI平台' }
+          meta: { title: 'SearchAPI平台', permission: externalSystemPermissions.searchapi }
         },
         {
           path: 'external-platform/amap',
           name: 'ExternalAmapPlatform',
           component: () => import('@/views/main/security/AmapAPI.vue'),
-          meta: { title: '高德开放平台' }
+          meta: { title: '高德开放平台', permission: externalSystemPermissions.amap }
         },
         {
           path: 'external-platform/baidu-cloud',
           name: 'ExternalBaiduCloudPlatform',
           component: () => import('@/views/main/security/BaiduCloudAPI.vue'),
-          meta: { title: '百度智能云平台' }
+          meta: { title: '百度智能云平台', permission: externalSystemPermissions.baiduCloud }
         },
         {
           path: 'external-platform/qiniu',
           name: 'ExternalQiniuPlatform',
           component: () => import('@/views/main/security/QiniuCloudAPI.vue'),
-          meta: { title: '七牛云平台' }
+          meta: { title: '七牛云平台', permission: externalSystemPermissions.qiniu }
         },
         {
           path: 'external-platform/autodl',
           name: 'ExternalAutoDLPlatform',
           component: () => import('@/views/main/security/AutoDLAPI.vue'),
-          meta: { title: 'AutoDL平台' }
+          meta: { title: 'AutoDL平台', permission: externalSystemPermissions.autodl }
         },
         {
           path: 'external-platform/bigmodel',
           name: 'ExternalBigModelPlatform',
           component: () => import('@/views/main/security/BigModelAPI.vue'),
-          meta: { title: '智谱开放平台' }
+          meta: { title: '智谱开放平台', permission: externalSystemPermissions.bigmodel }
         },
         {
           path: 'external-platform/volcengine',
           name: 'ExternalVolcenginePlatform',
           component: () => import('@/views/main/security/VolcengineAPI.vue'),
-          meta: { title: '火山引擎平台' }
+          meta: { title: '火山引擎平台', permission: externalSystemPermissions.volcengine }
         },
         // API文档中心
         {
           path: 'api-docs/external',
           name: 'ExternalAPIDocs',
           component: () => import('@/views/main/security/APIDocs.vue'),
-          meta: { title: 'API对外文档中心' }
+          meta: { title: 'API对外文档中心', permission: apiDocsPermissions.external }
         },
         {
           path: 'api-docs/internal',
           name: 'InternalAPIDocs',
           component: () => import('@/views/main/security/APIDocs.vue'),
-          meta: { title: 'API对内文档中心' }
+          meta: { title: 'API对内文档中心', permission: apiDocsPermissions.internal }
         },
         // 个人中心
         {

@@ -53,10 +53,10 @@ const portalConfigMap: Record<string, PortalConfig> = {
     url: 'http://117.50.184.138:37222',
     buttonText: '新窗口打开'
   },
-  SystemObservationPortal: {
-    title: '易投简历监测与广告端',
-    description: '监测与广告端用于查看系统运行状态、分析业务数据并处理广告运营相关工作。',
-    url: 'http://117.50.184.138:37223',
+  SystemAdminPortal: {
+    title: '易投简历管理端',
+    description: '易投简历管理端面向后台管理人员，提供用户管理、业务配置、内容维护与平台运营等综合能力。',
+    url: 'http://117.50.184.138:37221/',
     buttonText: '新窗口打开'
   },
   ExternalBailianPlatform: {

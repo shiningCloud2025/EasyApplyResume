@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
+import { Modal } from 'antd'
 import { useUserStore } from '@stores/userStore'
+import { contentAPI } from '@api/content'
 import PortalHeader from './PortalHeader'
 import PortalFooter from './PortalFooter'
 import IdleAdCarousel from './IdleAdCarousel'
 import './MainLayout.scss'
 
 const MainLayout: React.FC = () => {
-  const navigate = useNavigate()
   const { user, isLoggedIn, fetchUserInfo } = useUserStore()
   const userInfoTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
@@ -86,6 +87,33 @@ const MainLayout: React.FC = () => {
       }
     }
   }, [isLoggedIn])
+
+  useEffect(() => {
+    const showAnnouncement = async () => {
+      const announcementShown = sessionStorage.getItem('user_announcement_shown')
+      if (announcementShown) {
+        return
+      }
+
+      try {
+        const res = await contentAPI.getUserAnnouncement()
+        if (res?.announcementTitle) {
+          sessionStorage.setItem('user_announcement_shown', 'true')
+          Modal.info({
+            title: res.announcementTitle,
+            content: <div dangerouslySetInnerHTML={{ __html: res.announcementContent || '暂无内容' }} />,
+            width: 640,
+            okText: '我知道了',
+          })
+        }
+      } catch (error) {
+        console.log('用户端公告获取失败，跳过:', error)
+      }
+    }
+
+    showAnnouncement()
+  }, [])
+
 
   return (
     <div className="main-layout-portal">

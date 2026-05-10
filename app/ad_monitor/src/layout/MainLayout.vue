@@ -130,7 +130,7 @@
           </el-sub-menu>
 
           <!-- 服务器管理 -->
-          <el-sub-menu index="server">
+          <el-sub-menu v-if="showServerMenu" index="server">
             <template #title>
               <el-icon><Monitor /></el-icon>
               <span>服务器管理</span>
@@ -142,78 +142,75 @@
             >
               {{ item.title }}
             </el-menu-item>
-            <el-menu-item index="/main/server/monitor">设备监控</el-menu-item>
           </el-sub-menu>
 
           <!-- 网站安全管理 -->
-          <el-sub-menu index="security">
+          <el-sub-menu v-if="showSecurityMenu" index="security">
             <template #title>
               <el-icon><Lock /></el-icon>
               <span>网站安全管理</span>
             </template>
-            <el-menu-item index="/main/security/spring-boot-admin">
-              <el-icon><Monitor /></el-icon>
-              <span>Spring Boot Admin</span>
-            </el-menu-item>
-            <el-menu-item index="/main/security/prometheus">
-              <el-icon><TrendCharts /></el-icon>
-              <span>Prometheus</span>
-            </el-menu-item>
-            <el-menu-item index="/main/security/grafana">
-              <el-icon><DataLine /></el-icon>
-              <span>Grafana</span>
+            <el-menu-item
+              v-for="item in visibleSecurityMenus"
+              :key="item.index"
+              :index="item.index"
+            >
+              <el-icon>
+                <component :is="item.icon" />
+              </el-icon>
+              <span>{{ item.title }}</span>
             </el-menu-item>
           </el-sub-menu>
 
           <!-- 内部系统 -->
-          <el-sub-menu index="system">
+          <el-sub-menu v-if="showSystemMenu" index="system">
             <template #title>
               <el-icon><Monitor /></el-icon>
               <span>内部系统</span>
             </template>
-            <el-menu-item index="/main/system/user-portal">
+            <el-menu-item v-if="canAccessUserPortal" index="/main/system/user-portal">
               <el-icon><User /></el-icon>
               <span>易投简历用户端</span>
             </el-menu-item>
-            <el-menu-item index="/main/system/observation-portal">
+            <el-menu-item v-if="canAccessAdminPortal" index="/main/system/admin-portal">
               <el-icon><DataAnalysis /></el-icon>
-              <span>易投简历监测与广告端</span>
+              <span>易投简历管理端</span>
             </el-menu-item>
-            <el-menu-item index="/main/system/nacos-platform">
+            <el-menu-item v-if="canAccessNacosPlatform" index="/main/system/nacos-platform">
               <el-icon><Connection /></el-icon>
               <span>Nacos配置平台</span>
             </el-menu-item>
-            <el-menu-item index="/main/system/yapi-platform">
+            <el-menu-item v-if="canAccessYApiPlatform" index="/main/system/yapi-platform">
               <el-icon><Link /></el-icon>
               <span>YApi测试平台</span>
             </el-menu-item>
           </el-sub-menu>
 
           <!-- 外部系统 -->
-          <el-sub-menu index="external-platform">
+          <el-sub-menu v-if="showExternalPlatformMenu" index="external-platform">
             <template #title>
               <el-icon><Platform /></el-icon>
               <span>外部系统</span>
             </template>
-            <el-menu-item index="/main/external-platform/bailian">阿里云百炼平台</el-menu-item>
-            <el-menu-item index="/main/external-platform/sms">阿里云短信平台</el-menu-item>
-            <el-menu-item index="/main/external-platform/searchapi">SearchAPI平台</el-menu-item>
-            <el-menu-item index="/main/external-platform/amap">高德开放平台</el-menu-item>
-            <el-menu-item index="/main/external-platform/baidu-cloud">百度智能云平台</el-menu-item>
-            <el-menu-item index="/main/external-platform/qiniu">七牛云平台</el-menu-item>
-            <el-menu-item index="/main/external-platform/autodl">AutoDL平台</el-menu-item>
-            <el-menu-item index="/main/external-platform/bigmodel">智谱开放平台</el-menu-item>
-            <el-menu-item index="/main/external-platform/volcengine">火山引擎平台</el-menu-item>
+            <el-menu-item v-if="canAccessBailianPlatform" index="/main/external-platform/bailian">阿里云百炼平台</el-menu-item>
+            <el-menu-item v-if="canAccessSmsPlatform" index="/main/external-platform/sms">阿里云短信平台</el-menu-item>
+            <el-menu-item v-if="canAccessSearchApiPlatform" index="/main/external-platform/searchapi">SearchAPI平台</el-menu-item>
+            <el-menu-item v-if="canAccessAmapPlatform" index="/main/external-platform/amap">高德开放平台</el-menu-item>
+            <el-menu-item v-if="canAccessBaiduCloudPlatform" index="/main/external-platform/baidu-cloud">百度智能云平台</el-menu-item>
+            <el-menu-item v-if="canAccessQiniuPlatform" index="/main/external-platform/qiniu">七牛云平台</el-menu-item>
+            <el-menu-item v-if="canAccessAutoDlPlatform" index="/main/external-platform/autodl">AutoDL平台</el-menu-item>
+            <el-menu-item v-if="canAccessBigModelPlatform" index="/main/external-platform/bigmodel">智谱开放平台</el-menu-item>
+            <el-menu-item v-if="canAccessVolcenginePlatform" index="/main/external-platform/volcengine">火山引擎平台</el-menu-item>
           </el-sub-menu>
 
           <!-- API文档中心 -->
-          <el-sub-menu index="api-docs">
+          <el-sub-menu v-if="showApiDocsMenu" index="api-docs">
             <template #title>
               <el-icon><Link /></el-icon>
               <span>API文档中心</span>
             </template>
-            <el-menu-item index="/main/api-docs/external">API对外文档中心</el-menu-item>
-            <el-menu-item index="/main/api-docs/internal">API对内文档中心</el-menu-item>
+            <el-menu-item v-if="canAccessExternalApiDocs" index="/main/api-docs/external">API对外文档中心</el-menu-item>
+            <el-menu-item v-if="canAccessInternalApiDocs" index="/main/api-docs/internal">API对内文档中心</el-menu-item>
           </el-sub-menu>
         </el-menu>
       </el-scrollbar>
@@ -290,7 +287,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions, adminWebsiteManagementPermissions, middlewareManagementPermissions, serviceMachineManagementPermissions } from '@/store/auth'
+import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions, adminWebsiteManagementPermissions, middlewareManagementPermissions, serviceMachineManagementPermissions, serviceMachineMonitorPermissions, securityManagementPermissions, internalSystemPermissions, externalSystemPermissions, apiDocsPermissions } from '@/store/auth'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import {
   House, Bell, Picture, User, UserFilled, Connection, Lock, Monitor,
@@ -382,6 +379,32 @@ const serverMenus = [
     index: '/main/server/manage',
     title: '设备管理',
     permission: serviceMachineManagementPermissions.getByPage
+  },
+  {
+    index: '/main/server/monitor',
+    title: '设备监控',
+    permission: serviceMachineMonitorPermissions.getByPage
+  }
+]
+
+const securityMenus = [
+  {
+    index: '/main/security/spring-boot-admin',
+    title: 'Spring Boot Admin',
+    icon: Monitor,
+    permission: securityManagementPermissions.springBootAdmin
+  },
+  {
+    index: '/main/security/prometheus',
+    title: 'Prometheus',
+    icon: TrendCharts,
+    permission: securityManagementPermissions.prometheus
+  },
+  {
+    index: '/main/security/grafana',
+    title: 'Grafana',
+    icon: DataLine,
+    permission: securityManagementPermissions.grafana
   }
 ]
 
@@ -415,6 +438,55 @@ const visibleMiddlewareMenus = computed(() => {
 
 const visibleServerMenus = computed(() => {
   return serverMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showServerMenu = computed(() => {
+  return visibleServerMenus.value.length > 0
+})
+
+const visibleSecurityMenus = computed(() => {
+  return securityMenus.filter((item) => authStore.canAccessRoute(item.permission))
+})
+
+const showSecurityMenu = computed(() => {
+  return visibleSecurityMenus.value.length > 0
+})
+
+const canAccessUserPortal = computed(() => authStore.canAccessRoute(internalSystemPermissions.userPortal))
+const canAccessAdminPortal = computed(() => authStore.canAccessRoute(internalSystemPermissions.adminPortal))
+const canAccessNacosPlatform = computed(() => authStore.canAccessRoute(internalSystemPermissions.nacosPlatform))
+const canAccessYApiPlatform = computed(() => authStore.canAccessRoute(internalSystemPermissions.yapiPlatform))
+
+const showSystemMenu = computed(() => {
+  return canAccessUserPortal.value || canAccessAdminPortal.value || canAccessNacosPlatform.value || canAccessYApiPlatform.value
+})
+
+const canAccessBailianPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.bailian))
+const canAccessSmsPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.sms))
+const canAccessSearchApiPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.searchapi))
+const canAccessAmapPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.amap))
+const canAccessBaiduCloudPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.baiduCloud))
+const canAccessQiniuPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.qiniu))
+const canAccessAutoDlPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.autodl))
+const canAccessBigModelPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.bigmodel))
+const canAccessVolcenginePlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.volcengine))
+
+const showExternalPlatformMenu = computed(() => {
+  return canAccessBailianPlatform.value
+    || canAccessSmsPlatform.value
+    || canAccessSearchApiPlatform.value
+    || canAccessAmapPlatform.value
+    || canAccessBaiduCloudPlatform.value
+    || canAccessQiniuPlatform.value
+    || canAccessAutoDlPlatform.value
+    || canAccessBigModelPlatform.value
+    || canAccessVolcenginePlatform.value
+})
+
+const canAccessExternalApiDocs = computed(() => authStore.canAccessRoute(apiDocsPermissions.external))
+const canAccessInternalApiDocs = computed(() => authStore.canAccessRoute(apiDocsPermissions.internal))
+const showApiDocsMenu = computed(() => {
+  return canAccessExternalApiDocs.value || canAccessInternalApiDocs.value
 })
 
 const isMobile = ref(false)
@@ -471,7 +543,7 @@ const breadcrumbs = computed(() => {
     '/main/security/prometheus': 'Prometheus',
     '/main/security/grafana': 'Grafana',
     '/main/system/user-portal': '易投简历用户端',
-    '/main/system/observation-portal': '易投简历监测与广告端',
+    '/main/system/admin-portal': '易投简历管理端',
     '/main/system/nacos-platform': 'Nacos配置平台',
     '/main/system/yapi-platform': 'YApi测试平台',
     '/main/external-platform/bailian': '阿里云百炼平台',

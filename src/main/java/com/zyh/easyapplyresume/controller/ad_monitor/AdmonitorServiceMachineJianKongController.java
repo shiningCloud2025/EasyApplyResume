@@ -12,6 +12,7 @@ import com.zyh.easyapplyresume.service.ad_monitor.AdmonitorServiceMachineService
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -26,8 +27,9 @@ public class AdmonitorServiceMachineJianKongController {
     @Autowired
     private AdmonitorServiceMachineService admonitorServiceMachineService;
 
-    @PostMapping("/getAdmonitorServiceMachinePage")
     @Operation(summary = "获取服务器设备分页")
+    @PostMapping("/getAdmonitorServiceMachinePage")
+    @PreAuthorize("hasAuthority('/admonitor/servicemachine/jiankong/getAdmonitorServiceMachinePage')")
     public BaseResult<Page<AdmonitorServiceMachinePageVO>> getAdmonitorServiceMachinePage(@RequestParam(required = false, name = "pageNum",defaultValue = "1") Integer pageNum,
                                                                                           @RequestParam(required = false, name = "pageSize",defaultValue = "10") Integer pageSize,
                                                                                           @RequestBody AdmonitorServiceMachineQuery admonitorServiceMachineQuery) {
@@ -35,14 +37,16 @@ public class AdmonitorServiceMachineJianKongController {
 
     }
 
-    @PostMapping("/getAdmonitorServiceMachineJianKongInfo")
     @Operation(summary = "获取服务器监控信息")
+    @PostMapping("/getAdmonitorServiceMachineJianKongInfo")
+    @PreAuthorize("hasAuthority('/admonitor/servicemachine/jiankong/getAdmonitorServiceMachineJianKongInfo')")
     public BaseResult<AdmonitorServiceMachineJianKongVO> getAdmonitorServiceMachineJianKongInfo(@RequestBody AdmonitorServiceMachineJianKongForm admonitorServiceMachineJianKongForm){
         return BaseResult.ok(admonitorServiceMachineService.getAdmonitorServiceMachineJianKongInfo(admonitorServiceMachineJianKongForm));
     }
 
-    @PostMapping("/testServiceMachineConnect")
     @Operation(summary = "测试服务器设备连接")
+    @PostMapping("/testServiceMachineConnect")
+    @PreAuthorize("hasAuthority('/admonitor/servicemachine/jiankong/testServiceMachineConnect')")
     public BaseResult<Boolean> testServiceMachineConnect(@RequestBody AdmonitorServiceMachineConnectForm admonitorServiceMachineConnectForm) {
         return BaseResult.ok(admonitorServiceMachineService.testServiceMachineConnect(admonitorServiceMachineConnectForm));
     }

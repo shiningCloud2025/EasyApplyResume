@@ -72,12 +72,13 @@
                 <p>点击下方按钮在新窗口中打开 Grafana</p>
               </div>
             </div>
-            <el-button 
-              size="large" 
-              type="primary" 
+            <el-button
+              size="large"
+              type="primary"
               @click="openGrafana"
               class="action-button"
               :loading="loading"
+              :disabled="!canOpenGrafana"
             >
               <el-icon><TopRight /></el-icon>
               打开 Grafana
@@ -101,13 +102,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { DataLine, PieChart, Grid, Bell, Connection, Right, TopRight, Link, CircleCheck } from '@element-plus/icons-vue'
+import { useAuthStore, securityManagementPermissions } from '@/store/auth'
 
+const authStore = useAuthStore()
 const loading = ref(false)
+const canOpenGrafana = computed(() => authStore.canAccessRoute(securityManagementPermissions.grafana))
 
 const openGrafana = async () => {
+  if (!canOpenGrafana.value) {
+    ElMessage.warning('暂无 Grafana 权限')
+    return
+  }
+
   loading.value = true
   try {
     await new Promise(resolve => setTimeout(resolve, 500))

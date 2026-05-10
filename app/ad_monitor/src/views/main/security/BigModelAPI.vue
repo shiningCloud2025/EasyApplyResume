@@ -6,7 +6,7 @@
         <p>智谱开放平台提供 GLM 系列模型、智能体与大模型应用能力，适合通用问答、内容生成和 AI 能力接入场景。</p>
       </div>
       <div class="toolbar-right">
-        <el-button type="primary" @click="openPlatform">
+        <el-button type="primary" @click="openPlatform" :disabled="!canOpenPlatform">
           <i class="el-icon-top-right"></i>
           新窗口打开
         </el-button>
@@ -25,9 +25,19 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useAuthStore, externalSystemPermissions } from '@/store/auth'
+
+const authStore = useAuthStore()
+const canOpenPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.bigmodel))
 const platformURL = 'https://open.bigmodel.cn/'
 
 const openPlatform = () => {
+  if (!canOpenPlatform.value) {
+    ElMessage.warning('暂无智谱开放平台权限')
+    return
+  }
   window.open(platformURL, '_blank')
 }
 </script>

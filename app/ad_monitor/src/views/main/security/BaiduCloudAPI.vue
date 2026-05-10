@@ -6,7 +6,7 @@
         <p>百度智能云提供 AI、大模型、云计算与数据服务能力，适合智能应用接入与云端业务管理场景。</p>
       </div>
       <div class="toolbar-right">
-        <el-button type="primary" @click="openPlatform">
+        <el-button type="primary" @click="openPlatform" :disabled="!canOpenPlatform">
           <i class="el-icon-top-right"></i>
           新窗口打开
         </el-button>
@@ -25,9 +25,19 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useAuthStore, externalSystemPermissions } from '@/store/auth'
+
+const authStore = useAuthStore()
+const canOpenPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.baiduCloud))
 const platformURL = 'https://cloud.baidu.com/'
 
 const openPlatform = () => {
+  if (!canOpenPlatform.value) {
+    ElMessage.warning('暂无百度智能云平台权限')
+    return
+  }
   window.open(platformURL, '_blank')
 }
 </script>

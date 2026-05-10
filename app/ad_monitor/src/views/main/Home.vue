@@ -82,7 +82,7 @@ import {
 } from '@element-plus/icons-vue'
 import { ElMessageBox } from 'element-plus'
 import { monitorAnnouncementApi } from '@/api'
-import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions, adminWebsiteManagementPermissions, serviceMachineManagementPermissions } from '@/store/auth'
+import { useAuthStore, announcementManagementPermissions, imageAdvertisementManagementPermissions, userWebsiteManagementPermissions, adminWebsiteManagementPermissions, serviceMachineManagementPermissions, serviceMachineMonitorPermissions } from '@/store/auth'
 
 const currentTime = ref('')
 const authStore = useAuthStore()
@@ -146,6 +146,12 @@ const quickLinks = computed(() => {
       title: '设备管理',
       path: '/main/server/manage',
       permission: serviceMachineManagementPermissions.getByPage
+    },
+    {
+      icon: 'Monitor',
+      title: '设备监控',
+      path: '/main/server/monitor',
+      permission: serviceMachineMonitorPermissions.getByPage
     }
   ]
 

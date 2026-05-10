@@ -6,7 +6,7 @@
         <p>AutoDL 提供按需 GPU 算力、镜像环境和训练资源管理能力，适合模型训练、实验调试与部署前环境准备场景。</p>
       </div>
       <div class="toolbar-right">
-        <el-button type="primary" @click="openPlatform">
+        <el-button type="primary" @click="openPlatform" :disabled="!canOpenPlatform">
           <i class="el-icon-top-right"></i>
           新窗口打开
         </el-button>
@@ -25,9 +25,19 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useAuthStore, externalSystemPermissions } from '@/store/auth'
+
+const authStore = useAuthStore()
+const canOpenPlatform = computed(() => authStore.canAccessRoute(externalSystemPermissions.autodl))
 const platformURL = 'https://www.autodl.com/'
 
 const openPlatform = () => {
+  if (!canOpenPlatform.value) {
+    ElMessage.warning('暂无 AutoDL 平台权限')
+    return
+  }
   window.open(platformURL, '_blank')
 }
 </script>
