@@ -1,0 +1,131 @@
+@startuml
+!pragma layout smetana
+title 图3 业务层详细实现类图（Service）
+top to bottom direction
+hide circle
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+skinparam defaultFontName SimSun
+skinparam classFontName SimSun
+skinparam classAttributeFontName SimSun
+skinparam classBackgroundColor white
+skinparam classBorderColor black
+skinparam minClassWidth 230
+skinparam ranksep 80
+skinparam nodesep 55
+
+interface "UserSaveResumeService\n用户简历服务接口" as UserSaveResumeService {
+  +getUserSaveResumeInfoByUserId()
+  +saveUserSaveResumeInfoFirst()
+  +assistReactCodeByAI()
+  +scoreResumeByModel()
+}
+interface "UserAuthService\n用户认证服务接口" as UserAuthService {
+  +formalLogin()
+  +phoneLogin()
+  +emailLogin()
+  +formalRegister()
+}
+interface "RecruitPositionService\n招聘岗位服务接口" as RecruitPositionService {
+  +addRecruitPosition()
+  +updateRecruitPosition()
+  +deleteRecruitPosition()
+  +queryRecruitPositionPage()
+}
+
+interface "UserCollectionsService\n收藏服务接口" as UserCollectionsService {
+  +isUserCollectResumeTemplate()
+  +saveResumeTemplateByUserId()
+  +getUserCollectResumeTemplate()
+}
+interface "AdminAuthService\n管理员认证服务接口" as AdminAuthService {
+  +formalLogin()
+  +phoneLogin()
+  +emailLogin()
+}
+interface "UserSendResumeToHrService\n简历投递服务接口" as UserSendResumeToHrService {
+  +sendResumeToHr()
+}
+
+class "UserSaveResumeServiceImpl\n用户简历服务实现类" as UserSaveResumeServiceImpl {
+  +extractResumeKeywordsByAI()
+  +scoreResumeByAI()
+  +getResumeFeedbackByAI()
+}
+class "UserAuthServiceImpl\n用户认证服务实现类" as UserAuthServiceImpl
+class "RecruitPositionServiceImpl\n招聘岗位服务实现类" as RecruitPositionServiceImpl
+class "UserCollectionsServiceImpl\n收藏服务实现类" as UserCollectionsServiceImpl
+class "AdminAuthServiceImpl\n管理员认证服务实现类" as AdminAuthServiceImpl
+class "UserSendResumeToHrServiceImpl\n简历投递服务实现类" as UserSendResumeToHrServiceImpl
+
+class "简历数据访问\n-UserSaveResumeMapper\n-IndustryMapMapper\n-AdminScoreModelVersionMapper\n-AdminScoreTrainingDataMapper" as ResumeDataAccess
+class "认证通用基础设施\n-PasswordEncoder\n-JwtUtil\n-StringRedisTemplate" as AuthInfra
+class "招聘岗位依赖\n-RecruitPositionMapper\n-EmploymentInformationMapper\n-RedisCacheUtil\n-CacheInvalidatePublisher" as RecruitDeps
+
+class "简历AI能力组件\n-ResumeToReactConverter\n-ReactCodeAssistant\n-ResumeKeywordExtractor\n-AIResumeScorer\n-AIResumeFeedbackGenerator\n-ResumeScorePredictor" as ResumeAiComponents
+class "用户认证依赖\n-UserMapper\n-UserSmsService\n-UserLoginAndRegisterEmailVerifyService\n-AdmonitorUserDailyVisitNumService" as UserAuthDeps
+class "邮件依赖\n-JavaMailSender" as MailDeps
+
+class "回收站服务\n-UserDeleteResumeService" as ResumeRecycleService
+class "管理员认证依赖\n-AdminMapper\n-AdminSmsService\n-AdminLoginAndRegisterEmailVerifyService\n-AdmonitorAdminDailyVisitNumService" as AdminAuthDeps
+class "收藏数据访问\n-UserCollectionsMapper" as CollectionDataAccess
+
+' 接口 -> 实现
+UserSaveResumeServiceImpl ..|> UserSaveResumeService
+UserAuthServiceImpl ..|> UserAuthService
+RecruitPositionServiceImpl ..|> RecruitPositionService
+UserCollectionsServiceImpl ..|> UserCollectionsService
+AdminAuthServiceImpl ..|> AdminAuthService
+UserSendResumeToHrServiceImpl ..|> UserSendResumeToHrService
+
+' 实现 -> 依赖
+UserSaveResumeServiceImpl --> ResumeDataAccess
+UserSaveResumeServiceImpl --> ResumeAiComponents
+UserSaveResumeServiceImpl --> ResumeRecycleService
+
+UserAuthServiceImpl --> UserAuthDeps
+UserAuthServiceImpl --> AuthInfra
+
+RecruitPositionServiceImpl --> RecruitDeps
+
+UserCollectionsServiceImpl --> CollectionDataAccess
+
+AdminAuthServiceImpl --> AdminAuthDeps
+AdminAuthServiceImpl --> AuthInfra
+
+UserSendResumeToHrServiceImpl --> MailDeps
+
+' 3x2 网格布局（接口层/实现层）
+UserSaveResumeService -[hidden]right-> UserAuthService
+UserAuthService -[hidden]right-> RecruitPositionService
+UserCollectionsService -[hidden]right-> AdminAuthService
+AdminAuthService -[hidden]right-> UserSendResumeToHrService
+UserSaveResumeService -[hidden]down-> UserCollectionsService
+UserAuthService -[hidden]down-> AdminAuthService
+RecruitPositionService -[hidden]down-> UserSendResumeToHrService
+
+UserSaveResumeServiceImpl -[hidden]right-> UserAuthServiceImpl
+UserAuthServiceImpl -[hidden]right-> RecruitPositionServiceImpl
+UserCollectionsServiceImpl -[hidden]right-> AdminAuthServiceImpl
+AdminAuthServiceImpl -[hidden]right-> UserSendResumeToHrServiceImpl
+UserSaveResumeServiceImpl -[hidden]down-> UserCollectionsServiceImpl
+UserAuthServiceImpl -[hidden]down-> AdminAuthServiceImpl
+RecruitPositionServiceImpl -[hidden]down-> UserSendResumeToHrServiceImpl
+
+' 依赖层网格
+ResumeDataAccess -[hidden]right-> AuthInfra
+AuthInfra -[hidden]right-> RecruitDeps
+ResumeAiComponents -[hidden]right-> UserAuthDeps
+UserAuthDeps -[hidden]right-> MailDeps
+ResumeRecycleService -[hidden]right-> AdminAuthDeps
+AdminAuthDeps -[hidden]right-> CollectionDataAccess
+ResumeDataAccess -[hidden]down-> ResumeAiComponents
+AuthInfra -[hidden]down-> UserAuthDeps
+RecruitDeps -[hidden]down-> MailDeps
+ResumeAiComponents -[hidden]down-> ResumeRecycleService
+UserAuthDeps -[hidden]down-> AdminAuthDeps
+MailDeps -[hidden]down-> CollectionDataAccess
+@enduml

@@ -1,0 +1,127 @@
+@startuml
+!pragma layout smetana
+title 图2 细化领域模型类图（核心属性与操作）
+left to right direction
+hide circle
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam linetype polyline
+skinparam classAttributeIconSize 0
+skinparam defaultFontName SimSun
+skinparam classFontName SimSun
+skinparam classAttributeFontName SimSun
+skinparam classBackgroundColor white
+skinparam classBorderColor black
+skinparam minClassWidth 250
+skinparam ranksep 95
+skinparam nodesep 140
+
+class "简历模板类" as ResumeTemplate {
+  -模板ID
+  -模板名称
+  -模板内容
+  -所属行业
+  -是否启用
+}
+
+class "收藏记录类" as CollectionRecord {
+  -收藏用户ID
+  -简历模板ID
+}
+
+class "用户反馈类" as UserFeedback {
+  -反馈ID
+  -反馈标题
+  -反馈内容
+  -反馈时间
+  -反馈状态
+  -所属用户ID
+}
+
+class "用户类" as UserDomain {
+  -用户ID
+  -用户账号
+  -用户名称
+  -用户邮箱
+  -用户电话
+  -用户密码
+  -期许岗位
+}
+
+class "用户反馈记录类" as UserFeedbackRecord {
+  -记录ID
+  -反馈用户ID
+  -记录内容
+  -旧阶段
+  -新阶段
+  -处理人ID
+}
+
+class "行业分类类" as IndustryCategory {
+  -行业编码
+  -行业名称
+  -创建时间
+  -更新时间
+}
+
+class "招聘岗位类" as RecruitPosition {
+  -岗位ID
+  -岗位名称
+  -所属行业
+  -最低月薪
+  -最高月薪
+  -岗位福利
+}
+
+class "用户简历类" as UserResume {
+  -简历ID
+  -简历名称
+  -所属行业
+  -排序号
+  -所属用户ID
+}
+
+class "招聘职位信息类" as EmploymentInfo {
+  -招聘信息ID
+  -公司名称
+  -行业类别
+  -招聘岗位
+  -投递方式
+}
+
+' ===== 手稿布局锚点 =====
+' 第一行（从左到右，横向展开）
+ResumeTemplate -[hidden]right-> CollectionRecord
+CollectionRecord -[hidden]right-> UserDomain
+UserDomain -[hidden]right-> UserFeedback
+UserFeedback -[hidden]right-> UserFeedbackRecord
+
+' 第二行（从左到右）
+IndustryCategory -[hidden]right-> RecruitPosition
+RecruitPosition -[hidden]right-> UserResume
+UserResume -[hidden]right-> EmploymentInfo
+
+' 行对齐（上下锚定）
+ResumeTemplate -[hidden]down-> IndustryCategory
+UserDomain -[hidden]down-> RecruitPosition
+UserFeedback -[hidden]down-> UserResume
+UserFeedbackRecord -[hidden]down-> EmploymentInfo
+
+' ===== 关系（按你的手稿方向与1/N位置）=====
+ResumeTemplate "1" -right- "N" CollectionRecord
+ResumeTemplate "N" -down- "1" IndustryCategory
+
+CollectionRecord "N" -right- "1" UserDomain
+
+UserDomain "1" -right- "N" UserFeedback
+UserFeedback "1" -right- "N" UserFeedbackRecord
+UserDomain "1" -down- "N" UserResume
+
+IndustryCategory "1" -right- "N" RecruitPosition
+IndustryCategory "1" -right- "N" UserResume
+IndustryCategory "1" -right- "N" EmploymentInfo
+
+RecruitPosition "1" -up- "N" UserDomain : 期许岗位
+RecruitPosition "1" -right- "N" EmploymentInfo
+@enduml

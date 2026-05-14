@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1280" viewBox="0 0 1800 1280">
+  <defs>
+    <style>
+      .bg { fill: #ffffff; }
+      .box { fill: #ffffff; stroke: #111111; stroke-width: 1.3; }
+      .sep { stroke: #111111; stroke-width: 1.1; }
+      .rel { fill: none; stroke: #111111; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+      .title { font-family: SimSun, "Microsoft YaHei", serif; font-size: 28px; fill: #111111; text-anchor: middle; }
+      .name { font-family: SimSun, "Microsoft YaHei", serif; font-size: 20px; fill: #111111; text-anchor: middle; }
+      .attr { font-family: SimSun, "Microsoft YaHei", serif; font-size: 16px; fill: #111111; }
+      .card { font-family: SimSun, "Microsoft YaHei", serif; font-size: 22px; fill: #111111; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1800" height="1280"/>
+
+  <!-- relationships -->
+  <path class="rel" d="M330 145 Q500 140 650 145"/>
+  <text class="card" x="455" y="128">1</text>
+  <text class="card" x="630" y="128">N</text>
+
+  <path class="rel" d="M220 320 Q168 390 210 450"/>
+  <text class="card" x="146" y="382">N</text>
+  <text class="card" x="150" y="442">1</text>
+
+  <path class="rel" d="M775 270 Q770 330 805 390"/>
+  <text class="card" x="742" y="324">N</text>
+  <text class="card" x="820" y="384">1</text>
+
+  <path class="rel" d="M940 520 Q1038 285 1170 205"/>
+  <text class="card" x="962" y="550">1</text>
+  <text class="card" x="1136" y="182">N</text>
+
+  <path class="rel" d="M1295 330 Q1380 356 1440 430"/>
+  <text class="card" x="1310" y="372">1</text>
+  <text class="card" x="1418" y="406">N</text>
+
+  <path class="rel" d="M815 680 L815 730"/>
+  <text class="card" x="786" y="706">1</text>
+  <text class="card" x="832" y="724">N</text>
+
+  <path class="rel" d="M200 710 Q155 775 180 840"/>
+  <text class="card" x="144" y="782">1</text>
+  <text class="card" x="148" y="834">N</text>
+
+  <path class="rel" d="M350 600 Q520 700 720 830"/>
+  <text class="card" x="380" y="578">1</text>
+  <text class="card" x="698" y="804">N</text>
+
+  <path class="rel" d="M350 700 L430 700 L430 1060 L1260 1060"/>
+  <text class="card" x="384" y="682">1</text>
+  <text class="card" x="1226" y="1042">N</text>
+
+  <path class="rel" d="M340 930 Q510 720 690 540"/>
+  <text class="card" x="360" y="912">1</text>
+  <text class="card" x="660" y="520">N</text>
+
+  <path class="rel" d="M340 1040 L460 1180 L1260 1180"/>
+  <text class="card" x="370" y="1018">1</text>
+  <text class="card" x="1226" y="1162">N</text>
+
+  <!-- 简历模板类 -->
+  <g>
+    <rect class="box" x="90" y="70" width="240" height="250"/>
+    <line class="sep" x1="90" y1="116" x2="330" y2="116"/>
+    <line class="sep" x1="90" y1="192" x2="330" y2="192"/>
+    <text class="name" x="210" y="100">简历模板类</text>
+    <text class="attr" x="106" y="140">- 模板ID</text>
+    <text class="attr" x="106" y="160">- 模板名称</text>
+    <text class="attr" x="106" y="180">- 所属行业</text>
+    <text class="attr" x="106" y="216">+ 新增简历模板()</text>
+    <text class="attr" x="106" y="236">+ 修改简历模板()</text>
+    <text class="attr" x="106" y="256">+ 删除简历模板()</text>
+    <text class="attr" x="106" y="276">+ 查询简历模板()</text>
+    <text class="attr" x="106" y="296">+ 分页查询简历模板()</text>
+  </g>
+
+  <!-- 收藏记录类 -->
+  <g>
+    <rect class="box" x="650" y="90" width="250" height="180"/>
+    <line class="sep" x1="650" y1="136" x2="900" y2="136"/>
+    <line class="sep" x1="650" y1="192" x2="900" y2="192"/>
+    <text class="name" x="775" y="120">收藏记录类</text>
+    <text class="attr" x="666" y="160">- 收藏用户ID</text>
+    <text class="attr" x="666" y="180">- 简历模板ID</text>
+    <text class="attr" x="666" y="216">+ 判断是否已收藏()</text>
+    <text class="attr" x="666" y="236">+ 收藏/取消收藏()</text>
+    <text class="attr" x="666" y="256">+ 查询收藏模板()</text>
+  </g>
+
+  <!-- 用户反馈类 -->
+  <g>
+    <rect class="box" x="1170" y="70" width="250" height="260"/>
+    <line class="sep" x1="1170" y1="116" x2="1420" y2="116"/>
+    <line class="sep" x1="1170" y1="212" x2="1420" y2="212"/>
+    <text class="name" x="1295" y="100">用户反馈类</text>
+    <text class="attr" x="1186" y="140">- 反馈ID</text>
+    <text class="attr" x="1186" y="160">- 反馈标题</text>
+    <text class="attr" x="1186" y="180">- 反馈状态</text>
+    <text class="attr" x="1186" y="200">- 所属用户ID</text>
+    <text class="attr" x="1186" y="236">+ 添加反馈()</text>
+    <text class="attr" x="1186" y="256">+ 更新反馈阶段()</text>
+    <text class="attr" x="1186" y="276">+ 删除反馈()</text>
+    <text class="attr" x="1186" y="296">+ 查询反馈详情()</text>
+    <text class="attr" x="1186" y="316">+ 分页查询反馈()</text>
+  </g>
+
+  <!-- 行业分类类 -->
+  <g>
+    <rect class="box" x="70" y="450" width="280" height="260"/>
+    <line class="sep" x1="70" y1="496" x2="350" y2="496"/>
+    <line class="sep" x1="70" y1="592" x2="350" y2="592"/>
+    <text class="name" x="210" y="480">行业分类类</text>
+    <text class="attr" x="86" y="520">- 行业编码</text>
+    <text class="attr" x="86" y="540">- 行业名称</text>
+    <text class="attr" x="86" y="560">- 创建时间</text>
+    <text class="attr" x="86" y="580">- 更新时间</text>
+    <text class="attr" x="86" y="616">+ 新增行业分类()</text>
+    <text class="attr" x="86" y="636">+ 修改行业分类()</text>
+    <text class="attr" x="86" y="656">+ 查询行业分类()</text>
+    <text class="attr" x="86" y="676">+ 分页查询行业分类()</text>
+    <text class="attr" x="86" y="696">+ 查询全部行业分类()</text>
+  </g>
+
+  <!-- 用户类 -->
+  <g>
+    <rect class="box" x="690" y="390" width="250" height="290"/>
+    <line class="sep" x1="690" y1="436" x2="940" y2="436"/>
+    <line class="sep" x1="690" y1="532" x2="940" y2="532"/>
+    <text class="name" x="815" y="420">用户类</text>
+    <text class="attr" x="706" y="460">- 用户ID</text>
+    <text class="attr" x="706" y="480">- 用户名称</text>
+    <text class="attr" x="706" y="500">- 用户邮箱</text>
+    <text class="attr" x="706" y="520">- 期许岗位</text>
+    <text class="attr" x="706" y="556">+ 普通/手机/邮箱登录()</text>
+    <text class="attr" x="706" y="576">+ 普通注册()</text>
+    <text class="attr" x="706" y="596">+ 生成随机账号()</text>
+    <text class="attr" x="706" y="616">+ 修改用户信息()</text>
+    <text class="attr" x="706" y="636">+ 获取用户信息()</text>
+    <text class="attr" x="706" y="656">+ 退出登录()</text>
+  </g>
+
+  <!-- 用户反馈记录类 -->
+  <g>
+    <rect class="box" x="1440" y="430" width="250" height="200"/>
+    <line class="sep" x1="1440" y1="476" x2="1690" y2="476"/>
+    <line class="sep" x1="1440" y1="572" x2="1690" y2="572"/>
+    <text class="name" x="1565" y="460">用户反馈记录类</text>
+    <text class="attr" x="1456" y="500">- 记录ID</text>
+    <text class="attr" x="1456" y="520">- 反馈用户ID</text>
+    <text class="attr" x="1456" y="540">- 新阶段</text>
+    <text class="attr" x="1456" y="560">- 处理人ID</text>
+    <text class="attr" x="1456" y="596">+ 查看反馈记录()</text>
+    <text class="attr" x="1456" y="616">+ 分页查看反馈记录()</text>
+  </g>
+
+  <!-- 招聘岗位类 -->
+  <g>
+    <rect class="box" x="60" y="840" width="280" height="285"/>
+    <line class="sep" x1="60" y1="886" x2="340" y2="886"/>
+    <line class="sep" x1="60" y1="982" x2="340" y2="982"/>
+    <text class="name" x="200" y="870">招聘岗位类</text>
+    <text class="attr" x="76" y="910">- 岗位ID</text>
+    <text class="attr" x="76" y="930">- 岗位名称</text>
+    <text class="attr" x="76" y="950">- 所属行业</text>
+    <text class="attr" x="76" y="970">- 月薪范围</text>
+    <text class="attr" x="76" y="1006">+ 新增招聘岗位()</text>
+    <text class="attr" x="76" y="1026">+ 修改招聘岗位()</text>
+    <text class="attr" x="76" y="1046">+ 删除招聘岗位()</text>
+    <text class="attr" x="76" y="1066">+ 查询招聘岗位()</text>
+    <text class="attr" x="76" y="1086">+ 分页查询招聘岗位()</text>
+    <text class="attr" x="76" y="1106">+ 查询全部招聘岗位()</text>
+  </g>
+
+  <!-- 用户简历类 -->
+  <g>
+    <rect class="box" x="720" y="730" width="260" height="310"/>
+    <line class="sep" x1="720" y1="776" x2="980" y2="776"/>
+    <line class="sep" x1="720" y1="872" x2="980" y2="872"/>
+    <text class="name" x="850" y="760">用户简历类</text>
+    <text class="attr" x="736" y="800">- 简历ID</text>
+    <text class="attr" x="736" y="820">- 简历名称</text>
+    <text class="attr" x="736" y="840">- 所属行业</text>
+    <text class="attr" x="736" y="860">- 所属用户ID</text>
+    <text class="attr" x="736" y="896">+ 查询简历列表()</text>
+    <text class="attr" x="736" y="916">+ 查询单份简历()</text>
+    <text class="attr" x="736" y="936">+ 保存简历()</text>
+    <text class="attr" x="736" y="956">+ 模板/导入创建简历()</text>
+    <text class="attr" x="736" y="976">+ 删除简历()</text>
+    <text class="attr" x="736" y="996">+ AI优化/提取/反馈()</text>
+    <text class="attr" x="736" y="1016">+ AI/模型评分()</text>
+  </g>
+
+  <!-- 招聘职位信息类 -->
+  <g>
+    <rect class="box" x="1260" y="940" width="280" height="290"/>
+    <line class="sep" x1="1260" y1="986" x2="1540" y2="986"/>
+    <line class="sep" x1="1260" y1="1082" x2="1540" y2="1082"/>
+    <text class="name" x="1400" y="970">招聘职位信息类</text>
+    <text class="attr" x="1276" y="1010">- 招聘信息ID</text>
+    <text class="attr" x="1276" y="1030">- 公司名称</text>
+    <text class="attr" x="1276" y="1050">- 招聘岗位</text>
+    <text class="attr" x="1276" y="1070">- 投递方式</text>
+    <text class="attr" x="1276" y="1106">+ 新增招聘信息()</text>
+    <text class="attr" x="1276" y="1126">+ 修改招聘信息()</text>
+    <text class="attr" x="1276" y="1146">+ 删除招聘信息()</text>
+    <text class="attr" x="1276" y="1166">+ 查询招聘信息()</text>
+    <text class="attr" x="1276" y="1186">+ 分页查询招聘信息()</text>
+    <text class="attr" x="1276" y="1206">+ 查询全部招聘信息()</text>
+  </g>
+</svg>

@@ -1,0 +1,65 @@
+@startuml
+!pragma layout smetana
+left to right direction
+hide circle
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+skinparam defaultFontName SimSun
+skinparam classFontName SimSun
+skinparam classAttributeFontName SimSun
+skinparam classBackgroundColor white
+skinparam classBorderColor black
+skinparam minClassWidth 230
+skinparam ranksep 140
+skinparam nodesep 220
+
+class "行业分类类" as IndustryCategory {
+  -行业编码
+  -行业名称
+}
+
+class "收藏记录类" as CollectionRecord {
+  -收藏用户ID
+  -简历模板ID
+}
+
+class "用户类" as UserDomain {
+  -用户账号
+  -用户密码
+}
+
+class "简历模板类" as ResumeTemplate {
+  -模板名称
+  -模板内容
+}
+
+class "用户简历类" as UserResume {
+  -简历名称
+  -简历内容
+}
+
+class "招聘岗位类" as JobPost {
+  -岗位名称
+  -岗位福利
+}
+
+' 强制上3下3布局（3列x2行）
+IndustryCategory -[hidden]down-> ResumeTemplate
+CollectionRecord -[hidden]down-> UserResume
+UserDomain -[hidden]down-> JobPost
+IndustryCategory -[hidden]right-> CollectionRecord
+CollectionRecord -[hidden]right-> UserDomain
+ResumeTemplate -[hidden]right-> UserResume
+UserResume -[hidden]right-> JobPost
+
+' 结合实际代码的主要业务关系（norank避免打乱上3下3布局）
+IndustryCategory "1" -[norank]- "N" ResumeTemplate
+CollectionRecord "N" -[norank]- "1" UserDomain
+UserDomain "N" -[norank]- "1" JobPost : 期望岗位
+ResumeTemplate "1" -[norank]- "N" CollectionRecord
+UserDomain "1" -[norank]- "N" UserResume
+UserResume "N" -[norank]- "1" IndustryCategory
+@enduml

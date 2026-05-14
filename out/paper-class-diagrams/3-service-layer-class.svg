@@ -1,0 +1,279 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="860" viewBox="0 0 1920 860">
+  <defs>
+    <style>
+      .title { font-family: "Times New Roman", "SimSun", serif; font-size: 22px; fill: #111; }
+      .name { font-family: "Times New Roman", "SimSun", serif; font-size: 13.5px; fill: #111; }
+      .sub { font-family: "Times New Roman", "SimSun", serif; font-size: 13px; fill: #111; }
+      .member { font-family: "Consolas", "SimSun", monospace; font-size: 10.5px; fill: #111; }
+      .box { fill: #fff; stroke: #111; stroke-width: 1.1; }
+      .sep { stroke: #666; stroke-width: 0.9; }
+      .realize { stroke: #111; stroke-width: 1.2; stroke-dasharray: 6 5; fill: none; marker-end: url(#hollowArrow); }
+      .assoc { stroke: #111; stroke-width: 1.2; fill: none; marker-end: url(#hollowArrow); }
+    </style>
+    <marker id="hollowArrow" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L11,6 L1,11 Z" fill="#fff" stroke="#111" stroke-width="1"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1920" height="860" fill="#fff"/>
+  <text x="960" y="34" class="title" text-anchor="middle">图3 业务层详细实现类图（Service）</text>
+
+  <!-- Column 1 -->
+  <g>
+    <rect x="30" y="50" width="240" height="150" class="box"/>
+    <line x1="30" y1="94" x2="270" y2="94" class="sep"/>
+    <line x1="30" y1="116" x2="270" y2="116" class="sep"/>
+    <text x="150" y="74" class="name" text-anchor="middle">UserSaveResumeServiceImpl</text>
+    <text x="150" y="90" class="sub" text-anchor="middle">用户简历服务实现类</text>
+    <text x="42" y="136" class="member">+getUserSaveResumeInfoByUserId()</text>
+    <text x="42" y="154" class="member">+saveUserSaveResumeInfoFirst()</text>
+    <text x="42" y="172" class="member">+saveUserSaveResumeInfoFirstByImport()</text>
+    <text x="42" y="190" class="member">+assistReactCodeByAI()</text>
+
+    <rect x="30" y="230" width="240" height="126" class="box"/>
+    <line x1="30" y1="274" x2="270" y2="274" class="sep"/>
+    <line x1="30" y1="296" x2="270" y2="296" class="sep"/>
+    <text x="150" y="254" class="name" text-anchor="middle">UserSaveResumeService</text>
+    <text x="150" y="270" class="sub" text-anchor="middle">用户简历服务接口</text>
+    <text x="42" y="316" class="member">+getUserSaveResumeInfoByUserId()</text>
+    <text x="42" y="334" class="member">+saveUserSaveResumeInfoFirst()</text>
+    <text x="42" y="352" class="member">+scoreResumeByModel()</text>
+
+    <rect x="30" y="386" width="240" height="176" class="box"/>
+    <line x1="30" y1="430" x2="270" y2="430" class="sep"/>
+    <line x1="30" y1="452" x2="270" y2="452" class="sep"/>
+    <text x="150" y="410" class="name" text-anchor="middle">UserSaveResume</text>
+    <text x="150" y="426" class="sub" text-anchor="middle">用户简历实体类</text>
+    <text x="42" y="472" class="member">-resumeId: Integer</text>
+    <text x="42" y="490" class="member">-resumeName: String</text>
+    <text x="42" y="508" class="member">-industry: Integer</text>
+    <text x="42" y="526" class="member">-sortedNum: Integer</text>
+    <text x="42" y="544" class="member">-userId: Integer</text>
+
+    <path d="M150 200 L150 229" class="realize"/>
+    <path d="M150 356 L150 385" class="assoc"/>
+  </g>
+
+  <!-- Column 2 -->
+  <g>
+    <rect x="300" y="50" width="240" height="132" class="box"/>
+    <line x1="300" y1="94" x2="540" y2="94" class="sep"/>
+    <line x1="300" y1="116" x2="540" y2="116" class="sep"/>
+    <text x="420" y="74" class="name" text-anchor="middle">UserCollectionsServiceImpl</text>
+    <text x="420" y="90" class="sub" text-anchor="middle">收藏服务实现类</text>
+    <text x="312" y="136" class="member">+isUserCollectResumeTemplate()</text>
+    <text x="312" y="154" class="member">+saveResumeTemplateByUserId()</text>
+    <text x="312" y="172" class="member">+getUserCollectResumeTemplate()</text>
+
+    <rect x="300" y="230" width="240" height="126" class="box"/>
+    <line x1="300" y1="274" x2="540" y2="274" class="sep"/>
+    <line x1="300" y1="296" x2="540" y2="296" class="sep"/>
+    <text x="420" y="254" class="name" text-anchor="middle">UserCollectionsService</text>
+    <text x="420" y="270" class="sub" text-anchor="middle">收藏服务接口</text>
+    <text x="312" y="316" class="member">+isUserCollectResumeTemplate()</text>
+    <text x="312" y="334" class="member">+saveResumeTemplateByUserId()</text>
+    <text x="312" y="352" class="member">+getUserCollectResumeTemplate()</text>
+
+    <rect x="300" y="386" width="240" height="176" class="box"/>
+    <line x1="300" y1="430" x2="540" y2="430" class="sep"/>
+    <line x1="300" y1="452" x2="540" y2="452" class="sep"/>
+    <text x="420" y="410" class="name" text-anchor="middle">UserCollections</text>
+    <text x="420" y="426" class="sub" text-anchor="middle">收藏记录实体类</text>
+    <text x="312" y="472" class="member">-uid: Integer</text>
+    <text x="312" y="490" class="member">-rtid: Integer</text>
+    <text x="312" y="508" class="member">+getUid()</text>
+    <text x="312" y="526" class="member">+getRtid()</text>
+
+    <path d="M420 182 L420 229" class="realize"/>
+    <path d="M420 356 L420 385" class="assoc"/>
+  </g>
+
+  <!-- Column 3 -->
+  <g>
+    <rect x="570" y="50" width="240" height="150" class="box"/>
+    <line x1="570" y1="94" x2="810" y2="94" class="sep"/>
+    <line x1="570" y1="116" x2="810" y2="116" class="sep"/>
+    <text x="690" y="74" class="name" text-anchor="middle">UserAuthServiceImpl</text>
+    <text x="690" y="90" class="sub" text-anchor="middle">用户认证服务实现类</text>
+    <text x="582" y="136" class="member">+formalLogin()</text>
+    <text x="582" y="154" class="member">+phoneLogin()</text>
+    <text x="582" y="172" class="member">+emailLogin()</text>
+    <text x="582" y="190" class="member">+formalRegister()</text>
+
+    <rect x="570" y="230" width="240" height="144" class="box"/>
+    <line x1="570" y1="274" x2="810" y2="274" class="sep"/>
+    <line x1="570" y1="296" x2="810" y2="296" class="sep"/>
+    <text x="690" y="254" class="name" text-anchor="middle">UserAuthService</text>
+    <text x="690" y="270" class="sub" text-anchor="middle">用户认证服务接口</text>
+    <text x="582" y="316" class="member">+formalLogin()</text>
+    <text x="582" y="334" class="member">+phoneLogin()</text>
+    <text x="582" y="352" class="member">+emailLogin()</text>
+    <text x="582" y="370" class="member">+formalRegister()</text>
+
+    <rect x="570" y="404" width="240" height="194" class="box"/>
+    <line x1="570" y1="448" x2="810" y2="448" class="sep"/>
+    <line x1="570" y1="470" x2="810" y2="470" class="sep"/>
+    <text x="690" y="428" class="name" text-anchor="middle">User</text>
+    <text x="690" y="444" class="sub" text-anchor="middle">用户实体类</text>
+    <text x="582" y="490" class="member">-userId: Integer</text>
+    <text x="582" y="508" class="member">-account: String</text>
+    <text x="582" y="526" class="member">-username: String</text>
+    <text x="582" y="544" class="member">-email: String</text>
+    <text x="582" y="562" class="member">-phone: String</text>
+    <text x="582" y="580" class="member">-dreamPosition: int</text>
+
+    <path d="M690 200 L690 229" class="realize"/>
+    <path d="M690 374 L690 403" class="assoc"/>
+  </g>
+
+  <!-- Column 4 -->
+  <g>
+    <rect x="840" y="50" width="240" height="150" class="box"/>
+    <line x1="840" y1="94" x2="1080" y2="94" class="sep"/>
+    <line x1="840" y1="116" x2="1080" y2="116" class="sep"/>
+    <text x="960" y="74" class="name" text-anchor="middle">RecruitPositionServiceImpl</text>
+    <text x="960" y="90" class="sub" text-anchor="middle">招聘岗位服务实现类</text>
+    <text x="852" y="136" class="member">+addRecruitPosition()</text>
+    <text x="852" y="154" class="member">+updateRecruitPosition()</text>
+    <text x="852" y="172" class="member">+deleteRecruitPosition()</text>
+    <text x="852" y="190" class="member">+queryRecruitPositionPage()</text>
+
+    <rect x="840" y="230" width="240" height="144" class="box"/>
+    <line x1="840" y1="274" x2="1080" y2="274" class="sep"/>
+    <line x1="840" y1="296" x2="1080" y2="296" class="sep"/>
+    <text x="960" y="254" class="name" text-anchor="middle">RecruitPositionService</text>
+    <text x="960" y="270" class="sub" text-anchor="middle">招聘岗位服务接口</text>
+    <text x="852" y="316" class="member">+addRecruitPosition()</text>
+    <text x="852" y="334" class="member">+updateRecruitPosition()</text>
+    <text x="852" y="352" class="member">+deleteRecruitPosition()</text>
+    <text x="852" y="370" class="member">+queryRecruitPositionPage()</text>
+
+    <rect x="840" y="404" width="240" height="194" class="box"/>
+    <line x1="840" y1="448" x2="1080" y2="448" class="sep"/>
+    <line x1="840" y1="470" x2="1080" y2="470" class="sep"/>
+    <text x="960" y="428" class="name" text-anchor="middle">RecruitPosition</text>
+    <text x="960" y="444" class="sub" text-anchor="middle">招聘岗位实体类</text>
+    <text x="852" y="490" class="member">-positionId: Integer</text>
+    <text x="852" y="508" class="member">-positionName: String</text>
+    <text x="852" y="526" class="member">-industryCode: Integer</text>
+    <text x="852" y="544" class="member">-minMonthSalary: BigDecimal</text>
+    <text x="852" y="562" class="member">-maxMonthSalary: BigDecimal</text>
+    <text x="852" y="580" class="member">-goodWelfare: String</text>
+
+    <path d="M960 200 L960 229" class="realize"/>
+    <path d="M960 374 L960 403" class="assoc"/>
+  </g>
+
+  <!-- Column 5 -->
+  <g>
+    <rect x="1110" y="50" width="240" height="150" class="box"/>
+    <line x1="1110" y1="94" x2="1350" y2="94" class="sep"/>
+    <line x1="1110" y1="116" x2="1350" y2="116" class="sep"/>
+    <text x="1230" y="74" class="name" text-anchor="middle">EmploymentInformationServiceImpl</text>
+    <text x="1230" y="90" class="sub" text-anchor="middle">招聘信息服务实现类</text>
+    <text x="1122" y="136" class="member">+addEmploymentInformation()</text>
+    <text x="1122" y="154" class="member">+updateEmploymentInformation()</text>
+    <text x="1122" y="172" class="member">+deleteEmploymentInformation()</text>
+    <text x="1122" y="190" class="member">+getEmploymentInformationPage()</text>
+
+    <rect x="1110" y="230" width="240" height="144" class="box"/>
+    <line x1="1110" y1="274" x2="1350" y2="274" class="sep"/>
+    <line x1="1110" y1="296" x2="1350" y2="296" class="sep"/>
+    <text x="1230" y="254" class="name" text-anchor="middle">EmploymentInformationService</text>
+    <text x="1230" y="270" class="sub" text-anchor="middle">招聘信息服务接口</text>
+    <text x="1122" y="316" class="member">+addEmploymentInformation()</text>
+    <text x="1122" y="334" class="member">+updateEmploymentInformation()</text>
+    <text x="1122" y="352" class="member">+deleteEmploymentInformation()</text>
+    <text x="1122" y="370" class="member">+getEmploymentInformationPage()</text>
+
+    <rect x="1110" y="404" width="240" height="212" class="box"/>
+    <line x1="1110" y1="448" x2="1350" y2="448" class="sep"/>
+    <line x1="1110" y1="470" x2="1350" y2="470" class="sep"/>
+    <text x="1230" y="428" class="name" text-anchor="middle">EmploymentInformation</text>
+    <text x="1230" y="444" class="sub" text-anchor="middle">招聘信息实体类</text>
+    <text x="1122" y="490" class="member">-employmentId: Integer</text>
+    <text x="1122" y="508" class="member">-companyName: String</text>
+    <text x="1122" y="526" class="member">-recruitPosition: Integer</text>
+    <text x="1122" y="544" class="member">-submissionWay: String</text>
+    <text x="1122" y="562" class="member">-startTime: Date</text>
+    <text x="1122" y="580" class="member">-stopTime: Date</text>
+    <text x="1122" y="598" class="member">-officialAnnouncement: String</text>
+
+    <path d="M1230 200 L1230 229" class="realize"/>
+    <path d="M1230 374 L1230 403" class="assoc"/>
+  </g>
+
+  <!-- Column 6 -->
+  <g>
+    <rect x="1380" y="50" width="240" height="150" class="box"/>
+    <line x1="1380" y1="94" x2="1620" y2="94" class="sep"/>
+    <line x1="1380" y1="116" x2="1620" y2="116" class="sep"/>
+    <text x="1500" y="74" class="name" text-anchor="middle">UserFeedbackServiceImpl</text>
+    <text x="1500" y="90" class="sub" text-anchor="middle">用户反馈服务实现类</text>
+    <text x="1392" y="136" class="member">+addFeedback()</text>
+    <text x="1392" y="154" class="member">+updateFeedbackStep()</text>
+    <text x="1392" y="172" class="member">+deleteFeedback()</text>
+    <text x="1392" y="190" class="member">+getFeedbackPage()</text>
+
+    <rect x="1380" y="230" width="240" height="144" class="box"/>
+    <line x1="1380" y1="274" x2="1620" y2="274" class="sep"/>
+    <line x1="1380" y1="296" x2="1620" y2="296" class="sep"/>
+    <text x="1500" y="254" class="name" text-anchor="middle">UserFeedbackService</text>
+    <text x="1500" y="270" class="sub" text-anchor="middle">用户反馈服务接口</text>
+    <text x="1392" y="316" class="member">+addFeedback()</text>
+    <text x="1392" y="334" class="member">+updateFeedbackStep()</text>
+    <text x="1392" y="352" class="member">+deleteFeedback()</text>
+    <text x="1392" y="370" class="member">+getFeedbackPage()</text>
+
+    <rect x="1380" y="404" width="240" height="194" class="box"/>
+    <line x1="1380" y1="448" x2="1620" y2="448" class="sep"/>
+    <line x1="1380" y1="470" x2="1620" y2="470" class="sep"/>
+    <text x="1500" y="428" class="name" text-anchor="middle">UserFeedback</text>
+    <text x="1500" y="444" class="sub" text-anchor="middle">用户反馈实体类</text>
+    <text x="1392" y="490" class="member">-feedbackId: Integer</text>
+    <text x="1392" y="508" class="member">-title: String</text>
+    <text x="1392" y="526" class="member">-content: String</text>
+    <text x="1392" y="544" class="member">-recentTime: Date</text>
+    <text x="1392" y="562" class="member">-curStep: String</text>
+    <text x="1392" y="580" class="member">-userId: Integer</text>
+
+    <path d="M1500 200 L1500 229" class="realize"/>
+    <path d="M1500 374 L1500 403" class="assoc"/>
+  </g>
+
+  <!-- Column 7 -->
+  <g>
+    <rect x="1650" y="50" width="240" height="132" class="box"/>
+    <line x1="1650" y1="94" x2="1890" y2="94" class="sep"/>
+    <line x1="1650" y1="116" x2="1890" y2="116" class="sep"/>
+    <text x="1770" y="74" class="name" text-anchor="middle">UserFeedbackRecordServiceImpl</text>
+    <text x="1770" y="90" class="sub" text-anchor="middle">反馈记录服务实现类</text>
+    <text x="1662" y="136" class="member">+findUserFeedbackRecordBy</text>
+    <text x="1662" y="154" class="member"> FeedbackRecordId()</text>
+    <text x="1662" y="172" class="member">+findUserFeedbackRecordPage()</text>
+
+    <rect x="1650" y="230" width="240" height="126" class="box"/>
+    <line x1="1650" y1="274" x2="1890" y2="274" class="sep"/>
+    <line x1="1650" y1="296" x2="1890" y2="296" class="sep"/>
+    <text x="1770" y="254" class="name" text-anchor="middle">UserFeedbackRecordService</text>
+    <text x="1770" y="270" class="sub" text-anchor="middle">反馈记录服务接口</text>
+    <text x="1662" y="316" class="member">+findUserFeedbackRecordBy</text>
+    <text x="1662" y="334" class="member"> FeedbackRecordId()</text>
+    <text x="1662" y="352" class="member">+findUserFeedbackRecordPage()</text>
+
+    <rect x="1650" y="386" width="240" height="212" class="box"/>
+    <line x1="1650" y1="430" x2="1890" y2="430" class="sep"/>
+    <line x1="1650" y1="452" x2="1890" y2="452" class="sep"/>
+    <text x="1770" y="410" class="name" text-anchor="middle">UserFeedbackRecord</text>
+    <text x="1770" y="426" class="sub" text-anchor="middle">用户反馈记录实体类</text>
+    <text x="1662" y="472" class="member">-feedbackRecordId: Integer</text>
+    <text x="1662" y="490" class="member">-userId: Integer</text>
+    <text x="1662" y="508" class="member">-title: String</text>
+    <text x="1662" y="526" class="member">-newStep: String</text>
+    <text x="1662" y="544" class="member">-approvalPersonId: Integer</text>
+    <text x="1662" y="562" class="member">-currentStepSolveTime: Date</text>
+
+    <path d="M1770 182 L1770 229" class="realize"/>
+    <path d="M1770 356 L1770 385" class="assoc"/>
+  </g>
+</svg>

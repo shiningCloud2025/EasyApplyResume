@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1880" height="930" viewBox="0 0 1880 930">
+  <defs>
+    <style>
+      .title { font-family: "Times New Roman", "SimSun", serif; font-size: 22px; fill: #111; }
+      .name { font-family: "Times New Roman", "SimSun", serif; font-size: 15px; fill: #111; }
+      .sub { font-family: "Times New Roman", "SimSun", serif; font-size: 13px; fill: #111; }
+      .member { font-family: "Consolas", "SimSun", monospace; font-size: 10px; fill: #111; }
+      .box { fill: #fff; stroke: #111; stroke-width: 1.1; }
+      .sep { stroke: #666; stroke-width: 0.9; }
+      .dep { stroke: #111; stroke-width: 1.2; stroke-dasharray: 7 4; fill: none; marker-end: url(#hollowArrow); }
+    </style>
+    <marker id="hollowArrow" markerWidth="12" markerHeight="12" refX="11" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,1 L11,6 L1,11 Z" fill="#fff" stroke="#111" stroke-width="1"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1880" height="930" fill="#fff"/>
+  <text x="940" y="30" class="title" text-anchor="middle">图4 控制层详细实现类图（Controller）</text>
+
+  <!-- Column 1 -->
+  <g>
+    <rect x="40" y="55" width="310" height="220" class="box"/>
+    <line x1="40" y1="99" x2="350" y2="99" class="sep"/>
+    <line x1="40" y1="121" x2="350" y2="121" class="sep"/>
+    <text x="195" y="79" class="name" text-anchor="middle">UserSaveResumeController</text>
+    <text x="195" y="95" class="sub" text-anchor="middle">用户简历控制层</text>
+    <text x="52" y="143" class="member">-userSaveResumeService: UserSaveResumeService</text>
+    <line x1="40" y1="153" x2="350" y2="153" class="sep"/>
+    <text x="52" y="175" class="member">+getUserSaveResumeInfoByUserId(..)</text>
+    <text x="52" y="193" class="member">+saveUserSaveResumeInfo(..)</text>
+    <text x="52" y="211" class="member">+saveUserSaveResumeInfoFirst(..)</text>
+    <text x="52" y="229" class="member">+saveUserSaveResumeInfoFirstByImport(..)</text>
+    <text x="52" y="247" class="member">+assistReactCodeByAI(..)</text>
+    <text x="52" y="265" class="member">+scoreByModel(..)</text>
+
+    <rect x="40" y="315" width="310" height="165" class="box"/>
+    <line x1="40" y1="359" x2="350" y2="359" class="sep"/>
+    <line x1="40" y1="381" x2="350" y2="381" class="sep"/>
+    <text x="195" y="339" class="name" text-anchor="middle">UserCollectionsController</text>
+    <text x="195" y="355" class="sub" text-anchor="middle">用户收藏控制层</text>
+    <text x="52" y="403" class="member">-userCollectionsService: UserCollectionsService</text>
+    <line x1="40" y1="413" x2="350" y2="413" class="sep"/>
+    <text x="52" y="435" class="member">+isUserCollectResumeTemplate(..)</text>
+    <text x="52" y="453" class="member">+saveResumeTemplateByUserId(..)</text>
+    <text x="52" y="471" class="member">+getUserCollectResumeTemplate(..)</text>
+
+    <rect x="40" y="650" width="310" height="140" class="box"/>
+    <line x1="40" y1="694" x2="350" y2="694" class="sep"/>
+    <line x1="40" y1="716" x2="350" y2="716" class="sep"/>
+    <text x="195" y="674" class="name" text-anchor="middle">UserSendResumeToHrController</text>
+    <text x="195" y="690" class="sub" text-anchor="middle">简历投递控制层</text>
+    <text x="52" y="738" class="member">-userSendResumeToHrService</text>
+    <text x="52" y="754" class="member"> : UserSendResumeToHrService</text>
+    <line x1="40" y1="764" x2="350" y2="764" class="sep"/>
+    <text x="52" y="784" class="member">+sendResumeToHr(UserSendResumeToHrForm)</text>
+  </g>
+
+  <!-- Column 2 -->
+  <g>
+    <rect x="370" y="55" width="310" height="145" class="box"/>
+    <line x1="370" y1="99" x2="680" y2="99" class="sep"/>
+    <line x1="370" y1="121" x2="680" y2="121" class="sep"/>
+    <text x="525" y="79" class="name" text-anchor="middle">UserResumeTemplateController</text>
+    <text x="525" y="95" class="sub" text-anchor="middle">简历模板控制层</text>
+    <text x="382" y="143" class="member">-resumeTemplateService: ResumeTemplateService</text>
+    <line x1="370" y1="153" x2="680" y2="153" class="sep"/>
+    <text x="382" y="175" class="member">+findResumeTemplateByPage(..)</text>
+    <text x="382" y="193" class="member">+findResumeTemplateById(..)</text>
+
+    <rect x="370" y="230" width="310" height="160" class="box"/>
+    <line x1="370" y1="274" x2="680" y2="274" class="sep"/>
+    <line x1="370" y1="296" x2="680" y2="296" class="sep"/>
+    <text x="525" y="254" class="name" text-anchor="middle">UserRecruitPositionController</text>
+    <text x="525" y="270" class="sub" text-anchor="middle">招聘岗位控制层</text>
+    <text x="382" y="318" class="member">-recruitPositionService: RecruitPositionService</text>
+    <line x1="370" y1="328" x2="680" y2="328" class="sep"/>
+    <text x="382" y="350" class="member">+queryRecruitPosition(..)</text>
+    <text x="382" y="368" class="member">+queryRecruitPositionPage(..)</text>
+    <text x="382" y="386" class="member">+queryAllRecruitPositionPage()</text>
+
+    <rect x="370" y="420" width="310" height="170" class="box"/>
+    <line x1="370" y1="464" x2="680" y2="464" class="sep"/>
+    <line x1="370" y1="486" x2="680" y2="486" class="sep"/>
+    <text x="525" y="444" class="name" text-anchor="middle">UserEmploymentInformationController</text>
+    <text x="525" y="460" class="sub" text-anchor="middle">招聘信息控制层</text>
+    <text x="382" y="508" class="member">-employmentInformationService</text>
+    <text x="382" y="524" class="member"> : EmploymentInformationService</text>
+    <line x1="370" y1="534" x2="680" y2="534" class="sep"/>
+    <text x="382" y="556" class="member">+getEmploymentInformationPage(..)</text>
+    <text x="382" y="574" class="member">+getEmploymentInformationInfo(..)</text>
+
+    <rect x="370" y="590" width="310" height="110" class="box"/>
+    <line x1="370" y1="634" x2="680" y2="634" class="sep"/>
+    <line x1="370" y1="656" x2="680" y2="656" class="sep"/>
+    <text x="525" y="614" class="name" text-anchor="middle">UserFeedbackController</text>
+    <text x="525" y="630" class="sub" text-anchor="middle">用户反馈控制层</text>
+    <text x="382" y="678" class="member">-userFeedbackService: UserFeedbackService</text>
+    <line x1="370" y1="688" x2="680" y2="688" class="sep"/>
+    <text x="382" y="708" class="member">+addFeedback(UserFeedbackForm)</text>
+  </g>
+
+  <!-- Center -->
+  <g>
+    <rect x="785" y="55" width="310" height="215" class="box"/>
+    <line x1="785" y1="99" x2="1095" y2="99" class="sep"/>
+    <line x1="785" y1="121" x2="1095" y2="121" class="sep"/>
+    <text x="940" y="79" class="name" text-anchor="middle">UserAuthController</text>
+    <text x="940" y="95" class="sub" text-anchor="middle">用户认证控制层</text>
+    <text x="797" y="143" class="member">-userAuthService: UserAuthService</text>
+    <line x1="785" y1="153" x2="1095" y2="153" class="sep"/>
+    <text x="797" y="175" class="member">+formalLogin(FormalLoginForm)</text>
+    <text x="797" y="193" class="member">+phoneLogin(PhoneLoginForm)</text>
+    <text x="797" y="211" class="member">+emailLogin(EmailLoginForm)</text>
+    <text x="797" y="229" class="member">+formalRegister(FormalRegisterForm)</text>
+    <text x="797" y="247" class="member">+generateRandomAccount()</text>
+    <text x="797" y="265" class="member">+getUserInfo(SecurityUser)</text>
+
+    <rect x="785" y="340" width="310" height="230" class="box"/>
+    <line x1="785" y1="384" x2="1095" y2="384" class="sep"/>
+    <line x1="785" y1="406" x2="1095" y2="406" class="sep"/>
+    <text x="940" y="364" class="name" text-anchor="middle">BaseResult&lt;T&gt;</text>
+    <text x="940" y="380" class="sub" text-anchor="middle">统一响应封装类</text>
+    <text x="797" y="428" class="member">-code: Integer</text>
+    <text x="797" y="446" class="member">-message: String</text>
+    <text x="797" y="464" class="member">-data: T</text>
+    <line x1="785" y1="476" x2="1095" y2="476" class="sep"/>
+    <text x="797" y="500" class="member">+BaseResult(code, message, data)</text>
+    <text x="797" y="518" class="member">+ok()</text>
+    <text x="797" y="536" class="member">+ok(T data)</text>
+  </g>
+
+  <!-- Column 4 -->
+  <g>
+    <rect x="1200" y="55" width="310" height="220" class="box"/>
+    <line x1="1200" y1="99" x2="1510" y2="99" class="sep"/>
+    <line x1="1200" y1="121" x2="1510" y2="121" class="sep"/>
+    <text x="1355" y="79" class="name" text-anchor="middle">AdminResumeTemplateController</text>
+    <text x="1355" y="95" class="sub" text-anchor="middle">简历模板管理控制层</text>
+    <text x="1212" y="143" class="member">-resumeTemplateService: ResumeTemplateService</text>
+    <line x1="1200" y1="153" x2="1510" y2="153" class="sep"/>
+    <text x="1212" y="175" class="member">+addResumeTemplate(..)</text>
+    <text x="1212" y="193" class="member">+updateResumeTemplate(..)</text>
+    <text x="1212" y="211" class="member">+deleteResumeTemplate(..)</text>
+    <text x="1212" y="229" class="member">+findResumeTemplateByPage(..)</text>
+    <text x="1212" y="247" class="member">+findAllResumeTemplate()</text>
+
+    <rect x="1200" y="465" width="310" height="220" class="box"/>
+    <line x1="1200" y1="509" x2="1510" y2="509" class="sep"/>
+    <line x1="1200" y1="531" x2="1510" y2="531" class="sep"/>
+    <text x="1355" y="489" class="name" text-anchor="middle">AdminEmploymentInformationController</text>
+    <text x="1355" y="505" class="sub" text-anchor="middle">招聘信息管理控制层</text>
+    <text x="1212" y="553" class="member">-employmentInformationService</text>
+    <text x="1212" y="569" class="member"> : EmploymentInformationService</text>
+    <line x1="1200" y1="579" x2="1510" y2="579" class="sep"/>
+    <text x="1212" y="601" class="member">+addEmploymentInformation(..)</text>
+    <text x="1212" y="619" class="member">+updateEmploymentInformation(..)</text>
+    <text x="1212" y="637" class="member">+deleteEmploymentInformation(..)</text>
+    <text x="1212" y="655" class="member">+getEmploymentInformationPage(..)</text>
+    <text x="1212" y="673" class="member">+getAllEmploymentInformation()</text>
+
+    <rect x="1200" y="735" width="310" height="155" class="box"/>
+    <line x1="1200" y1="779" x2="1510" y2="779" class="sep"/>
+    <line x1="1200" y1="801" x2="1510" y2="801" class="sep"/>
+    <text x="1355" y="759" class="name" text-anchor="middle">AdminUserFeedbackRecordController</text>
+    <text x="1355" y="775" class="sub" text-anchor="middle">反馈记录管理控制层</text>
+    <text x="1212" y="823" class="member">-userFeedbackRecordService</text>
+    <text x="1212" y="839" class="member"> : UserFeedbackRecordService</text>
+    <line x1="1200" y1="849" x2="1510" y2="849" class="sep"/>
+    <text x="1212" y="871" class="member">+findUserFeedbackRecordPage(..)</text>
+    <text x="1212" y="887" class="member">+findUserFeedbackRecordByFeedbackRecordId(..)</text>
+  </g>
+
+  <!-- Column 5 -->
+  <g>
+    <rect x="1530" y="55" width="310" height="190" class="box"/>
+    <line x1="1530" y1="99" x2="1840" y2="99" class="sep"/>
+    <line x1="1530" y1="121" x2="1840" y2="121" class="sep"/>
+    <text x="1685" y="79" class="name" text-anchor="middle">AdminAuthController</text>
+    <text x="1685" y="95" class="sub" text-anchor="middle">管理员认证控制层</text>
+    <text x="1542" y="143" class="member">-adminAuthService: AdminAuthService</text>
+    <line x1="1530" y1="153" x2="1840" y2="153" class="sep"/>
+    <text x="1542" y="175" class="member">+formalLogin(AdminFormalLoginForm)</text>
+    <text x="1542" y="193" class="member">+phoneLogin(AdminPhoneLoginForm)</text>
+    <text x="1542" y="211" class="member">+emailLogin(EmailLoginForm)</text>
+    <text x="1542" y="229" class="member">+getAdminInfo(SecurityUser)</text>
+
+    <rect x="1530" y="255" width="310" height="190" class="box"/>
+    <line x1="1530" y1="299" x2="1840" y2="299" class="sep"/>
+    <line x1="1530" y1="321" x2="1840" y2="321" class="sep"/>
+    <text x="1685" y="279" class="name" text-anchor="middle">AdminRecruitPositionController</text>
+    <text x="1685" y="295" class="sub" text-anchor="middle">招聘岗位管理控制层</text>
+    <text x="1542" y="343" class="member">-recruitPositionService: RecruitPositionService</text>
+    <line x1="1530" y1="353" x2="1840" y2="353" class="sep"/>
+    <text x="1542" y="375" class="member">+addRecruitPosition(..)</text>
+    <text x="1542" y="393" class="member">+updateRecruitPosition(..)</text>
+    <text x="1542" y="411" class="member">+deleteRecruitPosition(..)</text>
+    <text x="1542" y="429" class="member">+queryRecruitPositionPage(..)</text>
+
+    <rect x="1530" y="545" width="310" height="175" class="box"/>
+    <line x1="1530" y1="589" x2="1840" y2="589" class="sep"/>
+    <line x1="1530" y1="611" x2="1840" y2="611" class="sep"/>
+    <text x="1685" y="569" class="name" text-anchor="middle">AdminUserFeedbackController</text>
+    <text x="1685" y="585" class="sub" text-anchor="middle">用户反馈管理控制层</text>
+    <text x="1542" y="633" class="member">-userFeedbackService: UserFeedbackService</text>
+    <line x1="1530" y1="643" x2="1840" y2="643" class="sep"/>
+    <text x="1542" y="665" class="member">+updateFeedbackStep(..)</text>
+    <text x="1542" y="683" class="member">+getFeedbackPage(..)</text>
+    <text x="1542" y="701" class="member">+findFeedbackById(feedbackId)</text>
+  </g>
+
+  <!-- Dependencies -->
+  <path d="M350 165 C520 165, 640 300, 785 400" class="dep"/>
+  <path d="M350 387 C520 387, 640 405, 785 430" class="dep"/>
+  <path d="M350 710 C520 710, 640 635, 785 610" class="dep"/>
+
+  <path d="M680 125 C720 125, 750 445, 785 470" class="dep"/>
+  <path d="M680 310 C720 310, 750 485, 785 500" class="dep"/>
+  <path d="M680 487 C725 487, 760 525, 785 535" class="dep"/>
+  <path d="M680 645 C725 645, 760 585, 785 565" class="dep"/>
+
+  <path d="M940 270 L940 339" class="dep"/>
+
+  <path d="M1200 165 C1160 165, 1130 360, 1095 410" class="dep"/>
+  <path d="M1530 350 C1410 350, 1240 430, 1095 470" class="dep"/>
+  <path d="M1200 575 C1160 575, 1130 545, 1095 535" class="dep"/>
+  <path d="M1530 720 L1530 730 L1095 730 L1095 600" class="dep"/>
+  <path d="M1200 810 C1160 810, 1130 620, 1095 565" class="dep"/>
+
+  <path d="M1685 55 L1685 42 L1108 42 L1108 390" class="dep"/>
+</svg>
