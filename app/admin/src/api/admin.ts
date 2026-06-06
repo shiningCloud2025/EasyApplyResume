@@ -157,7 +157,7 @@ export const adminApi = {
   updateAdmin: (data: AdminForm) => api.post<number>('/admin/admin/update', data),
   
   // 删除管理员
-  deleteAdmin: (adminId: number) => api.delete<number>('/admin/admin/delete', { params: { adminId } }),
+  deleteAdmin: (adminId: number) => api.delete<number>('/admin/admin/delete', { adminId }),
   
   // 查询管理员详情
   getAdminInfo: (adminId: number) => api.get<AdminInfoVO>(`/admin/admin/findById?adminId=${adminId}`),

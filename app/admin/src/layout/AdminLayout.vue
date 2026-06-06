@@ -206,8 +206,7 @@
             :key="item.index"
             :index="item.index"
           >
-            <el-icon :is="item.icon" />
-            <span>{{ item.title }}</span>
+            {{ item.title }}
           </el-menu-item>
         </el-sub-menu>
 
@@ -222,8 +221,7 @@
             :key="item.index"
             :index="item.index"
           >
-            <el-icon :is="item.icon" />
-            <span>{{ item.title }}</span>
+            {{ item.title }}
           </el-menu-item>
         </el-sub-menu>
 
@@ -238,8 +236,7 @@
             :key="item.index"
             :index="item.index"
           >
-            <el-icon :is="item.icon" />
-            <span>{{ item.title }}</span>
+            {{ item.title }}
           </el-menu-item>
         </el-sub-menu>
       </el-menu>

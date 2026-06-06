@@ -1,126 +1,145 @@
 @startuml
-!pragma layout smetana
-title 图4 控制层详细实现类图（Controller）
-top to bottom direction
-hide circle
-
-skinparam monochrome true
+skinparam backgroundColor white
 skinparam shadowing false
-skinparam linetype ortho
+skinparam defaultFontName "Microsoft YaHei"
+skinparam defaultFontSize 15
 skinparam classAttributeIconSize 0
-skinparam defaultFontName SimSun
-skinparam classFontName SimSun
-skinparam classAttributeFontName SimSun
-skinparam classBackgroundColor white
-skinparam classBorderColor black
-skinparam minClassWidth 220
-skinparam ranksep 85
-skinparam nodesep 55
+skinparam ArrowColor #333333
+skinparam ArrowThickness 1.2
+skinparam nodesep 34
+skinparam ranksep 38
 
-class "BaseResult\n统一响应类" as BaseResult {
-  +code: Integer
-  +message: String
-  +data: T
-  +ok()
-  +ok(T)
+skinparam class {
+  BackgroundColor white
+  BorderColor #111111
+  FontColor #111111
 }
 
-class "UserSaveResumeController\n用户简历控制层" as UserSaveResumeController {
-  +getUserSaveResumeInfoByUserId()
-  +saveUserSaveResumeInfo()
-  +saveUserSaveResumeInfoFirst()
-  +saveUserSaveResumeInfoFirstByImport()
-  +assistReactCodeByAI()
-  +scoreByModel()
-}
-class "UserAuthController\n用户认证控制层" as UserAuthController {
-  +formalLogin()
-  +phoneLogin()
-  +emailLogin()
-  +formalRegister()
-  +logout()
-  +getUserInfo()
-}
-class "AdminRecruitPositionController\n招聘岗位控制层" as AdminRecruitPositionController {
-  +addRecruitPosition()
-  +updateRecruitPosition()
-  +deleteRecruitPosition()
-  +queryRecruitPosition()
-  +queryRecruitPositionPage()
+title 图4 控制层详细类图（Controller）
+top to bottom direction
+
+class "UserController\n用户管理控制器" as UserController {
+  +BaseResult<UserInfoVO> getUserByUserId(String userId)
 }
 
-class "UserCollectionsController\n用户收藏控制层" as UserCollectionsController {
-  +isUserCollectResumeTemplate()
-  +saveResumeTemplateByUserId()
-  +getUserCollectResumeTemplate()
-}
-class "UserSendResumeToHrController\n简历投递控制层" as UserSendResumeToHrController {
-  +sendResumeToHr()
-}
-class "AdminAuthController\n管理员认证控制层" as AdminAuthController {
-  +formalLogin()
-  +phoneLogin()
-  +emailLogin()
-  +getAdminInfo()
+class "UserResumeTemplateController\n简历模板控制器" as UserResumeTemplateController {
+  +BaseResult<ResumeTemplateInfoVO> findResumeTemplateById(Integer resumeTemplateId)
 }
 
-interface "UserSaveResumeService" as UserSaveResumeService
-interface "UserAuthService" as UserAuthService
-interface "RecruitPositionService" as RecruitPositionService
-interface "UserCollectionsService" as UserCollectionsService
-interface "UserSendResumeToHrService" as UserSendResumeToHrService
-interface "AdminAuthService" as AdminAuthService
+class "UserRecruitPositionController\n招聘岗位控制器" as UserRecruitPositionController {
+  +BaseResult<RecruitPositionInfoVO> queryRecruitPosition(Integer recruitPositionId)
+}
 
-class "简历相关参数对象\n-UserSaveResumeQuery\n-UserSaveResumeInfoVO\n-ResumeTemplateInfoVO\n-MultipartFile" as ResumeDtoGroup
-class "用户认证参数对象\n-FormalLoginForm\n-PhoneLoginForm\n-EmailLoginForm\n-FormalRegisterForm\n-SecurityUser" as UserAuthDtoGroup
-class "招聘岗位参数对象\n-RecruitPositionForm\n-RecruitPositionQuery\n-RecruitPositionInfoVO\n-RecruitPositionPageVO" as RecruitDtoGroup
-class "收藏/投递参数对象\n-UserSendResumeToHrForm\n-ResumeTemplateInfoVO" as CollectionSendDtoGroup
-class "管理员认证参数对象\n-AdminFormalLoginForm\n-AdminPhoneLoginForm\n-EmailLoginForm\n-SecurityUser" as AdminAuthDtoGroup
+class "AdminController\n管理员控制器" as AdminController {
+  +BaseResult<AdminInfoVO> findAdminById(Integer adminId)
+}
 
-' 控制器 -> 服务
-UserSaveResumeController --> UserSaveResumeService
-UserAuthController --> UserAuthService
-AdminRecruitPositionController --> RecruitPositionService
-UserCollectionsController --> UserCollectionsService
-UserSendResumeToHrController --> UserSendResumeToHrService
-AdminAuthController --> AdminAuthService
+class "AdminEmploymentInformationController\n招聘信息控制器" as AdminEmploymentInformationController {
+  +BaseResult<EmploymentInformationInfoVO> getEmploymentInformationInfo(Integer employmentInformationId)
+}
 
-' 控制器 -> 参数对象
-UserSaveResumeController ..> ResumeDtoGroup
-UserAuthController ..> UserAuthDtoGroup
-AdminRecruitPositionController ..> RecruitDtoGroup
-UserCollectionsController ..> CollectionSendDtoGroup
-UserSendResumeToHrController ..> CollectionSendDtoGroup
-AdminAuthController ..> AdminAuthDtoGroup
+class "AdmonitorServiceMachineManageController\n服务器管理控制器" as AdmonitorServiceMachineManageController {
+  +BaseResult<AdmonitorServiceMachineInfoVO> getAdmonitorServiceMachineInfo(Integer id)
+}
 
-' 控制器统一响应
-UserSaveResumeController ..> BaseResult
-UserCollectionsController ..> BaseResult
-UserSendResumeToHrController ..> BaseResult
-UserAuthController ..> BaseResult
-AdminAuthController ..> BaseResult
-AdminRecruitPositionController ..> BaseResult
+class "AdmonitorServiceMachineJianKongController\n服务器监控控制器" as AdmonitorServiceMachineJianKongController {
+  +BaseResult<AdmonitorServiceMachineJianKongVO> getAdmonitorServiceMachineJianKongInfo(AdmonitorServiceMachineJianKongForm form)
+}
 
-' 3x2 网格布局
-UserSaveResumeController -[hidden]right-> UserAuthController
-UserAuthController -[hidden]right-> AdminRecruitPositionController
-UserCollectionsController -[hidden]right-> UserSendResumeToHrController
-UserSendResumeToHrController -[hidden]right-> AdminAuthController
-UserSaveResumeController -[hidden]down-> UserCollectionsController
-UserAuthController -[hidden]down-> UserSendResumeToHrController
-AdminRecruitPositionController -[hidden]down-> AdminAuthController
+class "BaseResult<T>\n通用返回包装类" as BaseResult {
+  -code: Integer
+  -message: String
+  -data: T
+  +ok(T data): BaseResult<T>
+}
 
-UserSaveResumeService -[hidden]right-> UserAuthService
-UserAuthService -[hidden]right-> RecruitPositionService
-UserCollectionsService -[hidden]right-> UserSendResumeToHrService
-UserSendResumeToHrService -[hidden]right-> AdminAuthService
-UserSaveResumeService -[hidden]down-> UserCollectionsService
-UserAuthService -[hidden]down-> UserSendResumeToHrService
-RecruitPositionService -[hidden]down-> AdminAuthService
+class "UserInfoVO\n用户信息返回对象" as UserInfoVO {
+  -userId: Integer
+  -userAccount: String
+  -userEmail: String
+  -userDreamPosition: int
+}
 
-ResumeDtoGroup -[hidden]right-> UserAuthDtoGroup
-UserAuthDtoGroup -[hidden]right-> RecruitDtoGroup
-CollectionSendDtoGroup -[hidden]right-> AdminAuthDtoGroup
-ResumeDtoGroup -[hidden]down-> CollectionSendDtoGroup
-UserAuthDtoGroup -[hidden]down-> AdminAuthDtoGroup
+class "ResumeTemplateInfoVO\n简历模板返回对象" as ResumeTemplateInfoVO {
+  -resumeTemplateId: Integer
+  -resumeTemplateName: String
+  -isEnable: Integer
+  -createTime: Date
+}
+
+class "RecruitPositionInfoVO\n招聘岗位返回对象" as RecruitPositionInfoVO {
+  -recruitPositionId: Integer
+  -recruitPositionName: String
+  -recruitPositionIndustryCode: Integer
+  -minMonthSalary: BigDecimal
+}
+
+class "AdminInfoVO\n管理员信息返回对象" as AdminInfoVO {
+  -adminId: Integer
+  -adminAccount: String
+  -adminUsername: String
+  -adminState: Integer
+}
+
+class "EmploymentInformationInfoVO\n招聘信息返回对象" as EmploymentInformationInfoVO {
+  -employmentInformationId: Integer
+  -employmentInformationCode: Integer
+  -employmentInformationBatch: Integer
+  -employmentInformationCompanyType: Integer
+}
+
+class "AdmonitorServiceMachineInfoVO\n服务器信息返回对象" as AdmonitorServiceMachineInfoVO {
+  -serviceMachineId: Integer
+  -serviceMachineName: String
+  -serviceMachineHost: String
+  -serviceMachinePort: Integer
+}
+
+class "AdmonitorServiceMachineJianKongVO\n服务器监控返回对象" as AdmonitorServiceMachineJianKongVO {
+  -serviceMachineId: Integer
+  -serviceMachineName: String
+  -cpuUsage: Double
+  -online: Boolean
+}
+
+interface "Serializable\n<<interface>>" as Serializable
+
+UserController ..> BaseResult
+UserResumeTemplateController ..> BaseResult
+UserRecruitPositionController ..> BaseResult
+AdminController ..> BaseResult
+AdminEmploymentInformationController ..> BaseResult
+AdmonitorServiceMachineManageController ..> BaseResult
+AdmonitorServiceMachineJianKongController ..> BaseResult
+
+BaseResult ..> UserInfoVO
+BaseResult ..> ResumeTemplateInfoVO
+BaseResult ..> RecruitPositionInfoVO
+BaseResult ..> AdminInfoVO
+BaseResult ..> EmploymentInformationInfoVO
+BaseResult ..> AdmonitorServiceMachineInfoVO
+BaseResult ..> AdmonitorServiceMachineJianKongVO
+
+UserInfoVO ..|> Serializable
+ResumeTemplateInfoVO ..|> Serializable
+RecruitPositionInfoVO ..|> Serializable
+AdminInfoVO ..|> Serializable
+EmploymentInformationInfoVO ..|> Serializable
+AdmonitorServiceMachineInfoVO ..|> Serializable
+AdmonitorServiceMachineJianKongVO ..|> Serializable
+
+UserController -[hidden]right-> UserResumeTemplateController
+UserResumeTemplateController -[hidden]right-> UserRecruitPositionController
+UserRecruitPositionController -[hidden]right-> AdminController
+AdminController -[hidden]right-> AdminEmploymentInformationController
+AdminEmploymentInformationController -[hidden]right-> AdmonitorServiceMachineManageController
+AdmonitorServiceMachineManageController -[hidden]right-> AdmonitorServiceMachineJianKongController
+
+UserInfoVO -[hidden]right-> ResumeTemplateInfoVO
+ResumeTemplateInfoVO -[hidden]right-> RecruitPositionInfoVO
+RecruitPositionInfoVO -[hidden]right-> AdminInfoVO
+AdminInfoVO -[hidden]right-> EmploymentInformationInfoVO
+EmploymentInformationInfoVO -[hidden]right-> AdmonitorServiceMachineInfoVO
+AdmonitorServiceMachineInfoVO -[hidden]right-> AdmonitorServiceMachineJianKongVO
+
 @enduml

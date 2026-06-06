@@ -196,7 +196,11 @@ const sendMessage = async () => {
     
     // 构建请求URL
     const baseURL = import.meta.env.VITE_API_BASE_URL || '/api'
-    const token = localStorage.getItem('admin_token')
+    const token = authStore.token || localStorage.getItem('admin_token')
+    if (!token) {
+      ElMessage.error('未登录或Token已失效，请重新登录')
+      return
+    }
     let url = `${baseURL}/admin/aiSystemManagerAssistant/application/chat`
     
     if (currentChatId.value) {
@@ -213,10 +217,15 @@ const sendMessage = async () => {
         'Admin-Authorization': `Admin ${token}`,
         'Accept': 'text/event-stream'
       },
-      body: messageText
+      body: messageText,
+      credentials: 'include'
     })
 
     if (!response.ok) {
+      if (response.status === 401) {
+        ElMessage.error('Token已过期，请重新登录')
+        return
+      }
       throw new Error(`HTTP error! status: ${response.status}`)
     }
 

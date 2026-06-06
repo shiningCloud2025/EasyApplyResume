@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
@@ -166,15 +167,19 @@ public class AdminServiceImpl implements AdminService {
             if (adminId==1){
                 throw new BusException(AdminCodeEnum.NO_DELETE_SUPER_ADMIN);
             }
-            Admin admin = adminMapper.selectById(adminId);
-            admin.setDeleted(1);
+            // 删除 OSS 文件
             List<String> strings = ossService.listFilesByOwner(OssSystemTypeEnum.ADMIN, OssAdminBusinessTypeEnum.ADMIN_HEAD_IMG, adminId, false);
             if (!strings.isEmpty()){
                 for (String string : strings) {
                     ossService.deleteByUrl(string, false);
                 }
             }
-            adminMapper.updateById(admin);
+            // 逻辑删除：使用 LambdaUpdateWrapper，避免 updateById 在全局逻辑删除配置下生成非法 SQL
+            LambdaUpdateWrapper<Admin> wrapper = new LambdaUpdateWrapper<>();
+            wrapper.eq(Admin::getAdminId, adminId);
+            wrapper.eq(Admin::getDeleted, 0);
+            wrapper.set(Admin::getDeleted, 1);
+            adminMapper.update(null, wrapper);
             return adminMapper.deleteRoleByAdminId(adminId);
         }catch (Exception  e){
             e.printStackTrace();
