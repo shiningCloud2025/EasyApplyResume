@@ -1,113 +1,118 @@
-"""测试动画是否可用 - 2页简单PPT，每页2个元素点击出现"""
+"""
+最小测试：验证 animEffect 格式的动画是否生效
+"""
 from pptx import Presentation
 from pptx.util import Inches, Pt
-from lxml import etree
-from pptx.enum.text import PP_ALIGN
-
-P = "http://schemas.openxmlformats.org/presentationml/2006/main"
-_id = [100]
-
-def nid(): _id[0]+=1; return str(_id[0])
-
-def add_shape_with_id(slide, left, top, width, height, text):
-    """添加文本框并获取其 spid"""
-    txBox = slide.shapes.add_textbox(Inches(left), Inches(top), Inches(width), Inches(height))
-    tf = txBox.text_frame
-    tf.word_wrap = True
-    p = tf.paragraphs[0]
-    p.text = text
-    p.font.size = Pt(24)
-    p.font.bold = True
-    p.alignment = PP_ALIGN.CENTER
-    
-    # Get spid from XML
-    for nv in txBox._element.iter(f"{{{P}}}nvSpPr"):
-        for cn in nv.iter(f"{{{P}}}cNvPr"):
-            return txBox, cn.get("id")
-    return txBox, None
-
-def add_transition(slide, ttype="fade"):
-    trans = etree.Element(f"{{{P}}}transition", spd="med")
-    etree.SubElement(trans, f"{{{P}}}fade")
-    c = slide.element.find(f"{{{P}}}cSld")
-    if c is not None: c.addnext(trans)
-
-def add_click_anim(slide, spid, effect="fade", dur=500):
-    se = slide.element
-    timing = se.find(f"{{{P}}}timing")
-    if timing is None:
-        timing = etree.Element(f"{{{P}}}timing")
-        tnLst = etree.SubElement(timing, f"{{{P}}}tnLst")
-        rp = etree.SubElement(tnLst, f"{{{P}}}par")
-        rc = etree.SubElement(rp, f"{{{P}}}cTn", id=nid(), dur="indefinite", restart="never", nodeType="tmRoot")
-        rcl = etree.SubElement(rc, f"{{{P}}}childTnLst")
-        sq = etree.SubElement(rcl, f"{{{P}}}seq", concurrent="1", nextAc="seek")
-        mc = etree.SubElement(sq, f"{{{P}}}cTn", id=nid(), dur="indefinite", nodeType="mainSeq")
-        mcl = etree.SubElement(mc, f"{{{P}}}childTnLst")
-        cSld = se.find(f"{{{P}}}cSld")
-        trans = se.find(f"{{{P}}}transition")
-        target = trans if trans is not None else cSld
-        if target is not None: target.addnext(timing)
-        else: se.append(timing)
-    else:
-        mcl = timing.find(f"{{{P}}}tnLst/{{{P}}}par/{{{P}}}cTn/{{{P}}}childTnLst/{{{P}}}seq/{{{P}}}cTn/{{{P}}}childTnLst")
-
-    ap = etree.SubElement(mcl, f"{{{P}}}par")
-    ac = etree.SubElement(ap, f"{{{P}}}cTn", id=nid(), dur=str(dur), fill="hold")
-    stl = etree.SubElement(ac, f"{{{P}}}stCondLst")
-    cond = etree.SubElement(stl, f"{{{P}}}cond")
-    cond.set("delay", "0")
-    acl = etree.SubElement(ac, f"{{{P}}}childTnLst")
-    ae = etree.SubElement(acl, f"{{{P}}}animEffect", transition="in", filterType=effect)
-    if effect == "zoom":
-        ae.set("zoomTransition", "in")
-    cb = etree.SubElement(ae, f"{{{P}}}cBhvr")
-    etree.SubElement(cb, f"{{{P}}}cTn", id=nid(), dur=str(dur))
-    te = etree.SubElement(cb, f"{{{P}}}tgtEl")
-    etree.SubElement(te, f"{{{P}}}spTgt", spid=str(spid))
-
-# ===== BUILD TEST PPT =====
-prs = Presentation()
-prs.slide_width = Inches(10)
-prs.slide_height = Inches(5.625)
-
-# Slide 1
-s1 = prs.slides.add_slide(prs.slide_layouts[6])  # blank
 from pptx.dml.color import RGBColor
+from pptx.enum.text import PP_ALIGN
+from lxml import etree
+import uuid
 
-bg1 = s1.background
-bg1.fill.solid()
-bg1.fill.fore_color.rgb = RGBColor(0x0F, 0x17, 0x2A)
+P_NS = 'http://schemas.openxmlformats.org/presentationml/2006/main'
 
-_, spid1 = add_shape_with_id(s1, 1, 1.5, 8, 1, "点击鼠标 → 查看第1个特效")
-_, spid2 = add_shape_with_id(s1, 1, 3.0, 8, 1, "再点一次 → 第2个特效出现！")
+prs = Presentation()
+prs.slide_width = Inches(13.333)
+prs.slide_height = Inches(7.5)
 
-add_transition(s1, "fade")
-add_click_anim(s1, spid1, "zoom", 600)
-add_click_anim(s1, spid2, "fly", 500)
+s = prs.slides.add_slide(prs.slide_layouts[6])
+s.background.fill.solid()
+s.background.fill.fore_color.rgb = RGBColor(0xFF, 0xFF, 0xFF)
 
-# Slide 2
-s2 = prs.slides.add_slide(prs.slide_layouts[6])
-s2.background.fill.solid()
-s2.background.fill.fore_color.rgb = RGBColor(0xF1, 0xF5, 0xF9)
+# 标题
+t1 = s.shapes.add_textbox(Inches(1), Inches(0.5), Inches(11), Inches(0.8))
+t1.text_frame.paragraphs[0].text = "测试：点击鼠标看色块逐个出现"
+t1.text_frame.paragraphs[0].font.size = Pt(24)
+t1.text_frame.paragraphs[0].font.color.rgb = RGBColor(0x0F, 0x17, 0x2A)
+t1.text_frame.paragraphs[0].font.bold = True
 
-_, spid3 = add_shape_with_id(s2, 1, 1.0, 8, 0.8, "测试页2 — 继续点击")
-_, spid4 = add_shape_with_id(s2, 1, 2.2, 8, 0.8, "每个元素都是点一次出现一个")
-_, spid5 = add_shape_with_id(s2, 1, 3.4, 8, 0.8, "这就是点击触发的进场特效")
+# 3个色块
+colors = [(0x02,0x84,0xC7), (0x0D,0x94,0x8F), (0xEA,0x58,0x0C)]
+spids = []
+for i, (r,g,b) in enumerate(colors):
+    sh = s.shapes.add_shape(1, Inches(2+i*3.5), Inches(2.5), Inches(3), Inches(2.5))
+    sh.fill.solid()
+    sh.fill.fore_color.rgb = RGBColor(r, g, b)
+    sh.line.fill.background()
+    tf = sh.text_frame
+    tf.paragraphs[0].text = f"色块 {i+1}"
+    tf.paragraphs[0].font.size = Pt(20)
+    tf.paragraphs[0].font.color.rgb = RGBColor(0xFF,0xFF,0xFF)
+    tf.paragraphs[0].alignment = PP_ALIGN.CENTER
+    spids.append(sh.shape_id)
 
-add_transition(s2, "push")
-add_click_anim(s2, spid3, "wipe", 500)
-add_click_anim(s2, spid4, "fly", 500)
-add_click_anim(s2, spid5, "zoom", 500)
+# ============ 用 animEffect 格式注入动画 ============
 
-prs.save("out/test-animation.pptx")
-print("Test PPT saved! Open it, press F5, and click to see animations.")
+# 翻页过渡
+trans_el = etree.Element(f"{{{P_NS}}}transition")
+trans_el.set("spd", "med")
+fade = etree.SubElement(trans_el, f"{{{P_NS}}}fade")
+s.element.append(trans_el)
 
-# Verify
-prs2 = Presentation("out/test-animation.pptx")
-for i, s in enumerate(prs2.slides):
-    tm = s.element.find(f"{{{P}}}timing")
-    tr = s.element.find(f"{{{P}}}transition")
-    print(f"  Slide {i+1}: trans={'YES' if tr is not None else 'NO'}, anim={'YES' if tm is not None else 'NO'}")
+# 元素动画
+timing = etree.Element(f"{{{P_NS}}}timing")
+tnLst = etree.SubElement(timing, f"{{{P_NS}}}tnLst")
+seq = etree.SubElement(tnLst, f"{{{P_NS}}}seq")
+seq.set("concurrent", "0")
+
+cTn_root = etree.SubElement(seq, f"{{{P_NS}}}cTn")
+cTn_root.set("id", str(uuid.uuid4()))
+cTn_root.set("dur", "indefinite")
+scl = etree.SubElement(cTn_root, f"{{{P_NS}}}stCondLst")
+c0 = etree.SubElement(scl, f"{{{P_NS}}}cond")
+c0.set("delay", "0")
+
+childTnLst = etree.SubElement(seq, f"{{{P_NS}}}childTnLst")
+
+for spid in spids:
+    par = etree.SubElement(childTnLst, f"{{{P_NS}}}par")
+    
+    ct = etree.SubElement(par, f"{{{P_NS}}}cTn")
+    ct.set("id", str(uuid.uuid4()))
+    ct.set("fill", "hold")
+    stc = etree.SubElement(ct, f"{{{P_NS}}}stCondLst")
+    cond = etree.SubElement(stc, f"{{{P_NS}}}cond")
+    cond.set("evt", "onclick")
+    cond.set("delay", "0")
+    te = etree.SubElement(cond, f"{{{P_NS}}}tgtEl")
+    etree.SubElement(te, f"{{{P_NS}}}sldTgt")
+    
+    cl = etree.SubElement(par, f"{{{P_NS}}}childTnLst")
+    
+    # animEffect - PowerPoint 标准入场动画
+    ae = etree.SubElement(cl, f"{{{P_NS}}}animEffect")
+    ae.set("transition", "in")
+    ae.set("filter", "appear")
+    
+    cb = etree.SubElement(ae, f"{{{P_NS}}}cBhvr")
+    cbt = etree.SubElement(cb, f"{{{P_NS}}}cTn")
+    cbt.set("id", str(uuid.uuid4()))
+    cbt.set("dur", "500")
+    
+    tgt = etree.SubElement(cb, f"{{{P_NS}}}tgtEl")
+    st = etree.SubElement(tgt, f"{{{P_NS}}}spTgt")
+    st.set("spid", str(spid))
+
+s.element.append(timing)
+
+out = "out/test-anim-v3.pptx"
+prs.save(out)
+
+# 验证
+from lxml import etree as etree2
+prs2 = Presentation(out)
+for i, sl in enumerate(prs2.slides):
+    tm = sl.element.find(f'{{{P_NS}}}timing')
     if tm is not None:
-        print(f"    Timing XML sample: {etree.tostring(tm, encoding='unicode')[:300]}")
+        pars = tm.findall(f'.//{{{P_NS}}}par')
+        has_ae = len(tm.findall(f'.//{{{P_NS}}}animEffect')) > 0
+        has_click = any(c.get('evt')=='onclick' for c in tm.findall(f'.//{{{P_NS}}}cond'))
+        print(f"Slide {i+1}: anims={len(pars)}, animEffect={has_ae}, onclick={has_click}")
+    else:
+        print(f"Slide {i+1}: NO timing")
+
+print(f"\nSaved: {out}")
+print("The XML uses animEffect format (PowerPoint's native entrance animation)")
+p0 = prs2.slides[0].element.find(f'{{{P_NS}}}timing')
+par = p0.findall(f'.//{{{P_NS}}}par')[0]
+print("\nFirst animation XML:")
+print(etree2.tostring(par, pretty_print=True, encoding='unicode'))

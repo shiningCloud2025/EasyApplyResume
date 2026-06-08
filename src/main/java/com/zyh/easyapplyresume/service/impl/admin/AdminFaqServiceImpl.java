@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
@@ -64,7 +65,16 @@ public class AdminFaqServiceImpl implements AdminFaqService {
             AdminFaq faq = new AdminFaq();
             BeanUtils.copyProperties(faqForm, faq);
             faq.setFaqUpdatedTime(LocalDateTime.now());
-            int result = faqMapper.updateById(faq);
+            // 使用 LambdaUpdateWrapper，避免 updateById 在全局逻辑删除配置下生成非法 SQL
+            LambdaUpdateWrapper<AdminFaq> wrapper = new LambdaUpdateWrapper<>();
+            wrapper.eq(AdminFaq::getFaqId, faq.getFaqId());
+            wrapper.eq(AdminFaq::getDeleted, 0);
+            if (faq.getFaqTitle() != null)
+                wrapper.set(AdminFaq::getFaqTitle, faq.getFaqTitle());
+            if (faq.getFaqContent() != null)
+                wrapper.set(AdminFaq::getFaqContent, faq.getFaqContent());
+            wrapper.set(AdminFaq::getFaqUpdatedTime, faq.getFaqUpdatedTime());
+            int result = faqMapper.update(null, wrapper);
             log.info("修改常见问题成功");
             return result;
         } catch (BusException e) {
@@ -79,11 +89,13 @@ public class AdminFaqServiceImpl implements AdminFaqService {
     public Integer deleteFaq(Integer faqId) {
         try {
             log.info("删除常见问题");
-            AdminFaq faq = new AdminFaq();
-            faq.setFaqId(faqId);
-            faq.setDeleted(1);
-            faq.setFaqUpdatedTime(LocalDateTime.now());
-            int result = faqMapper.updateById(faq);
+            // 使用 LambdaUpdateWrapper，避免 updateById 在全局逻辑删除配置下生成非法 SQL
+            LambdaUpdateWrapper<AdminFaq> wrapper = new LambdaUpdateWrapper<>();
+            wrapper.eq(AdminFaq::getFaqId, faqId);
+            wrapper.eq(AdminFaq::getDeleted, 0);
+            wrapper.set(AdminFaq::getDeleted, 1);
+            wrapper.set(AdminFaq::getFaqUpdatedTime, LocalDateTime.now());
+            int result = faqMapper.update(null, wrapper);
             log.info("删除常见问题成功");
             return result;
         } catch (BusException e) {

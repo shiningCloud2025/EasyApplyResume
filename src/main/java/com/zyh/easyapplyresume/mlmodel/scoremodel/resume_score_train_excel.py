@@ -11,6 +11,16 @@ python resume_score_train_excel.py --excel-path "D:/train_data.xlsx"
 说明：
 除训练数据路径外，其余训练参数默认固定在脚本中。
 运行前需通过环境变量提供 DASHSCOPE_API_KEY。
+
+流程:
+树₁: 预测 → 算残差(实际分-预测分)
+树₂: 专门学习残差 → 修正 → 新残差变小
+树₃: 继续学剩下的残差 → 再修正 → 残差更小
+...
+树₃₀₀: 残差已经微乎其微
+最终预测 = 树₁ + 树₂ + 树₃ + ... + 树₃₀₀
+
+
 """
 
 import argparse

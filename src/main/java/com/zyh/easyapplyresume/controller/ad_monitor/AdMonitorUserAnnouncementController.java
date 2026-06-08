@@ -37,7 +37,6 @@ public class AdMonitorUserAnnouncementController {
 
     @RequestMapping("/getInfo")
     @Operation(summary = "获取公告信息")
-    @PreAuthorize("hasAuthority('/admonitor/user/announcement/getInfo')")
     public AdMonitorUserAnnouncementInfoVO getAnnouncementInfo() {
         return userAnnouncementService.getAnnouncementInfo();
     }

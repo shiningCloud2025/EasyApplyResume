@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateTime;
 import com.alibaba.dashscope.threads.runs.Run;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
@@ -96,7 +97,20 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
         BeanUtils.copyProperties(resumeTemplateForm, resumeTemplate);
         resumeTemplate.setResumeTemplateUpdatedTime(new DateTime());
         try{
-            int result = resumeTemplateMapper.updateById(resumeTemplate);
+            // 使用 LambdaUpdateWrapper，避免 updateById 在全局逻辑删除配置下生成非法 SQL
+            LambdaUpdateWrapper<ResumeTemplate> wrapper = new LambdaUpdateWrapper<>();
+            wrapper.eq(ResumeTemplate::getResumeTemplateId, resumeTemplate.getResumeTemplateId());
+            wrapper.eq(ResumeTemplate::getDeleted, 0);
+            if (resumeTemplate.getResumeTemplateName() != null)
+                wrapper.set(ResumeTemplate::getResumeTemplateName, resumeTemplate.getResumeTemplateName());
+            if (resumeTemplate.getResumeTemplateReactCode() != null)
+                wrapper.set(ResumeTemplate::getResumeTemplateReactCode, resumeTemplate.getResumeTemplateReactCode());
+            if (resumeTemplate.getResumeTemplateIndustry() != null)
+                wrapper.set(ResumeTemplate::getResumeTemplateIndustry, resumeTemplate.getResumeTemplateIndustry());
+            if (resumeTemplate.getResumeTemplateIsActive() != null)
+                wrapper.set(ResumeTemplate::getResumeTemplateIsActive, resumeTemplate.getResumeTemplateIsActive());
+            wrapper.set(ResumeTemplate::getResumeTemplateUpdatedTime, resumeTemplate.getResumeTemplateUpdatedTime());
+            int result = resumeTemplateMapper.update(null, wrapper);
             
             TransactionSynchronizationManager.registerSynchronization(
                 new TransactionSynchronization() {
@@ -138,10 +152,12 @@ public class ResumeTemplateServiceImpl implements ResumeTemplateService {
 
     @Override
     public Integer deleteResumeTemplate(Integer resumeTemplateId) {
-        ResumeTemplate resumeTemplate = new ResumeTemplate();
-        resumeTemplate.setResumeTemplateId(resumeTemplateId);
-        resumeTemplate.setDeleted(1);
-        int result = resumeTemplateMapper.updateById(resumeTemplate);
+        // 使用 LambdaUpdateWrapper，避免 updateById 在全局逻辑删除配置下生成非法 SQL
+        LambdaUpdateWrapper<ResumeTemplate> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(ResumeTemplate::getResumeTemplateId, resumeTemplateId);
+        wrapper.eq(ResumeTemplate::getDeleted, 0);
+        wrapper.set(ResumeTemplate::getDeleted, 1);
+        int result = resumeTemplateMapper.update(null, wrapper);
         
         TransactionSynchronizationManager.registerSynchronization(
             new TransactionSynchronization() {

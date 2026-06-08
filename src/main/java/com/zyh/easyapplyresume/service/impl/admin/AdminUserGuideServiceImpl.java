@@ -1,6 +1,7 @@
 package com.zyh.easyapplyresume.service.impl.admin;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.BusException;
 import com.zyh.easyapplyresume.bean.usallyexceptionandEnum.AdminCodeEnum;
@@ -64,7 +65,16 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
             AdminUserGuide userGuide = new AdminUserGuide();
             BeanUtils.copyProperties(userGuideForm, userGuide);
             userGuide.setUserGuideUpdatedTime(LocalDateTime.now());
-            int result = userGuideMapper.updateById(userGuide);
+            // 使用 LambdaUpdateWrapper，避免 updateById 在全局逻辑删除配置下生成非法 SQL
+            LambdaUpdateWrapper<AdminUserGuide> wrapper = new LambdaUpdateWrapper<>();
+            wrapper.eq(AdminUserGuide::getUserGuideId, userGuide.getUserGuideId());
+            wrapper.eq(AdminUserGuide::getDeleted, 0);
+            if (userGuide.getUserGuideTitle() != null)
+                wrapper.set(AdminUserGuide::getUserGuideTitle, userGuide.getUserGuideTitle());
+            if (userGuide.getUserGuideContent() != null)
+                wrapper.set(AdminUserGuide::getUserGuideContent, userGuide.getUserGuideContent());
+            wrapper.set(AdminUserGuide::getUserGuideUpdatedTime, userGuide.getUserGuideUpdatedTime());
+            int result = userGuideMapper.update(null, wrapper);
             log.info("修改使用指南成功");
             return result;
         } catch (BusException e) {
@@ -79,11 +89,13 @@ public class AdminUserGuideServiceImpl implements AdminUserGuideService {
     public Integer deleteUserGuide(Integer userGuideId) {
         try {
             log.info("删除使用指南");
-            AdminUserGuide userGuide = new AdminUserGuide();
-            userGuide.setUserGuideId(userGuideId);
-            userGuide.setDeleted(1);
-            userGuide.setUserGuideUpdatedTime(LocalDateTime.now());
-            int result = userGuideMapper.updateById(userGuide);
+            // 使用 LambdaUpdateWrapper，避免 updateById 在全局逻辑删除配置下生成非法 SQL
+            LambdaUpdateWrapper<AdminUserGuide> wrapper = new LambdaUpdateWrapper<>();
+            wrapper.eq(AdminUserGuide::getUserGuideId, userGuideId);
+            wrapper.eq(AdminUserGuide::getDeleted, 0);
+            wrapper.set(AdminUserGuide::getDeleted, 1);
+            wrapper.set(AdminUserGuide::getUserGuideUpdatedTime, LocalDateTime.now());
+            int result = userGuideMapper.update(null, wrapper);
             log.info("删除使用指南成功");
             return result;
         } catch (BusException e) {

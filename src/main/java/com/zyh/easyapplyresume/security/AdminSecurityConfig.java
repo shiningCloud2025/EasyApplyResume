@@ -65,7 +65,7 @@ public class AdminSecurityConfig {
                         .requestMatchers("/admin/auth/**").permitAll()
                         // 放开公告和广告,管理端是肯定会登录的,给用户端放开
                         .requestMatchers("/admonitor/user/advertisement/**").permitAll()
-                        .requestMatchers("/admonitor/user/announcement").permitAll()
+                        .requestMatchers("/admonitor/user/announcement/**").permitAll()
                         .requestMatchers("/doc.html", "/webjars/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
